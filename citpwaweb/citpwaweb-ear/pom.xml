@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>citpwaweb</artifactId>
+		<version>1.2.0</version>
+		<groupId>it.csi.citpwa</groupId>
+	</parent>
+
+	<artifactId>citpwaweb-ear</artifactId>
+	<packaging>ear</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>it.csi.citpwa</groupId>
+			<artifactId>citpwaweb-web</artifactId>
+			<version>1.2.0</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>it.csi.citpwa</groupId>
+			<artifactId>citpwaweb-jar</artifactId>
+			<version>1.2.0</version>
+			<type>jar</type>
+		</dependency>	
+	</dependencies>
+
+	<build>
+	<finalName>citpwaweb</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<modules>
+						<webModule>
+							<groupId>it.csi.citpwa</groupId>
+							<artifactId>citpwaweb-web</artifactId>
+							<contextRoot>/citpwa</contextRoot>
+							<uri>citpwaweb-web.war</uri>
+						</webModule>
+					</modules>
+					<earSourceDirectory>${basedir}/src/main/resources</earSourceDirectory>
+					<earSourceIncludes>META-INF/*</earSourceIncludes>
+					<version>6</version>  <!-- Jboss EAP 6.x -->
+				</configuration>
+			</plugin>			
+		</plugins>
+	</build>
+
+</project>
