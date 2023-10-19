@@ -1,0 +1,100 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    height: 50px;
+}
+
+.logo {
+    margin-left: 1em;
+}
+
+.sidenav-list-item {
+    p {
+        font-size: 18px;
+        margin-left: 1em;
+    }
+}
+
+.profile-button {
+    font-size: 0.8em;
+    font-weight: bold;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dot {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    padding: auto;
+}
+
+.menu-list-item {
+    p {
+        font-size: 16px;
+        margin-left: 1em;
+    }
+}
+
+.blue-backgroud {
+    background-color: #dfeffc;
+}
+
+.white-backgroud {
+    background-color: white;
+}
+
+.left-header {
+    display: flex;
+    vertical-align: middle;
+}
+
+.delete {
+    color: red;
+}
+
+.check {
+    color: green;
+}
+
+.operazione {
+    width: 100%y;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.elem {
+    flex-basis: 0;
+    width: 100%;
+    margin-bottom: 0.3em;
+    font-size: 0.9em;
+}
+
+.box-message {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    font-size: 0.8em;
+    font-weight: 100;
+}
+
+.fallito {
+    color: #b8191a;
+}
+
+.successo {
+    color: #167446;
+}
+
+.pending {
+    color: #e68500;
+}

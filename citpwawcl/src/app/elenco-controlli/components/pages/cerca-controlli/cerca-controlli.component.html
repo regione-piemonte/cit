@@ -1,0 +1,55 @@
+<app-message-box [titolo]="'ATTENZIONE'" [descrizione]="'Sei offline, alcune operazioni potrebbero essere interdette'"
+    [type]="1" [ngClass]="{'online':!offline}">
+</app-message-box>
+<div *ngIf="!risultato">
+    <mat-card class="card mat-elevation-z8">
+        <form [formGroup]="searchForm">
+            <mat-grid-list cols="2" rowHeight="2em">
+                <mat-grid-tile colspan="2" rowspan="2">
+                    <mat-form-field class="form-field">
+                        <input matInput placeholder="Data controllo" [matDatepicker]="picker"
+                            [matDatepickerFilter]="myFilter" [formControlName]="'dataControllo'" [disabled]="true">
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                            <mat-icon matDatepickerToggleIcon color="primary">event</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker disabled="false"></mat-datepicker>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="2">
+                    <mat-form-field class="form-field">
+                        <mat-select placeholder="Tipo controllo" [formControlName]="'tipoControllo'">
+                            <mat-option *ngFor="let elem of tipiControllo" [value]="elem.codice">
+                                {{elem.descrizione}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="2">
+                    <mat-form-field class="form-field">
+                        <mat-select placeholder="Tipo componente" [formControlName]="'tipoComponente'">
+                            <mat-option *ngFor="let elem of tipiComponente" [value]="elem.codice">
+                                {{elem.descrizione}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="2">
+                    <button mat-button class="default-button" [disabled]="!searchForm.valid" (click)="cercaControlli()">
+                        <mat-icon>search</mat-icon>CERCA
+                    </button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </mat-card>
+</div>
+<app-message-box [titolo]="'Nessun elemento trovato'"
+    [descrizione]="'Nessun controllo disponibile recuperato dal sistema'" [type]="1"
+    *ngIf="risultato && risultato.length==0">
+</app-message-box>
+<button mat-button class="default-button ricerca-button" (click)="nuovaRicerca()" *ngIf="risultato && risultato.length==0">
+    <div class="interno-search">
+        <mat-icon>search</mat-icon>
+        NUOVA RICERCA
+    </div>
+</button>
+<app-risultato-ricerca-controlli [result]="risultato" (closeSearch)="closeSearch($event)"
+    *ngIf="risultato && risultato.length>0">
+</app-risultato-ricerca-controlli>

@@ -1,0 +1,48 @@
+.confirm {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.warn-box {
+    background-color: #fff7d0;
+    border-left: solid #f8e60d 1em;
+}
+
+.error-box {
+    background-color: #fee7e8;
+    border-left: solid #f41622 1em;
+}
+
+.info-box {
+    background-color: #dbeef7;
+    border-left: solid #006cb4 1em;
+}
+
+.confirm-box {
+    background-color: #dff0d9;
+    border-left: solid #61b87a 1em;
+}
+
+.titolo {
+    font-weight: bold;
+}
+
+.error-icon {
+    fill: #f41622;
+    stroke: #f41622;
+}
+
+.warn-icon {
+    fill: #f8e60d;
+    stroke: #f8e60d;
+}
+
+.def-icon {
+    width: 3em;
+    height: 3em;
+}
+
+.content {
+    width: 85%;
+    margin-left: 15%;
+}

@@ -1,0 +1,43 @@
+<div class="footer-1">
+    <mat-grid-list cols="1" rowHeight="8em" gutterSize="2em">
+        <mat-grid-tile>
+            <img [src]="regione">
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+
+<div class="footer-2">
+    <mat-grid-list cols="5" rowHeight="1em">
+        <mat-grid-tile colspan="2" rowspan="4">
+            <div class="right-elem">
+                <img [src]="servizi">
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile rowspan="4">
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="4">
+            <div class="left-elem">
+                <img [src]="logo">
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="5">
+            <div class="line"></div>
+        </mat-grid-tile>
+        <mat-grid-tile rowspan="4" colspan="1">
+            <div class="right-elem">
+                <button mat-button class="footer-span"
+                    (click)="navigate('https://www.regione.piemonte.it/web/accessibilita')">{{accessibilita}}</button>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3" rowspan="4">
+            <button mat-button class="footer-span"
+                (click)="navigate('https://www.regione.piemonte.it/web/note-legali-privacy')">{{privacy}}</button>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="4">
+            <div class="left-elem">
+                <button mat-button class="footer-span"
+                    (click)="navigate('https://www.regione.piemonte.it/web/cookie-policy')">{{cookie}}</button>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

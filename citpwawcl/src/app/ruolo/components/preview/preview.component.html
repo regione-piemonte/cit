@@ -1,0 +1,67 @@
+<div class="content">
+    <div [ngClass]="backgroundClass">
+        <div [ngClass]="colorClass">
+            <mat-grid-list cols="1" rowHeight="2em">
+
+                <mat-grid-tile rowspan="3">
+                    <div class="preview">
+                        <img [src]="csiLogo">
+                    </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile rowspan="2">
+                </mat-grid-tile>
+
+                <mat-grid-tile rowspan="3">
+                    <div class="preview titolo">
+                        <h1>Catasto impianti termici</h1>
+                    </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                </mat-grid-tile>
+
+                <mat-grid-tile rowspan="3">
+                    <div class="preview descrizione">
+                        <p>{{descrizionePagina}}</p>
+                    </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <div class="preview">
+                        <mat-radio-group>
+                            <mat-radio-button value="1" [checked]="selectedTab==1"></mat-radio-button>
+                            <mat-radio-button value="2" [checked]="selectedTab==2"></mat-radio-button>
+                            <mat-radio-button value="3" [checked]="selectedTab==3"></mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile rowspan="2">
+                    <div class="preview">
+                        <p (click)="salta()" class="collegamento">Salta la guida</p>
+                    </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile rowspan="2">
+                    <div class="preview">
+                        <button mat-button class="proseguiButton" (click)="prosegui()">PROSEGUI</button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="11" rowHeight="1em">
+
+                <mat-grid-tile colspan="2"></mat-grid-tile>
+                <mat-grid-tile colspan="5">
+                    <a (click)="installPwa()" class="collegamento">Aggiungi alla tua home </a>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <img [src]="pwaIcon">
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+    </div>
+</div>

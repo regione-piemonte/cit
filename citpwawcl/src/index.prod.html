@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Impianti Termici</title>
+  <base href="/citpwa">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/icons/icon-96x96.png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="manifest" href="manifest.webmanifest" crossorigin="use-credentials"> <!--serve per installare la pwa-->
+  <meta name="theme-color" content="#1976d2">
+</head>
+
+<body>
+  <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+  
+  
+	<div id="webchat" >
+		<script src="https://unlockpa.csi.it/webres/botplat/scripts/index.min.js"></script>
+		<script >
+			WebChat.default.init({ 
+                      selector: "#webchat", 
+                      socketUrl: "https://unlockpa.csi.it", 
+                      socketPath: "/botplat/caldaia_bot/", 
+                      environment: "", 
+                      protocol: "sockrasa", 
+                      privacyPolicy: "Questo servizio utilizza cookie tecnici necessari per il corretto funzionamento del servizio. Ti invitiamo a NON fornire al servizio di assistenza digitale dati personali. I messaggi inviati, le risposte fornite e i feedback vengono memorizzati in modo anonimo ed utilizzati con il solo scopo di consentire un miglioramento del servizio. Per maggiori informazioni sulla privacy, vai alla https://www.regione.piemonte.it/web/cookie-policy.", 
+                      title: "CITbot", 
+                      subtitle: "il tuo assistente digitale",
+                      }) 
+		</script>
+    </div>
+    
+</body>
+
+</html>

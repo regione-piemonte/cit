@@ -1,0 +1,7 @@
+<mat-card class="title-card mat-elevation-z0">
+    <mat-card-header>
+        <div mat-card-avatar *ngIf="title"><img [src]="titlePng" class="title-img"></div>
+        <mat-card-title class="title" *ngIf="title">{{title}}</mat-card-title>
+        <mat-card-subtitle class="section-title" *ngIf="subtitle">{{subtitle}}</mat-card-subtitle>
+    </mat-card-header>
+</mat-card>

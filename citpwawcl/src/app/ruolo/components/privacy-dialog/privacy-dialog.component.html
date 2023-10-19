@@ -1,0 +1,12 @@
+<app-title mat-dialog-title [title]="'Informativa sulla privacy'" [subtitle]="''"></app-title>
+<mat-dialog-content class="mat-typography">
+    <p>Procedendo si accetta il trattamento dei dati ai sensi del GDPR 679/2016</p>
+    <p>L’informativa completa è disponibile al seguente link: </p>
+    <div><a
+            href="https://servizi.regione.piemonte.it/media/324/download">https://servizi.regione.piemonte.it/media/324/download</a>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false" class="secondary-button" (click)="rifiuta()">Rifiuta</button>
+    <button mat-button [mat-dialog-close]="true" class="default-button">Prosegui</button>
+</mat-dialog-actions>

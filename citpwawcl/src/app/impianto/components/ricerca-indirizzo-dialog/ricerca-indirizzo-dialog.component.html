@@ -1,0 +1,55 @@
+<app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+<mat-grid-list rowHeight="1.5em" cols="1">
+    <mat-grid-tile>
+        <div class="close">
+            <button mat-icon-button (click)="closeDialog()"><img [src]="closeGrigio"></button>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+<app-title [title]="'Cerca Indirizzo'" [subtitle]="''"></app-title>
+<form class="form-container" [formGroup]="searchForm">
+    <mat-grid-list cols="1" rowHeight="2em">
+        <mat-grid-tile>
+
+            <mat-form-field class="form-field" *ngIf="!isValueSet">
+                <input matInput placeholder="Cerca Indirizzo" [formControlName]="'indirizzoLoccsi'" [matAutocomplete]="auto">
+
+                <button  matSuffix mat-icon-button (click)="ricercaGPS()">
+                    <mat-icon color="primary">gps_fixed</mat-icon>
+                </button>
+
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)='setLoccsiElem($event.option.value)'>
+                    <mat-option *ngFor="let indirizzo of filteredOptions | async" [value]="indirizzo">
+                        {{indirizzo.properties.loccsiLabel}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" *ngIf="isValueSet">
+                <input matInput placeholder="Cerca Indirizzo" [formControlName]="'indirizzo'">
+
+                <button matSuffix mat-icon-button (click)="reset()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="label tile">
+                <mat-label>Distanza</mat-label>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile rowspan="2">
+            <div class="slider tile">
+                <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="100" step="100" min="0" max="500"
+                    aria-label="units" color="primary" [value]="value" (input)="setValue($event)"
+                    [disabled]="loccsiClicked"></mat-slider>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile rowspan="2">
+            <button mat-button id="buttonRicercaIndirizzo" class="secondary-button button" (click)="ricercaIndirizzo()" [disabled]="!enabled()" id="buttonRicercaIndirizzo">
+                APPLICA
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

@@ -1,0 +1,312 @@
+<app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+<div mat-dialog-title>
+    <mat-grid-list rowHeight="1.5em" cols="1">
+        <mat-grid-tile>
+            <div class="right-elem">
+                <button mat-icon-button (click)="closeDialog()"><img [src]="closeGrigio"></button>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <app-message-box *ngIf="!search && !result && titoloErrore!=''" [titolo]="titoloErrore"
+        [descrizione]="descrizioneErrore" [type]="2">
+    </app-message-box>
+    <app-title *ngIf="!search && !result" [title]="data.isResp?'Dettaglio Responsabile':'Dettaglio proprietario'"
+        [subtitle]="''"></app-title>
+
+    <mat-grid-list cols="1" rowHeight="1em" *ngIf="search && !result">
+        <mat-grid-tile>
+            <div class="left-elem">
+                <div class="back">
+                    <button mat-icon-button (click)="backToInsert()" class="item">
+                        <mat-icon>keyboard_arrow_left</mat-icon>
+                    </button>
+                    <a (click)="backToInsert()" class="item">Torna indietro</a>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-divider *ngIf="search && !result"></mat-divider>
+    <app-title [title]="''" [subtitle]="'CERCA PER CODICE FISCALE'" *ngIf="search && !result"></app-title>
+
+
+    <mat-grid-list cols="1" rowHeight="1em" *ngIf="result">
+        <mat-grid-tile>
+            <div class="left-elem">
+                <div class="back">
+                    <button mat-icon-button (click)="backToSearch()" class="item">
+                        <mat-icon>keyboard_arrow_left</mat-icon>
+                    </button>
+                    <a (click)="backToSearch()" class="item">Torna indietro</a>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-divider *ngIf="result"></mat-divider>
+    <app-title [title]="''" [subtitle]="'RISULTATO RICERCA'" *ngIf="result"></app-title>
+    <app-message-box [titolo]="titoloErrore" [descrizione]="descrizioneErrore" [type]="2"
+        *ngIf="titoloErrore!='' && result">
+    </app-message-box>
+</div>
+
+<mat-dialog-content>
+    <div *ngIf="!search && !result">
+        <form class="form-container" [formGroup]="insertForm">
+            <mat-grid-list cols="2" rowHeight="2em">
+                <mat-grid-tile colspan="2">
+                    <div class="label-tile">
+                        <section>
+                            <mat-checkbox [formControlName]="'tipo'"
+                                (change)="checkEnteImpresa($event)">Ente/Impresa</mat-checkbox>
+                        </section>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="2" *ngIf="data.isResp">
+                    <mat-form-field>
+                        <mat-select placeholder="Seleziona titolo" [formControlName]="'titolo'">
+                            <mat-option *ngIf="insertForm.controls['tipo'].value" [value]="10">
+                                Proprietario</mat-option>
+                            <mat-option *ngIf="insertForm.controls['tipo'].value" [value]="11">
+                                Occupante</mat-option>
+                            <mat-option *ngIf="insertForm.controls['tipo'].value" [value]="12">
+                                Amministratore di condominio</mat-option>
+
+                            <mat-option *ngIf="!insertForm.controls['tipo'].value" [value]="4">
+                                Proprietario</mat-option>
+                            <mat-option *ngIf="!insertForm.controls['tipo'].value" [value]="5">
+                                Occupante</mat-option>
+                            <mat-option *ngIf="!insertForm.controls['tipo'].value" [value]="13">
+                                Amministratore di condominio</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <mat-form-field>
+                        <input matInput placeholder="Codice fiscale" [formControlName]="'cf'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <button mat-button class="secondary-button" (click)="cercaPerCF()">
+                        CERCA PER CODICE FISCALE</button>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <mat-form-field>
+                        <input matInput placeholder="Cognome/Denominazione" [formControlName]="'cognome'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2" *ngIf="!isEnte">
+                    <mat-form-field>
+                        <input matInput placeholder="nome" [formControlName]="'nome'">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="2">
+                    <div class="label-tile">
+                        <section>
+                            <mat-checkbox [formControlName]="'resEstera'" (change)="toggleResEsteraProp($event)">
+                                Residenza
+                                estera
+                            </mat-checkbox>
+                        </section>
+                    </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="2" rowspan="2" *ngIf="insertForm.controls['resEstera'].value">
+                    <mat-form-field>
+                        <input matInput placeholder="Stato estero" [formControlName]="'statoEstero'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="2" *ngIf="insertForm.controls['resEstera'].value">
+                    <mat-form-field>
+                        <input matInput placeholder="Città estero" [formControlName]="'cittaEstero'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="2" *ngIf="insertForm.controls['resEstera'].value">
+                    <mat-form-field>
+                        <input matInput placeholder="Indirizzo estero" [formControlName]="'indirizzoEstero'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" *ngIf="insertForm.controls['resEstera'].value">
+                    <mat-form-field>
+                        <input matInput placeholder="CAP estero" [formControlName]="'capEstero'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" *ngIf="insertForm.controls['resEstera'].value"></mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="2"
+                    *ngIf="(!insertForm.controls['resEstera'].value) && (!insertForm.controls['stradario'].value)">
+                    <mat-form-field>
+                        <input matInput placeholder="Indirizzo" [formControlName]="'indirizzoLoccsi'"
+                            [matAutocomplete]="autoProp">
+                        <mat-autocomplete #autoProp="matAutocomplete" [displayWith]="displayFn"
+                            (optionSelected)='setLoccsiElem($event.option.value)'>
+                            <mat-option *ngFor="let indirizzo of filteredOptionsProp | async" [value]="indirizzo">
+                                {{indirizzo.properties.loccsiLabel}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error
+                            *ngIf="insertForm.controls.indirizzoLoccsi.errors?.['indirizzoNonSelezionato'] && !loccsiClickedProp">Selezionare
+                            un indirizzo</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2"
+                    *ngIf="(!insertForm.controls['resEstera'].value) && (!insertForm.controls['stradario'].value)">
+                    <mat-form-field>
+                        <input matInput placeholder="Civico" [formControlName]="'civicoLoccsi'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2"
+                    *ngIf="(!insertForm.controls['resEstera'].value) && (!insertForm.controls['stradario'].value)">
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                    <div class="label-tile">
+                        <section>
+                            <mat-checkbox [formControlName]="'stradario'"
+                                *ngIf="(!insertForm.controls['resEstera'].value)"
+                                (change)="toggleStradarioProp($event)">
+                                Non
+                                trovato in
+                                stradario</mat-checkbox>
+                        </section>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2"
+                    *ngIf="(!insertForm.controls['resEstera'].value) && insertForm.controls['stradario'].value">
+                    <mat-form-field>
+                        <input matInput placeholder="Indirizzo" [formControlName]="'indirizzo'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2"
+                    *ngIf="(!insertForm.controls['resEstera'].value) && insertForm.controls['stradario'].value">
+                    <mat-form-field>
+                        <input matInput placeholder="Civico" [formControlName]="'civico'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2"
+                    *ngIf="(!insertForm.controls['resEstera'].value) && insertForm.controls['stradario'].value">
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2"
+                    *ngIf="(!insertForm.controls['resEstera'].value) && insertForm.controls['stradario'].value">
+                    <mat-form-field>
+                        <input matInput placeholder="Comune" [formControlName]="'comune'"
+                            [matAutocomplete]="autoPropComune">
+                        <mat-autocomplete #autoPropComune="matAutocomplete" [displayWith]="displayFn"
+                            (optionSelected)='setProvinciaComuneProp($event.option.value)'>
+                            <mat-option *ngFor="let indirizzo of filteredOptionsPropComuni | async" [value]="indirizzo">
+                                {{indirizzo.properties.loccsiLabel}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error
+                            *ngIf="insertForm.controls.comune.errors?.['indirizzoNonSelezionato'] && !loccsiClickedPropComuni">Selezionare
+                            un comune</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2"
+                    *ngIf="(!insertForm.controls['resEstera'].value) && insertForm.controls['stradario'].value">
+                    <mat-form-field>
+                        <input matInput placeholder="Provincia" [formControlName]="'provincia'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                    <div class="label-tile">
+                        <mat-label>{{data.isResp?"Data inizio responsabilità*":"Data inizio"}}</mat-label>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2">
+                    <mat-form-field>
+                        <mat-label>GG/MM/AAAA</mat-label>
+                        <input matInput [matDatepicker]="picker" [formControlName]="'dataInizio'">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2"></mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <mat-form-field>
+                        <input matInput placeholder="Email" [formControlName]="'email'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <div class="right-elem">
+                        <button mat-button class="default-button form-field" (click)="inserisciPropResp()"
+                            [disabled]="!formValid()">SALVA</button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </div>
+    <div *ngIf="search && !result">
+        <form class="form-container" [formGroup]="searchForm">
+            <mat-grid-list cols="2" rowHeight="2em">
+                <mat-grid-tile colspan="2">
+                    <div class="label-tile">
+                        <section>
+                            <mat-checkbox [formControlName]="'tipo'"
+                                (change)="checkEnteImpresa($event)">Ente/Impresa</mat-checkbox>
+                        </section>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <mat-form-field>
+                        <input matInput placeholder="Inserisci codice fiscale completo" [formControlName]="'cf'">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <div class="right-elem">
+                        <button mat-button class="default-button form-field" (click)="searchCF()">
+                            <mat-icon>search</mat-icon>CERCA
+                        </button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </div>
+
+    <div *ngIf="result">
+        <button mat-button class="torna primary-color" (click)="backToInsert()" *ngIf="persone.length == 0">TORNA AL
+            NUOVO
+            RESPONSABILE</button>
+        <mat-card class="card mat-elevation-z8 card-dati" *ngFor="let persona of persone">
+            <mat-card-content>
+                <mat-grid-list cols="1" rowHeight="1em">
+                    <mat-grid-tile>
+                        <div class="left-elem">Codice fiscale:</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="left-elem def-elem">{{persona.codiceFiscale}}</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile></mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="left-elem">Cognome/Denominazione:</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="left-elem def-elem">{{persona.cognomeDenominazione}}</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile></mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="left-elem">Nome:</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="left-elem def-elem">{{persona.nome}}</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile></mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="left-elem">Indirizzo:</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile rowspan="2">
+                        <div class="left-elem def-elem" *ngIf="persona.indirizzoSitad">{{persona.indirizzoSitad}}
+                            {{persona.civico}}, {{persona.comune}} - {{persona.provincia}}</div>
+                        <div class="left-elem def-elem" *ngIf="persona.indirizzoNonTrovato">
+                            {{persona.indirizzoNonTrovato}}
+                            {{persona.civico}}, {{persona.comune}} - {{persona.provincia}}</div>
+                        <div class="left-elem def-elem" *ngIf="!persona.indirizzoSitad && !persona.indirizzoNonTrovato">
+                            {{persona.statoEstero}}, {{persona.indirizzoEstero}} {{persona.cittaEstero}} -
+                            {{persona.capEstero}}</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile></mat-grid-tile>
+                    <mat-grid-tile rowspan="2">
+                        <button mat-button class="default-button" (click)="usaDati(persona)">USA DATI</button>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</mat-dialog-content>

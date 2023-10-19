@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12.249" height="15.951" viewBox="0 0 12.249 15.951">
+  <g id="Raggruppa_7755" data-name="Raggruppa 7755" transform="translate(-403.177 -234.299)">
+    <g id="Raggruppa_7752" data-name="Raggruppa 7752" transform="translate(403.177 234.299)">
+      <g id="Raggruppa_7747" data-name="Raggruppa 7747">
+        <path id="Tracciato_59887" data-name="Tracciato 59887" d="M412.524,250.25h-9.04a.307.307,0,0,1-.307-.306V234.606a.307.307,0,0,1,.307-.307h9.04a.307.307,0,0,1,0,.614h-8.733v14.724h8.426V241.75a.307.307,0,1,1,.614,0v8.193A.306.306,0,0,1,412.524,250.25Z" transform="translate(-403.177 -234.299)" fill="#fff"/>
+      </g>
+      <g id="Raggruppa_7748" data-name="Raggruppa 7748" transform="translate(0 2.454)">
+        <path id="Tracciato_59888" data-name="Tracciato 59888" d="M410.558,238.4h-7.074a.307.307,0,1,1,0-.614h7.074a.307.307,0,0,1,0,.614Z" transform="translate(-403.177 -237.783)" fill="#fff"/>
+      </g>
+      <g id="Raggruppa_7749" data-name="Raggruppa 7749" transform="translate(0.001 12.884)">
+        <path id="Tracciato_59889" data-name="Tracciato 59889" d="M412.524,253.2h-9.039a.307.307,0,0,1,0-.614h9.039a.307.307,0,0,1,0,.614Z" transform="translate(-403.179 -252.589)" fill="#fff"/>
+      </g>
+      <g id="Raggruppa_7750" data-name="Raggruppa 7750" transform="translate(3.715 1.227)">
+        <path id="Tracciato_59890" data-name="Tracciato 59890" d="M410.369,236.655h-1.612a.307.307,0,0,1,0-.614h1.612a.307.307,0,0,1,0,.614Z" transform="translate(-408.451 -236.041)" fill="#fff"/>
+      </g>
+      <g id="Raggruppa_7751" data-name="Raggruppa 7751" transform="translate(4.021 14.111)">
+        <path id="Tracciato_59891" data-name="Tracciato 59891" d="M410.191,254.945h-1a.307.307,0,1,1,0-.614h1a.307.307,0,1,1,0,.614Z" transform="translate(-408.886 -254.331)" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Raggruppa_7753" data-name="Raggruppa 7753" transform="translate(415.426 242.072) rotate(180)">
+      <path id="Tracciato_59892" data-name="Tracciato 59892" d="M413.848,242.072a.309.309,0,0,1-.214-.087.305.305,0,0,1-.092-.216l-.039-3.6-.865.009a.317.317,0,0,1-.279-.17.31.31,0,0,1,.033-.325l2.534-3.253a.307.307,0,0,1,.24-.126.3.3,0,0,1,.246.113l.055.068,2.594,3.136a.307.307,0,0,1-.233.5l-.868.009.042,3.6a.307.307,0,0,1-.3.311l-2.847.034Zm-.042-4.524a.307.307,0,0,1,.306.3l.039,3.6,2.233-.026-.042-3.6a.307.307,0,0,1,.3-.311l.533-.006-2-2.414-1.914,2.456.535-.006Z" transform="translate(-412.327 -234.299)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

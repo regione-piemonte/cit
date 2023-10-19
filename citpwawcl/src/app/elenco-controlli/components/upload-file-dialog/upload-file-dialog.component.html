@@ -1,0 +1,31 @@
+<app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+
+<mat-grid-list rowHeight="2em" cols="3">
+    <mat-grid-tile colspan="2" rowspan="3">
+        <div class="left-elem">
+            <app-title [title]="'Carica REE firmato elettronicamente'" [subtitle]="''"></app-title>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div class="close">
+            <button mat-icon-button (click)="closeDialog()"><img [src]="closeGrigio"></button>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+</mat-grid-list>
+<app-message-box [titolo]="titolo" [descrizione]="descrizione" [type]="2" *ngIf="titolo">
+</app-message-box>
+<mat-grid-list cols="2" rowHeight="2em">
+    <mat-grid-tile>
+        <div class="left-elem">
+            <input id="input-file-id" multiple type="file" class="primary-color def-elem" placeholder="Carica REE"
+                (click)="reset()" (change)="fileChangeEvent($event)" />
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div class="right-elem">
+            <button mat-button class="default-button ree-button" [disabled]="!fileSelected" (click)="caricaRee()">Carica
+                REE</button>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>

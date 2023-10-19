@@ -1,0 +1,14 @@
+<svg id="Alert" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+  <g id="Ellisse_330" data-name="Ellisse 330" fill="rgba(255,255,255,0.87)" stroke="#f8e500" stroke-width="2">
+    <circle cx="13" cy="13" r="13" stroke="none"/>
+    <circle cx="13" cy="13" r="12" fill="none"/>
+  </g>
+  <g id="Tracciato_59759" data-name="Tracciato 59759" transform="translate(11.74 6.07)" fill="#f8e60d">
+    <path d="M 1.695270419120789 8.950439453125 L 0.8710320591926575 8.950439453125 L 0.5211285948753357 0.4999997317790985 L 2.001662969589233 0.4999997317790985 L 1.695270419120789 8.950439453125 Z" stroke="none"/>
+    <path d="M 1.042258143424988 1 L 1.277349829673767 6.677645683288574 L 1.48320746421814 1 L 1.042258143424988 1 M -1.430511474609375e-06 0 L 2.520118713378906 0 L 2.177468538284302 9.450439453125 L 0.3913085460662842 9.450439453125 L -1.430511474609375e-06 0 Z" stroke="none" fill="#f8e500"/>
+  </g>
+  <g id="Ellisse_333" data-name="Ellisse 333" transform="translate(12 17)" fill="#f8e60d" stroke="#f8e500" stroke-width="1">
+    <circle cx="1" cy="1" r="1" stroke="none"/>
+    <circle cx="1" cy="1" r="0.5" fill="none"/>
+  </g>
+</svg>

@@ -1,0 +1,126 @@
+<div class="risultati" *ngIf="impianti && impianti.length!=0">
+    <app-message-box [titolo] = "'Attenzione!'"
+        [descrizione]="'Sono stati visualizzati solo i primi 150 record che rispondono ai criteri impostati. Si raccomanda di affinare la ricerca.'"
+        [type]="1" *ngIf="!impianti || impianti.length>=150">
+    </app-message-box>
+    <mat-card class="card contaner-card mat-elevation-z0">
+        <mat-grid-list cols="3" rowHeight="4em">
+            <mat-grid-tile>
+                <div class="left-elem">
+                    <span class="numero-risultati">{{impianti.length}} risultati</span>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <div class="right-elem">
+                    <button mat-button class="secondary-button">
+                        <img [src]="mappaIcon"> MOSTRA MAPPA
+                    </button>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="left-elem">
+                    <span class="filter-label">Ordina per</span>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <div class="right-elem">
+                    <form class="form-container" [formGroup]="filterForm">
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Filtra" [formControlName]="'filtro'">
+                                <mat-option value="1" (click)="sortImpianti('1')" selected>Codice impianto
+                                </mat-option>
+                                <mat-option value="2" (click)="sortImpianti('2')">Comune</mat-option>
+                                <mat-option value="3" (click)="sortImpianti('3')">Indirizzo</mat-option>
+                                <mat-option value="4" (click)="sortImpianti('4')">Responsabile</mat-option>
+                                <mat-option value="5" (click)="sortImpianti('5')">Stato</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </form>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card>
+
+    <mat-card class="card mat-elevation-z8" *ngFor="let impianto of impianti">
+        <mat-grid-list cols="4" rowHeight="3em">
+            <mat-grid-tile colspan="2">
+                <div class="label-tile">
+                    <mat-label>Codice impianto:</mat-label>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" class="data-tile">
+                <div class="data-tile">
+                    {{impianto.codiceImpianto?impianto.codiceImpianto:"-"}}</div>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2">
+                <div class="label-tile">
+                    <mat-label>Comune:</mat-label>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" class="data-tile">
+                <div class="data-tile" id="comune">
+                    {{impianto.descComune?impianto.descComune:"-"}}</div>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2">
+                <div class="label-tile">
+                    <mat-label>Indirizzo:</mat-label>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" class="data-tile">
+                <div class="data-tile">
+                    {{impianto.indirizzo?impianto.indirizzo:"-"}}{{impianto.civico?" "+impianto.civico:""}}</div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <div class="label-tile">
+                    <mat-label>Provincia:</mat-label>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" class="data-tile">
+                <div class="data-tile">
+                    {{getProvinciaBySiglaProvincia(impianto.siglaProv)}}</div>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2">
+                <div class="label-tile">
+                    <mat-label>Responsabile:</mat-label>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <div class="data-tile">
+                    {{impianto.denomResponsabile?impianto.denomResponsabile:"-"}}</div>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2">
+                <div class="label-tile">
+                    <mat-label>Stato:</mat-label>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <div class="data-tile">
+                    <span class="stato-attivo" *ngIf="impianto.stato=='Attivo'">{{impianto.stato}}</span>
+                    <span class="stato-dismesso" *ngIf="impianto.stato!='Attivo'">{{impianto.stato}}</span>
+
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="4">
+                <button class="default-button" (click)="dettaglioImpianto(impianto)">SELEZIONA</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card>
+</div>
+
+
+
+<app-message-box [titolo]="'Nessun risultato trovato'" [descrizione]="'Prova ad effettuare una nuova ricerca'"
+    [type]="1" *ngIf="!impianti || impianti.length==0">
+</app-message-box>
+
+<mat-grid-list cols="1" rowHeight="4em">
+    <mat-grid-tile>
+        <button mat-button class="secondary-button" *ngIf="isAbilitatoInserisciImpianto()"
+            (click)="apriInserisciimpianto()">INSERISCI NUOVO IMPIANTO
+            TERMICO</button>
+    </mat-grid-tile>
+</mat-grid-list>

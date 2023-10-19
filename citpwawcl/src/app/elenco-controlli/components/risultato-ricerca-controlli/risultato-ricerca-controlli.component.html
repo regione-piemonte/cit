@@ -1,0 +1,22 @@
+<mat-card class="card mat-elevation-z0">
+    <mat-grid-list cols="1" rowHeight="3em">
+        <mat-grid-tile *ngFor="let elem of result">
+            <div class="left-elem">
+                <button mat-raised-button class="component-button" (click)="apriNuovoControllo(elem)">
+                    <div class="interno primary-color">{{elem.nomeComponente}} | {{tipiDoc.get(elem.tipoControllo)}}
+                        <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                    </div>
+                </button>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+
+            <button mat-button class="default-button" (click)="nuovaRicerca()">
+                <div class="interno-search">
+                    <mat-icon>search</mat-icon>
+                    NUOVA RICERCA
+                </div>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</mat-card>

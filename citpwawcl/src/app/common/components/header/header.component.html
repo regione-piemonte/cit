@@ -1,0 +1,133 @@
+<mat-sidenav-container autosize class="sidenav-container">
+    <mat-sidenav #drawer mode="over" [fixedInViewport]=true>
+        <div class="logo">
+            <img [src]="logoblu">
+        </div>
+        <mat-nav-list>
+            <mat-list-item color="primary" class="sidenav-list-item" routerLink="ruoli">
+                <img [src]="ruolo">
+                <p class="primary-color">Cambia ruolo</p>
+            </mat-list-item>
+            <mat-list-item color="primary" class="sidenav-list-item" (click)="navigateRicercaImpianti()">
+                <img [src]="ricerca">
+                <p class="primary-color">Cerca impianti</p>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="box">
+            <div class="sidenav-int-content row">
+                <mat-toolbar color="primary" class="header">
+                    <div class="toolbar">
+                        <mat-grid-list cols="2" rowHeight="50px">
+                            <mat-grid-tile>
+                                <div class="left-elem left-header">
+                                    <button mat-icon-button class="menu-icon" (click)="drawer.toggle()">
+                                        <img [src]="menu">
+                                    </button>
+                                    <img [src]="logo">
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <div class="right-elem">
+                                    <button mat-icon-button class="menu-icon" [matMenuTriggerFor]="notificationMenu">
+                                        <mat-icon [matBadge]="operazioni.length" matBadgeSize="small"
+                                            matBadgeColor="accent">notifications</mat-icon>
+                                    </button>
+                                    <button mat-icon-button class="menu-icon" [matMenuTriggerFor]="helpMenu">
+                                        <img [src]="help">
+                                    </button>
+                                    <span class="dot profile-button" [matMenuTriggerFor]="usermenu">
+                                        <span class="primary-color initials">{{inizialiProfilo}}</span>
+                                    </span>
+                                </div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>
+                </mat-toolbar>
+                <router-outlet></router-outlet>
+            </div>
+            <div class="middle row"></div>
+            <div class="sidenav-footer-content row">
+                <app-footer></app-footer>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-menu #helpMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" panelClass="myclass">
+    <mat-nav-list>
+        <mat-list-item class="menu-list-item" (click)="openFaq()">
+            <p class="primary-color def-elem">FAQ</p>
+        </mat-list-item>
+        <mat-list-item class="menu-list-item" (click)="openManuale()">
+            <p class="primary-color def-elem">MANUALE</p>
+        </mat-list-item>
+        <mat-list-item class="menu-list-item" (click)="openAssistenza()">
+            <p class="primary-color def-elem">ASSISTENZA</p>
+        </mat-list-item>
+    </mat-nav-list>
+</mat-menu>
+
+<mat-menu #usermenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" panelClass="myclass">
+    <mat-nav-list>
+        <mat-list-item color="primary" class="menu-list-item" routerLink="ruoli">
+            <img [src]="ruolo">
+            <p class="primary-color">Cambia ruolo</p>
+        </mat-list-item>
+        <mat-list-item color="primary" class="menu-list-item" (click)="openNotifiche()">
+            <img [src]="mail"> 
+            <p class="primary-color">Attiva/disattiva MEMO notifiche</p>
+        </mat-list-item>
+        <mat-list-item class="menu-list-item" (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <p>Esci</p>
+        </mat-list-item>
+    </mat-nav-list>
+</mat-menu>
+
+<mat-menu #notificationMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" panelClass="myclass">
+    <div *ngFor="let operazione of operazioni">
+        <mat-card class="operation-card mat-elevation-z0">
+            <div class="container">
+                <div class="item">
+                    <div class="elem">Impianto: <span class="def-elem">{{operazione.codiceImpianto}}</span></div>
+
+                    <div class="elem">Attività: <span class="def-elem">{{operazione.descrizioneOperazione}}</span></div>
+
+                    <div class="elem">Data inserimento: <span
+                            class="def-elem">{{getDate(operazione.dataInserimento)}}</span>
+                    </div>
+
+                    <div class="elem">Data controllo: <span
+                            class="def-elem">{{getDate(operazione.dataControllo)}}</span></div>
+
+                    <div class="elem">Data invio online: <span
+                            class="def-elem">{{getDate(operazione.dataInvioOnline)}}</span></div>
+                    <div class="elem">
+                        <span>Esito: </span>
+                        <span *ngIf="operazione.esito === esitoOperazioni.FALLITO"
+                            class="fallito def-elem">{{operazione.esito}}</span>
+                        <span *ngIf="operazione.esito === esitoOperazioni.SUCCESSO"
+                            class="successo def-elem">{{operazione.esito}}</span>
+                        <span *ngIf="operazione.esito === esitoOperazioni.PENDING"
+                            class="pending def-elem">{{operazione.esito}}</span>
+                    </div>
+                    <div class="elem" *ngIf="operazione.esito === 'FALLITO'">Motivo:
+                        <span class="def-elem">{{operazione.descEsito}}</span>
+                    </div>
+                </div>
+                <div class="item">
+                    <button mat-icon-button (click)="removeItem(operazione)" *ngIf="operazione.dataInvioOnline">
+                        <mat-icon class="check">check</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="removeItem(operazione)" *ngIf="!operazione.dataInvioOnline">
+                        <mat-icon class="delete">delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-card>
+        <mat-divider></mat-divider>
+    </div>
+    <span *ngIf="operazioni.length==0" class="box-message">Nessuna notifica ricevuta</span>
+</mat-menu>

@@ -1,0 +1,26 @@
+<div class="role-header-content">
+    <mat-expansion-panel class="expansion-panel card mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <div class="parent primary-color">
+                <mat-icon class="role-icon">person</mat-icon>{{this.utenteLoggato.ruoloLoggato.ruolo}}
+            </div>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+            <div class="expansion-content">
+                <div *ngIf="impresaBool">
+                    <p>{{this.utenteLoggato.ruoloLoggato.denominazione}}</p>
+                    <p>Codice REA:
+                        {{this.utenteLoggato.ruoloLoggato.siglaRea}}-{{this.utenteLoggato.ruoloLoggato.numeroRea}}</p>
+                    <p>PIVA: {{this.utenteLoggato.ruoloLoggato.piva}}</p>
+                </div>
+                <div *ngIf="ruoloPaBool">
+                    <p>{{this.utenteLoggato.ruoloLoggato.descrAbilitazione}}</p>
+                </div>
+                <div *ngIf="responsabileProprietarioBool">
+                    <p>{{this.utenteLoggato.pfLoggato.nomePF}} {{this.utenteLoggato.pfLoggato.cognomePF}}</p>
+                    <p>CF: {{this.utenteLoggato.pfLoggato.codiceFiscalePF}}</p>
+                </div>
+            </div>
+        </ng-template>
+    </mat-expansion-panel>
+</div>

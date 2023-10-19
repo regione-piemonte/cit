@@ -1,0 +1,49 @@
+<app-title [title]="'Imprese'" *ngIf="persone.length>0"></app-title>
+<mat-card class="card" *ngFor="let persona of persone">
+    <mat-card-content>
+        <mat-grid-list cols="1" rowHeight="1em">
+            <mat-grid-tile>
+                <div class="left-elem">Codice fiscale:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="left-elem def-elem">{{persona.codiceFiscale}}</div>
+            </mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile>
+                <div class="left-elem">Cognome/Denominazione:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="left-elem def-elem">{{persona.cognomeDenominazione}}</div>
+            </mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile>
+                <div class="left-elem">Nome:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="left-elem def-elem">{{persona.nome}}</div>
+            </mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile>
+                <div class="left-elem">Indirizzo:</div>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="2">
+                <div class="left-elem def-elem" *ngIf="persona.indirizzoSitad">{{persona.indirizzoSitad}}
+                    {{persona.civico}}, {{persona.comune}} - {{persona.provincia}}</div>
+                <div class="left-elem def-elem" *ngIf="persona.indirizzoNonTrovato">{{persona.indirizzoNonTrovato}}
+                    {{persona.civico}}, {{persona.comune}} - {{persona.provincia}}</div>
+                <div class="left-elem def-elem" *ngIf="!persona.indirizzoSitad && !persona.indirizzoNonTrovato">
+                    {{persona.statoEstero}}, {{persona.indirizzoEstero}} {{persona.cittaEstero}} -
+                    {{persona.capEstero}}</div>
+            </mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile rowspan="2">
+                <button mat-button class="default-button" (click)="inserisci(persona)">USA DATI</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card-content>
+</mat-card>
+<mat-card class="card" *ngIf="persone.length==0">
+    <app-message-box [titolo]="'Nessun elemento trovato'"
+        [descrizione]="'Nessuna persona giuridica trovata con i parametri indicati'" [type]="1">
+    </app-message-box>
+</mat-card>

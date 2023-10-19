@@ -1,0 +1,263 @@
+<mat-card class="card mat-elevation-z0 intestazione">
+    <div class="left-elem">
+        <app-title [title]="''" [subtitle]="'Macchine frigorifere/Pompe di calore:'">
+        </app-title>
+    </div>
+    <mat-grid-list cols="2" rowHeight="1em">
+        <mat-grid-tile rowspan="3">
+            <div class="left-elem">
+                <button mat-raised-button *ngIf="progr" class="comp-button primary-color">GF-{{progr}}</button>
+                <button mat-raised-button *ngIf="!progr" class="comp-button primary-color">GF-N</button>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile rowspan="3">
+            <div class="right-elem">
+                <button mat-button color="primary" class="modify" *ngIf="checkModificaButton()" (click)="modifica()">
+                    <mat-icon>edit</mat-icon>
+                    Modifica
+                </button>
+                <button mat-button color="primary" class="modify" *ngIf="checkRiattivaButton()" (click)="riattiva()">
+                    <mat-icon>edit</mat-icon>
+                    Riattiva
+                </button>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</mat-card>
+<mat-card class="card mat-elevation-z8">
+    <mat-grid-list cols="3" rowHeight="4em">
+        <form class="form-container" [formGroup]="dettForm">
+            <mat-grid-tile colspan="3">
+                <div class="left-elem">
+                    <mat-label [ngClass]="{'disabled':dettForm.disabled}">Data installazione*</mat-label>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="form-field">
+                    <mat-label>GG/MM/AAAA</mat-label>
+                    <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter"
+                        [formControlName]="'dtInstall'">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <div class="left-elem">
+                    <mat-label [ngClass]="{'disabled':dettForm.disabled}">Data dismissione</mat-label>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="form-field">
+                    <mat-label>GG/MM/AAAA</mat-label>
+                    <input matInput [matDatepicker]="picker2" [formControlName]="'dtDismiss'">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="right-elem">
+                    <button mat-button color="primary" class="dismetti-sostituisci-button"
+                        *ngIf="checkSostituisciButton()" (click)="sostituisci()">
+                        Sostituisci
+                    </button>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="left-elem">
+                    <button mat-button color="primary" class="dismetti-sostituisci-button" *ngIf="checkDismettiButton()"
+                        (click)="dismetti()">
+                        Dismetti
+                    </button>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <mat-select placeholder="Fabbricante" [formControlName]="'fabbricante'">
+                        <mat-option *ngFor="let elem of fabbricanti" [value]="elem.codice">
+                            {{elem.descrizione}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Modello" [formControlName]="'modello'">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Matricola" [formControlName]="'matricola'">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <mat-select placeholder="Tipologia" [formControlName]="'tipologia'"
+                        (selectionChange)="selectTipologia($event)">
+                        <mat-option *ngFor="let elem of tipologiaGF" [value]="elem.codice">
+                            {{elem.descrizione}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <mat-select placeholder="Combustibile" [formControlName]="'combustibile'">
+                        <mat-option *ngFor="let elem of combustibili" [value]="elem.codice">
+                            {{elem.descrizione}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Potenza termica utile nominale Pn max (kW)"
+                        [formControlName]="'potenza'" type="number">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <mat-select placeholder="Sorgente lato esterno" [formControlName]="'flgSorgente'">
+                        <mat-option value="ARIA">Aria</mat-option>
+                        <mat-option value="ACQUA">Acqua</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <mat-select placeholder="Fluido lato utenze" [formControlName]="'flgFluido'">
+                        <mat-option value="ARIA">Aria</mat-option>
+                        <mat-option value="ACQUA">Acqua</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Fluido frigorigeno" [formControlName]="'fluidoFrigorigeno'">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Numero circuiti" [formControlName]="'nCircuiti'" type="number">
+                    <mat-error *ngIf="dettForm.get('nCircuiti').errors?.pattern">Il valore deve essere
+                        maggiore di 0</mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Raffrescamento EER(o GUE)" [formControlName]="'raffrescamentoEE'"
+                        type="number">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Potenza frigorifera nominale KW" [formControlName]="'raffPotKw'"
+                        type="number">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Potenza assorbita nominale KW" [formControlName]="'raffPotAss'"
+                        type="number">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Riscaldamento COP" [formControlName]="'riscCop'" type="number">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Potenza termica nominale KW" [formControlName]="'riscPotKw'"
+                        type="number">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Potenza assorbita nominale KW" [formControlName]="'riscPotAss'"
+                        type="number">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <mat-select placeholder="Fonte energetica sfruttata" [formControlName]="'fonteEn'">
+                        <mat-option *ngFor="let elem of fonte" [value]="elem.codice">
+                            {{elem.descrizione}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Da mantenere ogni (anni)" [formControlName]="'nMantenimenti'"
+                        type="number">
+                    <mat-error *ngIf="dettForm.get('nMantenimenti').errors?.pattern">Il valore deve essere
+                        maggiore di 0</mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="2">
+                <mat-form-field class="form-field">
+                    <textarea matInput placeholder="Note" [formControlName]="'note'"></textarea>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <button mat-button class="primary-color" *ngIf="checkAnnullaButton()"
+                    (click)="annulla()">ANNULLA</button>
+            </mat-grid-tile>
+        </form>
+    </mat-grid-list>
+</mat-card>
+<app-title [title]="'Sostituzione del componente'" [subtitle]="''" *ngIf="progr && gfDismessi.length > 0"></app-title>
+<mat-card class="card mat-elevation-z8" *ngFor="let gf of gfDismessi">
+    <mat-grid-list cols="2" rowHeight="2em">
+        <mat-grid-tile rowspan="2">
+            <div class="left-elem">
+                <button mat-raised-button class="comp-button primary-color">GF-{{progr}}</button>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile rowspan="2"></mat-grid-tile>
+        <mat-grid-tile>
+            <div class="left-elem">
+                <p>Data installazione</p>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="right-elem def-elem">
+                <p>{{getDate(gf.dataInstall)}}</p>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="left-elem">
+                <p>Data dismissione</p>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="right-elem def-elem">
+                <p>{{getDate(gf.dataDismiss)}}</p>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="left-elem">
+                <p>Fabbricante</p>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="right-elem def-elem">
+                <p>{{gf.desMarca}}</p>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="left-elem">
+                <p>Modello</p>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="right-elem def-elem">
+                <p>{{gf.modello}}</p>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+            <button mat-button class="default-button"
+                *ngIf="checkRipristinaButton() && isLastDate(gf.dataDismiss)  && this.dettForm.enabled"
+                (click)="ripristina(gf)">RIPRISTINA</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</mat-card>
+
+<button mat-button class="default-button" *ngIf="checkSalvaButton()" (click)="salvaDati()">SALVA</button>

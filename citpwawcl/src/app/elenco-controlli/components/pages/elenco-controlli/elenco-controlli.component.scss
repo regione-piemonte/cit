@@ -1,0 +1,65 @@
+.card {
+    margin-bottom: 2em;
+    width: 90%;
+
+    .bozza {
+        color: #00a8e6;
+    }
+
+    .attesa {
+        color: #e68500;
+    }
+
+    .inviato {
+        color: #167446;
+    }
+
+    .respinto {
+        color: #b8191a;
+    }
+}
+
+.decoration-bozza {
+    border-top: solid #00a8e6 5px;
+}
+
+.decoration-attesa {
+    border-top: solid #e68500 5px;
+}
+
+.decoration-inviato {
+    border-top: solid #167446 5px;
+}
+
+.decoration-respinto {
+    border-top: solid #b8191a 5px;
+}
+
+.filter-card {
+    background-color: none;
+}
+
+.bozza-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.pdf-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .pdf-icon {
+        margin-right: 1em;
+    }
+}
+
+.add-controllo {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.hide {
+    display: none;
+}

@@ -1,0 +1,12 @@
+<app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+<div class="page-content">
+    
+    <app-title [title]="title" [subtitle]="subtitle"></app-title>
+    <app-back [title]="backTitile" [route]="route" *ngIf="route">
+    </app-back>
+    <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+        *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+    </app-message-box>
+    <app-role-header></app-role-header>
+    <router-outlet></router-outlet>
+</div>

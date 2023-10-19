@@ -1,0 +1,94 @@
+<app-message-box [titolo]="'ATTENZIONE'" [descrizione]="'Sei offline, alcune operazioni potrebbero essere interdette'"
+    [type]="1" [ngClass]="{'online':!offline}">
+</app-message-box>
+<mat-card class="card mat-elevation-z0 comp-card">
+    <div class="left-elem">
+        <button mat-raised-button class="comp-button primary-color">{{controllo.nomeComponente}}</button>
+    </div>
+</mat-card>
+<mat-card class="card mat-elevation-z8">
+    <form class="form-container" [formGroup]="insertForm">
+        <mat-grid-list cols="2" rowHeight="4em">
+            <mat-grid-tile colspan="2">
+                <div class="label-tile">
+                    <mat-label>Data Controllo*</mat-label>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="form-field">
+                    <mat-label>GG/MM/AAAA</mat-label>
+                    <input matInput [matDatepicker]="pickerControllo" [formControlName]="'dataControllo'">
+                    <mat-datepicker-toggle matSuffix [for]="pickerControllo"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerControllo></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Tipo Controllo" [formControlName]="'tipoControllo'">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Tipo Componente" [formControlName]="'tipoComponente'">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <mat-form-field class="form-field">
+                    <mat-select placeholder="Tipo intervento" [formControlName]="'tipoIntervento'">
+                        <mat-option *ngFor="let elem of interventi" [value]="elem.codice">
+                            {{elem.descrizione}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="2">
+                <mat-form-field class="form-field">
+                    <textarea matInput placeholder="Osservazioni" [formControlName]="'osservazioni'"></textarea>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="2">
+                <mat-form-field class="form-field">
+                    <textarea matInput placeholder="Raccomandazioni" [formControlName]="'raccomandazioni'"></textarea>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="2">
+                <mat-form-field class="form-field">
+                    <textarea matInput placeholder="Prescrizioni" [formControlName]="'prescrizioni'"></textarea>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <div class="label-tile">
+                    <mat-label>Prossimo intervento di controllo entro*</mat-label>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="form-field">
+                    <mat-label>GG/MM/AAAA</mat-label>
+                    <input matInput [matDatepicker]="pickerIntervento" [formControlName]="'dataIntervento'" [matDatepickerFilter]="myFilter">
+                    <mat-datepicker-toggle matSuffix [for]="pickerIntervento"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerIntervento></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Nome e Cognome tecnico" [formControlName]="'nomeCognome'">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="form-field" rowspan="2">
+                    <input matInput placeholder="Ora di arrivo" type="time" [formControlName]="'oraArrivo'">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="form-field" rowspan="2">
+                    <input matInput placeholder="Ora di partenza" type="time" [formControlName]="'oraPartenza'">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <button mat-button class="default-button" (click)="salvaEInvia()">SALVA E
+                    INVIA</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</mat-card>
