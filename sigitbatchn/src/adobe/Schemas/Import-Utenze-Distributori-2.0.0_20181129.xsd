@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.csi.it/sigit/sigitwebn/xml/importmassivo/utenzedistributori/data"
+	       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.csi.it/sigit/sigitwebn/xml/importmassivo/utenzedistributori/data"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+
+  <!-- COMUNICAZIONE FORNITURE DEI DISTRIBUTORI -->
+  <xs:element name="UTENZEDIST_Comunicazione">
+   <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="datiFornituraCliente" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- CLIENTE-FORNITURA -->
+  <xs:element name="datiFornituraCliente">
+      <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="datiCliente" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="datiFornitura" minOccurs="1" maxOccurs="1"/>
+		<!-- nuovo: -->
+        <xs:element ref="datiFatturazione" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- DATI CLIENTE -->
+  <xs:element name="datiCliente">
+      <xs:complexType>
+       <xs:sequence>
+        <xs:element name="pfPg" minOccurs="1" maxOccurs="1">
+              <xs:simpleType>
+                       <xs:annotation>
+			                   <xs:documentation>Valori ammessi:
+                               PF-persona fisica
+                               PG-persona giuridica (società, ente , ecc.)</xs:documentation>
+	                    </xs:annotation>
+						<xs:restriction base="xs:string">
+                            <xs:enumeration value="PF"/>
+                            <xs:enumeration value="PG"/>
+						</xs:restriction>
+              </xs:simpleType>
+         </xs:element>
+         <xs:element name="cognome" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:minLength value="1"/> 
+							<xs:maxLength value="500"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+         <xs:element name="nome" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+         <xs:element name="cfPiva" type="CFPIVAType" minOccurs="1" maxOccurs="1"/>
+       </xs:sequence>
+     </xs:complexType>
+  </xs:element>
+  
+  <!-- DATI FORNITURA -->
+  <xs:element name="datiFornitura">
+      <xs:complexType>
+       <xs:sequence>
+         <xs:element ref="periodoFornitura" minOccurs="1" maxOccurs="1"/>
+         <xs:element ref="localizzazioneFornitura" minOccurs="1" maxOccurs="1"/>
+         <xs:element ref="contrattoFornitura" minOccurs="1" maxOccurs="1"/>
+         <xs:element ref="consumiFornitura" minOccurs="1" maxOccurs="1"/>
+       </xs:sequence>
+     </xs:complexType>
+  </xs:element>
+  
+   <!-- PERIODO FORNITURA -->
+  <xs:element name="periodoFornitura">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="annoRiferimento" type="xs:gYear" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="numeroMesiFatturazione" type="NumeroMesiType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- LOCALIZZAZIONE FORNITURA -->
+  <xs:element name="localizzazioneFornitura">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element ref="ubicazione" minOccurs="1" maxOccurs="1"/>
+          <xs:choice>
+				<xs:element ref="estremiCatastali" minOccurs="0" maxOccurs="unbounded" />
+				 <xs:element name="codiceAssenzaDatiCatastali" minOccurs="0" maxOccurs="1" >
+					<xs:simpleType>
+                       <xs:annotation>
+			                   <xs:documentation>Valori ammessi:
+                               1-immobile non accatastato
+                               2-immobile non accatastabile
+                               3-dati non forniti dal titolario utenza
+                               4-forniture temporanee</xs:documentation>
+	                    </xs:annotation>
+						<xs:restriction base="xs:integer">
+                            <xs:enumeration value="1"/>
+                            <xs:enumeration value="2"/>
+                            <xs:enumeration value="3"/>
+                            <xs:enumeration value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+			</xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- UBICAZIONE -->
+  <xs:element name="ubicazione">
+    <xs:complexType>
+       <xs:sequence>
+           <xs:element name="toponimo" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:minLength value="1"/> 
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+          <xs:element name="indirizzo" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:minLength value="1"/>
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+	         <xs:element name="civico" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:minLength value="1"/>
+							<xs:maxLength value="10"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+		     <xs:element name="cap" type="CAPType" minOccurs="0" maxOccurs="1" nillable="true"/>
+		     <!-- <xs:element name="denominazioneISTATComune" type="TestoType" minOccurs="1" maxOccurs="1"/>  proposta: eliminare-->
+		     <xs:element name="codiceISTATComune" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:length value="6"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+	   </xs:sequence>
+     </xs:complexType>
+  </xs:element>
+	
+  <!-- ESTREMI CATASTALI -->
+  <xs:element name="estremiCatastali">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="sezione" minOccurs="0" maxOccurs="1" nillable="true" >
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="1"/>
+							<xs:pattern value="[A-Z]|[0-9]"/>
+						</xs:restriction>
+					</xs:simpleType>
+		    </xs:element>
+            <xs:element name="foglio" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:minLength value="1"/>
+							<xs:maxLength value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+             <xs:element name="particella" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:minLength value="1"/>
+							<xs:maxLength value="5"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+				<xs:element name="subalterno" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+		</xs:sequence>
+	 </xs:complexType>
+  </xs:element>
+	
+	 <!-- CONTRATTO FORNITURA -->
+  <xs:element name="contrattoFornitura">
+    <xs:complexType>
+      <xs:sequence>
+           <xs:element name="codicePdrPod" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+          <xs:element name="tipoContratto" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+					    <xs:annotation>
+			                   <xs:documentation>Valori ammessi:
+                               0-domestico
+                               1-condominiale
+                               2-altri utilizzi
+                               3-servizio pubblico
+							   4-ND</xs:documentation>
+	                    </xs:annotation>
+						<xs:restriction base="xs:integer">
+						    <xs:enumeration value="0"/>
+                            <xs:enumeration value="1"/>
+                            <xs:enumeration value="2"/>
+                            <xs:enumeration value="3"/>
+							<xs:enumeration value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+          </xs:element>
+          <xs:element name="categoriaUtilizzo" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+					    <xs:annotation>
+			                   <xs:documentation>Valori ammessi:
+                               C1-riscaldamento
+                               C2-cottura + ACS
+                               C3-riscaldamento + cottura + ACS
+                               C4-condizionamento
+                               C5-condizionamento + riscaldamento
+                               C6-altro</xs:documentation>
+	                    </xs:annotation>
+						<xs:restriction base="xs:string">
+						    <xs:enumeration value="C1"/>
+                            <xs:enumeration value="C2"/>
+                            <xs:enumeration value="C3"/>
+                            <xs:enumeration value="C4"/>
+                            <xs:enumeration value="C5"/>
+                            <xs:enumeration value="C6"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+          <xs:element name="combustibile" minOccurs="1" maxOccurs="1">
+                      <xs:simpleType>
+                                     <xs:annotation>
+			                          <xs:documentation>Valori ammessi:
+                                                   1-"Gas naturale"
+                                                   2-"Gpl"
+                                                   3-"Gasolio"
+                                                   4-"Olio combustibile"
+                                                   5-"Pellet"
+                                                   6-"Tronchetti"
+                                                   7-"Cippato"
+                                                   8-"Carbone"
+                                                   9-"Altra biomassa solida"
+                                                   10-"Biomassa liquida"
+                                                   11-"Biomassa gassosa"
+                                                   12-"Energia Termica"
+                                                   99-"Altro"
+                                                   </xs:documentation>
+	                             </xs:annotation>
+
+				     <xs:restriction base="xs:integer">
+					    <xs:enumeration value="1"/>
+                                            <xs:enumeration value="2"/>
+                                            <xs:enumeration value="3"/>
+                                            <xs:enumeration value="4"/>
+                                            <xs:enumeration value="5"/>
+                                            <xs:enumeration value="6"/>
+                                            <xs:enumeration value="7"/>
+                                            <xs:enumeration value="8"/>
+                                            <xs:enumeration value="9"/>
+                                            <xs:enumeration value="10"/>
+                                            <xs:enumeration value="11"/>
+                                            <xs:enumeration value="12"/>
+                                            <xs:enumeration value="99"/>
+                                      </xs:restriction>
+			</xs:simpleType>
+           </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- CONSUMI FORNITURA -->
+  <xs:element name="consumiFornitura">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="consumoAnnuo" type="ConsumoType" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="consumoMensile" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="consumoGiornaliero" minOccurs="0" maxOccurs="1" />
+          <xs:element name="unitaMisuraConsumo" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+					    <xs:annotation>
+			                   <xs:documentation>Valori ammessi:
+                               1-"litri"
+                               2-"kg"
+                               3-"m3"
+                               4-"kWh"
+                               5-"-"</xs:documentation>
+	                    </xs:annotation>
+						<xs:restriction base="xs:integer">
+						    <xs:enumeration value="1"/>
+                            <xs:enumeration value="2"/>
+                            <xs:enumeration value="3"/>
+                            <xs:enumeration value="4"/>
+                            <xs:enumeration value="5"/>
+						</xs:restriction>
+					</xs:simpleType>
+          </xs:element>
+          <xs:element name="volumetriaRiscaldata" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+						        <xs:totalDigits value="11"/>
+                                <xs:fractionDigits value="2"/>
+                                <xs:minInclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- CONSUMO MENSILE -->
+  <xs:element name="consumoMensile">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="consumoMensile" type="ConsumoType" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="meseRiferimento" type="NumeroMesiType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- CONSUMO GIORNALIERO -->
+  <xs:element name="consumoGiornaliero">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="consumoGiornaliero" type="ConsumoType" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="giornoRiferimento" type="xs:date" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  
+  <!-- ********** INIZIO PARTE NUOVA SU FATTURAZIONE ********** --> 
+  <!-- DATI FATTURAZIONE -->
+  <xs:element name="datiFatturazione">
+      <xs:complexType>
+       <xs:sequence>
+         <xs:element ref="datiClienteFatturazione" minOccurs="1" maxOccurs="1"/>
+         <xs:element ref="datiIndirizzoFatturazione" minOccurs="1" maxOccurs="1"/>
+       </xs:sequence>
+     </xs:complexType>
+  </xs:element>
+ 
+  <!-- DATI CLIENTE FATTURAZIONE-->
+  <xs:element name="datiClienteFatturazione">
+      <xs:complexType>
+       <xs:sequence>
+        <xs:element name="pfPg" minOccurs="1" maxOccurs="1">
+              <xs:simpleType>
+                       <xs:annotation>
+			                   <xs:documentation>Valori ammessi:
+                               PF-persona fisica
+                               PG-persona giuridica (società, ente , ecc.)</xs:documentation>
+	                    </xs:annotation>
+						<xs:restriction base="xs:string">
+                            <xs:enumeration value="PF"/>
+                            <xs:enumeration value="PG"/>
+						</xs:restriction>
+              </xs:simpleType>
+         </xs:element>
+         <xs:element name="cognome" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:minLength value="1"/> 
+							<xs:maxLength value="500"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+         <xs:element name="nome" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+         <xs:element name="cfPiva" type="CFPIVAType" minOccurs="1" maxOccurs="1"/>
+       </xs:sequence>
+     </xs:complexType>
+  </xs:element>
+
+  <!-- INDIRIZZO FATTURAZIONE -->
+  <xs:element name="datiIndirizzoFatturazione">
+    <xs:complexType>
+       <xs:sequence>
+           <xs:element name="toponimo" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:minLength value="1"/> 
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+          <xs:element name="indirizzo" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:minLength value="1"/>
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+	         <xs:element name="civico" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:minLength value="1"/>
+							<xs:maxLength value="10"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+		     <xs:element name="cap" type="CAPType" minOccurs="0" maxOccurs="1" nillable="true"/>
+		     <!-- <xs:element name="denominazioneISTATComune" type="TestoType" minOccurs="1" maxOccurs="1"/>  proposta: eliminare-->
+		     <xs:element name="codiceISTATComune" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+                            <xs:length value="6"/>
+						</xs:restriction>
+					</xs:simpleType>
+		     </xs:element>
+	   </xs:sequence>
+     </xs:complexType>
+  </xs:element>
+  <!-- ********** FINE PARTE NUOVA SU FATTURAZIONE ********** --> 
+
+  
+  <!-- CODICE FISCALE o PARTITA IVA -->
+  <xs:simpleType name="CFPIVAType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="11"/>
+			<xs:maxLength value="16"/>
+			<xs:pattern value="[0-9|A-Z]*"/>
+		</xs:restriction>
+  </xs:simpleType>
+	
+  <!-- TIPO NUMERO MESI -->
+  <xs:simpleType name="NumeroMesiType">
+		<xs:annotation>
+			<xs:documentation>intero da 1 a 12</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+		     <xs:minInclusive value="1"/>
+             <xs:maxInclusive value="12"/>
+		</xs:restriction>
+  </xs:simpleType>
+	
+  <!-- CAP COMUNE -->
+  <xs:simpleType name="CAPType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="5"/>
+			<xs:pattern value="[0-9]*"/>
+		</xs:restriction>
+  </xs:simpleType>
+
+  <!-- TIPO CONSUMO-->
+  <xs:simpleType name="ConsumoType">
+		<xs:restriction base="xs:decimal">
+            <xs:totalDigits value="11"/>
+            <xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

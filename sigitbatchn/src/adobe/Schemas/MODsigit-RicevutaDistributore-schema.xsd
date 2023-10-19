@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.csi.it/sigit/sigitwebn/xml/dataRicevutaDistributore"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.csi.it/sigit/sigitwebn/xml/dataRicevutaDistributore"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="importDistrib">
+		
+		<!-- ******************************* -->
+		<!-- DEFINIZIONE SEZIONI -->
+		<!-- ******************************* -->
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="intestazioneImport" />
+				<xs:element ref="descrizioneImport" />
+				<xs:element ref="infoImport" />
+				<xs:element ref="footerImport" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- ******************************* -->
+	<!-- DEFINIZIONE TIPI COMPLESSI -->
+	<!-- ******************************* -->
+
+	<!-- INTESTAZIONE -->
+	<xs:element name="intestazioneImport">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="logo" type="xs:string"/>
+				<xs:element name="provincia" type="xs:string" />
+				<xs:element name="ente" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+		
+	<!-- DESCRIZIONE -->
+	<xs:element name="descrizioneImport">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ragioneSociale" type="xs:string" />
+				<xs:element name="codiceFiscale" type="xs:string" />
+				<xs:element name="codiceRea" type="xs:string" />
+				<xs:element name="indirizzo" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+		
+	<!-- ACQUISIZIONE -->
+	<xs:element name="infoImport">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="dataCaricamento" type="xs:string"/>
+				<xs:element name="dataAcquisizione" type="xs:string"/>
+				<xs:element name="dataAnnullamento" type="xs:string"/>
+				<xs:element name="nomeFile" type="xs:string" />
+				<xs:element name="annoRiferimento" type="xs:string" />
+				<xs:element name="statoAcquisizione" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- FOOTER -->
+	<xs:element name="footerImport">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="luogo" type="xs:string"/>
+				<xs:element name="data" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>		
+
+</xs:schema>

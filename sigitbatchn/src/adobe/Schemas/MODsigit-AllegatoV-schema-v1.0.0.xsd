@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.csi.it/sigit/sigitwebn/xml/allegato5/data"
+	       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:catdig="http://www.csi.it/sigit/sigitwebn/xml/catdig/system"
+           targetNamespace="http://www.csi.it/sigit/sigitwebn/xml/allegato5/data"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+ <xs:import namespace="http://www.csi.it/sigit/sigitwebn/xml/catdig/system" schemaLocation="../common/schemas/system-catdig-schema.xsd"/>
+
+ <xs:element name="MODV">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="Richiesta"/>
+			<xs:element ref="catdig:system"/>
+		</xs:sequence>
+	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Richiesta">
+      <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="datiModulo"/>
+        <xs:element ref="datiIntestazione"/>
+        <xs:element ref="datiAllegato"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- DATI FUNZIONALI AL COMPORTAMENTO DEL MODULO -->
+  <xs:element name="datiModulo">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="statoModulo" type="xs:string"/>  <!-- BOZZA; DEFINITIVO -->
+          <xs:element name="flag_controllo_bozza" type="xs:boolean"/>
+          <xs:element name="URLchiudi" type="xs:string"/>
+          <xs:element name="idAllegato" type="xs:string"/>
+
+         <!-- precompilazione combo -->
+    	  <xs:element name="elencoFluidoTermoVett">
+    			<xs:complexType>
+    				<xs:sequence>
+    					<xs:element name="fluidoTermoVett" minOccurs="1" maxOccurs="unbounded">
+    						<xs:complexType>
+    							<xs:sequence>
+    			    				<xs:element name="codice" type="xs:string"/>
+    			    				<xs:element name="descrizione" type="xs:string"/>
+    							</xs:sequence>
+    						</xs:complexType>
+        				</xs:element>
+    				</xs:sequence>
+    			</xs:complexType>
+    		</xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- DATI INTESTAZIONE MODULO -->
+  <xs:element name="datiIntestazione">
+    <xs:complexType>
+      <xs:sequence>
+          <!-- intestazione modulo -->
+          <xs:element name="codiceBollino" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- DATI DEL MODULO CHE SI RIPETONO -->
+  <xs:element name="datiAllegato">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="allegatoV">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowAllegatoV" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="rowAllegatoV">
+    <xs:complexType>
+      <xs:sequence>
+          <!-- DATI precompilati da web -->
+          <xs:element name="codiceCatasto" type="xs:string"/>
+          <!-- Sezione A -->
+          <xs:element name="A_A_comune" type="xs:string"/>
+          <xs:element name="A_A_indirizzo" type="xs:string"/>
+          <xs:element name="A_A_civico" type="xs:string"/>
+          <xs:element name="A_A_palazzo" type="xs:string"/>
+          <xs:element name="A_A_scala" type="xs:string"/>
+          <xs:element name="A_A_interno" type="xs:string"/>
+          <xs:element name="A_A_prov" type="xs:string"/>
+
+          <xs:element name="sezCatasto">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowCatasto" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+         <!-- Sez A2 - RESPONSABILE DELL'IMPIANTO -->
+         <xs:element name="A_A2_cognome" type="xs:string"/>
+         <xs:element name="A_A2_nome" type="xs:string"/>
+         <xs:element name="A_A2_cf" type="xs:string"/>
+         <xs:element name="A_A2_ragSociale" type="xs:string"/>
+         <xs:element name="A_A2_piva" type="xs:string"/>
+         <xs:element name="A_A2_indirizzo" type="xs:string"/>
+         <xs:element name="A_A2_civico" type="xs:string"/>
+         <xs:element name="A_A2_comune" type="xs:string"/>
+         <xs:element name="A_A2_prov" type="xs:string"/>
+         <xs:element name="A_A2_flagProprietario" type="xs:boolean"/>
+         <xs:element name="A_A2_flagOccupante" type="xs:boolean"/>
+         <xs:element name="A_A2_flagAmministr" type="xs:boolean"/>
+         <xs:element name="A_A2_flagTerzoResp" type="xs:boolean"/>
+         <!-- Sez A3 - IMPRESA MANUTENTRICE -->
+         <xs:element name="A_A3_ragSociale" type="xs:string"/>
+         <xs:element name="A_A3_piva" type="xs:string"/>
+         <xs:element name="A_A3_indirizzo" type="xs:string"/>
+         <xs:element name="A_A3_civico" type="xs:string"/>
+         <xs:element name="A_A3_comune" type="xs:string"/>
+         <xs:element name="A_A3_prov" type="xs:string"/>
+         <!-- Sez E - CONTROLLO E VERIFICA ENERGENTICA -->
+         <xs:element name="A_E_numCG" type="xs:integer"/>
+         <xs:element name="A_E_dataInstallaz" type="xs:date"/>
+         <xs:element name="A_E_fabbricante" type="xs:string"/>
+         <xs:element name="A_E_modello" type="xs:string"/>
+         <xs:element name="A_E_matricola" type="xs:string"/>
+         <xs:element name="A_E_tipologia" type="xs:string"/>
+         <xs:element name="A_E_combustibile" type="xs:string"/>
+          <xs:element name="A_E_potenzaElettrica" type="xs:decimal"/>
+          <xs:element name="A_E_potenzaAssorbita" type="xs:decimal"/>
+          <xs:element name="A_E_potenzaTermica" type="xs:decimal"/>
+          <xs:element name="A_E_potenzaTermByPass" type="xs:decimal"/>
+          <xs:element name="A_E_emissioniMonossido" type="xs:string"/>
+         
+         <xs:element name="A_F_dataControllo" type="xs:date"/>
+         
+         <xs:element name="tabFumi">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowFumi" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+	     
+        <xs:element ref="datiIdentificativi"/>
+        <xs:element ref="documentazioneTecnica"/>
+        <xs:element ref="trattamentoAcqua"/>
+        <xs:element ref="controlloImpianto"/>
+        <xs:element ref="controlloVerificaEnergetica"/>
+        <xs:element ref="checkList"/>
+        <xs:element ref="datiTecnico"/>
+	     
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="rowCatasto">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="A_A_sezione" type="xs:string"/>
+              <xs:element name="A_A_foglio" type="xs:string"/>
+              <xs:element name="A_A_particella" type="xs:string"/>
+              <xs:element name="A_A_sub" type="xs:string"/>
+              <xs:element name="A_A_pod" type="xs:string"/>
+              <xs:element name="A_A_pdr" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+  <xs:element name="rowFumi">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="A_E_tempAriaCombur" type="xs:decimal"/>
+              <xs:element name="A_E_tempAriaUsc" type="xs:decimal"/>
+              <xs:element name="A_E_tempAriaIng" type="xs:decimal"/>
+              <xs:element name="A_E_potenzaMorsetti" type="xs:decimal"/>
+              <xs:element name="A_E_tempH2Omotore" type="xs:decimal"/>
+              <xs:element name="A_E_tempFumiAvalle" type="xs:decimal"/>
+              <xs:element name="A_E_tempFumiAmonte" type="xs:decimal"/>
+
+              <xs:element name="A_E_sovraFreqSoglia1" type="xs:decimal"/>
+              <xs:element name="A_E_sovraFreqSoglia2" type="xs:decimal"/>
+              <xs:element name="A_E_sovraFreqSoglia3" type="xs:decimal"/>
+              <xs:element name="A_E_sovraFreqTempo1" type="xs:decimal"/>
+              <xs:element name="A_E_sovraFreqTempo2" type="xs:decimal"/>
+              <xs:element name="A_E_sovraFreqTempo3" type="xs:decimal"/>
+              <xs:element name="A_E_sottoFreqSoglia1" type="xs:decimal"/>
+              <xs:element name="A_E_sottoFreqSoglia2" type="xs:decimal"/>
+              <xs:element name="A_E_sottoFreqSoglia3" type="xs:decimal"/>
+              <xs:element name="A_E_sottoFreqTempo1" type="xs:decimal"/>
+              <xs:element name="A_E_sottoFreqTempo2" type="xs:decimal"/>
+              <xs:element name="A_E_sottoFreqTempo3" type="xs:decimal"/>
+              <xs:element name="A_E_sovraTensSoglia1" type="xs:decimal"/>
+              <xs:element name="A_E_sovraTensSoglia2" type="xs:decimal"/>
+              <xs:element name="A_E_sovraTensSoglia3" type="xs:decimal"/>
+              <xs:element name="A_E_sovraTensTempo1" type="xs:decimal"/>
+              <xs:element name="A_E_sovraTensTempo2" type="xs:decimal"/>
+              <xs:element name="A_E_sovraTensTempo3" type="xs:decimal"/>
+              <xs:element name="A_E_sottoTensSoglia1" type="xs:decimal"/>
+              <xs:element name="A_E_sottoTensSoglia2" type="xs:decimal"/>
+              <xs:element name="A_E_sottoTensSoglia3" type="xs:decimal"/>
+              <xs:element name="A_E_sottoTensTempo1" type="xs:decimal"/>
+              <xs:element name="A_E_sottoTensTempo2" type="xs:decimal"/>
+              <xs:element name="A_E_sottoTensTempo3" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+
+  <!-- A. DATI IDENTIFICATIVI -->
+  <xs:element name="datiIdentificativi">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_A_potenzaTermicaNomTotMax" type="xs:decimal"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- B. DOCUMENTAZIONE TECNICA -->
+  <xs:element name="documentazioneTecnica">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_B_flagDichiarazConfSI" type="xs:boolean"/>
+         <xs:element name="A_B_flagDichiarazConfNO" type="xs:boolean"/>
+         <xs:element name="A_B_flagManutGenSI" type="xs:boolean"/>
+         <xs:element name="A_B_flagManutGenNO" type="xs:boolean"/>
+         <xs:element name="A_B_flagLibrettoImpSI" type="xs:boolean"/>
+         <xs:element name="A_B_flagLibrettoImpNO" type="xs:boolean"/>
+         <xs:element name="A_B_flagLibrettoCompSI" type="xs:boolean"/>
+         <xs:element name="A_B_flagLibrettoCompNO" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- C. TRATTAMENTO ACQUA -->
+  <xs:element name="trattamentoAcqua">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_C_durezzaTotH2O" type="xs:decimal"/>
+         <xs:element name="A_C_flagTrattH2ONR" type="xs:boolean"/>
+         <xs:element name="A_C_flagTrattH2OAssente" type="xs:boolean"/>
+         <xs:element name="A_C_flagTrattH2OFiltraz" type="xs:boolean"/>
+         <xs:element name="A_C_flagTrattH2OAddolcim" type="xs:boolean"/>
+         <xs:element name="A_C_flagTrattH2OCondizChimico" type="xs:boolean"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- D. CONTROLLO IMPIANTO -->
+  <xs:element name="controlloImpianto">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_D_flagLuogoIdoneoSI" type="xs:boolean"/>
+         <xs:element name="A_D_flagLuogoIdoneoNO" type="xs:boolean"/>
+         <xs:element name="A_D_flagLuogoIdoneoNC" type="xs:boolean"/>
+         
+         <xs:element name="A_D_flagDimensioniSI" type="xs:boolean"/>
+         <xs:element name="A_D_flagDimensioniNO" type="xs:boolean"/>
+         <xs:element name="A_D_flagDimensioniNC" type="xs:boolean"/>
+         
+         <xs:element name="A_D_flagApertureSI" type="xs:boolean"/>
+         <xs:element name="A_D_flagApertureNO" type="xs:boolean"/>
+         <xs:element name="A_D_flagApertureNC" type="xs:boolean"/>
+         
+         <xs:element name="A_D_flagLineeIdoneeSI" type="xs:boolean"/>
+         <xs:element name="A_D_flagLineeIdoneeNO" type="xs:boolean"/>
+         <xs:element name="A_D_flagLineeIdoneeNC" type="xs:boolean"/>
+         
+         <xs:element name="A_D_flagCanaleFumoSI" type="xs:boolean"/>
+         <xs:element name="A_D_flagCanaleFumoNO" type="xs:boolean"/>
+         <xs:element name="A_D_flagCanaleFumoNC" type="xs:boolean"/>
+
+         <xs:element name="A_D_flagCapsulaInsoSI" type="xs:boolean"/>
+         <xs:element name="A_D_flagCapsulaInsoNO" type="xs:boolean"/>
+         <xs:element name="A_D_flagCapsulaInsoNC" type="xs:boolean"/>
+         
+         <xs:element name="A_D_flagTenutaIdraulicaSI" type="xs:boolean"/>
+         <xs:element name="A_D_flagTenutaIdraulicaNO" type="xs:boolean"/>
+         <xs:element name="A_D_flagTenutaIdraulicaNC" type="xs:boolean"/>
+         
+         <xs:element name="A_D_flagTenutaOlioSI" type="xs:boolean"/>
+         <xs:element name="A_D_flagTenutaOlioNO" type="xs:boolean"/>
+         <xs:element name="A_D_flagTenutaOlioNC" type="xs:boolean"/>
+
+         <xs:element name="A_D_flagTenutaAlimentazSI" type="xs:boolean"/>
+         <xs:element name="A_D_flagTenutaAlimentazNO" type="xs:boolean"/>
+         <xs:element name="A_D_flagTenutaAlimentazNC" type="xs:boolean"/>
+         
+         <xs:element name="A_D_flagFunzionalitaSI" type="xs:boolean"/>
+         <xs:element name="A_D_flagFunzionalitaNO" type="xs:boolean"/>
+         <xs:element name="A_D_flagFunzionalitaNC" type="xs:boolean"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- E. CONTROLLO E VERIFICA ENERGETICA -->
+   <xs:element name="controlloVerificaEnergetica">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_E_fluidoVett" type="xs:string"/>
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+  
+  <!-- F. CHECK LIST -->
+   <xs:element name="checkList">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_F_flagValvole" type="xs:boolean"/>
+          <xs:element name="A_F_flagIsolamento" type="xs:boolean"/>
+          <xs:element name="A_F_flagSistTrattACS" type="xs:boolean"/>
+          <xs:element name="A_F_flagSistRegolaz" type="xs:boolean"/>
+          
+          <xs:element name="A_F_osservazioni" type="xs:string"/>
+          <xs:element name="A_F_raccomandazioni" type="xs:string"/>
+          <xs:element name="A_F_prescrizioni" type="xs:string"/>
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+
+  <!-- sezione dati del tecnico -->
+   <xs:element name="datiTecnico">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_F_flagFunzImpSI" type="xs:boolean"/>
+          <xs:element name="A_F_flagFunzImpNO" type="xs:boolean"/>
+
+          <xs:element name="A_F_dataIntervento" type="xs:date"/>
+          <xs:element name="A_F_orarioArrivo" type="xs:string"/>
+          <xs:element name="A_F_orarioPartenza" type="xs:string"/>
+          <xs:element name="A_F_nomeTecnico" type="xs:string"/>
+          <xs:element name="A_F_cognomeTecnico" type="xs:string"/>
+          
+          <xs:element name="A_F_firmaTecnico" type="xs:string"/>
+          <xs:element name="A_F_firmaResp" type="xs:string"/>
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+
+
+</xs:schema>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

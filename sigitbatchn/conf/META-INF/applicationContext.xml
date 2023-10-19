@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"
+	default-autowire="autodetect">
+
+	<!--bean name="loggerHelper" class="it.csi.sigit.sigitbatchn.business.utility.LoggerHelper">
+		<constructor-arg value="sigitbatch" />
+		<constructor-arg value="business" />
+	</bean-->
+
+	<!-- QUESTO FORSE SERVE -->
+	<!--bean name="dbLoggerHelper" class="it.csi.sigit.sigitbatchn.business.utility.DbLoggerHelper">
+		<property name="businessMgr" ref="businessMgr"/>
+	</bean-->
+
+	<!-- bean name="mailServer" class="it.csi.sigit.sigitbatchn.business.util.mail.MailServer">
+		
+		<property name="host" value="@mail.server@"/>
+		
+	</bean-->
+
+	<bean name="mailSender" class="it.csi.sigit.sigitbatchn.business.util.mail.MailSender">
+		<!--property name="mailServer" ref="mailServer"/>
+		<property name="debugMessages" value="true"/-->
+	</bean>
+
+	<bean id="dbMgr" class="it.csi.sigit.sigitbatchn.business.manager.DbMgr">
+		<property name="sigitTImportDao">
+			<ref bean="sigitTImportDao"/>
+		</property>
+	
+		<property name="sigitTPersonaFisicaDao">
+			<ref bean="sigitTPersonaFisicaDao"/>
+		</property>
+
+		<property name="sigitWrkConfigDao">
+			<ref bean="sigitWrkConfigDao"/>
+		</property>
+
+		
+
+	
+	</bean>
+	
+	<bean id="serviceIndex" class="it.csi.sigit.sigitbatchn.business.manager.IndexServiceImp">
+        	<constructor-arg value="@index.wsdl.url@"></constructor-arg>
+    </bean>  
+
+	<bean id="cxf" class="it.doqui.index.ecmengine.client.mtom.EcmEngineMtomDelegateImpl">
+        	<constructor-arg value="@mtom.wsdl.url@"></constructor-arg>
+    </bean> 
+    	
+   	<bean id="ricevutaBuilder" class="it.csi.sigit.sigitbatchn.business.pdf.RicevutaBuilder">
+   	</bean>
+	<!--bean id="badXmlnsXmlDataWriter" class="it.csi.sigit.sigitbatchn.batch.writer.BadXmlnsXmlDataWriter">
+		<property name="wrongNameSpace" value="http://www.example.org/posizioneEC"/>
+		<property name="correctNameSpace" value="http://www.csi.it/sigit/sigitbatch/xml/posizioneec"/>
+	</bean>
+	
+	<bean id="gzipArchiveExtractor" class="it.csi.sigit.sigitbatchn.business.utility.GZipArchiveExtractor">
+		<property name="dataWriter" ref="badXmlnsXmlDataWriter"/>
+		<property name="loggerHelper" ref="loggerHelper"/>
+	</bean>
+	
+	<bean id="zipArchiveExtractor" class="it.csi.sigit.sigitbatchn.business.utility.ZipArchiveExtractor">
+		<property name="dataWriter" ref="badXmlnsXmlDataWriter"/>
+		<property name="loggerHelper" ref="loggerHelper"/>
+	</bean>
+	
+	<bean id="archiveExtractorsList" class="java.util.HashMap">
+		<constructor-arg index="0">
+			<map>
+				<entry key="ZIP" value-ref="zipArchiveExtractor"/>
+				<entry key="GZ" value-ref="gzipArchiveExtractor"/>
+				<entry key="GZIP" value-ref="gzipArchiveExtractor"/>
+			</map>
+		</constructor-arg>
+	</bean-->
+</beans>

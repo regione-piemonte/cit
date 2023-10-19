@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+		Copyright 2009 (c) CSI Piemonte.
+
+        Per una lista completa dei tasks eseguibili usare l'argomento di
+        ant -projecthelp quando si richiama questo build.xml.
+-->
+
+<project name="sigitbatchn" xmlns:ivy="antlib:fr.jayasoft.ivy.ant" default="default">
+
+	<description>Build file di progetto</description>
+
+	<echo message="Loading build properties..." />
+	<property file="buildfiles/build.properties" />
+	<property file="buildfiles/${target}.properties" />
+
+	<path id="library.ref">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+			<include name="**/*.zip" />
+		</fileset>
+	</path>
+
+	<target name="default" description="Eseguire il build per l'environment specificato a linea di comando con -Dtarget=${target} o per tutti gli environment (se non specificato).">
+		<condition property="first-call" value="distribution">
+			<not>
+				<equals arg1="${target}" arg2="$${target}" />
+			</not>
+		</condition>
+		<condition property="first-call" value="all-targets">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+		<echo message="target: ${target}" />
+		<echo message="first-call: ${first-call}" />
+		<antcall target="clean-all" />
+		<antcall target="${first-call}" />
+	</target>
+
+	<target name="all-targets" description="Esegue il build per le varie distribuzioni in sequenza.">
+		<antcall target="distribution">
+			<param name="target" value="dev" />
+		</antcall>
+		<antcall target="distribution">
+			<param name="target" value="tst" />
+		</antcall>
+		<antcall target="distribution">
+			<param name="target" value="coll-rp-01" />
+		</antcall>
+		<antcall target="distribution">
+			<param name="target" value="prod-rp-01" />
+		</antcall>
+	</target>
+
+	<target name="component-jar" depends="prepare-package" description="Genera il jar per la componente.">
+		<mkdir dir="${build}/archives/${target}/${componente}/lib/" />
+		<jar destfile="${build}/archives/${target}/${componente}/lib/${componente}.jar" basedir="${build}/classes" includes="log4j.properties, it/csi/${prodotto}/**">
+			<metainf dir="${build}/temp/config/META-INF">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+				<include name="**/*.xsd" />
+			</metainf>
+
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Implementation-Vendor" value="CSI Piemonte" />
+				<attribute name="Implementation-Title" value="SIGIT Batch" />
+				<attribute name="Implementation-Version" value="${version}" />
+				<attribute name="Main-Class" value="it.csi.sigit.sigitbatchn.Exec" />
+				<attribute name="Class-Path" value="${manifest.classpath}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="package-all" description="Esegue il packaging di ogni componente del prodotto">
+		<antcall target="package-component" />
+	</target>
+
+	<target name="init" description="Inizializza lo script Ant.">
+		<tstamp />
+		<condition property="target" value="dev-rp-01">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+		<mkdir dir="${build}/classes" />
+		<mkdir dir="${dist}/${target}" />
+		<mkdir dir="${build}/archives/${target}" />
+	</target>
+
+	<target name="resolve-dependencies" description="Carica le librerie dal repository remoto">
+		<ivy:configure file="${basedir}/buildfiles/ivyconf.xml" />
+		<ivy:resolve file="${basedir}/buildfiles/ivy.xml" />
+	</target>
+
+	<target name="load-dependencies" depends="resolve-dependencies" description="Risolve le dipendenze esterne.">
+		<ivy:retrieve pattern="${basedir}/lib/[artifact].[type]" />
+	</target>
+
+	<target name="compile-all" description="Compila tutti i sorgenti." depends="init, load-dependencies">
+		<echo message="===> Target: ${target}" />
+		<ant antfile="buildfiles/xmlbean-generate.xml" />
+		<!-- compilazione dei sorgenti -->
+		<javac srcdir="${src}/java" destdir="${build}/classes" optimize="on" deprecation="on" compiler="modern" debug="on" debuglevel="lines,vars,source" encoding="Cp1252">
+			<classpath refid="library.ref" />
+		</javac>
+	</target>
+
+	<copy todir="${build}/classes">
+		<fileset dir="${src}/java" excludes="**/*.java*,**/*.jbx*"/>
+	</copy>
+	
+	<target name="prepare-package" description="Crea l'alberatura per il tar">
+		<mkdir dir="${build}/archives/${target}/${componente}" />
+		<mkdir dir="${build}/archives/${target}/${componente}/config" />
+		<mkdir dir="${build}/archives/${target}/${componente}/logs" />
+		<mkdir dir="${build}/archives/${target}/${componente}/lib" />
+		<echo message="copia:::::  lib --> ${build}/archives/${target}/${componente}/lib" />
+		<copy todir="${build}/archives/${target}/${componente}/lib" >
+			<fileset dir="${lib}"/>
+		</copy>
+		<echo message="copia:::::  buildfiles/${target}.properties --> ${build}/classes/parametri.properties" />
+		<copy file="${config}/META-INF/log4j.properties" tofile="${build}/archives/${target}/${componente}/config/log4j.properties" />
+		<copy file="${config}/META-INF/log4j.properties" tofile="${build}/classes/log4j.properties" />
+		<copy overwrite="true" file="buildfiles/${target}.properties" tofile="${build}/archives/${target}/${componente}/config/parametri.properties" />
+		<replace file="${build}/archives/${target}/${componente}/config/log4j.properties" token="@log.filename@" value="${log.filename}" />
+		<replace file="${build}/archives/${target}/${componente}/config/log4j.properties" token="@csv.filename@" value="${csv.filename}" />
+		<replace file="${build}/archives/${target}/${componente}/config/log4j.properties" token="@log.path@" value="${log.path}" />
+		<replace file="${build}/classes/log4j.properties" token="@log.filename@" value="${log.filename}" />
+		<replace file="${build}/classes/log4j.properties" token="@csv.filename@" value="${csv.filename}" />
+		<replace file="${build}/classes/log4j.properties" token="@log.path@" value="${log.path}" />
+		
+		
+
+	</target>
+
+	<target name="environment-config" description="Predispone le configurazioni dipendenti dall'ambiente.">
+		<copy todir="${build}/temp/config/META-INF" overwrite="true">
+			<fileset dir="${config}/META-INF" />
+		</copy>
+		<!-- parametri per la configurazione della connessione al DB -->
+		<replace file="${build}/temp/config/META-INF/jdbc.properties" token="@app.jdbc.driver@" value="${app.jdbc.driver}" />
+		<replace file="${build}/temp/config/META-INF/jdbc.properties" token="@app.jdbc.url@" value="${app.jdbc.url}" />
+		<replace file="${build}/temp/config/META-INF/jdbc.properties" token="@app.db.username@" value="${app.db.username}" />
+		<replace file="${build}/temp/config/META-INF/jdbc.properties" token="@app.db.password@" value="${app.db.password}" />
+		<!-- parametri per la configurazione del log4j -->
+		<replace file="${build}/temp/config/META-INF/log4j.properties" token="@log.filename@" value="${log.filename}" />
+		<replace file="${build}/temp/config/META-INF/log4j.properties" token="@csv.filename@" value="${csv.filename}" />
+		<replace file="${build}/temp/config/META-INF/log4j.properties" token="@log.path@" value="${log.path}" />
+		<!-- parametri per la configurazione della mail -->
+		<replace file="${build}/temp/config/META-INF/sigitbatchn.properties" token="@mail.host@" value="${mail.host}" />
+		<replace file="${build}/temp/config/META-INF/sigitbatchn.properties" token="@mail.port@" value="${mail.port}" />
+		<replace file="${build}/temp/config/META-INF/sigitbatchn.properties" token="@mail.user@" value="${mail.user}" />
+		<replace file="${build}/temp/config/META-INF/sigitbatchn.properties" token="@mail.pwd@" value="${mail.pwd}" />
+		<replace file="${build}/temp/config/META-INF/sigitbatchn.properties" token="@notify.mb.url@" value="${notify.mb.url}" />
+		<!--replace file="${build}/temp/config/META-INF/sigitbatchn.properties" token="@notify.status.url@" value="${notify.status.url}" /-->
+		<replace file="${build}/temp/config/META-INF/sigitbatchn.properties" token="@notify.token@" value="${notify.token}" />
+		<replace file="${build}/temp/config/META-INF/sigitbatchn.properties" token="@citpwa.url@" value="${citpwa.url}" />
+		<!--replace file="${build}/temp/config/META-INF/applicationContext.xml"
+			    token="@mail.server@"
+			    value="${mail.server}" /-->
+		
+	  	<!--replace file="${build}/temp/config/META-INF/defpd_tavt.xml" 
+	  			token="@tavt.tavt.tavt.pa.url@"  
+	  			value="${tavt.tavt.tavt.pa.url}"/-->
+	  	
+	  	<!--replace file="${build}/temp/config/META-INF/defpd_indexmngmt.xml" 
+	  			token="@index.ecmengine.indexmngmt.pa.url@"  
+	  			value="${index.ecmengine.indexmngmt.pa.url}"/>
+
+		<replace file="${build}/temp/config/META-INF/defpd_indexmngmt.xml" 
+			  			token="@index.ecmengine.bean@"  
+			  			value="${index.ecmengine.bean}"/>
+		
+		<replace file="${build}/temp/config/META-INF/defpd_indexmngmt.xml" 
+	  			token="@index.partition.name@"  
+	  			value="${index.partition.name}"/>
+
+	  	<replace file="${build}/temp/config/META-INF/defpd_indexsearch.xml" 
+	  			token="@index.ecmengine.indexsearch.pa.url@"  
+	  			value="${index.ecmengine.indexsearch.pa.url}"/>
+	  	
+	  	<replace file="${build}/temp/config/META-INF/defpd_indexsearch.xml" 
+	  			token="@index.ecmengine.bean@"  
+	  			value="${index.ecmengine.bean}"/>
+		
+		<replace file="${build}/temp/config/META-INF/defpd_indexsearch.xml" 
+	  			token="@index.partition.name@"  
+	  			value="${index.partition.name}"/>
+
+	  	<replace file="${build}/temp/config/META-INF/defpd_indexsecurity.xml" 
+	  			token="@index.ecmengine.indexsecurity.pa.url@"  
+	  			value="${index.ecmengine.indexsecurity.pa.url}"/>
+	  	
+		<replace file="${build}/temp/config/META-INF/defpd_indexsecurity.xml" 
+					  			token="@index.ecmengine.bean@"  
+					  			value="${index.ecmengine.bean}"/-->
+		
+	  	<!--replace file="${build}/temp/config/META-INF/pd_topesv_Topo.xml" 
+	  			token="@TOPE.PROVIDER.URL@"  
+	  			value="${tope.provider.url}"/-->
+	  	<!--
+	  	<replace file="${build}/temp/config/META-INF/defpd_modolsrv.xml" 
+	  	  		token="@url.t3@"  
+	  	  		value="${modol.pa.url}"/>
+		-->
+		<replace file="${build}/temp/config/META-INF/applicationContext.xml" 
+		  	  	  	  			token="@index.wsdl.url@"  
+		  	  	  	  			value="${index.wsdl.url}"/>
+
+		<replace file="${build}/temp/config/META-INF/applicationContext.xml" 
+		  	  	  	  			token="@mtom.wsdl.url@"  
+		  	  	  	  			value="${mtom.wsdl.url}"/>
+		
+		<replace file="${build}/temp/config/META-INF/jdbc.properties" 
+	  			token="@app.jdbc.driver@"  
+	  			value="${app.jdbc.driver}"/>
+		<replace file="${build}/temp/config/META-INF/jdbc.properties" 
+	  			token="@app.jdbc.url@"  
+	  			value="${app.jdbc.url}"/>
+		<replace file="${build}/temp/config/META-INF/jdbc.properties" 
+	  			token="@app.db.username@"  
+	  			value="${app.db.username}"/>
+		<replace file="${build}/temp/config/META-INF/jdbc.properties" 
+	  			token="@app.db.password@"  
+	  			value="${app.db.password}"/>
+
+	</target>
+
+	<target name="package-component" description="Costruisce il componente" depends="compile-all, environment-config, component-jar">
+		<echo message="===> Component ** ${temp}/${target}" />
+	</target>
+
+	<target name="distribution" description="Costruisce il tar per la distribuzione." depends="package-all">
+		<echo>====== Creating distribution for ${target} ...</echo>
+		<echo>====== Basedir: ${build}/archives/${target} ... </echo>
+		<copy todir="${build}/archives/${target}/${componente}/lib" overwrite="true">
+			<fileset dir="${lib}" includes="*.jar" />
+		</copy>
+		<tar tarfile="${dist}/${target}/${componente}-${version}.tar" basedir="${build}/archives/${target}">
+			<tarfileset dir="buildfiles">
+				<include name="readme.txt" />
+			</tarfileset>
+		</tar>
+		<delete>
+			<fileset dir="${dist}/${target}" excludes="**/*.tar" />
+		</delete>
+		<!-- Operazioni per l'esecuzione all'interno di Eclipse -->
+		<mkdir dir="${build}/lastVersion" />
+		<copy todir="${build}/lastVersion" overwrite="true">
+			<fileset dir="${build}/archives/${target}/${componente}/lib" includes="${componente}.jar" />
+		</copy>
+	</target>
+
+	<!-- clean targets -->
+
+	<target name="clean-all" description="Rimuove tutte le cartelle temporanee." depends="clean-archives, clean-cache, clean-classes, clean-dist, clean-javadoc, clean-temp" />
+
+	<target name="clean-cache" description="Rimuove la cartella di cache di Ivy e la lib.">
+		<delete dir="${build}/cache" />
+		<delete dir="lib" />
+	</target>
+
+	<target name="clean-temp" description="Rimuove la cartella dei files temporanei di build.">
+		<delete dir="${temp}" />
+	</target>
+
+	<target name="clean-archives" description="Rimuove la cartella degli archivi (war, ear, ...).">
+		<delete dir="${build}/archives" />
+	</target>
+
+	<target name="clean-dist" description="Rimuove la cartella delle distribuzioni.">
+		<delete dir="${dist}" />
+	</target>
+
+	<target name="clean-classes" description="Rimuove la cartella dei sorgenti compilati.">
+		<delete dir="${build}/classes" />
+	</target>
+
+	<target name="clean-javadoc" description="Rimuove la cartella temporanea dei javadoc.">
+		<delete dir="${build}/javadoc" />
+	</target>
+
+	<!-- imported tasks from other files -->
+
+	<target name="javadoc" depends="init" description="Genera la documentazione javadoc.">
+		<ant antfile="buildfiles/build.javadoc.xml" target="javadoc" />
+	</target>
+
+	<target name="about" description="Visualizza l'elenco dei target pubblici dello script.">
+		<loadproperties srcfile="buildfiles/build.properties" />
+		<loadfile property="about" srcfile="buildfiles/about.txt" encoding="Cp1252"/>
+		<echo message="${about}" />
+	</target>
+
+	<target name="about-custom" description="Visualizza l'elenco di tutti i target, pubblici e privati (equivalente a 'ant -projecthelp')">
+		<loadproperties srcfile="buildfiles/build.properties" />
+		<loadfile property="about-custom" srcfile="buildfiles/about-custom.txt"  encoding="Cp1252"/>
+		<echo message="${about-custom}" />
+		<java classname="org.apache.tools.ant.Main">
+			<arg value="-projecthelp" />
+		</java>
+	</target>
+
+	<target name="show-vars" depends="init" description="Visualizza tutte le variabili impostate nei file di properties e/o da linea di comando">
+		<echo message="*****************************************" />
+		<echo message="********  ${componente} environment  *******" />
+		<echo message="*****************************************" />
+		<echoproperties />
+		<echo />
+		<echo />
+		<echo message="*****************************************" />
+		<echo message="********    java properties      *******" />
+		<echo message="*****************************************" />
+		<echoproperties prefix="java." />
+	</target>
+
+	<target name="__download-libs">
+		<delete dir="lib" />
+		<antcall target="load-dependencies" />
+	</target>
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml" />
+</project>

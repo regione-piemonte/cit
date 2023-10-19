@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+  
+  <bean name="sigitbatchMgr" class="it.csi.sigit.sigitbatchn.business.manager.SigitbatchMgr">
+		<property name="dbMgr" ref="dbMgr"/>
+		<property name="serviziMgr" ref="serviziMgr"/>
+		<property name="validationMgr" ref="validationMgr"/>
+		<property name="ricevutaBuilder" ref="ricevutaBuilder"></property>
+	</bean>
+	
+	
+	
+	<bean id="serviziMgr" class="it.csi.sigit.sigitbatchn.business.manager.ServiziMgr">
+		<property name="dbMgr" ref="dbMgr"/>
+		<property name="serviceIndex" ref="serviceIndex"/>
+	</bean>
+	
+	<bean id="validationMgr" class="it.csi.sigit.sigitbatchn.business.manager.ValidationMgr">
+		<property name="dbMgr" ref="dbMgr"/>
+		<property name="serviziMgr" ref="serviziMgr"/>
+		
+	</bean>
+	
+	<bean name="importMassivoAllegatiBatch" class="it.csi.sigit.sigitbatchn.batch.importmassivoallegati.ImportMassivoAllegatiBatch">
+		<property name="sigitbatchMgr" ref="sigitbatchMgr"/>
+	</bean>
+</beans>
+
