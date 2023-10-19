@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="risultato_ricerca_allegati_module" extends="jsp-package" namespace="/base/risultato_ricerca_allegati_module">
+
+		
+<action name="cpRisultatoRicercaAllegati" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.risultato_ricerca_allegati_module.CpRisultatoRicercaAllegatiAction">
+	<result name="input">/jsp/cpRisultatoRicercaAllegati.jsp</result>
+	<result name="success">/jsp/cpRisultatoRicercaAllegati.jsp</result>
+	
+	<result name="GO_TO_cpGestReeTipo1" type="chain">
+		<param name="actionName">cpGestReeTipo1</param>
+		<param name="namespace">/base/gestisci_ree_tipo1</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo2" type="chain">
+		<param name="actionName">cpGestReeTipo2</param>
+		<param name="namespace">/base/gestisci_ree_tipo2</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo3" type="chain">
+		<param name="actionName">cpGestReeTipo3</param>
+		<param name="namespace">/base/gestisci_ree_tipo3</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo4" type="chain">
+		<param name="actionName">cpGestReeTipo4</param>
+		<param name="namespace">/base/gestisci_ree_tipo4</param>
+	</result>
+	<result name="GO_TO_cpRespingiAllegato" type="chain">
+		<param name="actionName">cpRespingiAllegato</param>
+		<param name="namespace">/base/respingi_allegato</param>
+	</result>
+	<result name="GO_TO_cpGestisciReeDocumenti" type="chain">
+		<param name="actionName">cpGestisciReeDocumenti</param>
+		<param name="namespace">/base/gestisci_ree_documenti</param>
+	</result>
+	<result name="GO_TO_cpRicercaAllegati" type="chain">
+		<param name="actionName">cpRicercaAllegati</param>
+		<param name="namespace">/base/ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_EXPORT_EXCEL" type="redirect">
+		<param name="location">exportExcelRisultatoRicercaAllegati.do</param>
+	</result>
+	<result name="GO_TO_EX_recAllegato" type="redirect">
+		<param name="location">recuperaAllegato.do</param>
+	</result>
+	<result name="GO_TO_EX_ricevutaAllegato" type="redirect">
+		<param name="location">showRicevutaAllegato.do</param>
+	</result>
+	<result name="SHOW_dpInviaAllegato">/jsp/dialogpanels/cpRisultatoRicercaAllegati_dpInviaAllegato.jsp</result>
+	<result name="SHOW_dpEliminaAllegati">/jsp/dialogpanels/cpRisultatoRicercaAllegati_dpEliminaAllegati.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R-1587015212) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		
+		<action name="showRicevutaAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.ShowRicevutaAllegato">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpRisultatoRicercaAllegati</result>
+		</action>
+		
+				<action name="recuperaAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaAllegato">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpRisultatoRicercaAllegati</result>
+		</action>
+		
+		<action name="salvaModuloAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.SalvaAllegato">
+			<result name="OK" type="chain">cpRisultatoRicercaAllegati</result>
+			<result name="KO" type="chain">cpRisultatoRicercaAllegati</result>
+		</action>
+
+		<action name="exportExcelRisultatoRicercaAllegati" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.excel.ExportExcelRisultatoRicercaAllegati">
+			<result name="downloadFile" type="stream">
+				<param name="contentType">${contentType}</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">1024</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="KO" type="chain">cpRisultatoRicercaAllegati</result>
+		</action>
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

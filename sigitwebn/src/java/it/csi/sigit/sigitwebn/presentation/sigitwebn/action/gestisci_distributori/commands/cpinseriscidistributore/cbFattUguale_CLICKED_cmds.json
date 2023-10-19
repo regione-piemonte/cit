@@ -1,0 +1,38 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["rbDistribIsImpresaFatt","tfDistribCognomeFatt","tfDistribNomeFatt","tfDistribCfFatt","cbFornProvinciaFatt","cbFornComuneFatt","tfIndirizzoFatt","btnCercaIndirizzoFatt","tfIFattCivico","tfIFattCAP"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbFattIndirizzo","btnNuovaRicercaIndFatt","tfIFattNoStrad"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbFornProvinciaFatt","cbFornComuneFatt","tfIndirizzoFatt"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["rbDistribIsImpresaFatt","tfDistribCognomeFatt","tfDistribNomeFatt","tfDistribCfFatt","cbFornProvinciaFatt","cbFornComuneFatt","tfIndirizzoFatt","btnCercaIndirizzoFatt","cbFattIndirizzo","btnNuovaRicercaIndFatt","tfIFattNoStrad","tfIFattCivico","tfIFattCAP"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["VISUALIZZA","NASCONDI"],
+	"nomeMetodo":"gestIndirizzoFatturazione",
+	"appDataToStore":[]
+}
+] 
+}

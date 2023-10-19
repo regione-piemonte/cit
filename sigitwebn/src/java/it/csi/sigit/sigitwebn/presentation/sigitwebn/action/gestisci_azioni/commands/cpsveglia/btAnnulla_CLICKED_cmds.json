@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpDettaglioVerifica", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpDettaglioAccertamento", 
+	"pushCurrent":false
+}
+],
+	"esiti":["VERIFICA","ACCERTAMENTO"],
+	"nomeMetodo":"annullaSveglia",
+	"appDataToStore":[]
+}

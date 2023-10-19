@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda5_1VRDett",
+  "nomeWidget": "menuLibretto",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DummyUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda5_1VRDett",
+  "nomeWidget": "menuLibretto",
+  "fixedValue": true
+}
+
+  ]
+}

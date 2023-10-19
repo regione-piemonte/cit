@@ -1,0 +1,86 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["rapProvaDatiGenerali"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"inizializzaElencoRappProva",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnInserisciRappProva"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnModificaRappProva","btnDettaglioRappProva","btnAnnullaRappProva","btnRicevutaRappProva","btnDocumentazioneRappProva"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnInserisciRappProva","btnModificaRappProva","btnDettaglioRappProva","btnAnnullaRappProva","btnRicevutaRappProva","btnDocumentazioneRappProva"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isDatiPresenti",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnInserisciRappProva","btnModificaRappProva","btnDettaglioRappProva","btnAnnullaRappProva","btnRicevutaRappProva","btnDocumentazioneRappProva"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isAutorizzatoBtn",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btnInserisciRappProva","btnModificaRappProva","btnDettaglioRappProva","btnAnnullaRappProva","btnRicevutaRappProva","btnDocumentazioneRappProva"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnInserisciRappProva","btnModificaRappProva","btnDettaglioRappProva","btnAnnullaRappProva","btnRicevutaRappProva","btnDocumentazioneRappProva"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["VISUALIZZA","NASCONDI"],
+	"nomeMetodo":"gestioneVisBottoniInit",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDatiAllegato",
+	"contentPanelName":"cpDettaglioIspezione",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btnInserisciIspezionePerImpianto"],
+	"targetsMenuElement":[]
+}
+] 
+}

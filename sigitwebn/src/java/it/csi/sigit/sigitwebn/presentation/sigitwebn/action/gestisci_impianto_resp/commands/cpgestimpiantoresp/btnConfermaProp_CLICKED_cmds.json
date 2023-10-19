@@ -1,0 +1,15 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cImpDataCessazione","btnConfermaProp"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"cessaProprietario",
+	"appDataToStore":[]
+}

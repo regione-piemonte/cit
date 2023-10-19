@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="risultato_ricerca_verifiche" extends="jsp-package" namespace="/base/risultato_ricerca_verifiche">
+
+		
+<action name="cpRisRicercaVerifiche" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.risultato_ricerca_verifiche.CpRisRicercaVerificheAction">
+	<result name="input">/jsp/cpRisRicercaVerifiche.jsp</result>
+	<result name="success">/jsp/cpRisRicercaVerifiche.jsp</result>
+	
+	<result name="GO_TO_cpGestVerifica" type="chain">
+		<param name="actionName">cpGestVerifica</param>
+		<param name="namespace">/base/gestisci_verifica</param>
+	</result>
+	<result name="GO_TO_cpDettaglioVerifica" type="chain">
+		<param name="actionName">cpDettaglioVerifica</param>
+		<param name="namespace">/base/gestisci_verifica</param>
+	</result>
+	<result name="GO_TO_cpRicercaVerifiche" type="chain">
+		<param name="actionName">cpRicercaVerifiche</param>
+		<param name="namespace">/base/ricerca_verifiche</param>
+	</result>
+	<result name="GO_TO_cpRisRicercaVerifiche" type="chain">
+		<param name="actionName">cpRisRicercaVerifiche</param>
+		<param name="namespace">/base/risultato_ricerca_verifiche</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_EXPORT_EXCEL" type="redirect">
+		<param name="location">exportExcelVerifiche.do</param>
+	</result>
+	<result name="SHOW_dpEliminaVerifica">/jsp/dialogpanels/cpRisRicercaVerifiche_dpEliminaVerifica.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R1937174067) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<action name="exportExcelVerifiche" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.excel.ExportExcelVerifiche">
+			<result name="downloadFile" type="stream">
+				<param name="contentType">${contentType}</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">1024</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="KO" type="chain">cpRisRicercaAccertamenti</result>
+		</action>
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

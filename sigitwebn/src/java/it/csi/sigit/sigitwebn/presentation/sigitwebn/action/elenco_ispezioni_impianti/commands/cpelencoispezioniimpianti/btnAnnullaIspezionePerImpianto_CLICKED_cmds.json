@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ShowDialogCommand" ,
+	"name":"dpAnnullaIspezioniPerImpianto"
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ShowDialogCommand" ,
+	"name":"dpCancellaIspezioniPerImpianto"
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","OK_CANC","KO"],
+	"nomeMetodo":"annullaIspezionePerImpianto",
+	"appDataToStore":[]
+}

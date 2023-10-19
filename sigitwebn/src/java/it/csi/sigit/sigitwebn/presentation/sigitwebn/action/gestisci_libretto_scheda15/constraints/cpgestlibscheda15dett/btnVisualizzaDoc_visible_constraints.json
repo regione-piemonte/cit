@@ -1,0 +1,26 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda15Dett",
+  "nomeWidget": "btnVisualizzaDoc",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda15Dett",
+  "nomeWidget": "btnVisualizzaDoc",
+	"language": "beanshell",
+	"script": "model.appDataelencoDocumenti != null && model.appDataelencoDocumenti.size() > 0"
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.CustomUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda15Dett",
+  "nomeWidget": "btnVisualizzaDoc",
+	"methodNameSuffix": "IsAbilitatoVisualDoc"
+}
+
+
+  ]
+}

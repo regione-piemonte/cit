@@ -1,0 +1,101 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"isRuoloAbilitato",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbSecondoIspettore","ptDataConclusione","ptEsitoIspezione","ptEnteCompetente","ptSveglia"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpElenchi",
+	"contentPanelName":"cpDettaglioIspezione2018",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpAzioniIspezione",
+	"contentPanelName":"cpDettaglioIspezione2018",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpUploadRappProvaFirmato",
+	"contentPanelName":"cpDettaglioIspezione2018",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btConsolidaRapProva","btAnnullaRapProva","btDettaglioRapProva","btModificaRapProva","btInserisciRapProva","btCaricaRapProvaFirmato","tbRapportiProva"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbSecondoIspettore","ptDataConclusione","ptEsitoIspezione","ptEnteCompetente","ptSveglia"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpElenchi",
+	"contentPanelName":"cpDettaglioIspezione2018",
+	"itemName": "fpElenchi"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpAzioniIspezione",
+	"contentPanelName":"cpDettaglioIspezione2018",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpUploadRappProvaFirmato",
+	"contentPanelName":"cpDettaglioIspezione2018",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btConsolidaRapProva","btAnnullaRapProva","btDettaglioRapProva","btModificaRapProva","btInserisciRapProva","btCaricaRapProvaFirmato","tbRapportiProva"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["provComp","comComp"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK_INSERIMENTO","OK_DETTAGLIO","KO"],
+	"nomeMetodo":"preparaIspezione",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["provComp"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["provComp","comComp"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["provComp","comComp"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["RUOLO_PA_PROVINCIA","RUOLO_PA_COMUNE","RUOLO_ALTRO"],
+	"nomeMetodo":"gestisciAbilRuoloEnte",
+	"appDataToStore":[]
+}
+] 
+}

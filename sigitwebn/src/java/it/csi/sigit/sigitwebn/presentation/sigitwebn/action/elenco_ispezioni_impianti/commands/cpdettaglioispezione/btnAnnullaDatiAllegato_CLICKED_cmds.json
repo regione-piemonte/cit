@@ -1,0 +1,21 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["calDataControllo","cbTipoAllegato","btnAnnullaDatiAllegato","btnChiudiDatiAllegato"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["btnInserisciRappProva","btnModificaRappProva","btnDettaglioRappProva","btnAnnullaRappProva"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"ripulisciDatiAllegato",
+	"appDataToStore":[]
+}

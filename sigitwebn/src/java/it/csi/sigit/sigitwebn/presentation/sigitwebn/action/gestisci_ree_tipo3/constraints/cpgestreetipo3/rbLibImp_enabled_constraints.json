@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestReeTipo3",
+  "nomeWidget": "rbLibImp",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DummyUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestReeTipo3",
+  "nomeWidget": "rbLibImp",
+  "fixedValue": true
+}
+
+  ]
+}

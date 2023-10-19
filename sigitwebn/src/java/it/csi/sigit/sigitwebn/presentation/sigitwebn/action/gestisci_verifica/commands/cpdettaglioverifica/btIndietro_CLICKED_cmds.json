@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisRicercaVerifiche", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpElencoSveglie", 
+	"pushCurrent":false
+}
+],
+	"esiti":["RICERCA_VERIFICHE","ELENCO_SVEGLIE"],
+	"nomeMetodo":"gestisciIndietro",
+	"appDataToStore":[]
+}

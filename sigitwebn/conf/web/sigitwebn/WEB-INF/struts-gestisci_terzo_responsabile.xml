@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_terzo_responsabile" extends="jsp-package" namespace="/base/gestisci_terzo_responsabile">
+
+		
+<action name="cpGest3Resp" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_terzo_responsabile.CpGest3RespAction">
+	<result name="input">/jsp/cpGest3Resp.jsp</result>
+	<result name="success">/jsp/cpGest3Resp.jsp</result>
+	
+	<result name="GO_TO_cpConf3Resp" type="chain">
+		<param name="actionName">cpConf3Resp</param>
+		<param name="namespace">/base/conferma_terzo_responsabile</param>
+	</result>
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R532878494) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

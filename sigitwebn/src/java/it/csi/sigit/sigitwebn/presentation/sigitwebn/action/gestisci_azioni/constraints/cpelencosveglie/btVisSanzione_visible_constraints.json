@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpElencoSveglie",
+  "nomeWidget": "btVisSanzione",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpElencoSveglie",
+  "nomeWidget": "btVisSanzione",
+	"language": "beanshell",
+	"script": "model.appDataelencoSveglieSanzione != null && model.appDataelencoSveglieSanzione.size() > 0"
+}
+
+
+  ]
+}

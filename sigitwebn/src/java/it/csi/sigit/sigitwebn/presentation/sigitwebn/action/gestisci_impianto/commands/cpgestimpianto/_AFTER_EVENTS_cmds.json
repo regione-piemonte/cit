@@ -1,0 +1,83 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnRespInserisci","btnModificaProp"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnInstCercaCF","btnInstNuovaRicercaCF"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbInstSiglaRea","tfInstNumRea","tfInstCf","tfImpCodImp","cImpDataAss"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnRespModifica"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnRespModifica"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["VISUALIZZA_BOT_EL_RESP","NASCONDI_BOT_EL_RESP"],
+	"nomeMetodo":"gestLogicaElenResponsabile",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpImportLibretto",
+	"contentPanelName":"cpGestImpianto",
+	"itemName": "FunImportLibretto"}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpImportLibretto",
+	"contentPanelName":"cpGestImpianto",
+	"itemName": null}
+],
+	"esiti":["VISUALIZZA","NASCONDI"],
+	"nomeMetodo":"gestLogicaImportLibretto",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["VISUALIZZA","NASCONDI"],
+	"nomeMetodo":"gestLogicaBotInsModLibretto",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["PRESENTE","NON_PRESENTE"],
+	"nomeMetodo":"gestisciLogicaImpPresente",
+	"appDataToStore":[]
+}
+] 
+}

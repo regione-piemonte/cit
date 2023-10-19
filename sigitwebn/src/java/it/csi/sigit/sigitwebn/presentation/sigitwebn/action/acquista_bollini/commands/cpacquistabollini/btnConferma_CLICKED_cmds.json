@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisRicBollini", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpPagaBollini", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","OK_PAGAMENTO","KO"],
+	"nomeMetodo":"acquistaBollini",
+	"appDataToStore":[]
+}

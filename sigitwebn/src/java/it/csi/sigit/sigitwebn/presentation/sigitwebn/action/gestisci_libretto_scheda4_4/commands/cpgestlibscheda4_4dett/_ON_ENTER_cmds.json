@@ -1,0 +1,114 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"isRuoloAbilitato",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"caricaSchedaDett",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btSalvaDett","btRipristinaAttualeDett","bRiattivaComponente","bDismettiComponente","bSostituisciComponente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cDataInstallazione","cDataDismissione","cbFabbricante","tfModello","tfMatricola","tfFluidoFrigorigeno","cbFonteEnergiaSfruttata","cbFluidoLatoUtenze","cbTipologia","cbCombustibile","tfNumCircuiti","tfManutenzione","tfEer","tfPotenzaFrigo","tfPotenzaAssNom","tfCop","tfPotenzaRisc","tfPotenzaAssRiscNom","bSostituisciComponente","bDismettiComponente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["bRiattivaComponente"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cDataInstallazione","cDataDismissione","cbFabbricante","tfModello","tfMatricola","tfFluidoFrigorigeno","cbFonteEnergiaSfruttata","cbFluidoLatoUtenze","cbTipologia","cbCombustibile","tfNumCircuiti","tfManutenzione","tfEer","tfPotenzaFrigo","tfPotenzaAssNom","tfCop","tfPotenzaRisc","tfPotenzaAssRiscNom","bSostituisciComponente","bDismettiComponente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["bRiattivaComponente"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cDataInstallazione","bRiattivaComponente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cDataDismissione","tfManutenzione","tfNumCircuiti","bSostituisciComponente","bDismettiComponente","cbFabbricante","tfModello","tfMatricola","tfFluidoFrigorigeno","cbFonteEnergiaSfruttata","cbFluidoLatoUtenze","cbTipologia","cbCombustibile","ptRaffrescamento","tfEer","tfPotenzaFrigo","tfPotenzaAssNom","ptRiscaldamento","tfCop","tfPotenzaRisc","tfPotenzaAssRiscNom"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cDataInstallazione","cbFabbricante","tfModello","tfMatricola","tfFluidoFrigorigeno","cbFonteEnergiaSfruttata","cbFluidoLatoUtenze","cbTipologia","cbCombustibile","bRiattivaComponente","tfNumCircuiti"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cDataDismissione","tfManutenzione","bSostituisciComponente","bDismettiComponente","tfEer","tfPotenzaFrigo","tfPotenzaAssNom","tfCop","tfPotenzaRisc","tfPotenzaAssRiscNom"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["DISMESSO","ATTIVO","ATTIVO_REE_MODIFICABILE","ATTIVO_REE_NON_MODIFICABILE"],
+	"nomeMetodo":"gestisciAbilitazioneByFlgDismissione",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btSalvaDett","bRiattivaComponente","bDismettiComponente","bSostituisciComponente","btRipristinaAttualeDett"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cDataInstallazione","cDataDismissione","cbFabbricante","tfModello","tfMatricola","tfFluidoFrigorigeno","cbFonteEnergiaSfruttata","cbFluidoLatoUtenze","cbTipologia","cbCombustibile","tfNumCircuiti","tfManutenzione","tfEer","tfPotenzaFrigo","tfPotenzaAssNom","tfCop","tfPotenzaRisc","tfPotenzaAssRiscNom"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["ABILITA","DISABILITA"],
+	"nomeMetodo":"gestisciAbilitazione",
+	"appDataToStore":[]
+}
+] 
+}

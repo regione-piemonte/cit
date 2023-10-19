@@ -1,0 +1,29 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDataRevoca",
+	"contentPanelName":"cpGestLibScheda3",
+	"itemName": null}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDataRevoca",
+	"contentPanelName":"cpGestLibScheda3",
+	"itemName": "fpMpRevoca"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpAutodichiarazioni",
+	"contentPanelName":"cpGestLibScheda3",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnIndietroRoot"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["KO","OK"],
+	"nomeMetodo":"revocaTerzoResponsabile",
+	"appDataToStore":[]
+}

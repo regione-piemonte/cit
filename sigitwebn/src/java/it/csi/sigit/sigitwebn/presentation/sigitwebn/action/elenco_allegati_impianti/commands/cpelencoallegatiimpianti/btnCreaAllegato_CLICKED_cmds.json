@@ -1,0 +1,28 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDatiAllegato",
+	"contentPanelName":"cpElencoAllegatiImpianti",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btnInserisciAllegatoPerImpianto","btnModificaAllegatoPerImpianto","btnDettaglioAllegatoPerImpianto","btnInviaAllegatoPerImpianto","btnRespingiAllegatoPerImpianto","btnEliminaAllegatoPerImpianto","btnRicevutaPerImpianto"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"allegato",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"showAllegato.do",
+	"binaryStream":false 
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"generazioneAllegati",
+	"appDataToStore":[]
+}

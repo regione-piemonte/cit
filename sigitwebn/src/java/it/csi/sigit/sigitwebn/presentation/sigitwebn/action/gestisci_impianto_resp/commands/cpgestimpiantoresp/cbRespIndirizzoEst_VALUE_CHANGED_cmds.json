@@ -1,0 +1,53 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbRespProvincia","cbRespComune","tfRespIndirizzo","btnRespCercaIndirizzo","cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad","tfRespCivico","tfRespCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfRespIndirizzo","btnRespCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"gestIndirizzoConf",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbRespProvincia","cbRespComune","tfRespIndirizzo","btnRespCercaIndirizzo","cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad","tfRespCivico","tfRespCap"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["NAZIONALE","ESTERO"],
+	"nomeMetodo":"gestTipoIndirizzo",
+	"appDataToStore":[]
+}

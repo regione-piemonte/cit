@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestVerifica",
+  "nomeWidget": "ptRisultatoImpianto",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestVerifica",
+  "nomeWidget": "ptRisultatoImpianto",
+	"language": "beanshell",
+	"script": "model.appDataverifica != null && (model.appDataverifica.tipoVerifica == 1 || model.appDataverifica.tipoVerifica == 3 || model.appDataverifica.tipoVerifica == 4 || model.appDataverifica.tipoVerifica == 5 || model.appDataverifica.tipoVerifica == 6 || model.appDataverifica.tipoVerifica == 7)"
+}
+
+
+  ]
+}

@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestReeTipo1Dett",
+  "nomeWidget": "bSalvaReeDett",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestReeTipo1Dett",
+  "nomeWidget": "bSalvaReeDett",
+	"language": "beanshell",
+	"script": "it.csi.sigit.sigitwebn.util.GenericUtil.isUtenteAbilitatoModRee(model.appDatautenteLoggato)"
+}
+
+
+  ]
+}

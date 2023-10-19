@@ -1,0 +1,58 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cDataInstallazione","cDataDismissione","cbFabbricante","tfModello","tfMatricola","tfPotenza","tfDenominazioneProp","tfCFProp","tfAnni","bSostituisciComponente","bDismettiComponente","tfNote"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["bRiattivaComponente"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cDataInstallazione","bRiattivaComponente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cDataDismissione","tfNote","tfAnni","bDismettiComponente","bSostituisciComponente","cbFabbricante","tfModello","tfMatricola","tfPotenza","tfDenominazioneProp","tfCFProp"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cDataInstallazione","cbFabbricante","tfModello","tfMatricola","tfPotenza","bRiattivaComponente","tfAnni"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cDataDismissione","tfNote","bDismettiComponente","bSostituisciComponente","tfDenominazioneProp","tfCFProp"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["ATTIVO","ATTIVO_REE_MODIFICABILE","ATTIVO_REE_NON_MODIFICABILE"],
+	"nomeMetodo":"gestisciAbilitazioneOnRiattiva",
+	"appDataToStore":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"riattivaComponente",
+	"appDataToStore":[]
+}

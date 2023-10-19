@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": false,
+  "nomeContainer": "cpGestLibScheda2",
+  "nomeWidget": "tfFiltrazioneAltro_2",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": false,
+  "nomeContainer": "cpGestLibScheda2",
+  "nomeWidget": "tfFiltrazioneAltro_2",
+	"language": "beanshell",
+	"script": "model.appDatatrattamentoAcqua != null && it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda2.CPBECpGestLibScheda2.TrattamentiAcquaFiltrazioneEnum.ALTRO.name().equals(model.appDatatrattamentoAcqua.l25FlgTrattF)"
+}
+
+
+  ]
+}

@@ -1,0 +1,78 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"isRuoloAbilitato",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["rbAssPerdComb","rbIdoTenImpInt"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["rbPuliziaCamino","rbIdoTenImpIntTipo1B"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpReeTipo1Title",
+	"contentPanelName":"cpGestReeTipo1",
+	"itemName": "fpGestReeTitleTipo1"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpReeTipo1BTitle",
+	"contentPanelName":"cpGestReeTipo1",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpAcquaReintegro",
+	"contentPanelName":"cpGestReeTipo1",
+	"itemName": null}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["rbPuliziaCamino","rbIdoTenImpIntTipo1B"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["rbAssPerdComb","rbIdoTenImpInt"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpReeTipo1Title",
+	"contentPanelName":"cpGestReeTipo1",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpReeTipo1BTitle",
+	"contentPanelName":"cpGestReeTipo1",
+	"itemName": "fpGestReeTitleTipo1B"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpAcquaReintegro",
+	"contentPanelName":"cpGestReeTipo1",
+	"itemName": "fpAcquaReintegro"}
+] 
+}
+],
+	"esiti":["TIPO1","TIPO1B"],
+	"nomeMetodo":"caricaReeTipo1",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"caricaMenuTipo1",
+	"appDataToStore":[]
+}
+] 
+}

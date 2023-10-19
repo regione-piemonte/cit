@@ -1,0 +1,6 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["wpScheda2_3"], 
+	"targetWidgets":["tfDurezzaTotFr"],
+	"currentPanelName":"cpGestLibScheda2" 
+}

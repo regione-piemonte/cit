@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="autodetect">
+	<!-- bean di business logic -->
+	
+	<!-- bean di facade -->
+	<bean id="springBackEnd" class="it.csi.sigit.sigitwebn.business.BackEndFacade">
+		<property name="CPBECpSelezRuolo">
+			<ref bean="CPBECpSelezRuolo"/>
+		</property>
+		<property name="CPBECpRicCod">
+			<ref bean="CPBECpRicCod"/>
+		</property>
+		<property name="CPBECpDialog">
+			<ref bean="CPBECpDialog"/>
+		</property>
+		<property name="CPBECpMsg">
+			<ref bean="CPBECpMsg"/>
+		</property>
+		<property name="CPBECpRicImpianto">
+			<ref bean="CPBECpRicImpianto"/>
+		</property>
+		<property name="CPBECpRisRicImpianto">
+			<ref bean="CPBECpRisRicImpianto"/>
+		</property>
+		<property name="CPBECpHome">
+			<ref bean="CPBECpHome"/>
+		</property>
+		<property name="CPBECpGestImpianto">
+			<ref bean="CPBECpGestImpianto"/>
+		</property>
+		<property name="CPBECpGestImpiantoRespProp">
+			<ref bean="CPBECpGestImpiantoRespProp"/>
+		</property>
+		<property name="CPBECpGestImpiantoResp">
+			<ref bean="CPBECpGestImpiantoResp"/>
+		</property>
+		<property name="CPBECpRisRicCodici">
+			<ref bean="CPBECpRisRicCodici"/>
+		</property>
+		<property name="CPBECpAcquisisciCodici">
+			<ref bean="CPBECpAcquisisciCodici"/>
+		</property>
+		<property name="CPBECpRisRicCodiciLib">
+			<ref bean="CPBECpRisRicCodiciLib"/>
+		</property>
+		<property name="CPBECpRicBollini">
+			<ref bean="CPBECpRicBollini"/>
+		</property>
+		<property name="CPBECpRisRicBollini">
+			<ref bean="CPBECpRisRicBollini"/>
+		</property>
+		<property name="CPBECpAcquistaBollini">
+			<ref bean="CPBECpAcquistaBollini"/>
+		</property>
+		<property name="CPBECpPagaBollini">
+			<ref bean="CPBECpPagaBollini"/>
+		</property>
+		<property name="CPBECpEsitoPagamento">
+			<ref bean="CPBECpEsitoPagamento"/>
+		</property>
+		<property name="CPBECpRicercaAllegati">
+			<ref bean="CPBECpRicercaAllegati"/>
+		</property>
+		<property name="CPBECpRisultatoRicercaAllegati">
+			<ref bean="CPBECpRisultatoRicercaAllegati"/>
+		</property>
+		<property name="CPBECpElencoAllegatiImpianti">
+			<ref bean="CPBECpElencoAllegatiImpianti"/>
+		</property>
+		<property name="CPBECpGestSubentro">
+			<ref bean="CPBECpGestSubentro"/>
+		</property>
+		<property name="CPBECpGestDelega">
+			<ref bean="CPBECpGestDelega"/>
+		</property>
+		<property name="CPBECpGest3Resp">
+			<ref bean="CPBECpGest3Resp"/>
+		</property>
+		<property name="CPBECpImportMassivo">
+			<ref bean="CPBECpImportMassivo"/>
+		</property>
+		<property name="CPBECpRicAvzImpianto">
+			<ref bean="CPBECpRicAvzImpianto"/>
+		</property>
+		<property name="CPBECpRisRicAvzImpianto">
+			<ref bean="CPBECpRisRicAvzImpianto"/>
+		</property>
+		<property name="CPBECpElencoIspezioniImpianti">
+			<ref bean="CPBECpElencoIspezioniImpianti"/>
+		</property>
+		<property name="CPBECpDettaglioIspezione">
+			<ref bean="CPBECpDettaglioIspezione"/>
+		</property>
+		<property name="CPBECpDettaglioIspezione2018">
+			<ref bean="CPBECpDettaglioIspezione2018"/>
+		</property>
+		<property name="CPBECpRicercaIspezioni2018">
+			<ref bean="CPBECpRicercaIspezioni2018"/>
+		</property>
+		<property name="CPBECpRisultatoRicercaIspezioni2018">
+			<ref bean="CPBECpRisultatoRicercaIspezioni2018"/>
+		</property>
+		<property name="CPBECpGestDistributori">
+			<ref bean="CPBECpGestDistributori"/>
+		</property>
+		<property name="CPBECpInserisciDistributore">
+			<ref bean="CPBECpInserisciDistributore"/>
+		</property>
+		<property name="CPBECpRespingiAllegato">
+			<ref bean="CPBECpRespingiAllegato"/>
+		</property>
+		<property name="CPBECpGestIncarico">
+			<ref bean="CPBECpGestIncarico"/>
+		</property>
+		<property name="CPBECpGestImpresa">
+			<ref bean="CPBECpGestImpresa"/>
+		</property>
+		<property name="CPBECpConf3Resp">
+			<ref bean="CPBECpConf3Resp"/>
+		</property>
+		<property name="CPBECpRisRicCompImpianto">
+			<ref bean="CPBECpRisRicCompImpianto"/>
+		</property>
+		<property name="CPBECpElencoDocumentiImpianti">
+			<ref bean="CPBECpElencoDocumentiImpianti"/>
+		</property>
+		<property name="CPBECpExportMassivo">
+			<ref bean="CPBECpExportMassivo"/>
+		</property>
+		<property name="CPBECpGestLibScheda1">
+			<ref bean="CPBECpGestLibScheda1"/>
+		</property>
+		<property name="CPBECpGestLibScheda14_1">
+			<ref bean="CPBECpGestLibScheda14_1"/>
+		</property>
+		<property name="CPBECpGestLibScheda2">
+			<ref bean="CPBECpGestLibScheda2"/>
+		</property>
+		<property name="CPBECpGestLibScheda1_extra">
+			<ref bean="CPBECpGestLibScheda1_extra"/>
+		</property>
+		<property name="CPBECpGestLibScheda14_2">
+			<ref bean="CPBECpGestLibScheda14_2"/>
+		</property>
+		<property name="CPBECpGestLibScheda14_3">
+			<ref bean="CPBECpGestLibScheda14_3"/>
+		</property>
+		<property name="CPBECpGestLibScheda14_4">
+			<ref bean="CPBECpGestLibScheda14_4"/>
+		</property>
+		<property name="CPBECpGestLibScheda8">
+			<ref bean="CPBECpGestLibScheda8"/>
+		</property>
+		<property name="CPBECpGestLibScheda8Dett">
+			<ref bean="CPBECpGestLibScheda8Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda3">
+			<ref bean="CPBECpGestLibScheda3"/>
+		</property>
+		<property name="CPBECpDettaglio3Resp">
+			<ref bean="CPBECpDettaglio3Resp"/>
+		</property>
+		<property name="CPBECpGestLibScheda12">
+			<ref bean="CPBECpGestLibScheda12"/>
+		</property>
+		<property name="CPBECpGestLibScheda11_1">
+			<ref bean="CPBECpGestLibScheda11_1"/>
+		</property>
+		<property name="CPBECpGestLibScheda11_2">
+			<ref bean="CPBECpGestLibScheda11_2"/>
+		</property>
+		<property name="CPBECpGestLibScheda11_3">
+			<ref bean="CPBECpGestLibScheda11_3"/>
+		</property>
+		<property name="CPBECpGestLibScheda11_4">
+			<ref bean="CPBECpGestLibScheda11_4"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_1">
+			<ref bean="CPBECpGestLibScheda9_1"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_1Dett">
+			<ref bean="CPBECpGestLibScheda9_1Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_2">
+			<ref bean="CPBECpGestLibScheda9_2"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_2Dett">
+			<ref bean="CPBECpGestLibScheda9_2Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_3">
+			<ref bean="CPBECpGestLibScheda9_3"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_3Dett">
+			<ref bean="CPBECpGestLibScheda9_3Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_4">
+			<ref bean="CPBECpGestLibScheda9_4"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_4Dett">
+			<ref bean="CPBECpGestLibScheda9_4Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_5">
+			<ref bean="CPBECpGestLibScheda9_5"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_5Dett">
+			<ref bean="CPBECpGestLibScheda9_5Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_6">
+			<ref bean="CPBECpGestLibScheda9_6"/>
+		</property>
+		<property name="CPBECpGestLibScheda9_6Dett">
+			<ref bean="CPBECpGestLibScheda9_6Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_7">
+			<ref bean="CPBECpGestLibScheda4_7"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_7Dett">
+			<ref bean="CPBECpGestLibScheda4_7Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_8">
+			<ref bean="CPBECpGestLibScheda4_8"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_8Dett">
+			<ref bean="CPBECpGestLibScheda4_8Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda5_1SR">
+			<ref bean="CPBECpGestLibScheda5_1SR"/>
+		</property>
+		<property name="CPBECpGestLibScheda5_1SRDett">
+			<ref bean="CPBECpGestLibScheda5_1SRDett"/>
+		</property>
+		<property name="CPBECpGestLibScheda5_1VR">
+			<ref bean="CPBECpGestLibScheda5_1VR"/>
+		</property>
+		<property name="CPBECpGestLibScheda5_1VRDett">
+			<ref bean="CPBECpGestLibScheda5_1VRDett"/>
+		</property>
+		<property name="CPBECpGestLibScheda6_4">
+			<ref bean="CPBECpGestLibScheda6_4"/>
+		</property>
+		<property name="CPBECpGestLibScheda6_4Dett">
+			<ref bean="CPBECpGestLibScheda6_4Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda7">
+			<ref bean="CPBECpGestLibScheda7"/>
+		</property>
+		<property name="CPBECpGestLibScheda10_1">
+			<ref bean="CPBECpGestLibScheda10_1"/>
+		</property>
+		<property name="CPBECpGestLibScheda10_1Dett">
+			<ref bean="CPBECpGestLibScheda10_1Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda5_2">
+			<ref bean="CPBECpGestLibScheda5_2"/>
+		</property>
+		<property name="CPBECpGestLibScheda6">
+			<ref bean="CPBECpGestLibScheda6"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_3">
+			<ref bean="CPBECpGestLibScheda4_3"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_3Dett">
+			<ref bean="CPBECpGestLibScheda4_3Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_2">
+			<ref bean="CPBECpGestLibScheda4_2"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_2Dett">
+			<ref bean="CPBECpGestLibScheda4_2Dett"/>
+		</property>
+		<property name="CPBECpGestReeTipo1">
+			<ref bean="CPBECpGestReeTipo1"/>
+		</property>
+		<property name="CPBECpGestReeTipo1Dett">
+			<ref bean="CPBECpGestReeTipo1Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_6">
+			<ref bean="CPBECpGestLibScheda4_6"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_6Dett">
+			<ref bean="CPBECpGestLibScheda4_6Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_1">
+			<ref bean="CPBECpGestLibScheda4_1"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_1Dett">
+			<ref bean="CPBECpGestLibScheda4_1Dett"/>
+		</property>
+		<property name="CPBECpGestReeTipo4">
+			<ref bean="CPBECpGestReeTipo4"/>
+		</property>
+		<property name="CPBECpGestReeTipo4Dett">
+			<ref bean="CPBECpGestReeTipo4Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_5">
+			<ref bean="CPBECpGestLibScheda4_5"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_5Dett">
+			<ref bean="CPBECpGestLibScheda4_5Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_4">
+			<ref bean="CPBECpGestLibScheda4_4"/>
+		</property>
+		<property name="CPBECpGestLibScheda4_4Dett">
+			<ref bean="CPBECpGestLibScheda4_4Dett"/>
+		</property>
+		<property name="CPBECpGestReeTipo3">
+			<ref bean="CPBECpGestReeTipo3"/>
+		</property>
+		<property name="CPBECpGestReeTipo3Dett">
+			<ref bean="CPBECpGestReeTipo3Dett"/>
+		</property>
+		<property name="CPBECpGestReeTipo2">
+			<ref bean="CPBECpGestReeTipo2"/>
+		</property>
+		<property name="CPBECpGestReeTipo2Dett">
+			<ref bean="CPBECpGestReeTipo2Dett"/>
+		</property>
+		<property name="CPBECpGestisciReeDocumenti">
+			<ref bean="CPBECpGestisciReeDocumenti"/>
+		</property>
+		<property name="CPBECpGestLibAggiornamenti">
+			<ref bean="CPBECpGestLibAggiornamenti"/>
+		</property>
+		<property name="CPBECpGestRapProvaGenerale">
+			<ref bean="CPBECpGestRapProvaGenerale"/>
+		</property>
+		<property name="CPBECpGestRapProvaTipo1">
+			<ref bean="CPBECpGestRapProvaTipo1"/>
+		</property>
+		<property name="CPBECpGestRapProvaTipo2">
+			<ref bean="CPBECpGestRapProvaTipo2"/>
+		</property>
+		<property name="CPBECpGestRapProvaTipo1Dett">
+			<ref bean="CPBECpGestRapProvaTipo1Dett"/>
+		</property>
+		<property name="CPBECpGestRapProvaTipo2Dett">
+			<ref bean="CPBECpGestRapProvaTipo2Dett"/>
+		</property>
+		<property name="CPBECpInitRapProva">
+			<ref bean="CPBECpInitRapProva"/>
+		</property>
+		<property name="CPBECpGestRapProvaConfirm">
+			<ref bean="CPBECpGestRapProvaConfirm"/>
+		</property>
+		<property name="CPBECpRicercaVerifiche">
+			<ref bean="CPBECpRicercaVerifiche"/>
+		</property>
+		<property name="CPBECpRisRicercaVerifiche">
+			<ref bean="CPBECpRisRicercaVerifiche"/>
+		</property>
+		<property name="CPBECpGestVerifica">
+			<ref bean="CPBECpGestVerifica"/>
+		</property>
+		<property name="CPBECpDettaglioVerifica">
+			<ref bean="CPBECpDettaglioVerifica"/>
+		</property>
+		<property name="CPBECpGestReeConfirm">
+			<ref bean="CPBECpGestReeConfirm"/>
+		</property>
+		<property name="CPBECpGestLibScheda15">
+			<ref bean="CPBECpGestLibScheda15"/>
+		</property>
+		<property name="CPBECpGestLibScheda15Dett">
+			<ref bean="CPBECpGestLibScheda15Dett"/>
+		</property>
+		<property name="CPBECpGestLibScheda13">
+			<ref bean="CPBECpGestLibScheda13"/>
+		</property>
+		<property name="CPBECpGestAccertamento">
+			<ref bean="CPBECpGestAccertamento"/>
+		</property>
+		<property name="CPBECpDettaglioAccertamento">
+			<ref bean="CPBECpDettaglioAccertamento"/>
+		</property>
+		<property name="CPBECpDettaglioAccertamentoConf">
+			<ref bean="CPBECpDettaglioAccertamentoConf"/>
+		</property>
+		<property name="CPBECpAzione">
+			<ref bean="CPBECpAzione"/>
+		</property>
+		<property name="CPBECpSveglia">
+			<ref bean="CPBECpSveglia"/>
+		</property>
+		<property name="CPBECpElencoSveglie">
+			<ref bean="CPBECpElencoSveglie"/>
+		</property>
+		<property name="CPBECpRicercaAccertamenti">
+			<ref bean="CPBECpRicercaAccertamenti"/>
+		</property>
+		<property name="CPBECpRisRicercaAccertamenti">
+			<ref bean="CPBECpRisRicercaAccertamenti"/>
+		</property>
+		<property name="CPBECpRicercaSanzione">
+			<ref bean="CPBECpRicercaSanzione"/>
+		</property>
+		<property name="CPBECpRisultatoRicercaSanzioni">
+			<ref bean="CPBECpRisultatoRicercaSanzioni"/>
+		</property>
+		<property name="CPBECpDettaglioSanzione">
+			<ref bean="CPBECpDettaglioSanzione"/>
+		</property>
+		<property name="CPBECpInserisciNotificaSanzione">
+			<ref bean="CPBECpInserisciNotificaSanzione"/>
+		</property>
+		<property name="CPBECpBackOffice">
+			<ref bean="CPBECpBackOffice"/>
+		</property>
+		<property name="CPBECpElencoAbilitazioni">
+			<ref bean="CPBECpElencoAbilitazioni"/>
+		</property>
+		<property name="CPBECpGestAbilitazione">
+			<ref bean="CPBECpGestAbilitazione"/>
+		</property>
+		<property name="CPBECpGestSubentroMassivo">
+			<ref bean="CPBECpGestSubentroMassivo"/>
+		</property>
+		<property name="CPBECpGestLibScheda4Impresa">
+			<ref bean="CPBECpGestLibScheda4Impresa"/>
+		</property>
+		<property name="CPBECpToken">
+			<ref bean="CPBECpToken"/>
+		</property>
+		<property name="CPBECpUploadReeFirmato">
+			<ref bean="CPBECpUploadReeFirmato"/>
+		</property>
+		<property name="CPBECpElencoImpiantiGraffati">
+			<ref bean="CPBECpElencoImpiantiGraffati"/>
+		</property>
+		<property name="CPBECpRicImpiantoGraffatura">
+			<ref bean="CPBECpRicImpiantoGraffatura"/>
+		</property>
+		<property name="CPBECpRisRicImpiantoGraffato">
+			<ref bean="CPBECpRisRicImpiantoGraffato"/>
+		</property>
+	</bean>
+	
+	<!-- bean relativi ai singoli content panel -->
+	<bean id="CPBECpSelezRuolo" class="it.csi.sigit.sigitwebn.business.seleziona_ruolo.CPBECpSelezRuolo">
+	</bean>
+	<bean id="CPBECpRicCod" class="it.csi.sigit.sigitwebn.business.ricerca_codici_impianto.CPBECpRicCod">
+	</bean>
+	<bean id="CPBECpDialog" class="it.csi.sigit.sigitwebn.business.main.CPBECpDialog">
+	</bean>
+	<bean id="CPBECpMsg" class="it.csi.sigit.sigitwebn.business.main.CPBECpMsg">
+	</bean>
+	<bean id="CPBECpRicImpianto" class="it.csi.sigit.sigitwebn.business.ricerca_impianti.CPBECpRicImpianto">
+	</bean>
+	<bean id="CPBECpRisRicImpianto" class="it.csi.sigit.sigitwebn.business.risultato_ricerca_impianti.CPBECpRisRicImpianto">
+	</bean>
+	<bean id="CPBECpHome" class="it.csi.sigit.sigitwebn.business.home.CPBECpHome">
+	</bean>
+	<bean id="CPBECpGestImpianto" class="it.csi.sigit.sigitwebn.business.gestisci_impianto.CPBECpGestImpianto">
+	</bean>
+	<bean id="CPBECpGestImpiantoRespProp" class="it.csi.sigit.sigitwebn.business.gestisci_impianto.CPBECpGestImpiantoRespProp">
+	</bean>
+	<bean id="CPBECpGestImpiantoResp" class="it.csi.sigit.sigitwebn.business.gestisci_impianto_resp.CPBECpGestImpiantoResp">
+	</bean>
+	<bean id="CPBECpRisRicCodici" class="it.csi.sigit.sigitwebn.business.risultato_ricerca_codici_impianto.CPBECpRisRicCodici">
+	</bean>
+	<bean id="CPBECpAcquisisciCodici" class="it.csi.sigit.sigitwebn.business.acquisisci_codici_impianto.CPBECpAcquisisciCodici">
+	</bean>
+	<bean id="CPBECpRisRicCodiciLib" class="it.csi.sigit.sigitwebn.business.risultato_ricerca_codici_impianto_liberi.CPBECpRisRicCodiciLib">
+	</bean>
+	<bean id="CPBECpRicBollini" class="it.csi.sigit.sigitwebn.business.ricerca_bollini.CPBECpRicBollini">
+	</bean>
+	<bean id="CPBECpRisRicBollini" class="it.csi.sigit.sigitwebn.business.risultato_ricerca_bollini.CPBECpRisRicBollini">
+	</bean>
+	<bean id="CPBECpAcquistaBollini" class="it.csi.sigit.sigitwebn.business.acquista_bollini.CPBECpAcquistaBollini">
+	</bean>
+	<bean id="CPBECpPagaBollini" class="it.csi.sigit.sigitwebn.business.paga_bollini.CPBECpPagaBollini">
+	</bean>
+	<bean id="CPBECpEsitoPagamento" class="it.csi.sigit.sigitwebn.business.esito_pagamento_bollini.CPBECpEsitoPagamento">
+	</bean>
+	<bean id="CPBECpRicercaAllegati" class="it.csi.sigit.sigitwebn.business.ricerca_allegati_module.CPBECpRicercaAllegati">
+	</bean>
+	<bean id="CPBECpRisultatoRicercaAllegati" class="it.csi.sigit.sigitwebn.business.risultato_ricerca_allegati_module.CPBECpRisultatoRicercaAllegati">
+	</bean>
+	<bean id="CPBECpElencoAllegatiImpianti" class="it.csi.sigit.sigitwebn.business.elenco_allegati_impianti.CPBECpElencoAllegatiImpianti">
+	</bean>
+	<bean id="CPBECpGestSubentro" class="it.csi.sigit.sigitwebn.business.gestisci_subentro.CPBECpGestSubentro">
+	</bean>
+	<bean id="CPBECpGestDelega" class="it.csi.sigit.sigitwebn.business.gestisci_delega.CPBECpGestDelega">
+	</bean>
+	<bean id="CPBECpGest3Resp" class="it.csi.sigit.sigitwebn.business.gestisci_terzo_responsabile.CPBECpGest3Resp">
+	</bean>
+	<bean id="CPBECpImportMassivo" class="it.csi.sigit.sigitwebn.business.import_massivo.CPBECpImportMassivo">
+	</bean>
+	<bean id="CPBECpRicAvzImpianto" class="it.csi.sigit.sigitwebn.business.ricerca_avanz_impianti.CPBECpRicAvzImpianto">
+	</bean>
+	<bean id="CPBECpRisRicAvzImpianto" class="it.csi.sigit.sigitwebn.business.risultato_ricerca_avanzata_impianti.CPBECpRisRicAvzImpianto">
+	</bean>
+	<bean id="CPBECpElencoIspezioniImpianti" class="it.csi.sigit.sigitwebn.business.elenco_ispezioni_impianti.CPBECpElencoIspezioniImpianti">
+	</bean>
+	<bean id="CPBECpDettaglioIspezione" class="it.csi.sigit.sigitwebn.business.elenco_ispezioni_impianti.CPBECpDettaglioIspezione">
+	</bean>
+	<bean id="CPBECpDettaglioIspezione2018" class="it.csi.sigit.sigitwebn.business.elenco_ispezioni_impianti.CPBECpDettaglioIspezione2018">
+	</bean>
+	<bean id="CPBECpRicercaIspezioni2018" class="it.csi.sigit.sigitwebn.business.elenco_ispezioni_impianti.CPBECpRicercaIspezioni2018">
+	</bean>
+	<bean id="CPBECpRisultatoRicercaIspezioni2018" class="it.csi.sigit.sigitwebn.business.elenco_ispezioni_impianti.CPBECpRisultatoRicercaIspezioni2018">
+	</bean>
+	<bean id="CPBECpGestDistributori" class="it.csi.sigit.sigitwebn.business.gestisci_distributori.CPBECpGestDistributori">
+	</bean>
+	<bean id="CPBECpInserisciDistributore" class="it.csi.sigit.sigitwebn.business.gestisci_distributori.CPBECpInserisciDistributore">
+	</bean>
+	<bean id="CPBECpRespingiAllegato" class="it.csi.sigit.sigitwebn.business.respingi_allegato.CPBECpRespingiAllegato">
+	</bean>
+	<bean id="CPBECpGestIncarico" class="it.csi.sigit.sigitwebn.business.gestisci_incarico.CPBECpGestIncarico">
+	</bean>
+	<bean id="CPBECpGestImpresa" class="it.csi.sigit.sigitwebn.business.gestisci_impresa.CPBECpGestImpresa">
+	</bean>
+	<bean id="CPBECpConf3Resp" class="it.csi.sigit.sigitwebn.business.conferma_terzo_responsabile.CPBECpConf3Resp">
+	</bean>
+	<bean id="CPBECpRisRicCompImpianto" class="it.csi.sigit.sigitwebn.business.risultato_ricerca_completa_impianti.CPBECpRisRicCompImpianto">
+	</bean>
+	<bean id="CPBECpElencoDocumentiImpianti" class="it.csi.sigit.sigitwebn.business.elenco_documenti_impianti.CPBECpElencoDocumentiImpianti">
+	</bean>
+	<bean id="CPBECpExportMassivo" class="it.csi.sigit.sigitwebn.business.export_massivo.CPBECpExportMassivo">
+	</bean>
+	<bean id="CPBECpGestLibScheda1" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda1.CPBECpGestLibScheda1">
+	</bean>
+	<bean id="CPBECpGestLibScheda14_1" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda14_1.CPBECpGestLibScheda14_1">
+	</bean>
+	<bean id="CPBECpGestLibScheda2" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda2.CPBECpGestLibScheda2">
+	</bean>
+	<bean id="CPBECpGestLibScheda1_extra" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda1_extra.CPBECpGestLibScheda1_extra">
+	</bean>
+	<bean id="CPBECpGestLibScheda14_2" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda14_2.CPBECpGestLibScheda14_2">
+	</bean>
+	<bean id="CPBECpGestLibScheda14_3" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda14_3.CPBECpGestLibScheda14_3">
+	</bean>
+	<bean id="CPBECpGestLibScheda14_4" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda14_4.CPBECpGestLibScheda14_4">
+	</bean>
+	<bean id="CPBECpGestLibScheda8" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda8.CPBECpGestLibScheda8">
+	</bean>
+	<bean id="CPBECpGestLibScheda8Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda8.CPBECpGestLibScheda8Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda3" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda3.CPBECpGestLibScheda3">
+	</bean>
+	<bean id="CPBECpDettaglio3Resp" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda3.CPBECpDettaglio3Resp">
+	</bean>
+	<bean id="CPBECpGestLibScheda12" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda12.CPBECpGestLibScheda12">
+	</bean>
+	<bean id="CPBECpGestLibScheda11_1" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda11_1.CPBECpGestLibScheda11_1">
+	</bean>
+	<bean id="CPBECpGestLibScheda11_2" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda11_2.CPBECpGestLibScheda11_2">
+	</bean>
+	<bean id="CPBECpGestLibScheda11_3" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda11_3.CPBECpGestLibScheda11_3">
+	</bean>
+	<bean id="CPBECpGestLibScheda11_4" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda11_4.CPBECpGestLibScheda11_4">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_1" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_1.CPBECpGestLibScheda9_1">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_1Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_1.CPBECpGestLibScheda9_1Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_2" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_2.CPBECpGestLibScheda9_2">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_2Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_2.CPBECpGestLibScheda9_2Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_3" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_3.CPBECpGestLibScheda9_3">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_3Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_3.CPBECpGestLibScheda9_3Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_4" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_4.CPBECpGestLibScheda9_4">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_4Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_4.CPBECpGestLibScheda9_4Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_5" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_5.CPBECpGestLibScheda9_5">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_5Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_5.CPBECpGestLibScheda9_5Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_6" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_6.CPBECpGestLibScheda9_6">
+	</bean>
+	<bean id="CPBECpGestLibScheda9_6Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda9_6.CPBECpGestLibScheda9_6Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_7" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_7.CPBECpGestLibScheda4_7">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_7Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_7.CPBECpGestLibScheda4_7Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_8" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_8.CPBECpGestLibScheda4_8">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_8Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_8.CPBECpGestLibScheda4_8Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda5_1SR" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda5_1sr.CPBECpGestLibScheda5_1SR">
+	</bean>
+	<bean id="CPBECpGestLibScheda5_1SRDett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda5_1sr.CPBECpGestLibScheda5_1SRDett">
+	</bean>
+	<bean id="CPBECpGestLibScheda5_1VR" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda5_1vr.CPBECpGestLibScheda5_1VR">
+	</bean>
+	<bean id="CPBECpGestLibScheda5_1VRDett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda5_1vr.CPBECpGestLibScheda5_1VRDett">
+	</bean>
+	<bean id="CPBECpGestLibScheda6_4" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda6_4.CPBECpGestLibScheda6_4">
+	</bean>
+	<bean id="CPBECpGestLibScheda6_4Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda6_4.CPBECpGestLibScheda6_4Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda7" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda7.CPBECpGestLibScheda7">
+	</bean>
+	<bean id="CPBECpGestLibScheda10_1" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda10_1.CPBECpGestLibScheda10_1">
+	</bean>
+	<bean id="CPBECpGestLibScheda10_1Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda10_1.CPBECpGestLibScheda10_1Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda5_2" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda5_2.CPBECpGestLibScheda5_2">
+	</bean>
+	<bean id="CPBECpGestLibScheda6" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda6.CPBECpGestLibScheda6">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_3" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_3.CPBECpGestLibScheda4_3">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_3Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_3.CPBECpGestLibScheda4_3Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_2" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_2.CPBECpGestLibScheda4_2">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_2Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_2.CPBECpGestLibScheda4_2Dett">
+	</bean>
+	<bean id="CPBECpGestReeTipo1" class="it.csi.sigit.sigitwebn.business.gestisci_ree_tipo1.CPBECpGestReeTipo1">
+	</bean>
+	<bean id="CPBECpGestReeTipo1Dett" class="it.csi.sigit.sigitwebn.business.gestisci_ree_tipo1.CPBECpGestReeTipo1Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_6" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_6.CPBECpGestLibScheda4_6">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_6Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_6.CPBECpGestLibScheda4_6Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_1" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_1.CPBECpGestLibScheda4_1">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_1Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_1.CPBECpGestLibScheda4_1Dett">
+	</bean>
+	<bean id="CPBECpGestReeTipo4" class="it.csi.sigit.sigitwebn.business.gestisci_ree_tipo4.CPBECpGestReeTipo4">
+	</bean>
+	<bean id="CPBECpGestReeTipo4Dett" class="it.csi.sigit.sigitwebn.business.gestisci_ree_tipo4.CPBECpGestReeTipo4Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_5" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_5.CPBECpGestLibScheda4_5">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_5Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_5.CPBECpGestLibScheda4_5Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_4" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_4.CPBECpGestLibScheda4_4">
+	</bean>
+	<bean id="CPBECpGestLibScheda4_4Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4_4.CPBECpGestLibScheda4_4Dett">
+	</bean>
+	<bean id="CPBECpGestReeTipo3" class="it.csi.sigit.sigitwebn.business.gestisci_ree_tipo3.CPBECpGestReeTipo3">
+	</bean>
+	<bean id="CPBECpGestReeTipo3Dett" class="it.csi.sigit.sigitwebn.business.gestisci_ree_tipo3.CPBECpGestReeTipo3Dett">
+	</bean>
+	<bean id="CPBECpGestReeTipo2" class="it.csi.sigit.sigitwebn.business.gestisci_ree_tipo2.CPBECpGestReeTipo2">
+	</bean>
+	<bean id="CPBECpGestReeTipo2Dett" class="it.csi.sigit.sigitwebn.business.gestisci_ree_tipo2.CPBECpGestReeTipo2Dett">
+	</bean>
+	<bean id="CPBECpGestisciReeDocumenti" class="it.csi.sigit.sigitwebn.business.gestisci_ree_documenti.CPBECpGestisciReeDocumenti">
+	</bean>
+	<bean id="CPBECpGestLibAggiornamenti" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_aggiornamenti.CPBECpGestLibAggiornamenti">
+	</bean>
+	<bean id="CPBECpGestRapProvaGenerale" class="it.csi.sigit.sigitwebn.business.gestisci_rapprova.CPBECpGestRapProvaGenerale">
+	</bean>
+	<bean id="CPBECpGestRapProvaTipo1" class="it.csi.sigit.sigitwebn.business.gestisci_rapprova.CPBECpGestRapProvaTipo1">
+	</bean>
+	<bean id="CPBECpGestRapProvaTipo2" class="it.csi.sigit.sigitwebn.business.gestisci_rapprova.CPBECpGestRapProvaTipo2">
+	</bean>
+	<bean id="CPBECpGestRapProvaTipo1Dett" class="it.csi.sigit.sigitwebn.business.gestisci_rapprova.CPBECpGestRapProvaTipo1Dett">
+	</bean>
+	<bean id="CPBECpGestRapProvaTipo2Dett" class="it.csi.sigit.sigitwebn.business.gestisci_rapprova.CPBECpGestRapProvaTipo2Dett">
+	</bean>
+	<bean id="CPBECpInitRapProva" class="it.csi.sigit.sigitwebn.business.gestisci_rapprova.CPBECpInitRapProva">
+	</bean>
+	<bean id="CPBECpGestRapProvaConfirm" class="it.csi.sigit.sigitwebn.business.gestisci_rapprova.CPBECpGestRapProvaConfirm">
+	</bean>
+	<bean id="CPBECpRicercaVerifiche" class="it.csi.sigit.sigitwebn.business.ricerca_verifiche.CPBECpRicercaVerifiche">
+	</bean>
+	<bean id="CPBECpRisRicercaVerifiche" class="it.csi.sigit.sigitwebn.business.risultato_ricerca_verifiche.CPBECpRisRicercaVerifiche">
+	</bean>
+	<bean id="CPBECpGestVerifica" class="it.csi.sigit.sigitwebn.business.gestisci_verifica.CPBECpGestVerifica">
+	</bean>
+	<bean id="CPBECpDettaglioVerifica" class="it.csi.sigit.sigitwebn.business.gestisci_verifica.CPBECpDettaglioVerifica">
+	</bean>
+	<bean id="CPBECpGestReeConfirm" class="it.csi.sigit.sigitwebn.business.gestisci_ree_confirm.CPBECpGestReeConfirm">
+	</bean>
+	<bean id="CPBECpGestLibScheda15" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda15.CPBECpGestLibScheda15">
+	</bean>
+	<bean id="CPBECpGestLibScheda15Dett" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda15.CPBECpGestLibScheda15Dett">
+	</bean>
+	<bean id="CPBECpGestLibScheda13" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda13.CPBECpGestLibScheda13">
+	</bean>
+	<bean id="CPBECpGestAccertamento" class="it.csi.sigit.sigitwebn.business.gestisci_accertamento.CPBECpGestAccertamento">
+	</bean>
+	<bean id="CPBECpDettaglioAccertamento" class="it.csi.sigit.sigitwebn.business.gestisci_accertamento.CPBECpDettaglioAccertamento">
+	</bean>
+	<bean id="CPBECpDettaglioAccertamentoConf" class="it.csi.sigit.sigitwebn.business.gestisci_accertamento.CPBECpDettaglioAccertamentoConf">
+	</bean>
+	<bean id="CPBECpAzione" class="it.csi.sigit.sigitwebn.business.gestisci_azioni.CPBECpAzione">
+	</bean>
+	<bean id="CPBECpSveglia" class="it.csi.sigit.sigitwebn.business.gestisci_azioni.CPBECpSveglia">
+	</bean>
+	<bean id="CPBECpElencoSveglie" class="it.csi.sigit.sigitwebn.business.gestisci_azioni.CPBECpElencoSveglie">
+	</bean>
+	<bean id="CPBECpRicercaAccertamenti" class="it.csi.sigit.sigitwebn.business.ricerca_accertamenti.CPBECpRicercaAccertamenti">
+	</bean>
+	<bean id="CPBECpRisRicercaAccertamenti" class="it.csi.sigit.sigitwebn.business.risultato_ricerca_accertamenti.CPBECpRisRicercaAccertamenti">
+	</bean>
+	<bean id="CPBECpRicercaSanzione" class="it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpRicercaSanzione">
+	</bean>
+	<bean id="CPBECpRisultatoRicercaSanzioni" class="it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpRisultatoRicercaSanzioni">
+	</bean>
+	<bean id="CPBECpDettaglioSanzione" class="it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpDettaglioSanzione">
+	</bean>
+	<bean id="CPBECpInserisciNotificaSanzione" class="it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpInserisciNotificaSanzione">
+	</bean>
+	<bean id="CPBECpBackOffice" class="it.csi.sigit.sigitwebn.business.back_office.CPBECpBackOffice">
+	</bean>
+	<bean id="CPBECpElencoAbilitazioni" class="it.csi.sigit.sigitwebn.business.back_office.CPBECpElencoAbilitazioni">
+	</bean>
+	<bean id="CPBECpGestAbilitazione" class="it.csi.sigit.sigitwebn.business.back_office.CPBECpGestAbilitazione">
+	</bean>
+	<bean id="CPBECpGestSubentroMassivo" class="it.csi.sigit.sigitwebn.business.back_office.CPBECpGestSubentroMassivo">
+	</bean>
+	<bean id="CPBECpGestLibScheda4Impresa" class="it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda4.CPBECpGestLibScheda4Impresa">
+	</bean>
+	<bean id="CPBECpToken" class="it.csi.sigit.sigitwebn.business.token.CPBECpToken">
+	</bean>
+	<bean id="CPBECpUploadReeFirmato" class="it.csi.sigit.sigitwebn.business.upload_ree_firmato.CPBECpUploadReeFirmato">
+	</bean>
+	<bean id="CPBECpElencoImpiantiGraffati" class="it.csi.sigit.sigitwebn.business.elenco_impianti_graffati.CPBECpElencoImpiantiGraffati">
+	</bean>
+	<bean id="CPBECpRicImpiantoGraffatura" class="it.csi.sigit.sigitwebn.business.ricerca_impianti_graffatura.CPBECpRicImpiantoGraffatura">
+	</bean>
+	<bean id="CPBECpRisRicImpiantoGraffato" class="it.csi.sigit.sigitwebn.business.risultato_ricerca_impianti_graffati.CPBECpRisRicImpiantoGraffato">
+	</bean>
+	
+	
+	
+	<!-- helper per le funzioni di securizzazione -->
+	<bean id="springSecurityHelper" class="it.csi.sigit.sigitwebn.business.SecurityHelper">
+		<!-- protocollo di interazione con il PEP (EJB|WS) utilizzato solo se la security non e' custom --> 
+		<property name="PDProtocol" value="@IRIDE_PD_PROTOCOL@" />
+	</bean>
+	
+	
+	
+	
+	<!--PROTECTED REGION ID(R585863764) ENABLED START-->
+		<!-- Inserire qui configurazioni aggiuntive da iniettare nel bean prinicipale -->
+		<bean id="validationMgr" class="it.csi.sigit.sigitwebn.business.manager.ValidationMgr" />
+		<bean id="serviziMgr" class="it.csi.sigit.sigitwebn.business.manager.ServiziMgr" />
+	    <bean id="sigitExtMgr" class="it.csi.sigit.sigitwebn.business.manager.SigitExtMgr" />
+	    <bean id="dbMgr" class="it.csi.sigit.sigitwebn.business.manager.DbMgr" />
+		<bean id="dbVerificaMgr" class="it.csi.sigit.sigitwebn.business.manager.db.DbVerificaMgr" />
+		<bean id="dbAzioneMgr" class="it.csi.sigit.sigitwebn.business.manager.db.DbAzioneMgr" />
+		<bean id="dbSvegliaMgr" class="it.csi.sigit.sigitwebn.business.manager.db.DbSvegliaMgr" />
+		<bean id="dbIspezioneMgr" class="it.csi.sigit.sigitwebn.business.manager.db.DbIspezioneMgr" />
+		<bean id="dbMgrImport" class="it.csi.sigit.sigitwebn.business.manager.DbMgrImport" />
+		<bean id="sigitMgr" class="it.csi.sigit.sigitwebn.business.manager.SigitMgr" />
+		<bean id="connectorMgr" class="it.csi.sigit.sigitwebn.business.manager.ConnectorMgr" />
+
+		<bean id="moduloBuilder" class="it.csi.sigit.sigitwebn.business.pdf.ModuloBuilder" />
+
+		<bean id="ispezioneBuilder" class="it.csi.sigit.sigitwebn.business.pdf.IspezioneBuilder" />
+
+		<bean id="reeBuilder" class="it.csi.sigit.sigitwebn.business.pdf.ReeBuilder" />
+
+		<bean id="ricevutaBuilder" class="it.csi.sigit.sigitwebn.business.pdf.RicevutaBuilder" />
+
+		<bean id="serviceIndex" class="it.csi.sigit.sigitwebn.business.manager.IndexServiceImp" singleton="true">
+        	<constructor-arg value="@index.wsdl.url@"></constructor-arg>
+    	</bean>
+
+    	<!--
+    	<bean id="serviceModolXP"
+	     	class="it.csi.sigit.sigitwebn.business.manager.ModolXPServiceImp">
+	        <constructor-arg index="0" value="@modolxp.wsdl.url@"></constructor-arg>
+	        <constructor-arg index="1" value="@modolxp.wsdl.context@"></constructor-arg>
+	        <constructor-arg index="2" value="@modolxp.wsdl.port@"></constructor-arg>
+	    </bean>
+		-->
+
+<!-- 		<bean id="serviceModolXPPdf"  -->
+<!-- 	     	class="it.csi.sigit.sigitwebn.business.manager.ModolXPPdfServiceImp"> -->
+<!-- 	        <constructor-arg index="0" value="@modolxppdf.wsdl.url@"></constructor-arg> -->
+<!-- 	        <constructor-arg index="1" value="@modolxppdf.wsdl.context@"></constructor-arg> -->
+<!-- 	        <constructor-arg index="2" value="@modolxppdf.wsdl.port@"></constructor-arg> -->
+<!-- 	    </bean> -->
+
+		<!--bean id="cxf" class="it.doqui.index.ecmengine.client.mtom.EcmEngineMtomDelegateImpl" singleton="true">
+        	<constructor-arg value="@mtom.wsdl.url@"></constructor-arg>
+    	</bean>
+
+    	<bean id="serviceAaep" class="it.csi.aaep.aaeporch.business.OrchestratoreImplService" singleton="true">
+        	<constructor-arg value="@aaep.wsdl.url@"></constructor-arg>
+    	</bean-->
+
+    	<bean id="cxf" class="it.csi.sigit.sigitwebn.business.manager.MtomServiceImp" singleton="true">
+        	<constructor-arg value="@mtom.wsdl.url@"></constructor-arg>
+    	</bean>
+
+    	<bean id="serviceAaep" class="it.csi.sigit.sigitwebn.business.manager.AaepServiceImp" singleton="true">
+        	<constructor-arg value="@aaep.wsdl.url@"></constructor-arg>
+    	</bean>
+
+	<!--PROTECTED REGION END-->
+
+</beans>

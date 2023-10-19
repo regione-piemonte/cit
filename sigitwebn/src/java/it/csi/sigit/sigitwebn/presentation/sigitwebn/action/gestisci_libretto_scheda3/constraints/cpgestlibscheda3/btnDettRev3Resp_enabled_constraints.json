@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda3",
+  "nomeWidget": "btnDettRev3Resp",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda3",
+  "nomeWidget": "btnDettRev3Resp",
+	"language": "beanshell",
+	"script": "model.appDataelencoDettaglioTerzoResponsabile != null && model.appDataelencoDettaglioTerzoResponsabile.size() > 0"
+}
+
+
+  ]
+}

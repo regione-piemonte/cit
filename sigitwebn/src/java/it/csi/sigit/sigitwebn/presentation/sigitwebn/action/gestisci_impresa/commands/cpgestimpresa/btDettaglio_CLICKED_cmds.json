@@ -1,0 +1,109 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpImpresa",
+	"contentPanelName":"cpGestImpresa",
+	"itemName": "fmDettImpresa"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpVisuraImpresa",
+	"contentPanelName":"cpGestImpresa",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDatiCat",
+	"contentPanelName":"cpGestImpresa",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbImpresaProvincia","cbImpresaComune","cbImpresaIndirizzo","btImpresaNuovaRicerca","tfImpresaNonTrovato","tfImpresaCivico","tfImpresaCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btImpresaIndirizzo","btImpresaCercaIndirizzo","tfImpresaEstStato","tfImpresaEstCitta","tfImpresaEstIndirizzo","tfImpresaEstCivico","tfImpresaEstCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbImpresaProvincia","cbImpresaComune"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfImpresaEstStato","tfImpresaEstCitta","tfImpresaEstIndirizzo","tfImpresaEstCivico","tfImpresaEstCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbImpresaProvincia","cbImpresaComune","cbImpresaIndirizzo","btImpresaNuovaRicerca","tfImpresaNonTrovato","tfImpresaCivico","tfImpresaCap","btImpresaIndirizzo","btImpresaCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["NAZIONALE","ESTERO"],
+	"nomeMetodo":"gestTipoIndirizzoImpresaInit",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbStatoImpresa"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbStatoImpresa"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["ABILITA","DISABILITA"],
+	"nomeMetodo":"gestisciStatoPg",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["clImpresaDataVariazione","tfImpresaMotivVar"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbSiglaRea","tfNumeroRea","tfImpresaDenominazione","tfImpresaCfPi","cbStatoImpresa","clImpresaDataInizioAttivita","clImpresaDataCessazione","clImpresaDataVariazione","tfImpresaMotivVar","cbImpresaIndirizzoEst","cbImpresaProvincia","cbImpresaComune","btImpresaIndirizzo","btImpresaCercaIndirizzo","cbImpresaIndirizzo","btImpresaNuovaRicerca","tfImpresaNonTrovato","tfImpresaCivico","tfImpresaCap","tfImpresaEstStato","tfImpresaEstCitta","tfImpresaEstIndirizzo","tfImpresaEstCivico","tfImpresaEstCap","tfImpresaEmail","btImpresaVerificaEmail","btSalvaImpresa"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btImpresaNuovaRicerca","btImpresaVerificaEmail","btSalvaImpresa"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["REGISTRAZIONE","VISUALIZZAZIONE"],
+	"nomeMetodo":"gestisciAbilitazioni",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"dettaglioCIT",
+	"appDataToStore":[]
+}

@@ -1,0 +1,14 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRespingiAllegato", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"respingiAllegato",
+	"appDataToStore":[]
+}

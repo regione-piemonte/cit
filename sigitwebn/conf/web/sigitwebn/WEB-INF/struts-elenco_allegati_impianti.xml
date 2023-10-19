@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="elenco_allegati_impianti" extends="jsp-package" namespace="/base/elenco_allegati_impianti">
+
+		
+<action name="cpElencoAllegatiImpianti" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.elenco_allegati_impianti.CpElencoAllegatiImpiantiAction">
+	<result name="input">/jsp/cpElencoAllegatiImpianti.jsp</result>
+	<result name="success">/jsp/cpElencoAllegatiImpianti.jsp</result>
+	
+	<result name="GO_TO_cpGestReeTipo1" type="chain">
+		<param name="actionName">cpGestReeTipo1</param>
+		<param name="namespace">/base/gestisci_ree_tipo1</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo2" type="chain">
+		<param name="actionName">cpGestReeTipo2</param>
+		<param name="namespace">/base/gestisci_ree_tipo2</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo3" type="chain">
+		<param name="actionName">cpGestReeTipo3</param>
+		<param name="namespace">/base/gestisci_ree_tipo3</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo4" type="chain">
+		<param name="actionName">cpGestReeTipo4</param>
+		<param name="namespace">/base/gestisci_ree_tipo4</param>
+	</result>
+	<result name="GO_TO_cpRespingiAllegato" type="chain">
+		<param name="actionName">cpRespingiAllegato</param>
+		<param name="namespace">/base/respingi_allegato</param>
+	</result>
+	<result name="GO_TO_cpGestisciReeDocumenti" type="chain">
+		<param name="actionName">cpGestisciReeDocumenti</param>
+		<param name="namespace">/base/gestisci_ree_documenti</param>
+	</result>
+	<result name="GO_TO_cpUploadReeFirmato" type="chain">
+		<param name="actionName">cpUploadReeFirmato</param>
+		<param name="namespace">/base/upload_ree_firmato</param>
+	</result>
+	<result name="GO_TO_cpRisRicImpianto" type="chain">
+		<param name="actionName">cpRisRicImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_impianti</param>
+	</result>
+	<result name="GO_TO_cpGestImpianto" type="chain">
+		<param name="actionName">cpGestImpianto</param>
+		<param name="namespace">/base/gestisci_impianto</param>
+	</result>
+	<result name="GO_TO_cpGestImpiantoResp" type="chain">
+		<param name="actionName">cpGestImpiantoResp</param>
+		<param name="namespace">/base/gestisci_impianto_resp</param>
+	</result>
+	<result name="GO_TO_cpRisRicAvzImpianto" type="chain">
+		<param name="actionName">cpRisRicAvzImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_avanzata_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_cpUploadReeFirmato" type="chain">
+		<param name="actionName">cpUploadReeFirmato</param>
+		<param name="namespace">/base/upload_ree_firmato</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_EXPORT_EXCEL" type="redirect">
+		<param name="location">exportExcelElencoAllegatiImpianti.do</param>
+	</result>
+	<result name="GO_TO_EX_recAllegatoImp" type="redirect">
+		<param name="location">recuperaAllegato.do</param>
+	</result>
+	<result name="GO_TO_EX_RS_RIC_REE_IMP_INS_AUTO" type="redirect">
+		<param name="location">/base/gestisci_verifica/cpGestVerifica!handleHvGestInsVerificaAuto_CLICKED.do</param>
+	</result>
+	<result name="GO_TO_EX_ricevutaAllegatoImpianto" type="redirect">
+		<param name="location">showRicevutaAllegato.do</param>
+	</result>
+	<result name="GO_TO_EX_recAllegatoImp" type="redirect">
+		<param name="location">recuperaAllegato.do</param>
+	</result>
+	<result name="GO_TO_EX_recAllegatoImpFirmato" type="redirect">
+		<param name="location">recuperaAllegatoFirmato.do</param>
+	</result>
+	<result name="SHOW_dpReeFirmato">/jsp/dialogpanels/cpElencoAllegatiImpianti_dpReeFirmato.jsp</result>
+	<result name="SHOW_dpElencoAllegatiPerImpianto">/jsp/dialogpanels/cpElencoAllegatiImpianti_dpElencoAllegatiPerImpianto.jsp</result>
+	<result name="SHOW_dpEliminaAllegatiPerImpianto">/jsp/dialogpanels/cpElencoAllegatiImpianti_dpEliminaAllegatiPerImpianto.jsp</result>
+	<result name="SHOW_dpReplaceReeFirmato">/jsp/dialogpanels/cpElencoAllegatiImpianti_dpReplaceReeFirmato.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R973376034) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		
+		<action name="showRicevutaAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.ShowRicevutaAllegato">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpElencoAllegatiImpianti</result>
+		</action>
+		
+		<action name="recuperaAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaAllegatoReeFirmato">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpElencoAllegatiImpianti</result>
+		</action>
+
+		<action name="recuperaAllegatoFirmato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaAllegatoFirmato">
+			<result name="downloadFile" type="stream">
+				<param name="contentType">${contentType}</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">1024</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="KO" type="chain">cpElencoAllegatiImpianti</result>
+		</action>
+		
+		<action name="salvaModuloAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.SalvaAllegato">
+			<result name="OK" type="chain">cpElencoAllegatiImpianti</result>
+			<result name="KO" type="chain">cpElencoAllegatiImpianti</result>
+		</action>
+
+		<action name="exportExcelElencoAllegatiImpianti" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.excel.ExportExcelElencoAllegati">
+			<result name="downloadFile" type="stream">
+				<param name="contentType">${contentType}</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">1024</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="KO" type="chain">cpElencoAllegatiImpianti</result>
+		</action>
+		
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

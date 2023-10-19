@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_azioni" extends="jsp-package" namespace="/base/gestisci_azioni">
+
+		
+<action name="cpAzione" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_azioni.CpAzioneAction">
+	<result name="input">/jsp/cpAzione.jsp</result>
+	<result name="success">/jsp/cpAzione.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioVerifica" type="chain">
+		<param name="actionName">cpDettaglioVerifica</param>
+		<param name="namespace">/base/gestisci_verifica</param>
+	</result>
+	<result name="GO_TO_cpDettaglioAccertamento" type="chain">
+		<param name="actionName">cpDettaglioAccertamento</param>
+		<param name="namespace">/base/gestisci_accertamento</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpDettaglioSanzione" type="chain">
+		<param name="actionName">cpDettaglioSanzione</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpSveglia" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_azioni.CpSvegliaAction">
+	<result name="input">/jsp/cpSveglia.jsp</result>
+	<result name="success">/jsp/cpSveglia.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioVerifica" type="chain">
+		<param name="actionName">cpDettaglioVerifica</param>
+		<param name="namespace">/base/gestisci_verifica</param>
+	</result>
+	<result name="GO_TO_cpDettaglioAccertamento" type="chain">
+		<param name="actionName">cpDettaglioAccertamento</param>
+		<param name="namespace">/base/gestisci_accertamento</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpDettaglioSanzione" type="chain">
+		<param name="actionName">cpDettaglioSanzione</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpElencoSveglie" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_azioni.CpElencoSveglieAction">
+	<result name="input">/jsp/cpElencoSveglie.jsp</result>
+	<result name="success">/jsp/cpElencoSveglie.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioVerifica" type="chain">
+		<param name="actionName">cpDettaglioVerifica</param>
+		<param name="namespace">/base/gestisci_verifica</param>
+	</result>
+	<result name="GO_TO_cpDettaglioAccertamento" type="chain">
+		<param name="actionName">cpDettaglioAccertamento</param>
+		<param name="namespace">/base/gestisci_accertamento</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpDettaglioSanzione" type="chain">
+		<param name="actionName">cpDettaglioSanzione</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R775206898) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

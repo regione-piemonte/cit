@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_impianto_resp" extends="jsp-package" namespace="/base/gestisci_impianto_resp">
+
+		
+<action name="cpGestImpiantoResp" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_impianto_resp.CpGestImpiantoRespAction">
+	<result name="input">/jsp/cpGestImpiantoResp.jsp</result>
+	<result name="success">/jsp/cpGestImpiantoResp.jsp</result>
+	
+	<result name="GO_TO_cpElencoImpiantiGraffati" type="chain">
+		<param name="actionName">cpElencoImpiantiGraffati</param>
+		<param name="namespace">/base/elenco_impianti_graffati</param>
+	</result>
+	<result name="GO_TO_cpGestImpiantoRespProp" type="chain">
+		<param name="actionName">cpGestImpiantoRespProp</param>
+		<param name="namespace">/base/gestisci_impianto</param>
+	</result>
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoDocumentiImpianti" type="chain">
+		<param name="actionName">cpElencoDocumentiImpianti</param>
+		<param name="namespace">/base/elenco_documenti_impianti</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda1" type="chain">
+		<param name="actionName">cpGestLibScheda1</param>
+		<param name="namespace">/base/gestisci_libretto_scheda1</param>
+	</result>
+	<result name="GO_TO_cpGestLibAggiornamenti" type="chain">
+		<param name="actionName">cpGestLibAggiornamenti</param>
+		<param name="namespace">/base/gestisci_libretto_aggiornamenti</param>
+	</result>
+	<result name="GO_TO_cpRisRicImpianto" type="chain">
+		<param name="actionName">cpRisRicImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_impianti</param>
+	</result>
+	<result name="GO_TO_cpGestSubentro" type="chain">
+		<param name="actionName">cpGestSubentro</param>
+		<param name="namespace">/base/gestisci_subentro</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_recLibrettoResp" type="redirect">
+		<param name="location">recuperaLibretto.do</param>
+	</result>
+</action>
+
+		<!--PROTECTED REGION ID(R-960589900) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		
+		<action name="recuperaLibretto" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaLibretto">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpGestImpiantoResp</result>
+		</action>
+		
+		<!--action name="salvaModuloLibretto" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.SalvaLibrettoLight">
+			<result name="OK" type="chain">cpGestImpiantoResp</result>
+			<result name="KO" type="chain">cpGestImpiantoResp</result>
+		</action>
+
+		<action name="salvaModuloLibrettoXml" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.SalvaLibrettoLightXml">
+			<result name="OK" type="chain">cpGestImpiantoResp</result>
+			<result name="KO" type="chain">cpGestImpiantoResp</result>
+		</action-->
+		
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

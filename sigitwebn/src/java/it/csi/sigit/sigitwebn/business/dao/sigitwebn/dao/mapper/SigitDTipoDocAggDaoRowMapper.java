@@ -1,0 +1,70 @@
+package it.csi.sigit.sigitwebn.business.dao.sigitwebn.dao.mapper;
+
+import it.csi.sigit.sigitwebn.business.dao.sigitwebn.dto.*;
+import it.csi.sigit.sigitwebn.business.dao.sigitwebn.dao.*;
+import it.csi.sigit.sigitwebn.business.dao.impl.BaseDaoRowMapper;
+import it.csi.sigit.sigitwebn.business.dao.sigitwebn.dao.impl.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/**
+ * RowMapper specifico del DAO SigitDTipoDocAggDao
+ * @generated
+ */
+public class SigitDTipoDocAggDaoRowMapper extends BaseDaoRowMapper implements org.springframework.jdbc.core.RowMapper {
+
+	/**
+	 * Dao associato al RowMapper. Serve per i supplier DAO
+	 * @generated
+	 */
+	SigitDTipoDocAggDaoImpl dao;
+
+	/**
+	 * costruttore
+	 * @param columnsToRead elenco delle colonne da includere nel mapping (per query
+	 *        incomplete, esempio distinct, custom select...) nella classe padre
+	 */
+	public SigitDTipoDocAggDaoRowMapper(String[] columnsToRead, Class dtoClass, SigitDTipoDocAggDao dao) {
+		super(columnsToRead, dtoClass);
+		this.dao = (SigitDTipoDocAggDaoImpl) dao;
+	}
+
+	/**
+	 * Method 'mapRow'
+	 * 
+	 * @param rs
+	 * @param row
+	 * @throws SQLException
+	 * @return SigitDTipoDocAggDto
+	 * @generated
+	 */
+	public Object mapRow(ResultSet rs, int row) throws SQLException {
+		Object dtoInstance = getNewDto();
+
+		if (dtoInstance instanceof SigitDTipoDocAggDto) {
+			return mapRow_internal((SigitDTipoDocAggDto) dtoInstance, rs, row);
+		}
+
+		return dtoInstance;
+	}
+
+	public SigitDTipoDocAggDto mapRow_internal(SigitDTipoDocAggDto objectToFill, ResultSet rs, int row)
+			throws SQLException {
+		SigitDTipoDocAggDto dto = objectToFill;
+
+		// colonna [ID_TIPO_DOC_AGG]
+		if (mapAllColumns || columnsToReadMap.get("ID_TIPO_DOC_AGG") != null)
+			dto.setIdTipoDocAgg(rs.getBigDecimal("ID_TIPO_DOC_AGG"));
+
+		// colonna [FK_RAGG_DOC_AGG]
+		if (mapAllColumns || columnsToReadMap.get("FK_RAGG_DOC_AGG") != null)
+			dto.setFkRaggDocAgg(rs.getBigDecimal("FK_RAGG_DOC_AGG"));
+
+		// colonna [DES_TIPO_DOC_AGG]
+		if (mapAllColumns || columnsToReadMap.get("DES_TIPO_DOC_AGG") != null)
+			dto.setDesTipoDocAgg(rs.getString("DES_TIPO_DOC_AGG"));
+
+		return dto;
+	}
+
+}

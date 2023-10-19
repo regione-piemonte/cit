@@ -1,0 +1,13 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["wpModulo","stdMsgReeDett"], 
+	"targetWidgets":["ptNModuloTermico","tfTempFumiC","tfTempAriaC","tfO2Perc","tfCo2Perc","tfBacharachMin","tfBacharachMed","tfBacharachMax","tfCoCorrettoPpm","tfRendCombPerc","tfRendMInLeggePerc","tfNoxPpm","cbPortataCombUm","tfPortataComb","tfCoNoAriaPpm","rbRispettaBacharac","rbRendMagRendMin"],
+	"currentPanelName":"cpGestReeTipo1Dett" 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"caricaModulo",
+	"appDataToStore":[]
+}

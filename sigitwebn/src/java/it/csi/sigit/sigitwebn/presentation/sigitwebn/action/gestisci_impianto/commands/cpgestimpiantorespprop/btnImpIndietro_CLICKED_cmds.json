@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestImpianto", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestImpiantoResp", 
+	"pushCurrent":false
+}
+],
+	"esiti":["IMPIANTO","IMPIANTO_RESP"],
+	"nomeMetodo":"gestisciIndietro",
+	"appDataToStore":[]
+}

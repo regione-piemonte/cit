@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.ui.theme" value="csi" />
+	<constant name="struts.action.extension" value="do" />
+	
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.custom.i18n.resources" value="globalMessages
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/seleziona_ruolo/CpSelezRuoloAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/ricerca_codici_impianto/CpRicCodAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/main/CpDialogAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/main/CpMsgAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/ricerca_impianti/CpRicImpiantoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/risultato_ricerca_impianti/CpRisRicImpiantoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/home/CpHomeAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_impianto/CpGestImpiantoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_impianto/CpGestImpiantoRespPropAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_impianto_resp/CpGestImpiantoRespAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/risultato_ricerca_codici_impianto/CpRisRicCodiciAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/acquisisci_codici_impianto/CpAcquisisciCodiciAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/risultato_ricerca_codici_impianto_liberi/CpRisRicCodiciLibAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/ricerca_bollini/CpRicBolliniAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/risultato_ricerca_bollini/CpRisRicBolliniAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/acquista_bollini/CpAcquistaBolliniAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/paga_bollini/CpPagaBolliniAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/esito_pagamento_bollini/CpEsitoPagamentoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/ricerca_allegati_module/CpRicercaAllegatiAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/risultato_ricerca_allegati_module/CpRisultatoRicercaAllegatiAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/elenco_allegati_impianti/CpElencoAllegatiImpiantiAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_subentro/CpGestSubentroAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_delega/CpGestDelegaAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_terzo_responsabile/CpGest3RespAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/import_massivo/CpImportMassivoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/ricerca_avanz_impianti/CpRicAvzImpiantoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/risultato_ricerca_avanzata_impianti/CpRisRicAvzImpiantoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/elenco_ispezioni_impianti/CpElencoIspezioniImpiantiAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/elenco_ispezioni_impianti/CpDettaglioIspezioneAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/elenco_ispezioni_impianti/CpDettaglioIspezione2018Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/elenco_ispezioni_impianti/CpRicercaIspezioni2018Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/elenco_ispezioni_impianti/CpRisultatoRicercaIspezioni2018Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_distributori/CpGestDistributoriAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_distributori/CpInserisciDistributoreAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/respingi_allegato/CpRespingiAllegatoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_incarico/CpGestIncaricoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_impresa/CpGestImpresaAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/conferma_terzo_responsabile/CpConf3RespAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/risultato_ricerca_completa_impianti/CpRisRicCompImpiantoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/elenco_documenti_impianti/CpElencoDocumentiImpiantiAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/export_massivo/CpExportMassivoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda1/CpGestLibScheda1Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda14_1/CpGestLibScheda14_1Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda2/CpGestLibScheda2Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda1_extra/CpGestLibScheda1_extraAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda14_2/CpGestLibScheda14_2Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda14_3/CpGestLibScheda14_3Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda14_4/CpGestLibScheda14_4Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda8/CpGestLibScheda8Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda8/CpGestLibScheda8DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda3/CpGestLibScheda3Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda3/CpDettaglio3RespAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda12/CpGestLibScheda12Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda11_1/CpGestLibScheda11_1Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda11_2/CpGestLibScheda11_2Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda11_3/CpGestLibScheda11_3Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda11_4/CpGestLibScheda11_4Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_1/CpGestLibScheda9_1Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_1/CpGestLibScheda9_1DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_2/CpGestLibScheda9_2Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_2/CpGestLibScheda9_2DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_3/CpGestLibScheda9_3Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_3/CpGestLibScheda9_3DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_4/CpGestLibScheda9_4Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_4/CpGestLibScheda9_4DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_5/CpGestLibScheda9_5Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_5/CpGestLibScheda9_5DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_6/CpGestLibScheda9_6Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda9_6/CpGestLibScheda9_6DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_7/CpGestLibScheda4_7Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_7/CpGestLibScheda4_7DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_8/CpGestLibScheda4_8Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_8/CpGestLibScheda4_8DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda5_1sr/CpGestLibScheda5_1SRAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda5_1sr/CpGestLibScheda5_1SRDettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda5_1vr/CpGestLibScheda5_1VRAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda5_1vr/CpGestLibScheda5_1VRDettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda6_4/CpGestLibScheda6_4Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda6_4/CpGestLibScheda6_4DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda7/CpGestLibScheda7Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda10_1/CpGestLibScheda10_1Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda10_1/CpGestLibScheda10_1DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda5_2/CpGestLibScheda5_2Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda6/CpGestLibScheda6Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_3/CpGestLibScheda4_3Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_3/CpGestLibScheda4_3DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_2/CpGestLibScheda4_2Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_2/CpGestLibScheda4_2DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_ree_tipo1/CpGestReeTipo1Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_ree_tipo1/CpGestReeTipo1DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_6/CpGestLibScheda4_6Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_6/CpGestLibScheda4_6DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_1/CpGestLibScheda4_1Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_1/CpGestLibScheda4_1DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_ree_tipo4/CpGestReeTipo4Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_ree_tipo4/CpGestReeTipo4DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_5/CpGestLibScheda4_5Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_5/CpGestLibScheda4_5DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_4/CpGestLibScheda4_4Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4_4/CpGestLibScheda4_4DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_ree_tipo3/CpGestReeTipo3Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_ree_tipo3/CpGestReeTipo3DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_ree_tipo2/CpGestReeTipo2Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_ree_tipo2/CpGestReeTipo2DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_ree_documenti/CpGestisciReeDocumentiAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_aggiornamenti/CpGestLibAggiornamentiAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_rapprova/CpGestRapProvaGeneraleAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_rapprova/CpGestRapProvaTipo1Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_rapprova/CpGestRapProvaTipo2Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_rapprova/CpGestRapProvaTipo1DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_rapprova/CpGestRapProvaTipo2DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_rapprova/CpInitRapProvaAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_rapprova/CpGestRapProvaConfirmAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/ricerca_verifiche/CpRicercaVerificheAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/risultato_ricerca_verifiche/CpRisRicercaVerificheAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_verifica/CpGestVerificaAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_verifica/CpDettaglioVerificaAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_ree_confirm/CpGestReeConfirmAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda15/CpGestLibScheda15Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda15/CpGestLibScheda15DettAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda13/CpGestLibScheda13Action
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_accertamento/CpGestAccertamentoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_accertamento/CpDettaglioAccertamentoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_accertamento/CpDettaglioAccertamentoConfAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_azioni/CpAzioneAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_azioni/CpSvegliaAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_azioni/CpElencoSveglieAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/ricerca_accertamenti/CpRicercaAccertamentiAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/risultato_ricerca_accertamenti/CpRisRicercaAccertamentiAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_sanzioni/CpRicercaSanzioneAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_sanzioni/CpRisultatoRicercaSanzioniAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_sanzioni/CpDettaglioSanzioneAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_sanzioni/CpInserisciNotificaSanzioneAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/back_office/CpBackOfficeAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/back_office/CpElencoAbilitazioniAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/back_office/CpGestAbilitazioneAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/back_office/CpGestSubentroMassivoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/gestisci_libretto_scheda4/CpGestLibScheda4ImpresaAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/token/CpTokenAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/upload_ree_firmato/CpUploadReeFirmatoAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/elenco_impianti_graffati/CpElencoImpiantiGraffatiAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/ricerca_impianti_graffatura/CpRicImpiantoGraffaturaAction
+			,it/csi/sigit/sigitwebn/presentation/sigitwebn/action/risultato_ricerca_impianti_graffati/CpRisRicImpiantoGraffatoAction
+	" />
+	<constant name="struts.multipart.parser" value="org.apache.struts2.dispatcher.multipart.JakartaMultiPartRequest" />
+	<!-- costanti per il fileUpload interceptor: settare solo se necessarie -->
+	<constant name="struts.multipart.maxSize" value="1073741824" />
+	<!--<constant name="struts.multipart.saveDir" value="/tmp" />-->
+
+
+	<!-- jsp-package: TUTTI I PACKAGE DEVONO DERIVARE DA QUESTO -->
+	<package name="jsp-package" extends="struts-default">
+		<interceptors>
+			<interceptor name="tableSelection" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.interceptor.TableSelectionInterceptor"/>
+			<interceptor name="methodProtection" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.interceptor.MethodProtectionInterceptor">
+				<param name="excludeMethods">execute,localLogout,ssoLogout</param>
+			</interceptor>
+			<!-- l'esclusione dei parametri serve per evitare una XSS vulnerability -->
+			<interceptor name="paramsInterceptor" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.interceptor.ParametersInterceptor">
+				<param name="excludeParams">actionMessages,actionErrors,fieldErrors</param>
+			</interceptor>
+
+			<interceptor-stack name="jsp-stack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="servletConfig" />
+			 	<interceptor-ref name="scopedModelDriven"/> 
+				<interceptor-ref name="modelDriven"/>
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="tableSelection" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="fileUpload">
+       				<param name="maximumSize">1073741824</param>
+  	    		</interceptor-ref>
+				<!-- richiamare gli interceptor token e tokenSession dopo di questo -->
+				<interceptor-ref name="paramsInterceptor" />
+				<interceptor-ref name="conversionError"/>
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="validation" />
+				<interceptor-ref name="workflow" />
+				<interceptor-ref name="methodProtection" />
+			</interceptor-stack>
+			
+	
+		</interceptors>
+
+		<default-interceptor-ref name="jsp-stack"/>
+
+		<!-- gestione globale delle eccezioni e altri result globalmente validi -->
+		<global-results>
+		
+			<result name="BACK_TO_HOME" type="chain">
+			   <param name="actionName">HomePage</param>
+			    <param name="namespace">/secure</param>
+			</result>
+		
+			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
+			<!-- result per la restituizione di dati alle compoenenti rich U.I -->
+			<result name="provideData" type="stream">
+  				<param name="contentType">text/plain;charset=UTF-8</param>
+  				<param name="inputName">dataProviderStream</param>
+  				<param name="bufferSize">1024</param>
+  				<param name="allowCaching">false</param>
+			</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException"/>
+		</global-exception-mappings>
+
+	</package>
+
+
+	<!-- DEFAULT PACKAGE (ELEMENTI COMUNI A TUTTO L'APPLICATIVO) -->
+	<package name="default" extends="jsp-package" namespace="/base">
+		<action name="notFoundError">
+			<result>/jsp/error/notFound.jsp</result>
+		</action>
+		<action name="fatalError">
+			<result>/jsp/error/fatalError.jsp</result>
+		</action>
+		<action name="sessionExpired">
+			<result>/jsp/error/sessionExpired.jsp</result>
+		</action>
+
+		<action name="unknownPortal">
+			<result>/jsp/error/unknownPortal.jsp</result>
+		</action>
+		<action name="javascriptError">
+			<result>/jsp/error/javascriptError.jsp</result>
+		</action>
+	</package>
+
+
+	<!-- SECURE PACKAGE -->
+	<package name="secure" extends="jsp-package" namespace="/secure">
+		<!-- HOME PAGE -->
+		<action name="HomePage" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.HomeAction">
+			<result name="GO_TO_cpSelezRuolo" type="chain">
+			    <param name="actionName">cpSelezRuolo</param>
+			    <param name="namespace">/base/seleziona_ruolo</param>
+			</result>
+			<result name="GO_TO_EX_ACCESSO_KO" type="redirect">
+				<param name="location">/base/main/cpDialog!handleHvIngressoKO_CLICKED.do</param>
+			</result>
+			<result name="GO_TO_EX_PAGE_OK" type="redirect">
+				<param name="location">/base/esito_pagamento_bollini/cpEsitoPagamento!handleHvPagamentoOK_CLICKED.do</param>
+			</result>
+			<result name="GO_TO_EX_PAGE_KO" type="redirect">
+				<param name="location">/base/esito_pagamento_bollini/cpEsitoPagamento!handleHvPagamentoKO_CLICKED.do</param>
+			</result>
+			<result name="GO_TO_EX_PAGE_ABORT" type="redirect">
+				<param name="location">/base/esito_pagamento_bollini/cpEsitoPagamento!handleHvPagamentoABORT_CLICKED.do</param>
+			</result>
+			<result name="GO_TO_EX_PAGE_ANOMAL" type="redirect">
+				<param name="location">/base/esito_pagamento_bollini/cpEsitoPagamento!handleHvPagamentoANOMAL_CLICKED.do</param>
+			</result>
+			<result name="GO_TO_EX_ACCESSO_BLOCCATO" type="redirect">
+				<param name="location">/base/main/cpDialog!handleHvIngressoKO_CLICKED.do</param>
+			</result>
+		</action>
+
+
+		<!-- LOGOUT (LOCAL/SSO) -->
+		<action name="Logout" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.LogoutAction">
+			<result name="confirmLogout">/jsp/error/confirmLogout.jsp</result>
+			<result name="SSO_LOGOUT" type="redirect">
+				<param name="location">${ssoLogoutUrl}</param>
+			</result>
+			<result name="LOCAL_LOGOUT" type="redirect">
+				<param name="location">${localLogoutUrl}</param>
+			</result>
+		</action>
+
+		<!-- MENU -->
+		<action name="goToMenuHomeFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuHome">
+			<result name="GO_TO_cpHome" type="chain">
+				<param name="actionName">cpHome</param>
+				<param name="namespace">/base/home</param>
+			</result>
+		</action>
+
+		<action name="goToMenuRuoloFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuRuolo">
+			<result name="GO_TO_cpSelezRuolo" type="chain">
+				<param name="actionName">cpSelezRuolo</param>
+				<param name="namespace">/base/seleziona_ruolo</param>
+			</result>
+		</action>
+
+
+		<action name="goToMenuCodImpFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuCodImp">
+			<result name="GO_TO_cpRicCod" type="chain">
+				<param name="actionName">cpRicCod</param>
+				<param name="namespace">/base/ricerca_codici_impianto</param>
+			</result>
+		</action>
+		<action name="goToMenuAcquistaBolliniFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuAcquistaBollini">
+			<result name="GO_TO_cpRicBollini" type="chain">
+				<param name="actionName">cpRicBollini</param>
+				<param name="namespace">/base/ricerca_bollini</param>
+			</result>
+			<result name="GO_TO_cpRisRicBollini" type="chain">
+				<param name="actionName">cpRisRicBollini</param>
+				<param name="namespace">/base/risultato_ricerca_bollini</param>
+			</result>
+		</action>
+
+		<action name="goToMenuSubentroFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuSubentro">
+			<result name="GO_TO_cpGestSubentro" type="chain">
+				<param name="actionName">cpGestSubentro</param>
+				<param name="namespace">/base/gestisci_subentro</param>
+			</result>
+		</action>
+		<action name="goToMenuDelegaFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuDelega">
+			<result name="GO_TO_cpGestDelega" type="chain">
+				<param name="actionName">cpGestDelega</param>
+				<param name="namespace">/base/gestisci_delega</param>
+			</result>
+		</action>
+		<action name="goToMenuIncaricoCatFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuIncaricoCat">
+			<result name="GO_TO_cpGestIncarico" type="chain">
+				<param name="actionName">cpGestIncarico</param>
+				<param name="namespace">/base/gestisci_incarico</param>
+			</result>
+		</action>
+		<action name="goToMenuTerzoRespFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuTerzoResp">
+			<result name="GO_TO_cpGest3Resp" type="chain">
+				<param name="actionName">cpGest3Resp</param>
+				<param name="namespace">/base/gestisci_terzo_responsabile</param>
+			</result>
+		</action>
+
+		<action name="goToMenuImpiantoFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuImpianto">
+			<result name="GO_TO_cpRicImpianto" type="chain">
+				<param name="actionName">cpRicImpianto</param>
+				<param name="namespace">/base/ricerca_impianti</param>
+			</result>
+		</action>
+		<action name="goToMenuAllegatiFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuAllegati">
+			<result name="GO_TO_cpRicercaAllegati" type="chain">
+				<param name="actionName">cpRicercaAllegati</param>
+				<param name="namespace">/base/ricerca_allegati_module</param>
+			</result>
+		</action>
+		<action name="goToMenuImportMassivoFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuImportMassivo">
+			<result name="GO_TO_cpImportMassivo" type="chain">
+				<param name="actionName">cpImportMassivo</param>
+				<param name="namespace">/base/import_massivo</param>
+			</result>
+		</action>
+
+		<action name="goToMenuRicercaAvanzataImpFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuRicercaAvanzataImp">
+			<result name="GO_TO_cpRicAvzImpianto" type="chain">
+				<param name="actionName">cpRicAvzImpianto</param>
+				<param name="namespace">/base/ricerca_avanz_impianti</param>
+			</result>
+		</action>
+		<action name="goToMenuDatiImpresaFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuDatiImpresa">
+			<result name="GO_TO_cpGestImpresa" type="chain">
+				<param name="actionName">cpGestImpresa</param>
+				<param name="namespace">/base/gestisci_impresa</param>
+			</result>
+		</action>
+		<action name="goToMenuExportMassivoFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuExportMassivo">
+			<result name="GO_TO_cpExportMassivo" type="chain">
+				<param name="actionName">cpExportMassivo</param>
+				<param name="namespace">/base/export_massivo</param>
+			</result>
+		</action>
+		<action name="goToMenuBackOfficeFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuBackOffice">
+			<result name="GO_TO_cpBackOffice" type="chain">
+				<param name="actionName">cpBackOffice</param>
+				<param name="namespace">/base/back_office</param>
+			</result>
+		</action>
+		<action name="goToMenuRicercaVerificheFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuRicercaVerifiche">
+			<result name="GO_TO_cpRicercaVerifiche" type="chain">
+				<param name="actionName">cpRicercaVerifiche</param>
+				<param name="namespace">/base/ricerca_verifiche</param>
+			</result>
+		</action>
+		<action name="goToMenuRicercaAccertamentiFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuRicercaAccertamenti">
+			<result name="GO_TO_cpRicercaAccertamenti" type="chain">
+				<param name="actionName">cpRicercaAccertamenti</param>
+				<param name="namespace">/base/ricerca_accertamenti</param>
+			</result>
+		</action>
+		<action name="goToMenuRicercaIspezioniFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuRicercaIspezioni">
+			<result name="GO_TO_cpRicercaIspezioni2018" type="chain">
+				<param name="actionName">cpRicercaIspezioni2018</param>
+				<param name="namespace">/base/elenco_ispezioni_impianti</param>
+			</result>
+		</action>
+		<action name="goToMenuRicercaSanzioniFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuRicercaSanzioni">
+			<result name="GO_TO_cpRicercaSanzione" type="chain">
+				<param name="actionName">cpRicercaSanzione</param>
+				<param name="namespace">/base/gestisci_sanzioni</param>
+			</result>
+		</action>
+		<action name="goToMenuRicercaSveglieFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuRicercaSveglie">
+			<result name="GO_TO_cpElencoSveglie" type="chain">
+				<param name="actionName">cpElencoSveglie</param>
+				<param name="namespace">/base/gestisci_azioni</param>
+			</result>
+		</action>
+		<action name="goToMenuDatiDistributoreFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuDatiDistributore">
+			<result name="GO_TO_cpGestDistributori" type="chain">
+				<param name="actionName">cpGestDistributori</param>
+				<param name="namespace">/base/gestisci_distributori</param>
+			</result>
+		</action>
+
+		<action name="goToMenuTokenFromMenu" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.MenuAction" method="goToMenuToken">
+			<result name="GO_TO_cpToken" type="chain">
+				<param name="actionName">cpToken</param>
+				<param name="namespace">/base/token</param>
+			</result>
+		</action>
+
+	</package>
+
+</struts>

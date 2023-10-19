@@ -1,0 +1,36 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btNuovaRicercaImpianto","btNuovaRicercaBollino","btNuovaRicercaDatoDistributore"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btCercaImpianto","btCercaBollino","btCercaDatoDistributore"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCodImp","tfNumeroBollino","tfDatoDistributore","cbSiglaBollino"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["wpVerifica"], 
+	"targetWidgets":["tfCodImp","btCercaImpianto","ptRisultatoImpianto","btNuovaRicercaImpianto","cbSiglaBollino","tfNumeroBollino","btCercaBollino","ptRisultatoBollino","btNuovaRicercaBollino","tfDatoDistributore","btCercaDatoDistributore","ptRisultatoDatoDistributore","btNuovaRicercaDatoDistributore"],
+	"currentPanelName":"cpGestVerifica" 
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"resetInserimento",
+	"appDataToStore":[]
+}
+] 
+}

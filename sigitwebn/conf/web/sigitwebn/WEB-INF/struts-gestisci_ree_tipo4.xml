@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_ree_tipo4" extends="jsp-package" namespace="/base/gestisci_ree_tipo4">
+
+		
+<action name="cpGestReeTipo4" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_ree_tipo4.CpGestReeTipo4Action">
+	<result name="input">/jsp/cpGestReeTipo4.jsp</result>
+	<result name="success">/jsp/cpGestReeTipo4.jsp</result>
+	
+	<result name="GO_TO_cpGestReeTipo4" type="chain">
+		<param name="actionName">cpGestReeTipo4</param>
+		<param name="namespace">/base/gestisci_ree_tipo4</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo4Dett" type="chain">
+		<param name="actionName">cpGestReeTipo4Dett</param>
+		<param name="namespace">/base/gestisci_ree_tipo4</param>
+	</result>
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpGestReeTipo4Dett" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_ree_tipo4.CpGestReeTipo4DettAction">
+	<result name="input">/jsp/cpGestReeTipo4Dett.jsp</result>
+	<result name="success">/jsp/cpGestReeTipo4Dett.jsp</result>
+	
+	<result name="GO_TO_cpGestReeTipo4" type="chain">
+		<param name="actionName">cpGestReeTipo4</param>
+		<param name="namespace">/base/gestisci_ree_tipo4</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo4Dett" type="chain">
+		<param name="actionName">cpGestReeTipo4Dett</param>
+		<param name="namespace">/base/gestisci_ree_tipo4</param>
+	</result>
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R-543649283) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

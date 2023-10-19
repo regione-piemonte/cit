@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisultatoRicercaSanzioni",
+  "nomeWidget": "btnAnnullaSanzione",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisultatoRicercaSanzioni",
+  "nomeWidget": "btnAnnullaSanzione",
+	"language": "beanshell",
+	"script": "model.appDataElencoRisultatiRicercaSanzioni != null && model.appDataElencoRisultatiRicercaSanzioni.size() != 0"
+}
+
+
+  ]
+}

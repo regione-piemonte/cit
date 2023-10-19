@@ -1,0 +1,32 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbCombustibile","btnFiltraComp","cbApparecchiature","btnAnnullaDatiAllegato","btnCreaAllegato"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbCombustibile","cbApparecchiature"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["fpDatiRapporto"], 
+	"targetWidgets":["cbCombustibile","cbApparecchiature"],
+	"currentPanelName":"cpDettaglioIspezione" 
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbCombustibile","btnFiltraComp","cbApparecchiature","btnAnnullaDatiAllegato","btnCreaAllegato"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"cercaComboPerAllegato",
+	"appDataToStore":[]
+}

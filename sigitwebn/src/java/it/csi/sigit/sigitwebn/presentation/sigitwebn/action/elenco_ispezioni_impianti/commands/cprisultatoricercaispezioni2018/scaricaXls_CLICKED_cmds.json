@@ -1,0 +1,7 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"SCARICA_EXCEL_ISP",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"showXlsListaIspezioni.do",
+	"binaryStream":false 
+}

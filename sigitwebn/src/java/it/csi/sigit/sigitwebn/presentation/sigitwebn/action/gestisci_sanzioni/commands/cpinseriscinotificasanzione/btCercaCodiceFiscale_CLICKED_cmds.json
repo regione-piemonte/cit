@@ -1,0 +1,61 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btCercaCodiceFiscale","tfIndirizzo","btnCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbIndirizzo","btnNuovaRicercaIndirizzo","tfNoStradario","btNuovaRicerca"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbProvincia","cbComune","rbRespIsImpresa","tfCodiceFiscale"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbIndirizzo","tfNoStradario"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpSanzionati",
+	"contentPanelName":"cpInserisciNotificaSanzione",
+	"itemName": "fpElencoSanzionati"}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpSanzionati",
+	"contentPanelName":"cpInserisciNotificaSanzione",
+	"itemName": "fpSanzionato"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbIndirizzo","btnNuovaRicercaIndirizzo","btNuovaRicerca","tfNoStradario","tfStatoEstero","tfCittaEstera","tfIndirizzoEstero","tfCivicoEstero","tfCapEstero"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btCercaCodiceFiscale","btnCercaIndirizzo","tfIndirizzo"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCodiceFiscale","cbProvincia","cbComune"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK_SINGOLO","OK_MULTIPLO","OK_NO_RESULT","KO"],
+	"nomeMetodo":"cercaPersonaSanzionataDaCF",
+	"appDataToStore":[]
+}

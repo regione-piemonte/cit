@@ -1,0 +1,18 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["aggiornaElencoImpianti","elencoComuniResp","elencoIndirizzi","elencoIndirizziResp","elencoManutentori","elencoResponsabili","elencoResponsabiliTemp","elencoStatoImpianto","elencoTitoli","idImpiantoSelez","idResponsabileSelez","impianto","responsabile","ricercaImpianti","risultatoRicercaImpianti","idAllegatoImpiantoSelezionato","messaggioDinamico"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRicImpianto", 
+	"pushCurrent":false
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"initImpianto",
+	"appDataToStore":["appDataidImpiantoSelez","appDataricercaImpianti","appDataelencoComuni","appDataidAllegatoImpiantoSelezionato","appDatamessaggioDinamico"]
+}
+] 
+}

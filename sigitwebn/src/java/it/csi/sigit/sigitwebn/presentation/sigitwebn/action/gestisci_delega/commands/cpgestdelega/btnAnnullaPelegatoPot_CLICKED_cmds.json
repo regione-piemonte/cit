@@ -1,0 +1,12 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDelegatiPotenziali",
+	"contentPanelName":"cpGestDelega",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpInsDelegato",
+	"contentPanelName":"cpGestDelega",
+	"itemName": "fpInsDelegato"}
+] 
+}

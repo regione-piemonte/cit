@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="esito_pagamento_bollini" extends="jsp-package" namespace="/base/esito_pagamento_bollini">
+
+		
+<action name="cpEsitoPagamento" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.esito_pagamento_bollini.CpEsitoPagamentoAction">
+	<result name="input">/jsp/cpEsitoPagamento.jsp</result>
+	<result name="success">/jsp/cpEsitoPagamento.jsp</result>
+	
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="SHOW_dlgPagamentoEsitoOk">/jsp/dialogpanels/cpEsitoPagamento_dlgPagamentoEsitoOk.jsp</result>
+	<result name="SHOW_dlgPagamentoEsitoKO">/jsp/dialogpanels/cpEsitoPagamento_dlgPagamentoEsitoKO.jsp</result>
+	<result name="SHOW_dlgPagamentoEsitoABORT">/jsp/dialogpanels/cpEsitoPagamento_dlgPagamentoEsitoABORT.jsp</result>
+	<result name="SHOW_dlgPagamentoEsitoANOMAL">/jsp/dialogpanels/cpEsitoPagamento_dlgPagamentoEsitoANOMAL.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R-1687893187) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

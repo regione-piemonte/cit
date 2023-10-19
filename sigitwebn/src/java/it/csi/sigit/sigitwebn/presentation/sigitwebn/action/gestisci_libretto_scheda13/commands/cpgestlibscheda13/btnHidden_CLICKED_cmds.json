@@ -1,0 +1,23 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"recuperaAllegatoIspez",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"recuperaAllegatoIspez.do",
+	"binaryStream":false 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"recuperaAllegatoFirmato",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"recuperaAllegatoFirmato.do",
+	"binaryStream":false 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["DOWNLOAD_RAP_PROVA","DOWNLOAD_RAP_PROVA_FIRMATO","KO"],
+	"nomeMetodo":"downloadRapProva",
+	"appDataToStore":[]
+}

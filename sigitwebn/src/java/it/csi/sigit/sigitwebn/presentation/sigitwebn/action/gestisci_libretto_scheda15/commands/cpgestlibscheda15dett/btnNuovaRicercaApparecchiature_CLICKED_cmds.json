@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnCercaApparecchiature"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["calDataManut","cbTipoManut"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnNuovaRicercaApparecchiature","ptApparecchiature","cbApparecchiature","btnVerificaApparecchiature","cbTipoIntervento","tfAltro","tfOraArrivo","tfOraPart","tfTec","taOss","taRacc","taPre","cIntEntro","bSalvaManut"],
+	"targetsMenuElement":[]
+}
+] 
+}

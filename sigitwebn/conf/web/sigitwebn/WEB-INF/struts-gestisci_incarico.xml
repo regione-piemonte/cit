@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_incarico" extends="jsp-package" namespace="/base/gestisci_incarico">
+
+		
+<action name="cpGestIncarico" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_incarico.CpGestIncaricoAction">
+	<result name="input">/jsp/cpGestIncarico.jsp</result>
+	<result name="success">/jsp/cpGestIncarico.jsp</result>
+	
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_cpGestIncarico" type="chain">
+		<param name="actionName">cpGestIncarico</param>
+		<param name="namespace">/base/gestisci_incarico</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="SHOW_dpGestIncarico">/jsp/dialogpanels/cpGestIncarico_dpGestIncarico.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R1181151422) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

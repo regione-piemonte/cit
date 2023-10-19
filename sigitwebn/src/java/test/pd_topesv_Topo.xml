@@ -1,0 +1,421 @@
+<porta-delegata name="PD_Toponomastica">
+ <services>
+  <service name="Toponomastica"
+           public-interface-class="it.csi.sitad.tpnm.interf.ToponomasticaInterface">
+   <operations>
+    <operation name="cercaAsteDiViaByCoppiaId" type="synch-call">
+     <param-list>
+      <param name="id_l2" type="int[]" />
+      <param name="id_l2_var" type="int[]" />
+     </param-list>
+     <ret-val type="int[][]" />
+    </operation>
+    <operation name="cercaAsteDiViaByIdComune" type="synch-call">
+     <param-list>
+      <param name="id_comune" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.AstaDiVia[]" />
+    </operation>
+    <operation name="cercaAsteDiViaById_l2" type="synch-call">
+     <param-list>
+      <param name="id_l2" type="int[]" />
+      <param name="tipoRicerca" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.AstaDiVia[]" />
+    </operation>
+    <operation name="cercaAsteDiViaByObjectid" type="synch-call">
+     <param-list>
+      <param name="objectid" type="int[]" />
+      <param name="tipoRicerca" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.AstaDiVia[]" />
+    </operation>
+    <operation name="cercaIdAstaByCivico" type="synch-call">
+     <param-list>
+      <param name="id_l2" type="int" />
+      <param name="civico" type="int" />
+     </param-list>
+     <ret-val type="int" />
+    </operation>
+    <operation name="cercaNomeViaById_l2" type="synch-call">
+     <param-list>
+      <param name="id_l2" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.NomeVia" />
+    </operation>
+    <operation name="cercaNomiViaAlternativiByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="modalSearch" type="int" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.NomeVia[]" />
+    </operation>
+    <operation name="cercaNomiViaByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="modalSearch" type="int" />
+      <param name="flg_canc" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.NomeVia[]" />
+    </operation>
+    <operation name="cercaNomiViaByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="modalSearch" type="int" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.NomeVia[]" />
+    </operation>
+    <operation name="cercaNomiViaByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="cercaSubStr" type="boolean" />
+      <param name="flg_canc" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.NomeVia[]" />
+    </operation>
+    <operation name="cercaNomiViaByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="cercaSubStr" type="boolean" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.NomeVia[]" />
+    </operation>
+    <operation name="cercaTipiViaByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="cercaSubStr" type="boolean" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.TipoVia[]" />
+    </operation>
+    <operation name="cercaTipiViaByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="modalSearch" type="int" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.TipoVia[]" />
+    </operation>
+    <operation name="cercaTipiViaByNomeCompleto" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="modalSearch" type="int" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.TipoVia[]" />
+    </operation>
+    <operation name="cercaTipoViaByIdTipoVia" type="synch-call">
+     <param-list>
+      <param name="tipo" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.TipoVia" />
+    </operation>
+    <operation name="cercaTipoViaById_l2" type="synch-call">
+     <param-list>
+      <param name="id_l2" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.TipoVia" />
+    </operation>
+    <operation name="cercaViaAternativaById" type="synch-call">
+     <param-list>
+      <param name="id_via" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via" />
+    </operation>
+    <operation name="cercaViaById" type="synch-call">
+     <param-list>
+      <param name="id_via" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via" />
+    </operation>
+    <operation name="cercaVieAlternativeByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="id_comune" type="int[]" />
+      <param name="id_localita" type="int[]" />
+      <param name="id_provincia" type="int[]" />
+      <param name="id_regione" type="int[]" />
+      <param name="modalSearch" type="int" />
+      <param name="ufficiali" type="boolean" />
+      <param name="statoVia" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieByCodstrada" type="synch-call">
+     <param-list>
+      <param name="codstrada" type="java.lang.String[]" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieById" type="synch-call">
+     <param-list>
+      <param name="id_via" type="int[]" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieLTById" type="synch-call">
+     <param-list>
+      <param name="id_via" type="int[]" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.ViaLT[]" />
+    </operation>
+    <operation name="cercaVieByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="id_comune" type="int[]" />
+      <param name="id_localita" type="int[]" />
+      <param name="id_provincia" type="int[]" />
+      <param name="id_regione" type="int[]" />
+      <param name="cercaSubStr" type="boolean" />
+      <param name="ufficiali" type="boolean" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="id_comune" type="int" />
+      <param name="id_localita" type="int" />
+      <param name="id_provincia" type="int" />
+      <param name="id_regione" type="int" />
+      <param name="cercaSubStr" type="boolean" />
+      <param name="ufficiali" type="boolean" />
+      <param name="statoVia" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="id_comune" type="int" />
+      <param name="id_localita" type="int" />
+      <param name="id_provincia" type="int" />
+      <param name="id_regione" type="int" />
+      <param name="cercaSubStr" type="boolean" />
+      <param name="ufficiali" type="boolean" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="id_comune" type="int[]" />
+      <param name="id_localita" type="int[]" />
+      <param name="id_provincia" type="int[]" />
+      <param name="id_regione" type="int[]" />
+      <param name="cercaSubStr" type="boolean" />
+      <param name="ufficiali" type="boolean" />
+      <param name="statoVia" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="id_comune" type="int[]" />
+      <param name="id_localita" type="int[]" />
+      <param name="id_provincia" type="int[]" />
+      <param name="id_regione" type="int[]" />
+      <param name="modalSearch" type="int" />
+      <param name="ufficiali" type="boolean" />
+      <param name="statoVia" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieLTByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="id_comune" type="int[]" />
+      <param name="id_localita" type="int[]" />
+      <param name="id_provincia" type="int[]" />
+      <param name="id_regione" type="int[]" />
+      <param name="modalSearch" type="int" />
+      <param name="ufficiali" type="boolean" />
+      <param name="statoVia" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.ViaLT[]" />
+    </operation>
+    <operation name="cercaVieByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="id_comune" type="int[]" />
+      <param name="id_localita" type="int[]" />
+      <param name="id_provincia" type="int[]" />
+      <param name="id_regione" type="int[]" />
+      <param name="modalSearch" type="int" />
+      <param name="ufficiali" type="boolean" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="id_comune" type="int" />
+      <param name="id_localita" type="int" />
+      <param name="id_provincia" type="int" />
+      <param name="id_regione" type="int" />
+      <param name="modalSearch" type="int" />
+      <param name="ufficiali" type="boolean" />
+      <param name="statoVia" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieByNome" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="id_comune" type="int" />
+      <param name="id_localita" type="int" />
+      <param name="id_provincia" type="int" />
+      <param name="id_regione" type="int" />
+      <param name="modalSearch" type="int" />
+      <param name="ufficiali" type="boolean" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    <operation name="cercaVieByStradario" type="synch-call">
+     <param-list>
+      <param name="id_via" type="int[]" />
+      <param name="id_comu" type="int" />
+      <param name="cercaInVar" type="boolean" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[][]" />
+    </operation>
+    <operation name="cercaVieRinominate" type="synch-call">
+     <param-list>
+      <param name="id_l2_canc" type="int[]" />
+      <param name="id_comune" type="int" />
+     </param-list>
+     <ret-val type="java.util.Vector" />
+    </operation>
+    <operation name="checkId_l2Canc" type="synch-call">
+     <param-list>
+      <param name="id_l2" type="int[]" />
+     </param-list>
+     <ret-val type="int[]" />
+    </operation>
+    <operation name="checkStatoVia" type="synch-call">
+     <param-list>
+      <param name="id_via" type="int" />
+     </param-list>
+     <ret-val type="java.lang.String" />
+    </operation>
+    <operation name="esisteVia" type="synch-call">
+     <param-list>
+      <param name="id_tipovia" type="int" />
+      <param name="id_nomevia" type="int" />
+      <param name="id_localita" type="int" />
+     </param-list>
+     <ret-val type="boolean" />
+    </operation>
+    <operation name="testResources" type="synch-call">
+     <param-list />
+     <ret-val type="boolean" />
+    </operation>
+    
+    
+    <operation name="cercaVieAlternativeByNomeAndIstat" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="istatComune" type="java.lang.String []" />
+      <param name="modalSearch" type="int" />
+      <param name="ufficiali" type="boolean" />
+      <param name="statoVia" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    
+    <operation name="cercaVieByNomeAndIstat" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="istatComune" type="java.lang.String []" />
+      <param name="modalSearch" type="int" />
+      <param name="ufficiali" type="boolean" />
+      <param name="statoVia" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.Via[]" />
+    </operation>
+    
+    <operation name="cercaVieLTByNomeAndIstat" type="synch-call">
+     <param-list>
+      <param name="tokens" type="java.lang.String" />
+      <param name="istatComune" type="java.lang.String []" />
+      <param name="modalSearch" type="int" />
+      <param name="ufficiali" type="boolean" />
+      <param name="statoVia" type="java.lang.String" />
+      <param name="order" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.ViaLT[]" />
+    </operation>
+
+    <operation name="inserisciViaProposta" type="synch-call">
+     <param-list>
+      <param name="nomeVia" type="java.lang.String" />
+      <param name="idComune" type="int" />
+      <param name="idLocalita" type="int" />
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.ViaProposta" />
+    </operation>
+
+    <operation name="cercaViaPropostaById" type="synch-call">
+     <param-list>
+      <param name="idVia" type="int" />
+      <param name="soloProprietarie" type="boolean" />
+      
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.ViaProposta" />
+    </operation>
+
+    <operation name="cercaViaPropostaByNome" type="synch-call">
+     <param-list>
+      <param name="token" type="java.lang.String" />
+      <param name="soloProprietarie" type="boolean" />
+      <param name="idComuni" type="int[]" />
+      <param name="modalSearch" type="int" />
+      
+     </param-list>
+     <ret-val type="it.csi.sitad.tpnm.entity.ViaProposta[]" />
+     
+     
+
+    </operation>
+   </operations>
+  </service>
+ </services>
+ <config>
+  <url-pa></url-pa>
+  <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+   <pluggable-pd name="Toponomastica"
+                 class="it.csi.csi.porte.ejb.PortaDelegataEJB"
+                 url-pa="PA_Topo">
+    <properties>
+     <property name="java.naming.provider.url"
+               value="t3://tst-exp10wls1.csi.it,tst-exp11wls2.csi.it:7101" />
+     <property name="java.naming.factory.initial"
+               value="weblogic.jndi.WLInitialContextFactory" />
+               
+    </properties>
+   </pluggable-pd>
+  </pluggable-pd-list>
+  <queue-manager url="" />
+ </config>
+</porta-delegata>

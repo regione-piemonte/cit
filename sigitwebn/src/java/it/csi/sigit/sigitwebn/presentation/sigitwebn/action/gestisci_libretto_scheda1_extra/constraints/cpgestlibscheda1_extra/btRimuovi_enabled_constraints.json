@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda1_extra",
+  "nomeWidget": "btRimuovi",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda1_extra",
+  "nomeWidget": "btRimuovi",
+	"language": "beanshell",
+	"script": "model.appDatalistaDatiExtra != null && model.appDatalistaDatiExtra.size() > 0"
+}
+
+
+  ]
+}

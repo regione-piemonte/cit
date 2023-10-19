@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="ricerca_codici_impianto" extends="jsp-package" namespace="/base/ricerca_codici_impianto">
+
+		
+<action name="cpRicCod" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ricerca_codici_impianto.CpRicCodAction">
+	<result name="input">/jsp/cpRicCod.jsp</result>
+	<result name="success">/jsp/cpRicCod.jsp</result>
+	
+	<result name="GO_TO_cpRisRicCodici" type="chain">
+		<param name="actionName">cpRisRicCodici</param>
+		<param name="namespace">/base/risultato_ricerca_codici_impianto</param>
+	</result>
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R904579245) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

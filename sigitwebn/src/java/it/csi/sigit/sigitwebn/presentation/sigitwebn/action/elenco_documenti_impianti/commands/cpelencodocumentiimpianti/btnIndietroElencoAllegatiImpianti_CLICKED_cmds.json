@@ -1,0 +1,32 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisRicImpianto", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestImpianto", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestImpiantoResp", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisRicAvzImpianto", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpElencoIspezioniImpianti", 
+	"pushCurrent":false
+}
+],
+	"esiti":["RIS_RIC_IMPIANTO","GEST_IMPIANTO","GEST_IMPIANTO_RESP","RIS_RIC_AVZ_IMPIANTI","GEST_ISPEZIONI"],
+	"nomeMetodo":"tornaPaginaChiamante",
+	"appDataToStore":[]
+}

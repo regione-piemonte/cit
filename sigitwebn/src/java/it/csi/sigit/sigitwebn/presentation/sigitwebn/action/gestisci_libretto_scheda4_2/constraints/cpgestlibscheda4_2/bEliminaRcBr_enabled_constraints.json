@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda4_2",
+  "nomeWidget": "bEliminaRcBr",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda4_2",
+  "nomeWidget": "bEliminaRcBr",
+	"language": "beanshell",
+	"script": "model.appDatalistaComponentiBRRC != null && model.appDatalistaComponentiBRRC.size() > 0"
+}
+
+
+  ]
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="acquista_bollini" extends="jsp-package" namespace="/base/acquista_bollini">
+
+		
+<action name="cpAcquistaBollini" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.acquista_bollini.CpAcquistaBolliniAction">
+	<result name="input">/jsp/cpAcquistaBollini.jsp</result>
+	<result name="success">/jsp/cpAcquistaBollini.jsp</result>
+	
+	<result name="GO_TO_cpRisRicBollini" type="chain">
+		<param name="actionName">cpRisRicBollini</param>
+		<param name="namespace">/base/risultato_ricerca_bollini</param>
+	</result>
+	<result name="GO_TO_cpPagaBollini" type="chain">
+		<param name="actionName">cpPagaBollini</param>
+		<param name="namespace">/base/paga_bollini</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R-1095179921) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

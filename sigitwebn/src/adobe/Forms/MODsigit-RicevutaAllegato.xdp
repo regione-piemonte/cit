@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xfa generator="AdobeLiveCycleDesignerES_V8.2.1.4029.1.523496" APIVersion="2.8.8118.0"?>
+<xdp:xdp xmlns:xdp="http://ns.adobe.com/xdp/" timeStamp="2016-04-05T10:03:15Z" uuid="138a708d-63d3-4581-9ea6-669b6ac157af">
+<template xmlns="http://www.xfa.org/schema/xfa-template/2.6/">
+   <?formServer defaultPDFRenderFormat acrobat8.1dynamic?>
+   <?formServer allowRenderCaching 0?>
+   <?formServer formModel both?>
+   <subform name="invio" layout="tb" locale="it_IT" restoreState="auto">
+      <pageSet>
+         <pageArea name="Page1" id="Page1">
+            <contentArea x="0.25in" y="0.25in" w="576pt" h="756pt"/>
+            <medium stock="default" short="612pt" long="792pt"/>
+            <?templateDesigner expand 1?></pageArea>
+         <?templateDesigner expand 0?></pageSet>
+      <subform w="576pt" h="756pt" name="form">
+         <subform name="intestazione" w="203.2mm" h="37.4mm">
+            <margin leftInset="1mm" rightInset="1mm" topInset="1mm" bottomInset="1mm"/>
+            <draw name="logo" y="1mm" x="2.175mm" w="22.225mm" h="15.875mm">
+               <value>
+                  <image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" contentType="image/jpg">/9j/4AAQSkZJRgABAAEAYABgAAD//gAfTEVBRCBUZWNobm9sb2dpZXMgSW5jLiBWMS4wMQD/2wCE
+AAgFBgcGBQgHBgcJCAgJDBQNDAsLDBgREg4UHRkeHhwZHBsgJC4nICIrIhscKDYoKy8xMzQzHyY4
+PDgyPC4yMzEBCAkJDAoMFw0NFzEhHCExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTEx
+MTExMTExMTExMTExMTExMf/EAaIAAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKCwEAAwEBAQEB
+AQEBAQAAAAAAAAECAwQFBgcICQoLEAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEU
+MoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2Rl
+ZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK
+0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+foRAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYS
+QVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNU
+VVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5
+usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/AABEIACgAKAMBEQACEQEDEQH/
+2gAMAwEAAhEDEQA/AF1vWI9Fg05I9Msp/PtUkZpY+c1x4jEyoySSPpMnyelmFKU5yas7aW7FSHxQ
+8iq39jaYFJ/uc12Yahi8RSVWKik+7scmYU8py/ESw1SpNzSvpFPc3/7b8Pb9v2Fs+n2QZr0v7OrW
+vp958p/aNHbX7jAm8UNErN/Y2mFQf7nNebiaGLw1J1ZKNl2dz6rL4ZTj8RHDU6k1NrS8Utty3oms
+x6zBqKSaZZQeRavIrRR85rjw+IdaTTVjszjJ6WXUozhJu7trbsZvjSGWWPR2iidwLFM7VJxXPjk3
+NW7Hr8L1IQoVOZpe9+iMKGG8MkStDNtDD+A+tYOtXnCNKTfKtl0Pc+r4GlUniYKKqSTvLS7PY/sl
+t9t+1+Sn2jp5uPmx0xX0HtJ8nJfTsfkfsoc3PbXueOTQ3gkkVYZtrMeNh9a+fVavCDpRb5X06H65
+9XwNSrDEzUXUilZ9V/Vzd8Fwywx6wZInQGxfBZSK3wKam79jxOKKkJ4enyu/vfoz0DQt39i2G3P/
+AB7x9P8AdFesfAu3Uu/P/tUC90bQUO+f/aoJ0KWu7hol9uzxbydf900DVuh554unlitdEEUroDp8
+ZIViK8nHNqat2PveF6cJ4epzJP3v0RhW93c+fGPtEv3h/GfWuFSldan1NShS5H7q27I9sx83419I
+fjPQ8Tnu7kTyAXEvDH+M+tfNuUr7n7NToUuRe6tuyN3wjPLJba55sruBp8hG5icV3YFtzd+x8vxR
+ThDD0+VJe9+jLWo2VnrOn6S6a1ptu0FlHG6SzgMGxzxXRicNKtJNM8fJs4pZdSlCcW23fS3YpR+G
+rZJFY+ItI+Ug/wDHwK51gZ33R7MuKcO4tezl+H+Z6F/b2j5z/atj/wCBCf416x8DboeeyeGrV5Gb
+/hItIGST/wAfAryXgZ90ffR4pw8Ypezl+Bd02ys9G0/VnbWtNuGnspI0SKcFi2OOK6MPh5UZNtnj
+ZxnFLMKUYQi1Z31t2P/Z</image>
+               </value>
+               <ui>
+                  <imageEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </imageEdit>
+               </ui>
+               <font typeface="Myriad Pro"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <desc>
+                  <text name="embeddedHref">..\resources\logo_regione.jpg</text>
+               </desc>
+            </draw>
+            <bind match="dataRef" ref="$record.intestazione"/>
+            <?templateDesigner expand 0?>
+            <draw name="regione" y="5.35mm" x="27.575mm" w="41.635mm" h="5.939mm">
+               <ui>
+                  <textEdit/>
+               </ui>
+               <value>
+                  <text>Regione Piemonte</text>
+               </value>
+               <font size="14pt" typeface="Arial" baselineShift="0pt"/>
+               <margin topInset="0.5mm" bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm"/>
+               <para spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="0pt"/>
+               <?renderCache.bounds 115186 14001 0 0 1417 1417 0 0?>
+               <?renderCache.textRun 16 Regione Piemonte 0 1417 12471 0 0 0 "Arial" 0 0 14000 ISO-8859-1?></draw>
+         </subform>
+         <subform name="descrizione" x="14.875mm" y="60.325mm" w="188.151mm" h="50.8mm">
+            <margin leftInset="1mm" rightInset="1mm" topInset="1mm" bottomInset="1mm"/>
+            <field name="ragioneSociale" w="180.975mm" x="3.175mm" h="8.525mm" access="readOnly" y="0mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Ragione Sociale</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.ragioneSociale"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <field name="codiceFiscale" y="24.4mm" w="180.975mm" h="9.525mm" access="readOnly" x="3.175mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Partita IVA/Codice Fiscale</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.codiceFiscale"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <field name="codiceRea" y="37.1mm" w="180.975mm" h="9.525mm" access="readOnly" x="3.175mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Codice Rea</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.codiceRea"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <field name="indirizzo" y="11.7mm" w="180.975mm" h="9.585mm" access="readOnly" x="3.175mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Indirizzo</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.indirizzo"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <bind match="dataRef" ref="$record.descrizione"/>
+            <border>
+               <edge presence="hidden"/>
+               <corner thickness="0.175mm" presence="hidden"/>
+            </border>
+            <?templateDesigner expand 0?></subform>
+         <subform name="infoImpianto" x="15.875mm" y="114.3mm" w="185.15mm" h="32.225mm">
+            <margin leftInset="1mm" rightInset="1mm" topInset="1mm" bottomInset="1mm"/>
+            <bind match="dataRef" ref="$record.infoImpianto"/>
+            <border>
+               <edge presence="hidden"/>
+               <corner thickness="0.175mm" presence="hidden"/>
+            </border>
+            <?templateDesigner expand 0?></subform>
+         <subform name="infoRapporto" x="15.875mm" y="142.875mm" w="187.325mm" h="123.042mm">
+            <margin leftInset="1mm" rightInset="1mm" topInset="1mm" bottomInset="1mm"/>
+            <bind match="dataRef" ref="$record.infoRapporto"/>
+            <border>
+               <edge presence="hidden"/>
+               <corner thickness="0.175mm" presence="hidden"/>
+            </border>
+            <field name="dataControllo" w="183.15mm" h="9mm" y="43.45mm" access="readOnly" x="2.175mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Data controllo</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.dataControllo"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <field name="elencoApp" w="183.15mm" y="30.75mm" access="readOnly" x="2.175mm" minH="9mm">
+               <ui>
+                  <textEdit multiLine="1">
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Elenco apparecchiature</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.elencoApp"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <field name="codiceBollino" w="183.15mm" h="9mm" y="56.15mm" access="readOnly" x="2.175mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Codice bollino</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.codiceBollino"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <field name="dataInvio" w="183.15mm" h="9mm" y="68.85mm" access="readOnly" x="2.175mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Data invio del rapporto</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.dataInvio"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <field name="dataRespinta" w="183.15mm" h="9mm" y="81.55mm" access="readOnly" x="2.175mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Data respinta del rapporto</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.dataRespinta"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <field name="tipoRapporto" w="183.15mm" h="9mm" y="18.05mm" access="readOnly" x="2.175mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Tipo rapporto</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.tipoRapporto"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <field name="descCat" w="183.15mm" h="9mm" y="94.25mm" access="readOnly" x="2.175mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="42.56mm">
+                  <font typeface="Arial"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Invio da parte del CAT</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.descCat"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <calculate override="error"/>
+            </field>
+            <?templateDesigner expand 1?></subform>
+         <subform name="footer" x="3.175mm" y="254mm">
+            <margin leftInset="1mm" rightInset="1mm" topInset="1mm" bottomInset="1mm"/>
+            <field name="luogo" w="14.875mm" h="9mm" x="0mm" y="0mm" access="readOnly">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Myriad Pro"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="0.01in">
+                  <font typeface="Myriad Pro"/>
+                  <para vAlign="middle"/>
+               </caption>
+               <bind match="dataRef" ref="$.luogo"/>
+               <calculate override="error"/>
+            </field>
+            <field name="data" x="14.875mm" w="28.575mm" h="9mm" y="0mm" access="readOnly">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Myriad Pro"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="3.8729mm">
+                  <font typeface="Myriad Pro"/>
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>il</text>
+                  </value>
+               </caption>
+               <bind match="dataRef" ref="$.data"/>
+               <calculate override="error"/>
+            </field>
+            <bind match="dataRef" ref="$record.footer"/>
+            <?templateDesigner expand 0?></subform>
+         <draw name="ricevuta" y="34.925mm" w="149.225mm" h="9.525mm">
+            <ui>
+               <textEdit/>
+            </ui>
+            <value>
+               <text>Ricevuta avvenuto invio rapporto di controllo </text>
+            </value>
+            <font size="18pt" typeface="Arial" baselineShift="0pt" weight="bold"/>
+            <margin topInset="0.5mm" bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm"/>
+            <para spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="0pt"/>
+            <?renderCache.bounds 420166 24166 0 0 1417 1417 0 0?>
+            <?renderCache.textRun 46 Ricevuta avvenuto invio rapporto di controllo  0 1417 15629 0 0 0 "Arial" 1 0 18000 ISO-8859-1?></draw>
+         <draw name="ditta" y="53.975mm" w="101.6mm" h="0.261583in">
+            <ui>
+               <textEdit/>
+            </ui>
+            <value>
+               <text>Descrizione impresa</text>
+            </value>
+            <font size="12pt" typeface="Arial" baselineShift="0pt" weight="bold"/>
+            <margin topInset="0.5mm" bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm"/>
+            <para spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="0pt"/>
+            <?renderCache.bounds 285166 16000 0 0 1417 1417 0 0?>
+            <?renderCache.textRun 19 Descrizione impresa 0 1417 10892 0 0 0 "Arial" 1 0 12000 ISO-8859-1?></draw>
+         <draw name="impianto" y="117.475mm" w="101.6mm" h="0.261583in">
+            <ui>
+               <textEdit/>
+            </ui>
+            <value>
+               <text>Descrizione Impianto</text>
+            </value>
+            <font size="12pt" typeface="Arial" baselineShift="0pt" weight="bold"/>
+            <margin topInset="0.5mm" bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm"/>
+            <para spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="0pt"/>
+            <?renderCache.bounds 285166 16000 0 0 1417 1417 0 0?>
+            <?renderCache.textRun 20 Descrizione Impianto 0 1417 10892 0 0 0 "Arial" 1 0 12000 ISO-8859-1?></draw>
+         <draw name="rapporto" y="155.575mm" w="101.6mm" h="0.261583in">
+            <ui>
+               <textEdit/>
+            </ui>
+            <value>
+               <text>Descrizione rapporto di Controllo</text>
+            </value>
+            <font size="12pt" typeface="Arial" baselineShift="0pt" weight="bold"/>
+            <margin topInset="0.5mm" bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm"/>
+            <para spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="0pt"/>
+            <?renderCache.bounds 285166 16000 0 0 1417 1417 0 0?>
+            <?renderCache.textRun 33 Descrizione rapporto di Controllo 0 1417 10892 0 0 0 "Arial" 1 0 12000 ISO-8859-1?></draw>
+         <field name="indietro" y="254mm" x="168.275mm" w="31.75mm" h="9.175mm" relevant="-print">
+            <ui>
+               <button highlight="inverted"/>
+            </ui>
+            <font typeface="Myriad Pro"/>
+            <caption>
+               <value>
+                  <text>Indietro</text>
+               </value>
+               <para vAlign="middle" hAlign="center"/>
+               <font typeface="Myriad Pro"/>
+            </caption>
+            <border hand="right">
+               <edge stroke="raised"/>
+               <fill>
+                  <color value="212, 208, 200"/>
+               </fill>
+               <?templateDesigner StyleID apbx2?></border>
+            <bind match="none"/>
+            <event name="event__click" activity="click">
+               <submit textEncoding="UTF-8" xdpContent="pdf datasets xfdf" target="./cpElencoAllegatiImpianti.do"/>
+            </event>
+            <event activity="mouseDown" name="event__mouseDown">
+               <script>
+//xfa.host.messageBox("prova: "+this.resolveNode("#event").submit);
+var submitIndietro = form.submitIndietroDo.rawValue;
+
+this.resolveNode("#event").submit.target = submitIndietro;
+</script>
+            </event>
+         </field>
+         <field name="submitIndietroDo" y="127.783mm" x="69.627mm" w="62mm" h="9mm" presence="hidden">
+            <ui>
+               <textEdit>
+                  <border>
+                     <?templateDesigner StyleID aped3?>
+                     <edge stroke="lowered"/>
+                  </border>
+                  <margin/>
+               </textEdit>
+            </ui>
+            <font typeface="Myriad Pro"/>
+            <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+            <para vAlign="middle"/>
+            <caption reserve="25mm">
+               <font typeface="Myriad Pro"/>
+               <para vAlign="middle"/>
+               <value>
+                  <text>Text Field</text>
+               </value>
+            </caption>
+            <bind match="dataRef" ref="$record.submitIndietroDo"/>
+         </field>
+         <event activity="docReady" ref="$host" name="event__docReady">
+            <script contentType="application/x-javascript">
+	//xfa.host.messageBox("this.infoRapporto.dataRespinta.rawValue: Prova");
+		//xfa.host.messageBox("Beppe: "+this);
+	//xfa.host.messageBox("this.infoRapporto.dataRespinta.rawValue: "+this.infoRapporto.dataRespinta.rawValue);
+	//xfa.host.messageBox("this.infoRapporto.indietro.name: "+this.infoRapporto.indietro.name);
+	
+		
+	if (this.infoRapporto.dataRespinta.rawValue == null)
+	{
+		this.infoRapporto.dataRespinta.presence = "hidden";
+		
+	}
+
+	if (this.infoRapporto.descCat.rawValue == null)
+	{
+		this.infoRapporto.descCat.presence = "hidden";
+		
+	}
+	
+	
+	//xfa.host.messageBox("this.submitIndietroDo.rawValue: "+this.submitIndietroDo.rawValue);
+	if (this.submitIndietroDo.rawValue == null)
+	{
+		this.indietro.presence = "hidden";
+	}
+	else
+	{
+		this.chiudi.presence = "hidden";	
+	}
+	</script>
+         </event>
+         <field name="chiudi" y="254mm" x="152.4mm" w="31.75mm" h="9.175mm" relevant="-print">
+            <ui>
+               <button highlight="inverted"/>
+            </ui>
+            <font typeface="Myriad Pro"/>
+            <caption>
+               <value>
+                  <text>Chiudi</text>
+               </value>
+               <para vAlign="middle" hAlign="center"/>
+               <font typeface="Myriad Pro"/>
+            </caption>
+            <border hand="right">
+               <edge stroke="raised"/>
+               <fill>
+                  <color value="212, 208, 200"/>
+               </fill>
+               <?templateDesigner StyleID apbx2?></border>
+            <bind match="none"/>
+            <event name="event__click" activity="click">
+               <execute/>
+            </event>
+            <event activity="click" name="event__click">
+               <script contentType="application/x-javascript">
+app.execMenuItem("Close");
+</script>
+            </event>
+         </field>
+         <field name="ubicazione" w="183.15mm" h="9mm" y="136.525mm" access="readOnly" x="19.05mm">
+            <ui>
+               <textEdit>
+                  <border presence="hidden">
+                     <?templateDesigner StyleID aped0?></border>
+                  <margin/>
+               </textEdit>
+            </ui>
+            <font typeface="Arial"/>
+            <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+            <para vAlign="middle"/>
+            <caption reserve="42.56mm">
+               <font typeface="Arial"/>
+               <para vAlign="middle"/>
+               <value>
+                  <text>Ubicazione</text>
+               </value>
+            </caption>
+            <bind match="dataRef" ref="$record.infoImpianto.ubicazione"/>
+            <border>
+               <edge/>
+               <corner thickness="0.175mm"/>
+            </border>
+            <calculate override="error"/>
+         </field>
+         <field name="codice" w="183.15mm" h="9mm" y="123.825mm" access="readOnly" x="19.05mm">
+            <ui>
+               <textEdit>
+                  <border presence="hidden">
+                     <?templateDesigner StyleID aped0?></border>
+                  <margin/>
+               </textEdit>
+            </ui>
+            <font typeface="Arial"/>
+            <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+            <para vAlign="middle"/>
+            <caption reserve="42.56mm">
+               <font typeface="Arial"/>
+               <para vAlign="middle"/>
+               <value>
+                  <text>Codice Impianto</text>
+               </value>
+            </caption>
+            <bind match="dataRef" ref="$record.infoImpianto.codice"/>
+            <border>
+               <edge/>
+               <corner thickness="0.175mm"/>
+            </border>
+            <calculate override="error"/>
+         </field>
+         <?templateDesigner expand 1?></subform>
+      <variables>
+         <script contentType="application/x-javascript"/>
+         <script contentType="application/x-javascript"/>
+         <?templateDesigner expand 1?></variables>
+      <proto/>
+      <desc>
+         <text name="version">8.2.1.3158.1.475346.466429</text>
+      </desc>
+      <?templateDesigner Hyphenation excludeInitialCap:1, excludeAllCaps:1, wordCharCnt:7, remainCharCnt:3, pushCharCnt:3?>
+      <?templateDesigner expand 1?>
+      <?renderCache.subset "Arial" 0 0 ISO-8859-1 4 132 33 0003001200240026002700280029002C00330035003600370038003900440045004600470048004A004B004C004F005000510052005300550056005700580059005D /ACDEFIPRSTUVabcdeghilmnoprstuvz?>
+      <?renderCache.subset "Arial" 1 0 ISO-8859-1 4 84 21 000300260027002C00350044004600470048004C004F005000510052005300550056005700580059005D CDIRacdeilmnoprstuvz?>
+      <?renderCache.subset "Myriad Pro" 0 0 ISO-8859-1 4 64 16 000100240027002A0035004500460049004A004D004F00500053005500560059 CFITdehilnortux?></subform>
+   <?templateDesigner SavePDFWithLog 0?>
+   <?originalXFAVersion http://www.xfa.org/schema/xfa-template/2.6/?>
+   <?templateDesigner DefaultLanguage FormCalc?>
+   <?templateDesigner DefaultRunAt client?>
+   <?acrobat JavaScript strictScoping?>
+   <?PDFPrintOptions embedViewerPrefs 0?>
+   <?PDFPrintOptions embedPrintOnFormOpen 0?>
+   <?PDFPrintOptions duplexMode 0?>
+   <?templateDesigner DefaultPreviewType interactive?>
+   <?templateDesigner DefaultPreviewPagination simplex?>
+   <?templateDesigner XDPPreviewFormat 20?>
+   <?templateDesigner DefaultPreviewDataFileName ..\Schemas\MODsigit-RicevutaAllegato-schema.xml?>
+   <?templateDesigner Grid show:1, snap:1, units:0, color:ff8080, origin:(0,0), interval:(125000,125000)?>
+   <?templateDesigner FormTargetVersion 26?>
+   <?templateDesigner Zoom 95?>
+   <?templateDesigner SaveTaggedPDF 0?>
+   <?templateDesigner SavePDFWithEmbeddedFonts 0?>
+   <?templateDesigner Rulers horizontal:1, vertical:1, guidelines:1, crosshairs:0?></template>
+<config xmlns="http://www.xfa.org/schema/xci/2.6/">
+   <agent name="designer">
+      <destination>pdf</destination>
+      <pdf>
+         <!--  [0..n]  -->
+         <fontInfo/>
+      </pdf>
+   </agent>
+   <present>
+      <!--  [0..n]  -->
+      <pdf>
+         <!--  [0..n]  -->
+         <fontInfo>
+            <embed>0</embed>
+         </fontInfo>
+         <tagged>0</tagged>
+         <version>1.7</version>
+         <adobeExtensionLevel>1</adobeExtensionLevel>
+      </pdf>
+      <common>
+         <data>
+            <xsl>
+               <uri/>
+            </xsl>
+            <outputXSL>
+               <uri/>
+            </outputXSL>
+         </data>
+      </common>
+      <cache>
+         <macroCache/>
+      </cache>
+      <xdp>
+         <packets>*</packets>
+      </xdp>
+   </present>
+   <?originalXFAVersion http://www.xfa.org/schema/xci/2.8/?></config>
+<connectionSet xmlns="http://www.xfa.org/schema/xfa-connection-set/2.4/">
+   <xsdConnection name="MODsigit-RicevutaAllegato-schema" dataDescription="invio">
+      <uri>..\Schemas\MODsigit-RicevutaAllegato-schema.xsd</uri>
+      <rootElement>invio</rootElement>
+   </xsdConnection>
+</connectionSet>
+<xfa:datasets xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/">
+   <xfa:data xfa:dataNode="dataGroup"/>
+   <dd:dataDescription xmlns:dd="http://ns.adobe.com/data-description/" dd:name="allegato">
+      <allegato xmlns="http://www.csi.it/sigit/sigitweb/xml/allegato">
+         <intestazione>
+            <logo/>
+            <provincia/>
+            <ente/>
+         </intestazione>
+         <descrizione>
+            <ragioneSociale/>
+            <codiceFiscale/>
+            <codiceRea/>
+            <indirizzo/>
+         </descrizione>
+         <lotto>
+            <sigla/>
+            <numeroDa/>
+            <numeroA/>
+            <totale/>
+            <consegnati/>
+            <ritirati/>
+            <estremi/>
+         </lotto>
+         <footer>
+            <luogo/>
+            <data/>
+         </footer>
+      </allegato>
+   </dd:dataDescription>
+   <dd:dataDescription xmlns:dd="http://ns.adobe.com/data-description/" dd:name="invio">
+      <invio xmlns="http://www.csi.it/sigit/sigitweb/xml/invio">
+         <submitIndietroDo/>
+         <intestazione>
+            <logo/>
+            <provincia/>
+            <ente/>
+         </intestazione>
+         <descrizione>
+            <ragioneSociale/>
+            <codiceFiscale/>
+            <codiceRea/>
+            <indirizzo/>
+         </descrizione>
+         <infoImpianto>
+            <codice/>
+            <ubicazione/>
+         </infoImpianto>
+         <infoRapporto>
+            <dataControllo/>
+            <elencoApp/>
+            <codiceBollino/>
+            <dataInvio/>
+            <dataRespinta/>
+            <descCat/>
+         </infoRapporto>
+         <footer>
+            <luogo/>
+            <data/>
+         </footer>
+      </invio>
+   </dd:dataDescription>
+</xfa:datasets>
+<localeSet xmlns="http://www.xfa.org/schema/xfa-locale-set/2.6/">
+   <locale name="it_IT" desc="Italiano (Italia)">
+      <calendarSymbols name="gregorian">
+         <monthNames>
+            <month>gennaio</month>
+            <month>febbraio</month>
+            <month>marzo</month>
+            <month>aprile</month>
+            <month>maggio</month>
+            <month>giugno</month>
+            <month>luglio</month>
+            <month>agosto</month>
+            <month>settembre</month>
+            <month>ottobre</month>
+            <month>novembre</month>
+            <month>dicembre</month>
+         </monthNames>
+         <monthNames abbr="1">
+            <month>gen</month>
+            <month>feb</month>
+            <month>mar</month>
+            <month>apr</month>
+            <month>mag</month>
+            <month>giu</month>
+            <month>lug</month>
+            <month>ago</month>
+            <month>set</month>
+            <month>ott</month>
+            <month>nov</month>
+            <month>dic</month>
+         </monthNames>
+         <dayNames>
+            <day>domenica</day>
+            <day>lunedì</day>
+            <day>martedì</day>
+            <day>mercoledì</day>
+            <day>giovedì</day>
+            <day>venerdì</day>
+            <day>sabato</day>
+         </dayNames>
+         <dayNames abbr="1">
+            <day>dom</day>
+            <day>lun</day>
+            <day>mar</day>
+            <day>mer</day>
+            <day>gio</day>
+            <day>ven</day>
+            <day>sab</day>
+         </dayNames>
+         <meridiemNames>
+            <meridiem>AM</meridiem>
+            <meridiem>PM</meridiem>
+         </meridiemNames>
+         <eraNames>
+            <era>aC</era>
+            <era>dC</era>
+         </eraNames>
+      </calendarSymbols>
+      <datePatterns>
+         <datePattern name="full">EEEE D MMMM YYYY</datePattern>
+         <datePattern name="long">DD MMMM YYYY</datePattern>
+         <datePattern name="med">DD/MMM/YY</datePattern>
+         <datePattern name="short">DD/MM/YY</datePattern>
+      </datePatterns>
+      <timePatterns>
+         <timePattern name="full">HH:MM:SS Z</timePattern>
+         <timePattern name="long">H:MM:SS Z</timePattern>
+         <timePattern name="med">HH:MM:SS</timePattern>
+         <timePattern name="short">HH:MM</timePattern>
+      </timePatterns>
+      <dateTimeSymbols>GyMdkHmsSEDFwWahKzZ</dateTimeSymbols>
+      <numberPatterns>
+         <numberPattern name="numeric">z,zz9.zzz</numberPattern>
+         <numberPattern name="currency">$ z,zz9.99</numberPattern>
+         <numberPattern name="percent">z,zz9%</numberPattern>
+      </numberPatterns>
+      <numberSymbols>
+         <numberSymbol name="decimal">,</numberSymbol>
+         <numberSymbol name="grouping">.</numberSymbol>
+         <numberSymbol name="percent">%</numberSymbol>
+         <numberSymbol name="minus">-</numberSymbol>
+         <numberSymbol name="zero">0</numberSymbol>
+      </numberSymbols>
+      <currencySymbols>
+         <currencySymbol name="symbol">€</currencySymbol>
+         <currencySymbol name="isoname">EUR</currencySymbol>
+         <currencySymbol name="decimal">,</currencySymbol>
+      </currencySymbols>
+      <typefaces>
+         <typeface name="Myriad Pro"/>
+         <typeface name="Minion Pro"/>
+         <typeface name="Courier Std"/>
+         <typeface name="Adobe Pi Std"/>
+         <typeface name="Adobe Hebrew"/>
+         <typeface name="Adobe Arabic"/>
+         <typeface name="Adobe Thai"/>
+         <typeface name="Kozuka Gothic Pro-VI M"/>
+         <typeface name="Kozuka Mincho Pro-VI R"/>
+         <typeface name="Adobe Ming Std L"/>
+         <typeface name="Adobe Song Std L"/>
+         <typeface name="Adobe Myungjo Std M"/>
+      </typefaces>
+   </locale>
+</localeSet>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2.1-c041 52.337767, 2008/04/13-15:41:00        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about="">
+         <xmp:MetadataDate>2016-04-05T10:03:15Z</xmp:MetadataDate>
+         <xmp:CreatorTool>Adobe LiveCycle Designer ES 8.2</xmp:CreatorTool>
+      </rdf:Description>
+      <rdf:Description xmlns:pdf="http://ns.adobe.com/pdf/1.3/" rdf:about="">
+         <pdf:Producer>Adobe LiveCycle Designer ES 8.2</pdf:Producer>
+      </rdf:Description>
+      <rdf:Description xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" rdf:about="">
+         <xmpMM:DocumentID>uuid:138a708d-63d3-4581-9ea6-669b6ac157af</xmpMM:DocumentID>
+      </rdf:Description>
+      <rdf:Description xmlns:desc="http://ns.adobe.com/xfa/promoted-desc/" rdf:about="">
+         <desc:version rdf:parseType="Resource">
+            <rdf:value>8.2.1.3158.1.475346.466429</rdf:value>
+            <desc:ref>/template/subform[1]</desc:ref>
+         </desc:version>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta></xdp:xdp>

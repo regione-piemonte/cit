@@ -1,0 +1,37 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDatiAllegato",
+	"contentPanelName":"cpDettaglioIspezione",
+	"itemName": "fpDatiRapporto"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["btnModificaRappProva","btnDettaglioRappProva","btnInserisciRappProva","btnAnnullaRappProva","btnRicevutaRappProva","btnDocumentazioneRappProva"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbTipoAllegato","calDataControllo","tfOra","btnCerca"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbCombustibile","btnFiltraComp","cbApparecchiature","ptSiglaBollino","ptCombustibili","ptApparecchiature","ptNumeroBollinoVerde","btnAnnullaDatiAllegato","btnCreaAllegato","btnNuovaCerca"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnCerca"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"inserisciRapportoProva",
+	"appDataToStore":[]
+}

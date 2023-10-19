@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRicercaVerifiche",
+  "nomeWidget": "btInserisci",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRicercaVerifiche",
+  "nomeWidget": "btInserisci",
+	"language": "beanshell",
+	"script": "it.csi.sigit.sigitwebn.business.ricerca_verifiche.CPBECpRicercaVerifiche.isInserimentoVerificaAbilitato(model)"
+}
+
+
+  ]
+}

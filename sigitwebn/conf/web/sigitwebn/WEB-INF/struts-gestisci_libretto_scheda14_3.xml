@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_libretto_scheda14_3" extends="jsp-package" namespace="/base/gestisci_libretto_scheda14_3">
+
+		
+<action name="cpGestLibScheda14_3" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_libretto_scheda14_3.CpGestLibScheda14_3Action">
+	<result name="input">/jsp/cpGestLibScheda14_3.jsp</result>
+	<result name="success">/jsp/cpGestLibScheda14_3.jsp</result>
+	
+	<result name="GO_TO_cpGestLibScheda1_extra" type="chain">
+		<param name="actionName">cpGestLibScheda1_extra</param>
+		<param name="namespace">/base/gestisci_libretto_scheda1_extra</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda1" type="chain">
+		<param name="actionName">cpGestLibScheda1</param>
+		<param name="namespace">/base/gestisci_libretto_scheda1</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda2" type="chain">
+		<param name="actionName">cpGestLibScheda2</param>
+		<param name="namespace">/base/gestisci_libretto_scheda2</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda3" type="chain">
+		<param name="actionName">cpGestLibScheda3</param>
+		<param name="namespace">/base/gestisci_libretto_scheda3</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_1" type="chain">
+		<param name="actionName">cpGestLibScheda4_1</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_1</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_2" type="chain">
+		<param name="actionName">cpGestLibScheda4_2</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_2</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_3" type="chain">
+		<param name="actionName">cpGestLibScheda4_3</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_3</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_4" type="chain">
+		<param name="actionName">cpGestLibScheda4_4</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_4</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_5" type="chain">
+		<param name="actionName">cpGestLibScheda4_5</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_5</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_6" type="chain">
+		<param name="actionName">cpGestLibScheda4_6</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_6</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_7" type="chain">
+		<param name="actionName">cpGestLibScheda4_7</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_7</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_8" type="chain">
+		<param name="actionName">cpGestLibScheda4_8</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_8</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda5_1SR" type="chain">
+		<param name="actionName">cpGestLibScheda5_1SR</param>
+		<param name="namespace">/base/gestisci_libretto_scheda5_1SR</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda5_1VR" type="chain">
+		<param name="actionName">cpGestLibScheda5_1VR</param>
+		<param name="namespace">/base/gestisci_libretto_scheda5_1VR</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda5_2" type="chain">
+		<param name="actionName">cpGestLibScheda5_2</param>
+		<param name="namespace">/base/gestisci_libretto_scheda5_2</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda6_4" type="chain">
+		<param name="actionName">cpGestLibScheda6_4</param>
+		<param name="namespace">/base/gestisci_libretto_scheda6_4</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda6" type="chain">
+		<param name="actionName">cpGestLibScheda6</param>
+		<param name="namespace">/base/gestisci_libretto_scheda6</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda7" type="chain">
+		<param name="actionName">cpGestLibScheda7</param>
+		<param name="namespace">/base/gestisci_libretto_scheda7</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda8" type="chain">
+		<param name="actionName">cpGestLibScheda8</param>
+		<param name="namespace">/base/gestisci_libretto_scheda8</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda9_1" type="chain">
+		<param name="actionName">cpGestLibScheda9_1</param>
+		<param name="namespace">/base/gestisci_libretto_scheda9_1</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda9_2" type="chain">
+		<param name="actionName">cpGestLibScheda9_2</param>
+		<param name="namespace">/base/gestisci_libretto_scheda9_2</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda9_3" type="chain">
+		<param name="actionName">cpGestLibScheda9_3</param>
+		<param name="namespace">/base/gestisci_libretto_scheda9_3</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda9_4" type="chain">
+		<param name="actionName">cpGestLibScheda9_4</param>
+		<param name="namespace">/base/gestisci_libretto_scheda9_4</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda9_5" type="chain">
+		<param name="actionName">cpGestLibScheda9_5</param>
+		<param name="namespace">/base/gestisci_libretto_scheda9_5</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda9_6" type="chain">
+		<param name="actionName">cpGestLibScheda9_6</param>
+		<param name="namespace">/base/gestisci_libretto_scheda9_6</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda10_1" type="chain">
+		<param name="actionName">cpGestLibScheda10_1</param>
+		<param name="namespace">/base/gestisci_libretto_scheda10_1</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda12" type="chain">
+		<param name="actionName">cpGestLibScheda12</param>
+		<param name="namespace">/base/gestisci_libretto_scheda12</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda13" type="chain">
+		<param name="actionName">cpGestLibScheda13</param>
+		<param name="namespace">/base/gestisci_libretto_scheda13</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda14_1" type="chain">
+		<param name="actionName">cpGestLibScheda14_1</param>
+		<param name="namespace">/base/gestisci_libretto_scheda14_1</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda14_2" type="chain">
+		<param name="actionName">cpGestLibScheda14_2</param>
+		<param name="namespace">/base/gestisci_libretto_scheda14_2</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda14_3" type="chain">
+		<param name="actionName">cpGestLibScheda14_3</param>
+		<param name="namespace">/base/gestisci_libretto_scheda14_3</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda14_4" type="chain">
+		<param name="actionName">cpGestLibScheda14_4</param>
+		<param name="namespace">/base/gestisci_libretto_scheda14_4</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda15" type="chain">
+		<param name="actionName">cpGestLibScheda15</param>
+		<param name="namespace">/base/gestisci_libretto_scheda15</param>
+	</result>
+	<result name="GO_TO_cpRisRicImpianto" type="chain">
+		<param name="actionName">cpRisRicImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisRicAvzImpianto" type="chain">
+		<param name="actionName">cpRisRicAvzImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_avanzata_impianti</param>
+	</result>
+	<result name="GO_TO_cpGestImpianto" type="chain">
+		<param name="actionName">cpGestImpianto</param>
+		<param name="namespace">/base/gestisci_impianto</param>
+	</result>
+	<result name="GO_TO_cpGestImpiantoResp" type="chain">
+		<param name="actionName">cpGestImpiantoResp</param>
+		<param name="namespace">/base/gestisci_impianto_resp</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R-214726253) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

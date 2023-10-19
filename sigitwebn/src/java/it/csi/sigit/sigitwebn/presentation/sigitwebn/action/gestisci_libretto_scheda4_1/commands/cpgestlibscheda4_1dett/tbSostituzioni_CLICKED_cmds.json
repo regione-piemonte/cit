@@ -1,0 +1,58 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cDataInstallazione","cDataDismissione","cbFabbricante","tfModello","tfMatricola","cbCombustibile","cbFluido","tfPotenzaTermica","tfRendimentoPerc","cbTipologia","tfModuli","tfAnni","tfNote","bSostituisciComponente","bDismettiComponente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["bRiattivaComponente"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cDataInstallazione","bRiattivaComponente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfNote","cDataDismissione","bSostituisciComponente","bDismettiComponente","cbFabbricante","tfModello","tfMatricola","cbCombustibile","cbFluido","tfPotenzaTermica","tfRendimentoPerc","cbTipologia","tfModuli","tfAnni"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cDataInstallazione","cbFabbricante","tfModello","tfMatricola","cbCombustibile","cbFluido","tfPotenzaTermica","tfRendimentoPerc","cbTipologia","tfModuli","bRiattivaComponente","tfAnni"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfNote","cDataDismissione","bSostituisciComponente","bDismettiComponente"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["ATTIVO","ATTIVO_REE_MODIFICABILE","ATTIVO_REE_NON_MODIFICABILE"],
+	"nomeMetodo":"gestisciAbilitazioneOnRiattivaComponenteSostituita",
+	"appDataToStore":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"riattivaComponenteSostituita",
+	"appDataToStore":[]
+}

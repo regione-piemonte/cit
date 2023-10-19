@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfPotenzaUtileClimatEstiva"],
+	"targetsMenuElements":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfPotenzaUtileClimatEstiva"],
+	"targetsMenuElements":[]
+}
+],
+	"esiti":["ABILITA","DISABILITA"],
+	"nomeMetodo":"gestTfPotUtileClimatEstiva",
+	"appDataToStore":[]
+}

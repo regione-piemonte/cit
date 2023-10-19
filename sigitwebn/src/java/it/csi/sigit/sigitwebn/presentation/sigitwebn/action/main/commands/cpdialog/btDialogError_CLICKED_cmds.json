@@ -1,0 +1,7 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"DIALOG_KO",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"http://www.sistemapiemonte.it/",
+	"binaryStream":false 
+}

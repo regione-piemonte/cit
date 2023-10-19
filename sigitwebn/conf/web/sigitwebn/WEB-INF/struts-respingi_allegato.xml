@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="respingi_allegato" extends="jsp-package" namespace="/base/respingi_allegato">
+
+		
+<action name="cpRespingiAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.respingi_allegato.CpRespingiAllegatoAction">
+	<result name="input">/jsp/cpRespingiAllegato.jsp</result>
+	<result name="success">/jsp/cpRespingiAllegato.jsp</result>
+	
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R1577973129) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

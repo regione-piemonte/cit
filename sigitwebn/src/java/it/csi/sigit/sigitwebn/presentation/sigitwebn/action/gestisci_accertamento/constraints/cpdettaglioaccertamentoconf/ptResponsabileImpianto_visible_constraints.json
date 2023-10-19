@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioAccertamentoConf",
+  "nomeWidget": "ptResponsabileImpianto",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioAccertamentoConf",
+  "nomeWidget": "ptResponsabileImpianto",
+	"language": "beanshell",
+	"script": "model.appDataricercaImpiantoDaAssociareAccertamento != null && model.appDataricercaImpiantoDaAssociareAccertamento.ricercaEseguita == true"
+}
+
+
+  ]
+}

@@ -1,0 +1,22 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisRicImpianto", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisRicAvzImpianto", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpElencoAllegatiImpianti", 
+	"pushCurrent":false
+}
+],
+	"esiti":["ELENCO_IMPIANTI","ELENCO_IMPIANTI_AVZ","ELENCO_ALLEGATI_IMP"],
+	"nomeMetodo":"gestisciAnnulla",
+	"appDataToStore":[]
+}

@@ -1,0 +1,18 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["delega","delegato","elencoDelegatiAssociati","elencoDelegatiPotenziali","idDelegatoAssociatoSelez","idDelegatoPotenzialeSelez","messaggioDinamico"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestDelega", 
+	"pushCurrent":false
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"initDelega",
+	"appDataToStore":["appDatadelega","appDatadelegato","appDataelencoDelegatiAssociati","appDataelencoDelegatiPotenziali","appDataidDelegatoAssociatoSelez","appDataidDelegatoPotenzialeSelez","appDatamessaggioDinamico"]
+}
+] 
+}

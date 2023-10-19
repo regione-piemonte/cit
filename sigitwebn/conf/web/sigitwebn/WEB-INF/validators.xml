@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator Config 1.0//EN"
+        "http://struts.apache.org/dtds/xwork-validator-config-1.0.dtd">
+<validators>
+
+	<!-- Custom validators Definiti in GuiGen -->
+	<validator name="csiDateValidator" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.validator.CsiDateValidator"/>
+	<validator name="csiLongRangeValidator" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.validator.CsiLongRangeValidator"/>
+
+	<!-- Validators per Simple Types User Defined -->
+	<validator name="csiUdDateValidator" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.validator.CsiUdDateValidator"/>
+	<validator name="csiUdNumericIntValidator" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.validator.CsiUdNumericIntValidator"/>
+	<validator name="csiUdLongRangeValidator" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.validator.CsiUdLongRangeValidator"/>
+	<validator name="csiUdStringRangeValidator" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.validator.CsiUdStringRangeValidator"/>
+	<validator name="csiUdStringRegexpValidator" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.validator.CsiUdStringRegexpValidator"/>
+	<validator name="csiUdNumericDecValidator" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.validator.CsiUdNumericDecValidator"/>
+	
+
+	<!-- Custom validators modellati dall'utente nei widget -->
+
+	<!--PROTECTED REGION ID(R-148540340) ENABLED START-->
+	<!-- Inserire qui i custom validators che verranno acceduti mediante XML notation -->
+	<!--PROTECTED REGION END-->
+
+</validators>

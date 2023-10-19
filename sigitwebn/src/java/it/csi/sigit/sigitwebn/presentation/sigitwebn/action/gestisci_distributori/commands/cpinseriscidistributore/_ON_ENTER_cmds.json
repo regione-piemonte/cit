@@ -1,0 +1,104 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"isRuoloAbilitato",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"gestCombobox",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["rbDistribIsImpresa","tfDistribCognome","tfDistribNome","tfDistribCf","cbFornProvincia","cbFornComune","tfIndirizzoForn","cbFornIndirizzo","tfIFornNoStrad","tfIFornCivico","tfIFornCAP","tfAnnoRif","tfNumMesi","tfPodPdr","cbTipoContratto","cbTipoCategoria","cbTipoCombustibile","tfConsumoAnno","cbTipoMisura","tfVolumeRiscaldato","cbFattUguale","rbDistribIsImpresaFatt","tfDistribCognomeFatt","tfDistribNomeFatt","tfDistribCfFatt","cbIndEstero","cbFornProvinciaFatt","cbFornComuneFatt","tfIndirizzoFatt","cbFattIndirizzo","tfIFattNoStrad","tfIFattEstero","tfIFattCivico","tfIFattCAP"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnCercaIndirizzoForn","btnCercaIndirizzoFatt","btnDistrSalva"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbFornIndirizzo","btnNuovaRicercaIndForn","tfIFornNoStrad","cbFattIndirizzo","btnNuovaRicercaIndFatt","tfIFattNoStrad","tfIFattEstero"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfIndirizzoForn","btnCercaIndirizzoForn","tfIndirizzoFatt","btnCercaIndirizzoFatt"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbFornProvincia","cbFornComune","tfIndirizzoForn","cbFornProvinciaFatt","cbFornComuneFatt","tfIndirizzoFatt"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpFatturazione",
+	"contentPanelName":"cpInserisciDistributore",
+	"itemName": "fpFatturazione"}
+] 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"gestInserimentoDistributore",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["rbDistribIsImpresa","tfDistribCognome","tfDistribNome","tfDistribCf","cbFornProvincia","cbFornComune","tfIndirizzoForn","cbFornIndirizzo","tfIFornNoStrad","tfIFornCivico","tfIFornCAP","tfAnnoRif","tfNumMesi","tfPodPdr","cbTipoContratto","cbTipoCategoria","cbTipoCombustibile","tfConsumoAnno","cbTipoMisura","tfVolumeRiscaldato","cbFattUguale","rbDistribIsImpresaFatt","tfDistribCognomeFatt","tfDistribNomeFatt","tfDistribCfFatt","cbIndEstero","cbFornProvinciaFatt","cbFornComuneFatt","tfIndirizzoFatt","cbFattIndirizzo","tfIFattNoStrad","tfIFattEstero","tfIFattCivico","tfIFattCAP"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnCercaIndirizzoForn","btnCercaIndirizzoFatt","btnDistrSalva","cbFornIndirizzo","tfIFattEstero","tfIFattNoStrad","btnNuovaRicercaIndFatt","cbFattIndirizzo","tfIFornNoStrad","btnNuovaRicercaIndForn"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfIndirizzoForn","tfIndirizzoFatt"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpFatturazione",
+	"contentPanelName":"cpInserisciDistributore",
+	"itemName": "fpFatturazione"}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpFatturazione",
+	"contentPanelName":"cpInserisciDistributore",
+	"itemName": null}
+],
+	"esiti":["MOSTRA","NASCONDI"],
+	"nomeMetodo":"mostraFatturazioneDettaglioCaricamentoManuale",
+	"appDataToStore":[]
+}
+] 
+}
+],
+	"esiti":["INSERIMENTO","DETTAGLIO_CARICAMENTO_MANUALE"],
+	"nomeMetodo":"isInserimentoDistributore",
+	"appDataToStore":[]
+}
+] 
+}

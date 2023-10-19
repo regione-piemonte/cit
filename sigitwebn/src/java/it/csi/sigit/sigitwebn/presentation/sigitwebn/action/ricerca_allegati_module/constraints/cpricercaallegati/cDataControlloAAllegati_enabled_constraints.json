@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpRicercaAllegati",
+  "nomeWidget": "cDataControlloAAllegati",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DummyUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpRicercaAllegati",
+  "nomeWidget": "cDataControlloAAllegati",
+  "fixedValue": true
+}
+
+  ]
+}

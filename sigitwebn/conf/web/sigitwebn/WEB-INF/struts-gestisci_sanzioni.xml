@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_sanzioni" extends="jsp-package" namespace="/base/gestisci_sanzioni">
+
+		
+<action name="cpRicercaSanzione" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_sanzioni.CpRicercaSanzioneAction">
+	<result name="input">/jsp/cpRicercaSanzione.jsp</result>
+	<result name="success">/jsp/cpRicercaSanzione.jsp</result>
+	
+	<result name="GO_TO_cpRisultatoRicercaSanzioni" type="chain">
+		<param name="actionName">cpRisultatoRicercaSanzioni</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_cpRicercaSanzione" type="chain">
+		<param name="actionName">cpRicercaSanzione</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpRisultatoRicercaSanzioni" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_sanzioni.CpRisultatoRicercaSanzioniAction">
+	<result name="input">/jsp/cpRisultatoRicercaSanzioni.jsp</result>
+	<result name="success">/jsp/cpRisultatoRicercaSanzioni.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioSanzione" type="chain">
+		<param name="actionName">cpDettaglioSanzione</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_cpRicercaSanzione" type="chain">
+		<param name="actionName">cpRicercaSanzione</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpDettaglioSanzione" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_sanzioni.CpDettaglioSanzioneAction">
+	<result name="input">/jsp/cpDettaglioSanzione.jsp</result>
+	<result name="success">/jsp/cpDettaglioSanzione.jsp</result>
+	
+	<result name="GO_TO_cpAzione" type="chain">
+		<param name="actionName">cpAzione</param>
+		<param name="namespace">/base/gestisci_azioni</param>
+	</result>
+	<result name="GO_TO_cpSveglia" type="chain">
+		<param name="actionName">cpSveglia</param>
+		<param name="namespace">/base/gestisci_azioni</param>
+	</result>
+	<result name="GO_TO_cpDettaglioAccertamento" type="chain">
+		<param name="actionName">cpDettaglioAccertamento</param>
+		<param name="namespace">/base/gestisci_accertamento</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpInserisciNotificaSanzione" type="chain">
+		<param name="actionName">cpInserisciNotificaSanzione</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaSanzioni" type="chain">
+		<param name="actionName">cpRisultatoRicercaSanzioni</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_cpElencoSveglie" type="chain">
+		<param name="actionName">cpElencoSveglie</param>
+		<param name="namespace">/base/gestisci_azioni</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_documentoAggiuntivo" type="redirect">
+		<param name="location">recuperaDocumento.do</param>
+	</result>
+</action>
+
+<action name="cpInserisciNotificaSanzione" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_sanzioni.CpInserisciNotificaSanzioneAction">
+	<result name="input">/jsp/cpInserisciNotificaSanzione.jsp</result>
+	<result name="success">/jsp/cpInserisciNotificaSanzione.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioSanzione" type="chain">
+		<param name="actionName">cpDettaglioSanzione</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_cpDettaglioAccertamento" type="chain">
+		<param name="actionName">cpDettaglioAccertamento</param>
+		<param name="namespace">/base/gestisci_accertamento</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R1953618707) ENABLED START-->
+		<action name="recuperaDocumento" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaDocumento">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpDettaglioSanzione</result>
+		</action>
+		
+		
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

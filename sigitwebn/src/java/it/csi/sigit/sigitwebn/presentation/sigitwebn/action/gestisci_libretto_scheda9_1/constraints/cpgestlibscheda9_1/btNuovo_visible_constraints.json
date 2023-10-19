@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda9_1",
+  "nomeWidget": "btNuovo",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda9_1",
+  "nomeWidget": "btNuovo",
+	"language": "beanshell",
+	"script": "it.csi.sigit.sigitwebn.util.GenericUtil.isUtenteAutorLibWebScheda9(model.appDatautenteLoggato)"
+}
+
+
+  ]
+}

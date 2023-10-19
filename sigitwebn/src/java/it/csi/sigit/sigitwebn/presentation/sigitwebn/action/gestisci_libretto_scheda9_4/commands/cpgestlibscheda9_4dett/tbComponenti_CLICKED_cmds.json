@@ -1,0 +1,16 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["fpScheda9Dett","stdMsgLibretto","wpComp"], 
+	"targetWidgets":["tbComponenti","cDataInstallazione","cDataDismissione","tLungCircuito","tSupScambiatore","tProfInstallaz"],
+	"currentPanelName":"cpGestLibScheda9_4Dett" 
+}
+] 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"attivaColonna",
+	"appDataToStore":[]
+}

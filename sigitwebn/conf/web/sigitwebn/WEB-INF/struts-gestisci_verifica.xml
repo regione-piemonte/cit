@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_verifica" extends="jsp-package" namespace="/base/gestisci_verifica">
+
+		
+<action name="cpGestVerifica" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_verifica.CpGestVerificaAction">
+	<result name="input">/jsp/cpGestVerifica.jsp</result>
+	<result name="success">/jsp/cpGestVerifica.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioVerifica" type="chain">
+		<param name="actionName">cpDettaglioVerifica</param>
+		<param name="namespace">/base/gestisci_verifica</param>
+	</result>
+	<result name="GO_TO_cpRisRicercaVerifiche" type="chain">
+		<param name="actionName">cpRisRicercaVerifiche</param>
+		<param name="namespace">/base/risultato_ricerca_verifiche</param>
+	</result>
+	<result name="GO_TO_cpDettaglioVerifica" type="chain">
+		<param name="actionName">cpDettaglioVerifica</param>
+		<param name="namespace">/base/gestisci_verifica</param>
+	</result>
+	<result name="GO_TO_cpRisRicImpianto" type="chain">
+		<param name="actionName">cpRisRicImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisRicAvzImpianto" type="chain">
+		<param name="actionName">cpRisRicAvzImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_avanzata_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="SHOW_dpInserimentoVerificaAuto">/jsp/dialogpanels/cpGestVerifica_dpInserimentoVerificaAuto.jsp</result>
+</action>
+
+<action name="cpDettaglioVerifica" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_verifica.CpDettaglioVerificaAction">
+	<result name="input">/jsp/cpDettaglioVerifica.jsp</result>
+	<result name="success">/jsp/cpDettaglioVerifica.jsp</result>
+	
+	<result name="GO_TO_cpAzione" type="chain">
+		<param name="actionName">cpAzione</param>
+		<param name="namespace">/base/gestisci_azioni</param>
+	</result>
+	<result name="GO_TO_cpSveglia" type="chain">
+		<param name="actionName">cpSveglia</param>
+		<param name="namespace">/base/gestisci_azioni</param>
+	</result>
+	<result name="GO_TO_cpGestAccertamento" type="chain">
+		<param name="actionName">cpGestAccertamento</param>
+		<param name="namespace">/base/gestisci_accertamento</param>
+	</result>
+	<result name="GO_TO_cpDettaglioAccertamento" type="chain">
+		<param name="actionName">cpDettaglioAccertamento</param>
+		<param name="namespace">/base/gestisci_accertamento</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisRicercaVerifiche" type="chain">
+		<param name="actionName">cpRisRicercaVerifiche</param>
+		<param name="namespace">/base/risultato_ricerca_verifiche</param>
+	</result>
+	<result name="GO_TO_cpElencoSveglie" type="chain">
+		<param name="actionName">cpElencoSveglie</param>
+		<param name="namespace">/base/gestisci_azioni</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_documentoAggiuntivo" type="redirect">
+		<param name="location">recuperaDocumento.do</param>
+	</result>
+</action>
+
+		<!--PROTECTED REGION ID(R1154992287) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<action name="recuperaDocumento" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaDocumento">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpDettaglioVerifica</result>
+		</action>
+		
+		
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

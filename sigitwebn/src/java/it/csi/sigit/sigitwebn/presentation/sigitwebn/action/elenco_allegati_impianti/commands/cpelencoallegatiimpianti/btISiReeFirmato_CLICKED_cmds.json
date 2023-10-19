@@ -1,0 +1,10 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"recAllegatoImpFirmato",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"recuperaAllegatoFirmato.do",
+	"binaryStream":false 
+}
+] 
+}

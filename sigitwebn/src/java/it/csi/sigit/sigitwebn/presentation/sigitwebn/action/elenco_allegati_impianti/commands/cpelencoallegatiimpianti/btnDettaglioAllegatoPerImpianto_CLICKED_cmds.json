@@ -1,0 +1,20 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ShowDialogCommand" ,
+	"name":"dpReeFirmato"
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"recAllegatoImp",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"recuperaAllegato.do",
+	"binaryStream":false 
+}
+],
+	"esiti":["OK_FIRMATO","KO","OK_SINGOLO"],
+	"nomeMetodo":"visualizzaDettaglioAllegatoPerImpianto",
+	"appDataToStore":[]
+}

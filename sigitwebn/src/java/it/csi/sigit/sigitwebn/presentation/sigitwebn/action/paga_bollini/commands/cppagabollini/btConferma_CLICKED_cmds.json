@@ -1,0 +1,16 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"MDP",
+	"runtimeUrlProviderAppData":"mdpURL",
+	"staticUrl":"",
+	"binaryStream":false 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["GOTO_MDP","KO"],
+	"nomeMetodo":"preparaPagamentoRegistrazione",
+	"appDataToStore":[]
+}

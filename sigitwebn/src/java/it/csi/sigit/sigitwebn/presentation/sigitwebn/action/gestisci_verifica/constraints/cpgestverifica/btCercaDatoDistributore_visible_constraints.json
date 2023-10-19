@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestVerifica",
+  "nomeWidget": "btCercaDatoDistributore",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestVerifica",
+  "nomeWidget": "btCercaDatoDistributore",
+	"language": "beanshell",
+	"script": "model.appDataverifica != null && (model.appDataverifica.tipoVerifica == 4)"
+}
+
+
+  ]
+}

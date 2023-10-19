@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisultatoRicercaIspezioni2018",
+  "nomeWidget": "btCopertinaIspezione",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisultatoRicercaIspezioni2018",
+  "nomeWidget": "btCopertinaIspezione",
+	"language": "beanshell",
+	"script": "model.appDataElencoIspezioni2018 != null && model.appDataElencoIspezioni2018.size() != 0"
+}
+
+
+  ]
+}

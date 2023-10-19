@@ -1,0 +1,20 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["responsabile","elencoResponsabili","elencoResponsabiliTemp","elencoManutentori"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpElencoImpiantiGraffati", 
+	"pushCurrent":false
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"gestInserisciImpiantoGraffato",
+	"appDataToStore":[]
+}

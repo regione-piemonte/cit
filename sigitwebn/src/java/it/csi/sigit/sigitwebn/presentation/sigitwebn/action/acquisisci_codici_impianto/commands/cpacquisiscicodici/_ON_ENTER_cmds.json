@@ -1,0 +1,51 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ScreenStateCommand" ,
+	"widgetsOn":["menu","cbSiglaRea","tfNumRea","tfCF","btnCercaInst","tfQuantita","btnAnnullaInsCod","btnIndietro","btnAcquisisci"],
+	"widgetsOff":["btnNuovaRicercaInst","tfDitta","tfDataConsegna","tfAcquisitiDa"],
+	"widgetsShown":["menu","cbSiglaRea","tfNumRea","tfCF","btnCercaInst","tfDitta","tfDataConsegna","tfAcquisitiDa","tfQuantita","btnAnnullaInsCod","btnIndietro","btnAcquisisci"],
+	"widgetsHidden":["btnNuovaRicercaInst"]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ScreenStateCommand" ,
+	"widgetsOn":["menu","tfQuantita","btnAnnullaInsCod","btnIndietro","btnAcquisisci"],
+	"widgetsOff":["cbSiglaRea","tfNumRea","tfCF","btnCercaInst","btnNuovaRicercaInst","tfDitta","tfDataConsegna","tfAcquisitiDa"],
+	"widgetsShown":["menu","cbSiglaRea","tfNumRea","tfCF","tfDitta","tfDataConsegna","tfAcquisitiDa","tfQuantita","btnAnnullaInsCod","btnIndietro","btnAcquisisci"],
+	"widgetsHidden":["btnCercaInst","btnNuovaRicercaInst"]
+}
+] 
+}
+],
+	"esiti":["ABILITA_INSTALLATORE","DISABILITA_INSTALLATORE"],
+	"nomeMetodo":"gestLogicaInstallatore",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnCercaInst","btnNuovaRicercaInst"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbSiglaRea","tfNumRea","tfCF"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["ABILITA","DISABILITA"],
+	"nomeMetodo":"gestisciAbilitazioni",
+	"appDataToStore":[]
+}

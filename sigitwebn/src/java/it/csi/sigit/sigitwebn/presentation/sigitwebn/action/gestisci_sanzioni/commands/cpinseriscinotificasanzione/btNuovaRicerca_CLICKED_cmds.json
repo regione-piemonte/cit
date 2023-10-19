@@ -1,0 +1,32 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpSanzionati",
+	"contentPanelName":"cpInserisciNotificaSanzione",
+	"itemName": "fpSanzionato"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbIndirizzo","btnNuovaRicercaIndirizzo","btNuovaRicerca","tfNoStradario","tfStatoEstero","tfCittaEstera","tfIndirizzoEstero","tfCivicoEstero","tfCapEstero"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btCercaCodiceFiscale","btnCercaIndirizzo","tfIndirizzo"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCodiceFiscale","cbProvincia","cbComune","rbRespIsImpresa"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"nuovaRicercaPersonaSanzionata",
+	"appDataToStore":[]
+}

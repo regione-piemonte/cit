@@ -1,0 +1,24 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["reeMenuTree"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpUploadReeFirmato", 
+	"pushCurrent":false
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ShowDialogCommand" ,
+	"name":"dpReplaceReeFirmato"
+}
+],
+	"esiti":["OK","KO","OK_CONFERMA"],
+	"nomeMetodo":"preparaAperturaCaricaReeFirmato",
+	"appDataToStore":[]
+}

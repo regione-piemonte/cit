@@ -1,0 +1,27 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDatiIspezione",
+	"contentPanelName":"cpElencoIspezioniImpianti",
+	"itemName": "fpDatiIspezioneIn"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["btnInserisciIspezionePerImpianto","btnModificaIspezionePerImpianto","btnConsolidaIspezionePerImpianto","btnAnnullaIspezionePerImpianto","btnModificaAllegatoIspePerImpianto","btnDettaglioAllegatoIspePerImpianto","btnInserisciAllegatoIspePerImpianto","btnAnnullaAllegatoIspePerImpianto","btnRicevutaAllegatoIspePerImpianto","btnDocumentazioneAllegatoIspePerImpianto","tfCodFiscale","calDataIspezione"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnCercaIspe","btnNuovaRicercaIspe"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"modificaIspezionePerImpianto",
+	"appDataToStore":[]
+}

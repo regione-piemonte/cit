@@ -1,0 +1,16 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"RS_RIC_REE_IMP_INS_AUTO",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"/base/gestisci_verifica/cpGestVerifica!handleHvGestInsVerificaAuto_CLICKED.do",
+	"binaryStream":false 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"gestAvviaVerifica",
+	"appDataToStore":[]
+}

@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioAccertamento",
+  "nomeWidget": "btAssocia",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioAccertamento",
+  "nomeWidget": "btAssocia",
+	"language": "beanshell",
+	"script": "model.appDataaccertamento != null && model.appDataaccertamento.identificativo != null && model.appDataaccertamento.idStatoAccertamento == 1"
+}
+
+
+  ]
+}

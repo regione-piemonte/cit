@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="import_massivo" extends="jsp-package" namespace="/base/import_massivo">
+
+		
+<action name="cpImportMassivo" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.import_massivo.CpImportMassivoAction">
+	<result name="input">/jsp/cpImportMassivo.jsp</result>
+	<result name="success">/jsp/cpImportMassivo.jsp</result>
+	
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_invioRee" type="redirect">
+		<param name="location">/base/gestisci_ree_confirm/cpGestReeConfirm!handleHvVerificaInvioREE_CLICKED.do</param>
+	</result>
+</action>
+
+		<!--PROTECTED REGION ID(R1562191278) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

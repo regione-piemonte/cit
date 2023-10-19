@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRicBollini", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpHome", 
+	"pushCurrent":false
+}
+],
+	"esiti":["RICERCA","HOME"],
+	"nomeMetodo":"tornaAllaPaginaChiamante",
+	"appDataToStore":[]
+}

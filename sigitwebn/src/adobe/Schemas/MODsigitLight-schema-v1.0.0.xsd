@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.csi.it/sigit/sigitwebn/xml/librettoLight/data"
+	       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:catdig="http://www.csi.it/sigit/sigitwebn/xml/catdig/system"
+           targetNamespace="http://www.csi.it/sigit/sigitwebn/xml/librettoLight/data"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+ <xs:import namespace="http://www.csi.it/sigit/sigitwebn/xml/catdig/system" schemaLocation="../common/schemas/system-catdig-schema.xsd"/>
+
+<xs:element name="MOD">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="Richiesta"/>
+			<xs:element ref="catdig:system"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+  <xs:element name="Richiesta">
+      <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="datiPrecompilati"/>
+        <xs:element ref="datiModulo"/>
+        <xs:element ref="datiSchedaIdentificativaImp"/>
+
+        <xs:element ref="datiConsumoCombu"/>
+        <xs:element ref="datiConsumoEE"/>
+        <xs:element ref="datiConsumoH2O"/>
+        <xs:element ref="datiConsumoProdottiChimici"/>
+        <!--
+        -->
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- DATI precompilati da web -->
+  <xs:element name="datiPrecompilati">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="statoModulo" type="xs:string"/>  <!-- BOZZA; DEFINITIVO -->
+          <xs:element name="codice_impianto" type="xs:string"/>
+          <!-- intestazione modulo -->
+          <xs:element name="codiceCatasto" type="xs:string"/>
+          <!-- 1.2 UBICAZIONE E DESTINAZIONE DELL'EDIFICIO -->
+          <xs:element name="L1_2indirizzo" type="xs:string"/>
+          <xs:element name="L1_2civico" type="xs:string"/>
+          <xs:element name="L1_2palazzo" type="xs:string"/>
+          <xs:element name="L1_2scala" type="xs:string"/>
+          <xs:element name="L1_2interno" type="xs:string"/>
+          <xs:element name="L1_2comune" type="xs:string"/>
+          <xs:element name="L1_2prov" type="xs:string"/>
+
+          <xs:element name="sezCatasto">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowCatasto" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+         <!-- 1.6 RESPONSABILE DELL'IMPIANTO -->
+         <xs:element name="L1_6cognome" type="xs:string"/>
+         <xs:element name="L1_6nome" type="xs:string"/>
+         <xs:element name="L1_6cf" type="xs:string"/>
+         <xs:element name="L1_6ragSociale" type="xs:string"/>
+         <xs:element name="L1_6piva" type="xs:string"/>
+         
+         <!-- precompilazione combo combustibile -->
+    	  <xs:element name="elencoCombustibile">
+    			<xs:complexType>
+    				<xs:sequence>
+    					<xs:element name="combustibile" minOccurs="1" maxOccurs="unbounded">
+    						<xs:complexType>
+    							<xs:sequence>
+    			    				<xs:element name="codice" type="xs:string"/>
+    			    				<xs:element name="descrizione" type="xs:string"/>
+    							</xs:sequence>
+    						</xs:complexType>
+        				</xs:element>
+    				</xs:sequence>
+    			</xs:complexType>
+    		</xs:element>
+
+    		
+             <!-- precompilazione combo unita' misura -->
+        	  <xs:element name="elencoUM">
+        			<xs:complexType>
+        				<xs:sequence>
+        					<xs:element name="unitaMisura" minOccurs="1" maxOccurs="unbounded">
+        						<xs:complexType>
+        							<xs:sequence>
+        			    				<xs:element name="codice" type="xs:string"/>
+        			    				<xs:element name="descrizione" type="xs:string"/>
+        							</xs:sequence>
+        						</xs:complexType>
+            				</xs:element>
+        				</xs:sequence>
+        			</xs:complexType>
+        		</xs:element>
+	     
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="rowCatasto">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L1_2sezione" type="xs:string"/>
+              <xs:element name="L1_2foglio" type="xs:string"/>
+              <xs:element name="L1_2particella" type="xs:string"/>
+              <xs:element name="L1_2sub" type="xs:string"/>
+              <xs:element name="L1_2pod" type="xs:string"/>
+              <xs:element name="L1_2pdr" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+  
+  <!-- DATI FUNZIONALI AL COMPORTAMENTO DEL MODULO -->
+  <xs:element name="datiModulo">
+    <xs:complexType>
+      <xs:sequence>
+          <!--
+          <xs:element name="flagPrecompilazione" type="xs:boolean"/>
+          -->
+          <xs:element name="flag_controllo_bozza" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- 1. SCHEDA IDENTIFICATIVA DELL'IMPIANTO -->
+  <xs:element name="datiSchedaIdentificativaImp">
+    <xs:complexType>
+      <xs:sequence>
+         <!-- 1.1 TIPOLOGIA INTERVENTO -->
+         <xs:element name="L1_1dataIntervento" type="xs:date"/>
+         <xs:element name="L1_1flagNuovaInst" type="xs:boolean"/>
+         <xs:element name="L1_1flagRistrutt" type="xs:boolean"/>
+         <xs:element name="L1_1flagSostGenerat" type="xs:boolean"/>
+         <xs:element name="L1_1flagCompilaLibretto" type="xs:boolean"/>
+          
+	     <xs:element name="L1_2flagUnitaImmSingle" type="xs:boolean"/>
+         <xs:element name="L1_2flagE1" type="xs:boolean"/>
+         <xs:element name="L1_2flagE2" type="xs:boolean"/>
+         <xs:element name="L1_2flagE3" type="xs:boolean"/>
+         <xs:element name="L1_2flagE4" type="xs:boolean"/>
+         <xs:element name="L1_2flagE5" type="xs:boolean"/>
+         <xs:element name="L1_2flagE6" type="xs:boolean"/>
+         <xs:element name="L1_2flagE7" type="xs:boolean"/>
+         <xs:element name="L1_2flagE8" type="xs:boolean"/>
+         <xs:element name="L1_2volLordoRisc" type="xs:decimal"/>
+         <xs:element name="L1_2volLordoRaffr" type="xs:decimal"/>
+         
+         <!-- 1.3 IMPIANTO TERMICO DESTINATO A SODDISFARE I SEGUENTI SERVIZI -->
+         <xs:element name="L1_3flagProdACS" type="xs:boolean"/>
+         <xs:element name="L1_3potUtileACS" type="xs:decimal"/>
+         <xs:element name="L1_3flagClimaInv" type="xs:boolean"/>
+         <xs:element name="L1_3potUtileClimaInv" type="xs:decimal"/>
+         <xs:element name="L1_3flagClimaEst" type="xs:boolean"/>
+         <xs:element name="L1_3potUtileClimaEst" type="xs:decimal"/>
+         <xs:element name="L1_3flagAltro" type="xs:boolean"/>
+         <xs:element name="L1_3descrAltro" type="xs:string"/>
+         
+         <!-- 1.4 TIPOLOGIA FLUIDO VETTORE -->
+         <xs:element name="L1_4flagH2O" type="xs:boolean"/>
+         <xs:element name="L1_4flagAria" type="xs:boolean"/>
+         <xs:element name="L1_4flagAltro" type="xs:boolean"/>
+         <xs:element name="L1_4descrAltro" type="xs:string"/>
+          
+         <!-- 1.5 INDIVIDUAZIONE DELLA TIPOLOGIA DEI GENERATORI -->
+         <xs:element name="L1_5flagGeneratCombu" type="xs:boolean"/>
+         <xs:element name="L1_5flagPompaCal" type="xs:boolean"/>
+         <xs:element name="L1_5flagMaccFrigo" type="xs:boolean"/>
+         <xs:element name="L1_5flagTelerisc" type="xs:boolean"/>
+         <xs:element name="L1_5flagTeleraffr" type="xs:boolean"/>
+         <xs:element name="L1_5flagCogener" type="xs:boolean"/>
+         <xs:element name="L1_5flagAltro" type="xs:boolean"/>
+         <xs:element name="L1_5descrAltro" type="xs:string"/>
+         
+         <xs:element name="L1_5flagPannelliSol" type="xs:boolean"/>
+         <xs:element name="L1_5superfLordaTot" type="xs:decimal"/>
+         <xs:element name="L1_5flagAltraIntegraz" type="xs:boolean"/>
+         <xs:element name="L1_5descrAltrIntegraz" type="xs:string"/>
+         <xs:element name="L1_5potUtile" type="xs:decimal"/>
+         <xs:element name="L1_5flagClimaInv" type="xs:boolean"/>
+         <xs:element name="L1_5flagClimaEst" type="xs:boolean"/>
+         <xs:element name="L1_5flagProdACS" type="xs:boolean"/>
+         <xs:element name="L1_5flagAltroPer" type="xs:boolean"/>
+         <xs:element name="L1_5descrAltroPer" type="xs:string"/>
+         
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+	
+  <!-- 14 REGISTRAZIONE DEI CONSUMI NEI VARI ESERCIZI -->
+  <!-- 14.1 CONSUMO COMBUSTIBILE -->
+  <xs:element name="datiConsumoCombu">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezCombu">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowCombu" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="rowCombu">
+		<xs:complexType>
+			<xs:sequence>
+             <xs:element name="L14_1tipoCombu" type="xs:string"/>
+              <xs:element name="L14_1unitaMisura" type="xs:string"/>
+              <xs:element name="sezRowConsumo">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowConsumo" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+  <xs:element name="rowConsumo">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L14_1esercizio1" type="xs:integer"/>
+              <xs:element name="L14_1esercizio2" type="xs:integer"/>
+              <xs:element name="L14_1acquisti" type="xs:string"/>
+              <xs:element name="L14_1letturaIniz" type="xs:decimal"/>
+              <xs:element name="L14_1letturaFinale" type="xs:decimal"/>
+              <xs:element name="L14_1consumo" type="xs:decimal"/>
+
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+  <!-- 14.2 CONSUMO ENERGIA ELETTRICA -->
+  <xs:element name="datiConsumoEE">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezConsumo">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowConsumoEE" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="rowConsumoEE">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L14_2esercizio1" type="xs:integer"/>
+              <xs:element name="L14_2esercizio2" type="xs:integer"/>
+              <xs:element name="L14_2letturaIniz" type="xs:decimal"/>
+              <xs:element name="L14_2letturaFinale" type="xs:decimal"/>
+              <xs:element name="L14_2consumoTot" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+  <!-- 14.3 CONSUMO H2O -->
+  <xs:element name="datiConsumoH2O">
+    <xs:complexType>
+      <xs:sequence>
+      
+          <xs:element name="L14_3unitaMisura" type="xs:string"/>
+          
+          <xs:element name="sezConsumo">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowConsumoH2O" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="rowConsumoH2O">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L14_3esercizio1" type="xs:integer"/>
+              <xs:element name="L14_3esercizio2" type="xs:integer"/>
+              <xs:element name="L14_3letturaIniz" type="xs:decimal"/>
+              <xs:element name="L14_3letturaFinale" type="xs:decimal"/>
+              <xs:element name="L14_3consumoTot" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+  <!-- 14.4 CONSUMO PRODOTTI CHIMICI ....... -->
+  <xs:element name="datiConsumoProdottiChimici">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezConsumo">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowConsumoPROD" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="rowConsumoPROD">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L14_4esercizio1" type="xs:integer"/>
+              <xs:element name="L14_4esercizio2" type="xs:integer"/>
+              <xs:element name="L14_4flagCircuitoIT" type="xs:boolean"/>
+              <xs:element name="L14_4flagCircuitoACS" type="xs:boolean"/>
+              <xs:element name="L14_4flagCircuitoAltri" type="xs:boolean"/>
+              <xs:element name="L14_4nomeProdotto" type="xs:string"/>
+              <xs:element name="L14_4qtaConsumata" type="xs:decimal"/>
+              <xs:element name="L14_4unitaMisura" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+
+
+</xs:schema>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

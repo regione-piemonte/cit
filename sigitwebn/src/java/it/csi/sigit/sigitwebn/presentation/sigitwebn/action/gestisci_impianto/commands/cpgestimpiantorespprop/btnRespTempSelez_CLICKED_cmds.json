@@ -1,0 +1,147 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpresponsabiliTrovatiTemp",
+	"contentPanelName":"cpGestImpiantoRespProp",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpResponsabile",
+	"contentPanelName":"cpGestImpiantoRespProp",
+	"itemName": "fpRespProp"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbRespProvincia","cbRespComune","tfRespCivico","tfRespCap","cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap","btnRespCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbRespProvincia","cbRespComune","tfRespIndirizzo","btnRespCercaIndirizzo","cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad","tfRespCivico","tfRespCap"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["NAZIONALE","ESTERO"],
+	"nomeMetodo":"gestLogicaTipoIndirizzoResponsabileImpostato",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnRespCercaCF"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnRespNuovaRicercaCF"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["rbRespIsImpresa","cbRespSiglaRea","tfRespNumRea","tfRespCf","tfRespCognome","tfRespNome","cbRespIndirizzoEst","tfRespIndirizzo","cbRespIndirizzo","tfIRespNoStrad","tfRespCivico","tfRespCap","tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap","tfRespEmail"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfRespEmail","cbRespIndirizzoEst","tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["rbRespIsImpresa","cbRespSiglaRea","tfRespNumRea","tfRespCf","tfRespCognome","tfRespNome","cbRespProvincia","cbRespComune"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnRespCercaCF","btnRespNuovaRicercaCF"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["rbRespIsImpresa","cbRespSiglaRea","tfRespNumRea","tfRespCf","tfRespCognome","tfRespNome","cbRespIndirizzoEst","cbRespProvincia","cbRespComune","cbRespIndirizzo","tfIRespNoStrad","tfRespCivico","tfRespCap","tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap","tfRespEmail"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnRespCercaCF","tfRespIndirizzo","btnRespCercaIndirizzo","btnRespNuovaRicercaIndirizzo","btnRespNuovaRicercaCF"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfRespCognome","tfRespNome","tfRespEmail","tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap","cbRespIndirizzoEst"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["rbRespIsImpresa","cbRespSiglaRea","tfRespNumRea","tfRespCf","cbRespProvincia","cbRespComune"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnRespCercaCF","tfRespIndirizzo","btnRespCercaIndirizzo","btnRespNuovaRicercaCF"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["ABILITA_RESP","ABILITA_RESP_LIM","ABILITA_RESP_PG_ACCR","ABILITA_RESP_PF_NO_ACCR"],
+	"nomeMetodo":"gestisciLogicaResponsabileImpostato",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnRespNuovaRicercaCF"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnRespCercaCF"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"impostaResponsabile",
+	"appDataToStore":[]
+}

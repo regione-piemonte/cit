@@ -1,0 +1,29 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpElencoAllegatiImpianti", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisultatoRicercaAllegati", 
+	"pushCurrent":false
+}
+],
+	"esiti":["ELENCO_ALL_IMPIANTO","RIS_RIC_ALLEGATI"],
+	"nomeMetodo":"gestRitornoPaginaChiamante",
+	"appDataToStore":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+] 
+}
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"confermaRespingiAllegato",
+	"appDataToStore":[]
+}

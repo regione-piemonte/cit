@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioIspezione2018",
+  "nomeWidget": "btAssegna",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioIspezione2018",
+  "nomeWidget": "btAssegna",
+	"language": "beanshell",
+	"script": "it.csi.sigit.sigitwebn.business.elenco_ispezioni_impianti.CPBECpDettaglioIspezione2018.isAssegnaAAbilitato(model)"
+}
+
+
+  ]
+}

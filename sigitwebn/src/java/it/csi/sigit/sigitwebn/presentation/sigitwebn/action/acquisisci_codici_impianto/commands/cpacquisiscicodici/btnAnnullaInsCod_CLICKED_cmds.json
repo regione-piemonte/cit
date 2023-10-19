@@ -1,0 +1,28 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ScreenStateCommand" ,
+	"widgetsOn":["menu","cbSiglaRea","tfNumRea","tfCF","btnCercaInst","tfQuantita","btnAnnullaInsCod","btnIndietro","btnAcquisisci"],
+	"widgetsOff":["btnNuovaRicercaInst","tfDitta","tfDataConsegna","tfAcquisitiDa"],
+	"widgetsShown":["menu","cbSiglaRea","tfNumRea","tfCF","btnCercaInst","tfDitta","tfDataConsegna","tfAcquisitiDa","tfQuantita","btnAnnullaInsCod","btnIndietro","btnAcquisisci"],
+	"widgetsHidden":["btnNuovaRicercaInst"]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ScreenStateCommand" ,
+	"widgetsOn":["menu","tfQuantita","btnAnnullaInsCod","btnIndietro","btnAcquisisci"],
+	"widgetsOff":["cbSiglaRea","tfNumRea","tfCF","btnCercaInst","btnNuovaRicercaInst","tfDitta","tfDataConsegna","tfAcquisitiDa"],
+	"widgetsShown":["menu","cbSiglaRea","tfNumRea","tfCF","tfDitta","tfDataConsegna","tfAcquisitiDa","tfQuantita","btnAnnullaInsCod","btnIndietro","btnAcquisisci"],
+	"widgetsHidden":["btnCercaInst","btnNuovaRicercaInst"]
+}
+],
+	"esiti":["ABILITA","DISABILITA"],
+	"nomeMetodo":"gestLogicaInstallatoreAnn",
+	"appDataToStore":[]
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"pulisciRicercaCodici",
+	"appDataToStore":[]
+}

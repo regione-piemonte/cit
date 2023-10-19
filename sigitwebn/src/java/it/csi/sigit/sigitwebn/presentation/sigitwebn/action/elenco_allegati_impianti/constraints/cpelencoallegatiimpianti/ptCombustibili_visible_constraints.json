@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": false,
+  "nomeContainer": "cpElencoAllegatiImpianti",
+  "nomeWidget": "ptCombustibili",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DummyUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": false,
+  "nomeContainer": "cpElencoAllegatiImpianti",
+  "nomeWidget": "ptCombustibili",
+  "fixedValue": true
+}
+
+  ]
+}

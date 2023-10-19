@@ -1,0 +1,27 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpDettaglioIspezione2018", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbSecondoIspettore","ptDataConclusione","ptEsitoIspezione","ptEnteCompetente","ptSveglia"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpElenchi",
+	"contentPanelName":"cpDettaglioIspezione2018",
+	"itemName": "fpElenchi"}
+] 
+}
+],
+	"esiti":["OK","KO","OK_OLD"],
+	"nomeMetodo":"salvaIspezione",
+	"appDataToStore":[]
+}

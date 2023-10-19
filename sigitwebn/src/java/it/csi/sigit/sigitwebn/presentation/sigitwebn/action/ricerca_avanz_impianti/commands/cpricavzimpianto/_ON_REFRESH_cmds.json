@@ -1,0 +1,64 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbSiglaRea","tfNumeroRea","tfCfImpresa"],
+	"targetsMenuElements":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCfResponsabile","tfCf3Responsabile"],
+	"targetsMenuElements":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["tfCfResponsabile"],
+	"targetsMenuElements":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCf3Responsabile","cbSiglaRea","tfNumeroRea","tfCfImpresa"],
+	"targetsMenuElements":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["tfCf3Responsabile"],
+	"targetsMenuElements":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCfResponsabile","cbSiglaRea","tfNumeroRea","tfCfImpresa"],
+	"targetsMenuElements":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCfResponsabile","tfCf3Responsabile","cbSiglaRea","tfNumeroRea","tfCfImpresa"],
+	"targetsMenuElements":[]
+}
+],
+	"esiti":["RUOLO_PG","RUOLO_RESPONSABILE","RUOLO_3RESPONSABILE","RUOLO_ALTRO"],
+	"nomeMetodo":"gestisciAbilRuoloRef",
+	"appDataToStore":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"gestisciLogicaResetVis",
+	"appDataToStore":[]
+}

@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": false,
+  "nomeContainer": "cpGestLibScheda2",
+  "nomeWidget": "tfDurezzaAddolcFr_2",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": false,
+  "nomeContainer": "cpGestLibScheda2",
+  "nomeWidget": "tfDurezzaAddolcFr_2",
+	"language": "beanshell",
+	"script": "model.appDatatrattamentoAcqua != null && model.appDatatrattamentoAcqua.l24FlgTrattAcsAddolc"
+}
+
+
+  ]
+}

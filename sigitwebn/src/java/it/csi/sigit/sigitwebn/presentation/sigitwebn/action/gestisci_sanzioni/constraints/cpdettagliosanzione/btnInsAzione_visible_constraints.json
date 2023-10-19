@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioSanzione",
+  "nomeWidget": "btnInsAzione",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioSanzione",
+  "nomeWidget": "btnInsAzione",
+	"language": "beanshell",
+	"script": "it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpDettaglioSanzione.isUtenteAbilitatoOperazioneSanzione(model) && (it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpDettaglioSanzione.isSanzioneInStatoBozza(model) || it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpDettaglioSanzione.isSanzioneInStatoNotificata(model))"
+}
+
+
+  ]
+}

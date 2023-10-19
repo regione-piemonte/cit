@@ -1,0 +1,103 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"isRuoloAbilitato",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"cercaComponenteDett",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["ptStatoManut","calDataManut","cbTipoManut","btnCercaApparecchiature"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnNuovaRicercaApparecchiature","ptApparecchiature","cbApparecchiature","btnVerificaApparecchiature","cbTipoIntervento","ptTipoManut","ptTipoIntervento","tfAltro","tfOraArrivo","tfOraPart","tfTec","taOss","taRacc","taPre","cIntEntro","bSalvaManut"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["calDataManut","cbTipoManut","cbApparecchiature","cbTipoIntervento","tfAltro","tfOraArrivo","tfOraPart","tfTec","taOss","taRacc","taPre","cIntEntro"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpElencoDocumenti",
+	"contentPanelName":"cpGestLibScheda15Dett",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDatiDocumento",
+	"contentPanelName":"cpGestLibScheda15Dett",
+	"itemName": null}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["ptStatoManut","calDataManut","ptApparecchiature","ptTipoManut","ptTipoIntervento","tfOraArrivo","tfOraPart","tfTec","taOss","taRacc","taPre","cIntEntro"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbApparecchiature","cbTipoManut","cbTipoIntervento","btnCercaApparecchiature","btnNuovaRicercaApparecchiature","btnVerificaApparecchiature","bSalvaManut"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btnInserisciDocumento"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["calDataManut","cbTipoManut","cbApparecchiature","cbTipoIntervento","tfAltro","tfOraArrivo","tfOraPart","tfTec","taOss","taRacc","taPre","cIntEntro"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpElencoDocumenti",
+	"contentPanelName":"cpGestLibScheda15Dett",
+	"itemName": "fpElencoDocumenti"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDatiDocumento",
+	"contentPanelName":"cpGestLibScheda15Dett",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfAltro"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfAltro"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["VISUALIZZA","NASCONDI"],
+	"nomeMetodo":"gestisciTipoIntAltroInit",
+	"appDataToStore":[]
+}
+] 
+}
+],
+	"esiti":["SCRITTURA","LETTURA"],
+	"nomeMetodo":"gestisciVisibilita",
+	"appDataToStore":[]
+}
+] 
+}

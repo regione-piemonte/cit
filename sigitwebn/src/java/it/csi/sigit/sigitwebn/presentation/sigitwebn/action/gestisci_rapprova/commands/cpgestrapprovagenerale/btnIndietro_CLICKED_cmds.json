@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpDettaglioIspezione2018", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisultatoRicercaAllegati", 
+	"pushCurrent":false
+}
+],
+	"esiti":["DETTAGLIO_ISPEZIONE","RISULTATO_RICERCA_ALLEGATI"],
+	"nomeMetodo":"tornaPaginaChiamante",
+	"appDataToStore":[]
+}

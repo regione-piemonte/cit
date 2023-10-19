@@ -1,0 +1,13 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbCombu","tfPotenzaDa","tfPotenzaA"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"pulisciCampiComp",
+	"appDataToStore":[]
+}

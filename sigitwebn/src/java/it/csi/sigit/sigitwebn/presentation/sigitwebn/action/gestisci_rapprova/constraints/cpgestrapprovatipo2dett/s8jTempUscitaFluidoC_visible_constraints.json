@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestRapProvaTipo2Dett",
+  "nomeWidget": "s8jTempUscitaFluidoC",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DummyUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestRapProvaTipo2Dett",
+  "nomeWidget": "s8jTempUscitaFluidoC",
+  "fixedValue": true
+}
+
+  ]
+}

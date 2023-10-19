@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisRicercaVerifiche",
+  "nomeWidget": "btVisualizzaModifica",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisRicercaVerifiche",
+  "nomeWidget": "btVisualizzaModifica",
+	"language": "beanshell",
+	"script": "model.appDataelencoVerifiche != null && model.appDataelencoVerifiche.size() > 0"
+}
+
+
+  ]
+}

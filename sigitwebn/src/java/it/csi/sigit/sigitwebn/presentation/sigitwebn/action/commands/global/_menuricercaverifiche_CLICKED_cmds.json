@@ -1,0 +1,18 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["messaggioDinamico","ricercaAvanzataImpianti","ricercaAccertamento","idVerificaSelezionata","idAccertamentoSelezionato","ricercaVerifica"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRicercaVerifiche", 
+	"pushCurrent":false
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"initRicercaVerifiche",
+	"appDataToStore":["appDatamessaggioDinamico","appDataricercaAvanzataImpianti","appDataricercaAccertamento","appDataidVerificaSelezionata","appDataidAccertamentoSelezionato","appDataricercaVerifica"]
+}
+] 
+}

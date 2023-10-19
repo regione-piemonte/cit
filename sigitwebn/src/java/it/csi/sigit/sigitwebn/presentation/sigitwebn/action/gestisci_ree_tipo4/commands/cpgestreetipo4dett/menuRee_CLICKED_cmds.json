@@ -1,0 +1,23 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["wpMenuTree"], 
+	"targetWidgets":["menuRee"],
+	"currentPanelName":"cpGestReeTipo4Dett" 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestReeTipo4", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestReeTipo4Dett", 
+	"pushCurrent":false
+}
+],
+	"esiti":["KO","SEZIONE_ABCDF","SEZIONE_E"],
+	"nomeMetodo":"onTreeClick",
+	"appDataToStore":[]
+}

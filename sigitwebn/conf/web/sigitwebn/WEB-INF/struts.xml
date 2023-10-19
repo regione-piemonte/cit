@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+  "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	
+	
+	<include file="struts-global.xml" />
+
+	<include file="struts-1-base.xml" />
+
+	<include file="struts-seleziona_ruolo.xml" />
+	<include file="struts-ricerca_codici_impianto.xml" />
+	<include file="struts-main.xml" />
+	<include file="struts-ricerca_impianti.xml" />
+	<include file="struts-risultato_ricerca_impianti.xml" />
+	<include file="struts-home.xml" />
+	<include file="struts-gestisci_impianto.xml" />
+	<include file="struts-gestisci_impianto_resp.xml" />
+	<include file="struts-risultato_ricerca_codici_impianto.xml" />
+	<include file="struts-acquisisci_codici_impianto.xml" />
+	<include file="struts-risultato_ricerca_codici_impianto_liberi.xml" />
+	<include file="struts-ricerca_bollini.xml" />
+	<include file="struts-risultato_ricerca_bollini.xml" />
+	<include file="struts-acquista_bollini.xml" />
+	<include file="struts-paga_bollini.xml" />
+	<include file="struts-esito_pagamento_bollini.xml" />
+	<include file="struts-ricerca_allegati_module.xml" />
+	<include file="struts-risultato_ricerca_allegati_module.xml" />
+	<include file="struts-elenco_allegati_impianti.xml" />
+	<include file="struts-gestisci_subentro.xml" />
+	<include file="struts-gestisci_delega.xml" />
+	<include file="struts-gestisci_terzo_responsabile.xml" />
+	<include file="struts-import_massivo.xml" />
+	<include file="struts-ricerca_avanz_impianti.xml" />
+	<include file="struts-risultato_ricerca_avanzata_impianti.xml" />
+	<include file="struts-elenco_ispezioni_impianti.xml" />
+	<include file="struts-gestisci_distributori.xml" />
+	<include file="struts-respingi_allegato.xml" />
+	<include file="struts-gestisci_incarico.xml" />
+	<include file="struts-gestisci_impresa.xml" />
+	<include file="struts-conferma_terzo_responsabile.xml" />
+	<include file="struts-risultato_ricerca_completa_impianti.xml" />
+	<include file="struts-elenco_documenti_impianti.xml" />
+	<include file="struts-export_massivo.xml" />
+	<include file="struts-gestisci_libretto_scheda1.xml" />
+	<include file="struts-gestisci_libretto_scheda14_1.xml" />
+	<include file="struts-gestisci_libretto_scheda2.xml" />
+	<include file="struts-gestisci_libretto_scheda1_extra.xml" />
+	<include file="struts-gestisci_libretto_scheda14_2.xml" />
+	<include file="struts-gestisci_libretto_scheda14_3.xml" />
+	<include file="struts-gestisci_libretto_scheda14_4.xml" />
+	<include file="struts-gestisci_libretto_scheda8.xml" />
+	<include file="struts-gestisci_libretto_scheda3.xml" />
+	<include file="struts-gestisci_libretto_scheda12.xml" />
+	<include file="struts-gestisci_libretto_scheda11_1.xml" />
+	<include file="struts-gestisci_libretto_scheda11_2.xml" />
+	<include file="struts-gestisci_libretto_scheda11_3.xml" />
+	<include file="struts-gestisci_libretto_scheda11_4.xml" />
+	<include file="struts-gestisci_libretto_scheda9_1.xml" />
+	<include file="struts-gestisci_libretto_scheda9_2.xml" />
+	<include file="struts-gestisci_libretto_scheda9_3.xml" />
+	<include file="struts-gestisci_libretto_scheda9_4.xml" />
+	<include file="struts-gestisci_libretto_scheda9_5.xml" />
+	<include file="struts-gestisci_libretto_scheda9_6.xml" />
+	<include file="struts-gestisci_libretto_scheda4_7.xml" />
+	<include file="struts-gestisci_libretto_scheda4_8.xml" />
+	<include file="struts-gestisci_libretto_scheda5_1SR.xml" />
+	<include file="struts-gestisci_libretto_scheda5_1VR.xml" />
+	<include file="struts-gestisci_libretto_scheda6_4.xml" />
+	<include file="struts-gestisci_libretto_scheda7.xml" />
+	<include file="struts-gestisci_libretto_scheda10_1.xml" />
+	<include file="struts-gestisci_libretto_scheda5_2.xml" />
+	<include file="struts-gestisci_libretto_scheda6.xml" />
+	<include file="struts-gestisci_libretto_scheda4_3.xml" />
+	<include file="struts-gestisci_libretto_scheda4_2.xml" />
+	<include file="struts-gestisci_ree_tipo1.xml" />
+	<include file="struts-gestisci_libretto_scheda4_6.xml" />
+	<include file="struts-gestisci_libretto_scheda4_1.xml" />
+	<include file="struts-gestisci_ree_tipo4.xml" />
+	<include file="struts-gestisci_libretto_scheda4_5.xml" />
+	<include file="struts-gestisci_libretto_scheda4_4.xml" />
+	<include file="struts-gestisci_ree_tipo3.xml" />
+	<include file="struts-gestisci_ree_tipo2.xml" />
+	<include file="struts-gestisci_ree_documenti.xml" />
+	<include file="struts-gestisci_libretto_aggiornamenti.xml" />
+	<include file="struts-gestisci_rapprova.xml" />
+	<include file="struts-ricerca_verifiche.xml" />
+	<include file="struts-risultato_ricerca_verifiche.xml" />
+	<include file="struts-gestisci_verifica.xml" />
+	<include file="struts-gestisci_ree_confirm.xml" />
+	<include file="struts-gestisci_libretto_scheda15.xml" />
+	<include file="struts-gestisci_libretto_scheda13.xml" />
+	<include file="struts-gestisci_accertamento.xml" />
+	<include file="struts-gestisci_azioni.xml" />
+	<include file="struts-ricerca_accertamenti.xml" />
+	<include file="struts-risultato_ricerca_accertamenti.xml" />
+	<include file="struts-gestisci_sanzioni.xml" />
+	<include file="struts-back_office.xml" />
+	<include file="struts-gestisci_libretto_scheda4.xml" />
+	<include file="struts-token.xml" />
+	<include file="struts-upload_ree_firmato.xml" />
+	<include file="struts-elenco_impianti_graffati.xml" />
+	<include file="struts-ricerca_impianti_graffatura.xml" />
+	<include file="struts-risultato_ricerca_impianti_graffati.xml" />
+	
+	
+</struts>

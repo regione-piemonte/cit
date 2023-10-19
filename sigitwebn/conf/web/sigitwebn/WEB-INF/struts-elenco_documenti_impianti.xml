@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="elenco_documenti_impianti" extends="jsp-package" namespace="/base/elenco_documenti_impianti">
+
+		
+<action name="cpElencoDocumentiImpianti" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.elenco_documenti_impianti.CpElencoDocumentiImpiantiAction">
+	<result name="input">/jsp/cpElencoDocumentiImpianti.jsp</result>
+	<result name="success">/jsp/cpElencoDocumentiImpianti.jsp</result>
+	
+	<result name="GO_TO_cpRisRicImpianto" type="chain">
+		<param name="actionName">cpRisRicImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_impianti</param>
+	</result>
+	<result name="GO_TO_cpGestImpianto" type="chain">
+		<param name="actionName">cpGestImpianto</param>
+		<param name="namespace">/base/gestisci_impianto</param>
+	</result>
+	<result name="GO_TO_cpGestImpiantoResp" type="chain">
+		<param name="actionName">cpGestImpiantoResp</param>
+		<param name="namespace">/base/gestisci_impianto_resp</param>
+	</result>
+	<result name="GO_TO_cpRisRicAvzImpianto" type="chain">
+		<param name="actionName">cpRisRicAvzImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_avanzata_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoIspezioniImpianti" type="chain">
+		<param name="actionName">cpElencoIspezioniImpianti</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoDocumentiImpianti" type="chain">
+		<param name="actionName">cpElencoDocumentiImpianti</param>
+		<param name="namespace">/base/elenco_documenti_impianti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_documentoAggiuntivo" type="redirect">
+		<param name="location">recuperaDocumento.do</param>
+	</result>
+	<result name="GO_TO_EX_agg" type="redirect">
+		<param name="location">recuperaDocumento.do</param>
+	</result>
+	<result name="GO_TO_EX_recAllegatoImp" type="redirect">
+		<param name="location">recuperaAllegato.do</param>
+	</result>
+	<result name="SHOW_dpEliminaDocumento">/jsp/dialogpanels/cpElencoDocumentiImpianti_dpEliminaDocumento.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R627735227) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+
+		<action name="recuperaDocumento"
+			class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaDocumento">
+			<result name="downloadFile" type="stream">
+				<param name="contentType">${contentType}</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">3072</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="KO" type="chain">cpElencoDocumentiImpianti</result>
+		</action>
+
+		<action name="recuperaAllegato"
+			class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaAllegato">
+			<result name="downloadFile" type="stream">
+				<param name="contentType">${contentType}</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">1024</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="KO" type="chain">cpElencoDocumentiImpianti</result>
+		</action>
+
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpElencoDocumentiImpianti",
+  "nomeWidget": "btnDettaglioAllegatoPerImpianto",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpElencoDocumentiImpianti",
+  "nomeWidget": "btnDettaglioAllegatoPerImpianto",
+	"language": "beanshell",
+	"script": "model.appDataelencoAllegatiPerImpianto != null && model.appDataelencoAllegatiPerImpianto.size() > 0"
+}
+
+
+  ]
+}

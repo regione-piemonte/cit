@@ -1,0 +1,20 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["btnInserisciIncarico","btnCessaIncarico"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpInsIncarico",
+	"contentPanelName":"cpGestIncarico",
+	"itemName": "fpInsIncarico"}
+] 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"gestInserisciIncarico",
+	"appDataToStore":[]
+}

@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisRicercaAccertamenti",
+  "nomeWidget": "btExportExcel",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisRicercaAccertamenti",
+  "nomeWidget": "btExportExcel",
+	"language": "beanshell",
+	"script": "model.appDataelencoAccertamenti != null && model.appDataelencoAccertamenti.size() > 0"
+}
+
+
+  ]
+}

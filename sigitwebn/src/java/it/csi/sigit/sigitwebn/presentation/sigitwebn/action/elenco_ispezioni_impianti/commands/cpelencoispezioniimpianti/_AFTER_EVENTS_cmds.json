@@ -1,0 +1,189 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnModificaIspezionePerImpianto"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnModificaIspezionePerImpianto"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isVisualizzaBtnModificaIspezioneRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnConsolidaIspezionePerImpianto"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnConsolidaIspezionePerImpianto"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isVisualizzaBtnConsolidaIspezioneRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnAnnullaIspezionePerImpianto"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnAnnullaIspezionePerImpianto"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isVisualizzaBtnAnnullaIspezioneRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnInserisciAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnInserisciAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isVisualizzaBtnInserisciAllegatoRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnModificaAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnModificaAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isVisualizzaBtnModificaAllegatoRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnDettaglioAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnDettaglioAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isVisualizzaBtnDettaglioAllegatoRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnAnnullaAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnAnnullaAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isVisualizzaBtnAnnullaAllegatoRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnRicevutaAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnRicevutaAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isVisualizzaBtnRicevutaAllegatoRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnConsolidaIspezionePerImpianto","btnDocumentazioneAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btnModificaIspezionePerImpianto","btnConsolidaIspezionePerImpianto","btnAnnullaIspezionePerImpianto","btnModificaAllegatoIspePerImpianto","btnDettaglioAllegatoIspePerImpianto","btnInserisciAllegatoIspePerImpianto","btnAnnullaAllegatoIspePerImpianto","btnRicevutaAllegatoIspePerImpianto","btnDocumentazioneAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnModificaIspezionePerImpianto","btnConsolidaIspezionePerImpianto","btnAnnullaIspezionePerImpianto","btnInserisciAllegatoIspePerImpianto","btnModificaAllegatoIspePerImpianto","btnDettaglioAllegatoIspePerImpianto","btnAnnullaAllegatoIspePerImpianto","btnRicevutaAllegatoIspePerImpianto","btnDocumentazioneAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["VISUALIZZA","NASCONDI"],
+	"nomeMetodo":"gestioneVisBottoniRef",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"aggiornaDatiPagina",
+	"appDataToStore":[]
+}
+] 
+}

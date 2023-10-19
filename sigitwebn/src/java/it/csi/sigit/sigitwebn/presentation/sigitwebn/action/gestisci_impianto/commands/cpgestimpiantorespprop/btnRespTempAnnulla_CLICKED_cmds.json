@@ -1,0 +1,12 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpresponsabiliTrovatiTemp",
+	"contentPanelName":"cpGestImpiantoRespProp",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpResponsabile",
+	"contentPanelName":"cpGestImpiantoRespProp",
+	"itemName": "fpRespProp"}
+] 
+}

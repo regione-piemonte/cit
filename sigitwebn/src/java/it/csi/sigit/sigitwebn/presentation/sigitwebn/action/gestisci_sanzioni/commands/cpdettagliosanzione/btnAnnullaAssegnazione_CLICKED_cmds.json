@@ -1,0 +1,12 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpAzioniSanzione",
+	"contentPanelName":"cpDettaglioSanzione",
+	"itemName": null}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"preparaAnnullaAssegnazione",
+	"appDataToStore":[]
+}

@@ -1,0 +1,18 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["messaggioDinamico","ricercaAccertamento","verifica","idAccertamentoSelezionato","idVerificaSelezionata","ricercaVerifica"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRicercaIspezioni2018", 
+	"pushCurrent":false
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"initRicercaIspezioni",
+	"appDataToStore":["appDatamessaggioDinamico","appDataricercaAccertamento","appDataverifica","appDataidAccertamentoSelezionato","appDataidVerificaSelezionata","appDataricercaVerifica","appDataRicercaIspezioni2018"]
+}
+] 
+}

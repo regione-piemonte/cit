@@ -1,0 +1,13 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpInserimentoDocumento",
+	"contentPanelName":"cpGestLibScheda3",
+	"itemName": "fpInsDocumento"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["btnVisRev3Resp","btnDettRev3Resp","btConfermaRevoca","btVisDOc","btElimDOc","btnIndietroRoot"],
+	"targetsMenuElement":[]
+}
+] 
+}

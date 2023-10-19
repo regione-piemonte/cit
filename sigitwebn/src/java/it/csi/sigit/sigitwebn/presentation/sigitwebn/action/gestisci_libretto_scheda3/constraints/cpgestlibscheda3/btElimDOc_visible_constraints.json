@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda3",
+  "nomeWidget": "btElimDOc",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda3",
+  "nomeWidget": "btElimDOc",
+	"language": "beanshell",
+	"script": "model.appDataelencoDocContratti != null && model.appDataelencoDocContratti.size() > 0"
+}
+
+
+  ]
+}

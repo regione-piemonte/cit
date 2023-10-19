@@ -1,0 +1,15 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestLibScheda9_4Dett", 
+	"pushCurrent":false
+}
+] 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"nuovoComp",
+	"appDataToStore":[]
+}

@@ -1,0 +1,60 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbImpSiglaRea","tfImpNumRea","tfImpCf","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","cbImpLocIndirizzo","tfImpLocNoStrad","tfImpCodImp","tfImpLocCivico"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnImpNuovaRicercaCF","cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","btnNewRicImpianto"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnImpCercaCF","tfImpLocIndirizzo","btnImpLocCercaIndirizzo","btnVerificaImpianto"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpResponsabiliImp",
+	"contentPanelName":"cpGest3Resp",
+	"itemName": null}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbImpSiglaRea","tfImpNumRea","tfImpCf"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnImpCercaCF","btnImpNuovaRicercaCF","cbImpLocIndirizzo","btnNewRicImpianto"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","cbImpLocIndirizzo","tfImpLocNoStrad","tfImpCodImp","tfImpLocCivico"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfImpLocIndirizzo","btnImpLocCercaIndirizzo","btnVerificaImpianto"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpResponsabiliImp",
+	"contentPanelName":"cpGest3Resp",
+	"itemName": null}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK_ABILITA","OK_DISABILITA","KO"],
+	"nomeMetodo":"confermaNominaTerzoResponsabile",
+	"appDataToStore":[]
+}

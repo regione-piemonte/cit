@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioSanzione",
+  "nomeWidget": "taNote",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioSanzione",
+  "nomeWidget": "taNote",
+	"language": "beanshell",
+	"script": "it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpDettaglioSanzione.isCampoAccertamentoEditabile(model)"
+}
+
+
+  ]
+}

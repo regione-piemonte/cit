@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestLibScheda10_1", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestLibScheda10_1", 
+	"pushCurrent":false
+}
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"salvaEliminaComp",
+	"appDataToStore":[]
+}

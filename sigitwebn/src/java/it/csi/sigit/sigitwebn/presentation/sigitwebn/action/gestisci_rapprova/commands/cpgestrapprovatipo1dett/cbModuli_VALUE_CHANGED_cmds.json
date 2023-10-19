@@ -1,0 +1,13 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["wp8Modulo","wp9"], 
+	"targetWidgets":["ptNModuloTermico","ptIndiceFum","tfTemp1","tfTemp2","tfTemp3","ptStrumentoutilizzato","tfMarca","tfModello","tfMatricola","wp8d","tfTempFluido","tfTempAria","tfTempFumi","percDi","tfValore","tfCoFumi","tfNoOssigeno","wp8e","tfIndAria","tfCoFumiSecchi","tfPotTermPers","tfRecCalore","tfRecCombust","tfNOxOss","pt9a","cbFumosita","pt9c","tf9Rend","pt9rilevato","cbRenCombSuff","pt9ossidi","tf9MinDi","pt9rilevato2","cbOssidiAzoto","flgnorm","pt9check","7a","7b","9a","9b","9c","9d"],
+	"currentPanelName":"cpGestRapProvaTipo1Dett" 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"caricaModuloNew",
+	"appDataToStore":[]
+}

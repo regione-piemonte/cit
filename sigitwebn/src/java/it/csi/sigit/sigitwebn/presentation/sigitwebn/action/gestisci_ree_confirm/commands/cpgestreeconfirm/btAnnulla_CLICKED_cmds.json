@@ -1,0 +1,13 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["messaggioDinamico"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"gestisciRitornoAllegato",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"/base/main/gestisciRitornoAllegato.do",
+	"binaryStream":false 
+}
+] 
+}

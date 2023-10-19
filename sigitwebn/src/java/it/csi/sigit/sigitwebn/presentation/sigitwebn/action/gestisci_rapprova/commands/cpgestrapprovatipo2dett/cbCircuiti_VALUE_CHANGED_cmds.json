@@ -1,0 +1,13 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["wp8Circuito","wp9"], 
+	"targetWidgets":["ptNCircuito","ptProva","cbRaffresc","cbRiscal","rbFiltri","rbNoPerd","ptStrumentoutilizzato","tfMarca","tfModello","tfMatricola","s8fPotAssorbitaKw","rbStrum","wp8d","ptCognome","ptIscr","wp8j","tfSurriscaldamento","tfSottoraffreddamento","tfs8jTempCondensazioneC","tfs8jTempEvaporazioneC","tfs8jTempSorgIngressoC","tfs8jTempSorgUscitaC","tfs8jTempIngressoFluidoC","rbVerSup","flgnorm","pt9check","7a","7c","8d","9a"],
+	"currentPanelName":"cpGestRapProvaTipo2Dett" 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"caricaCircuitoNew",
+	"appDataToStore":[]
+}

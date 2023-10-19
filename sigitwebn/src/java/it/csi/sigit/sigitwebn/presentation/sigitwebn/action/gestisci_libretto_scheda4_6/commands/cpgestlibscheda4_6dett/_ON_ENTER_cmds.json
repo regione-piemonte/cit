@@ -1,0 +1,114 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"isRuoloAbilitato",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"caricaSchedaDett",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["bSostituisciComponente","bDismettiComponente","bRiattivaComponente","btRipristinaAttualeDett","btSalvaDett"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cDataInstallazione","cDataDismissione","cbFabbricante","tfModello","tfMatricola","tfTipologia","cbAlimentazione","tfPotenzaTermica","tfPotenzaElettrica","tftemperaturaH2OUscitaMin","tftemperaturaH2OUscitaMax","tftemperaturaFumiValleMin","tftemperaturaFumiValleMax","tftemperaturaH2OIngressoMin","tftemperaturaH2OIngressoMax","tftemperaturaFumiMonteMin","tftemperaturaFumiMonteMax","tftemperaturaH2OMotoreMin","tftemperaturaH2OMotoreMax","tfcoMin","coMax","bSostituisciComponente","bDismettiComponente","taNote","tfManutenzione"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["bRiattivaComponente"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cDataInstallazione","cDataDismissione","cbFabbricante","tfModello","tfMatricola","tfTipologia","cbAlimentazione","tfPotenzaTermica","tfPotenzaElettrica","tftemperaturaH2OUscitaMin","tftemperaturaH2OUscitaMax","tftemperaturaFumiValleMin","tftemperaturaFumiValleMax","tftemperaturaH2OIngressoMin","tftemperaturaH2OIngressoMax","tftemperaturaFumiMonteMin","tftemperaturaFumiMonteMax","tftemperaturaH2OMotoreMin","tftemperaturaH2OMotoreMax","tfcoMin","coMax","bSostituisciComponente","bDismettiComponente","tfManutenzione","taNote"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["bRiattivaComponente"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["bRiattivaComponente","cDataInstallazione"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tftemperaturaH2OUscitaMin","tftemperaturaH2OUscitaMax","tftemperaturaFumiValleMin","tftemperaturaFumiValleMax","tftemperaturaH2OIngressoMin","tftemperaturaH2OIngressoMax","tftemperaturaFumiMonteMin","tftemperaturaFumiMonteMax","tftemperaturaH2OMotoreMin","tftemperaturaH2OMotoreMax","tfManutenzione","taNote","cDataDismissione","bSostituisciComponente","bDismettiComponente","cbFabbricante","tfModello","tfMatricola","tfTipologia","cbAlimentazione","tfPotenzaTermica","tfPotenzaElettrica","tfcoMin","coMax"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["bRiattivaComponente","cDataInstallazione","cbFabbricante","tfModello","tfMatricola","tfTipologia","cbAlimentazione","tfPotenzaTermica","tfPotenzaElettrica","tfcoMin","coMax","tftemperaturaH2OUscitaMin","tftemperaturaH2OUscitaMax","tftemperaturaH2OIngressoMin","tftemperaturaH2OIngressoMax","tftemperaturaH2OMotoreMin","tftemperaturaH2OMotoreMax","tftemperaturaFumiValleMin","tftemperaturaFumiValleMax","tftemperaturaFumiMonteMin","tftemperaturaFumiMonteMax","tfManutenzione"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["taNote","cDataDismissione","bSostituisciComponente","bDismettiComponente"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["DISMESSO","ATTIVO","ATTIVO_REE_MODIFICABILE","ATTIVO_REE_NON_MODIFICABILE"],
+	"nomeMetodo":"gestisciAbilitazioneByFlgDismissione",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["bSostituisciComponente","bDismettiComponente","bRiattivaComponente","btRipristinaAttualeDett","btSalvaDett"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cDataInstallazione","cDataDismissione","cbFabbricante","tfModello","tfMatricola","tfTipologia","cbAlimentazione","tfPotenzaTermica","tfPotenzaElettrica","tftemperaturaH2OUscitaMin","tftemperaturaH2OUscitaMax","tftemperaturaFumiValleMin","tftemperaturaFumiValleMax","tftemperaturaH2OIngressoMin","tftemperaturaH2OIngressoMax","tftemperaturaFumiMonteMin","tftemperaturaFumiMonteMax","tftemperaturaH2OMotoreMin","tftemperaturaH2OMotoreMax","tfcoMin","coMax","tfManutenzione","taNote"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["ABILITA","DISABILITA"],
+	"nomeMetodo":"gestisciAbilitazione",
+	"appDataToStore":[]
+}
+] 
+}

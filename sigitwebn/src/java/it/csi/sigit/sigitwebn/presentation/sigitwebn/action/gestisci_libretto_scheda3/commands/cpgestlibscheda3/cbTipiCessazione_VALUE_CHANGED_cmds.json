@@ -1,0 +1,33 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpAutodichiarazioni",
+	"contentPanelName":"cpGestLibScheda3",
+	"itemName": "fpAutodichiarazioni"}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["mpAutodichiarazioni"], 
+	"targetWidgets":["tbAutodichiarazioni"],
+	"currentPanelName":"cpGestLibScheda3" 
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpAutodichiarazioni",
+	"contentPanelName":"cpGestLibScheda3",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["mpAutodichiarazioni"], 
+	"targetWidgets":["tbAutodichiarazioni"],
+	"currentPanelName":"cpGestLibScheda3" 
+}
+] 
+}
+],
+	"esiti":["VISUALIZZA","NASCONDI"],
+	"nomeMetodo":"checkCaricamentoAutodichiarazioni",
+	"appDataToStore":[]
+}

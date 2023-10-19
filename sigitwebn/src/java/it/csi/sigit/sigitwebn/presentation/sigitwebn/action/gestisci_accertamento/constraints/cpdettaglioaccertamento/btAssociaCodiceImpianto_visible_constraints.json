@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioAccertamento",
+  "nomeWidget": "btAssociaCodiceImpianto",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioAccertamento",
+  "nomeWidget": "btAssociaCodiceImpianto",
+	"language": "beanshell",
+	"script": "it.csi.sigit.sigitwebn.business.gestisci_accertamento.CPBECpDettaglioAccertamento.isAssociaImpiantoAbilitato(model)"
+}
+
+
+  ]
+}

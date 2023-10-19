@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="main" extends="jsp-package" namespace="/base/main">
+
+		
+<action name="cpDialog" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.main.CpDialogAction">
+	<result name="input">/jsp/cpDialog.jsp</result>
+	<result name="success">/jsp/cpDialog.jsp</result>
+	
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_DIALOG_KO" type="redirect">
+		<param name="location">http://www.sistemapiemonte.it/</param>
+	</result>
+	<result name="SHOW_dpDialogError">/jsp/dialogpanels/cpDialog_dpDialogError.jsp</result>
+</action>
+
+<action name="cpMsg" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.main.CpMsgAction">
+	<result name="input">/jsp/cpMsg.jsp</result>
+	<result name="success">/jsp/cpMsg.jsp</result>
+	
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R-69127981) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		
+		<action name="recuperaLibretto" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaLibretto">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">gestisciRitornoLibretto</result>
+		</action>
+		
+		<action name="recuperaLibrettoXML" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaLibrettoXML">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">gestisciRitornoLibretto</result>
+		</action>
+		
+		<action name="generaLibrettoNOW" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaLibrettoNow">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">gestisciRitornoLibretto</result>
+		</action>
+		
+		<action name="consolidaLibretto" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.ConsolidaLibretto">
+			<result name="OK" type="chain">gestisciRitornoLibretto</result>
+			<result name="KO" type="chain">gestisciRitornoLibretto</result>
+			<result name="KO_VERIFICHE" type="chain">
+				<param name="actionName">cpGestLibAggiornamenti</param>
+				<param name="namespace">/base/gestisci_libretto_aggiornamenti</param>
+			</result>
+		</action>
+
+		<action name="gestisciRitornoLibretto"
+			class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.GestisciRitornoLibretto">
+
+			<result name="gestLibScheda1_extra" type="chain">
+				<param name="actionName">cpGestLibScheda1_extra</param>
+				<param name="namespace">/base/gestisci_libretto_scheda1_extra</param>
+			</result>
+			<result name="gestLibScheda1" type="chain">
+				<param name="actionName">cpGestLibScheda1</param>
+				<param name="namespace">/base/gestisci_libretto_scheda1</param>
+			</result>
+			<result name="gestLibScheda2" type="chain">
+				<param name="actionName">cpGestLibScheda2</param>
+				<param name="namespace">/base/gestisci_libretto_scheda2</param>
+			</result>
+			<result name="gestLibScheda3" type="chain">
+				<param name="actionName">cpGestLibScheda3</param>
+				<param name="namespace">/base/gestisci_libretto_scheda3</param>
+			</result>
+			<result name="gestLibScheda4_1" type="chain">
+				<param name="actionName">cpGestLibScheda4_1</param>
+				<param name="namespace">/base/gestisci_libretto_scheda4_1</param>
+			</result>
+			<result name="gestLibScheda4_2" type="chain">
+				<param name="actionName">cpGestLibScheda4_2</param>
+				<param name="namespace">/base/gestisci_libretto_scheda4_2</param>
+			</result>
+			<result name="gestLibScheda4_3" type="chain">
+				<param name="actionName">cpGestLibScheda4_3</param>
+				<param name="namespace">/base/gestisci_libretto_scheda4_3</param>
+			</result>
+			<result name="gestLibScheda4_4" type="chain">
+				<param name="actionName">cpGestLibScheda4_4</param>
+				<param name="namespace">/base/gestisci_libretto_scheda4_4</param>
+			</result>
+			<result name="gestLibScheda4_5" type="chain">
+				<param name="actionName">cpGestLibScheda4_5</param>
+				<param name="namespace">/base/gestisci_libretto_scheda4_5</param>
+			</result>
+			<!--result name="gestLibScheda4_5Dett" type="chain">
+				<param name="actionName">cpGestLibScheda4_5Dett</param>
+				<param name="namespace">/base/gestisci_libretto_scheda4_5</param>
+			</result-->
+			<result name="gestLibScheda4_6" type="chain">
+				<param name="actionName">cpGestLibScheda4_6</param>
+				<param name="namespace">/base/gestisci_libretto_scheda4_6</param>
+			</result>
+			<result name="gestLibScheda4_7" type="chain">
+				<param name="actionName">cpGestLibScheda4_7</param>
+				<param name="namespace">/base/gestisci_libretto_scheda4_7</param>
+			</result>
+			<result name="gestLibScheda4_8" type="chain">
+				<param name="actionName">cpGestLibScheda4_8</param>
+				<param name="namespace">/base/gestisci_libretto_scheda4_8</param>
+			</result>
+			<result name="gestLibScheda5_1SR" type="chain">
+				<param name="actionName">cpGestLibScheda5_1SR</param>
+				<param name="namespace">/base/gestisci_libretto_scheda5_1SR</param>
+			</result>
+			<result name="gestLibScheda5_1VR" type="chain">
+				<param name="actionName">cpGestLibScheda5_1VR</param>
+				<param name="namespace">/base/gestisci_libretto_scheda5_1VR</param>
+			</result>
+			<result name="gestLibScheda5_2" type="chain">
+				<param name="actionName">cpGestLibScheda5_2</param>
+				<param name="namespace">/base/gestisci_libretto_scheda5_2</param>
+			</result>
+			<result name="gestLibScheda6_4" type="chain">
+				<param name="actionName">cpGestLibScheda6_4</param>
+				<param name="namespace">/base/gestisci_libretto_scheda6_4</param>
+			</result>
+			<result name="gestLibScheda6" type="chain">
+				<param name="actionName">cpGestLibScheda6</param>
+				<param name="namespace">/base/gestisci_libretto_scheda6</param>
+			</result>
+			<result name="gestLibScheda7" type="chain">
+				<param name="actionName">cpGestLibScheda7</param>
+				<param name="namespace">/base/gestisci_libretto_scheda7</param>
+			</result>
+			<result name="gestLibScheda8" type="chain">
+				<param name="actionName">cpGestLibScheda8</param>
+				<param name="namespace">/base/gestisci_libretto_scheda8</param>
+			</result>
+			<result name="gestLibScheda9_1" type="chain">
+				<param name="actionName">cpGestLibScheda9_1</param>
+				<param name="namespace">/base/gestisci_libretto_scheda9_1</param>
+			</result>
+			<result name="gestLibScheda9_2" type="chain">
+				<param name="actionName">cpGestLibScheda9_2</param>
+				<param name="namespace">/base/gestisci_libretto_scheda9_2</param>
+			</result>
+			<result name="gestLibScheda9_3" type="chain">
+				<param name="actionName">cpGestLibScheda9_3</param>
+				<param name="namespace">/base/gestisci_libretto_scheda9_3</param>
+			</result>
+			<result name="gestLibScheda9_4" type="chain">
+				<param name="actionName">cpGestLibScheda9_4</param>
+				<param name="namespace">/base/gestisci_libretto_scheda9_4</param>
+			</result>
+			<result name="gestLibScheda9_5" type="chain">
+				<param name="actionName">cpGestLibScheda9_5</param>
+				<param name="namespace">/base/gestisci_libretto_scheda9_5</param>
+			</result>
+			<result name="gestLibScheda9_6" type="chain">
+				<param name="actionName">cpGestLibScheda9_6</param>
+				<param name="namespace">/base/gestisci_libretto_scheda9_6</param>
+			</result>
+			<result name="gestLibScheda10" type="chain">
+				<param name="actionName">cpGestLibScheda10_1</param>
+				<param name="namespace">/base/gestisci_libretto_scheda10_1</param>
+			</result>
+			<result name="gestLibScheda12" type="chain">
+				<param name="actionName">cpGestLibScheda12</param>
+				<param name="namespace">/base/gestisci_libretto_scheda12</param>
+			</result>
+			<result name="gestLibScheda14_1" type="chain">
+				<param name="actionName">cpGestLibScheda14_1</param>
+				<param name="namespace">/base/gestisci_libretto_scheda14_1</param>
+			</result>
+			<result name="gestLibScheda14_2" type="chain">
+				<param name="actionName">cpGestLibScheda14_2</param>
+				<param name="namespace">/base/gestisci_libretto_scheda14_2</param>
+			</result>
+			<result name="gestLibScheda14_3" type="chain">
+				<param name="actionName">cpGestLibScheda14_3</param>
+				<param name="namespace">/base/gestisci_libretto_scheda14_3</param>
+			</result>
+			<result name="gestLibScheda14_4" type="chain">
+				<param name="actionName">cpGestLibScheda14_4</param>
+				<param name="namespace">/base/gestisci_libretto_scheda14_4</param>
+			</result>
+		</action>
+		
+		
+		<action name="generaAllegatoNOW" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.ShowAllegatoNow">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">gestisciRitornoAllegato</result>
+		</action>
+
+		<action name="generaRappProvaNOW" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.ShowRappProvaNow">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">gestisciRitornoAllegato</result>
+		</action>
+		
+		<action name="inviaAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.InviaAllegato">
+			<result name="OK_ALLEGATI" type="chain">
+				<param name="actionName">cpRisultatoRicercaAllegati</param>
+				<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+			</result>
+			<result name="OK_IMPIANTO" type="chain">
+				<param name="actionName">cpElencoAllegatiImpianti</param>
+				<param name="namespace">/base/elenco_allegati_impianti</param>
+			</result>
+			<result name="KO" type="chain">gestisciRitornoAllegato</result>
+		</action>
+
+		<action name="gestisciRitornoAllegato"
+			class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.GestisciRitornoAllegato">
+
+			<result name="gestReeTipo1" type="chain">
+				<param name="actionName">cpGestReeTipo1</param>
+				<param name="namespace">/base/gestisci_ree_tipo1</param>
+			</result>
+
+			<result name="gestReeTipo1Dett" type="chain">
+				<param name="actionName">cpGestReeTipo1Dett</param>
+				<param name="namespace">/base/gestisci_ree_tipo1</param>
+			</result>
+
+			<result name="gestReeTipo2" type="chain">
+				<param name="actionName">cpGestReeTipo2</param>
+				<param name="namespace">/base/gestisci_ree_tipo2</param>
+			</result>
+
+			<result name="gestReeTipo2Dett" type="chain">
+				<param name="actionName">cpGestReeTipo2Dett</param>
+				<param name="namespace">/base/gestisci_ree_tipo2</param>
+			</result>
+
+			<result name="gestReeTipo3" type="chain">
+				<param name="actionName">cpGestReeTipo3</param>
+				<param name="namespace">/base/gestisci_ree_tipo3</param>
+			</result>
+
+			<result name="gestReeTipo3Dett" type="chain">
+				<param name="actionName">cpGestReeTipo3Dett</param>
+				<param name="namespace">/base/gestisci_ree_tipo3</param>
+			</result>
+
+			<result name="gestReeTipo4" type="chain">
+				<param name="actionName">cpGestReeTipo4</param>
+				<param name="namespace">/base/gestisci_ree_tipo4</param>
+			</result>
+
+			<result name="gestReeTipo4Dett" type="chain">
+				<param name="actionName">cpGestReeTipo4Dett</param>
+				<param name="namespace">/base/gestisci_ree_tipo4</param>
+			</result>
+			
+			<result name="gestReeDocumenti" type="chain">
+				<param name="actionName">cpGestisciReeDocumenti</param>
+				<param name="namespace">/base/gestisci_ree_documenti</param>
+			</result>
+			
+			<result name="gestRapProvaGenerale" type="chain">
+				<param name="actionName">cpGestRapProvaGenerale</param>
+				<param name="namespace">/base/gestisci_rapprova</param>
+			</result>
+			
+			<result name="gestRapProvaTipo1" type="chain">
+				<param name="actionName">cpGestRapProvaTipo1</param>
+				<param name="namespace">/base/gestisci_rapprova</param>
+			</result>
+			
+			<result name="gestRapProvaTipo1Dett" type="chain">
+				<param name="actionName">cpGestRapProvaTipo1Dett</param>
+				<param name="namespace">/base/gestisci_rapprova</param>
+			</result>
+			
+			<result name="gestRapProvaTipo2" type="chain">
+				<param name="actionName">cpGestRapProvaTipo2</param>
+				<param name="namespace">/base/gestisci_rapprova</param>
+			</result>
+			
+			<result name="gestRapProvaTipo2Dett" type="chain">
+				<param name="actionName">cpGestRapProvaTipo2Dett</param>
+				<param name="namespace">/base/gestisci_rapprova</param>
+			</result>
+			
+			
+		</action>
+		
+		
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

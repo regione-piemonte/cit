@@ -1,0 +1,9 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cImpDataCessazione","btnConfermaProp"],
+	"targetsMenuElement":[]
+}
+] 
+}

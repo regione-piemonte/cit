@@ -1,0 +1,23 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["acquistaBollini","elencoBollini","ricercaBollini","aggiornaElencoBollini","messaggioDinamico"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRicBollini", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisRicBollini", 
+	"pushCurrent":false
+}
+],
+	"esiti":["OK_RICERCA","OK_ELENCO"],
+	"nomeMetodo":"initAcquistaBollini",
+	"appDataToStore":["appDatautenteLoggato","appDataaggiornaElencoBollini","appDataricercaBollini","appDatamessaggioDinamico"]
+}
+] 
+}

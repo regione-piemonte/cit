@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="risultato_ricerca_completa_impianti" extends="jsp-package" namespace="/base/risultato_ricerca_completa_impianti">
+
+		
+<action name="cpRisRicCompImpianto" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.risultato_ricerca_completa_impianti.CpRisRicCompImpiantoAction">
+	<result name="input">/jsp/cpRisRicCompImpianto.jsp</result>
+	<result name="success">/jsp/cpRisRicCompImpianto.jsp</result>
+	
+	<result name="GO_TO_cpRicImpianto" type="chain">
+		<param name="actionName">cpRicImpianto</param>
+		<param name="namespace">/base/ricerca_impianti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R-703028123) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

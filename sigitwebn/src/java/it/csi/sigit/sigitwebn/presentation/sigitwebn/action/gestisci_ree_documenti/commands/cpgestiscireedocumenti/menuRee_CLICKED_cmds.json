@@ -1,0 +1,53 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["wpMenuTree"], 
+	"targetWidgets":["menuRee"],
+	"currentPanelName":"cpGestisciReeDocumenti" 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestReeTipo1", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestReeTipo1Dett", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestReeTipo2", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestReeTipo2Dett", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestReeTipo3", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestReeTipo3Dett", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestReeTipo4", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestReeTipo4Dett", 
+	"pushCurrent":false
+}
+],
+	"esiti":["KO","TIPO1_SEZIONE_ABCDF","TIPO1_SEZIONE_E","TIPO2_SEZIONE_ABCDF","TIPO2_SEZIONE_E","TIPO3_SEZIONE_ABCDF","TIPO3_SEZIONE_E","TIPO4_SEZIONE_ABCDF","TIPO4_SEZIONE_E"],
+	"nomeMetodo":"onTreeClick",
+	"appDataToStore":[]
+}

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_ree_documenti" extends="jsp-package" namespace="/base/gestisci_ree_documenti">
+
+		
+<action name="cpGestisciReeDocumenti" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_ree_documenti.CpGestisciReeDocumentiAction">
+	<result name="input">/jsp/cpGestisciReeDocumenti.jsp</result>
+	<result name="success">/jsp/cpGestisciReeDocumenti.jsp</result>
+	
+	<result name="GO_TO_cpGestReeTipo1" type="chain">
+		<param name="actionName">cpGestReeTipo1</param>
+		<param name="namespace">/base/gestisci_ree_tipo1</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo1Dett" type="chain">
+		<param name="actionName">cpGestReeTipo1Dett</param>
+		<param name="namespace">/base/gestisci_ree_tipo1</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo2" type="chain">
+		<param name="actionName">cpGestReeTipo2</param>
+		<param name="namespace">/base/gestisci_ree_tipo2</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo2Dett" type="chain">
+		<param name="actionName">cpGestReeTipo2Dett</param>
+		<param name="namespace">/base/gestisci_ree_tipo2</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo3" type="chain">
+		<param name="actionName">cpGestReeTipo3</param>
+		<param name="namespace">/base/gestisci_ree_tipo3</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo3Dett" type="chain">
+		<param name="actionName">cpGestReeTipo3Dett</param>
+		<param name="namespace">/base/gestisci_ree_tipo3</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo4" type="chain">
+		<param name="actionName">cpGestReeTipo4</param>
+		<param name="namespace">/base/gestisci_ree_tipo4</param>
+	</result>
+	<result name="GO_TO_cpGestReeTipo4Dett" type="chain">
+		<param name="actionName">cpGestReeTipo4Dett</param>
+		<param name="namespace">/base/gestisci_ree_tipo4</param>
+	</result>
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_cpGestisciReeDocumenti" type="chain">
+		<param name="actionName">cpGestisciReeDocumenti</param>
+		<param name="namespace">/base/gestisci_ree_documenti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_documentoAggiuntivo" type="redirect">
+		<param name="location">recuperaDocumento.do</param>
+	</result>
+	<result name="SHOW_dpEliminaDocumento">/jsp/dialogpanels/cpGestisciReeDocumenti_dpEliminaDocumento.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R428699947) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		
+		<action name="recuperaDocumento" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaDocumento">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpGestisciReeDocumenti</result>
+		</action>
+		
+		
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

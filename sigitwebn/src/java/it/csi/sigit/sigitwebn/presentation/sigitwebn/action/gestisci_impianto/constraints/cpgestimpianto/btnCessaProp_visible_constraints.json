@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestImpianto",
+  "nomeWidget": "btnCessaProp",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestImpianto",
+  "nomeWidget": "btnCessaProp",
+	"language": "beanshell",
+	"script": "model.appDataimpianto != null && model.appDataimpianto.proprietario != null"
+}
+
+
+  ]
+}

@@ -1,0 +1,81 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpSelezRuolo", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"ACCESSO_KO",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"/base/main/cpDialog!handleHvIngressoKO_CLICKED.do",
+	"binaryStream":false 
+}
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"initApplicativo",
+	"appDataToStore":["appDatacurrentUser","appDataruoliTrovati","appDatautenteLoggato","appDatamessaggioDinamico","appDataelencoSiglaRea","appDataelencoProvince","appDataelencoSiglaBollino","appDataelencoProvincePiemonte","appDataruoliFiltro","appDataruoliTrovatiFiltrati","appDatafiltroRuoloSelez"]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"PAGE_OK",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"/base/esito_pagamento_bollini/cpEsitoPagamento!handleHvPagamentoOK_CLICKED.do",
+	"binaryStream":false 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"PAGE_KO",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"/base/esito_pagamento_bollini/cpEsitoPagamento!handleHvPagamentoKO_CLICKED.do",
+	"binaryStream":false 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"PAGE_ABORT",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"/base/esito_pagamento_bollini/cpEsitoPagamento!handleHvPagamentoABORT_CLICKED.do",
+	"binaryStream":false 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"PAGE_ANOMAL",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"/base/esito_pagamento_bollini/cpEsitoPagamento!handleHvPagamentoANOMAL_CLICKED.do",
+	"binaryStream":false 
+}
+],
+	"esiti":["ESITO_PAG_OK","ESITO_PAG_KO","ESITO_PAG_ABORT","ESITO_PAG_ANOMAL"],
+	"nomeMetodo":"gestisciEsitoPagamento",
+	"appDataToStore":["appDatanumeroTransazione","appDataidTransazione"]
+}
+],
+	"esiti":["LOGIN","PAGAMENTO"],
+	"nomeMetodo":"verificaProvenienza",
+	"appDataToStore":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"ACCESSO_BLOCCATO",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"/base/main/cpDialog!handleHvIngressoKO_CLICKED.do",
+	"binaryStream":false 
+}
+] 
+}
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"verificaDisponibilitaApp",
+	"appDataToStore":[]
+}
+] 
+}

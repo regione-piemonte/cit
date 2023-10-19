@@ -1,0 +1,369 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"isRuoloAbilitato",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"gestLogicaIngresso",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ScreenStateCommand" ,
+	"widgetsOn":["menu","tfImpCodImp","btnImpVerCodImp","cImpDataAss","cbImpStatoImp","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","btnImpLocCercaIndirizzo","cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocFoglio","tfImpLocSezione","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","taImpLocNote","btnImpiantoSalva","btnImpIndietro","cbRespTitolo","cbRespIndirizzoEst","tfRespIndirizzo","btnRespCercaIndirizzo","cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad","tfRespCivico","tfRespCap","tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap","cRespDataInizioResp","tfRespEmail","btnLibVisualizza","btnLibRappControllo","btnLibDocumentazione","btnVisLibrettoWeb","btnModificaProp","cbVisuProprietario","btnApprofondisciImpianto"],
+	"widgetsOff":["cImpDataDismiss","taImpMotivivazione","tfImpLocProprietario","tfImpLocPropDataInizio","tfImpLocPropIndirizzo","cImpDataCessazione","btnConfermaProp","btnCessaProp","cbRespSiglaRea","tfRespNumRea","tfRespCf","tfRespCognome","tfRespNome","cbRespProvincia","cbRespComune","btnLibAggiornamenti"],
+	"widgetsShown":["menu","tfImpCodImp","cImpDataAss","cbImpStatoImp","cImpDataDismiss","taImpMotivivazione","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","btnImpLocCercaIndirizzo","cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocFoglio","tfImpLocSezione","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","taImpLocNote","btnImpiantoSalva","btnImpIndietro","cbRespTitolo","tfRespCf","tfRespCognome","tfRespNome","cbRespIndirizzoEst","cbRespProvincia","cbRespComune","tfRespIndirizzo","btnRespCercaIndirizzo","cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad","tfRespCivico","tfRespCap","tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap","cRespDataInizioResp","tfRespEmail","btnLibVisualizza","btnLibRappControllo","btnLibDocumentazione","btnVisLibrettoWeb","tfImpLocProprietario","tfImpLocPropDataInizio","btnModificaProp","cbVisuProprietario","tfImpLocPropIndirizzo","btnApprofondisciImpianto"],
+	"widgetsHidden":["btnImpVerCodImp","cImpDataCessazione","btnConfermaProp","btnCessaProp","cbRespSiglaRea","tfRespNumRea","btnLibAggiornamenti"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfImpCodImp","cImpDataDismiss","taImpMotivivazione"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["tfImpCodImp"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["ABILITA_COD_IMP","DISABILITA_COD_IMP"],
+	"nomeMetodo":"gestLogicaCodImp",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnImpVerCodImp"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cImpDataAss"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnImpVerCodImp"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cImpDataAss"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["ABILITA_COD_IMP_DATA","DISABILITA_COD_IMP_DATA"],
+	"nomeMetodo":"gestLogicaCodImpDataAss",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbImpLocProvincia","cbImpLocComune"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbImpLocProvincia","cbImpLocComune"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["ABILITA_IMP_IND_CERCATO","ABILITA_IMP_IND_NON_CERCATO"],
+	"nomeMetodo":"gestAbilLogicaImpLocIndirizzo",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnImpiantoSalva"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnLibVisualizza","btnLibRappControllo","btnLibDocumentazione","btnVisLibrettoWeb","btnModificaProp"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btnLibRappControllo"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnLibRappControllo"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["VISUALIZZA","NASCONDI"],
+	"nomeMetodo":"gestLogicaBotRappControlloInit",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnLibVisualizza","btnLibRappControllo","btnLibDocumentazione","btnVisLibrettoWeb","btnModificaProp"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+] 
+}
+],
+	"esiti":["PRESENTE","NON_PRESENTE"],
+	"nomeMetodo":"gestisciLogicaImpPresenteInit",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnImpiantoSalva","btnLibVisualizza","btnLibRappControllo","btnLibDocumentazione","btnVisLibrettoWeb"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["VISUALIZZA_BOT_SALVA_IMP","NASCONDI_BOT_SALVA_IMP"],
+	"nomeMetodo":"gestLogicaSalvaImp",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ScreenStateCommand" ,
+	"widgetsOn":["menu","btnLibVisualizza","btnImpIndietro"],
+	"widgetsOff":["tfImpCodImp","btnApprofondisciImpianto","btnImpVerCodImp","cImpDataAss","cbImpStatoImp","cImpDataDismiss","taImpMotivivazione","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","btnImpLocCercaIndirizzo","cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocSezione","tfImpLocFoglio","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","taImpLocNote","cbVisuProprietario","tfImpLocProprietario","tfImpLocPropDataInizio","tfImpLocPropIndirizzo","cImpDataCessazione","btnConfermaProp","btnModificaProp","btnCessaProp","cbRespTitolo","cbRespSiglaRea","tfRespNumRea","tfRespCf","tfRespCognome","tfRespNome","cbRespIndirizzoEst","cbRespProvincia","cbRespComune","tfRespIndirizzo","btnRespCercaIndirizzo","cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad","tfRespCivico","tfRespCap","tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap","cRespDataInizioResp","tfRespEmail","btnImpiantoSalva","btnLibRappControllo","btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti"],
+	"widgetsShown":["menu","tfImpCodImp","cImpDataAss","cbImpStatoImp","cImpDataDismiss","taImpMotivivazione","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","cbImpLocIndirizzo","tfImpLocNoStrad","taImpLocNote","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocFoglio","tfImpLocSezione","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","btnLibVisualizza","btnImpIndietro","tfImpLocProprietario","tfImpLocPropDataInizio","cbVisuProprietario","tfImpLocPropIndirizzo"],
+	"widgetsHidden":["btnApprofondisciImpianto","btnImpVerCodImp","btnImpLocCercaIndirizzo","btnImpLocNuovaRicercaIndirizzo","cbImpLocPdrNonPres","cImpDataCessazione","btnConfermaProp","btnModificaProp","btnCessaProp","cbRespTitolo","cbRespSiglaRea","tfRespNumRea","tfRespCf","tfRespCognome","tfRespNome","cbRespIndirizzoEst","cbRespProvincia","cbRespComune","tfRespIndirizzo","btnRespCercaIndirizzo","cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad","tfRespCivico","tfRespCap","tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap","cRespDataInizioResp","tfRespEmail","btnImpiantoSalva","btnLibRappControllo","btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti"]
+}
+] 
+}
+],
+	"esiti":["REGISTRAZIONE","VISUALIZZAZIONE"],
+	"nomeMetodo":"gestisciVisualizzazione",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfImpLocIndirizzo","btnImpLocCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","tfImpLocNoStrad"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["VISUALIZZA_IMP_IND_CERCATO","VISUALIZZA_IMP_IND_NON_CERCATO"],
+	"nomeMetodo":"gestVisLogicaImpLocIndirizzo",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbImpLocProvincia","cbImpLocComune"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbRespProvincia","cbRespComune"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfRespIndirizzo","btnRespCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbRespProvincia","cbRespComune"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfRespIndirizzo","btnRespCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["ABILITA_RESP_IND_CERCATO","ABILITA_RESP_IND_NON_CERCATO","DISABILITA_RESP_IND"],
+	"nomeMetodo":"gestAbilLogicaRespIndirizzoEnt",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfRespEstStato","tfRespEstCitta","tfRespEstIndirizzo","tfRespEstCivico","tfRespEstCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbRespProvincia","cbRespComune","tfRespIndirizzo","btnRespCercaIndirizzo","cbRespIndirizzo","btnRespNuovaRicercaIndirizzo","tfIRespNoStrad","tfRespCivico","tfRespCap"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["NAZIONALE","ESTERO"],
+	"nomeMetodo":"gestTipoIndirizzoEnt",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"gestisciComboImpComuni",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btnLibRappControllo","btnLibVisualizza"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btnLibRappControllo","btnLibVisualizza"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btnLibRappControllo","btnLibVisualizza"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["VISUALIZZA","NASCONDI"],
+	"nomeMetodo":"gestLogicaBotVisLibrettoInit",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbRespSiglaRea","tfRespNumRea"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfRespNome"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbRespSiglaRea","tfRespNumRea"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfRespNome"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"gestLogicaImpresaEnte",
+	"appDataToStore":[]
+}
+] 
+}

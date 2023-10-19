@@ -1,0 +1,7 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"EXPORT_EXCEL",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"exportExcelElencoAllegatiImpianti.do",
+	"binaryStream":false 
+}

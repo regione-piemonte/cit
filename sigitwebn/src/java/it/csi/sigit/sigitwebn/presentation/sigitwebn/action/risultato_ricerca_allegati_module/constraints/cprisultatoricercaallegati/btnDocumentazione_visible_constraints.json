@@ -1,0 +1,26 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisultatoRicercaAllegati",
+  "nomeWidget": "btnDocumentazione",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisultatoRicercaAllegati",
+  "nomeWidget": "btnDocumentazione",
+	"language": "beanshell",
+	"script": "model.appDataelencoAllegati != null && model.appDataelencoAllegati.size() > 0"
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.CustomUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisultatoRicercaAllegati",
+  "nomeWidget": "btnDocumentazione",
+	"methodNameSuffix": "IsAbilitatoDocRee"
+}
+
+
+  ]
+}

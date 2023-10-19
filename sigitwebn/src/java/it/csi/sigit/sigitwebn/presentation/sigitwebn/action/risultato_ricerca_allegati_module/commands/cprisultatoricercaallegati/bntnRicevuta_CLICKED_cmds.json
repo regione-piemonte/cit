@@ -1,0 +1,16 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpExtCommand" ,
+	"locationCode":"ricevutaAllegato",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"showRicevutaAllegato.do",
+	"binaryStream":false 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"ricevutaAllegato",
+	"appDataToStore":[]
+}

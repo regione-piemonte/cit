@@ -1,0 +1,14 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpSanzionati",
+	"contentPanelName":"cpInserisciNotificaSanzione",
+	"itemName": "fpSanzionato"}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"annullaSceltaSanzionato",
+	"appDataToStore":[]
+}

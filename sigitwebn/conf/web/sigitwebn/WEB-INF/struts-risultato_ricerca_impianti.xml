@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="risultato_ricerca_impianti" extends="jsp-package" namespace="/base/risultato_ricerca_impianti">
+
+		
+<action name="cpRisRicImpianto" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.risultato_ricerca_impianti.CpRisRicImpiantoAction">
+	<result name="input">/jsp/cpRisRicImpianto.jsp</result>
+	<result name="success">/jsp/cpRisRicImpianto.jsp</result>
+	
+	<result name="GO_TO_cpGestImpianto" type="chain">
+		<param name="actionName">cpGestImpianto</param>
+		<param name="namespace">/base/gestisci_impianto</param>
+	</result>
+	<result name="GO_TO_cpGestImpiantoResp" type="chain">
+		<param name="actionName">cpGestImpiantoResp</param>
+		<param name="namespace">/base/gestisci_impianto_resp</param>
+	</result>
+	<result name="GO_TO_cpElencoAllegatiImpianti" type="chain">
+		<param name="actionName">cpElencoAllegatiImpianti</param>
+		<param name="namespace">/base/elenco_allegati_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoIspezioniImpianti" type="chain">
+		<param name="actionName">cpElencoIspezioniImpianti</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoDocumentiImpianti" type="chain">
+		<param name="actionName">cpElencoDocumentiImpianti</param>
+		<param name="namespace">/base/elenco_documenti_impianti</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda1" type="chain">
+		<param name="actionName">cpGestLibScheda1</param>
+		<param name="namespace">/base/gestisci_libretto_scheda1</param>
+	</result>
+	<result name="GO_TO_cpRicImpianto" type="chain">
+		<param name="actionName">cpRicImpianto</param>
+		<param name="namespace">/base/ricerca_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisRicImpianto" type="chain">
+		<param name="actionName">cpRisRicImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_impianti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_EXPORT_EXCEL" type="redirect">
+		<param name="location">exportExcelRicercaImpianti.do</param>
+	</result>
+	<result name="GO_TO_EX_RS_RIC_IMP_INS_AUTO" type="redirect">
+		<param name="location">/base/gestisci_verifica/cpGestVerifica!handleHvGestInsVerificaAuto_CLICKED.do</param>
+	</result>
+	<result name="SHOW_dpRisRicImpianto">/jsp/dialogpanels/cpRisRicImpianto_dpRisRicImpianto.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R587568293) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<action name="exportExcelRicercaImpianti" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.excel.ExportExcelRicercaImpianti">
+			<result name="downloadFile" type="stream">
+				<param name="contentType">${contentType}</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">1024</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="KO" type="chain">cpRisRicImpianto</result>
+		</action>
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

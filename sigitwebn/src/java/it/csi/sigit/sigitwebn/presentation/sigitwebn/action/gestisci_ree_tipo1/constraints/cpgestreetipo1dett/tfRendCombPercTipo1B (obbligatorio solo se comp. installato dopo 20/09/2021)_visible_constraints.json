@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestReeTipo1Dett",
+  "nomeWidget": "tfRendCombPercTipo1B (obbligatorio solo se comp. installato dopo 20/09/2021)",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DummyUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestReeTipo1Dett",
+  "nomeWidget": "tfRendCombPercTipo1B (obbligatorio solo se comp. installato dopo 20/09/2021)",
+  "fixedValue": true
+}
+
+  ]
+}

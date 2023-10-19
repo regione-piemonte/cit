@@ -1,0 +1,5 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRicAvzImpianto", 
+	"pushCurrent":false
+}

@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda9_2Dett",
+  "nomeWidget": "btRiattivaComp",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda9_2Dett",
+  "nomeWidget": "btRiattivaComp",
+	"language": "beanshell",
+	"script": "model.appDatacomponenteRV.flgDismesso == true"
+}
+
+
+  ]
+}

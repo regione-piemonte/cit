@@ -1,0 +1,11 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ShowDialogCommand" ,
+	"name":"dpInserimentoVerificaAuto"
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"gestInsVerificaAuto",
+	"appDataToStore":[]
+}

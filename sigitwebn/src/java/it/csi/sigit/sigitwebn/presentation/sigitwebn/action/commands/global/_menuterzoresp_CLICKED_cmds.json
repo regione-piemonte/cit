@@ -1,0 +1,18 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["messaggioDinamico","dettaglioTerzoResponsabile","elencoApp3Responsabile","elencoIndirizzi3Resp","elencoResponsabiliImpianto","terzoResponsabile","paginaChiamante"]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGest3Resp", 
+	"pushCurrent":false
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"initNomTerzoResp",
+	"appDataToStore":["appDatamessaggioDinamico","appDatadettaglioTerzoResponsabile","appDataelencoApp3Responsabile","appDataelencoIndirizzi3Resp","appDataelencoResponsabiliImpianto","appDataterzoResponsabile","appDatapaginaChiamante"]
+}
+] 
+}

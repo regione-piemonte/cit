@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfPotenzaDa","tfPotenzaA","cbCombu","tfRendPercDa","tfRendPercA"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfPotenzaDa","tfPotenzaA","cbCombu","tfRendPercDa","tfRendPercA"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["CON_POTENZA","SENZA_POTENZA"],
+	"nomeMetodo":"cambioTipoComponente",
+	"appDataToStore":[]
+}

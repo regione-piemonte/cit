@@ -1,0 +1,13 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["wpCircuito","stdMsgRee"], 
+	"targetWidgets":["ptNCircuito","tfSurrisc","tfSottoraffredd","tfCondensazione","tfEvaporazione","tfInLatoEst","tfOutLatoEst","tfInLatoUtenze","tfOutLatoUtenze","tfTorreOutFluido","tfTorreBulboUmido","tfScambiatoreInExt","tfScambiatoreOutExt","tfScambiatoreInMacchina","tfScambiatoreOutMacchina","rbFlgPulizaFiltri","rbFlgVerificaSuperata","cDataRipristino"],
+	"currentPanelName":"cpGestReeTipo2Dett" 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"caricaCircuito",
+	"appDataToStore":[]
+}

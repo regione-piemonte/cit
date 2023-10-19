@@ -1,0 +1,106 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbSiglaRea","tfNumeroRea","tfCfImpresa"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCfResponsabile","tfCf3Responsabile","cbProvincia","cbComune","tfDescComune","tfCfProprietario","cbStatiImpianto"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["tfCfResponsabile"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCf3Responsabile","cbSiglaRea","tfNumeroRea","tfCfImpresa","cbProvincia","cbComune","tfDescComune","tfCfProprietario","cbStatiImpianto"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["tfCfProprietario"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbSiglaRea","tfNumeroRea","tfCfImpresa","cbProvincia","cbComune","tfDescComune","tfCf3Responsabile","tfCfResponsabile","cbStatiImpianto"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["tfCf3Responsabile"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCfResponsabile","cbSiglaRea","tfNumeroRea","tfCfImpresa","cbProvincia","cbComune","tfDescComune","tfCfProprietario","cbStatiImpianto"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbProvincia"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCfResponsabile","tfCf3Responsabile","cbSiglaRea","tfNumeroRea","tfCfImpresa","cbComune","tfDescComune","tfCfProprietario"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbProvincia","cbComune","tfDescComune"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCfResponsabile","tfCf3Responsabile","cbSiglaRea","tfNumeroRea","tfCfImpresa","tfCfProprietario"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["tfCfResponsabile","tfCf3Responsabile","cbSiglaRea","tfNumeroRea","tfCfImpresa","cbProvincia","cbComune","tfDescComune","tfCfProprietario","cbStatiImpianto"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["RUOLO_PG","RUOLO_RESPONSABILE","RUOLO_PROPRIETARIO","RUOLO_3RESPONSABILE","RUOLO_PA_PROVINCIA","RUOLO_PA_COMUNE","RUOLO_ALTRO"],
+	"nomeMetodo":"gestisciAbilRuoloRef",
+	"appDataToStore":[]
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"gestisciLogicaResetVis",
+	"appDataToStore":[]
+}

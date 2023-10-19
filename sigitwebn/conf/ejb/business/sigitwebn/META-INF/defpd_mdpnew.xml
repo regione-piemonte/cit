@@ -1,0 +1,80 @@
+<porta-delegata name="siceeorch.mdpnew">
+  <services>
+  
+<service name="mdpnew" public-interface-class="it.csi.mdp.core.interfacecsi.IMdpCoreCsi" top-version="1.0.0">
+      <operations>
+		<operation name="getModalitaPagamento" type="synch-call" since="1.0">
+          <param-list>
+			<param name="transazione" type="it.csi.mdp.core.business.dto.Transazione" />
+			<param name="idApplicazione" type="java.lang.String" />
+          </param-list>
+          	<ret-val type="it.csi.mdp.core.business.paymentmanager.local.AppGateway[]"/>
+        </operation>
+		<operation name="initTransazione" type="synch-call" since="1.0">
+          <param-list>
+			<param name="idApplicazione" type="java.lang.String" />
+			<param name="idBasket" type="java.lang.String" />
+          </param-list>
+          	<ret-val type="it.csi.mdp.core.business.dto.Transazione"/>
+        </operation>
+		<operation name="startTransazione" type="synch-call" since="1.0">
+          <param-list>
+			<param name="transazione" type="it.csi.mdp.core.business.dto.Transazione" />
+			<param name="transazioneExtraAttributes" type="it.csi.mdp.core.business.dto.TransazioneExtraAttribute[]" />
+          </param-list>
+          	<ret-val type="java.lang.String"/>
+        </operation>
+		<operation name="getStatoTransazione" type="synch-call" since="1.0">
+          <param-list>
+			<param name="idTransazione" type="java.lang.String" />
+          </param-list>
+          	<ret-val type="it.csi.mdp.core.business.dto.Transazione"/>
+        </operation>
+		<operation name="getApplication" type="synch-call" since="1.0">
+          <param-list>
+			<param name="idApplicazione" type="java.lang.String" />
+          </param-list>
+          	<ret-val type="it.csi.mdp.core.business.dto.Application"/>
+        </operation>
+		<operation name="getComuneProvincia" type="synch-call" since="1.0">
+          <param-list>
+			<param name="codiceIstatComune" type="java.lang.String" />
+          </param-list>
+          	<ret-val type="it.csi.mdp.core.business.dto.PartAnComune"/>
+        </operation>
+		<operation name="getPagonetCustomData" type="synch-call" since="1.0">
+          <param-list>
+			<param name="idApplicazione" type="java.lang.String" />
+			<param name="idGateway" type="java.lang.String" />
+          </param-list>
+          	<ret-val type="it.csi.mdp.core.business.dto.Vapplicationcomuni"/>
+        </operation>
+      </operations>
+    </service>
+
+  </services>
+  <config>
+    <url-pa>**not used**</url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+      <pluggable-pd
+        name="mdpnew"
+        class="it.csi.csi.porte.ejb20.PortaDelegataEJB"
+        url-pa="mdppaymentsrv/ejb/PA_MdpCoreService"
+        url-qm="mdpcoreservices.ejb.ApplMdpnewQMGR">
+        <properties>
+          <property name="java.naming.provider.url" value="@mdpnew.mdpcoreservices.mdpnew.pa.url@"/>
+          <!-- initial context factory per JBoss43 -->
+          <property name="java.naming.factory.initial" value="org.jnp.interfaces.NamingContextFactory" />
+          <property name="jnp.disableDiscovery" value="true" />
+        </properties>
+      </pluggable-pd>
+    </pluggable-pd-list>
+    <pre-function-handler-list>
+    	
+		</pre-function-handler-list>
+		<post-function-handler-list>
+		
+		</post-function-handler-list>
+    <queue-manager url=""/>
+  </config>
+</porta-delegata>

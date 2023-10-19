@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_libretto_scheda4" extends="jsp-package" namespace="/base/gestisci_libretto_scheda4">
+
+		
+<action name="cpGestLibScheda4Impresa" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_libretto_scheda4.CpGestLibScheda4ImpresaAction">
+	<result name="input">/jsp/cpGestLibScheda4Impresa.jsp</result>
+	<result name="success">/jsp/cpGestLibScheda4Impresa.jsp</result>
+	
+	<result name="GO_TO_cpGestLibScheda4_1" type="chain">
+		<param name="actionName">cpGestLibScheda4_1</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_1</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_4" type="chain">
+		<param name="actionName">cpGestLibScheda4_4</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_4</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_5" type="chain">
+		<param name="actionName">cpGestLibScheda4_5</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_5</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_6" type="chain">
+		<param name="actionName">cpGestLibScheda4_6</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_6</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_1Dett" type="chain">
+		<param name="actionName">cpGestLibScheda4_1Dett</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_1</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_4Dett" type="chain">
+		<param name="actionName">cpGestLibScheda4_4Dett</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_4</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_5Dett" type="chain">
+		<param name="actionName">cpGestLibScheda4_5Dett</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_5</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda4_6Dett" type="chain">
+		<param name="actionName">cpGestLibScheda4_6Dett</param>
+		<param name="namespace">/base/gestisci_libretto_scheda4_6</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R-873268678) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

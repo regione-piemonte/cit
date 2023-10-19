@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisRicercaAccertamenti", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpRisRicercaAccertamenti", 
+	"pushCurrent":false
+}
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"eliminaAccertamento",
+	"appDataToStore":[]
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="ricerca_impianti" extends="jsp-package" namespace="/base/ricerca_impianti">
+
+		
+<action name="cpRicImpianto" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ricerca_impianti.CpRicImpiantoAction">
+	<result name="input">/jsp/cpRicImpianto.jsp</result>
+	<result name="success">/jsp/cpRicImpianto.jsp</result>
+	
+	<result name="GO_TO_cpRisRicCompImpianto" type="chain">
+		<param name="actionName">cpRisRicCompImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_completa_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisRicImpianto" type="chain">
+		<param name="actionName">cpRisRicImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_impianti</param>
+	</result>
+	<result name="GO_TO_cpGestImpianto" type="chain">
+		<param name="actionName">cpGestImpianto</param>
+		<param name="namespace">/base/gestisci_impianto</param>
+	</result>
+	<result name="GO_TO_cpGestImpiantoResp" type="chain">
+		<param name="actionName">cpGestImpiantoResp</param>
+		<param name="namespace">/base/gestisci_impianto_resp</param>
+	</result>
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+		<!--PROTECTED REGION ID(R1638787329) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<action name="showModulo" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.ShowModulo">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpRicImpianto</result>
+		</action>
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

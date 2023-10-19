@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda13",
+  "nomeWidget": "btnDettaglio",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpGestLibScheda13",
+  "nomeWidget": "btnDettaglio",
+	"language": "beanshell",
+	"script": "model.appDataElencoIspezioni2018 != null && model.appDataElencoIspezioni2018.size() != 0 && it.csi.sigit.sigitwebn.business.gestisci_libretto_scheda13.CPBECpGestLibScheda13.isUtenteAbilitatoOperazioneDettaglio(model)"
+}
+
+
+  ]
+}

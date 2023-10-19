@@ -1,0 +1,15 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["stdMsgLibretto","wpComponente","wpComponentiSostituite"], 
+	"targetWidgets":["cbGruppoTermico","cDataInstallazione","cDataDismissione","cbFabbricante","tfModello","tfMatricola","tfPortataMax","tbSostituzioni"],
+	"currentPanelName":"cpGestLibScheda4_3Dett" 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"riattivaComponenteSostituita",
+	"appDataToStore":[]
+}

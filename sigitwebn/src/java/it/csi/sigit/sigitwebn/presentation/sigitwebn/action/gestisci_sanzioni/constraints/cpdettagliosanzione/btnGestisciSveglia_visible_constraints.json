@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioSanzione",
+  "nomeWidget": "btnGestisciSveglia",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioSanzione",
+  "nomeWidget": "btnGestisciSveglia",
+	"language": "beanshell",
+	"script": "it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpDettaglioSanzione.isUtenteAbilitatoOperazioneSanzione(model) && (it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpDettaglioSanzione.isSanzioneInStatoBozza(model) || it.csi.sigit.sigitwebn.business.gestisci_sanzioni.CPBECpDettaglioSanzione.isSanzioneInStatoNotificata(model))"
+}
+
+
+  ]
+}

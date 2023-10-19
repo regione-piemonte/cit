@@ -1,0 +1,38 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.RefreshViewCommand" ,
+	"targetPanels": ["wpMenuRapProva"], 
+	"targetWidgets":["menuRapProva"],
+	"currentPanelName":"cpGestRapProvaTipo2Dett" 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestRapProvaGenerale", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestRapProvaTipo1", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestRapProvaTipo1Dett", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestRapProvaTipo2", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.JumpCommand" ,
+	"name": "cpGestRapProvaTipo2Dett", 
+	"pushCurrent":false
+}
+],
+	"esiti":["KO","RP_DATI_GEN","RPGENGT","RPDETTGT","RPGENGF","RPDETTGF"],
+	"nomeMetodo":"onTreeClick",
+	"appDataToStore":[]
+}

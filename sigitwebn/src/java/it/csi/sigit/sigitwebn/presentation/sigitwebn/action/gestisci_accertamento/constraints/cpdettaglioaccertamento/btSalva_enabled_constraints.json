@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioAccertamento",
+  "nomeWidget": "btSalva",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioAccertamento",
+  "nomeWidget": "btSalva",
+	"language": "beanshell",
+	"script": "it.csi.sigit.sigitwebn.business.gestisci_accertamento.CPBECpDettaglioAccertamento.isUtenteAbilitatoSalvaAccertamento(model)"
+}
+
+
+  ]
+}

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="elenco_ispezioni_impianti" extends="jsp-package" namespace="/base/elenco_ispezioni_impianti">
+
+		
+<action name="cpElencoIspezioniImpianti" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.elenco_ispezioni_impianti.CpElencoIspezioniImpiantiAction">
+	<result name="input">/jsp/cpElencoIspezioniImpianti.jsp</result>
+	<result name="success">/jsp/cpElencoIspezioniImpianti.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioIspezione" type="chain">
+		<param name="actionName">cpDettaglioIspezione</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoDocumentiImpianti" type="chain">
+		<param name="actionName">cpElencoDocumentiImpianti</param>
+		<param name="namespace">/base/elenco_documenti_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisRicImpianto" type="chain">
+		<param name="actionName">cpRisRicImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisRicAvzImpianto" type="chain">
+		<param name="actionName">cpRisRicAvzImpianto</param>
+		<param name="namespace">/base/risultato_ricerca_avanzata_impianti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_recAllegatoImp" type="redirect">
+		<param name="location">recuperaAllegato.do</param>
+	</result>
+	<result name="GO_TO_EX_ricevutaAllegatoImpiantoIsp" type="redirect">
+		<param name="location">showRicevutaAllegato.do</param>
+	</result>
+	<result name="SHOW_dpInviaIspezioniPerImpianto">/jsp/dialogpanels/cpElencoIspezioniImpianti_dpInviaIspezioniPerImpianto.jsp</result>
+	<result name="SHOW_dpAnnullaIspezioniPerImpianto">/jsp/dialogpanels/cpElencoIspezioniImpianti_dpAnnullaIspezioniPerImpianto.jsp</result>
+	<result name="SHOW_dpCancellaIspezioniPerImpianto">/jsp/dialogpanels/cpElencoIspezioniImpianti_dpCancellaIspezioniPerImpianto.jsp</result>
+	<result name="SHOW_dpAnnullaIspezioniAllPerImpianto">/jsp/dialogpanels/cpElencoIspezioniImpianti_dpAnnullaIspezioniAllPerImpianto.jsp</result>
+</action>
+
+<action name="cpDettaglioIspezione" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.elenco_ispezioni_impianti.CpDettaglioIspezioneAction">
+	<result name="input">/jsp/cpDettaglioIspezione.jsp</result>
+	<result name="success">/jsp/cpDettaglioIspezione.jsp</result>
+	
+	<result name="GO_TO_cpElencoDocumentiImpianti" type="chain">
+		<param name="actionName">cpElencoDocumentiImpianti</param>
+		<param name="namespace">/base/elenco_documenti_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoIspezioniImpianti" type="chain">
+		<param name="actionName">cpElencoIspezioniImpianti</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaGenerale" type="chain">
+		<param name="actionName">cpGestRapProvaGenerale</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_recAllegatoImp" type="redirect">
+		<param name="location">recuperaAllegato.do</param>
+	</result>
+	<result name="GO_TO_EX_ricevutaAllegatoImpiantoIsp" type="redirect">
+		<param name="location">showRicevutaAllegato.do</param>
+	</result>
+	<result name="SHOW_dpAnnullaRappProva">/jsp/dialogpanels/cpDettaglioIspezione_dpAnnullaRappProva.jsp</result>
+</action>
+
+<action name="cpDettaglioIspezione2018" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.elenco_ispezioni_impianti.CpDettaglioIspezione2018Action">
+	<result name="input">/jsp/cpDettaglioIspezione2018.jsp</result>
+	<result name="success">/jsp/cpDettaglioIspezione2018.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpInserisciNotificaSanzione" type="chain">
+		<param name="actionName">cpInserisciNotificaSanzione</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_cpDettaglioSanzione" type="chain">
+		<param name="actionName">cpDettaglioSanzione</param>
+		<param name="namespace">/base/gestisci_sanzioni</param>
+	</result>
+	<result name="GO_TO_cpInitRapProva" type="chain">
+		<param name="actionName">cpInitRapProva</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaGenerale" type="chain">
+		<param name="actionName">cpGestRapProvaGenerale</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpAzione" type="chain">
+		<param name="actionName">cpAzione</param>
+		<param name="namespace">/base/gestisci_azioni</param>
+	</result>
+	<result name="GO_TO_cpSveglia" type="chain">
+		<param name="actionName">cpSveglia</param>
+		<param name="namespace">/base/gestisci_azioni</param>
+	</result>
+	<result name="GO_TO_cpDettaglioVerifica" type="chain">
+		<param name="actionName">cpDettaglioVerifica</param>
+		<param name="namespace">/base/gestisci_verifica</param>
+	</result>
+	<result name="GO_TO_cpDettaglioAccertamento" type="chain">
+		<param name="actionName">cpDettaglioAccertamento</param>
+		<param name="namespace">/base/gestisci_accertamento</param>
+	</result>
+	<result name="GO_TO_cpRicercaIspezioni2018" type="chain">
+		<param name="actionName">cpRicercaIspezioni2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpElencoSveglie" type="chain">
+		<param name="actionName">cpElencoSveglie</param>
+		<param name="namespace">/base/gestisci_azioni</param>
+	</result>
+	<result name="GO_TO_cpGestLibScheda13" type="chain">
+		<param name="actionName">cpGestLibScheda13</param>
+		<param name="namespace">/base/gestisci_libretto_scheda13</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_recuperaAllegatoFirmato" type="redirect">
+		<param name="location">recuperaAllegatoFirmato.do</param>
+	</result>
+	<result name="GO_TO_EX_recAllegatoIspezImp" type="redirect">
+		<param name="location">recuperaAllegatoIspez.do</param>
+	</result>
+	<result name="GO_TO_EX_documentoAggiuntivo" type="redirect">
+		<param name="location">recuperaDocumento.do</param>
+	</result>
+	<result name="SHOW_dpAnnullaRappProvaDaIspezione">/jsp/dialogpanels/cpDettaglioIspezione2018_dpAnnullaRappProvaDaIspezione.jsp</result>
+	<result name="SHOW_dpInviaRappProvaDaIspezione">/jsp/dialogpanels/cpDettaglioIspezione2018_dpInviaRappProvaDaIspezione.jsp</result>
+	<result name="SHOW_dpAnnullamentoIspezione">/jsp/dialogpanels/cpDettaglioIspezione2018_dpAnnullamentoIspezione.jsp</result>
+	<result name="SHOW_dpConcludiIspezione">/jsp/dialogpanels/cpDettaglioIspezione2018_dpConcludiIspezione.jsp</result>
+</action>
+
+<action name="cpRicercaIspezioni2018" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.elenco_ispezioni_impianti.CpRicercaIspezioni2018Action">
+	<result name="input">/jsp/cpRicercaIspezioni2018.jsp</result>
+	<result name="success">/jsp/cpRicercaIspezioni2018.jsp</result>
+	
+	<result name="GO_TO_cpRisultatoRicercaIspezioni2018" type="chain">
+		<param name="actionName">cpRisultatoRicercaIspezioni2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpHome" type="chain">
+		<param name="actionName">cpHome</param>
+		<param name="namespace">/base/home</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpRisultatoRicercaIspezioni2018" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.elenco_ispezioni_impianti.CpRisultatoRicercaIspezioni2018Action">
+	<result name="input">/jsp/cpRisultatoRicercaIspezioni2018.jsp</result>
+	<result name="success">/jsp/cpRisultatoRicercaIspezioni2018.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpRicercaIspezioni2018" type="chain">
+		<param name="actionName">cpRicercaIspezioni2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_SCARICA_EXCEL_ISP" type="redirect">
+		<param name="location">showXlsListaIspezioni.do</param>
+	</result>
+	<result name="GO_TO_EX_SCARICA_COPERTINA_ISPEZIONE" type="redirect">
+		<param name="location">showPdfCopertinaIspezioni.do</param>
+	</result>
+	<result name="GO_TO_EX_SCARICA_LETTERA_AVVISO" type="redirect">
+		<param name="location">showPdfLetteraAvviso.do</param>
+	</result>
+</action>
+
+		<!--PROTECTED REGION ID(R-1537805427) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<action name="recuperaDocumento" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaDocumento">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpDettaglioIspezione2018</result>
+		</action>
+		
+		<action name="recuperaAllegatoFirmato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaAllegatoFirmato">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpDettaglioIspezione2018</result>
+		</action>
+
+		<action name="recuperaAllegatoIspez" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaAllegato">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpDettaglioIspezione2018</result>
+		</action>
+		
+		<action name="recuperaAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaAllegato">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpElencoIspezioniImpianti</result>
+		</action>
+		
+		<action name="salvaModuloAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.SalvaAllegato">
+			<result name="OK" type="chain">cpElencoIspezioniImpianti</result>
+			<result name="KO" type="chain">cpElencoIspezioniImpianti</result>
+		</action>
+		
+		<action name="showRicevutaAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.ShowRicevutaAllegato">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpElencoIspezioniImpianti</result>
+		</action>
+
+		<action name="showXlsListaIspezioni" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.ShowXlsListaIspezioni">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpRisultatoRicercaIspezioni2018</result>
+		</action>
+
+		<action name="showPdfCopertinaIspezioni" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.showPdfCopertinaIspezioni">
+			<result name="downloadFile" type="stream">
+				<param name="contentType">${contentType}</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">1024</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="KO" type="chain">cpRisultatoRicercaIspezioni2018</result>
+		</action>
+
+		<action name="showPdfLetteraAvviso" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.showPdfLetteraAvviso">
+			<result name="downloadFile" type="stream">
+				<param name="contentType">${contentType}</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">1024</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="KO" type="chain">cpRisultatoRicercaIspezioni2018</result>
+		</action>
+		
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

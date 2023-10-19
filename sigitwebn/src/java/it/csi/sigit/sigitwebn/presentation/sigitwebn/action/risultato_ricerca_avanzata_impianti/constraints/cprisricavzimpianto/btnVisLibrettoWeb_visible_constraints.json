@@ -1,0 +1,18 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisRicAvzImpianto",
+  "nomeWidget": "btnVisLibrettoWeb",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.CustomUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpRisRicAvzImpianto",
+  "nomeWidget": "btnVisLibrettoWeb",
+	"methodNameSuffix": "IsLibrettoWebAbilitato3"
+}
+
+
+  ]
+}

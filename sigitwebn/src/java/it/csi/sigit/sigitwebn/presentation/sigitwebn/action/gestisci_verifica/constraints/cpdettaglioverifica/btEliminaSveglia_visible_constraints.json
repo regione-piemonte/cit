@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioVerifica",
+  "nomeWidget": "btEliminaSveglia",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioVerifica",
+  "nomeWidget": "btEliminaSveglia",
+	"language": "beanshell",
+	"script": "model.appDataverifica != null && model.appDataverifica.dataSveglia != null"
+}
+
+
+  ]
+}

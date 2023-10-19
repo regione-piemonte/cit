@@ -1,0 +1,23 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDatiIspezione",
+	"contentPanelName":"cpElencoIspezioniImpianti",
+	"itemName": null}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btnInserisciIspezionePerImpianto","btnModificaIspezionePerImpianto","btnConsolidaIspezionePerImpianto","btnAnnullaIspezionePerImpianto","btnModificaAllegatoIspePerImpianto","btnDettaglioAllegatoIspePerImpianto","btnInserisciAllegatoIspePerImpianto","btnAnnullaAllegatoIspePerImpianto","btnDocumentazioneAllegatoIspePerImpianto","btnRicevutaAllegatoIspePerImpianto"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"generazioneIspezione",
+	"appDataToStore":[]
+}

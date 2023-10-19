@@ -1,0 +1,19 @@
+
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioAccertamento",
+  "nomeWidget": "btVisualizzaSanzione",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.security.DeclarativeUIConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettaglioAccertamento",
+  "nomeWidget": "btVisualizzaSanzione",
+	"language": "beanshell",
+	"script": "model.appDataelencoSanzioni != null && model.appDataelencoSanzioni.size() > 0"
+}
+
+
+  ]
+}

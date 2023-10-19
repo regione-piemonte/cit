@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="gestisci_rapprova" extends="jsp-package" namespace="/base/gestisci_rapprova">
+
+		
+<action name="cpGestRapProvaGenerale" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_rapprova.CpGestRapProvaGeneraleAction">
+	<result name="input">/jsp/cpGestRapProvaGenerale.jsp</result>
+	<result name="success">/jsp/cpGestRapProvaGenerale.jsp</result>
+	
+	<result name="GO_TO_cpGestRapProvaGenerale" type="chain">
+		<param name="actionName">cpGestRapProvaGenerale</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo1" type="chain">
+		<param name="actionName">cpGestRapProvaTipo1</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo1Dett" type="chain">
+		<param name="actionName">cpGestRapProvaTipo1Dett</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo2" type="chain">
+		<param name="actionName">cpGestRapProvaTipo2</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo2Dett" type="chain">
+		<param name="actionName">cpGestRapProvaTipo2Dett</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpGestRapProvaTipo1" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_rapprova.CpGestRapProvaTipo1Action">
+	<result name="input">/jsp/cpGestRapProvaTipo1.jsp</result>
+	<result name="success">/jsp/cpGestRapProvaTipo1.jsp</result>
+	
+	<result name="GO_TO_cpGestRapProvaGenerale" type="chain">
+		<param name="actionName">cpGestRapProvaGenerale</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo1" type="chain">
+		<param name="actionName">cpGestRapProvaTipo1</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo1Dett" type="chain">
+		<param name="actionName">cpGestRapProvaTipo1Dett</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo2" type="chain">
+		<param name="actionName">cpGestRapProvaTipo2</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo2Dett" type="chain">
+		<param name="actionName">cpGestRapProvaTipo2Dett</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpGestRapProvaTipo2" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_rapprova.CpGestRapProvaTipo2Action">
+	<result name="input">/jsp/cpGestRapProvaTipo2.jsp</result>
+	<result name="success">/jsp/cpGestRapProvaTipo2.jsp</result>
+	
+	<result name="GO_TO_cpGestRapProvaGenerale" type="chain">
+		<param name="actionName">cpGestRapProvaGenerale</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo1" type="chain">
+		<param name="actionName">cpGestRapProvaTipo1</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo1Dett" type="chain">
+		<param name="actionName">cpGestRapProvaTipo1Dett</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo2" type="chain">
+		<param name="actionName">cpGestRapProvaTipo2</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo2Dett" type="chain">
+		<param name="actionName">cpGestRapProvaTipo2Dett</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpGestRapProvaTipo1Dett" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_rapprova.CpGestRapProvaTipo1DettAction">
+	<result name="input">/jsp/cpGestRapProvaTipo1Dett.jsp</result>
+	<result name="success">/jsp/cpGestRapProvaTipo1Dett.jsp</result>
+	
+	<result name="GO_TO_cpGestRapProvaGenerale" type="chain">
+		<param name="actionName">cpGestRapProvaGenerale</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo1" type="chain">
+		<param name="actionName">cpGestRapProvaTipo1</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo1Dett" type="chain">
+		<param name="actionName">cpGestRapProvaTipo1Dett</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo2" type="chain">
+		<param name="actionName">cpGestRapProvaTipo2</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo2Dett" type="chain">
+		<param name="actionName">cpGestRapProvaTipo2Dett</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpGestRapProvaTipo2Dett" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_rapprova.CpGestRapProvaTipo2DettAction">
+	<result name="input">/jsp/cpGestRapProvaTipo2Dett.jsp</result>
+	<result name="success">/jsp/cpGestRapProvaTipo2Dett.jsp</result>
+	
+	<result name="GO_TO_cpGestRapProvaGenerale" type="chain">
+		<param name="actionName">cpGestRapProvaGenerale</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo1" type="chain">
+		<param name="actionName">cpGestRapProvaTipo1</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo1Dett" type="chain">
+		<param name="actionName">cpGestRapProvaTipo1Dett</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo2" type="chain">
+		<param name="actionName">cpGestRapProvaTipo2</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpGestRapProvaTipo2Dett" type="chain">
+		<param name="actionName">cpGestRapProvaTipo2Dett</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_cpRisultatoRicercaAllegati" type="chain">
+		<param name="actionName">cpRisultatoRicercaAllegati</param>
+		<param name="namespace">/base/risultato_ricerca_allegati_module</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpInitRapProva" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_rapprova.CpInitRapProvaAction">
+	<result name="input">/jsp/cpInitRapProva.jsp</result>
+	<result name="success">/jsp/cpInitRapProva.jsp</result>
+	
+	<result name="GO_TO_cpGestRapProvaGenerale" type="chain">
+		<param name="actionName">cpGestRapProvaGenerale</param>
+		<param name="namespace">/base/gestisci_rapprova</param>
+	</result>
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpGestRapProvaConfirm" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.gestisci_rapprova.CpGestRapProvaConfirmAction">
+	<result name="input">/jsp/cpGestRapProvaConfirm.jsp</result>
+	<result name="success">/jsp/cpGestRapProvaConfirm.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioIspezione2018" type="chain">
+		<param name="actionName">cpDettaglioIspezione2018</param>
+		<param name="namespace">/base/elenco_ispezioni_impianti</param>
+	</result>
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_gestisciRitornoAllegato" type="redirect">
+		<param name="location">/base/main/gestisciRitornoAllegato.do</param>
+	</result>
+	<result name="GO_TO_EX_gestisciRitornoAllegato" type="redirect">
+		<param name="location">/base/main/gestisciRitornoAllegato.do</param>
+	</result>
+	<result name="GO_TO_EX_gestisciRitornoAllegato" type="redirect">
+		<param name="location">/base/main/gestisciRitornoAllegato.do</param>
+	</result>
+	<result name="SHOW_dpConfirmInvioRapProva">/jsp/dialogpanels/cpGestRapProvaConfirm_dpConfirmInvioRapProva.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R-1256359761) ENABLED START-->
+		<action name="recuperaAllegato" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaAllegato">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">1024</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpDettaglioIspezione2018</result>
+		</action>
+		
+		<action name="recuperaDocumento" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.RecuperaDocumento">
+			<result name="downloadFile" type="stream">
+	    		<param name="contentType">${contentType}</param>
+		    	<param name="inputName">inputStream</param>		   
+		    	<param name="bufferSize">3072</param>
+		    	<param name="contentDisposition">${contentDisposition}</param>
+			</result>			
+			<result name="KO" type="chain">cpGestRapProvaGenerale</result>
+		</action>
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>
