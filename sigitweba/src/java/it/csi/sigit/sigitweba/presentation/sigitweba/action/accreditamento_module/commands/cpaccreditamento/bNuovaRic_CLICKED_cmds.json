@@ -1,0 +1,28 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbAccredProvincia","cbAccredComune"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["bNuovaRic","cbElencoIndirizzi","tfNonTrov"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfIndirizzo","bCerca"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"nuovaRicercaIndirizzo",
+	"appDataToStore":[]
+}

@@ -1,0 +1,13 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btInsertImpresa","btModImpresa"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpImpresa",
+	"contentPanelName":"cpAccreditamento",
+	"itemName": null}
+] 
+}

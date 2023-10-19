@@ -1,0 +1,11 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.NOPCommand" }
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"salvaAccreditamento",
+	"appDataToStore":[]
+}

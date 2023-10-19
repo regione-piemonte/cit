@@ -1,0 +1,7 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.JumpExtCommand" ,
+	"locationCode":"DIALOG_WARN",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"http://www.sistemapiemonte.it/",
+	"binaryStream":false 
+}

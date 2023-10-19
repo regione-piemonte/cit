@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.security.ComplexUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpAccreditamento",
+  "nomeWidget": "tfAccredEstCap",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.security.DummyUISecConstraint",
+  "constrainedBehavior": 1,
+  "defaultState": true,
+  "nomeContainer": "cpAccreditamento",
+  "nomeWidget": "tfAccredEstCap",
+  "fixedValue": true
+}
+
+  ]
+}

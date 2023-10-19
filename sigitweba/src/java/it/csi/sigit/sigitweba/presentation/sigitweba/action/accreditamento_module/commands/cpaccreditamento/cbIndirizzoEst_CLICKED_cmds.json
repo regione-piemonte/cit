@@ -1,0 +1,35 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbAccredProvincia","cbAccredComune","tfIndirizzo","bCerca","cbElencoIndirizzi","bNuovaRic","tfNonTrov","tfCivico","tfAccredCap"],
+	"targetsMenuElements":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfAccredEstStato","tfAccredEstCitta","tfAccredEstIndirizzo","tfAccredEstCap","tfAccredEstCivico"],
+	"targetsMenuElements":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfAccredEstStato","tfAccredEstCitta","tfAccredEstIndirizzo","tfAccredEstCap","tfAccredEstCivico"],
+	"targetsMenuElements":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbAccredProvincia","cbAccredComune","tfIndirizzo","bCerca","cbElencoIndirizzi","bNuovaRic","tfNonTrov","tfCivico","tfAccredCap"],
+	"targetsMenuElements":[]
+}
+] 
+}
+],
+	"esiti":["NAZIONALE","ESTERO"],
+	"nomeMetodo":"gestTipoIndirizzo",
+	"appDataToStore":[]
+}

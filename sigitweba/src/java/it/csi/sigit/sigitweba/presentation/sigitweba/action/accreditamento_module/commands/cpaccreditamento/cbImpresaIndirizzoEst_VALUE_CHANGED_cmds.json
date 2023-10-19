@@ -1,0 +1,59 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbImpresaProvincia","cbImpresaComune","btImpresaIndirizzo","btImpresaCercaIndirizzo","cbImpresaIndirizzo","btImpresaNuovaRicerca","tfImpresaNonTrovato","tfImpresaCivico","tfImpresaCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfImpresaEstStato","tfImpresaEstCitta","tfImpresaEstIndirizzo","tfImpresaEstCap","tfImpresaEstCivico"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btImpresaIndirizzo","btImpresaCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbImpresaIndirizzo","btImpresaNuovaRicerca","tfImpresaNonTrovato"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"gestIndirizzoConfImpresa",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfImpresaEstStato","tfImpresaEstCitta","tfImpresaEstIndirizzo","tfImpresaEstCap","tfImpresaEstCivico"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbImpresaProvincia","cbImpresaComune","btImpresaIndirizzo","btImpresaCercaIndirizzo","cbImpresaIndirizzo","btImpresaNuovaRicerca","tfImpresaNonTrovato","tfImpresaCivico","tfImpresaCap"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["NAZIONALE","ESTERO"],
+	"nomeMetodo":"gestTipoIndirizzoImpresa",
+	"appDataToStore":[]
+}

@@ -1,0 +1,9 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"gestioneMessaggio",
+	"appDataToStore":[]
+}

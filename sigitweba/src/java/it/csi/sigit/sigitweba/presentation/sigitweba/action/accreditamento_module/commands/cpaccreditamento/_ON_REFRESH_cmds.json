@@ -1,0 +1,123 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbAccredProvincia","cbAccredComune","tfIndirizzo","bCerca","cbElencoIndirizzi","bNuovaRic","tfNonTrov","tfCivico","tfAccredCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfAccredEstStato","tfAccredEstCitta","tfAccredEstIndirizzo","tfAccredEstCap","tfAccredEstCivico"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfAccredEstStato","tfAccredEstCitta","tfAccredEstIndirizzo","tfAccredEstCap","tfAccredEstCivico"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbAccredProvincia","cbAccredComune","tfIndirizzo","bCerca","cbElencoIndirizzi","bNuovaRic","tfNonTrov","tfCivico","tfAccredCap"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["NAZIONALE","ESTERO"],
+	"nomeMetodo":"gestTipoIndirizzoRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"gestisciComboGeoRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbAccredProvincia","cbAccredComune"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbElencoIndirizzi","bNuovaRic","tfNonTrov"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfIndirizzo","bCerca"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbAccredProvincia","cbAccredComune"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbElencoIndirizzi","bNuovaRic","tfNonTrov"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"visualizzaComboIndirizzoRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btModImpresa","btCessaLegame"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btModImpresa","btCessaLegame"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["VISUALIZZA","NASCONDI"],
+	"nomeMetodo":"gestVisBottoniRef",
+	"appDataToStore":[]
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"caricaImpreseAssociateRef",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpImpresa",
+	"contentPanelName":"cpAccreditamento",
+	"itemName": null}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.NOPCommand" }
+],
+	"esiti":["SI","NO"],
+	"nomeMetodo":"isPrimoAccesso",
+	"appDataToStore":[]
+}

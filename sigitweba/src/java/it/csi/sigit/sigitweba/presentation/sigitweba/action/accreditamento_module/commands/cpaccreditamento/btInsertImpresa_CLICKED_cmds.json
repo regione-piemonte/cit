@@ -1,0 +1,30 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbImpresaProvincia","cbImpresaComune","cbSiglaRea","tfNumeroRea","tfImpresaCfPi","clImpresaDataInizioAttivita","clImpresaDataCessazione"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btModImpresa","cbImpresaProvincia","cbImpresaComune","btImpresaIndirizzo","btImpresaCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btInsertImpresa","cbImpresaIndirizzo","btImpresaNuovaRicerca","tfImpresaNonTrovato","tfImpresaEstStato","tfImpresaEstCitta","tfImpresaEstIndirizzo","tfImpresaEstCap","tfImpresaEstCivico"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpImpresa",
+	"contentPanelName":"cpAccreditamento",
+	"itemName": "fmNuovaImpresa"}
+] 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"inserisciImpresa",
+	"appDataToStore":[]
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="autodetect">
+	<!-- bean di business logic -->
+	
+	<!-- bean di facade -->
+	<bean id="springBackEnd" class="it.csi.sigit.sigitweba.business.BackEndFacade">
+		<property name="CPBECpAccreditamento">
+			<ref bean="CPBECpAccreditamento"/>
+		</property>
+		<property name="CPBECpHome">
+			<ref bean="CPBECpHome"/>
+		</property>
+		<property name="CPBECpDialog">
+			<ref bean="CPBECpDialog"/>
+		</property>
+	</bean>
+	
+	<!-- bean relativi ai singoli content panel -->
+	<bean id="CPBECpAccreditamento" class="it.csi.sigit.sigitweba.business.accreditamento_module.CPBECpAccreditamento">
+	</bean>
+	<bean id="CPBECpHome" class="it.csi.sigit.sigitweba.business.home_module.CPBECpHome">
+	</bean>
+	<bean id="CPBECpDialog" class="it.csi.sigit.sigitweba.business.home_module.CPBECpDialog">
+	</bean>
+	
+	
+	
+	<!-- helper per le funzioni di securizzazione -->
+	<bean id="springSecurityHelper" class="it.csi.sigit.sigitweba.business.SecurityHelper">
+		<!-- protocollo di interazione con il PEP (EJB|WS) utilizzato solo se la security non e' custom --> 
+		<property name="PDProtocol" value="@IRIDE_PD_PROTOCOL@" />
+	</bean>
+	
+	
+	
+	
+	<!--PROTECTED REGION ID(R585863764) ENABLED START-->
+		<!-- Inserire qui configurazioni aggiuntive da iniettare nel bean prinicipale -->
+		
+		<bean id="validationMgr" class="it.csi.sigit.sigitweba.business.manager.ValidationMgr" />
+		<bean id="serviziMgr" class="it.csi.sigit.sigitweba.business.manager.ServiziMgr" />
+		<bean id="dbMgr" class="it.csi.sigit.sigitweba.business.manager.DbMgr" />
+		<bean id="sigitMgr" class="it.csi.sigit.sigitweba.business.manager.SigitMgr" />
+		
+	<!--PROTECTED REGION END-->
+
+</beans>

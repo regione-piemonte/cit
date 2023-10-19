@@ -1,0 +1,26 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["cbImpresaProvincia","cbImpresaComune"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbImpresaIndirizzo","btImpresaNuovaRicerca","tfImpresaNonTrovato"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btImpresaIndirizzo","btImpresaCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"nuovaRicercaIndImpresa",
+	"appDataToStore":[]
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="accreditamento_module" extends="jsp-package" namespace="/base/accreditamento_module">
+
+		
+<action name="cpAccreditamento" class="it.csi.sigit.sigitweba.presentation.sigitweba.action.accreditamento_module.CpAccreditamentoAction">
+	<result name="input">/jsp/cpAccreditamento.jsp</result>
+	<result name="success">/jsp/cpAccreditamento.jsp</result>
+	
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="SHOW_ddpConfermaLegame">/jsp/dialogpanels/cpAccreditamento_ddpConfermaLegame.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R-1530658456) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

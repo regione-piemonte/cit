@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpAccreditamento",
+  "nomeWidget": "cbImpresaConduttore",
+  "constraints": [
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.security.DummyUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpAccreditamento",
+  "nomeWidget": "cbImpresaConduttore",
+  "fixedValue": true
+}
+
+  ]
+}

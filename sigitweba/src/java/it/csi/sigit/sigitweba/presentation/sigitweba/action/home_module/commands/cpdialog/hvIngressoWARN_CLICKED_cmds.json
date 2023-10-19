@@ -1,0 +1,4 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ShowDialogCommand" ,
+	"name":"dpDialogWarn"
+}

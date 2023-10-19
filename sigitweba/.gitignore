@@ -1,0 +1,8 @@
+/bin/
+/build/
+/dist/
+/lib/
+.classpath
+.project
+buildNoRepart.xml
+buildRepart.xml

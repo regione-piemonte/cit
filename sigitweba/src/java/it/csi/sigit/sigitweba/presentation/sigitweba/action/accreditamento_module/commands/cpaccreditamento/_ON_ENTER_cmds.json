@@ -1,0 +1,39 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"gestisciComboGeo",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbAccredProvincia","cbAccredComune"],
+	"targetsMenuElements":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbElencoIndirizzi","bNuovaRic","tfNonTrov"],
+	"targetsMenuElements":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfIndirizzo","bCerca"],
+	"targetsMenuElements":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"visualizzaComboIndirizzo",
+	"appDataToStore":[]
+}
+] 
+}

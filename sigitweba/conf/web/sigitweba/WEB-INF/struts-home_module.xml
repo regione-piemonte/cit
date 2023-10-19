@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="home_module" extends="jsp-package" namespace="/base/home_module">
+
+		
+<action name="cpHome" class="it.csi.sigit.sigitweba.presentation.sigitweba.action.home_module.CpHomeAction">
+	<result name="input">/jsp/cpHome.jsp</result>
+	<result name="success">/jsp/cpHome.jsp</result>
+	
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+</action>
+
+<action name="cpDialog" class="it.csi.sigit.sigitweba.presentation.sigitweba.action.home_module.CpDialogAction">
+	<result name="input">/jsp/cpDialog.jsp</result>
+	<result name="success">/jsp/cpDialog.jsp</result>
+	
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
+	
+	<result name="GO_TO_EX_DIALOG_WARN" type="redirect">
+		<param name="location">http://www.sistemapiemonte.it/</param>
+	</result>
+	<result name="SHOW_dpDialogWarn">/jsp/dialogpanels/cpDialog_dpDialogWarn.jsp</result>
+</action>
+
+		<!--PROTECTED REGION ID(R195538740) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+
+	</package>
+</struts>

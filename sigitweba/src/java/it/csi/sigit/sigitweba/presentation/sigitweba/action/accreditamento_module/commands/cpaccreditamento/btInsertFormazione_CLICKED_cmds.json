@@ -1,0 +1,20 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btInsertFormazione"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpFormazione",
+	"contentPanelName":"cpAccreditamento",
+	"itemName": "fpNuovaFormazione"}
+] 
+}
+],
+	"esiti":["OK"],
+	"nomeMetodo":"inserisciFormazione",
+	"appDataToStore":[]
+}

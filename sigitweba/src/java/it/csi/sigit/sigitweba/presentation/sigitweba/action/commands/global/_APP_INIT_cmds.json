@@ -1,0 +1,24 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.JumpCommand" ,
+	"name": "cpAccreditamento", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.JumpCommand" ,
+	"name": "cpHome", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.JumpExtCommand" ,
+	"locationCode":"ACCESSO_BLOCCATO",
+	"runtimeUrlProviderAppData":"",
+	"staticUrl":"/base/home_module/cpDialog!handleHvIngressoWARN_CLICKED.do",
+	"binaryStream":false 
+}
+],
+	"esiti":["OK","KO","NON_DISP"],
+	"nomeMetodo":"initApplicativo",
+	"appDataToStore":["appDatapersonaFisica","appDatacurrentUser","appDatamessaggioErrore","appDataisPrimoIngresso"]
+}

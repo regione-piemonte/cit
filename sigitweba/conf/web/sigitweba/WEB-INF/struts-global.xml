@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.ui.theme" value="csi" />
+	<constant name="struts.action.extension" value="do" />
+	
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.custom.i18n.resources" value="globalMessages
+			,it/csi/sigit/sigitweba/presentation/sigitweba/action/accreditamento_module/CpAccreditamentoAction
+			,it/csi/sigit/sigitweba/presentation/sigitweba/action/home_module/CpHomeAction
+			,it/csi/sigit/sigitweba/presentation/sigitweba/action/home_module/CpDialogAction
+	" />
+	<constant name="struts.multipart.parser" value="org.apache.struts2.dispatcher.multipart.JakartaMultiPartRequest" />
+	<!-- costanti per il fileUpload interceptor: settare solo se necessarie -->
+	<constant name="struts.multipart.maxSize" value="4524288" />
+	<!--<constant name="struts.multipart.saveDir" value="/tmp" />-->
+
+
+	<!-- jsp-package: TUTTI I PACKAGE DEVONO DERIVARE DA QUESTO -->
+	<package name="jsp-package" extends="struts-default">
+		<interceptors>
+			<interceptor name="tableSelection" class="it.csi.sigit.sigitweba.presentation.sigitweba.interceptor.TableSelectionInterceptor"/>
+			<interceptor name="methodProtection" class="it.csi.sigit.sigitweba.presentation.sigitweba.interceptor.MethodProtectionInterceptor">
+				<param name="excludeMethods">execute,localLogout,ssoLogout</param>
+			</interceptor>
+			<!-- l'esclusione dei parametri serve per evitare una XSS vulnerability -->
+			<interceptor name="paramsInterceptor" class="it.csi.sigit.sigitweba.presentation.sigitweba.interceptor.ParametersInterceptor">
+				<param name="excludeParams">actionMessages,actionErrors,fieldErrors</param>
+			</interceptor>
+
+			<interceptor-stack name="jsp-stack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="servletConfig" />
+			 	<interceptor-ref name="scopedModelDriven"/> 
+				<interceptor-ref name="modelDriven"/>
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="tableSelection" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="fileUpload"/>
+				<!-- richiamare gli interceptor token e tokenSession dopo di questo -->
+				<interceptor-ref name="paramsInterceptor" />
+				<interceptor-ref name="conversionError"/>
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="validation" />
+				<interceptor-ref name="workflow" />
+				<interceptor-ref name="methodProtection" />
+			</interceptor-stack>
+			
+	
+		</interceptors>
+
+		<default-interceptor-ref name="jsp-stack"/>
+
+		<!-- gestione globale delle eccezioni e altri result globalmente validi -->
+		<global-results>
+		
+			<result name="BACK_TO_HOME" type="chain">
+			   <param name="actionName">HomePage</param>
+			    <param name="namespace">/secure</param>
+			</result>
+		
+			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
+			<!-- result per la restituizione di dati alle compoenenti rich U.I -->
+			<result name="provideData" type="stream">
+  				<param name="contentType">text/plain;charset=UTF-8</param>
+  				<param name="inputName">dataProviderStream</param>
+  				<param name="bufferSize">1024</param>
+  				<param name="allowCaching">false</param>
+			</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException"/>
+		</global-exception-mappings>
+
+	</package>
+
+
+	<!-- DEFAULT PACKAGE (ELEMENTI COMUNI A TUTTO L'APPLICATIVO) -->
+	<package name="default" extends="jsp-package" namespace="/base">
+		<action name="notFoundError">
+			<result>/jsp/error/notFound.jsp</result>
+		</action>
+		<action name="fatalError">
+			<result>/jsp/error/fatalError.jsp</result>
+		</action>
+		<action name="sessionExpired">
+			<result>/jsp/error/sessionExpired.jsp</result>
+		</action>
+
+		<action name="unknownPortal">
+			<result>/jsp/error/unknownPortal.jsp</result>
+		</action>
+		<action name="javascriptError">
+			<result>/jsp/error/javascriptError.jsp</result>
+		</action>
+	</package>
+
+
+	<!-- SECURE PACKAGE -->
+	<package name="secure" extends="jsp-package" namespace="/secure">
+		<!-- HOME PAGE -->
+		<action name="HomePage" class="it.csi.sigit.sigitweba.presentation.sigitweba.action.HomeAction">
+			<result name="GO_TO_cpAccreditamento" type="chain">
+			    <param name="actionName">cpAccreditamento</param>
+			    <param name="namespace">/base/accreditamento_module</param>
+			</result>
+			<result name="GO_TO_cpHome" type="chain">
+			    <param name="actionName">cpHome</param>
+			    <param name="namespace">/base/home_module</param>
+			</result>
+			<result name="GO_TO_EX_ACCESSO_BLOCCATO" type="redirect">
+				<param name="location">/base/home_module/cpDialog!handleHvIngressoWARN_CLICKED.do</param>
+			</result>
+		</action>
+
+
+		<!-- LOGOUT (LOCAL/SSO) -->
+		<action name="Logout" class="it.csi.sigit.sigitweba.presentation.sigitweba.action.LogoutAction">
+			<result name="confirmLogout">/jsp/error/confirmLogout.jsp</result>
+			<result name="SSO_LOGOUT" type="redirect">
+				<param name="location">${ssoLogoutUrl}</param>
+			</result>
+			<result name="LOCAL_LOGOUT" type="redirect">
+				<param name="location">${localLogoutUrl}</param>
+			</result>
+		</action>
+
+		<!-- MENU -->
+		<action name="goToMenuHomeFromMenu" class="it.csi.sigit.sigitweba.presentation.sigitweba.action.MenuAction" method="goToMenuHome">
+			<result name="GO_TO_cpAccreditamento" type="chain">
+				<param name="actionName">cpAccreditamento</param>
+				<param name="namespace">/base/accreditamento_module</param>
+			</result>
+		</action>
+
+	</package>
+
+</struts>

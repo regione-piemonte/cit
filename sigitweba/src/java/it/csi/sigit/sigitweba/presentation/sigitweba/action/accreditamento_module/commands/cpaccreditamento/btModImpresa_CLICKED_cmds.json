@@ -1,0 +1,107 @@
+
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["btInsertImpresa"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["btModImpresa"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpImpresa",
+	"contentPanelName":"cpAccreditamento",
+	"itemName": "fmNuovaImpresa"}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbSiglaRea","tfNumeroRea","tfImpresaCfPi"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["cbImpresaProvincia","cbImpresaComune","cbImpresaIndirizzo","btImpresaNuovaRicerca","tfImpresaNonTrovato","tfImpresaCivico","tfImpresaCap"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfImpresaEstStato","tfImpresaEstCitta","tfImpresaEstIndirizzo","tfImpresaEstCap","tfImpresaEstCivico","btImpresaIndirizzo","btImpresaCercaIndirizzo"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["cbImpresaProvincia","cbImpresaComune"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfImpresaEstStato","tfImpresaEstCitta","tfImpresaEstIndirizzo","tfImpresaEstCap","tfImpresaEstCivico"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["cbImpresaProvincia","cbImpresaComune","btImpresaIndirizzo","btImpresaCercaIndirizzo","cbImpresaIndirizzo","btImpresaNuovaRicerca","tfImpresaNonTrovato","tfImpresaCivico","tfImpresaCap"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["NAZIONALE","ESTERO"],
+	"nomeMetodo":"gestTipoIndirizzoImpresaMod",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["clImpresaDataInizioAttivita"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["clImpresaDataInizioAttivita"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["ABILITA","DISABILITA"],
+	"nomeMetodo":"gestDataInizioAtt",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["clImpresaDataCessazione"],
+	"targetsMenuElement":[]
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["clImpresaDataCessazione"],
+	"targetsMenuElement":[]
+}
+],
+	"esiti":["ABILITA","DISABILITA"],
+	"nomeMetodo":"gestDataCessazione",
+	"appDataToStore":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.sigitweba.presentation.sigitweba.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"selezionaImpresa",
+	"appDataToStore":[]
+}
