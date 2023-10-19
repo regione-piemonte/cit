@@ -1,0 +1,32 @@
+
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.elencom.presentation.elencom.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btSuccessivo","btPrecedente"],
+	"targetsMenuElement":[]
+}
+] 
+}
+,
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.NOPCommand" }
+,
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.elencom.presentation.elencom.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btPrecedente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["btSuccessivo"],
+	"targetsMenuElement":[]
+}
+] 
+}
+],
+	"esiti":["OK","KO","OK_ULTIMO"],
+	"nomeMetodo":"gestisciSuccessivo",
+	"appDataToStore":[]
+}

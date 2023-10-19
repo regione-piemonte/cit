@@ -1,0 +1,80 @@
+
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ClearAppDataCommand" ,
+	"attributesToBeRemovedFromSession":["listDettaglioGeografico","currentDettaglioGeografico"]
+}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"clearFields",
+	"appDataToStore":[]
+}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.elencom.presentation.elencom.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfImpianto","tfUbicazione"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.OnOffCommand" ,
+	"enable":true,
+	"targetsWidgets":["btSuccessivo","btPrecedente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["btPrecedente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"multiDataPanel",
+	"contentPanelName":"cpDettWMS",
+	"itemName": "fpDati"}
+] 
+}
+,
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.elencom.presentation.elencom.action.VisibilityCommand" ,
+	"show":false,
+	"targetsWidgets":["tfImpianto","tfUbicazione"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["tfImpianto","tfUbicazione","tfVolRiscM3","tfvolRaffM3","potClimaInv","tfPotClimaEst","componente","btSuccessivo","btPrecedente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"multiDataPanel",
+	"contentPanelName":"cpDettWMS",
+	"itemName": "fpMessaggio"}
+] 
+}
+,
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.elencom.presentation.elencom.action.VisibilityCommand" ,
+	"show":true,
+	"targetsWidgets":["tfImpianto","tfUbicazione"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.OnOffCommand" ,
+	"enable":false,
+	"targetsWidgets":["btSuccessivo","btPrecedente"],
+	"targetsMenuElement":[]
+}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"multiDataPanel",
+	"contentPanelName":"cpDettWMS",
+	"itemName": "fpDati"}
+] 
+}
+],
+	"esiti":["OK","KO","OK_SINGOLO"],
+	"nomeMetodo":"visualizzaInterrogazioneGeoportale",
+	"appDataToStore":[]
+}
+] 
+}

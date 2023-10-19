@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.JumpCommand" ,
+	"name": "cpRicerca", 
+	"pushCurrent":false
+}
+,
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.JumpCommand" ,
+	"name": "cpDettWMS", 
+	"pushCurrent":false
+}
+],
+	"esiti":["Ok","WMS"],
+	"nomeMetodo":"initApplicativo",
+	"appDataToStore":["appDatacomboComuni","appDatacomboProvince","appDatafiltroManutentore","appDatamanutentoreAppData","appDatamanutentoriAppData","appDatacurrentDettaglioGeografico","appDataWMSComp","appDataWMSCoordinates","appDatalistDettaglioGeografico"]
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="autodetect">
+	<!-- bean di business logic -->
+	
+	<!-- bean di facade -->
+	<bean id="springBackEnd" class="it.csi.sigit.elencom.business.BackEndFacade">
+		<property name="CPBECpRicerca">
+			<ref bean="CPBECpRicerca"/>
+		</property>
+		<property name="CPBECpDettWMS">
+			<ref bean="CPBECpDettWMS"/>
+		</property>
+	</bean>
+	
+	<!-- bean relativi ai singoli content panel -->
+	<bean id="CPBECpRicerca" class="it.csi.sigit.elencom.business.ricerca_module.CPBECpRicerca">
+	</bean>
+	<bean id="CPBECpDettWMS" class="it.csi.sigit.elencom.business.ricerca_module.CPBECpDettWMS">
+	</bean>
+	
+	
+	
+	<!-- helper per le funzioni di securizzazione -->
+	<bean id="springSecurityHelper" class="it.csi.sigit.elencom.business.SecurityHelper">
+		<!-- protocollo di interazione con il PEP (EJB|WS) utilizzato solo se la security non e' custom --> 
+		<property name="PDProtocol" value="@IRIDE_PD_PROTOCOL@" />
+	</bean>
+	
+	
+	
+	
+	<!--PROTECTED REGION ID(R585863764) ENABLED START-->
+		<!-- Inserire qui configurazioni aggiuntive da iniettare nel bean prinicipale -->
+		<bean id="ElencoManager" class="it.csi.sigit.elencom.business.manager.ElencoManager">
+		    <property name="sigitTPersonaGiuridica">
+				<ref bean="sigitTPersonaGiuridicaDao"/>
+			</property>
+		 <property name="urlHome">
+		 	<value>@@@UrlHome@@@</value>
+		 </property>
+		</bean>
+	<!--PROTECTED REGION END-->
+
+</beans>

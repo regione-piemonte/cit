@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.elencom.presentation.elencom.security.ComplexUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettWMS",
+  "nomeWidget": "componente",
+  "constraints": [
+{ "class": "it.csi.sigit.elencom.presentation.elencom.security.DummyUISecConstraint",
+  "constrainedBehavior": 2,
+  "defaultState": true,
+  "nomeContainer": "cpDettWMS",
+  "nomeWidget": "componente",
+  "fixedValue": true
+}
+
+  ]
+}

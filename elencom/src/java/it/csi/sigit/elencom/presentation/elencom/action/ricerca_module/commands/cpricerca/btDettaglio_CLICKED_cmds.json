@@ -1,0 +1,17 @@
+
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDettManu",
+	"contentPanelName":"cpRicerca",
+	"itemName": "fpCorsi"}
+] 
+}
+,
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.NOPCommand" }
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"apriDettaglio",
+	"appDataToStore":[]
+}

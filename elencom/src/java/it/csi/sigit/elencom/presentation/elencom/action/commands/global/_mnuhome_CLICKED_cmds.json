@@ -1,0 +1,14 @@
+
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.JumpExtCommand" ,
+	"locationCode":"caricaHome",
+	"runtimeUrlProviderAppData":"UrlHome",
+	"staticUrl":"",
+	"binaryStream":false 
+}
+],
+	"esiti":["Ok"],
+	"nomeMetodo":"GoMenu",
+	"appDataToStore":["appDataUrlHome"]
+}

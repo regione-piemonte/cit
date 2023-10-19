@@ -1,0 +1,9 @@
+
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.NOPCommand" }
+],
+	"esiti":["OK"],
+	"nomeMetodo":"pulisciLista",
+	"appDataToStore":[]
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator Config 1.0//EN"
+        "http://struts.apache.org/dtds/xwork-validator-config-1.0.dtd">
+<validators>
+
+	<!-- Custom validators Definiti in GuiGen -->
+	<validator name="csiDateValidator" class="it.csi.sigit.elencom.presentation.elencom.validator.CsiDateValidator"/>
+	<validator name="csiLongRangeValidator" class="it.csi.sigit.elencom.presentation.elencom.validator.CsiLongRangeValidator"/>
+
+	<!-- Validators per Simple Types User Defined -->
+	<validator name="csiUdDateValidator" class="it.csi.sigit.elencom.presentation.elencom.validator.CsiUdDateValidator"/>
+	<validator name="csiUdNumericIntValidator" class="it.csi.sigit.elencom.presentation.elencom.validator.CsiUdNumericIntValidator"/>
+	<validator name="csiUdLongRangeValidator" class="it.csi.sigit.elencom.presentation.elencom.validator.CsiUdLongRangeValidator"/>
+	<validator name="csiUdStringRangeValidator" class="it.csi.sigit.elencom.presentation.elencom.validator.CsiUdStringRangeValidator"/>
+	<validator name="csiUdStringRegexpValidator" class="it.csi.sigit.elencom.presentation.elencom.validator.CsiUdStringRegexpValidator"/>
+	<validator name="csiUdNumericDecValidator" class="it.csi.sigit.elencom.presentation.elencom.validator.CsiUdNumericDecValidator"/>
+	
+
+	<!-- Custom validators modellati dall'utente nei widget -->
+
+	<!--PROTECTED REGION ID(R-148540340) ENABLED START-->
+	<!-- Inserire qui i custom validators che verranno acceduti mediante XML notation -->
+	<!--PROTECTED REGION END-->
+
+</validators>

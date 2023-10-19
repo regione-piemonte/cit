@@ -1,0 +1,27 @@
+
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpManu",
+	"contentPanelName":"cpRicerca",
+	"itemName": "fpTab"}
+,{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpDettManu",
+	"contentPanelName":"cpRicerca",
+	"itemName": null}
+] 
+}
+,
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpManu",
+	"contentPanelName":"cpRicerca",
+	"itemName": null}
+] 
+}
+],
+	"esiti":["OK","KO"],
+	"nomeMetodo":"caricaManutentori",
+	"appDataToStore":[]
+}

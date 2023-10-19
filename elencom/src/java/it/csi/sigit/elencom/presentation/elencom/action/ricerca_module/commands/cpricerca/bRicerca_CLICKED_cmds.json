@@ -1,0 +1,21 @@
+
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ExecCommand" ,
+	"azioni":[
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.SequenceCommand" ,
+	"actions": [{ "class": "it.csi.sigit.elencom.presentation.elencom.action.ActivateMultiPanelItemCommand" ,
+	"containerName":"mpManu",
+	"contentPanelName":"cpRicerca",
+	"itemName": "fpTab"}
+] 
+}
+,
+{ "class": "it.csi.sigit.elencom.presentation.elencom.action.RefreshViewCommand" ,
+	"targetPanels": ["pRicerca"], 
+	"targetWidgets":["cbProvince","cbComuni","Denominazione"],
+	"currentPanelName":"cpRicerca" 
+}
+],
+	"esiti":["Ok","Ko"],
+	"nomeMetodo":"loadManutentori",
+	"appDataToStore":["appDatamanutentoriAppData"]
+}
