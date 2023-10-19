@@ -1,4 +1,6 @@
-﻿LICENZA PUBBLICA DELL'UNIONE EUROPEA v. 1.2 
+﻿Questo software è distribuito con licenza EUPL-1.2-or-later.
+
+LICENZA PUBBLICA DELL'UNIONE EUROPEA v. 1.2 
 EUPL © Unione europea 2007, 2016 
 La presente Licenza Pubblica dell'Unione europea («EUPL») si applica a tutte le opere, come definite di seguito, fornite alle condizioni di cui alla presente licenza. È vietata l'utilizzazione dell'opera in forme diverse da quelle autorizzate dalla presente licenza (nella misura in cui tale utilizzazione sia riservata in via esclusiva al titolare dei diritti d'autore sull'opera). L'opera è fornita alle condizioni della presente licenza se il licenziante (come definito di seguito) ha posto la seguente dicitura immediatamente dopo l'avviso sui diritti d'autore sull'opera: 
                                Concesso in licenza a norma dell'EUPL 

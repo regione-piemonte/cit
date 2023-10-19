@@ -1,11 +1,8 @@
 # Project Title
-CIT-SIGITDBNEW
+SIGITDBNEW
 
 # Project Description
 Questa componente contiene gli script per popolare lo schema del database utilizzato da tutte le componenti.
-
-# Getting Started 
-Clonare la componente sigitdbnew dal repository git.
 
 # Prerequisites
 I prerequisiti per l'installazione della componente sono i seguenti:
