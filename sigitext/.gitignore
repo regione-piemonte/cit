@@ -1,0 +1,15 @@
+.idea
+.settings
+.classpath
+.project
+.DS_Store
+.vscode/
+.code-workspace
+*.iml
+/bin
+/build
+/lib
+/dist
+/src/generated
+buildNoRepart.xml
+buildRepart.xml

@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+>
+    <import resource="dao-beans.xml"/>
+
+    <bean class="it.csi.sigit.sigitext.business.SpringApplicationContextHelper"></bean>
+
+    <!--  <bean id="backendService" class="it.csi.tstang2.tstang2web.business.impl.BackendServiceImpl">
+   </bean> -->
+
+    <bean id="dbServiceImp" class="it.csi.sigit.sigitext.business.be.manager.DbServiceImp">
+        <property name="fluidoCITDao">
+            <ref bean="fluidoCITDao"/>
+        </property>
+
+        <property name="sigitDFonteEnSfruttataDao">
+            <ref bean="sigitDFonteEnSfruttataDao"/>
+        </property>
+
+        <property name="sigitVAllegatiComponentiDao">
+            <ref bean="sigitVAllegatiComponentiDao"/>
+        </property>
+
+        <property name="sigitTDocAggiuntivaDao">
+            <ref bean="sigitTDocAggiuntivaDao"/>
+        </property>
+
+        <property name="sigitWrkConfigDao">
+            <ref bean="sigitWrkConfigDao"/>
+        </property>
+
+        <property name="sigitDFluidoDao">
+            <ref bean="sigitDFluidoDao"/>
+        </property>
+
+        <property name="sigitTImportDistribDao">
+            <ref bean="sigitTImportDistribDao"/>
+        </property>
+
+        <property name="sigitDUnitaMisuraDao">
+            <ref bean="sigitDUnitaMisuraDao"/>
+        </property>
+
+        <property name="sigitTRappControlloDao">
+            <ref bean="sigitTRappControlloDao"/>
+        </property>
+
+        <property name="sigitTRappDettaglioDao">
+            <ref bean="sigitTRappDettaglioDao"/>
+        </property>
+
+        <property name="sigitTConsumoTipo1BDao">
+            <ref bean="sigitTConsumoTipo1BDao"/>
+        </property>
+
+        <property name="sigitTAllTxtDao">
+            <ref bean="sigitTAllTxtDao"/>
+        </property>
+
+        <property name="sigitTStoricoVariazStatoDao">
+            <ref bean="sigitTStoricoVariazStatoDao"/>
+        </property>
+
+        <property name="sigitDTipo1BDao">
+            <ref bean="sigitDTipo1BDao"/>
+        </property>
+
+        <property name="combustibileCITDao">
+            <ref bean="combustibileCITDao"/>
+        </property>
+
+        <property name="marcaCITDao">
+            <ref bean="marcaCITDao"/>
+        </property>
+        <property name="unitaMisuraCITDao">
+            <ref bean="unitaMisuraCITDao"/>
+        </property>
+        <property name="ricercaAllegatiDao">
+            <ref bean="ricercaAllegatiDao"/>
+        </property>
+
+        <property name="wrkConfigDao">
+            <ref bean="wrkConfigDao"/>
+        </property>
+        <property name="sigitTImpiantoDao">
+            <ref bean="sigitTImpiantoDao"/>
+        </property>
+        <property name="sigitTTrattH2ODao">
+            <ref bean="sigitTTrattH2ODao"/>
+        </property>
+        <property name="sigitTUnitaImmobiliareDao">
+            <ref bean="sigitTUnitaImmobiliareDao"/>
+        </property>
+        <property name="sigitVTotImpiantoDao">
+            <ref bean="sigitVTotImpiantoDao"/>
+        </property>
+        <property name="sigitVRicercaAllegatiDao">
+            <ref bean="sigitVRicercaAllegatiDao"/>
+        </property>
+        <property name="sigitVRicercaIspezioniDao">
+            <ref bean="sigitVRicercaIspezioniDao"/>
+        </property>
+        <property name="sigitExtDao">
+            <ref bean="sigitExtDao"/>
+        </property>
+        <property name="sigitTCompBrRcDao">
+            <ref bean="sigitTCompBrRcDao"/>
+        </property>
+        <property name="sigitVCompCsDao">
+            <ref bean="sigitVCompCsDao"/>
+        </property>
+        <property name="sigitVCompAgDao">
+            <ref bean="sigitVCompAgDao"/>
+        </property>
+        <property name="sigitTCompXSempliceDao">
+            <ref bean="sigitTCompXSempliceDao"/>
+        </property>
+        <property name="sigitVCompSrDao">
+            <ref bean="sigitVCompSrDao"/>
+        </property>
+        <property name="sigitVCompVrDao">
+            <ref bean="sigitVCompVrDao"/>
+        </property>
+        <property name="sigitTCompVxDao">
+            <ref bean="sigitTCompVxDao"/>
+        </property>
+        <property name="sigitVCompPoDao">
+            <ref bean="sigitVCompPoDao"/>
+        </property>
+        <property name="sigitVCompAcDao">
+            <ref bean="sigitVCompAcDao"/>
+        </property>
+        <property name="sigitVCompTeDao">
+            <ref bean="sigitVCompTeDao"/>
+        </property>
+        <property name="sigitVCompRvDao">
+            <ref bean="sigitVCompRvDao"/>
+        </property>
+        <property name="sigitTCompXDao">
+            <ref bean="sigitTCompXDao"/>
+        </property>
+        <property name="sigitVCompCiDao">
+            <ref bean="sigitVCompCiDao"/>
+        </property>
+        <property name="sigitVCompUtDao">
+            <ref bean="sigitVCompUtDao"/>
+        </property>
+        <property name="sigitVCompRcDao">
+            <ref bean="sigitVCompRcDao"/>
+        </property>
+        <property name="sigitVCompVmDao">
+            <ref bean="sigitVCompVmDao"/>
+        </property>
+        <property name="sigitVSk4GtDao">
+            <ref bean="sigitVSk4GtDao"/>
+        </property>
+        <property name="sigitVSk4GfDao">
+            <ref bean="sigitVSk4GfDao"/>
+        </property>
+        <property name="sigitVSk4CgDao">
+            <ref bean="sigitVSk4CgDao"/>
+        </property>
+        <property name="sigitVSk4ScDao">
+            <ref bean="sigitVSk4ScDao"/>
+        </property>
+        <property name="sigitVCompGtDettDao">
+            <ref bean="sigitVCompGtDettDao"/>
+        </property>
+        <property name="sigitVCompGfDettDao">
+            <ref bean="sigitVCompGfDettDao"/>
+        </property>
+        <property name="sigitVCompScDettDao">
+            <ref bean="sigitVCompScDettDao"/>
+        </property>
+        <property name="sigitVCompCgDettDao">
+            <ref bean="sigitVCompCgDettDao"/>
+        </property>
+        <property name="sigitTConsumoDao">
+            <ref bean="sigitTConsumoDao"/>
+        </property>
+        <property name="sigitTConsumo144Dao">
+            <ref bean="sigitTConsumo14_4Dao"/>
+        </property>
+        <property name="sigitTControlloLibrettoDao">
+            <ref bean="sigitTControlloLibrettoDao"/>
+        </property>
+        <property name="sigitRImpRuoloPfpgDao">
+            <ref bean="sigitRImpRuoloPfpgDao"/>
+        </property>
+        <property name="sigitTLibrettoDao">
+            <ref bean="sigitTLibrettoDao"/>
+        </property>
+        <property name="sigitTLibTxtDao">
+            <ref bean="sigitTLibTxtDao"/>
+        </property>
+
+        <property name="sigitTImportXmlLibDao">
+            <ref bean="sigitTImportXmlLibDao"/>
+        </property>
+
+        <property name="sigitTPreImportDao">
+            <ref bean="sigitTPreImportDao"/>
+        </property>
+
+        <property name="sigitTPersonaGiuridicaDao">
+            <ref bean="sigitTPersonaGiuridicaDao"/>
+        </property>
+
+        <property name="sigitTPersonaFisicaDao">
+            <ref bean="sigitTPersonaFisicaDao"/>
+        </property>
+
+        <property name="sigitTImportDao">
+            <ref bean="sigitTImportDao"/>
+        </property>
+
+        <property name="sigitTImpXmlDao">
+            <ref bean="sigitTImpXmlDao"/>
+        </property>
+
+        <property name="sigitTAllegatoDao">
+            <ref bean="sigitTAllegatoDao"/>
+        </property>
+
+        <property name="sigitRComp4ManutDao">
+            <ref bean="sigitRComp4ManutDao"/>
+        </property>
+
+        <property name="sigitRComp4ManutAllDao">
+            <ref bean="sigitRComp4ManutAllDao"/>
+        </property>
+
+        <property name="sigitRAllegatoCompGtDao">
+            <ref bean="sigitRAllegatoCompGtDao"/>
+        </property>
+
+        <property name="sigitRAllegatoCompGfDao">
+            <ref bean="sigitRAllegatoCompGfDao"/>
+        </property>
+
+        <property name="sigitRAllegatoCompScDao">
+            <ref bean="sigitRAllegatoCompScDao"/>
+        </property>
+
+        <property name="sigitRAllegatoCompCgDao">
+            <ref bean="sigitRAllegatoCompCgDao"/>
+        </property>
+
+        <property name="sigitTDettTipo1Dao">
+            <ref bean="sigitTDettTipo1Dao"/>
+        </property>
+
+        <property name="sigitTDettTipo2Dao">
+            <ref bean="sigitTDettTipo2Dao"/>
+        </property>
+
+        <property name="sigitTDettTipo3Dao">
+            <ref bean="sigitTDettTipo3Dao"/>
+        </property>
+
+        <property name="sigitTDettTipo4Dao">
+            <ref bean="sigitTDettTipo4Dao"/>
+        </property>
+
+        <property name="sigitTRappTipo1Dao">
+            <ref bean="sigitTRappTipo1Dao"/>
+        </property>
+
+        <property name="sigitTRappTipo2Dao">
+            <ref bean="sigitTRappTipo2Dao"/>
+        </property>
+
+        <property name="sigitTRappTipo3Dao">
+            <ref bean="sigitTRappTipo3Dao"/>
+        </property>
+
+        <property name="sigitTRappTipo4Dao">
+            <ref bean="sigitTRappTipo4Dao"/>
+        </property>
+
+        <property name="sigitTCodiceBollDao">
+            <ref bean="sigitTCodiceBollDao"/>
+        </property>
+
+        <property name="sigitSLibrettoDao">
+            <ref bean="sigitSLibrettoDao"/>
+        </property>
+
+        <property name="sigitTCompSrDao">
+            <ref bean="sigitTCompSrDao"/>
+        </property>
+
+        <property name="sigitTCompVrDao">
+            <ref bean="sigitTCompVrDao"/>
+        </property>
+
+        <property name="sigitTCompPoDao">
+            <ref bean="sigitTCompPoDao"/>
+        </property>
+
+        <property name="sigitTCompAcDao">
+            <ref bean="sigitTCompAcDao"/>
+        </property>
+
+        <property name="sigitTCompTeDao">
+            <ref bean="sigitTCompTeDao"/>
+        </property>
+
+        <property name="sigitTCompRvDao">
+            <ref bean="sigitTCompRvDao"/>
+        </property>
+
+        <property name="sigitTCompScxDao">
+            <ref bean="sigitTCompScxDao"/>
+        </property>
+
+        <property name="sigitTCompCiDao">
+            <ref bean="sigitTCompCiDao"/>
+        </property>
+
+        <property name="sigitTCompUtDao">
+            <ref bean="sigitTCompUtDao"/>
+        </property>
+
+        <property name="sigitTCompRcDao">
+            <ref bean="sigitTCompRcDao"/>
+        </property>
+
+        <property name="sigitTCompVmDao">
+            <ref bean="sigitTCompVmDao"/>
+        </property>
+
+        <property name="sigitTCompGfDao">
+            <ref bean="sigitTCompGfDao"/>
+        </property>
+
+        <property name="sigitTDocAllegatoDao">
+            <ref bean="sigitTDocAllegatoDao"/>
+        </property>
+
+        <property name="sigitTCompAgDao">
+            <ref bean="sigitTCompAgDao"/>
+        </property>
+
+        <property name="sigitTCompCsDao">
+            <ref bean="sigitTCompCsDao"/>
+        </property>
+
+        <property name="sigitTCompCgDao">
+            <ref bean="sigitTCompCgDao"/>
+        </property>
+
+        <property name="sigitTCompScDao">
+            <ref bean="sigitTCompScDao"/>
+        </property>
+
+        <property name="sigitTCompGtDao">
+            <ref bean="sigitTCompGtDao"/>
+        </property>
+
+        <property name="sigitTComp4Dao">
+            <ref bean="sigitTComp4Dao"/>
+        </property>
+
+        <property name="sigitWrkLogDao">
+            <ref bean="sigitWrkLogDao"/>
+        </property>
+
+        <property name="sigitTUserWSDao">
+            <ref bean="sigitTUserWSDao"/>
+        </property>
+
+        <property name="sigitLAccessoDao">
+            <ref bean="sigitLAccessoDao"/>
+        </property>
+
+        <property name="sigitTElencoWsDao">
+            <ref bean="sigitTElencoWsDao"/>
+        </property>
+
+        <!-- OLD (in futuro saranno da dismettere) -->
+
+        <property name="potenzaImpDao">
+            <ref bean="potenzaImpDao"/>
+        </property>
+
+        <property name="userElencoWsDao">
+            <ref bean="userElencoWsDao"/>
+        </property>
+        <!--property name="extDao">
+            <ref bean="extDao"/>
+        </property-->
+        <property name="unitaImmobiliareDao">
+            <ref bean="unitaImmobiliareDao"/>
+        </property>
+        <property name="allegatoDao">
+            <ref bean="allegatoDao"/>
+        </property>
+
+        <property name="connectorManager">
+            <ref bean="connectorManager"/>
+        </property>
+
+        <property name="sigitRPgPgNominaDao">
+            <ref bean="sigitRPgPgNominaDao"/>
+        </property>
+
+        <property name="sigitRPfPgDelegaDao">
+            <ref bean="sigitRPfPgDelegaDao"/>
+        </property>
+
+        <property name="sigitRPfRuoloPaDao">
+            <ref bean="sigitRPfRuoloPaDao"/>
+        </property>
+
+        <property name="sigitDStatoImpiantoDao">
+            <ref bean="sigitDStatoImpiantoDao"/>
+        </property>
+
+        <property name="sigitVPfPgDao">
+            <ref bean="sigitVPfPgDao"/>
+        </property>
+
+        <property name="sigitTAbilitazioneDao">
+            <ref bean="sigitTAbilitazioneDao"/>
+        </property>
+
+        <property name="sigitVRicercaImpiantiDao">
+            <ref bean="sigitVRicercaImpiantiDao"/>
+        </property>
+
+        <property name="sigitDDettaglioGtDao">
+            <ref bean="sigitDDettaglioGtDao"/>
+        </property>
+
+        <property name="sigitDDettaglioGfDao">
+            <ref bean="sigitDDettaglioGfDao"/>
+        </property>
+
+        <property name="sigitDTipoCannaFumariaDao">
+            <ref bean="sigitDTipoCannaFumariaDao"/>
+        </property>
+
+        <property name="sigitDStelleDao">
+            <ref bean="sigitDStelleDao"/>
+        </property>
+
+        <property name="sigitDControlloAriaDao">
+            <ref bean="sigitDControlloAriaDao"/>
+        </property>
+
+        <property name="sigitDAriaComburenteDao">
+            <ref bean="sigitDAriaComburenteDao"/>
+        </property>
+
+        <property name="sigitTAzioneComp4Dao">
+            <ref bean="sigitTAzioneComp4Dao"/>
+        </property>
+
+        <property name="sigitTContratto2019Dao">
+            <ref bean="sigitTContratto2019Dao"/>
+        </property>
+    </bean>
+
+    <bean id="validationManager" class="it.csi.sigit.sigitext.business.be.manager.ValidationManager">
+        <property name="dbServiceImp">
+            <ref bean="dbServiceImp"/>
+        </property>
+    </bean>
+
+    <bean id="connectorManager" class="it.csi.sigit.sigitext.business.be.manager.ConnectorManager">
+        <property name="dbServiceImp">
+            <ref bean="dbServiceImp"/>
+        </property>
+    </bean>
+
+    <bean id="sigitextManager" class="it.csi.sigit.sigitext.business.be.manager.SigitextManager">
+        <property name="serviceManager">
+            <ref bean="serviceManager"/>
+        </property>
+        <property name="dbServiceImp">
+            <ref bean="dbServiceImp"/>
+        </property>
+        <property name="validationManager">
+            <ref bean="validationManager"/>
+        </property>
+    </bean>
+
+    <bean id="documentBuilderManager" class="it.csi.sigit.sigitext.business.be.manager.DocumentBuilderManager">
+        <property name="dbServiceImp">
+            <ref bean="dbServiceImp"/>
+        </property>
+    </bean>
+
+    <bean id="librettoBuilderService" class="it.csi.sigit.sigitext.business.pdf.LibrettoBuilder">
+        <property name="dbServiceImp" ref="dbServiceImp"/>
+    </bean>
+
+    <bean id="cxf" class="it.csi.sigit.sigitext.business.be.manager.MtomServiceImp">
+        <constructor-arg value="@mtom.wsdl.url@"></constructor-arg>
+    </bean>
+
+    <bean id="serviceManager" class="it.csi.sigit.sigitext.business.be.manager.ServiceManager">
+        <property name="dbServiceImp">
+            <ref bean="dbServiceImp"/>
+        </property>
+
+        <property name="dbVerificaMgr">
+            <ref bean="dbVerificaMgr"/>
+        </property>
+
+        <property name="dbAzioneMgr">
+            <ref bean="dbAzioneMgr"/>
+        </property>
+
+        <property name="cxf">
+            <ref bean="cxf"/>
+        </property>
+
+        <property name="documentBuilderManager">
+            <ref bean="documentBuilderManager"/>
+        </property>
+
+        <property name="librettoBuilderService">
+            <ref bean="librettoBuilderService"/>
+        </property>
+
+        <property name="validationManager">
+            <ref bean="validationManager"/>
+        </property>
+
+        <property name="connectorManager">
+            <ref bean="connectorManager"/>
+        </property>
+
+        <property name="reeBuilder">
+            <ref bean="reeBuilder"/>
+        </property>
+
+        <property name="ricevutaBuilder">
+            <ref bean="ricevutaBuilder"/>
+        </property>
+
+        <property name="serviceIndex" ref="serviceIndex"/>
+    </bean>
+
+    <bean id="reeBuilder" class="it.csi.sigit.sigitext.business.pdf.ReeBuilder">
+        <property name="serviceManager">
+            <ref bean="serviceManager"/>
+        </property>
+        <property name="dbServiceImp">
+            <ref bean="dbServiceImp"/>
+        </property>
+    </bean>
+    <bean id="ricevutaBuilder" class="it.csi.sigit.sigitext.business.pdf.RicevutaBuilder">
+        <property name="serviceManager">
+            <ref bean="serviceManager"/>
+        </property>
+        <property name="dbServiceImp">
+            <ref bean="dbServiceImp"/>
+        </property>
+    </bean>
+    <bean id="dbVerificaMgr" class="it.csi.sigit.sigitext.business.be.manager.DbVerificaMgr">
+        <property name="sigitTVerificaDao">
+            <ref bean="sigitTVerificaDao"/>
+        </property>
+        <property name="sigitTAccertamentoDao">
+            <ref bean="sigitTAccertamentoDao"/>
+        </property>
+        <property name="sigitExtDao">
+            <ref bean="sigitExtDao"/>
+        </property>
+    </bean>
+    <bean id="dbAzioneMgr" class="it.csi.sigit.sigitext.business.be.manager.DbAzioneMgr">
+        <property name="sigitTDocAzioneDao">
+            <ref bean="sigitTDocAzioneDao"/>
+        </property>
+        <property name="sigitTAzioneDao">
+            <ref bean="sigitTAzioneDao"/>
+        </property>
+    </bean>
+
+
+    <context:component-scan base-package="it.csi.sigit.sigitext.business.impl"/>
+    <context:component-scan base-package="it.csi.sigit.sigitext.business.be.impl"/>
+
+</beans>
