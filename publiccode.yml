@@ -20,11 +20,6 @@ dependsOn:
       version: EAP 6.4.0.GA
       versionMax: ''
       versionMin: EAP 6
-    - name: WildFly
-      optional: true
-      version:  23.0.2
-      versionMax: ''
-      versionMin: 23
     - name: PostgreSQL
       optional: true
       version: 9.6.11
