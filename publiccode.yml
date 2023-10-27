@@ -109,7 +109,7 @@ platforms:
   - mac
 releaseDate: '2023-10-27'
 softwareType: standalone/web
-softwareVersion: 11.0.0
+softwareVersion: 14.2.0
 url: "https://github.com/regione-piemonte/sigit.git"
 landingURL: "https://github.com/regione-piemonte/sigit"
 usedBy:
