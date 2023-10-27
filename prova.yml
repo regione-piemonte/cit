@@ -1,3 +1,142 @@
 # This repository adheres to the publiccode.yml standard by including this 
 # metadata file that makes public software easily discoverable.
 # More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: "0.2" # Mandatory
+
+name: Medusa # Mandatory
+applicationSuite: MegaProductivitySuite
+url: "https://example.com/italia/medusa.git" # Mandatory
+landingURL: "https://example.com/italia/medusa"
+isBasedOn: "https://github.com/italia/otello.git"
+softwareVersion: "1.0" # Mandatory
+releaseDate: "2017-04-15" # Mandatory
+logo: img/logo.svg
+monochromeLogo: img/logo-mono.svg
+
+inputTypes:
+  - text/plain
+outputTypes:
+  - text/plain
+
+platforms: # Mandatory
+  - android
+  - ios
+
+categories: # Mandatory
+  - content-management
+  - office
+
+usedBy:
+  - Comune di Firenze
+  - Comune di Roma
+
+roadmap: "https://example.com/italia/medusa/roadmap"
+
+developmentStatus: development # Mandatory
+
+softwareType: "standalone/desktop" # Mandatory
+
+intendedAudience:
+  scope:
+    - science-and-technology
+  countries:
+    - it
+    - de
+  unsupportedCountries:
+    - us
+
+description: # Mandatory
+  en: # Mandatory
+    localisedName: Medusa
+    genericName: Text Editor # Mandatory
+    shortDescription: > # Mandatory
+          This description can have a maximum 150
+          characters long. We should not fill the
+          remaining space with "Lorem Ipsum". End
+
+    longDescription: > # Mandatory
+          Very long description of this software, also split
+          on multiple rows. You should note what the software
+          is and why one should need it.
+
+    documentation: "https://read.the.documentation/medusa/v1.0"
+    apiDocumentation: "https://read.the.api.doc/medusa/v1.0"
+
+    features: # Mandatory
+       - Very important feature
+       - Will run without a problem
+       - Has zero bugs
+       - Solves all the problems of the world
+    screenshots:
+       - img/sshot1.jpg
+       - img/sshot2.jpg
+       - img/sshot3.jpg
+    videos:
+       - https://youtube.com/xxxxxxxx
+    awards:
+       - 1st Price Software of the year
+
+legal: # Mandatory
+  license: AGPL-3.0-or-later # Mandatory
+  mainCopyrightOwner: City of Chicago
+  repoOwner: City of Chicago
+  authorsFile: AUTHORS
+
+maintenance: # Mandatory
+  type: "contract" # Mandatory
+
+  contractors: # Mandatory se type=contract
+    - name: "Fornitore Privato SPA"
+      email: "dario.bianchi@fornitore.it"
+      website: "https://privatecompany.com"
+      until: "2019-01-01"
+
+  contacts: # Mandatory se type=internal o community
+    - name: Francesco Rossi
+      email: "francesco.rossi@comune.reggioemilia.it"
+      affiliation: Comune di Reggio Emilia
+      phone: "+3923113215112"
+
+localisation: # Mandatory
+  localisationReady: yes # Mandatory
+  availableLanguages: # Mandatory
+    - en
+    - it
+    - fr
+    - de
+
+dependsOn:
+  open:
+    - name: MySQL
+      versionMin: "1.1"
+      versionMax: "1.3"
+      optional: yes
+    - name: PostgreSQL
+      version: "3.2"
+      optional: yes
+  proprietary:
+    - name: Oracle
+      versionMin: "11.4"
+    - name: IBM SoftLayer
+  hardware:
+    - name: NFC Reader
+      optional: yes
+
+it: # Mandatory
+  countryExtensionVersion: "0.2" # Mandatory
+
+  conforme:
+    lineeGuidaDesign: yes
+    modelloInteroperabilita: yes
+    misureMinimeSicurezza: yes
+    gdpr: yes
+
+  piattaforme:
+    spid: yes
+    cie: yes
+    anpr: yes
+    pagopa: yes
+
+  riuso: # Mandatory
+    codiceIPA: c_h501 # Mandatory
