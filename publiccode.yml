@@ -110,7 +110,7 @@ platforms:
 releaseDate: '2023-10-27'
 softwareType: standalone/web
 softwareVersion: 14.2.0
-url: "https://github.com/regione-piemonte/sigit.git"
-landingURL: "https://github.com/regione-piemonte/sigit"
+url: "https://github.com/regione-piemonte/cit.git"
+landingURL: "https://github.com/regione-piemonte/cit"
 usedBy:
   - Regione Piemonte
