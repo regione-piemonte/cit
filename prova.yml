@@ -3,7 +3,6 @@
 # More info at https://github.com/italia/publiccode.yml
 
 publiccodeYmlVersion: '0.2'
-logo: 
 applicationSuite: CIT
 categories:
   - business-process-management
@@ -73,7 +72,6 @@ description:
     shortDescription: |-
       Il CIT è lo strumento informativo per la gestione del Catasto degli
       Impianti Termici e di Condizionamento della Regione Piemonte.
-    screenshots:
 developmentStatus: stable
 intendedAudience:
   countries:
@@ -117,7 +115,5 @@ platforms:
 releaseDate: '2023-10-16'
 softwareType: standalone/web
 softwareVersion: 14.2.0
-url: "https://github.com/regione-piemonte/cit.git"
-landingURL: "https://github.com/regione-piemonte/cit"
 usedBy:
   - Regione Piemonte
