@@ -17,6 +17,7 @@ export class Persona {
     indirizzoEstero: string;
     capEstero: string;
     dataInizioResp: Date;
+    dataFineResp?: Date;
     email: string;
     flgResp: boolean;
     siglaProv: string;

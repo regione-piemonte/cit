@@ -1,0 +1,44 @@
+.mat-checkbox-layout {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mat-checkbox-label {
+    white-space: normal;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.full-width-container {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.checkbox-wrap {
+    display: flex;
+    align-items: flex-start;
+    white-space: normal;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.checkbox-label {
+    display: block;
+    white-space: normal;
+    word-wrap: break-word;
+    width: calc(100% - 24px); /* Considera la larghezza del checkbox stesso */
+    line-height: 1.5;
+}
+
+@media only screen and (min-width: 768px) {
+    .end-btn-margin{
+        margin-top: 0px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .end-btn-margin{
+        margin-top: 50px;
+    }
+}

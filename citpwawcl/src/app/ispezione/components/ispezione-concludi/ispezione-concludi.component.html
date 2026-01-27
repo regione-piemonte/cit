@@ -1,0 +1,33 @@
+<div class="cit-page-container">
+  <app-page-title>Concludi Ispezione</app-page-title>
+  <app-breadcrumb label="Dettaglio Ispezione" [link]="['/', 'dettaglio-ispezione', ispezione?.idIspezione2018]"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <mat-card *ngIf="!loading; else loadingTemplate">
+    <form [formGroup]="ispezioneForm" (ngSubmit)="submit()">
+      <div class="cit-two-cols-grid">
+        <mat-form-field>
+          <mat-label>Ente competente</mat-label>
+          <input matInput formControlName="enteCompetente" appUpper>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Esito ispezione</mat-label>
+          <mat-select formControlName="flgEsito">
+            <mat-option [value]="1">POSITIVO</mat-option>
+            <mat-option [value]="0">NEGATIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Note</mat-label>
+          <textarea matInput formControlName="note" rows="5" appUpper></textarea>
+        </mat-form-field>
+      </div>
+      <hr>
+      <button mat-button color="primary" [routerLink]="['/', 'dettaglio-ispezione', ispezione.idIspezione2018]">ANNULLA</button>
+      <button mat-flat-button color="primary" style="float: right">SALVA</button>
+    </form>
+  </mat-card>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto 20px auto"></mat-spinner>
+  </ng-template>
+</div>

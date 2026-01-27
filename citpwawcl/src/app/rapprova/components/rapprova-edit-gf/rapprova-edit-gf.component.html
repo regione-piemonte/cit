@@ -1,0 +1,603 @@
+<div class="cit-page-container">
+  <app-page-title>Sezioni GF</app-page-title>
+  <app-breadcrumb
+    label="Dettaglio Ispezione"
+    [link]="['/', 'dettaglio-ispezione', idIspezione2018]"
+  ></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <app-impianto-info-box
+      [impianto]="impiantoInfoBox"
+    ></app-impianto-info-box>
+    <app-alert-hook></app-alert-hook>
+    <form [formGroup]="rapprovaForm" (ngSubmit)="save()">
+      <mat-accordion multi class="cit-ugly-accordion">
+        <mat-expansion-panel expanded>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Dati Generali Precompilati
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <h2>1. Dati generali</h2>
+          <h3>a) Codice impianto</h3>
+          <mat-form-field>
+            <mat-label>Codice impianto</mat-label>
+            <input matInput formControlName="codiceImpianto" type="number">
+          </mat-form-field>
+          <h3>b) Ispezione</h3>
+          <div class="cit-two-cols-grid" formGroupName="ispezione">
+            <mat-form-field>
+              <mat-label>Data</mat-label>
+              <input matInput [matDatepicker]="picker9" formControlName="data">
+              <mat-datepicker-toggle matSuffix [for]="picker9"></mat-datepicker-toggle>
+              <mat-datepicker #picker9></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Ora</mat-label>
+              <input matInput formControlName="ora" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Numero</mat-label>
+              <input matInput formControlName="numero" type="number">
+            </mat-form-field>
+          </div>
+          <h3>d) Ispettore</h3>
+          <ng-container formGroupName="ispettore">
+            <mat-form-field>
+              <mat-label>Cognome e nome</mat-label>
+              <input matInput formControlName="cognomeNome" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Estremi/Qualifica</mat-label>
+              <input matInput formControlName="estremiQualifica" type="text">
+            </mat-form-field>
+            <mat-form-field *ngIf="rapprovaForm.getRawValue().ispettore.secondario">
+              <mat-label>Secondario</mat-label>
+              <input matInput formControlName="secondario" type="text">
+            </mat-form-field>
+          </ng-container>
+          <h3>f) Ubicazione</h3>
+          <ng-container formGroupName="ubicazione">
+            <mat-form-field>
+              <mat-label>Comune</mat-label>
+              <input matInput formControlName="comune" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Indirizzo</mat-label>
+              <input matInput formControlName="indirizzo" type="text">
+            </mat-form-field>
+          </ng-container>
+          <h3>f1-f2) Dati catastali e utenze</h3>
+          <div class="cit-two-cols-grid" formGroupName="datiCatastali">
+            <mat-form-field>
+              <mat-label>Sezione</mat-label>
+              <input matInput formControlName="sezione" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Foglio</mat-label>
+              <input matInput formControlName="foglio" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Particella</mat-label>
+              <input matInput formControlName="particella" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Subalterno</mat-label>
+              <input matInput formControlName="subalterno" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>POD</mat-label>
+              <input matInput formControlName="pod" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>PDR</mat-label>
+              <input matInput formControlName="pdr" type="text">
+            </mat-form-field>
+          </div>
+          <h3>g) Responsabile</h3>
+          <mat-form-field>
+            <mat-label>Responsabile</mat-label>
+            <input matInput formControlName="responsabile" type="text">
+          </mat-form-field>
+          <h2>2. Destinazione</h2>
+          <h3>a) Categoria dell'edificio</h3>
+          <mat-form-field>
+            <mat-label>Categoria dell'edificio</mat-label>
+            <input matInput formControlName="categoriaEdificio" type="text">
+          </mat-form-field>
+          <h3>b) Unità immobiliari servite</h3>
+          <mat-form-field>
+            <mat-label>Unità immobiliari servite</mat-label>
+            <input matInput formControlName="unitaImmobiliariServite" type="text">
+          </mat-form-field>
+          <h3>c) Uso dell'impianto</h3>
+          <mat-form-field>
+            <mat-label>Uso dell'impianto</mat-label>
+            <input matInput formControlName="usoImpianto" type="text">
+          </mat-form-field>
+          <h3>d) Volume lordo scaldato (m³)</h3>
+          <mat-form-field>
+            <mat-label>Volume lordo scaldato (m³)</mat-label>
+            <input matInput formControlName="volumeLordoScaldato" type="number">
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              1. Dati generali
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <h3>c) Rapporto di controllo efficenza energetica</h3>
+          <ng-container formGroupName="rapportoControlloEfficenzaEnergetica">
+            <h4>Inviato*</h4>
+            <mat-radio-group formControlName="inviato">
+              <mat-radio-button [value]="1">Sì</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+            <h4>Bollino*</h4>
+            <mat-radio-group formControlName="bollino">
+              <mat-radio-button [value]="1">Sì</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+            <div class="cit-two-cols-grid">
+              <mat-form-field>
+                <mat-label>N° bollino verde - sigla</mat-label>
+                <mat-select formControlName="bollinoVerdeSigla">
+                  <mat-option></mat-option>
+                  <mat-option *ngFor="let siglaRee of siglaReeList" [value]="siglaRee">
+                    {{siglaRee}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>N° bollino verde - numero</mat-label>
+                <input matInput formControlName="bollinoVerdeNumero" type="number">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Data compilazione</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="dataBollino">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <h3>e) Impianto</h3>
+          <div class="cit-two-cols-grid">
+            <mat-form-field>
+              <mat-label>Data prima installazione</mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="dataPrimaInstallazione">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Potenza termica nominale totale massima (kW)</mat-label>
+              <input matInput formControlName="potenzaTermicaNominaleTotaleMassima" type="number">
+            </mat-form-field>
+          </div>
+          <h3>l) Delegato</h3>
+          <ng-container formGroupName="delegato">
+            <mat-form-field>
+              <mat-label>Cognome e Nome</mat-label>
+              <input matInput formControlName="cognomeNome" type="text" appUpper>
+            </mat-form-field>
+            <h4>Delega presente</h4>
+            <mat-radio-group formControlName="delegaPresente">
+              <mat-radio-button [value]="1">Sì</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+          </ng-container>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              2. Destinazione
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <h3>f) Trattamento dell'acqua</h3>
+          <ng-container formGroupName="trattamentoAcqua">
+            <mat-form-field>
+              <mat-label>In riscaldamento</mat-label>
+              <input matInput formControlName="inRiscaldamento" type="text">
+            </mat-form-field>
+            <h4>Non richiesto?{{isRequired('trattamentoAcqua.climaNonRichiesto') ? '*' : ''}}</h4>
+            <mat-radio-group formControlName="climaNonRichiesto">
+              <mat-radio-button [value]="1">Sì</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+          </ng-container>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              3. Controllo dell'impianto
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-container formGroupName="controlloImpianto">
+            <h3>a) Locale di installazione idoneo*</h3>
+            <mat-radio-group formControlName="check_3_a">
+              <mat-radio-button [value]="1">Sì</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+              <mat-radio-button [value]="2">NC</mat-radio-button>
+            </mat-radio-group>
+            <h3>b) Linee elettriche idonee (esame visivo)*</h3>
+            <mat-radio-group formControlName="check_3_b">
+              <mat-radio-button [value]="1">Sì</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+              <mat-radio-button [value]="2">NC</mat-radio-button>
+            </mat-radio-group>
+            <h3>c) Aperture di ventilazione adeguate*</h3>
+            <mat-radio-group formControlName="check_3_c">
+              <mat-radio-button [value]="1">Sì</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+              <mat-radio-button [value]="2">NC</mat-radio-button>
+            </mat-radio-group>
+            <h3>d) Coibentazioni idonee (esame visivo)*</h3>
+            <mat-radio-group formControlName="check_3_d">
+              <mat-radio-button [value]="1">Sì</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+              <mat-radio-button [value]="2">NC</mat-radio-button>
+            </mat-radio-group>
+          </ng-container>
+        </mat-expansion-panel>
+        <mat-expansion-panel formGroupName="statoDocumentazione">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              4. Stato della documentazione
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <h3>a) Libretto di impianto presente*</h3>
+          <mat-radio-group formControlName="check_4_a">
+            <mat-radio-button [value]="1">Sì</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+          </mat-radio-group>
+          <h3>b) Libretto di impianto compilato in tutte le sue parti*</h3>
+          <mat-radio-group formControlName="check_4_b">
+            <mat-radio-button [value]="1">Sì</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+          </mat-radio-group>
+          <h3>c) Dichiarazione conformità/rispondenza presente*</h3>
+          <mat-radio-group formControlName="check_4_c">
+            <mat-radio-button [value]="1">Sì</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+          </mat-radio-group>
+          <h3>d) Libretti uso/manutenzione generatore presenti*</h3>
+          <mat-radio-group formControlName="check_4_d">
+            <mat-radio-button [value]="1">Sì</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+          </mat-radio-group>
+        </mat-expansion-panel>
+        <mat-expansion-panel formGroupName="interventiMiglioramento">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              5. Interventi di miglioramento energetico dell'impianto
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <h3>a) Check list</h3>
+          <mat-checkbox formControlName="check_5_a_1">Sostituzione di macchine a regolazione on/off con altri di pari potenza a più gradini o a regolazione continua</mat-checkbox><br>
+          <mat-checkbox formControlName="check_5_a_2">Sostituzione di sistemi di regolazione on/off con sistemi programmabili a più livelli di temperatura</mat-checkbox><br>
+          <mat-checkbox formControlName="check_5_a_3">Isolamento della rete di distribuzione acqua calda/refrigerata nei locali non climatizzati</mat-checkbox><br>
+          <mat-checkbox formControlName="check_5_a_4">Isolamento dei canali di distribuzione aria calda/fredda nei locali non climatizzati</mat-checkbox>
+          <h3>b) Interventi atti a migliorare il rendimento energetico</h3>
+          <mat-checkbox formControlName="check_5_b_1">Non sono stati individuati interventi economicamente convenienti</mat-checkbox><br>
+          <mat-checkbox formControlName="check_5_b_2">Si allega relazione di dettaglio</mat-checkbox><br>
+          <mat-checkbox formControlName="check_5_b_3">Si rimanda a relazione di dettaglio successiva</mat-checkbox><br>
+          <mat-checkbox formControlName="check_5_b_4">Valutazione non eseguita</mat-checkbox><br>
+          <mat-form-field>
+            <mat-label>Motivo</mat-label>
+            <input matInput formControlName="motivo_5_b_4" type="text" appUpper>
+          </mat-form-field>
+          <h3>c) Stima del dimensionamento del/i generatore/i</h3>
+          <mat-checkbox formControlName="check_5_c_1">Dimensionamento corretto</mat-checkbox><br>
+          <mat-checkbox formControlName="check_5_c_2">Dimensionamento non corretto</mat-checkbox><br>
+          <mat-checkbox formControlName="check_5_c_3">Non controllabile</mat-checkbox><br>
+          <mat-checkbox formControlName="check_5_c_4">Si rimanda a relazione di dettaglio successiva</mat-checkbox>
+        </mat-expansion-panel>
+        <mat-expansion-panel formGroupName="gruppoFrigoPdc">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              6. Gruppo frigo/PDC
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <h3>a) Gruppo frigo/PDC</h3>
+          <mat-form-field>
+            <mat-label>Gruppo frigo/PDC</mat-label>
+            <input matInput formControlName="gruppoFrigoPdc" type="text">
+          </mat-form-field>
+          <h3>b) Circuiti N.°</h3>
+          <mat-form-field>
+            <mat-label>Circuiti N.°</mat-label>
+            <input matInput formControlName="circuitiNum" type="number">
+          </mat-form-field>
+          <h3>c) Data installazione</h3>
+          <mat-form-field>
+            <mat-label>Data installazione</mat-label>
+            <input matInput [matDatepicker]="picker10" formControlName="dataInstallazione">
+            <mat-datepicker-toggle matSuffix [for]="picker10"></mat-datepicker-toggle>
+            <mat-datepicker #picker10></mat-datepicker>
+          </mat-form-field>
+          <h3>d) Costruttore</h3>
+          <mat-form-field>
+            <mat-label>Costruttore</mat-label>
+            <input matInput formControlName="costruttore" type="text">
+          </mat-form-field>
+          <h3>e) Modello</h3>
+          <mat-form-field>
+            <mat-label>Modello</mat-label>
+            <input matInput formControlName="modello" type="text">
+          </mat-form-field>
+          <h3>f) Matricola</h3>
+          <mat-form-field>
+            <mat-label>Matricola</mat-label>
+            <input matInput formControlName="matricola" type="text">
+          </mat-form-field>
+          <h3>g) Fluido frigorigeno</h3>
+          <mat-form-field>
+            <mat-label>Fluido frigorigeno</mat-label>
+            <input matInput formControlName="fluidoFrigorigeno" type="text">
+          </mat-form-field>
+          <h3>h) Macchina dotata di inverter</h3>
+          <mat-radio-group formControlName="macchinaDotataDiInverter">
+            <mat-radio-button [value]="1">Sì</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+          </mat-radio-group>
+          <h3>i) Sorgente lato esterno</h3>
+          <mat-form-field>
+            <mat-label>Sorgente lato esterno</mat-label>
+            <input matInput formControlName="sorgenteLatoEsterno" type="text">
+          </mat-form-field>
+          <h3>j) Fluido lato utenze</h3>
+          <mat-form-field>
+            <mat-label>Fluido lato utenze</mat-label>
+            <input matInput formControlName="fluidoLatoUtenze" type="text">
+          </mat-form-field>
+          <h3>k) Dati nominali di riscaldamento</h3>
+          <div class="cit-two-cols-grid" formGroupName="k">
+            <mat-form-field>
+              <mat-label>COP (o η)</mat-label>
+              <input matInput formControlName="cop" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Potenza termica nominale (kW)</mat-label>
+              <input matInput formControlName="potenzaTermicaNominale" type="number">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Potenza assorbita nominale (kW)</mat-label>
+              <input matInput formControlName="potenzaAssorbitaNominale" type="number">
+            </mat-form-field>
+          </div>
+          <h3>l) Dati nominali di raffrescamento</h3>
+          <div class="cit-two-cols-grid" formGroupName="l">
+            <mat-form-field>
+              <mat-label>EER (o GUE)</mat-label>
+              <input matInput formControlName="eer" type="text">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Potenza frigorifera nominale (kW)</mat-label>
+              <input matInput formControlName="potenzaFrigoriferaNominale" type="number">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Potenza assorbita nominale (kW)</mat-label>
+              <input matInput formControlName="potenzaAssorbitaNominale" type="number">
+            </mat-form-field>
+          </div>
+          <h3>m) Tipo macchina</h3>
+          <mat-form-field>
+            <mat-label>Tipo macchina</mat-label>
+            <input matInput formControlName="tipoMacchina" type="text">
+          </mat-form-field>
+          <h3>n) Presenza apparecchiatura automatica rilevazione fughe refrigerate</h3>
+          <h4>Diretta (leak detector)</h4>
+          <mat-radio-group formControlName="diretta">
+            <mat-radio-button [value]="1">Sì</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+            <mat-radio-button [value]="2">NC</mat-radio-button>
+          </mat-radio-group>
+          <h4>Indiretta (parametri termodinamici)</h4>
+          <mat-radio-group formControlName="indiretta">
+            <mat-radio-button [value]="1">Sì</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+            <mat-radio-button [value]="2">NC</mat-radio-button>
+          </mat-radio-group>
+        </mat-expansion-panel>
+        <mat-expansion-panel formGroupName="manutenzioneAnalisi">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              7. Manutenzione e analisi
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <h3>a) Operazioni di controllo e manutenzione</h3>
+          <mat-form-field>
+            <mat-label>Frequenza</mat-label>
+            <mat-select formControlName="frequenza">
+              <mat-option *ngFor="let frequenzaManut of frequenzaManutList" [value]="frequenzaManut.codice">
+                {{frequenzaManut.descrizione}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="rapprovaForm.value.manutenzioneAnalisi.frequenza === '4'">
+            <mat-label>Altro</mat-label>
+            <input matInput formControlName="frequenzaManutAltro" type="text" appUpper>
+          </mat-form-field>
+          <h4>Ultima manutenzione prevista effettuata*</h4>
+          <mat-radio-group formControlName="ultimaManutenzione">
+            <mat-radio-button [value]="1">Sì</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field *ngIf="rapprovaForm.value.manutenzioneAnalisi.ultimaManutenzione">
+            <mat-label>In data</mat-label>
+            <input matInput [matDatepicker]="picker3" formControlName="ultimaManutenzioneInData">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
+          <h3>b) Registro dell'apparecchiatura</h3>
+          <mat-radio-group formControlName="registroApparecchiatura">
+            <mat-radio-button [value]="1">Regolarmente compilato</mat-radio-button>
+            <mat-radio-button [value]="0">Assente o non regolarmente compilato</mat-radio-button>
+            <mat-radio-button [value]="2">Non applicabile</mat-radio-button>
+          </mat-radio-group>
+          <h3>c) Rapporto controllo efficienza energetica</h3>
+          <h4>Presente*</h4>
+          <mat-radio-group formControlName="presente">
+            <mat-radio-button [value]="1">Sì</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field *ngIf="rapprovaForm.value.manutenzioneAnalisi.presente">
+            <mat-label>In data</mat-label>
+            <input matInput [matDatepicker]="picker4" formControlName="presenteInData">
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+          </mat-form-field>
+          <mat-checkbox formControlName="osservazioni">Osservazioni</mat-checkbox><br>
+          <mat-checkbox formControlName="raccomandazioni">Raccomandazioni</mat-checkbox><br>
+          <mat-checkbox formControlName="prescrizioni">Prescrizioni</mat-checkbox>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              8-9. Circuiti
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-tab-group formGroupName="circuiti" class="cit-fix-overflow-y">
+            <mat-tab *ngFor="let key of getCircuitiKeys(); let i = index" [formGroupName]="key" [label]="'Circuito ' + (i + 1)">
+              <h2>8. Controllo e verifica energetica</h2>
+              <h3>b) Prova eseguita in modalità</h3>
+              <mat-checkbox formControlName="raffrescamento">Raffrescamento</mat-checkbox><br>
+              <mat-checkbox formControlName="riscaldamento">Riscaldamento</mat-checkbox>
+              <h3>c) Filtri puliti*</h3>
+              <mat-radio-group formControlName="filtriPuliti">
+                <mat-radio-button [value]="1">Sì</mat-radio-button>
+                <mat-radio-button [value]="0">No</mat-radio-button>
+              </mat-radio-group>
+              <h3>d) Assenza perdite gas refrigerante*</h3>
+              <mat-radio-group formControlName="assenzaPerditeGasRefrigerante">
+                <mat-radio-button [value]="1">Sì</mat-radio-button>
+                <mat-radio-button [value]="0">No</mat-radio-button>
+                <mat-radio-button [value]="2">NC</mat-radio-button>
+              </mat-radio-group>
+              <h3>e) Strumento utilizzato</h3>
+              <div class="cit-two-cols-grid">
+                <mat-form-field>
+                  <mat-label>Marca</mat-label>
+                  <input matInput formControlName="marca" type="text" style="text-transform: uppercase;">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Modello</mat-label>
+                  <input matInput formControlName="modello" type="text" style="text-transform: uppercase;">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Matricola</mat-label>
+                  <input matInput formControlName="matricola" type="text" style="text-transform: uppercase;">
+                </mat-form-field>
+              </div>
+              <h3>f) Potenza assorbita (kW)</h3>
+              <mat-form-field>
+                <mat-label>Potenza assorbita</mat-label>
+                <input matInput formControlName="potenzaAssorbita" type="number">
+              </mat-form-field>
+              <h3>g) Strumentazione fissa per la misura delle temperature manometriche di condensazione ed evaporazione</h3>
+              <mat-radio-group formControlName="strumentazioneFissa">
+                <mat-radio-button [value]="1">Sì</mat-radio-button>
+                <mat-radio-button [value]="0">No</mat-radio-button>
+              </mat-radio-group>
+              <h3>h) Cognome e nome</h3>
+              <p>Dati dell'operatore patentato ai sensi del D.P.R. 43/2012</p>
+              <h3>i) Numero Iscrizione Reg. Imprese</h3>
+              <h3>j) Valori rilevati</h3>
+              <div class="cit-two-cols-grid">
+                <mat-form-field>
+                  <mat-label>Surriscaldamento (K)</mat-label>
+                  <input matInput formControlName="surriscaldamento" type="number">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Sottoraffreddamento (K)</mat-label>
+                  <input matInput formControlName="sottoraffreddamento" type="number">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Temperatura di condensazione (°C)</mat-label>
+                  <input matInput formControlName="temperaturaCondensazione" type="number">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Temperatura di evaporazione (°C)</mat-label>
+                  <input matInput formControlName="temperaturaEvaporazione" type="number">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Temperatura sorgente ingresso lato esterno (°C)</mat-label>
+                  <input matInput formControlName="temperaturaSorgenteIngressoLatoEsterno" type="number">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Temperatura sorgente uscita lato esterno (°C)</mat-label>
+                  <input matInput formControlName="temperaturaSorgenteUscitaLatoEsterno" type="number">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Temperatura ingresso fluido utenze (°C)</mat-label>
+                  <input matInput formControlName="temperaturaIngressoFluidoUtenze" type="number">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Temperatura uscita fluido utenze (°C)</mat-label>
+                  <input matInput formControlName="temperaturaUscitaFluidoUtenze" type="number">
+                </mat-form-field>
+              </div>
+              <h2>9. Esito della prova</h2>
+              <h3>a) Verifica superata</h3>
+              <mat-radio-group formControlName="verificaSuperata">
+                <mat-radio-button [value]="1">Sì</mat-radio-button>
+                <mat-radio-button [value]="0">No</mat-radio-button>
+              </mat-radio-group>
+              <h3>b) L'impianto rispetta la normativa (DPR 74/2013 e normativa regionale)</h3>
+              <mat-checkbox formControlName="rispettaNormativa">L'impianto rispetta la normativa</mat-checkbox>
+              <h3>c) L'impianto non rispetta la normativa per quanto riguarda i punti</h3>
+              <mat-checkbox formControlName="nonRispettaNormativaPunto7a">7.a</mat-checkbox><br>
+              <mat-checkbox formControlName="nonRispettaNormativaPunto7c">7.c</mat-checkbox><br>
+              <mat-checkbox formControlName="nonRispettaNormativaPunto8d">8.d</mat-checkbox><br>
+              <mat-checkbox formControlName="nonRispettaNormativaPunto9a">9.a</mat-checkbox>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-expansion-panel>
+        <mat-expansion-panel formGroupName="osservazioni">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              10. Osservazioni
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <mat-label>Osservazioni</mat-label>
+            <textarea matInput formControlName="osservazioni" rows="5" appUpper></textarea>
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel formGroupName="prescrizioni">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              11. Prescrizioni
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <mat-label>Prescrizioni</mat-label>
+            <textarea matInput formControlName="prescrizioni" rows="5" appUpper></textarea>
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel formGroupName="dichiarazioniResponsabile">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              12. Dichiarazioni del responsabile dell'impianto
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <mat-label>Raccomandazioni</mat-label>
+            <textarea matInput formControlName="raccomandazioni" rows="5" appUpper></textarea>
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div class="cit-two-cols-grid" style="row-gap: 10px;">
+        <button mat-stroked-button color="primary" type="button" style="width: 100%" (click)="salvaBozzaLocale()">
+          SALVA BOZZA LOCALE
+        </button>
+        <button mat-flat-button color="primary" style="width: 100%">
+          SALVA E INVIA
+        </button>
+      </div>
+    </form>
+  </ng-container>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto"></mat-spinner>
+  </ng-template>
+</div>

@@ -19,6 +19,7 @@ mat-form-field {
 .modifica {
     display: flex;
     align-items: center;
+
     button {
         margin-left: auto;
         font-weight: bold;
@@ -29,6 +30,7 @@ mat-form-field {
 
 .panel-title {
     font-weight: bold;
+    margin-left: 15px;
 }
 
 .expansion-panel {
@@ -45,7 +47,7 @@ mat-form-field {
 
 .component-button {
     border-radius: 35px;
-    width: 95%;
+    width: 100%;
 }
 
 .interno {
@@ -75,10 +77,12 @@ mat-form-field {
         font-weight: bold;
     }
 }
+
 .modulistica {
     font-size: 1.5em;
     font-weight: bold;
 }
+
 .modul-card {
     margin-top: 2em;
     margin-bottom: 2em;
@@ -87,4 +91,43 @@ mat-form-field {
 .no-prop-resp {
     width: 100%;
     height: 100%;
+}
+
+.dettaglio-impianto {
+    padding: 0 6% !important;
+}
+
+.card-grid{
+    margin-left: 2%;
+    margin-right: 3.5%;
+}
+
+.expansion-header-margin{
+    margin-right: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .card {
+        width: 92% !important;
+        margin: 2.5%;
+    }
+
+    .title-margin{
+        margin-left: -90px;
+    }
+
+    .radio-button-gap{
+        margin: 0 50px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: 84% !important;
+        margin: 2.5%;
+    }
+
+    .radio-button-gap{
+        margin: 0 10px;
+    }
 }

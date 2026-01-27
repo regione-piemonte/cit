@@ -1,0 +1,11 @@
+<div id="map" style="text-align: left;"></div>
+
+<!-- NECESSARY TO HAVE IDENTIFY ON MAP -->
+<app-identify 
+    [map]="map"
+    [olWmsList]="olWmsList"
+    [selectedFeatureList]="selectedFeatureList"
+    (clearSelectedFeatureEmit)="onClearSelectedFeature()"
+    (identifiedListEmit)="convertSelectedFeatureToGeoJson($event)"
+    (selectedIdentifyPointEmit)="selectedIdentifyPoint($event)"
+></app-identify>

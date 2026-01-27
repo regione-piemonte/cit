@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <p>{{data.message}}</p>
+</div>
+<div mat-dialog-actions style="justify-content: space-between">
+  <button mat-button color="primary" [mat-dialog-close]="false">Annulla</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Conferma</button>
+</div>

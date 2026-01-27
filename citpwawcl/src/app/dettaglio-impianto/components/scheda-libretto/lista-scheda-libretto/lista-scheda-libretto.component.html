@@ -1,0 +1,76 @@
+<div class="wide-screen">
+  <div style="padding: 0 8% 24px;" *ngFor="let scheda of schede; let i = index">
+    <mat-card (click)="scheda.isOpen = !scheda.isOpen" [ngClass]="{ 'open-border': scheda.isOpen }"
+      class="card mat-elevation-z0 top-card" [ngStyle]="{'width.%': cardWidth}">
+      {{ scheda.text }}
+      <mat-icon class="rotate-animation end-icon" [ngClass]="{'rotate180': scheda.isOpen}">
+        keyboard_arrow_up
+      </mat-icon>
+    </mat-card>
+    <mat-card class="card mat-elevation-z0 open-card" *ngIf="scheda.isOpen" style="background-color: #f2f2f2;"
+      [ngStyle]="{'width.%': cardWidth}">
+      <ng-container *ngFor="let el of scheda.sub; let j = index">
+        <div class="scheda-elements" (click)="doEvent(el.event)">
+          <mat-icon style="color: #0187c1;">folder_open</mat-icon>
+          <span>{{ el.text }}</span>
+        </div>
+      </ng-container>
+    </mat-card>
+  </div>
+  <div style="padding: 0 8% 24px;">
+    <mat-card class="card card-link contaner-card mat-elevation-z0 top-card" >   <!-- [ngStyle]="{'width.%': cardWidth}" -->
+      <mat-grid-list cols="1" rowHeight="2em" class="modul-card">
+        <!-- <mat-grid-tile>
+          <div class="left-elem">
+            <button mat-button style="padding:0;" class="add-component primary-color" (click)="verificaLibretto()" id="linkLibretto">
+              <p class="bold">VERIFICA LIBRETTO IMPIANTO</p>
+            </button>
+          </div>
+        </mat-grid-tile> -->
+        <mat-grid-tile>
+          <div class="left-elem" *ngIf="consolidaLibrettoEnabled">
+            <button mat-button style="padding:0;" class="add-component primary-color" routerLink="lista" (click)="consolidaLibretto()"
+              id="linkLibretto">
+              <p class="bold">CONSOLIDA LIBRETTO IMPIANTO</p>
+            </button>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card>
+    <mat-card class="card mat-elevation-z8 top-card" [ngStyle]="{'width.%': cardWidth}">
+      <mat-card-content>
+        <mat-grid-list cols="1" rowHeight="2em">
+          <mat-grid-tile>
+            <div class="left-elem">
+              <p class="modulistica">Modulistica</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile rowspan="3">
+            <div class="left-elem">
+              <div class="download-libretto">
+                <img [src]="pathPdf" alt="pdf">
+                <button mat-button (click)="scaricaLibretto(1)">Libretto consolidato (PDF)</button>
+              </div>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile rowspan="3">
+            <div class="left-elem">
+              <div class="download-libretto">
+                <img [src]="pathPdf" alt="pdf">
+                <button mat-button (click)="scaricaLibretto(2)">Libretto consolidato (XML)</button>
+              </div>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile rowspan="3">
+            <div class="left-elem">
+              <div class="download-libretto">
+                <img [src]="pathPdf" alt="pdf">
+                <button mat-button (click)="scaricaLibretto(3)">Visualizza bozza libretto</button>
+              </div>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

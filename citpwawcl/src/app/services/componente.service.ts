@@ -104,7 +104,7 @@ export class ComponenteService {
     const url: string = this.apiUrl + "/tipologiaGT";
     return this.http.get<CodiceDescrizione[]>(url);
   }
-  
+
   getTipologiaGF() {
     const url: string = this.apiUrl + "/tipologiaGF";
     return this.http.get<CodiceDescrizione[]>(url);

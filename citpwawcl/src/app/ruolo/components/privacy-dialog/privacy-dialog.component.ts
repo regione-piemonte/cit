@@ -11,6 +11,7 @@ export class PrivacyDialogComponent implements OnInit {
   constructor(private readonly authService: AuthenticationService) { }
 
   ngOnInit(): void {
+    //Not Implemented
   }
 
   rifiuta() {

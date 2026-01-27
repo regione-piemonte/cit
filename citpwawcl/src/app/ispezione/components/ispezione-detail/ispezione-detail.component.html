@@ -1,0 +1,276 @@
+<div class="cit-page-container">
+  <app-page-title>Dettaglio Ispezione</app-page-title>
+  <app-breadcrumb label="Risultato Ispezioni" [link]="['/', 'lista-ispezioni']"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <mat-card style="margin-bottom: 40px">
+      <mat-card-title style="display: flex; justify-content: space-between; align-items: center">
+        Dati Ispezione
+        <ng-container *ngIf="!editMode && isBozza()">
+          <button *ngxPermissionsOnly="'MODIFICA_ISPEZIONE'" mat-button color="primary" [routerLink]="['/', 'dettaglio-ispezione', ispezione.idIspezione2018, 'edit']">
+            <mat-icon>edit</mat-icon>
+            Modifica
+          </button>
+        </ng-container>
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="ispezioneForm" (ngSubmit)="submit()">
+          <div class="cit-two-cols-grid">
+            <mat-form-field>
+              <mat-label>Ispezione numero</mat-label>
+              <input matInput formControlName="idIspezione2018" type="number">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Data creazione</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dtCreazione">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Assegnatario</mat-label>
+              <mat-select formControlName="cfUtenteAssegn">
+                <mat-option *ngFor="let ispettore of ispettoreList" [value]="ispettore.codicefiscale">
+                  {{ispettore.cognome}} {{ispettore.nome}} ({{ispettore.codicefiscale}})
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <ng-container *ngIf="!editMode && isBozza()">
+                <button *ngxPermissionsOnly="'ASSEGNA_ISPEZIONE'" mat-button color="primary" type="button" style="margin-bottom: 20px" [routerLink]="['/', 'dettaglio-ispezione', ispezione.idIspezione2018, 'assegna']">
+                  <mat-icon>link</mat-icon>
+                  Assegna ispezione
+                </button>
+              </ng-container>
+            </div>
+            <mat-form-field class="placeholder-dark">
+              <mat-label>Secondo ispettore</mat-label>
+              <mat-select formControlName="cfIspettoreSecondario">
+                <mat-option *ngFor="let ispettore of ispettoreList" [value]="ispettore.codicefiscale">
+                  {{ispettore.cognome}} {{ispettore.nome}} ({{ispettore.codicefiscale}})
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Stato</mat-label>
+              <mat-select formControlName="fkStatoIspezione">
+                <mat-option *ngFor="let stato of statoIspezioneList" [value]="stato.idStatoIspezione">
+                  {{stato.desStatoIspezione}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Codice impianto</mat-label>
+              <input matInput formControlName="codiceImpianto" type="number">
+            </mat-form-field>
+            <div>
+              <ng-container *ngIf="!editMode && isBozza() && !rapprovaList.length">
+                <button *ngxPermissionsOnly="'ASSEGNA_IMPIANTO_A_ISPEZIONE'" mat-button color="primary" type="button" style="margin-bottom: 20px" [routerLink]="['/', 'dettaglio-ispezione', ispezione.idIspezione2018, 'assegna-impianto']">
+                  <mat-icon>link</mat-icon>
+                  Assegna impianto a ispezione
+                </button>
+              </ng-container>
+            </div>
+            <mat-form-field>
+              <mat-label>Indirizzo</mat-label>
+              <input matInput formControlName="indirizzo" appUpper>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Provincia competenza</mat-label>
+              <mat-select formControlName="istatProvCompetenza">
+                <mat-option *ngFor="let provincia of provinciaList" [value]="provincia.codiceIstat.substring(0, 3)">
+                  {{provincia.provincia}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Comune competenza</mat-label>
+              <mat-select formControlName="istatComuneCompetenza">
+                <mat-option *ngFor="let comune of comuneEstesoList" [value]="comune.codiceIstat">
+                  {{comune.comune}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-checkbox formControlName="flgIspPagamento">Ispezione a pagamento</mat-checkbox>
+            <mat-form-field>
+              <mat-label>Data conclusione</mat-label>
+              <input matInput [matDatepicker]="picker3" formControlName="dtConclusione">
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Esito ispezione</mat-label>
+              <mat-select formControlName="flgEsito">
+                <mat-option [value]="1">POSITIVO</mat-option>
+                <mat-option [value]="0">NEGATIVO</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Ente competente</mat-label>
+              <input matInput formControlName="enteCompetente" appUpper>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Note</mat-label>
+              <textarea matInput formControlName="note" rows="5" appUpper></textarea>
+            </mat-form-field>
+            <mat-card style="margin-bottom: 20px; background-color: #F7F7F7">
+              <mat-card-title style="display: flex; justify-content: space-between; align-items: center">
+                Sveglia attuale
+                <button mat-icon-button color="accent" type="button" [disabled]="!editMode" (click)="clearSveglia()">
+                  <mat-icon>backspace</mat-icon>
+                </button>
+              </mat-card-title>
+              <mat-card-content>
+                <mat-card class="mat-elevation-z0">
+                  <mat-form-field>
+                    <mat-label>Data</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="dtSveglia">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Descrizione</mat-label>
+                    <textarea matInput formControlName="noteSveglia" rows="5" appUpper></textarea>
+                  </mat-form-field>
+                </mat-card>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <ng-container *ngIf="editMode">
+            <hr>
+            <button mat-button color="primary" [routerLink]="['/', 'dettaglio-ispezione', ispezione.idIspezione2018]">ANNULLA</button>
+            <button mat-flat-button color="primary" style="float: right">SALVA</button>
+          </ng-container>
+        </form>
+      </mat-card-content>
+    </mat-card>
+    <ng-container *ngIf="!editMode">
+      <app-page-title>Elenco rapporti di prova</app-page-title>
+      <ng-container *ngIf="isBozza() && ispezione.codiceImpianto">
+        <div *ngxPermissionsOnly="'AGGIUNGI_RAPPROVA'" style="margin-bottom: 10px; text-align: right">
+          <button mat-button color="primary" (click)="onAggiungiRapProvaClick()">
+            <mat-icon>add</mat-icon>
+            Aggiungi
+          </button>
+        </div>
+      </ng-container>
+      <div *ngIf="rapprovaLocaleList.length || rapprovaList.length" class="cit-three-cols-grid" style="margin-bottom: 40px">
+        <mat-card *ngFor="let rapprovaLocale of rapprovaLocaleList" [class]="getRapprovaCardClass(rapprovaLocale)">
+          <p>Data Rapporto di Prova: <strong>{{rapprovaLocale.datiRapProva.dataControllo | date:'dd/MM/yyyy'}}</strong></p>
+          <p>Componente: <strong>{{rapprovaLocale.datiRapProva.elencoApparecchiature}}</strong></p>
+          <p>Stato Rapporto di Prova: <strong class="rapprova-state">{{getRapprovaState(rapprovaLocale)}}</strong></p>
+          <hr style="clear: both;">
+          <ng-container *ngIf="hasRapprovaPendingOp(rapprovaLocale); else rapprovaLocaleButtons">
+            <button mat-button color="primary" (click)="cancelRapprovaPendingOp(rapprovaLocale)">
+              Annulla
+            </button>
+          </ng-container>
+          <ng-template #rapprovaLocaleButtons>
+            <ng-container *ngIf="ispezione.codiceImpianto">
+              <button *ngxPermissionsOnly="'INVIA_RAPPROVA'" mat-button color="primary" (click)="inviaRapprovaAlert()">
+                Invia
+              </button>
+              <button *ngxPermissionsOnly="'MODIFICA_RAPPROVA'" mat-button color="primary" (click)="modificaRapprova(rapprovaLocale)">
+                Modifica
+              </button>
+              <ng-container *ngIf="isBozza()">
+                <button *ngxPermissionsOnly="'ELIMINA_RAPPROVA'" mat-icon-button color="accent" style="float: right" (click)="deleteRapprovaConfirm(rapprovaLocale)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </ng-container>
+            </ng-container>
+          </ng-template>
+        </mat-card>
+        <ng-container *ngFor="let rapprova of rapprovaList">
+          <mat-card *ngFor="let componente of rapprova.componenti" [class]="getRapprovaCardClass(rapprova)">
+            <p>Data Rapporto di Prova: <strong>{{rapprova.dtControllo | date:'dd/MM/yyyy'}}</strong></p>
+            <p>Componente: <strong>{{componente}}</strong></p>
+            <p>Stato Rapporto di Prova: <strong class="rapprova-state">{{getRapprovaState(rapprova)}}</strong></p>
+            <hr style="clear: both;">
+            <ng-container *ngIf="hasRapprovaPendingOp(rapprova); else rapprovaButtons">
+              <button mat-button color="primary" (click)="cancelRapprovaPendingOp(rapprova)">
+                Annulla
+              </button>
+            </ng-container>
+            <ng-template #rapprovaButtons>
+              <ng-container *ngIf="ispezione.codiceImpianto">
+                <ng-container *ngIf="rapprova.fkStatoRapp === 0">
+                  <button *ngxPermissionsOnly="'INVIA_RAPPROVA'" mat-button color="primary" (click)="inviaRapprovaAlert()">
+                    Invia
+                  </button>
+                  <button *ngxPermissionsOnly="'MODIFICA_RAPPROVA'" mat-button color="primary" (click)="modificaRapprova(rapprova)">
+                    Modifica
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="rapprova.fkStatoRapp === 1">
+                  <button *ngxPermissionsOnly="'PDF_DETTAGLIO_RAPPROVA'" mat-button color="accent" (click)="downloadRapprova(rapprova)">
+                    <img src="assets/misc/acrobat.svg" alt="" style="width: 24px; height: 24px">
+                    PDF Dettaglio Rapprova
+                  </button><br>
+                  <button *ngxPermissionsOnly="'PDF_RAPPROVA_FIRMATO'" mat-button color="accent" (click)="downloadRapprovaFirmato(rapprova)">
+                    <img src="assets/misc/acrobat.svg" alt="" style="width: 24px; height: 24px">
+                    PDF Rapprova firmato
+                  </button><br>
+                  <button *ngxPermissionsOnly="'CARICA_RAPPROVA_FIRMATO'" mat-button color="primary" (click)="uploadRapprovaFirmato(rapprova)">
+                    Carica rapprova firmato
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="isBozza()">
+                  <button *ngxPermissionsOnly="'ELIMINA_RAPPROVA'" mat-icon-button color="accent" style="float: right" (click)="deleteRapprovaConfirm(rapprova)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+              </ng-container>
+            </ng-template>
+          </mat-card>
+        </ng-container>
+      </div>
+      <p *ngIf="!rapprovaLocaleList.length && !rapprovaList.length" style="margin-bottom: 40px">Nessun rapporto di prova presente per questa ispezione.</p>
+      <app-page-title>Elenco azioni svolte</app-page-title>
+      <ng-container *ngIf="isBozza()">
+        <div *ngxPermissionsOnly="'AGGIUNGI_AZIONE_ISPEZIONE'" style="margin-bottom: 10px; text-align: right">
+          <button mat-button color="primary" [routerLink]="['/', 'dettaglio-ispezione', ispezione.idIspezione2018, 'nuova-azione']">
+            <mat-icon>add</mat-icon>
+            Aggiungi
+          </button>
+        </div>
+      </ng-container>
+      <div *ngIf="azioneList.length" class="cit-three-cols-grid" style="margin-bottom: 40px">
+        <mat-card *ngFor="let azione of azioneList">
+          <p>Data azione: <strong>{{azione.dtAzione | date:'dd/MM/yyyy'}}</strong></p>
+          <p>Eseguita da: <strong>{{azione.denomUtenteAzione}} ({{azione.cfUtenteAzione}})</strong></p>
+          <p>Nome documento: <strong>{{azione.nomeDocOriginale | orDash}}</strong></p>
+          <p>Descrizione: <strong>{{azione.descrizioneAzione}}</strong></p>
+          <ng-container *ngIf="azione.uidIndex">
+            <hr>
+            <button mat-button [color]="getDocumentoAzioneColor(azione)" (click)="downloadDocumentoAzione(azione)">
+              <mat-icon *ngIf="getDocumentoAzioneExt(azione) !== 'pdf'">{{getDocumentoAzioneIcon(azione)}}</mat-icon>
+              <img *ngIf="getDocumentoAzioneExt(azione) === 'pdf'" src="assets/misc/acrobat.svg" alt="" style="width: 24px; height: 24px">
+              {{getDocumentoAzioneLabel(azione)}}
+            </button>
+          </ng-container>
+        </mat-card>
+      </div>
+      <p *ngIf="!azioneList.length" style="margin-bottom: 40px">Nessuna azione presente per questa ispezione.</p>
+      <button *ngIf="ispezione.fkVerifica" mat-button color="primary" style="margin-bottom: 10px" [routerLink]="['/', 'dettaglio-verifica', ispezione.fkVerifica]">
+        VISUALIZZA VERIFICA
+      </button><br>
+      <button *ngIf="ispezione.fkAccertamento" mat-button color="primary" style="margin-bottom: 10px" (click)="comingSoon()">
+        VISUALIZZA ACCERTAMENTO
+      </button><br>
+      <ng-container *ngIf="isBozza() && ispezione.codiceImpianto">
+        <button *ngxPermissionsOnly="'CONCLUDI_ISPEZIONE'" mat-button color="primary" style="margin-bottom: 10px" [routerLink]="['/', 'dettaglio-ispezione', ispezione.idIspezione2018, 'concludi']">
+          CONCLUDI ISPEZIONE
+        </button>
+      </ng-container><br>
+      <ng-container *ngIf="!isAnnullato()">
+        <button *ngxPermissionsOnly="'ANNULLA_ISPEZIONE'" mat-button color="primary" (click)="annullaIspezioneConfirm()">
+          ANNULLA ISPEZIONE
+        </button>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto 20px auto"></mat-spinner>
+  </ng-template>
+</div>

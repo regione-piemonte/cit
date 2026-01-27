@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="31.212" height="31.502" viewBox="0 0 31.212 31.502">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.15" y1="0.173" x2="0.653" y2="0.893" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#b8191a"/>
+      <stop offset="1" stop-color="#006cb4"/>
+    </linearGradient>
+  </defs>
+  <g id="Raggruppa_20971" data-name="Raggruppa 20971" transform="translate(-9015.456 -10699.25)">
+    <g id="Raggruppa_20902" data-name="Raggruppa 20902" transform="translate(9022 10700)">
+      <path id="Tracciato_60122" data-name="Tracciato 60122" d="M32.077,8A3.862,3.862,0,0,0,28,11.575a3.862,3.862,0,0,0,4.077,3.575h0a3.862,3.862,0,0,0,4.077-3.575A3.862,3.862,0,0,0,32.077,8Z" transform="translate(-24.05 -8)" fill="none" stroke="#b8191a" stroke-width="1.5"/>
+      <path id="Tracciato_60123" data-name="Tracciato 60123" d="M19.183,50.8a5.376,5.376,0,0,1-6.476,0A6.316,6.316,0,0,0,8,57.015v1.543H23.891V57.015A6.316,6.316,0,0,0,19.183,50.8Z" transform="translate(-7.918 -41.143)" fill="none" stroke="#b8191a" stroke-width="1.5"/>
+    </g>
+    <g id="Raggruppa_20905" data-name="Raggruppa 20905" transform="translate(9029.945 10712.479)">
+      <path id="Tracciato_60122-2" data-name="Tracciato 60122" d="M32.077,8A3.862,3.862,0,0,0,28,11.575a3.862,3.862,0,0,0,4.077,3.575h0a3.862,3.862,0,0,0,4.077-3.575A3.862,3.862,0,0,0,32.077,8Z" transform="translate(-24.05 -8)" fill="#fff" stroke="#006cb4" stroke-width="1.5"/>
+      <path id="Tracciato_60123-2" data-name="Tracciato 60123" d="M19.183,50.8a5.376,5.376,0,0,1-6.476,0A6.316,6.316,0,0,0,8,57.015v1.543H23.891V57.015A6.316,6.316,0,0,0,19.183,50.8Z" transform="translate(-7.918 -41.143)" fill="none" stroke="#006cb4" stroke-width="1.5"/>
+    </g>
+    <path id="Tracciato_64984" data-name="Tracciato 64984" d="M32.1,115.834h-.357c-4.029-.015-7.618-2.091-8.988-5.2a14.2,14.2,0,0,0,7.717,2.171q.658,0,1.31-.054l.319-.027V110.46l4.375,3.587a.228.228,0,0,1,0,.367L32.1,118Z" transform="matrix(0.799, 0.602, -0.602, 0.799, 9068.304, 10614.507)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

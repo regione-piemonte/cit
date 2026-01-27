@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Errore } from 'src/app/models/errore';
-import { Impianto } from 'src/app/models/impianto';
 import { LoccsiFeature } from 'src/app/models/loccsi-feature';
 import { ImpiantoService } from 'src/app/services/impianto.service';
+import { ResultService } from 'src/app/services/result.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { ICONSURL, LOCCSI } from 'src/app/utils/constants';
 
@@ -29,10 +29,15 @@ export class RicercaIndirizzoDialogComponent implements OnInit {
   loccsiClicked: boolean = false;
   currentAddress: LoccsiFeature;
 
-  constructor(public dialogRef: MatDialogRef<RicercaIndirizzoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Impianto[],
-    private fb: FormBuilder, private readonly impiantoService: ImpiantoService, readonly spinnerService: SpinnerService) {
+  isRicercaCompletaChecked: boolean = false;
 
+  constructor(public dialogRef: MatDialogRef<RicercaIndirizzoDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private readonly result: ResultService,
+    private fb: FormBuilder,
+    private readonly impiantoService: ImpiantoService,
+    readonly spinnerService: SpinnerService) {
+    this.isRicercaCompletaChecked = data.isRicercaCompletaChecked;
     this.searchForm = this.fb.group({
       indirizzo: [""],
       indirizzoLoccsi: [""]
@@ -72,9 +77,11 @@ export class RicercaIndirizzoDialogComponent implements OnInit {
   }
 
   ricercaIndirizzo() {
+    this.result.setRicercaCompletaChecked(this.isRicercaCompletaChecked);
+
     if (this.isValueSet) {
-      this.impiantoService.getImpiantoByFilter(undefined, undefined, undefined, undefined, undefined, undefined,
-        undefined, undefined, undefined, this.x, this.y, this.distanza).subscribe((element: Impianto[]) => {
+      this.impiantoService.getGeoJsonByFilter(this.isRicercaCompletaChecked, undefined, undefined, undefined, undefined, undefined, undefined,
+        undefined, undefined, undefined, this.x, this.y, this.distanza, undefined).subscribe((element: string) => {
           this.dialogRef.close({
             data: element,
             error: undefined,
@@ -88,7 +95,7 @@ export class RicercaIndirizzoDialogComponent implements OnInit {
               });
             } else {
               this.dialogRef.close({
-                data: undefined,
+                data: [],
                 error: error.error as Errore,
               });
             }
@@ -105,8 +112,8 @@ export class RicercaIndirizzoDialogComponent implements OnInit {
         }
         indirizzoFormatted += " " + this.currentAddress.properties.nomeVia;
       }
-      this.impiantoService.getImpiantoByFilter(undefined, undefined, undefined, undefined, undefined, undefined, undefined,
-        indirizzoFormatted, this.currentAddress.properties.civicoNum ? this.currentAddress.properties.civicoNum : undefined, undefined, undefined, undefined, this.currentAddress.properties.comune).subscribe((element: Impianto[]) => {
+      this.impiantoService.getGeoJsonByFilter(this.isRicercaCompletaChecked, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
+        indirizzoFormatted, this.currentAddress.properties.civicoNum ? this.currentAddress.properties.civicoNum : undefined, undefined, undefined, undefined, this.currentAddress.properties.comune).subscribe((element: string) => {
           this.dialogRef.close({
             data: element,
             error: undefined,
@@ -120,7 +127,7 @@ export class RicercaIndirizzoDialogComponent implements OnInit {
               });
             } else {
               this.dialogRef.close({
-                data: undefined,
+                data: [],
                 error: error.error,
               });
             }

@@ -1,0 +1,28 @@
+:host {
+    display: flex;
+    & #map {
+        // set map to use all the space available 
+        height: 100%;
+        width: 100%;
+        flex: 1 1 auto;
+    }
+  }
+
+/**
+* If is on mobile screen
+*/
+::ng-deep #geolocation-container {
+    // If is mobile screen recalc position of button, because zoom button are bigger than Desktop
+    @media only screen and (max-width: 600px) {
+        // calc is = margin-top + button height * 2 + margin-bottom
+        top: calc(0.5em + (33px * 2) + 0.5em)!important;
+    }
+}
+
+// Position of layer switcher
+::ng-deep .ol-control.ol-layerswitcher-image.ol-collapsed, ::ng-deep .ol-control.ol-layerswitcher-image {    
+    bottom: calc(0.5em + 18px + 0.5em) !important;    
+    left: 0.5em !important;    
+    top: unset !important;    
+    right: unset !important;  
+}

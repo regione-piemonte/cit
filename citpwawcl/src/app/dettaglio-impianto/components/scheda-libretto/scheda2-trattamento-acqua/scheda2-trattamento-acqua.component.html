@@ -1,0 +1,327 @@
+<div class="wide-screen" #wideScreen *ngIf="!!form" id="targetRed">
+    <div  style="width: 83%; margin: auto;">
+        <app-message-box [ngClass]="{ 'fade-out': doFade }" [titolo]="'Successo'"
+            descrizione="Modifica della scheda 'Trattamento acqua' avvenuto con successo" *ngIf="isSuccess" [type]="4">
+        </app-message-box>
+    </div>
+    <div style="width: 83%; margin: auto;">
+        <form class="form-container" [formGroup]="form" style="width: 100%;">
+       
+            <div class="button-container">
+                <div class="button-wrapper right-elem">
+                    <button mat-button [color]="isModifica ? 'warn' : 'primary'" class="modify" *ngIf="modificaVisibile()"
+                        (click)="doModificaBottonEvent()" [disabled]="isModifica">
+                        <mat-icon>edit</mat-icon>
+                        {{ 'Modifica'}}
+                    </button>
+                </div>
+            </div>
+
+            <!-- FORM CONTROL '2.1' START -->
+
+            <mat-card class="wide-card mat-elevation-z8">
+                <h3 class="card-title">2.1 - Contenuto d'acqua dell'impianto (m³)</h3>
+                <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="4em">
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <input type="number"
+                                matInput
+                                formControlName="l21H2oClimam3">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+
+            <!-- FORM SUB-GROUP '2.1' END -->
+
+            <!-- FORM SUB-GROUP '2.2' START -->
+
+            <mat-card class="wide-card mat-elevation-z8">
+                <h3 class="card-title">2.2 - Durezza totale dell'acqua (ºfr)</h3>
+                <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="4em">
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <input type="number"
+                                matInput
+                                formControlName="l22DurezzaH2oFr">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+
+            <!-- FORM SUB-GROUP '2.2' END -->
+
+            <!-- FORM SUB-GROUP '2.3' START -->
+
+            <mat-card class="wide-card mat-elevation-z8">
+                <h3 class="card-title">2.3 Trattamento dell’acqua dell’impianto di climatizzazione (Rif. UNI 8065)</h3>
+                <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="4em" style="margin-top: 34px;">
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Assente &nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l23FlgTrattClimaAssente">
+                                {{ form.controls.l23FlgTrattClimaAssente.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Filtrazione &nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l23FlgTrattClimaFiltr">
+                                {{ form.controls.l23FlgTrattClimaFiltr.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Addolcimento&nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l23FlgTrattClimaAddolc">
+                                {{ form.controls.l23FlgTrattClimaAddolc.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="form.controls.l23FlgTrattClimaAddolc.value">
+                        <mat-form-field class="form-field">
+                            <input type="number" matInput placeholder="Durezza totale acqua impianto (°fr)" formControlName="l23DurezzaTotH2oFr">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Condizionamento chimico&nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l23FlgTrattClimaChimico">
+                                {{ form.controls.l23FlgTrattClimaChimico.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="formColBreakpoint">
+                        <h3 class="card-title">Protezione del gelo:</h3>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Assente &nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l23FlgTrattGeloAssente">
+                                {{ form.controls.l23FlgTrattGeloAssente.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Glicole etilenico&nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l23FlgTrattGeloGliEtil">
+                                {{ form.controls.l23FlgTrattGeloGliEtil.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="form.controls.l23FlgTrattGeloGliEtil.value">
+                        <mat-form-field class="form-field">
+                            <input type="number" min="0" max="100" matInput placeholder="Concentrazione glicole nel fluido termovettore (%)" formControlName="l23PercGliEtil">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="form.controls.l23FlgTrattGeloGliEtil.value">
+                        <mat-form-field class="form-field">
+                            <input type="number" min="0" max="14" matInput placeholder="Concentrazione glicole nel fluido termovettore (pH)" formControlName="l23PhGliEtil">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Glicole propilenico&nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l23FlgTrattGeloGliProp">
+                                {{ form.controls.l23FlgTrattGeloGliProp.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="form.controls.l23FlgTrattGeloGliProp.value">
+                        <mat-form-field class="form-field">
+                            <input type="number" min="0" max="100" matInput placeholder="Concentrazione glicole nel fluido termovettore (%)" formControlName="l23PercGliProp">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="form.controls.l23FlgTrattGeloGliProp.value">
+                        <mat-form-field class="form-field">
+                            <input type="number" min="0" max="14" matInput placeholder="Concentrazione glicole nel fluido termovettore (pH)" formControlName="l23PhGliProp">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+
+            <!-- FORM SUB-GROUP '2.3' END -->
+
+            <!-- FORM SUB-GROUP '2.4' START -->
+
+            <mat-card class="wide-card mat-elevation-z8">
+                <h3 class="card-title">2.4 Trattamento dell’acqua calda sanitaria (Rif. UNI 8065)</h3>
+                <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="4em" style="margin-top: 34px;">
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Assente &nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l24FlgTrattAcsAssente">
+                                {{ form.controls.l24FlgTrattAcsAssente.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Filtrazione &nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l24FlgTrattAcsFiltr">
+                                {{ form.controls.l24FlgTrattAcsFiltr.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Addolcimento &nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l24FlgTrattAcsAddolc">
+                                {{ form.controls.l24FlgTrattAcsAddolc.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="form.controls.l24FlgTrattAcsAddolc.value">
+                        <mat-form-field class="form-field">
+                            <input type="number" matInput placeholder="Durezza totale uscita addolcitore (°fr)" formControlName="l24DurezzaAddolcFr">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Condizionamento chimico &nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l24FlgTrattAcsChimico">
+                                {{ form.controls.l24FlgTrattAcsChimico.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+
+            <!-- FORM SUB-GROUP '2.4' END -->
+
+            <!-- FORM SUB-GROUP '2.5' START -->
+
+            <mat-card class="wide-card mat-elevation-z8">
+                <h3 class="card-title">2.5 Trattamento dell’acqua di raffreddamento dell’impianto di climatizzazione estiva</h3>
+                <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="5em" style="margin-top: 34px;">
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Assente &nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l25FlgTrattRaffAssente">
+                                {{ form.controls.l25FlgTrattRaffAssente.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Tipologia circuito di raffreddamento" formControlName="l25TipologiaTrattRaff">
+                                <mat-option></mat-option>
+                                <mat-option [value]="0">Senza recupero termico</mat-option>
+                                <mat-option [value]="1">A recupero termico parziale</mat-option>
+                                <mat-option [value]="2">A recupero termico totale</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Origine acqua di alimento" formControlName="l25TipologiaOrigineH2O">
+                                <mat-option></mat-option>
+                                <mat-option [value]="0">Acquedotto</mat-option>
+                                <mat-option [value]="1">Pozzo</mat-option>
+                                <mat-option [value]="2">Acqua superficiale</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile></mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Trattamenti acqua esistenti - Filtrazione" formControlName="l25TipologiaTrattH2OEsisFiltr">
+                                <mat-option></mat-option>
+                                <mat-option [value]="0">Filtrazione di sicurezza</mat-option>
+                                <mat-option [value]="1">Filtrazione a masse</mat-option>
+                                <mat-option [value]="2">Nessun trattamento</mat-option>
+                                <mat-option [value]="3">Altro</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile >
+                        <mat-form-field class="form-field" *ngIf="form.controls.l25TipologiaTrattH2OEsisFiltr.value === 3">
+                            <textarea matInput placeholder="Descrizione Altro" formControlName="l25TrattFAltro" appUpper></textarea>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Trattamenti acqua esistenti - Trattamento acqua" formControlName="l25TipologiaTrattH2OEsisTrattH2O">
+                                <mat-option></mat-option>
+                                <mat-option [value]="0">Addolcimento</mat-option>
+                                <mat-option [value]="1">Osmosi inversa</mat-option>
+                                <mat-option [value]="2">Demineralizzazione</mat-option>
+                                <mat-option [value]="3">Nessun trattamento</mat-option>
+                                <mat-option [value]="4">Altro</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile >
+                        <mat-form-field class="form-field" *ngIf="form.controls.l25TipologiaTrattH2OEsisTrattH2O.value === 4">
+                            <textarea matInput placeholder="Descrizione Altro" formControlName="l25TrattTAltro" appUpper></textarea>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Trattamenti acqua esistenti - Condizionamento chimico" formControlName="l25TipologiaTrattCondChimico">
+                                <mat-option></mat-option>
+                                <mat-option [value]="0">A prevalente azione antincrostante</mat-option>
+                                <mat-option [value]="1">A prevalente azione anticorrosiva</mat-option>
+                                <mat-option [value]="2">Azione antincrostante e anticorrosiva</mat-option>
+                                <mat-option [value]="3">Biocida</mat-option>
+                                <mat-option [value]="4">Nessun trattamento</mat-option>
+                                <mat-option [value]="5">Altro</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile >
+                        <mat-form-field class="form-field" *ngIf="form.controls.l25TipologiaTrattCondChimico.value === 5">
+                            <textarea matInput placeholder="Descrizione Altro" formControlName="l25TrattCAltro" appUpper></textarea>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="formColBreakpoint">
+                        <h3 class="card-title">Gestione torre raffreddamento:</h3>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Preferenza sistemi di spurgo automatico (per circuiti a recupero parziale) &nbsp;</label>
+                            <mat-slide-toggle color="primary" formControlName="l25FlgSpurgoAutom">
+                                {{ form.controls.l25FlgSpurgoAutom.value  ? 'SI' : 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <input type="number" min="0" matInput placeholder="Conducibilità acqua in ingresso μS/cm" formControlName="l25ConducH2oIng" appUpper>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <input type="number" min="0" matInput placeholder="Taratura valore conducibilità inizio spurgo μS/cm" formControlName="l25Taratura" appUpper>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+ 
+            <!-- FORM SUB-GROUP '2.5' END -->
+
+            <div style="text-align: center;" *ngIf="isModifica">
+                <mat-grid-list cols="12" rowHeight="2em">
+                    <mat-grid-tile [colspan]="6" rowspan="2">
+                        <div class="left-elem">
+                            <button class="back annulla primary-color" mat-button (click)="doModificaBottonEvent()">
+                                ANNULLA
+                            </button>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="6" rowspan="2">
+                        <div class="right-elem">
+                            <button type="submit" mat-button class="default-button center form-field" (click)="salva()" [disabled]="!form.valid">
+                                SALVA
+                            </button>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <div style="height: 1em;"></div>
+            </div>
+        </form>
+    </div>
+</div>

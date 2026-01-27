@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NumberInput } from '@angular/cdk/coercion';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tipiDocDesc, TipoDoc } from 'src/app/enums/tipo-doc-enum';
 import { ControlloDisponibileModel } from 'src/app/models/controllo-disponibile';
@@ -19,14 +20,22 @@ export class RisultatoRicercaControlliComponent implements OnInit {
   tipiDoc = tipiDocDesc;
   codiceImpianto: string;
 
+  colBreakpoint1: NumberInput;
+
   constructor(private router: Router, private route: ActivatedRoute, private resultService: ResultService) {
     this.codiceImpianto = this.route.snapshot.parent.paramMap.get('id_impianto');
   }
 
   ngOnInit(): void {
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 12 : 3;
     if (!this.result) {
       this.closeSearch.emit(false);
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 12 : 3;
   }
 
   nuovaRicerca() {

@@ -1,17 +1,26 @@
-<mat-card class="mat-elevation-z0"
-    [ngClass]="{'confirm-box' : type===4, 'error-box' : type===2, 'warn-box': type===1, 'info-box' : type===3}">
-    <mat-card-header>
-        <div class="def-icon" mat-card-avatar>
-            <img [src]="confirmIcon" class="confirm" *ngIf="type===4">
-            <img [src]="errorIcon" class="error-icon" *ngIf="type===2">
-            <img [src]="warnIcon" class="warn-icon" *ngIf="type===1">
-            <img [src]="infoIcon" *ngIf="type===3">
-        </div>
-        <mat-card-title class="titolo">{{titolo}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div class="left-elem content" *ngFor="let desc of fillDescrizione()">
-            {{desc}}
-        </div>
-    </mat-card-content>
-</mat-card>
+<!-- <div [ngClass]="mainClass">
+    <mat-card class="mat-elevation-z0"
+        [ngClass]="{
+            'confirm-box' : type === 4,
+            'error-box' : type === 2,
+            'warn-box': type === 1,
+            'info-box' : type === 3,
+            'message-margin': mainClass == 'wide-screen'
+        }">
+        <mat-card-header>
+            <div class="def-icon" mat-card-avatar>
+                <img [src]="confirmIcon" alt="confirmIcon" class="confirm" *ngIf="type === 4">
+                <img [src]="errorIcon" alt="errorIcon" class="error-icon" *ngIf="type === 2">
+                <img [src]="warnIcon" alt="warnIcon" class="warn-icon" *ngIf="type === 1">
+                <img [src]="infoIcon" alt="infoIcon" *ngIf="type === 3">
+            </div>
+            <mat-card-title class="titolo">{{titolo}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="left-elem content" *ngFor="let desc of fillDescrizione()">
+                {{desc}}
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div> -->
+<app-alert [title]="titolo" [message]="descrizione" [type]="getType()"></app-alert>

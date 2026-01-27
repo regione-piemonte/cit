@@ -1,754 +1,782 @@
-<!--SEZIONE IMPIANTO-->
-<mat-accordion>
-  <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 1" (opened)="setStep(1)"
-    hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <span class="panel-title">Impianto</span>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <form class="form-container" [formGroup]="impiantoForm">
-      <mat-grid-list cols="2" rowHeight="2em">
-        <mat-grid-tile *ngIf="isEnabledModificaImp()"></mat-grid-tile>
-        <mat-grid-tile *ngIf="isEnabledModificaImp()">
-          <div class="right-elem modifica primary-color">
-            <button mat-button color="primary" (click)="enableModifica(0)" [disabled]="!isImpiantoDisabled"
-              id="buttonModoficaImpianto">
-              <mat-icon>edit</mat-icon>
-              Modifica
-            </button>
+<div class="wide-screen">
+  <div class="dettaglio-impianto">
+    <!--SEZIONE IMPIANTO-->
+    <mat-accordion>
+      <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 1" (opened)="setStep(1)">
+        <mat-expansion-panel-header class="expansion-header-margin">
+          <mat-panel-title>
+            <span class="panel-title">Impianto</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+          <form class="form-container" [formGroup]="impiantoForm">
+            <mat-grid-list cols="12" rowHeight="2em" gutterSize="15px">
+              <mat-grid-tile [colspan]="colBreakpoint3" *ngIf="isEnabledModificaImp()"></mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint2" *ngIf="isEnabledModificaImp()">
+                <div class="right-elem modifica primary-color">
+                  <button mat-button color="primary" (click)="enableModifica(0)" [disabled]="!isImpiantoDisabled"
+                    id="buttonModoficaImpianto">
+                    <mat-icon>edit</mat-icon>
+                    Modifica
+                  </button>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <mat-form-field>
+                  <input matInput placeholder="Codice impianto" [formControlName]="'codiceImpianto'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <mat-form-field>
+                  <mat-select placeholder="Stato impianto*" [formControlName]="'statoImpianto'"
+                    (selectionChange)='variazioneStato($event)'>
+                    <mat-option *ngFor="let elem of stati" [value]="elem.codice">
+                      {{elem.descrizione}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <div style="display:block">
+                  <div class="label-tile" style="margin: 10px 0px;">
+                    <mat-label [ngClass]="{'disabled':impiantoForm.controls['dataVar'].disabled}">Data variazione stato
+                      impianto*</mat-label>
+                  </div>
+                  <mat-form-field>
+                    <mat-label>GG/MM/AAAA</mat-label>
+                    <input matInput [matDatepicker]="picker2" [formControlName]="'dataVar'">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="12" rowspan="3">
+                <mat-form-field>
+                  <textarea matInput placeholder="Motivazione" [formControlName]="'motivazione'"></textarea>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <div style="display:block">
+                  <div colspan="2" class="label-tile">
+                    <mat-label [ngClass]="{'disabled':impiantoForm.controls['tipo'].disabled}">Impianto di
+                      tipo*</mat-label>
+                  </div>
+                  <mat-radio-group style="display: flex" [formControlName]="'tipo'">
+                    <div class="left-elem">
+                      <mat-radio-button value="C">Centralizzato</mat-radio-button>
+                    </div>
+                    <div class="radio-button-gap"></div>
+                    <div class="left-elem">
+                      <mat-radio-button value="A">Autonomo</mat-radio-button>
+                    </div>
+                  </mat-radio-group>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint4" rowspan="2"></mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <div style="display: block;">
+                  <div class="label-tile">
+                    <mat-label [ngClass]="{'disabled':impiantoForm.controls['locTecnico'].disabled}">In locale tecnico
+                      esclusivamente dedicato. Comma Art.6 DPR 74/2013?</mat-label>
+                  </div>
+                  <div class="left-elem">
+                    <section>
+                      <mat-slide-toggle color="primary" [formControlName]="'locTecnico'">
+                        Si
+                      </mat-slide-toggle>
+                    </section>
+                  </div>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <div style="display:block;">
+                  <div class="label-tile">
+                    <mat-label [ngClass]="{'disabled':impiantoForm.controls['contabilizzazione'].disabled}">E’ presente
+                      un
+                      sistema di contabilizzazione / ripartizione per singola
+                      utenza?</mat-label>
+                  </div>
+                  <div class="left-elem">
+                    <section>
+                      <mat-slide-toggle color="primary" [formControlName]="'contabilizzazione'">
+                        Si
+                      </mat-slide-toggle>
+                    </section>
+                  </div>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <div style="display:block">
+                  <div class="label-tile">
+                    <mat-label [ngClass]="{'disabled':impiantoForm.controls['flgMedioImpiantoCivile'].disabled}">
+                      Si tratta di Medio Impianto Civile?</mat-label>
+                  </div>
+                  <div class="left-elem">
+                    <section>
+                      <mat-slide-toggle color="primary" [formControlName]="'flgMedioImpiantoCivile'">
+                        Si
+                      </mat-slide-toggle>
+                    </section>
+                  </div>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint4" rowspan="2">
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="!impiantoForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Indirizzo" [formControlName]="'indirizzoLoccsi'"
+                    [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                    (optionSelected)='setLoccsiElemSezImpianto($event.option.value)'>
+                    <mat-option *ngFor="let indirizzo of filteredOptionsImpianto | async" [value]="indirizzo">
+                      {{indirizzo.properties.loccsiLabel}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error
+                    *ngIf="impiantoForm.controls.indirizzoLoccsi.errors?.['indirizzoNonSelezionato'] && !loccsiClickedImpianto">Selezionare
+                    una
+                    voce dall'elenco degli indirizzi</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="!impiantoForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Civico" [formControlName]="'civicoLoccsi'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <div class="label-tile">
+                  <section>
+                    <mat-checkbox [formControlName]="'stradario'" (change)="toggleStradarioImpianto($event)">Non trovato
+                      in
+                      stradario</mat-checkbox>
+                  </section>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint4" rowspan="2" *ngIf="!impiantoForm.controls['stradario'].value">
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint4" rowspan="2" *ngIf="impiantoForm.controls['stradario'].value">
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="impiantoForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Indirizzo" [formControlName]="'indirizzo'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="impiantoForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Civico" [formControlName]="'civico'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="impiantoForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Comune" [formControlName]="'comune'" [matAutocomplete]="autoComune">
+                  <mat-autocomplete #autoComune="matAutocomplete" [displayWith]="displayFnComune"
+                    (optionSelected)='setProvinciaComuneEstesoImpianto($event.option.value)'>
+                    <mat-option *ngFor="let indirizzo of filteredOptionsImpiantoComuni | async" [value]="indirizzo">
+                      {{indirizzo.comune}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error
+                    *ngIf="impiantoForm.controls.comune.errors?.['indirizzoNonSelezionato'] && !loccsiClickedImpiantoComune">Selezionare
+                    un comune</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="impiantoForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input readonly matInput placeholder="Provincia" [formControlName]="'provincia'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <mat-form-field>
+                  <input matInput placeholder="POD elettrico" [formControlName]="'pod'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <mat-form-field>
+                  <input matInput placeholder="PDR gas" [formControlName]="'pdr'"
+                    [disabled]="impiantoForm.controls['noPdr'].value">
+                  <mat-error *ngIf="impiantoForm.controls['pdr'].errors?.['invalidString']">Il codice PDR deve essere di
+                    14
+                    caratteri</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <div class="label-tile">
+                  <section>
+                    <mat-checkbox [formControlName]="'noPdr'" (change)="toggleNoPdr($event)"> Allacciamento rete gas non
+                      presente
+                    </mat-checkbox>
+                  </section>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <div class="label-tile">
+                  <section>
+                    <mat-checkbox [formControlName]="'propCheck'" class="text-wrap"></mat-checkbox>
+                    <mat-label [ngClass]="{'disabled':impiantoForm.controls['propCheck'].disabled}">
+                      L’eventuale proprietario indicato può consultare la situazione dell’impianto
+                    </mat-label>
+                  </section>
+
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="isEnabledModificaImp()">
+                <div class="left-elem">
+                  <button mat-button class="back" (click)="disableModifica(0)" class="annulla primary-color"
+                    *ngIf="!isImpiantoDisabled"> ANNULLA</button>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="isEnabledModificaImp()">
+                <div class="right-elem">
+                  <button mat-button class="default-button form-field" (click)="inserisciImpianto()"
+                    *ngIf="!isImpiantoDisabled">SALVA</button>
+                </div>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <!--SEZIONE PROPRIETARIO-->
+    <mat-accordion>
+      <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 2" (opened)="setStep(2)">
+        <mat-expansion-panel-header class="expansion-header-margin">
+          <mat-panel-title>
+            <span class="panel-title">Proprietario</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form class="form-container" [formGroup]="propForm">
+          <mat-grid-list cols="2" rowHeight="2em">
+            <mat-grid-tile *ngIf="isEnabledModifica() && isPropPresent()">
+            </mat-grid-tile>
+            <mat-grid-tile *ngIf="isEnabledModifica() && isPropPresent() && !isResponsabile()">
+              <div class="right-elem modifica primary-color">
+                <button mat-button color="primary" (click)="enableModifica(1)" [disabled]="!isPropDisabled"
+                  id="buttonModificaProprietario">
+                  <mat-icon>edit</mat-icon>
+                  Modifica
+                </button>
+              </div>
+            </mat-grid-tile>
+            <div *ngIf="isPropPresent()">
+              <mat-grid-tile rowspan="2">
+                <mat-form-field>
+                  <input matInput placeholder="Denominazione" [formControlName]="'denominazione'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2"
+                *ngIf="(!propForm.controls['resEstera'].value) && (!propForm.controls['stradario'].value)">
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2">
+                <div class="label-tile">
+                  <section>
+                    <mat-checkbox [formControlName]="'resEstera'" (change)="toggleResEsteraProp($event)"> Residenza
+                      estera
+                    </mat-checkbox>
+                  </section>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2"
+                *ngIf="(!propForm.controls['resEstera'].value) && (!propForm.controls['stradario'].value)">
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2" *ngIf="propForm.controls['resEstera'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Stato estero" [formControlName]="'statoEstero'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2" *ngIf="propForm.controls['resEstera'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Città estero" [formControlName]="'cittaEstero'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2" *ngIf="propForm.controls['resEstera'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Indirizzo estero" [formControlName]="'indirizzoEstero'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2" *ngIf="propForm.controls['resEstera'].value">
+                <mat-form-field>
+                  <input matInput placeholder="CAP estero" [formControlName]="'capEstero'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2" *ngIf="propForm.controls['resEstera'].value"></mat-grid-tile>
+              <mat-grid-tile rowspan="2"
+                *ngIf="(!propForm.controls['resEstera'].value) && (!propForm.controls['stradario'].value)">
+                <mat-form-field>
+                  <input matInput placeholder="Indirizzo" [formControlName]="'indirizzoLoccsi'"
+                    [matAutocomplete]="autoProp">
+                  <mat-autocomplete #autoProp="matAutocomplete" [displayWith]="displayFn"
+                    (optionSelected)='setLoccsiElemSezProp($event.option.value)'>
+                    <mat-option *ngFor="let indirizzo of filteredOptionsProp | async" [value]="indirizzo">
+                      {{indirizzo.properties.loccsiLabel}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error
+                    *ngIf="propForm.controls.indirizzoLoccsi.errors?.['indirizzoNonSelezionato'] && !loccsiClickedProp">Selezionare
+                    una
+                    voce dall'elenco degli indirizzi</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2"
+                *ngIf="(!propForm.controls['resEstera'].value) && (!propForm.controls['stradario'].value)">
+                <mat-form-field>
+                  <input matInput placeholder="Civico" [formControlName]="'civicoLoccsi'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2">
+                <div class="label-tile">
+                  <section>
+                    <mat-checkbox [formControlName]="'stradario'" *ngIf="(!propForm.controls['resEstera'].value)"
+                      (change)="toggleStradarioProp($event)">Non
+                      trovato in
+                      stradario</mat-checkbox>
+                  </section>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2" *ngIf="(!propForm.controls['resEstera'].value)">
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2"
+                *ngIf="(!propForm.controls['resEstera'].value) && propForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Indirizzo" [formControlName]="'indirizzo'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2"
+                *ngIf="(!propForm.controls['resEstera'].value) && propForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Civico" [formControlName]="'civico'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2"
+                *ngIf="(!propForm.controls['resEstera'].value) && propForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Comune" [formControlName]="'comune'" [matAutocomplete]="autoPropComune">
+                  <mat-autocomplete #autoPropComune="matAutocomplete" [displayWith]="displayFnComune"
+                    (optionSelected)='setProvinciaComuneEstesoProp($event.option.value)'>
+                    <mat-option *ngFor="let indirizzo of filteredOptionsPropComuni | async" [value]="indirizzo">
+                      {{indirizzo.comune}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error
+                    *ngIf="propForm.controls.comune.errors?.['indirizzoNonSelezionato'] && !loccsiClickedPropComuni">Selezionare
+                    un comune</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2"
+                *ngIf="(!propForm.controls['resEstera'].value) && propForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input readonly matInput placeholder="Provincia" [formControlName]="'provincia'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2">
+                <mat-form-field>
+                  <input matInput placeholder="Data inizio" [matDatepicker]="pickerProp"
+                    [formControlName]="'dataInizio'">
+                  <mat-datepicker-toggle matSuffix [for]="pickerProp"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerProp></mat-datepicker>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="2">
+                <mat-form-field>
+                  <input matInput placeholder="Email" [formControlName]="'email'">
+                </mat-form-field>
+              </mat-grid-tile>
+            </div>
+            <div *ngIf="!isPropPresent()">
+              <mat-grid-tile colspan="2" rowspan="4">
+                <div class="no-prop-resp">
+                  <app-message-box [titolo]="'Nessun Proprietario trovato'"
+                    [descrizione]="'Nessun proprietario associato all\' impianto corrente'" [type]="1">
+                  </app-message-box>
+                </div>
+              </mat-grid-tile>
+            </div>
+            <mat-grid-tile [colspan]="colBreakpoint5" rowspan="2">
+              <div style="display: contents;" *ngIf="isEnabledModifica() && !isResponsabile()">
+              <button mat-button class="secondary-button form-field" (click)="apriNuovoProprietario()">NUOVO
+                PROPRIETARIO</button>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="colBreakpoint5" rowspan="2">
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="2" *ngIf="isEnabledModifica() && isPropPresent()">
+              <div class="left-elem">
+                <button mat-button class="back" (click)="disableModifica(1)" class="annulla primary-color"
+                  *ngIf="!isPropDisabled">
+                  ANNULLA</button>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="2" *ngIf="isEnabledModifica() && isPropPresent()">
+              <div class="right-elem">
+                <button mat-button class="default-button form-field" (click)="inserisciProprietario()"
+                  *ngIf="propFormValid()">SALVA</button>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <!--SEZIONE RESPONSABILE-->
+    <mat-accordion>
+      <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 3" (opened)="setStep(3)">
+        <mat-expansion-panel-header class="expansion-header-margin">
+          <mat-panel-title>
+            <span class="panel-title">Responsabile dell'impianto termico</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form class="form-container" [formGroup]="respForm">
+          <mat-grid-list cols="12" rowHeight="2em">
+            <mat-grid-tile [colspan]="colBreakpoint3" *ngIf="isEnabledModificaResp() && isRespPresent()"></mat-grid-tile>
+            <mat-grid-tile [colspan]="colBreakpoint2" *ngIf="isEnabledModificaResp() && isRespPresent()">
+              <div class="right-elem modifica primary-color">
+                <button mat-button color="primary" (click)="enableModifica(2)" [disabled]="!isRespDisabled"
+                  id="buttonModificaResponsabile">
+                  <mat-icon>edit</mat-icon>
+                  Modifica
+                </button>
+              </div>
+            </mat-grid-tile>
+            <div *ngIf="isRespPresent()">
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <mat-form-field>
+                  <input matInput placeholder="Denominazione" [formControlName]="'denominazione'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <mat-form-field>
+                  <mat-select placeholder="titolo" [formControlName]="'titolo'">
+                    <mat-option *ngFor="let elem of titoli" [value]="elem.codice">
+                      {{elem.descrizione}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <div class="label-tile">
+                  <section>
+                    <mat-checkbox [formControlName]="'resEstera'" (change)="toggleResEsteraResp($event)"> Residenza
+                      estera
+                    </mat-checkbox>
+                  </section>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint4" rowspan="2" *ngIf="(!respForm.controls['stradario'].value)">
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="respForm.controls['resEstera'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Stato estero" [formControlName]="'statoEstero'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="respForm.controls['resEstera'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Città estero" [formControlName]="'cittaEstero'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="respForm.controls['resEstera'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Indirizzo estero" [formControlName]="'indirizzoEstero'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="respForm.controls['resEstera'].value">
+                <mat-form-field>
+                  <input matInput placeholder="CAP estero" [formControlName]="'capEstero'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                *ngIf="(!respForm.controls['resEstera'].value) && (!respForm.controls['stradario'].value)">
+                <mat-form-field>
+                  <input matInput placeholder="Indirizzo" [formControlName]="'indirizzoLoccsi'"
+                    [matAutocomplete]="autoResp">
+                  <mat-autocomplete #autoResp="matAutocomplete" [displayWith]="displayFn"
+                    (optionSelected)='setLoccsiElemSezResp($event.option.value)'>
+                    <mat-option *ngFor="let indirizzo of filteredOptionsResp | async" [value]="indirizzo">
+                      {{indirizzo.properties.loccsiLabel}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error
+                    *ngIf="respForm.controls.indirizzoLoccsi.errors?.['indirizzoNonSelezionato'] && !loccsiClickedResp">Selezionare
+                    una
+                    voce dall'elenco degli indirizzi</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                *ngIf="(!respForm.controls['resEstera'].value) && (!respForm.controls['stradario'].value)">
+                <mat-form-field>
+                  <input matInput placeholder="Civico" [formControlName]="'civicoLoccsi'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <div class="label-tile">
+                  <section>
+                    <mat-checkbox [formControlName]="'stradario'" *ngIf="(!respForm.controls['resEstera'].value)"
+                      (change)="toggleStradarioResp($event)">Non
+                      trovato in
+                      stradario</mat-checkbox>
+                  </section>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint4" rowspan="2" *ngIf="!respForm.controls['stradario'].value">
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                *ngIf="(!respForm.controls['resEstera'].value) && respForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Indirizzo" [formControlName]="'indirizzo'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                *ngIf="(!respForm.controls['resEstera'].value) && respForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Civico" [formControlName]="'civico'">
+                </mat-form-field>
+              </mat-grid-tile>
+
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                *ngIf="(!respForm.controls['resEstera'].value) && respForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input matInput placeholder="Comune" [formControlName]="'comune'" [matAutocomplete]="autoRespComune">
+                  <mat-autocomplete #autoRespComune="matAutocomplete" [displayWith]="displayFnComune"
+                    (optionSelected)='setProvinciaComuneEstesoResp($event.option.value)'>
+                    <mat-option *ngFor="let indirizzo of filteredOptionsRespComuni | async" [value]="indirizzo">
+                      {{indirizzo.comune}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error
+                    *ngIf="respForm.controls.comune.errors?.['indirizzoNonSelezionato'] && !loccsiClickedRespComuni">Selezionare
+                    un comune</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                *ngIf="(!respForm.controls['resEstera'].value) && respForm.controls['stradario'].value">
+                <mat-form-field>
+                  <input readonly matInput placeholder="Provincia" [formControlName]="'provincia'">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <mat-form-field>
+                  <input matInput placeholder="Data inizio" [matDatepicker]="pickerResp"
+                    [formControlName]="'dataInizio'">
+                  <mat-datepicker-toggle matSuffix [for]="pickerResp"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerResp></mat-datepicker>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                <mat-form-field>
+                  <input matInput placeholder="Email" [formControlName]="'email'">
+                </mat-form-field>
+              </mat-grid-tile>
+            </div>
+            <div *ngIf="!isRespPresent()">
+              <mat-grid-tile rowspan="4" colspan="12">
+                <div class="no-prop-resp">
+                  <app-message-box [titolo]="'Nessun Responsabile trovato'"
+                    [descrizione]="'Nessun responsabile asociato all\' impianto corrente'" [type]="1">
+                  </app-message-box>
+                </div>
+              </mat-grid-tile>
+            </div>
+            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+              <div style="display: contents;" *ngIf="isEnabledModifica() && !isResponsabile()">
+              <button mat-button class="secondary-button form-field" (click)="apriNuovoResponsabile()">NUOVO
+                RESPONSABILE</button>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"></mat-grid-tile>
+            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="isRespPresent()">
+              <div class="left-elem">
+                <button mat-button class="back" (click)="disableModifica(2)" class="annulla primary-color"
+                  *ngIf="!isRespDisabled"> ANNULLA</button>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="isRespPresent() && isEnabledModificaResp()">
+              <div class="right-elem">
+                <button mat-button class="default-button form-field" (click)="inserisciResponsabile()"
+                  *ngIf="respFormValid()">SALVA</button>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="title-margin">
+      <app-title [title]="'Elenco Gestori Impianto componenti'" [subtitle]="''"></app-title>
+    </div>
+
+    <app-message-box [titolo]="'Nessun Componente trovato'" [descrizione]="'Nessun componente associato'" [type]="1"
+      *ngIf="emptyComponents">
+    </app-message-box>
+
+    <div *ngIf="hasLoadedComponents">
+      <div class="card-grid">
+        <mat-card class="card mat-elevation-z8 card-componenti" *ngFor="let item of impreseMap | keyvalue">
+          <mat-card-content>
+            <mat-grid-list cols="4" rowHeight="2em">
+
+              <mat-grid-tile colspan="2" rowspan="3">
+                <div class="left-elem">Denominazione:</div>
+              </mat-grid-tile>
+
+              <mat-grid-tile colspan="2" rowspan="3" *ngIf="item.value[0].sezSCimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezSCimpresa.impresaSC.L4_5denominazione}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" rowspan="3" *ngIf="item.value[0].sezCGimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezCGimpresa.impresaCG.L4_6denominazione}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" rowspan="3" *ngIf="item.value[0].sezGFimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezGFimpresa.impresaGF.L4_4denominazione}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" rowspan="3" *ngIf="item.value[0].sezGTimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezGTimpresa.impresaGT.L4_1denominazione}}</div>
+              </mat-grid-tile>
+
+              <mat-grid-tile colspan="2">
+                <div class="left-elem">Codice REA:</div>
+              </mat-grid-tile>
+
+              <mat-grid-tile colspan="2" *ngIf="item.value[0].sezSCimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezSCimpresa.impresaSC.L4_5rea}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" *ngIf="item.value[0].sezCGimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezCGimpresa.impresaCG.L4_6rea}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" *ngIf="item.value[0].sezGFimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezGFimpresa.impresaGF.L4_4rea}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" *ngIf="item.value[0].sezGTimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezGTimpresa.impresaGT.L4_1rea}}</div>
+              </mat-grid-tile>
+
+
+              <mat-grid-tile colspan="2">
+                <div class="left-elem">Codice Fiscale:</div>
+              </mat-grid-tile>
+
+              <mat-grid-tile colspan="2" *ngIf="item.value[0].sezSCimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezSCimpresa.impresaSC.L4_5codiceFiscale}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" *ngIf="item.value[0].sezCGimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezCGimpresa.impresaCG.L4_6codiceFiscale}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" *ngIf="item.value[0].sezGFimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezGFimpresa.impresaGF.L4_4codiceFiscale}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" *ngIf="item.value[0].sezGTimpresa">
+                <div class="right-elem def-elem">{{item.value[0].sezGTimpresa.impresaGT.L4_1codiceFiscale}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="4"></mat-grid-tile>
+            </mat-grid-list>
+            <mat-divider inset></mat-divider>
+            <mat-grid-list cols="6" rowHeight="3em">
+              <mat-grid-tile colspan="6">
+                <div class="left-elem def-elem">Componenti</div>
+              </mat-grid-tile>
+              <div *ngFor="let elem of item.value">
+
+                <mat-grid-tile colspan="5" *ngIf="elem.sezGTimpresa">
+                  <div class="left-elem">
+                    <button mat-raised-button class="component-button" (click)="dettaglioGt(elem.L4_1numGT)">
+                      <div class="interno primary-color">GT-{{elem.L4_1numGT}} {{convertMillisecondsToDate(elem.L4_1dataDismiss)}}
+                        <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                      </div>
+                    </button> 
+                  </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="5" *ngIf="elem.sezGFimpresa">
+                  <div class="left-elem">
+                    <button mat-raised-button class="component-button" (click)="dettaglioGf(elem.L4_4numGF)">
+                      <div class="interno primary-color">GF-{{elem.L4_4numGF}} {{convertMillisecondsToDate(elem.L4_4dataDismiss)}}
+                        <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                      </div>
+                    </button>
+                  </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="5" *ngIf="elem.sezSCimpresa">
+                  <div class="left-elem">
+                    <button mat-raised-button class="component-button" (click)="dettaglioSc(elem.L4_5numSC)">
+                      <div class="interno primary-color">SC-{{elem.L4_5numSC}} {{convertMillisecondsToDate(elem.L4_5dataDismiss)}}
+                        <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                      </div>
+                    </button>
+                  </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="5" *ngIf="elem.sezCGimpresa">
+                  <div class="left-elem">
+                    <button mat-raised-button class="component-button" (click)="dettaglioCg(elem.L4_6numCG)">
+                      <div class="interno primary-color">CG-{{elem.L4_6numCG}} {{convertMillisecondsToDate(elem.L4_6dataDismiss)}}
+                        <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                      </div>
+                    </button>
+                  </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile *ngIf="isEnabledModifica()" style="margin-left: 10px">
+                  <button mat-icon-button (click)="deleteComponente(elem)">
+                    <mat-icon class="delete">delete</mat-icon>
+                  </button>
+                </mat-grid-tile>
+              </div>
+            </mat-grid-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <mat-card class="contaner-card mat-elevation-z0">
+      <mat-grid-list cols="1" rowHeight="2em" class="modul-card">
+        <mat-grid-tile>
+          <div class="left-elem">
+            <button mat-button class="add-component primary-color" (click)="apriAggiungiComponente()"
+              *ngIf="isEnabledModifica()" id="buttonAggiungiComponente">AGGIUNGI
+              COMPONENTE</button>
           </div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="2">
-          <mat-form-field>
-            <input matInput placeholder="Codice impianto" [formControlName]="'codiceImpianto'">
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="2">
-          <mat-form-field>
-            <mat-select placeholder="Stato impianto*" [formControlName]="'statoImpianto'"
-              (selectionChange)='variazioneStato($event)'>
-              <mat-option *ngFor="let elem of stati" [value]="elem.codice">
-                {{elem.descrizione}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2">
-          <div class="label-tile">
-            <mat-label [ngClass]="{'disabled':impiantoForm.controls['dataAss'].disabled}">Data assegnazione codice
-              impianto*</mat-label>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2">
-          <mat-form-field>
-            <mat-label>GG/MM/AAAA</mat-label>
-            <input matInput [matDatepicker]="picker" [formControlName]="'dataAss'">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2"></mat-grid-tile>
-        <mat-grid-tile colspan="2">
-          <div class="label-tile">
-            <mat-label [ngClass]="{'disabled':impiantoForm.controls['dataVar'].disabled}">Data variazione stato
-              impianto*</mat-label>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2">
-          <mat-form-field>
-            <mat-label>GG/MM/AAAA</mat-label>
-            <input matInput [matDatepicker]="picker2" [formControlName]="'dataVar'">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2"></mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="5">
-          <mat-form-field>
-            <textarea matInput placeholder="Motivazione" [formControlName]="'motivazione'"></textarea>
-          </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
-          <div class="label-tile">
-            <mat-label [ngClass]="{'disabled':impiantoForm.controls['tipo'].disabled}">Impianto di tipo*</mat-label>
+          <div class="left-elem">
+            <button mat-button class="add-component primary-color" (click)="navigateToListaLibretti()"
+              id="buttonAggiungiComponente">SCHEDE LIBRETTO</button>
           </div>
         </mat-grid-tile>
         <mat-grid-tile>
+          <div class="left-elem">
+            <button mat-button class="add-component primary-color" (click)="apriElencoControlli()"
+              *ngIf="isEnabledModifica()" id="buttonElencoComponenti">ELENCO CONTROLLI</button>
+          </div>
         </mat-grid-tile>
-        <mat-radio-group [formControlName]="'tipo'">
+        <mat-grid-tile>
+          <div class="left-elem">
+            <button mat-button class="add-component primary-color" (click)="navigateToDocumenti()"
+               id="buttonElencoComponenti">ELENCO DOCUMENTI</button>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="left-elem">
+            <button mat-button class="add-component primary-color" (click)="consolidaLibretto()"
+              *ngIf="isEnabledModifica()" id="buttonElencoComponenti">CONSOLIDA LIBRETTO IMPIANTO</button>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card>
+
+    <mat-card class="card mat-elevation-z8 modul-card">
+      <mat-card-content>
+        <mat-grid-list cols="1" rowHeight="2em">
           <mat-grid-tile>
             <div class="left-elem">
-              <mat-radio-button value="C">Centralizzato</mat-radio-button>
+              <p class="modulistica">Modulistica</p>
             </div>
           </mat-grid-tile>
-          <mat-grid-tile>
+          <mat-grid-tile rowspan="3">
             <div class="left-elem">
-              <mat-radio-button value="A">Autonomo</mat-radio-button>
+              <div class="download-libretto">
+                <img [src]="pdf" alt="pdf">
+                <button mat-button (click)="scaricaLibretto()">Scarica libretto (PDF)</button>
+              </div>
             </div>
           </mat-grid-tile>
-        </mat-radio-group>
-        <mat-grid-tile colspan="2" rowspan="2">
-          <div class="label-tile">
-            <mat-label [ngClass]="{'disabled':impiantoForm.controls['locTecnico'].disabled}">In locale tecnico
-              esclusivamente dedicato. Comma Art.6 DPR 74/2013?</mat-label>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="left-elem">
-            <section>
-              <mat-slide-toggle color="primary" [formControlName]="'locTecnico'">
-                Si
-              </mat-slide-toggle>
-            </section>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="2">
-          <div class="label-tile">
-            <mat-label [ngClass]="{'disabled':impiantoForm.controls['contabilizzazione'].disabled}">E’ presente un
-              sistema di contabilizzazione / ripartizione per singola
-              utenza?</mat-label>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="left-elem">
-            <section>
-              <mat-slide-toggle color="primary" [formControlName]="'contabilizzazione'">
-                Si
-              </mat-slide-toggle>
-            </section>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="2" *ngIf="!impiantoForm.controls['stradario'].value">
-          <mat-form-field>
-            <input matInput placeholder="Indirizzo" [formControlName]="'indirizzoLoccsi'" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-              (optionSelected)='setLoccsiElemSezImpianto($event.option.value)'>
-              <mat-option *ngFor="let indirizzo of filteredOptionsImpianto | async" [value]="indirizzo">
-                {{indirizzo.properties.loccsiLabel}}
-              </mat-option>
-            </mat-autocomplete>
-            <mat-error
-              *ngIf="impiantoForm.controls.indirizzoLoccsi.errors?.['indirizzoNonSelezionato'] && !loccsiClickedImpianto">Selezionare
-              una
-              voce dall'elenco degli indirizzi</mat-error>
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="!impiantoForm.controls['stradario'].value">
-          <mat-form-field>
-            <input matInput placeholder="Civico" [formControlName]="'civicoLoccsi'">
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="!impiantoForm.controls['stradario'].value"></mat-grid-tile>
-        <mat-grid-tile colspan="2">
-          <div class="label-tile">
-            <section>
-              <mat-checkbox [formControlName]="'stradario'" (change)="toggleStradarioImpianto($event)">Non trovato in
-                stradario</mat-checkbox>
-            </section>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" colspan="2" *ngIf="impiantoForm.controls['stradario'].value">
-          <mat-form-field>
-            <input matInput placeholder="Indirizzo" [formControlName]="'indirizzo'">
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="impiantoForm.controls['stradario'].value">
-          <mat-form-field>
-            <input matInput placeholder="Civico" [formControlName]="'civico'">
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="impiantoForm.controls['stradario'].value">
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="impiantoForm.controls['stradario'].value">
-          <mat-form-field>
-            <input matInput placeholder="Comune" [formControlName]="'comune'" [matAutocomplete]="autoComune">
-            <mat-autocomplete #autoComune="matAutocomplete" [displayWith]="displayFnComune"
-              (optionSelected)='setProvinciaComuneEstesoImpianto($event.option.value)'>
-              <mat-option *ngFor="let indirizzo of filteredOptionsImpiantoComuni | async" [value]="indirizzo">
-                {{indirizzo.comune}} 
-              </mat-option>
-            </mat-autocomplete>
-            <mat-error
-            *ngIf="impiantoForm.controls.comune.errors?.['indirizzoNonSelezionato'] && !loccsiClickedImpiantoComune">Selezionare
-            un comune</mat-error>
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="impiantoForm.controls['stradario'].value">
-          <mat-form-field>
-            <input readonly matInput placeholder="Provincia" [formControlName]="'provincia'">
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" colspan="2">
-          <mat-form-field>
-            <input matInput placeholder="POD elettrico" [formControlName]="'pod'">
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" colspan="2">
-          <mat-form-field>
-            <input matInput placeholder="PDR gas" [formControlName]="'pdr'"
-              [disabled]="impiantoForm.controls['noPdr'].value">
-            <mat-error *ngIf="impiantoForm.controls['pdr'].errors?.['invalidString']">Il codice PDR deve essere di 14
-              caratteri</mat-error>
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2">
-          <div class="label-tile">
-            <section>
-              <mat-checkbox [formControlName]="'noPdr'" (change)="toggleNoPdr($event)"> Allacciamento rete gas non
-                presente
-              </mat-checkbox>
-            </section>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="2">
-          <div class="label-tile">
-            <section>
-              <mat-checkbox [formControlName]="'propCheck'" class="text-wrap"></mat-checkbox>
-              <mat-label [ngClass]="{'disabled':impiantoForm.controls['propCheck'].disabled}">
-                L’eventuale proprietario indicato può consultare la situazione dell’impianto
-              </mat-label>
-            </section>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2">
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="isEnabledModificaImp()">
-          <div class="left-elem">
-            <button mat-button class="back" (click)="disableModifica(0)" class="annulla primary-color"
-              *ngIf="!isImpiantoDisabled"> ANNULLA</button>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="isEnabledModificaImp()">
-          <div class="right-elem">
-            <button mat-button class="default-button form-field" (click)="inserisciImpianto()"
-              *ngIf="!isImpiantoDisabled">SALVA</button>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </form>
-  </mat-expansion-panel>
-</mat-accordion>
-
-<!--SEZIONE PROPRIETARIO-->
-<mat-accordion>
-  <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 2" (opened)="setStep(2)"
-    hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <span class="panel-title">Proprietario</span>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <form class="form-container" [formGroup]="propForm">
-      <mat-grid-list cols="2" rowHeight="2em">
-        <mat-grid-tile *ngIf="isEnabledModifica() && isPropPresent()">
-        </mat-grid-tile>
-        <mat-grid-tile *ngIf="isEnabledModifica()  && isPropPresent()">
-          <div class="right-elem modifica primary-color">
-            <button mat-button color="primary" (click)="enableModifica(1)" [disabled]="!isPropDisabled"
-              id="buttonModificaProprietario">
-              <mat-icon>edit</mat-icon>
-              Modifica
-            </button>
-          </div>
-        </mat-grid-tile>
-        <div *ngIf="isPropPresent()">
-          <mat-grid-tile colspan="2" rowspan="2">
-            <mat-form-field>
-              <input matInput placeholder="Denominazione" [formControlName]="'denominazione'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2">
-            <div class="label-tile">
-              <section>
-                <mat-checkbox [formControlName]="'resEstera'" (change)="toggleResEsteraProp($event)"> Residenza estera
-                </mat-checkbox>
-              </section>
-            </div>
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="2" rowspan="2" *ngIf="propForm.controls['resEstera'].value">
-            <mat-form-field>
-              <input matInput placeholder="Stato estero" [formControlName]="'statoEstero'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="2" *ngIf="propForm.controls['resEstera'].value">
-            <mat-form-field>
-              <input matInput placeholder="Città estero" [formControlName]="'cittaEstero'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="2" *ngIf="propForm.controls['resEstera'].value">
-            <mat-form-field>
-              <input matInput placeholder="Indirizzo estero" [formControlName]="'indirizzoEstero'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" *ngIf="propForm.controls['resEstera'].value">
-            <mat-form-field>
-              <input matInput placeholder="CAP estero" [formControlName]="'capEstero'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" *ngIf="propForm.controls['resEstera'].value"></mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="2"
-            *ngIf="(!propForm.controls['resEstera'].value) && (!propForm.controls['stradario'].value)">
-            <mat-form-field>
-              <input matInput placeholder="Indirizzo" [formControlName]="'indirizzoLoccsi'"
-                [matAutocomplete]="autoProp">
-              <mat-autocomplete #autoProp="matAutocomplete" [displayWith]="displayFn"
-                (optionSelected)='setLoccsiElemSezProp($event.option.value)'>
-                <mat-option *ngFor="let indirizzo of filteredOptionsProp | async" [value]="indirizzo">
-                  {{indirizzo.properties.loccsiLabel}}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error
-              *ngIf="propForm.controls.indirizzoLoccsi.errors?.['indirizzoNonSelezionato'] && !loccsiClickedProp">Selezionare
-              una
-              voce dall'elenco degli indirizzi</mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!propForm.controls['resEstera'].value) && (!propForm.controls['stradario'].value)">
-            <mat-form-field>
-              <input matInput placeholder="Civico" [formControlName]="'civicoLoccsi'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!propForm.controls['resEstera'].value) && (!propForm.controls['stradario'].value)">
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2">
-            <div class="label-tile">
-              <section>
-                <mat-checkbox [formControlName]="'stradario'" *ngIf="(!propForm.controls['resEstera'].value)"
-                  (change)="toggleStradarioProp($event)">Non
-                  trovato in
-                  stradario</mat-checkbox>
-              </section>
-            </div>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" colspan="2"
-            *ngIf="(!propForm.controls['resEstera'].value) && propForm.controls['stradario'].value">
-            <mat-form-field>
-              <input matInput placeholder="Indirizzo" [formControlName]="'indirizzo'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!propForm.controls['resEstera'].value) && propForm.controls['stradario'].value">
-            <mat-form-field>
-              <input matInput placeholder="Civico" [formControlName]="'civico'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!propForm.controls['resEstera'].value) && propForm.controls['stradario'].value">
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!propForm.controls['resEstera'].value) && propForm.controls['stradario'].value">
-            <mat-form-field>
-              <input matInput placeholder="Comune" [formControlName]="'comune'" [matAutocomplete]="autoPropComune">
-              <mat-autocomplete #autoPropComune="matAutocomplete" [displayWith]="displayFnComune"
-                (optionSelected)='setProvinciaComuneEstesoProp($event.option.value)'>
-                <mat-option *ngFor="let indirizzo of filteredOptionsPropComuni | async" [value]="indirizzo">
-                  {{indirizzo.comune}}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error
-              *ngIf="propForm.controls.comune.errors?.['indirizzoNonSelezionato'] && !loccsiClickedPropComuni">Selezionare
-              un comune</mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!propForm.controls['resEstera'].value) && propForm.controls['stradario'].value">
-            <mat-form-field>
-              <input readonly matInput placeholder="Provincia" [formControlName]="'provincia'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" colspan="2">
-            <mat-form-field>
-              <input matInput placeholder="Data inizio" [matDatepicker]="pickerProp" [formControlName]="'dataInizio'">
-              <mat-datepicker-toggle matSuffix [for]="pickerProp"></mat-datepicker-toggle>
-              <mat-datepicker #pickerProp></mat-datepicker>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" colspan="2">
-            <mat-form-field>
-              <input matInput placeholder="Email" [formControlName]="'email'">
-            </mat-form-field>
-          </mat-grid-tile>
-        </div>
-        <div *ngIf="!isPropPresent()">
-          <mat-grid-tile rowspan="4" colspan="2">
-            <div class="no-prop-resp">
-              <app-message-box [titolo]="'Nessun Proprietario trovato'"
-                [descrizione]="'Nessun proprietario associato all\' impianto corrente'" [type]="1">
-              </app-message-box>
-            </div>
-          </mat-grid-tile>
-        </div>
-        <mat-grid-tile rowspan="3" colspan="2" *ngIf="isEnabledModifica()">
-          <button mat-button class="secondary-button form-field" (click)="apriNuovoProprietario()">NUOVO
-            PROPRIETARIO</button>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="isEnabledModifica() && isPropPresent()">
-          <div class="left-elem">
-            <button mat-button class="back" (click)="disableModifica(1)" class="annulla primary-color"
-              *ngIf="!isPropDisabled">
-              ANNULLA</button>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="isEnabledModifica() && isPropPresent()">
-          <div class="right-elem">
-            <button mat-button class="default-button form-field" (click)="inserisciProprietario()"
-              *ngIf="propFormValid()">SALVA</button>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </form>
-  </mat-expansion-panel>
-</mat-accordion>
-
-<!--SEZIONE RESPONSABILE-->
-<mat-accordion>
-  <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 3" (opened)="setStep(3)"
-    hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <span class="panel-title">Responsabile</span>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <form class="form-container" [formGroup]="respForm">
-      <mat-grid-list cols="2" rowHeight="2em">
-        <mat-grid-tile *ngIf="isEnabledModifica() && isRespPresent()"></mat-grid-tile>
-        <mat-grid-tile *ngIf="isEnabledModifica() && isRespPresent()">
-          <div class="right-elem modifica primary-color"> 
-            <button mat-button color="primary" (click)="enableModifica(2)" [disabled]="!isRespDisabled"
-              id="buttonModificaResponsabile">
-              <mat-icon>edit</mat-icon>
-              Modifica
-            </button>
-          </div>
-        </mat-grid-tile>
-        <div *ngIf="isRespPresent()">
-          <mat-grid-tile colspan="2" rowspan="2">
-            <mat-form-field>
-              <input matInput placeholder="Denominazione" [formControlName]="'denominazione'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="2">
-            <mat-form-field>
-              <mat-select placeholder="titolo" [formControlName]="'titolo'">
-                <mat-option *ngFor="let elem of titoli" [value]="elem.codice">
-                  {{elem.descrizione}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2">
-            <div class="label-tile">
-              <section>
-                <mat-checkbox [formControlName]="'resEstera'" (change)="toggleResEsteraResp($event)"> Residenza estera
-                </mat-checkbox>
-              </section>
-            </div>
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="2" rowspan="2" *ngIf="respForm.controls['resEstera'].value">
-            <mat-form-field>
-              <input matInput placeholder="Stato estero" [formControlName]="'statoEstero'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="2" *ngIf="respForm.controls['resEstera'].value">
-            <mat-form-field>
-              <input matInput placeholder="Città estero" [formControlName]="'cittaEstero'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="2" *ngIf="respForm.controls['resEstera'].value">
-            <mat-form-field>
-              <input matInput placeholder="Indirizzo estero" [formControlName]="'indirizzoEstero'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" *ngIf="respForm.controls['resEstera'].value">
-            <mat-form-field>
-              <input matInput placeholder="CAP estero" [formControlName]="'capEstero'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" *ngIf="respForm.controls['resEstera'].value"></mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="2"
-            *ngIf="(!respForm.controls['resEstera'].value) && (!respForm.controls['stradario'].value)">
-            <mat-form-field>
-              <input matInput placeholder="Indirizzo" [formControlName]="'indirizzoLoccsi'"
-                [matAutocomplete]="autoResp">
-              <mat-autocomplete #autoResp="matAutocomplete" [displayWith]="displayFn"
-                (optionSelected)='setLoccsiElemSezResp($event.option.value)'>
-                <mat-option *ngFor="let indirizzo of filteredOptionsResp | async" [value]="indirizzo">
-                  {{indirizzo.properties.loccsiLabel}}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error
-              *ngIf="respForm.controls.indirizzoLoccsi.errors?.['indirizzoNonSelezionato'] && !loccsiClickedResp">Selezionare
-              una
-              voce dall'elenco degli indirizzi</mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!respForm.controls['resEstera'].value) && (!respForm.controls['stradario'].value)">
-            <mat-form-field>
-              <input matInput placeholder="Civico" [formControlName]="'civicoLoccsi'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!respForm.controls['resEstera'].value) && (!respForm.controls['stradario'].value)">
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2">
-            <div class="label-tile">
-              <section>
-                <mat-checkbox [formControlName]="'stradario'" *ngIf="(!respForm.controls['resEstera'].value)"
-                  (change)="toggleStradarioResp($event)">Non
-                  trovato in
-                  stradario</mat-checkbox>
-              </section>
-            </div>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" colspan="2"
-            *ngIf="(!respForm.controls['resEstera'].value) && respForm.controls['stradario'].value">
-            <mat-form-field>
-              <input matInput placeholder="Indirizzo" [formControlName]="'indirizzo'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!respForm.controls['resEstera'].value) && respForm.controls['stradario'].value">
-            <mat-form-field>
-              <input matInput placeholder="Civico" [formControlName]="'civico'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!respForm.controls['resEstera'].value) && respForm.controls['stradario'].value">
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!respForm.controls['resEstera'].value) && respForm.controls['stradario'].value">
-            <mat-form-field>
-              <input matInput placeholder="Comune" [formControlName]="'comune'" [matAutocomplete]="autoRespComune">
-              <mat-autocomplete #autoRespComune="matAutocomplete" [displayWith]="displayFnComune"
-                (optionSelected)='setProvinciaComuneEstesoResp($event.option.value)'>
-                <mat-option *ngFor="let indirizzo of filteredOptionsRespComuni | async" [value]="indirizzo">
-                  {{indirizzo.comune}}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error
-              *ngIf="respForm.controls.comune.errors?.['indirizzoNonSelezionato'] && !loccsiClickedRespComuni">Selezionare
-              un comune</mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2"
-            *ngIf="(!respForm.controls['resEstera'].value) && respForm.controls['stradario'].value">
-            <mat-form-field>
-              <input readonly matInput placeholder="Provincia" [formControlName]="'provincia'">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" colspan="2">
-            <mat-form-field>
-              <input matInput placeholder="Data inizio" [matDatepicker]="pickerResp" [formControlName]="'dataInizio'">
-              <mat-datepicker-toggle matSuffix [for]="pickerResp"></mat-datepicker-toggle>
-              <mat-datepicker #pickerResp></mat-datepicker>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" colspan="2">
-            <mat-form-field>
-              <input matInput placeholder="Email" [formControlName]="'email'">
-            </mat-form-field>
-          </mat-grid-tile>
-        </div>
-        <div *ngIf="!isRespPresent()">
-          <mat-grid-tile rowspan="4" colspan="2">
-            <div class="no-prop-resp">
-              <app-message-box [titolo]="'Nessun Responsabile trovato'"
-                [descrizione]="'Nessun responsabile asociato all\' impianto corrente'" [type]="1">
-              </app-message-box>
-            </div>
-          </mat-grid-tile>
-        </div>
-        <mat-grid-tile rowspan="3" colspan="2" *ngIf="isEnabledModifica() && !isResponsabile()">
-          <button mat-button class="secondary-button form-field" (click)="apriNuovoResponsabile()">NUOVO
-            RESPONSABILE</button>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="isRespPresent()">
-          <div class="left-elem">
-            <button mat-button class="back" (click)="disableModifica(2)" class="annulla primary-color"
-              *ngIf="!isRespDisabled"> ANNULLA</button>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2" *ngIf="isRespPresent() && isEnabledModifica()">
-          <div class="right-elem">
-            <button mat-button class="default-button form-field" (click)="inserisciResponsabile()"
-              *ngIf="respFormValid()">SALVA</button>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </form>
-  </mat-expansion-panel>
-</mat-accordion>
-
-<app-title [title]="'Elenco Gestori Impianto componenti'" [subtitle]="''"></app-title>
-
-<app-message-box [titolo]="'Nessun Componente trovato'" [descrizione]="'Nessun componente associato'" [type]="1"
-  *ngIf="emptyComponents">
-</app-message-box>
-
-<div *ngIf="hasLoadedComponents">
-  <mat-card class="card mat-elevation-z8 card-componenti" *ngFor="let item of impreseMap | keyvalue">
-    <mat-card-content>
-      <mat-grid-list cols="4" rowHeight="2em">
-
-        <mat-grid-tile colspan="2" rowspan="3">
-          <div class="left-elem">Denominazione:</div>
-        </mat-grid-tile>
-
-        <mat-grid-tile colspan="2" rowspan="3" *ngIf="item.value[0].sezSCimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezSCimpresa.impresaSC.L4_5denominazione}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="3" *ngIf="item.value[0].sezCGimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezCGimpresa.impresaCG.L4_6denominazione}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="3" *ngIf="item.value[0].sezGFimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezGFimpresa.impresaGF.L4_4denominazione}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="3" *ngIf="item.value[0].sezGTimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezGTimpresa.impresaGT.L4_1denominazione}}</div>
-        </mat-grid-tile>
-
-        <mat-grid-tile colspan="2">
-          <div class="left-elem">Codice REA:</div>
-        </mat-grid-tile>
-
-        <mat-grid-tile colspan="2" *ngIf="item.value[0].sezSCimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezSCimpresa.impresaSC.L4_5rea}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" *ngIf="item.value[0].sezCGimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezCGimpresa.impresaCG.L4_6rea}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" *ngIf="item.value[0].sezGFimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezGFimpresa.impresaGF.L4_4rea}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" *ngIf="item.value[0].sezGTimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezGTimpresa.impresaGT.L4_1rea}}</div>
-        </mat-grid-tile>
-
-
-        <mat-grid-tile colspan="2">
-          <div class="left-elem">Codice Fiscale:</div>
-        </mat-grid-tile>
-
-        <mat-grid-tile colspan="2" *ngIf="item.value[0].sezSCimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezSCimpresa.impresaSC.L4_5codiceFiscale}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" *ngIf="item.value[0].sezCGimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezCGimpresa.impresaCG.L4_6codiceFiscale}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" *ngIf="item.value[0].sezGFimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezGFimpresa.impresaGF.L4_4codiceFiscale}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" *ngIf="item.value[0].sezGTimpresa">
-          <div class="right-elem def-elem">{{item.value[0].sezGTimpresa.impresaGT.L4_1codiceFiscale}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="4"></mat-grid-tile>
-      </mat-grid-list>
-      <mat-divider inset></mat-divider>
-      <mat-grid-list cols="3" rowHeight="3em">
-        <mat-grid-tile>
-          <div class="left-elem def-elem">Componenti</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2"></mat-grid-tile>
-        <div *ngFor="let elem of item.value">
-
-          <mat-grid-tile colspan="2" *ngIf="elem.sezGTimpresa">
-            <div class="left-elem">
-              <button mat-raised-button class="component-button" (click)="dettaglioGt(elem.L4_1numGT)">
-                <div class="interno primary-color">GT-{{elem.L4_1numGT}}
-                  <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
-                </div>
-              </button>
-            </div>
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="2" *ngIf="elem.sezGFimpresa">
-            <div class="left-elem">
-              <button mat-raised-button class="component-button" (click)="dettaglioGf(elem.L4_4numGF)">
-                <div class="interno primary-color">GF-{{elem.L4_4numGF}}
-                  <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
-                </div>
-              </button>
-            </div>
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="2" *ngIf="elem.sezSCimpresa">
-            <div class="left-elem">
-              <button mat-raised-button class="component-button" (click)="dettaglioSc(elem.L4_5numSC)">
-                <div class="interno primary-color">SC-{{elem.L4_5numSC}}
-                  <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
-                </div>
-              </button>
-            </div>
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="2" *ngIf="elem.sezCGimpresa">
-            <div class="left-elem">
-              <button mat-raised-button class="component-button" (click)="dettaglioCg(elem.L4_6numCG)">
-                <div class="interno primary-color">CG-{{elem.L4_6numCG}}
-                  <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
-                </div>
-              </button>
-            </div>
-          </mat-grid-tile>
-
-          <mat-grid-tile *ngIf="isEnabledModifica()">
-            <button mat-icon-button (click)="deleteComponente(elem)">
-              <mat-icon class="delete">delete</mat-icon>
-            </button>
-          </mat-grid-tile>
-        </div>
-      </mat-grid-list>
-    </mat-card-content>
-  </mat-card>
+  <div style="height: 20px; background-color: white"></div>
 </div>
-
-
-<mat-card class="contaner-card mat-elevation-z0">
-  <mat-grid-list cols="1" rowHeight="2em" class="modul-card">
-    <mat-grid-tile>
-      <div class="left-elem">
-        <button mat-button class="add-component primary-color" (click)="apriAggiungiComponente()"
-          *ngIf="isEnabledModifica()" id="buttonAggiungiComponente">AGGIUNGI
-          COMPONENTE</button>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <div class="left-elem">
-        <button mat-button class="add-component primary-color" (click)="apriElencoControlli()"
-          *ngIf="isEnabledModifica()" id="buttonElencoComponenti">ELENCO CONTROLLI</button>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <div class="left-elem">
-        <button mat-button class="add-component primary-color" (click)="consolidaLibretto()" *ngIf="isEnabledModifica()"
-          id="buttonElencoComponenti">CONSOLIDA LIBRETTO IMPIANTO</button>
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-</mat-card>
-
-<mat-card class="card mat-elevation-z8 modul-card">
-  <mat-card-content>
-    <mat-grid-list cols="1" rowHeight="2em">
-      <mat-grid-tile>
-        <div class="left-elem">
-          <p class="modulistica">Modulistica</p>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile rowspan="3">
-        <div class="left-elem">
-          <div class="download-libretto"><img [src]="pdf">
-            <button mat-button (click)="scaricaLibretto()">Scarica libretto (PDF)</button>
-          </div>
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </mat-card-content>
-</mat-card>

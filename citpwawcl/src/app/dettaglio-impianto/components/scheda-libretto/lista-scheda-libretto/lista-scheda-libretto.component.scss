@@ -1,0 +1,68 @@
+.card {
+    text-align: left;
+    border: 1px solid #797979;
+}
+
+.card-link {
+    background-color: transparent;
+    border: 0px;
+}
+
+.end-icon {
+    position: absolute; 
+    right: 0;
+}
+
+.rotate-animation {
+    transition: transform 0.3s ease; // Specifica una transizione per il cambiamento di trasformazione (rotazione)
+    color: #006cb4;
+}
+
+.rotate180 {
+    transform: rotate(180deg); // Ruota l'icona di 180 gradi
+}
+
+.scheda-elements {
+    cursor: pointer;
+    &:hover span {
+        margin-top: 10px;
+        color: #666;
+    }
+}
+
+
+.top-card {
+    font-weight: bold;
+    border-color: #eaeaea;
+}
+
+.open-border {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.open-card {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.download-libretto {
+    display: flex;
+    align-items: center;
+    color: #b8191a;
+    text-decoration: underline;
+
+    button {
+        margin-left: 1em;
+        font-weight: bold !important;
+    }
+}
+
+p.bold {
+    font-weight: bold !important;
+}
+
+.modulistica {
+    font-size: 1.5em;
+    font-weight: bold;
+}

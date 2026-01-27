@@ -4,10 +4,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class BackService {
-  constructor() { }
+  constructor() {
+    //Not Implemented
+   }
 
   backTitle: any;
   route: any;
+  queryParams: any;
 
 
   setBackTitle(elem: any) {
@@ -29,5 +32,13 @@ export class BackService {
 
   getRoute() {
     return this.route;
+  }
+
+  getQueryParams(){
+    return this.queryParams;
+  }
+
+  setQueryParams(queryParams){
+    this.queryParams = queryParams;
   }
 }

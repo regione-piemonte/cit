@@ -1,6 +1,6 @@
 <mat-card class="card mat-elevation-z0">
-    <mat-grid-list cols="1" rowHeight="3em">
-        <mat-grid-tile *ngFor="let elem of result">
+    <mat-grid-list cols="12" rowHeight="3em" gutterSize="15px">
+        <mat-grid-tile [colspan]="colBreakpoint1" *ngFor="let elem of result">
             <div class="left-elem">
                 <button mat-raised-button class="component-button" (click)="apriNuovoControllo(elem)">
                     <div class="interno primary-color">{{elem.nomeComponente}} | {{tipiDoc.get(elem.tipoControllo)}}
@@ -9,8 +9,7 @@
                 </button>
             </div>
         </mat-grid-tile>
-        <mat-grid-tile>
-
+        <mat-grid-tile [colspan]="colBreakpoint1">
             <button mat-button class="default-button" (click)="nuovaRicerca()">
                 <div class="interno-search">
                     <mat-icon>search</mat-icon>

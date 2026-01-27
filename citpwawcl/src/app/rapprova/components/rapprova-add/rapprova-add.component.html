@@ -1,0 +1,70 @@
+<div class="cit-page-container">
+  <app-page-title>Aggiungi Rapporto di Prova</app-page-title>
+  <app-breadcrumb
+    label="Dettaglio Ispezione"
+    [link]="['/', 'dettaglio-ispezione', idIspezione2018]"
+  ></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <app-impianto-info-box
+      [impianto]="datiImpianto"
+    ></app-impianto-info-box>
+    <app-alert-hook></app-alert-hook>
+    <mat-card>
+      <form [formGroup]="searchForm" (ngSubmit)="cercaRapProva()">
+        <div class="cit-two-cols-grid">
+          <mat-form-field>
+            <mat-label>Data rapporto di prova</mat-label>
+            <input matInput [max]="dataRapProvaMax" [matDatepicker]="picker1" formControlName="dataRapProva">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="cit-fix-time-padding" rowspan="2">
+            <input
+              matInput
+              placeholder="Ora rapporto di prova"
+              type="time"
+              formControlName="oraRapProva"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select
+              placeholder="Tipo rapporto di prova"
+              formControlName="tipoRapportoDiProva"
+            >
+              <mat-option
+                *ngFor="let elem of tipoRapportoDiProva"
+                [value]="elem.codice"
+              >
+                {{ elem.descrizione }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="searchForm.value.tipoRapportoDiProva === 8">
+            <mat-select
+              placeholder="Tipo combustibile"
+              formControlName="tipoCombustibile"
+            >
+              <mat-option></mat-option>
+              <mat-option
+                *ngFor="let elem of tipoCombustibile"
+                [value]="elem.codice"
+              >
+                {{ elem.descrizione }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button
+        mat-flat-button color="primary" class="cit-block-button"
+        [disabled]="!searchForm.valid">
+        <mat-icon>search</mat-icon>
+        CERCA
+      </button>
+      </form>
+    </mat-card>
+  </ng-container>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto"></mat-spinner>
+  </ng-template>
+</div>

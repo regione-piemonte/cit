@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Esito } from 'src/app/models/esito';
 import { Persona } from 'src/app/models/persona';
@@ -35,6 +35,7 @@ export class RicercaPgDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //Not Implemented
   }
 
   closeDialog() {
@@ -43,24 +44,26 @@ export class RicercaPgDialogComponent implements OnInit {
 
   cercaPerCF() {
     this.persone = [];
-    this.impiantoService.cercaResponsabileProprietario(1, this.searchForm.controls.cf.value).subscribe((elem: Persona[]) => {
+    this.impiantoService.cercaResponsabileProprietario(1, this.searchForm.controls.cf.value, undefined, undefined, true).subscribe((elem: Persona[]) => {
       this.persone = elem;
     }, error => {
-      if (error.status === 404) {
-        this.persone = [];
-      }
+      this.setErrorStatus(error);
     });
   }
 
   cercaPerREA() {
     this.persone = [];
-    this.impiantoService.cercaResponsabileProprietario(1, undefined, this.searchForm.controls.numeroRea.value, this.searchForm.controls.siglaRea.value).subscribe((elem: Persona[]) => {
+    this.impiantoService.cercaResponsabileProprietario(1, undefined, this.searchForm.controls.numeroRea.value, this.searchForm.controls.siglaRea.value, true).subscribe((elem: Persona[]) => {
       this.persone = elem;
     }, error => {
-      if (error.status === 404) {
-        this.persone = [];
-      }
+      this.setErrorStatus(error);
     });
+  }
+
+  setErrorStatus(error: any){
+    if (error.status === 404) {
+      this.persone = [];
+    }
   }
 
   inserisciComponente(persona: Persona) {

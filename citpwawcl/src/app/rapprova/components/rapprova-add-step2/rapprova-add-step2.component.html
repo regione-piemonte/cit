@@ -1,0 +1,37 @@
+<div class="cit-page-container">
+  <app-page-title>Aggiungi Rapporto di Prova</app-page-title>
+  <app-breadcrumb
+    label="Dettaglio Ispezione"
+    [link]="['/', 'dettaglio-ispezione', idIspezione2018]"
+  ></app-breadcrumb>
+  <!-- <app-breadcrumb
+    label="Ricerca componente"
+    [link]="['/', 'dettaglio-ispezione', idIspezione2018, 'nuovo-rapprova', 'step-1']"
+  ></app-breadcrumb> -->
+  <app-role-info-box></app-role-info-box>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <app-impianto-info-box
+      [impianto]="impiantoInfoBox"
+    ></app-impianto-info-box>
+    <app-alert-hook></app-alert-hook>
+    <app-alert *ngIf="chips == null && !loading"
+    title="Nessun elemento trovato"
+    message="Nessun componente disponibile recuperato dal sistema"
+    type="warn" title="Nessun elemento trovato"></app-alert>
+    <mat-chip-list class="cit-two-cols-chips cit-ugly-chips">
+      <mat-chip *ngFor="let chip of chips" color="primary" [selected]="chip === selectedChip" class="mat-elevation-z2" (click)="groupChipClick(chip)">
+        <span class="text-container">{{chip.tipologia === 'frigo' ? 'GF' : 'GT'}}-{{chip.num}} ({{chip.fabbricante | orDash}} - {{chip.modello}})</span>
+        <mat-icon>chevron_right</mat-icon>
+      </mat-chip>
+    </mat-chip-list><br>
+    <button mat-button color="primary" [disabled]="!selectedChip" (click)="uploadScansione()">UPLOAD SCANSIONE</button><br>
+    <button mat-button color="primary" [disabled]="!selectedChip" (click)="rapprovaWeb()">RAPPROVA WEB</button><br><br>
+    <button mat-flat-button color="primary" [routerLink]="['/', 'dettaglio-ispezione', idIspezione2018, 'nuovo-rapprova', 'step-1']">
+      <mat-icon>search</mat-icon>
+      NUOVA RICERCA
+    </button>
+  </ng-container>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto"></mat-spinner>
+  </ng-template>
+</div>

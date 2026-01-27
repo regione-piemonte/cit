@@ -13,9 +13,12 @@ export class RicercaPgResultComponent implements OnInit {
   persone: Persona[];
   @Output() inserisciComponente = new EventEmitter<Persona>();
 
-  constructor() { }
+  constructor() {
+    //Not Implemented
+   }
 
   ngOnInit(): void {
+    //Not Implemented
   }
 
   inserisci(persona: Persona) {

@@ -1,0 +1,54 @@
+<div class="cit-page-container">
+  <app-page-title>Nuova Azione</app-page-title>
+  <app-breadcrumb label="Dettaglio Ispezione" [link]="['/', 'dettaglio-ispezione', idIspezione2018]"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <mat-card *ngIf="!loading; else loadingTemplate">
+    <form [formGroup]="azioneForm" (ngSubmit)="submit()">
+      <div class="cit-two-cols-grid">
+        <mat-form-field>
+          <mat-label>Data azione</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dtAzione">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Su</mat-label>
+          <mat-select formControlName="idIspezione2018">
+            <mat-option *ngFor="let ispezione of ispezioneList" [value]="ispezione.idIspezione2018">
+              Codice ispezione {{ispezione.idIspezione2018}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div style="margin-bottom: 10px">
+          <small>Apri documento / immagine</small>
+          <div class="file-box">
+            <span *ngIf="azioneForm.value.nomeDocOriginale; else uploadTemplate">
+              {{azioneForm.value.nomeDocOriginale}}
+              <button mat-icon-button color="accent" (click)="clearDocument()">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </span>
+            <ng-template #uploadTemplate>
+              <button mat-fab color="primary" type="button" (click)="file.click()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </ng-template>
+          </div>
+          <small style="float: right">PDF, JPG, PNG</small>
+          <input #file type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none" (change)="openDocument($event)">
+        </div>
+        <mat-form-field>
+          <mat-label>Descrizione Azione</mat-label>
+          <textarea matInput formControlName="descrizioneAzione" rows="5" appUpper></textarea>
+        </mat-form-field>
+      </div>
+      <button mat-flat-button color="primary" class="cit-block-button" [disabled]="azioneForm.invalid">
+        <mat-icon>upload</mat-icon>
+        CARICA AZIONE E DOCUMENTO
+      </button>
+    </form>
+  </mat-card>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto"></mat-spinner>
+  </ng-template>
+</div>

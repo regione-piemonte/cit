@@ -1,0 +1,7 @@
+<mat-card [ngClass]="'alert-' + type">
+  <mat-icon>{{getIcon()}}</mat-icon>
+  <div>
+    <h3 *ngIf="title">{{title}}</h3>
+    <p>{{message}}</p>
+  </div>
+</mat-card>

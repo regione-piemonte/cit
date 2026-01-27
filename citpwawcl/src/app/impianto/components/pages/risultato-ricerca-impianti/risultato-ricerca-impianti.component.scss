@@ -1,22 +1,90 @@
-.stato-attivo{
+.stato-attivo {
     color: #167446;
 }
 
-.stato-dismesso{
+.stato-dismesso {
     color: #741616;
 }
 
-.label-tile{
+.label-tile {
     width: 100%;
     text-align: left;
 }
 
-.data-tile{
+.data-tile {
     width: 100%;
     text-align: right;
     font-weight: bold;
 }
 
-.card{
+.card {
     margin-bottom: 1em;
+}
+
+.mat-drawer-content {
+    overflow: unset !important;
+}
+
+.mid-button {
+    font-size: 12px;
+    width: -webkit-fill-available;
+}
+
+.result-container {
+    padding-top: 130px; 
+    display: flex; 
+}
+
+
+@media only screen and (min-width: 768px) {
+    .mid-button {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .mid-button {
+        font-size: 13px;
+    }
+
+    .card-grid {
+        gap: 15px;
+        margin: 0% 15% 0% 0%;
+    }
+
+    .result-container {
+        padding-top: 130px; 
+        display: flex; 
+        margin-top: 200px;
+    }
+}
+
+.icon-button {
+  background: none;      
+  border: none;           
+  padding: 0;             
+  cursor: pointer;       
+  display: flex;          
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button img {
+  width: 32px;            
+  height: 32px;
+}
+
+.icon-button:focus {
+  outline: 2px solid #1976d2; 
+  outline-offset: 2px;
+}
+
+.tile-small {
+  height: 2em !important;  
+  min-height: 2em !important;
+  max-height: 2em !important;
+
+  .mat-grid-tile-content {
+    height: 100% !important; 
+  }
 }

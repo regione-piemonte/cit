@@ -1,0 +1,212 @@
+<div class="wide-screen" #wideScreen>
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div style="width: 83%; margin: auto;">
+        <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+            *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+        </app-message-box>
+        <div class="up">
+            <mat-accordion>
+                <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="true">
+                    <mat-expansion-panel-header class="expansion-header-margin">
+                        <mat-panel-title>
+                            <span class="panel-title">Dati terzo responsabile</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="list-card-row">
+                        <div class="card-row">
+                            <p>Codice REA: <span class="right-align"> {{nomina?.L3cciaa}}</span></p>
+                        </div>
+                        <div class="card-row">
+                            <p>Codice fiscale: <span
+                                    class="right-align">{{dettaglioNomina?.datiImpresa[0]?.codice_fiscale}}
+                                </span></p>
+                        </div>
+                        <div class="card-row">
+                            <p>Denominazione: <span
+                                    class="right-align">{{dettaglioNomina?.datiImpresa[0]?.denominazione}}</span></p>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <div class="accordion-margin">
+                <mat-accordion class="">
+                    <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="true">
+                        <mat-expansion-panel-header class="expansion-header-margin">
+                            <mat-panel-title>
+                                <span class="panel-title">Dati contratto terzo responsabile</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="list-card-row">
+                            <div class="card-row">
+                                <p>Data inizio contratto: <span class="right-align">{{
+                                        getDate(dettaglioNomina?.datiContratto[0].data_inizio) }}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Data fine contratto: <span
+                                        class="right-align">{{getDate(dettaglioNomina?.datiContratto[0].data_fine)}}</span>
+                                </p>
+                            </div>
+                            <div class="card-row">
+                                <p>Tacito rinnovo: <span class="right-align">
+                                        {{dettaglioNomina?.datiContratto[0].flg_tacito_rinnovo == 1 ? 'SI' :
+                                        'NO'}}</span>
+                                </p>
+                            </div>
+                            <div class="card-row">
+                                <p>Data cessazione: <span class="right-align">{{getDate(
+                                        dettaglioNomina?.datiContratto[0].data_cessazione ) }}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Tipo Cessazione: <span
+                                        class="right-align">{{dettaglioNomina?.datiContratto[0]?.fk_tipo_cessazione ?
+                                        getTipoCessazione(dettaglioNomina?.datiContratto[0]?.fk_tipo_cessazione):
+                                        '-'}}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Motivo cessazione: <span class="right-align"> {{
+                                        dettaglioNomina?.datiContratto[0].motivo_cessazione ?
+                                        dettaglioNomina?.datiContratto[0].motivo_cessazione : '-' }}</span></p>
+                            </div>
+
+                            <div class="card-row">
+                                <p>Note: <span class="right-align">{{ dettaglioNomina?.datiContratto[0].note }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+            </div>
+
+            <div class="accordion-margin">
+
+                <mat-accordion class="accordion-margin">
+                    <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="true">
+                        <mat-expansion-panel-header class="expansion-header-margin">
+                            <mat-panel-title>
+                                <span class="panel-title">Dati impianto</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="list-card-row">
+                            <div class="card-row">
+                                <p>Codice impianto: <span class="right-align">
+                                        {{dettaglioNomina?.datiImpianto[0].codiceImpianto}}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Ubicazione: <span class="right-align">
+                                        {{dettaglioNomina?.datiImpianto[0].indirizzoSitad ?
+                                        dettaglioNomina?.datiImpianto[0].indirizzoSitad :
+                                        dettaglioNomina?.datiImpianto[0].indirizzoNonTrovato }}
+                                        {{dettaglioNomina?.datiImpianto[0].civico }} ,
+                                        {{dettaglioNomina?.datiImpianto[0].comune }}
+                                        ({{dettaglioNomina?.datiImpianto[0].provincia }})
+                                    </span></p>
+                            </div>
+                            <div class="card-row">
+                                <p class="p-flex"><span class="left-align">Responsabile impianto alla data del contratto:</span> <span
+                                        class="right-align span-wrap">
+                                        {{dettaglioNomina?.persona[0].nome}}
+                                        {{dettaglioNomina?.persona[0].cognomeDenominazione}}
+                                    </span></p>
+                            </div>
+                        </div>
+                        <div class="card-row">
+                            <p>Autodichiarazione dei titoli e dello stato dell’impianto in fase di nomina: <span
+                                    class="right-align mid-width">{{getAutodichiarazioni('N')}}</span></p>
+                        </div>
+                        <div class="card-row" *ngIf="dettaglioNomina?.datiContratto[0]?.fk_tipo_cessazione">
+                            <p>Autodichiarazione dei titoli e dello stato dell’impianto alla decadenza: <span
+                                    class="right-align mid-width">{{getAutodichiarazioni('C')}}</span></p>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+
+            <div class="accordion-margin">
+        
+                <mat-accordion class="accordion-margin" *ngIf="isDatiAffidamentoVisible()">
+                    <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="true">
+                        <mat-expansion-panel-header class="expansion-header-margin">
+                            <mat-panel-title>
+                                <span class="panel-title">Delega manutentore</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="card-container">
+                            <div class="button-wrapper right-elem">
+                                <button *ngIf="isAddDeleteAffidamentoVisible()" mat-button [color]="'primary'" class="modify" (click)="addAffidamento()">
+                                    <mat-icon>add</mat-icon>
+                                    {{ 'Aggiungi'}}
+                                </button>
+                            </div>
+                            <mat-card class="card mat-elevation-z8"
+                                *ngFor="let affidamento of dettaglioNomina?.datiAffidamento; let i = index">
+                                <mat-card-title>
+                                    <p style="font-weight: 700; font-size: 18px;">Componente
+                                        {{affidamento.idTipoComponente + '-' + affidamento.progressivo}}
+                                        <span *ngIf="isAddDeleteAffidamentoVisible()" class="right-align delete">
+                                            <mat-icon class="icon-delete"
+                                                (click)="deleteAffidamento(affidamento, i)">delete</mat-icon>
+                                        </span>
+                                    </p>
+                                </mat-card-title>
+                                <mat-card-content>
+                                    <form>
+                                        <mat-grid-list cols="1" rowHeight="2em">
+                                            <mat-grid-tile [rowspan]="2">
+                                                <mat-form-field class="form-field">
+                                                    <input matInput placeholder="Codice Rea"
+                                                        [value]="affidamento.siglaRea + '-' + affidamento.numeroRea"
+                                                        readonly disabled>
+                                                </mat-form-field>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile [rowspan]="2">
+                                                <mat-form-field class="form-field">
+                                                    <input matInput placeholder="Codice Fiscale"
+                                                        [value]="affidamento.codiceFiscale" readonly disabled>
+                                                </mat-form-field>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile [rowspan]="2">
+                                                <mat-form-field class="form-field">
+                                                    <input matInput placeholder="Denominazione"
+                                                        [value]="affidamento.denominazione" readonly disabled>
+                                                </mat-form-field>
+                                            </mat-grid-tile>
+                                        </mat-grid-list>
+                                    </form>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        
+
+            <mat-card class="contaner-card mat-elevation-z0" style="margin-top:20px; padding-left: 0px;">
+                <mat-grid-list cols="1" rowHeight="2em" class="modul-card">
+                    <mat-grid-tile>
+                        <div class="left-elem">
+                            <button mat-button class="add-component primary-color" id="buttonAggiungiComponente"
+                                (click)="visualizzaDocumentiContratto()">VISUALIZZA DOCUMENTO</button>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="isCessazioneVisible()"
+                        [rowspan]="rowLongMobile">
+                        <div class="left-elem">
+                            <button mat-button class="add-component primary-color"
+                                style="white-space: pre-wrap !important; text-align: left !important;"
+                                (click)="cessazione()" id="buttonAggiungiComponente">CESSAZIONE TERZA
+                                RESPONSABILITA'</button>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="isProrogaVisible()" [rowspan]="rowLongMobile">
+                        <div class="left-elem">
+                            <button mat-button class="add-component primary-color" id="buttonElencoComponenti"
+                                style="white-space: pre-wrap !important; text-align: left !important;"
+                                (click)="proroga()">PROROGA NOMINA TERZO RESPONSABILE</button>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+        </div>
+    </div>
+</div>

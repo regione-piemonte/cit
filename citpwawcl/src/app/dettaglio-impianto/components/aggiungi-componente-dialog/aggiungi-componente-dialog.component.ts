@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { ICONSURL } from 'src/app/utils/constants';
@@ -20,6 +20,7 @@ export class AggiungiComponenteDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data, readonly spinnerService: SpinnerService, private router: Router) { }
 
   ngOnInit(): void {
+    //Not Implemented
   }
 
   closeDialog() {

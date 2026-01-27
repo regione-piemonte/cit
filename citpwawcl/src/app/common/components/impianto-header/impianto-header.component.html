@@ -1,16 +1,24 @@
-<div class="role-header-content">
-    <mat-expansion-panel class="expansion-panel card mat-elevation-z0">
-        <mat-expansion-panel-header>
-            <div class="parent primary-color">
-                <mat-icon class="role-icon">offline_bolt</mat-icon>Codice impianto: {{codiceImpianto}}
+<div class="wide-screen">
+    <mat-grid-list cols="12" rowHeight="8em">
+        <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+        <mat-grid-tile colspan="10" rowspan="1">
+            <div class="role-header-content">
+                <mat-expansion-panel class="expansion-panel card mat-elevation-z0">
+                    <mat-expansion-panel-header style="margin: -14px 2px;">
+                        <div class="parent primary-color">
+                            <mat-icon class="role-icon">offline_bolt</mat-icon>Codice impianto: {{codiceImpianto}}
+                        </div>
+                    </mat-expansion-panel-header>
+                    <ng-template matExpansionPanelContent>
+                        <div class="expansion-content">
+                            <p>Indirizzo: {{indirizzo}}</p>
+                            <p>Responsabile: {{responsabile}}</p>
+                            <p>{{terzoResponsabile}}</p>
+                        </div>
+                    </ng-template>
+                </mat-expansion-panel>
             </div>
-        </mat-expansion-panel-header>
-        <ng-template matExpansionPanelContent>
-            <div class="expansion-content">
-                <p>Indirizzo: {{indirizzo}}</p>
-                <p>Responsabile: {{responsabile}}</p>
-                <p>{{terzoResponsabile}}</p>
-            </div>
-        </ng-template>
-    </mat-expansion-panel>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+    </mat-grid-list>
 </div>

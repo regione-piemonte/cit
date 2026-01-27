@@ -1,5 +1,6 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tipiDocDesc, TipoDoc } from 'src/app/enums/tipo-doc-enum';
@@ -11,9 +12,9 @@ import { DatiSCModel } from 'src/app/models/dati-sc-model';
 import { DatoControlloModel } from 'src/app/models/dato-controllo-model';
 import { Esito } from 'src/app/models/esito';
 import {
-  Allegato, CheckList, ControlloImpianto, ControlloVerificaEnergetica,
-  datiAllegato, DatiIdentificativi, DatiIntestazione, DatiManutentore, DatiTecnico, DocumentazioneTecnica, Mod,
-  Richiesta, RowAllegato, RowFumi, TabFumi, TrattamentoAcqua
+    Allegato, CheckList, ControlloImpianto, ControlloVerificaEnergetica,
+    datiAllegato, DatiIdentificativi, DatiIntestazione, DatiManutentore, DatiTecnico, DocumentazioneTecnica, Mod,
+    Richiesta, RowAllegato, RowFumi, TabFumi, TrattamentoAcqua
 } from 'src/app/models/mod';
 import { OnlineCheckModel } from 'src/app/models/online-check-model';
 import { OperazioneControlloModel } from 'src/app/models/operazione-controllo-model';
@@ -93,6 +94,10 @@ export class DettaglioTipo3Component implements OnInit {
   fluidi: CodiceDescrizione[];
   datiControllo: DatiControlloModel;
 
+  colBreakpoint1: NumberInput;
+  colBreakpoint2: NumberInput;
+  colBreakpoint3: NumberInput;
+  colBreakpoint4: NumberInput;
 
   constructor(private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -112,6 +117,11 @@ export class DettaglioTipo3Component implements OnInit {
   }
 
   ngOnInit(): void {
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (window.innerWidth < 768) ? 0 : 6;
+    this.colBreakpoint3 = (window.innerWidth < 768) ? 10 : 5;
+    this.colBreakpoint4 = (window.innerWidth < 768) ? 1 : 0;
+
     this.titleService.setTitle("REE TIPO 3");
     this.titleService.setSubtitle("Scambiatori");
     this.datiControllo = this.localStorageService.getControllo();
@@ -148,6 +158,14 @@ export class DettaglioTipo3Component implements OnInit {
     this.controlloService.getOnlineSubject().subscribe((elem) => {
       this.offline = !elem;
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (event.target.innerWidth < 768) ? 0 : 6;
+    this.colBreakpoint3 = (event.target.innerWidth < 768) ? 10 : 5;
+    this.colBreakpoint4 = (event.target.innerWidth < 768) ? 1 : 0;
   }
 
   compilaDatiIniziali() {

@@ -10,9 +10,11 @@ export class DettaglioComponent implements OnInit {
   codiceImpianto: string;
 
   constructor() {
+    //Not Implemented
   }
 
   ngOnInit(): void {
+    //Not Implemented
   }
 
 }

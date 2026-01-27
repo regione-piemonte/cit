@@ -1,0 +1,32 @@
+#first-block {
+  background-color: #005095;
+}
+
+#second-block {
+  background-color: #213366;
+}
+
+.centered-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+img {
+  width: 120px;
+}
+
+a {
+  font-size: smaller;
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

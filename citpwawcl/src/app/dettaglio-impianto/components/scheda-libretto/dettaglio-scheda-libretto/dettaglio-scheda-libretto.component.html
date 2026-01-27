@@ -1,0 +1,521 @@
+<div class="wide-screen" #wideScreen *ngIf="!!form">
+    <div style="width: 83%; margin: auto;">
+        <app-message-box [ngClass]="{ 'fade-out': doFade }" [titolo]="'Successo'"
+            [descrizione]="'Modifica del libretto avvenuto con successo'" *ngIf="isSuccess" [type]="4">
+        </app-message-box>
+    </div>
+    <div style="width: 83%; margin: auto;">
+        <form class="form-container" [formGroup]="form" style="width: 100%;">
+            <div class="button-container">
+                <div class="button-wrapper right-elem">
+                    <button mat-button [color]="isModifica ? 'warn' : 'primary'" class="modify" *ngIf="!onlyView"
+                        (click)="doModificaBottonEvent()" [disabled]="isModifica">
+                        <mat-icon>edit</mat-icon>
+                        {{ 'Modifica'}}
+                    </button>
+                </div>
+            </div>
+
+            <!-- FORM SUB-GROUP 'head' START -->
+
+            <mat-card class="wide-card mat-elevation-z8" formGroupName="head">
+                <h3 class="card-title">1.1 - Tipologia Intervento</h3>
+                <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="4em">
+                    <mat-grid-tile>
+                        <div class="left-elem">
+                            <mat-form-field class="form-field">
+                                <mat-label>Data intervento</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="dataIntervento">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Tipo di intervento" formControlName="fkTipoIntervento">
+                                <mat-option *ngFor="let cat of tipiIntervento" [value]="cat.codice">
+                                    {{ cat.descrizione }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+
+            <!-- FORM SUB-GROUP 'head' END -->
+
+            <!-- FORM SUB-GROUP 'card1P2' START -->
+
+            <mat-card class="wide-card mat-elevation-z8" formGroupName="card1P2">
+                <h3 class="card-title">1.2 - Destinazione dell'edificio</h3>
+                <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="4em" style="margin-top: 34px;">
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+                            <label class="form-check-label">Singola unità immobiliare &nbsp;</label>
+                            <mat-slide-toggle [(ngModel)]="checkUnita" color="primary"
+                                formControlName="l1_2_flg_singola_unita">
+                                {{ checkUnita? 'SI': 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Categoria" formControlName="l1_2_fk_categoria">
+                                <mat-option *ngFor="let cat of categorie" [value]="cat.idCategoria">
+                                    {{cat.idCategoria}} - {{ cat.desCategoria }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <input type="number"
+                                (input)="doInputValidating('card1P2.l1_2_vol_risc_m3', 'card1P3.climatizatoreInv', 'card1P3.l1_3_pot_clima_inv_kw')"
+                                matInput placeholder="Volume lordo riscaldato (m3)" formControlName="l1_2_vol_risc_m3">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <input type="number"
+                                (input)="doInputValidating('card1P2.l1_2_vol_raff_m3', 'card1P3.climatizatoreEst', 'card1P3.l1_3_pot_clima_est_kw')"
+                                matInput placeholder="Volume lordo raffrescato (m3)" formControlName="l1_2_vol_raff_m3">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+
+            <!-- FORM SUB-GROUP 'card1P2' END -->
+
+            <!-- FORM SUB-GROUP 'card1P3' START -->
+
+            <mat-card class="wide-card mat-elevation-z8" formGroupName="card1P3">
+                <h3 class="card-title">1.3 - Impianto Termico destinato a soddisfare i seguenti servizi *</h3>
+                <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="4em" style="margin-top: 34px;">
+                    <!-- CONTROL 'acquaCalda' / 'l1_3_pot_h2o_kw' -->
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+
+                            <label class="form-check-label">Produzione di acqua calda sanitaria (acs) &nbsp;</label>
+                            <mat-slide-toggle [(ngModel)]="checkPotenze[0]" color="primary" formControlName="acquaCalda"
+                                (change)="doChangeCheck('card1P3.l1_3_pot_h2o_kw', checkPotenze[0])">
+                                {{ checkPotenze[0]? 'SI': 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <input type="number" matInput placeholder="Potenza utile (kW)"
+                                formControlName="l1_3_pot_h2o_kw">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <!-- CONTROL 'climatizatoreInv' / 'l1_3_pot_clima_inv_kw' -->
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+
+                            <label class="form-check-label">Climatizzazione invernale &nbsp;</label>
+                            <mat-slide-toggle [(ngModel)]="checkPotenze[1]" color="primary"
+                                formControlName="climatizatoreInv"
+                                (change)="handle2ChangeEvent({ cName: 'card1P3.l1_3_pot_clima_inv_kw', check: checkPotenze[1]}, { cName: 'card1P3.climatizatoreInv', affectedCName: 'card1P2.l1_2_vol_risc_m3' })">
+                                {{ checkPotenze[1]? 'SI': 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <input type="number" matInput placeholder="Potenza utile (kW)"
+                                formControlName="l1_3_pot_clima_inv_kw">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <!-- CONTROL 'climatizatoreEst' / 'l1_3_pot_clima_est_kw' -->
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+
+                            <label class="form-check-label">Climatizzazione estiva &nbsp;</label>
+                            <mat-slide-toggle [(ngModel)]="checkPotenze[2]" color="primary"
+                                formControlName="climatizatoreEst"
+                                (change)="handle2ChangeEvent({ cName: 'card1P3.l1_3_pot_clima_est_kw', check: checkPotenze[2]}, { cName: 'card1P3.climatizatoreEst', affectedCName: 'card1P2.l1_2_vol_raff_m3' })">
+                                {{ checkPotenze[2]? 'SI': 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <input type="number" matInput placeholder="Potenza utile (kW)"
+                                formControlName="l1_3_pot_clima_est_kw">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <!-- CONTROL 'altro' / 'l1_3_altro' -->
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+
+                            <label class="form-check-label">Altro &nbsp;</label>
+                            <mat-slide-toggle [(ngModel)]="checkAltro[0]" color="primary" formControlName="altro"
+                                (change)="doChangeCheck('card1P3.l1_3_altro', checkAltro[0])">
+                                {{ checkAltro[0]? 'SI': 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field class="form-field">
+                            <textarea matInput placeholder="Dettagli" formControlName="l1_3_altro" appUpper>
+                                </textarea>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                </mat-grid-list>
+            </mat-card>
+
+            <!-- FORM SUB-GROUP 'card1P3' END -->
+
+            <!-- FORM SUB-GROUP 'card1P4' START -->
+
+            <mat-card class="wide-card mat-elevation-z8" formGroupName="card1P4">
+                <h3 class="card-title">1.4 - Tipologia Fluido Vettore *</h3>
+                <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="4em" style="margin-top: 34px;">
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+
+                            <label class="form-check-label">Acqua &nbsp;</label>
+                            <mat-slide-toggle [(ngModel)]="checkFluido[0]" color="primary"
+                                formControlName="l1_4_flg_h2o">
+                                {{ checkFluido[0]? 'SI': 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+
+                            <label class="form-check-label">Aria &nbsp;</label>
+                            <mat-slide-toggle [(ngModel)]="checkFluido[1]" color="primary"
+                                formControlName="l1_4_flg_aria">
+                                {{ checkFluido[1]? 'SI': 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <div class="toggle-flex">
+
+                            <label class="form-check-label">Altro &nbsp;</label>
+                            <mat-slide-toggle [(ngModel)]="checkAltro[1]" color="primary" formControlName="altro"
+                                (change)="doChangeCheck('card1P4.l1_4_altro', checkAltro[1])">
+                                {{ checkAltro[1]? 'SI': 'NO' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile rowspan="1">
+                        <mat-form-field class="form-field">
+                            <textarea matInput placeholder="Dettagli" formControlName="l1_4_altro" appUpper>
+                                </textarea>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                </mat-grid-list>
+            </mat-card>
+
+            <!-- FORM SUB-GROUP 'card1P4' END -->
+
+            <!-- FORM SUB-GROUP 'card1P5' START -->
+
+            <mat-card class="wide-card mat-elevation-z8">
+                <h3 class="card-title">1.5 - Tipologia dei Generatori *</h3>
+                <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="4em" style="margin-top: 34px;">
+                    <div formGroupName="card1P5">
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+
+                                <label class="form-check-label">Generatore a combustione &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkGen[0]" color="primary"
+                                    formControlName="l1_5_flg_generatore">
+                                    {{ checkGen[0]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+
+                                <label class="form-check-label">Pompa di calore &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkGen[1]" color="primary"
+                                    formControlName="l1_5_flg_pompa">
+                                    {{ checkGen[1]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+                                <label class="form-check-label">Macchina frigorifera &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkGen[2]" color="primary"
+                                    formControlName="l1_5_flg_frigo">
+                                    {{ checkGen[2]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+                                <label class="form-check-label">Teleriscaldamento &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkGen[3]" color="primary"
+                                    formControlName="l1_5_flg_telerisc">
+                                    {{ checkGen[3]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+
+                                <label class="form-check-label">Teleraffrescamento &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkGen[4]" color="primary"
+                                    formControlName="l1_5_flg_teleraffr">
+                                    {{ checkGen[4]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+
+                                <label class="form-check-label">Cogenerazione/Trigenerazione &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkGen[5]" color="primary"
+                                    formControlName="l1_5_flg_cogeneratore">
+                                    {{ checkGen[5]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+
+                                <label class="form-check-label">Altro &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkAltro[2]" color="primary" formControlName="altro"
+                                    (change)="doChangeCheck('card1P5.l1_5_altro', checkAltro[2])">
+                                    {{ checkAltro[2]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile rowspan="1">
+                            <mat-form-field class="form-field">
+                                <textarea matInput placeholder="Dettagli" formControlName="l1_5_altro" appUpper>
+                                </textarea>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                    </div>
+                    <mat-grid-tile [colspan]="formColBreakpoint">
+                        <h3 class="card-title">Eventuale integrazione con:</h3>
+                    </mat-grid-tile>
+                    <div formGroupName="integrazione">
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+                                <label class="form-check-label">Pannelli solari Termici &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkInteg[0]" color="primary"
+                                    formControlName="pannelliSolari"
+                                    (change)="doChangeCheck('integrazione.l1_5_sup_pannelli_sol_m2', checkInteg[0])">
+                                    {{ checkInteg[0]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="form-field">
+                                <input type="number" matInput placeholder="Sup. totale lorda (m2)"
+                                    formControlName="l1_5_sup_pannelli_sol_m2">
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+
+                                <label class="form-check-label">Altro &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkAltro[3]" color="primary" formControlName="altroS"
+                                    (change)="doChangeCheck('integrazione.l1_5_altro_integrazione&integrazione.l1_5_altro_integr_pot_kw', checkAltro[3])">
+                                    {{ checkAltro[3]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile rowspan="1">
+                            <mat-form-field class="form-field">
+                                <textarea matInput placeholder="Dettagli" formControlName="l1_5_altro_integrazione" appUpper>
+                                    </textarea>
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile>
+                            <mat-form-field class="form-field">
+                                <input type="number" matInput placeholder="Potenza utile (kW)"
+                                    formControlName="l1_5_altro_integr_pot_kw">
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile [colspan]="formColBreakpoint">
+                            <h3 class="card-title">Per:</h3>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+
+                                <label class="form-check-label">Climatizzatore invernale &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkInteg[1]" color="primary"
+                                    formControlName="l1_5_flg_altro_clima_inv">
+                                    {{ checkInteg[1]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+
+                                <label class="form-check-label">Climatizzatore estiva &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkInteg[2]" color="primary"
+                                    formControlName="l1_5_flg_altro_clima_estate">
+                                    {{ checkInteg[2]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan]="formColBreakpoint">
+                            <div class="toggle-flex">
+
+                                <label class="form-check-label">Produzione ACS &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkInteg[3]" color="primary"
+                                    formControlName="l1_5_flg_altro_acs">
+                                    {{ checkInteg[3]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile>
+                            <div class="toggle-flex">
+
+                                <label class="form-check-label">Altro &nbsp;</label>
+                                <mat-slide-toggle [(ngModel)]="checkAltro[4]" color="primary" formControlName="altroC"
+                                    (change)="doChangeCheck('integrazione.l1_5_altro_desc', checkAltro[4])">
+                                    {{ checkAltro[4]? 'SI': 'NO' }}
+                                </mat-slide-toggle>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile rowspan="1">
+                            <mat-form-field class="form-field">
+                                <textarea matInput placeholder="Dettagli" formControlName="l1_5_altro_desc" appUpper>
+                                    </textarea>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                    </div>
+                </mat-grid-list>
+            </mat-card>
+
+            <!-- FORM SUB-GROUP 'card1P5' END -->
+
+            <!-- FORM SUB-GROUP 'integrazione' END -->
+
+            <!-- FORM SUB-GROUP 'datiAggiuntivi' START -->
+            <mat-card class="wide-card mat-elevation-z8">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                    <div style="width: 65%;">
+                        <h3 class="card-title">Dati aggiuntivi <br>
+                            <small style="font: small-caption;">Cliccare "Salva" per rendere definitive le modifiche della sezione "Dati aggiuntivi".</small>
+                        </h3>
+                    </div>
+                    <!-- <button type="button" class="form-field default-button" style="width: 50%;" mat-button
+                            *ngIf="isModifica" [disabled]="!enableAddDatiAggiuntivi"
+                            (click)="nuovoDatoCatastale({}, true, false)">
+                            Aggiungi Dato Catastale
+                        </button> -->
+                    <div class="button-wrapper right-elem" style="width: 35%;">
+                        <button mat-button [color]="'primary'" class="modify"
+                            (click)="nuovoDatoCatastale({}, true, false)" [disabled]="!isModifica">
+                            <mat-icon>add</mat-icon>
+                            {{ 'Aggiungi'}}
+                        </button>
+                    </div>
+                </div>
+                <div class="datiAggiuntivi" formArrayName="datiAggiuntivi">
+                    <mat-card class="datoAggiuntivo wide-card mat-elevation-z8" *ngFor="let dato of datiCatastali; let i = index"
+                        [formGroupName]="i" style="background-color: #F7F7F7; padding: 0px">
+                        <mat-card-header style="padding-top: 5px;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center;width: 100%; padding-right: 10px;">
+                                <button mat-raised-button style="border-radius: 20px; font-weight: bold;">
+                                    Numero {{i + 1}}
+                                </button>
+                                <mat-icon class="icon-delete" *ngIf="isModifica" (click)="removeDatiAggiuntivi(i)">delete</mat-icon>
+                            </div>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="mat-card" style="margin: 15px; padding-top: 5px;">
+                                <!-- CONTROL 'sezione' / 'foglio' / 'subalterno'  -->
+                                <p style="font-weight: bold;  text-align: left; margin-top: 0px; margin-bottom: 0px;">
+                                    Dati Catastali</p>
+                                <mat-grid-list [cols]="4" gutterSize="24px" rowHeight="4em">
+                                    <mat-grid-tile colspan="2">
+                                        <mat-form-field class="form-field">
+                                            <input type="number" matInput placeholder="Sezione"
+                                                formControlName="sezione" [(ngModel)]="dato.sezione">
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile colspan="2">
+                                        <mat-form-field class="form-field">
+                                            <input type="number" matInput placeholder="Foglio" formControlName="foglio"
+                                                [(ngModel)]="dato.foglio"
+                                                [required]="isRequired(dato.sezione, dato.particella, dato.subalterno)">
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile colspan="2">
+                                        <mat-form-field class="form-field">
+                                            <input type="number" matInput placeholder="Particella"
+                                                formControlName="particella" [(ngModel)]="dato.particella"
+                                                [required]="isRequired(dato.sezione, dato.foglio, dato.subalterno)">
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile colspan="2">
+                                        <mat-form-field class="form-field">
+                                            <input type="number" matInput placeholder="Subalterno"
+                                                formControlName="subalterno" [(ngModel)]="dato.subalterno">
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <!-- </mat-grid-list> -->
+                                    <!-- CONTROL 'podEletrico' / 'pdrGas'  -->
+                                    <!-- <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="2em"> -->
+                                    <mat-grid-tile colspan="4">
+                                        <mat-form-field class="form-field">
+                                            <input type="text" matInput placeholder="POD Elettrico"
+                                                formControlName="pod_elettrico" [(ngModel)]="dato.pod_elettrico"
+                                                (change)="changeFormPod(i, dato.pod_elettrico)" appUpper>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile colspan="4">
+                                        <mat-form-field class="form-field">
+                                            <input type="text" matInput placeholder="PDR Gas" formControlName="pdr_gas"
+                                                [(ngModel)]="dato.pdr_gas" (change)="changeFormPdr(i, dato.pdr_gas)" appUpper>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+                                <!-- POD ELETTRICO - PDR GAS | END  -->
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </mat-card>
+
+            <div style="height: 1em;">
+
+            </div>
+
+            <!-- FORM SUB-GROUP 'datiAggiuntivi' END -->
+
+            <div style="text-align: center;" *ngIf="isModifica">
+                <mat-grid-list cols="12" rowHeight="2em">
+                    <mat-grid-tile [colspan]="6" rowspan="2">
+                        <div class="left-elem">
+                            <button class="back annulla primary-color" mat-button
+                                (click)="doModificaBottonEvent()">ANNULLA</button>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="6" rowspan="2">
+                        <div class="right-elem">
+                            <button type="submit" mat-button class="default-button center form-field" (click)="salva()"
+                                [disabled]="!form.valid">
+                                SALVA
+                            </button>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <div style="height: 1em;"></div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,136 @@
+.title-card {
+    background-color: transparent;
+    text-align: left;
+}
+
+.section-title {
+    font-size: 16px/22px;
+    font-weight: bold;
+    color: black;
+}
+
+.title-img {
+    margin-left: 0;
+    margin-top: 16px;
+}
+
+.mat-card-header .mat-card-title {
+    font-size: 32px;
+}
+
+.no-lateral-margin {
+    margin-left: -16px;
+}
+
+@media screen and (max-width: 768px) {
+    .mat-card-header .mat-card-title {
+        font-size: 22px;
+    }
+
+    .card {
+        width: 80% !important;
+    }
+
+    .page-content-card {
+        flex-direction: column;
+    }
+
+    .card-row-dichiarazione {
+        display: flex;
+        flex-direction: column;
+
+        ::ng-deep .mat-checkbox-layout {
+            text-wrap: pretty;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .card-row-dichiarazione {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        ::ng-deep .mat-checkbox-layout {
+            text-wrap: pretty;
+        }
+
+        div {
+            width: 45%;
+            padding: 1px 3px;
+        }
+    }
+
+    .list-card-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .card-row {
+            width: 40%;
+        }
+    }
+
+  
+
+}
+
+.card {
+    width: 28%;
+    margin: 5px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content-card {
+    padding: 0 8% !important;
+    padding-bottom: 20px !important;
+    padding-top: 20px !important;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.detail-card {
+    padding: 0 8% !important;
+    padding-bottom: 20px !important;
+    padding-top: 20px !important;
+}
+
+.inner-title {
+    height: 50%;
+}
+
+
+
+span.right-align {
+    float: right;
+    font-weight: bold;
+}
+
+.content {
+    text-align: left;
+    padding: 16px;
+    width: unset;
+}
+
+.card-row {
+    display: flex;
+    flex-direction: column
+}
+
+mat-form-field {
+    width: 95%;
+}
+
+
+.p-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.span-wrap{
+    display:block;
+    width:150px;
+    word-wrap:break-word;
+    text-align: right;
+}

@@ -1,0 +1,96 @@
+<div class="cit-page-container">
+  <app-page-title>Nuova Verifica</app-page-title>
+  <app-breadcrumb label="Ricerca Verifiche" [link]="['/', 'cerca-verifiche']"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <mat-card style="margin-bottom: 40px">
+      <form id="verificaForm" [formGroup]="verificaForm" (ngSubmit)="submit()">
+        <div class="cit-two-cols-grid">
+          <mat-form-field>
+            <mat-label>Verifica numero</mat-label>
+            <input matInput formControlName="idVerifica" type="number">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Eseguito da</mat-label>
+            <mat-select formControlName="cfUtenteCaricamento">
+              <mat-option *ngFor="let assegnatario of assegnatarioList" [value]="assegnatario.codicefiscale">
+                {{assegnatario.cognome}} {{assegnatario.nome}} ({{assegnatario.codicefiscale}})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Data Caricamento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dtCaricamento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Tipo Verifica</mat-label>
+            <mat-select formControlName="fkTipoVerifica">
+              <mat-option *ngFor="let tipoVerifica of tipoVerificaList" [value]="tipoVerifica.id">
+                {{tipoVerifica.value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div *ngIf="isCodiceImpiantoVisible()">
+            <div style="display: grid; grid-template-columns: auto 100px; gap: 20px">
+              <mat-form-field>
+                <mat-label>Codice impianto</mat-label>
+                <input #codiceImpianto matInput type="number">
+              </mat-form-field>
+              <button mat-button color="primary" type="button" (click)="searchByCodiceImpianto(codiceImpianto.valueAsNumber)" [disabled]="!codiceImpianto.value">
+                <mat-icon>search</mat-icon>
+                Cerca
+              </button>
+            </div>
+            <p *ngIf="impianto" style="margin-top: 0">Localizzazione: <strong>{{getLocalizzazione()}}</strong></p>
+          </div>
+          <div *ngIf="isNumeroReeVisible()">
+            <div style="display: grid; grid-template-columns: 100px auto; gap: 20px">
+              <mat-form-field>
+                <mat-label>Sigla REE</mat-label>
+                <mat-select #siglaRee>
+                  <mat-option *ngFor="let siglaRee of siglaReeList" [value]="siglaRee">
+                    {{siglaRee}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Numero REE</mat-label>
+                <input #numeroRee matInput type="number">
+              </mat-form-field>
+            </div>
+            <button mat-stroked-button color="primary" type="button" style="width: 100%" (click)="searchByNumeroRee(siglaRee.value, numeroRee.valueAsNumber)" [disabled]="!siglaRee.value || !numeroRee.value">CERCA PER CODICE REE</button>
+            <p *ngIf="controllo" style="margin-top: 0">
+              Data controllo: <strong>{{controllo.dataControllo | date:'dd/MM/yyyy'}}</strong><br>
+              Codice impianto: <strong>{{controllo.codiceImpianto}}</strong>
+            </p>
+          </div>
+          <div *ngIf="isIdentificativoDatoDistributoreVisible()">
+            <div style="display: grid; grid-template-columns: auto 100px; gap: 20px">
+              <mat-form-field>
+                <mat-label>Identificativo dato distributore</mat-label>
+                <input #fkDatoDistrib matInput type="number">
+              </mat-form-field>
+              <button mat-button color="primary" type="button" (click)="searchByFkDatoDistrib(fkDatoDistrib.valueAsNumber)" [disabled]="!fkDatoDistrib.value">
+                <mat-icon>search</mat-icon>
+                Cerca
+              </button>
+            </div>
+            <p *ngIf="distributore" style="margin-top: 0">
+              Stato: <strong>{{distributore.statoDistribDesc}}</strong><br>
+              Anno riferimento: <strong>{{distributore.annoRif}}</strong><br>
+              Dati utente: <strong>{{distributore.cognomeDenomFatt}} {{distributore.nomeFatt}} {{distributore.dugFatt}} {{distributore.indirizzoFatt}} {{distributore.civicoFatt}} {{distributore.istatComuneFatt}}</strong>
+            </p>
+          </div>
+        </div>
+      </form>
+    </mat-card>
+    <button mat-button color="primary" [routerLink]="['/', 'cerca-verifiche']">ANNULLA</button>
+    <button mat-flat-button color="primary" form="verificaForm" style="float: right">SALVA</button>
+  </ng-container>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto"></mat-spinner>
+  </ng-template>
+</div>

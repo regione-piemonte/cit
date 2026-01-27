@@ -1,45 +1,47 @@
-<app-loading *ngIf="spinnerService.visibility | async"></app-loading>
-<mat-grid-list rowHeight="1.5em" cols="1">
-    <mat-grid-tile>
-        <div class="right-elem">
-            <button mat-icon-button (click)="closeDialog()"><img [src]="closeGrigio"></button>
-        </div>
-    </mat-grid-tile>
-</mat-grid-list>
-<app-message-box [titolo]="titoloErrore" [descrizione]="descrizioneErrore" [type]="2" *ngIf="titoloErrore!=''">
-</app-message-box>
-<app-title [title]="'Aggiungi componente'" [subtitle]="''"></app-title>
-<mat-grid-list cols="1" rowHeight="3em">
-    <mat-grid-tile>
-        <button mat-button class="default-button" (click)="aggiungiComponente(0)" id="buttonNuovoGruppoTermico">
-            <div class="interno">
-                GT - GRUPPO TERMICO
-                <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+<div style="overflow-x: hidden;">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <mat-grid-list rowHeight="1.5em" cols="1">
+        <mat-grid-tile>
+            <div class="right-elem">
+                <button mat-icon-button (click)="closeDialog()"><img [src]="closeGrigio" alt="closeGrigio"></button>
             </div>
-        </button>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <button mat-button class="default-button" (click)="aggiungiComponente(1)">
-            <div class="interno">
-                GF - GRUPPO FRIGO
-                <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
-            </div>
-        </button>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <button mat-button class="default-button" (click)="aggiungiComponente(2)">
-            <div class="interno">
-                SC - SCAMBIATORE
-                <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
-            </div>
-        </button>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <button mat-button class="default-button" (click)="aggiungiComponente(3)">
-            <div class="interno">
-                CG - COGENERATORE
-                <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
-            </div>
-        </button>
-    </mat-grid-tile>
-</mat-grid-list>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <app-message-box [titolo]="titoloErrore" [descrizione]="descrizioneErrore" [type]="2" *ngIf="titoloErrore!=''">
+    </app-message-box>
+    <app-title [title]="'Aggiungi componente'" [subtitle]="''"></app-title>
+    <mat-grid-list cols="1" rowHeight="3em">
+        <mat-grid-tile>
+            <button mat-button class="default-button" (click)="aggiungiComponente(0)" id="buttonNuovoGruppoTermico">
+                <div class="interno">
+                    GT - GRUPPO TERMICO
+                    <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                </div>
+            </button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-button class="default-button" (click)="aggiungiComponente(1)">
+                <div class="interno">
+                    GF - GRUPPO FRIGO
+                    <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                </div>
+            </button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-button class="default-button" (click)="aggiungiComponente(2)">
+                <div class="interno">
+                    SC - SCAMBIATORE
+                    <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                </div>
+            </button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-button class="default-button" (click)="aggiungiComponente(3)">
+                <div class="interno">
+                    CG - COGENERATORE
+                    <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                </div>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

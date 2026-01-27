@@ -1,0 +1,29 @@
+<app-title [title]="title" [subtitle]="subtitle"></app-title>
+<app-back [title]="backTitile" *ngIf="route"></app-back>
+<div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="page-content">          
+        <div style="width: 83%; margin: auto;">
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+        <div>
+            <commonwcl-genera-token [apiUrl]="apiUrl" 
+            (onMessage)="onMessage($event)"></commonwcl-genera-token>
+        </div>
+        <div style="height: 50px;"></div>
+    </div>
+</div>
+
+<!--div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="page-content">
+        <div>
+            <commonwcl-genera-token [apiUrl]="apiUrl" (onMessage)="onMessage($event)"></commonwcl-genera-token>
+        </div>
+    </div>
+    <div style="height: 50px;"></div>
+</div>
+-->

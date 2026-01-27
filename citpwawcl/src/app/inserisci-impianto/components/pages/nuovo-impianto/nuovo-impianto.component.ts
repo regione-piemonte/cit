@@ -1,9 +1,10 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable, merge } from 'rxjs';
+import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { DeleteDialogComponent } from 'src/app/common/components/delete-dialog/delete-dialog.component';
 import { CodiceDescrizione } from 'src/app/models/codice-descrizione';
@@ -14,11 +15,11 @@ import { UtenteLoggato } from 'src/app/models/utente-loggato';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BackService } from 'src/app/services/back.service';
 import { ImpiantoService } from 'src/app/services/impianto.service';
+import { LocalStorageServiceService } from 'src/app/services/local-storage-service.service';
 import { MessageService } from 'src/app/services/message.service';
 import { TitleService } from 'src/app/services/title.service';
 import { RUOLI, STATO_IMPIANTO } from 'src/app/utils/constants';
 import { validateIndirizzo, validateNumbers, validatePDR, validatePOD } from 'src/app/validators/custom.validator';
-
 
 @Component({
   selector: 'app-nuovo-impianto',
@@ -41,10 +42,15 @@ export class NuovoImpiantoComponent implements OnInit {
   isResp = false;
   isPg = false;
 
+  colBreakpoint1: NumberInput;
+  colBreakpoint2: NumberInput;
+  colBreakpoint3: NumberInput;
+
   constructor(private readonly router: Router,
     private location: Location,
     private readonly impiantoService: ImpiantoService, private fb: FormBuilder,
     private readonly authService: AuthenticationService,
+    private localStorageService: LocalStorageServiceService,
     private readonly titleService: TitleService,
     private readonly backService: BackService,
     private readonly messageService: MessageService,
@@ -55,12 +61,12 @@ export class NuovoImpiantoComponent implements OnInit {
       codiceImpianto: ["", validateNumbers()],
       statoImpianto: [""],
       responsabilita: [""],
-      dataAss: ["", Validators.required],
       dataVar: ["", Validators.required],
       motivazione: ["Primo caricamento impianto", Validators.required],
-      tipo: [""],
+      tipo: ["", Validators.required],
       locTecnico: [""],
       contabilizzazione: [""],
+      flgMedioImpiantoCivile: [""],
       indirizzoLoccsi: ["", [
         Validators.required, validateIndirizzo()
       ]],
@@ -76,11 +82,15 @@ export class NuovoImpiantoComponent implements OnInit {
       propCheck: [""]
     });
 
-    this.insertForm.controls['tipo'].setValue("C");
+    //this.insertForm.controls['tipo'].setValue("C");
     this.insertForm.controls['propCheck'].setValue(true);
   }
 
   ngOnInit(): void {
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (window.innerWidth < 768) ? 0 : 6;
+    this.colBreakpoint3 = (window.innerWidth < 768) ? 12 : 3;
+
     this.titleService.setTitle("Nuovo impianto termico");
     this.backService.setBackTitle("Torna alla ricerca");
     this.backService.setRoute("impianto/ricerca-impianti");
@@ -130,6 +140,50 @@ export class NuovoImpiantoComponent implements OnInit {
               map(name => name ? name : this.comuni.slice()));
         }
       });
+      
+     const duplicato = this.localStorageService.getDatiImpiantoDuplicato();
+
+     if (duplicato) {
+      this.insertForm.patchValue({
+        codiceImpianto: duplicato.impianto.codiceImpianto || '', 
+        statoImpianto: duplicato.impianto.stato || STATO_IMPIANTO.ATTIVO,
+        dataVar: duplicato.impianto.dataVar ? new Date(duplicato.impianto.dataVar) : new Date(),
+        motivazione: duplicato.impianto.motivazione || 'Primo caricamento impianto',
+        tipo: duplicato.impianto.tipoImpianto === 'A' ? 'A' : 'C', 
+        locTecnico: !!duplicato.impianto.flgApparevvUiExt,
+        contabilizzazione: !!duplicato.impianto.flgContabilizzazione,
+        flgMedioImpiantoCivile: !!duplicato.impianto.flgMedioImpiantoCivile,
+        indirizzo: duplicato.impianto.indirizzoNonTrovato || duplicato.impianto.indirizzoSitad || '',
+        civico: duplicato.impianto.civico || '',
+        comune: duplicato.impianto.comune || '',
+        provincia: duplicato.impianto.provincia || '',
+        siglaProv: duplicato.impianto.siglaProv || '',
+        pod: duplicato.impianto.pod || '',
+        pdr: duplicato.impianto.pdr || '',
+        noPdr: !!duplicato.impianto.flgNoPdr,
+        propCheck: !!duplicato.impianto.flgVisuProprietario,
+        coordX: duplicato.impianto.coordX || null,
+        coordY: duplicato.impianto.coordY || null,
+        istatComune: duplicato.impianto.istatComune || null
+      });
+    }
+    else{
+        this.insertForm.patchValue({
+          tipo: null
+       });
+    }
+    
+      this.insertForm.controls['tipo'].markAsTouched();
+      this.insertForm.controls['tipo'].updateValueAndValidity();
+      this.toggleNoPdr(null);
+    
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (event.target.innerWidth < 768) ? 0 : 6;
+    this.colBreakpoint3 = (event.target.innerWidth < 768) ? 12 : 3;
   }
 
   setLoccsiElem(feature: LoccsiFeature) {
@@ -148,7 +202,7 @@ export class NuovoImpiantoComponent implements OnInit {
     this.loccsiClickedComuni = true;
   }
 
-  inserisciImpianto() {
+  /* inserisciImpianto() {
     let impianto = this.creaNuovoImpianto();
     let responsabilita = undefined;
     if (this.isResp) {
@@ -156,6 +210,9 @@ export class NuovoImpiantoComponent implements OnInit {
     }
     this.impiantoService.setImpianto(impianto, responsabilita).subscribe((elem: Esito) => {
       this.router.navigate(["/impianto/dettaglio-impianto/" + elem.codiceImpianto, { success: true }]);
+      this.messageService.setTitolo("Impianto inserito correttamente");
+      this.messageService.showMessaggioM();
+      this.messageService.setType(4);
     }, error => {
       this.messageService.setTitolo("Errore inserimento impianto");
       let esito = error.error as Esito;
@@ -163,9 +220,9 @@ export class NuovoImpiantoComponent implements OnInit {
       this.messageService.showMessaggioM();
       this.messageService.setType(2);
     });
-  }
+  } */
 
-  checkPodPdrDuplicato() {
+  /* checkPodPdrDuplicato() {
     let pod = this.insertForm.get("pod").value;
     let noPdr = this.insertForm.get("noPdr").value;
     if (!noPdr) {
@@ -204,25 +261,99 @@ export class NuovoImpiantoComponent implements OnInit {
             }
           });
         } else {
-          this.messageService.setTitolo("Errore inserimento impianto");
+          this.messageService.setTitolo("Errore inserimento impianto ");
           this.messageService.setDescrizione(esito.descrizioneEsito);
           this.messageService.showMessaggioM();
           this.messageService.setType(2);
         }
       });
     }
+  } */ 
+
+
+  checkPodPdrDuplicato() {
+    let pod = this.insertForm.get("pod").value;
+    let noPdr = this.insertForm.get("noPdr").value;
+
+    if (!noPdr) {
+      let pdr = this.insertForm.get("pdr").value;
+      this.impiantoService.checkPodPdrDuplicato(pod, pdr).subscribe(
+        () => {
+          this.inserisciImpianto();
+        },
+        error => {
+          let esito = error.error as Esito;
+          if (esito.esito === "OK") {
+            // duplicato pod o pdr
+            let impianto: DatiImpianto = this.creaNuovoImpianto();
+            let responsabilita = this.isResp ? this.insertForm.controls.responsabilita.value : undefined;
+            this.localStorageService.setDatiImpiantoDuplicato(impianto, responsabilita);
+            this.router.navigate(['/impianto/pod-pdr-duplicato'], { queryParams: { pod, pdr } });     
+          } else {
+            this.messageService.setTitolo("Errore inserimento impianto");
+            this.messageService.setDescrizione(esito.descrizioneEsito);
+            this.messageService.showMessaggioM();
+            this.messageService.setType(2);
+          }
+        }
+      );
+
+    } else {
+      this.impiantoService.checkPodDuplicato(pod).subscribe(
+        () => {
+          this.inserisciImpianto();
+        },
+        error => {
+          let esito = error.error as Esito;
+          if (esito.esito === "OK") {
+            let impianto: DatiImpianto = this.creaNuovoImpianto();
+            let responsabilita = this.isResp ? this.insertForm.controls.responsabilita.value : undefined;
+            this.localStorageService.setDatiImpiantoDuplicato(impianto, responsabilita);
+            this.router.navigate(['/impianto/pod-pdr-duplicato'], { queryParams: { pod } });
+          } else {
+            this.messageService.setTitolo("Errore inserimento impianto ");
+            this.messageService.setDescrizione(esito.descrizioneEsito);
+            this.messageService.showMessaggioM();
+            this.messageService.setType(2);
+          }
+        }
+      );
+    }
+  }
+
+  inserisciImpianto() {
+    let impianto: DatiImpianto = this.creaNuovoImpianto();
+    let responsabilita = undefined;
+    if (this.isResp) {
+      responsabilita = this.insertForm.controls.responsabilita.value;
+    }
+    this.impiantoService.setImpianto(impianto, responsabilita).subscribe(
+      (elem: Esito) => {
+        this.router.navigate(["/impianto/dettaglio-impianto/" + elem.codiceImpianto, { success: true }]);
+        this.messageService.setTitolo("Impianto inserito correttamente");
+        this.messageService.showMessaggioM();
+        this.messageService.setType(4);
+      },
+      error => {
+        this.messageService.setTitolo("Errore inserimento impianto");
+        let esito = error.error as Esito;
+        this.messageService.setDescrizione(esito.descrizioneEsito);
+        this.messageService.showMessaggioM();
+        this.messageService.setType(2);
+      }
+    );
   }
 
   creaNuovoImpianto() {
     let impianto: DatiImpianto = new DatiImpianto();
     let codiceImpianto = this.insertForm.controls["codiceImpianto"].value;
     let statoImpianto = this.insertForm.controls["statoImpianto"].value;
-    let dataAss = this.insertForm.controls["dataAss"].value;
     let dataVar = this.insertForm.controls["dataVar"].value;
     let motivazione = this.insertForm.controls["motivazione"].value;
     let tipo = this.insertForm.controls["tipo"].value;
     let locTecnico = this.insertForm.controls["locTecnico"].value;
     let contabilizzazione = this.insertForm.controls["contabilizzazione"].value;
+    let flgMedioImpiantoCivile = this.insertForm.controls["flgMedioImpiantoCivile"].value;
     let civicoLoccsi = this.insertForm.controls["civicoLoccsi"].value;
     let stradario = this.insertForm.controls["stradario"].value;
     let indirizzo = this.insertForm.controls["indirizzo"].value;
@@ -235,11 +366,11 @@ export class NuovoImpiantoComponent implements OnInit {
 
     if (codiceImpianto)
       impianto.codiceImpianto = codiceImpianto;
-    impianto.dataAssCi = dataAss;
     impianto.dataVar = dataVar;
     impianto.motivazione = motivazione;
     impianto.tipoImpianto = tipo;
     impianto.flgContabilizzazione = contabilizzazione;
+    impianto.flgMedioImpiantoCivile = flgMedioImpiantoCivile;
     if (stradario) {
       impianto.civico = civico;
       impianto.indirizzoNonTrovato = indirizzo;
@@ -282,7 +413,9 @@ export class NuovoImpiantoComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    //this.location.back();
+    this.localStorageService.clearDatiImpiantoDuplicato();
+    this.router.navigate(['/impianto/ricerca-impianti']);
   }
 
   formValid() {

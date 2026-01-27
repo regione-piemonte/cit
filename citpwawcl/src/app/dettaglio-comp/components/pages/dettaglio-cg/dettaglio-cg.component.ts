@@ -1,5 +1,6 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +16,6 @@ import { TitleService } from 'src/app/services/title.service';
 import { DISPLAY_FORMAT, FORMAT, KO_PG, OPERAZIONE_COMP, RUOLI, TIPI_COMP } from 'src/app/utils/constants';
 import { validateDateIstall } from 'src/app/validators/custom.validator';
 import { RicercaPgDialogComponent } from '../../ricerca-pg-dialog/ricerca-pg-dialog.component';
-
 
 @Component({
   selector: 'app-dettaglio-cg',
@@ -40,6 +40,9 @@ export class DettaglioCgComponent implements OnInit {
   utente: UtenteLoggato;
 
   operazione: number;
+
+  colBreakpoint1: NumberInput;
+  colBreakpoint2: NumberInput;
 
   constructor(
     public dialog: MatDialog,
@@ -77,12 +80,15 @@ export class DettaglioCgComponent implements OnInit {
       tempFumiMonteMax: [],
       coMin: [],
       coMax: [],
-      nMantenimenti: [, [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]],
+      nMantenimenti: ["",[Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]],
       note: [""]
     });
   }
 
   ngOnInit(): void {
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 6 : 2;
+    this.colBreakpoint2 = (window.innerWidth < 768) ? 6 : 4;
+
     this.titleService.setTitle("Dettaglio CG");
     this.backService.setBackTitle("Torna al dettaglio");
     this.backService.setRoute('impianto/dettaglio-impianto/' + this.codiceImpianto);
@@ -99,7 +105,7 @@ export class DettaglioCgComponent implements OnInit {
     this.componenteService.getMarca().subscribe((elem: CodiceDescrizione[]) => {
       this.fabbricanti = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
+      this.messageService.setTitolo("Errore recupero dati ");
       this.messageService.setDescrizione(error.descrizioneEsito);
       this.messageService.showMessaggioM();
       this.messageService.setType(2);
@@ -109,7 +115,7 @@ export class DettaglioCgComponent implements OnInit {
     this.componenteService.getFonte().subscribe((elem: CodiceDescrizione[]) => {
       this.fonte = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
+      this.messageService.setTitolo("Errore recupero dati  ");
       this.messageService.setDescrizione(error.descrizioneEsito);
       this.messageService.showMessaggioM();
       this.messageService.setType(2);
@@ -122,12 +128,18 @@ export class DettaglioCgComponent implements OnInit {
     }
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 6 : 2;
+    this.colBreakpoint2 = (event.target.innerWidth < 768) ? 6 : 4;
+  }
+
   getData() {
     this.componenteService.getCG(this.codiceImpianto, this.progr).subscribe((elem: DatiCGModel[]) => {
       this.datiCG = elem;
       this.preparaDati();
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
+      this.messageService.setTitolo("Errore recupero dati   ");
       this.messageService.setDescrizione(error.descrizioneEsito);
       this.messageService.showMessaggioM();
       this.messageService.setType(2);
@@ -188,12 +200,12 @@ export class DettaglioCgComponent implements OnInit {
 
   checkRuoloConsultazione(): boolean {
     let ruolo = this.utente.ruoloLoggato.ruolo;
-    return !((ruolo === RUOLI.RUOLO_CONSULTATORE
+    return !(ruolo === RUOLI.RUOLO_CONSULTATORE
       || ruolo === RUOLI.RUOLO_RESPONSABILE
       || ruolo === RUOLI.RUOLO_RESPONSABILE_IMPRESA
       || ruolo === RUOLI.RUOLO_3RESPONSABILE
       || ruolo === RUOLI.RUOLO_PROPRIETARIO
-      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA));
+      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA);
   }
 
   checkModificaButton(): boolean {
@@ -239,10 +251,7 @@ export class DettaglioCgComponent implements OnInit {
             this.dettForm.disable();
             this.operazione = OPERAZIONE_COMP.DISMETTI;
           }, (error: Esito) => {
-            this.messageService.setTitolo("Operazione non valida");
-            this.messageService.setDescrizione(error.descrizioneEsito);
-            this.messageService.showMessaggioM();
-            this.messageService.setType(2);
+            this.setOperazioneNonValidaMessage(error);
           });
         }
       } else {
@@ -273,10 +282,7 @@ export class DettaglioCgComponent implements OnInit {
         this.dettForm.controls["dtInstall"].disable();
         this.operazione = OPERAZIONE_COMP.RIPRISTINA;
       }, (error: Esito) => {
-        this.messageService.setTitolo("Operazione non valida");
-        this.messageService.setDescrizione(error.descrizioneEsito);
-        this.messageService.showMessaggioM();
-        this.messageService.setType(2);
+        this.setOperazioneNonValidaMessage(error);
       });
     } else {
       const index = this.cgDismessi.indexOf(cg, 0);
@@ -287,6 +293,14 @@ export class DettaglioCgComponent implements OnInit {
       this.dettForm.controls["dtInstall"].disable();
       this.operazione = OPERAZIONE_COMP.RIPRISTINA;
     }
+  }
+
+  setOperazioneNonValidaMessage(error : Esito)
+  {
+    this.messageService.setTitolo("Operazione non valida");
+    this.messageService.setDescrizione(error.descrizioneEsito);
+    this.messageService.showMessaggioM();
+    this.messageService.setType(2);
   }
 
   riattiva() {
@@ -317,10 +331,7 @@ export class DettaglioCgComponent implements OnInit {
         this.dettForm.get("dtInstall").setValidators([Validators.required, validateDateIstall(this.getLastDate())]);
         this.dettForm.get("dtInstall").updateValueAndValidity();
       }, (error: Esito) => {
-        this.messageService.setTitolo("Operazione non valida");
-        this.messageService.setDescrizione(error.descrizioneEsito);
-        this.messageService.showMessaggioM();
-        this.messageService.setType(2);
+        this.setOperazioneNonValidaMessage(error);
       });
     } else {
       this.messageService.setTitolo("Dati inseriti non validi");
@@ -351,6 +362,9 @@ export class DettaglioCgComponent implements OnInit {
       this.componenteService.updateCG(this.codiceImpianto, newArray).subscribe((elem: Esito) => {
         this.router.navigate(["impianto/dettaglio-impianto/" + this.codiceImpianto, { success: true }]);
         this.dettForm.disable();
+        this.messageService.setTitolo("Componente inserito correttamente");
+        this.messageService.showMessaggioM();
+        this.messageService.setType(4);
       }, (error) => {
         if (this.operazione === OPERAZIONE_COMP.DISMETTI) {
           this.dettForm.disable();
@@ -416,7 +430,7 @@ export class DettaglioCgComponent implements OnInit {
     dato.tempFumiMonteMax = this.dettForm.controls["tempFumiMonteMax"].value;
     dato.coMin = this.dettForm.controls["coMin"].value;
     dato.coMax = this.dettForm.controls["coMax"].value;
-    dato.tempoManutAnni = this.dettForm.controls["nMantenimenti"].value;
+    dato.tempoManutAnni = this.dettForm.controls["nMantenimenti"].value as number;
     dato.note = this.dettForm.controls["note"].value;
     dato.idTipoComponente = 'CG';
     dato.progressivo = parseInt(this.progr);

@@ -1,0 +1,13 @@
+:host {
+  font-family: sans-serif;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+
+  p {
+    margin: 5px 0;
+  }
+}

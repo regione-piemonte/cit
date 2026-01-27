@@ -1,0 +1,11 @@
+<div>
+    <h3 style="font-weight: bold;">{{ title }}</h3>
+    <hr>
+    <p style="font-weight: normal;" [innerHTML]="text"></p>
+    <div style="text-align: right;">
+        <button type="button" 
+            mat-button class="default-button form-field" (click)="closeDialog()">
+            Chiudi
+        </button>
+    </div>
+</div>

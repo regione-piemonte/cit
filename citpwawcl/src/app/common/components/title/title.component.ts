@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ICONSURL, IMAGESURL } from 'src/app/utils/constants';
+import { ICONSURL } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-title',
@@ -17,9 +17,12 @@ export class TitleComponent implements OnInit {
 
   titlePng:string=ICONSURL+"titolo.png";
 
-  constructor() { }
+  constructor() {
+    //Not Implemented
+   }
 
   ngOnInit(): void {
+    //Not Implemented
   }
 
 }

@@ -1,5 +1,6 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tipiDocDesc } from 'src/app/enums/tipo-doc-enum';
@@ -36,6 +37,9 @@ export class AggiungiManutenzioneComponent implements OnInit {
   controllo: ControlloDisponibileModel;
   utente: UtenteLoggato;
 
+  colBreakpoint1: NumberInput;
+  colBreakpoint2: NumberInput;
+  colBreakpoint3: NumberInput;
 
   codiceImpianto: string = "";
   constructor(
@@ -70,6 +74,10 @@ export class AggiungiManutenzioneComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (window.innerWidth < 768) ? 0 : 9;
+    this.colBreakpoint3 = (window.innerWidth < 768) ? 12 : 3;
+
     this.controllo = this.resultService.getResultControlloDisponibile();
     this.interventi = [new CodiceDescrizione(TIPO_INTERVENTO.PULIZIA.toLocaleString(), "Pulizia"),
     new CodiceDescrizione(TIPO_INTERVENTO.CONTROLLO_COMBUSTIONE.toLocaleString(), "Controllo combustione"),
@@ -87,6 +95,13 @@ export class AggiungiManutenzioneComponent implements OnInit {
     this.controlloService.getOnlineSubject().subscribe((elem) => {
       this.offline = !elem;
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (event.target.innerWidth < 768) ? 0 : 9;
+    this.colBreakpoint3 = (event.target.innerWidth < 768) ? 12 : 3;
   }
 
   salvaEInvia() {

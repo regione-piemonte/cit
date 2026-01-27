@@ -1,140 +1,220 @@
 <div class="page-content">
-    <div class="title pageTitle">Catasto Impianti Termici</div>
-    <div class="roles">
-        <app-message-box [titolo]="titoloErrore" [descrizione]="descrizioneErrore" [type]="2" *ngIf="titoloErrore!=''">
-        </app-message-box>
-
-        <app-title [title]="'Ruolo'" [subtitle]="'Seleziona un ruolo'"></app-title>
-        <div class="message-chatbot">
-            <div class="text-chatbot">
-                <h3>Hai bisogno di aiuto? Chiedi al CitBot
-                    <div class="icon-container">
-                        <img class="icon-chatbot" [src]="citbot">
-                    </div>
-                    sono in basso a destra
-                </h3>            
-            </div>
-            
-        </div>    
-    <mat-grid-list cols="3" rowHeight="6em">
-            <mat-grid-tile>
-                <div matRipple class="role-button-generic" (click)="showCittadini()" id="buttonCittadini">
-
-                    <img *ngIf="!cittadiniclicked" [src]="cittadini">
-                    <img *ngIf="cittadiniclicked" [src]="cittadiniScuro">
-
-                </div>
+    <div class="wide-screen">
+        <mat-grid-list cols="12" rowHeight="5em">
+            <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+            <mat-grid-tile colspan="10" rowspan="1">
+                <div class="title pageTitle">Catasto Impianti Termici</div>
             </mat-grid-tile>
-            <mat-grid-tile>
-                <div matRipple [matRippleCentered]=true class="role-button-generic" (click)="showImprese()" id="buttonImpresa">
-                    <img *ngIf="!impreseclicked" [src]="imprese">
-                    <img *ngIf="impreseclicked" [src]="impreseScuro">
-                </div>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <div matRipple class="role-button-generic" (click)="showPa()" id="buttonPA">
-                    <img *ngIf="!paclicked" [src]="pa">
-                    <img *ngIf="paclicked" [src]="paScuro">
-                </div>
-            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
         </mat-grid-list>
+    </div>
+    <div style="background-color: #f2f8fd; height: 5em; padding: 15px 0 15px 0;">
+            <app-title [title]="'Ruolo'" [subtitle]="'Seleziona un ruolo'"></app-title>
+    </div>
+    <div class="wide-screen">
+        <div class="roles">
+            <div class="roles-limit">
+                <app-alert-hook></app-alert-hook>
+                <app-message-box [titolo]="titoloErrore" [descrizione]="descrizioneErrore" [type]="2"
+                    *ngIf="titoloErrore!=''">
+                </app-message-box>
 
-        <div *ngIf="cittadiniclicked  && ruoli">
-            <app-message-box [titolo]="'Nessun risultato trovato'" [descrizione]="'Nessun ruolo cittadino abilitato'"
-                [type]="1" *ngIf="!ruoli.ruoliPF || ruoli.ruoliPF.length==0">
-            </app-message-box>
+                <div class="card-grid" *ngIf="!isMobile">
+                    <mat-grid-list cols="3" rowHeight="10em" gutterSize="15px" class="role-list-margin">
+                        <mat-grid-tile colspan="3">
+                            <div *ngIf="!cittadiniclicked" matRipple class="role-button-generic gradient-square"
+                                (click)="showCittadini()" id="buttonCittadini">
+                                <h4><img [src]="cittadini" alt="cittadini" class="role-img">Cittadini</h4>
+                            </div>
+                            <div *ngIf="cittadiniclicked" matRipple class="role-button-generic-selected"
+                                (click)="showCittadini()" id="buttonCittadini">
+                                <h4 style="text-decoration:underline"><img [src]="cittadini" alt="cittadini" class="role-img">Cittadini</h4>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                    <mat-grid-list cols="3" rowHeight="10em" gutterSize="15px" class="role-list-margin">
+                        <mat-grid-tile colspan="3">
+                            <div *ngIf="!impreseclicked" matRipple [matRippleCentered]=true class="role-button-generic"
+                                (click)="showImprese()" id="buttonImpresa">
+                                <h4><img [src]="imprese" alt="imprese" class="role-img">Imprese</h4>
+                            </div>
+                            <div *ngIf="impreseclicked" matRipple [matRippleCentered]=true
+                                class="role-button-generic-selected" (click)="showImprese()" id="buttonImpresa">
+                                <h4 style="text-decoration:underline"><img [src]="imprese" alt="imprese" class="role-img">Imprese</h4>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                    <mat-grid-list cols="3" rowHeight="10em" gutterSize="15px" class="role-list-margin">
+                        <mat-grid-tile colspan="3">
+                            <div *ngIf="!paclicked" matRipple class="role-button-generic" (click)="showPa()" id="buttonPA">
+                                <h4><img [src]="pa" alt="pa" class="role-img">PA</h4>
+                            </div>
+                            <div *ngIf="paclicked" matRipple class="role-button-generic-selected" (click)="showPa()"
+                                id="buttonPA">
+                                <h4 style="text-decoration:underline"><img [src]="pa" alt="pa" class="role-img">PA</h4>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
 
-            <mat-card class="role-card mat-elevation-z8" *ngFor="let role of ruoli.ruoliPF">
-                <mat-grid-list cols="12" rowHeight="2em">
-                    <mat-grid-tile colspan="2">
-                        <img [src]="pfRed">
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="10">
-                        <div class="card-title">
-                            {{role.ruoloPF}}
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="12">
-                        <div class="card-content fields-label">
-                            CF/P.IVA: {{ruoli.pfLoggato.codiceFiscalePF}}
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="12"></mat-grid-tile>
-                    <mat-grid-tile colspan="9" rowspan="2">
-                        <button class="default-button" (click)="selezionaRuoloPF(role)">SELEZIONA IL
-                            RUOLO</button>
-                    </mat-grid-tile>
-                </mat-grid-list>
-            </mat-card>
-        </div>
+                <div class="card-grid" *ngIf="isMobile">
+                    <mat-grid-list cols="3" rowHeight="10em" gutterSize="15px" class="role-list-margin">
+                        <mat-grid-tile colspan="1">
+                            <div *ngIf="!cittadiniclicked" matRipple class="role-button-generic gradient-square"
+                                (click)="showCittadini()" id="buttonCittadini">
+                                <h4><img [src]="cittadini" alt="cittadini" class="role-img">Cittadini</h4>
+                            </div>
+                            <div *ngIf="cittadiniclicked" matRipple class="role-button-generic-selected"
+                                (click)="showCittadini()" id="buttonCittadini">
+                                <h4 style="text-decoration:underline"><img [src]="cittadini" alt="cittadini" class="role-img">Cittadini</h4>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1">
+                            <div *ngIf="!impreseclicked" matRipple [matRippleCentered]=true class="role-button-generic"
+                                (click)="showImprese()" id="buttonImpresa">
+                                <h4><img [src]="imprese" alt="imprese" class="role-img">Imprese</h4>
+                            </div>
+                            <div *ngIf="impreseclicked" matRipple [matRippleCentered]=true
+                                class="role-button-generic-selected" (click)="showImprese()" id="buttonImpresa">
+                                <h4 style="text-decoration:underline"><img [src]="imprese" alt="imprese" class="role-img">Imprese</h4>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1">
+                            <div *ngIf="!paclicked" matRipple class="role-button-generic" (click)="showPa()" id="buttonPA">
+                                <h4><img [src]="pa" alt="pa" class="role-img">PA</h4>
+                            </div>
+                            <div *ngIf="paclicked" matRipple class="role-button-generic-selected" (click)="showPa()"
+                                id="buttonPA">
+                                <h4 style="text-decoration:underline"><img [src]="pa" alt="pa" class="role-img">PA</h4>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
 
-        <div *ngIf="impreseclicked && ruoli!=undefined">
-            <app-message-box [titolo]="'Nessun risultato trovato'" [descrizione]="'Nessun ruolo impresa abilitato'"
-                [type]="1" *ngIf="ruoli.ruoliPG==undefined || ruoli.ruoliPG.length==0">
-            </app-message-box>
+                <div *ngIf="cittadiniclicked  && ruoli" class="card-grid">
+                    <app-message-box [titolo]="'Nessun risultato trovato'"
+                        [descrizione]="'Nessun ruolo cittadino abilitato'" [type]="1"
+                        *ngIf="!ruoli.ruoliPF || ruoli.ruoliPF.length==0">
+                    </app-message-box>
 
-            <mat-card class="role-card mat-elevation-z8" *ngFor="let role of ruoli.ruoliPG">
-                <mat-grid-list cols="12" rowHeight="2em">
-                    <mat-grid-tile colspan="2" rowspan="2">
-                        <img [src]="pgRed">
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="10">
-                        <div class="card-title">
-                            {{role.ruoloPG}}
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="10">
-                        <div class="card-title">
-                            {{role.denominazione}}
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="12">
-                        <div class="card-content fields-label">
-                            Codice REA: {{role.siglaREA}}-{{role.numeroREA}}
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="12">
-                        <div class="card-content fields-label">
-                            CF/P.IVA: {{role.piva}}
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="12"></mat-grid-tile>
-                    <mat-grid-tile colspan="9" rowspan="2">
-                        <button class="default-button" (click)="selezionaRuoloPG(role)">SELEZIONA IL
-                            RUOLO</button>
-                    </mat-grid-tile>
-                </mat-grid-list>
-            </mat-card>
-        </div>
+                    <mat-card class="wide-card mat-elevation-z8" *ngFor="let role of ruoli.ruoliPF">
+                        <mat-grid-list cols="12" rowHeight="2em">
+                            <mat-grid-tile colspan="2">
+                                <img [src]="pfRed" alt="pfRed">
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="10">
+                                <div class="card-title">
+                                    {{role.ruoloPF}}
+                                    <div *ngIf="isRuoloResponsabile(role.ruoloPF)">dell'impianto termico</div>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="12"></mat-grid-tile>
+                            <mat-grid-tile colspan="12">
+                                <div class="card-content fields-label">
+                                    CF: {{ruoli.pfLoggato.codiceFiscalePF}}
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="9" rowspan="2">
+                                <button class="default-button" (click)="selezionaRuoloPF(role)">SELEZIONA IL
+                                    RUOLO</button>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </mat-card>
+                </div>
+                <div *ngIf="impreseclicked && ruoli!=undefined" class="card-grid">
+                    <app-message-box [titolo]="'Nessun risultato trovato'" [descrizione]="'Nessun ruolo impresa abilitato'"
+                        [type]="1" *ngIf="ruoli.ruoliPG==undefined || ruoli.ruoliPG.length==0">
+                    </app-message-box>
 
-        <div *ngIf="paclicked  && ruoli!=undefined">
-            <app-message-box [titolo]="'Nessun risultato trovato'" [descrizione]="'Nessun ruolo PA abilitato'"
-                [type]="1" *ngIf="ruoli.ruoliPA==undefined || ruoli.ruoliPA.length==0">
-            </app-message-box>
-            <mat-card class="role-card mat-elevation-z8" *ngFor="let role of ruoli.ruoliPA">
-                <mat-grid-list cols="12" rowHeight="2em">
-                    <mat-grid-tile colspan="2">
-                        <img [src]="paRed">
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="10">
-                        <div class="card-title">
-                            {{role.ruoloPA}}
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="12">
-                        <div class="card-content fields-label">
-                            Abilitato su:
-                            <span class="descr-abil">{{role.descrAbilitazione}}</span>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="12"></mat-grid-tile>
-                    <mat-grid-tile colspan="9" rowspan="2">
-                        <button class="default-button" (click)="selezionaRuoloPA(role)">SELEZIONA IL
-                            RUOLO</button>
-                    </mat-grid-tile>
-                </mat-grid-list>
-            </mat-card>
+                    <mat-card class="wide-card mat-elevation-z8" *ngFor="let role of ruoli.ruoliPG">
+                        <mat-grid-list cols="12" rowHeight="2em">
+                            <mat-grid-tile colspan="2" rowspan="2">
+                                <img [src]="pgRed" alt="pgRed">
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="10">
+                                <div class="card-title">
+                                    {{role.ruoloPG}}
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="10">
+                                <div class="card-title">
+                                    {{role.denominazione}}
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="12"></mat-grid-tile>
+                            <mat-grid-tile colspan="12">
+                                <div class="card-content fields-label">
+                                    Codice REA: {{role.siglaREA}}-{{role.numeroREA}}
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="12">
+                                <div class="card-content fields-label">
+                                    CF: {{role.piva}}
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="9" rowspan="2">
+                                <button class="default-button" (click)="selezionaRuoloPG(role)">SELEZIONA IL
+                                    RUOLO</button>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </mat-card>
+                </div>
+                <div *ngIf="paclicked  && ruoli!=undefined" class="card-grid">
+                    <app-message-box [titolo]="'Nessun risultato trovato'" [descrizione]="'Nessun ruolo PA abilitato'"
+                        [type]="1" *ngIf="ruoli.ruoliPA==undefined || ruoli.ruoliPA.length==0">
+                    </app-message-box>
+                    <mat-card class="wide-card mat-elevation-z8" *ngFor="let role of ruoli.ruoliPA">
+                        <mat-grid-list cols="12" rowHeight="2em">
+                            <mat-grid-tile colspan="2">
+                                <img [src]="paRed" alt="paRed">
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="10">
+                                <div class="card-title">
+                                    {{role.ruoloPA}}
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="12"></mat-grid-tile>
+                            <mat-grid-tile colspan="12">
+                                <div class="card-content fields-label">
+                                    Abilitato su:
+                                    <span class="descr-abil">{{role.descrAbilitazione}}</span>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="9" rowspan="2">
+                                <button class="default-button" (click)="selezionaRuoloPA(role)">SELEZIONA IL
+                                    RUOLO</button>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </mat-card>
+                </div>
+                </div>
         </div>
     </div>
-    
+    <div>
+        <div class="notice-container">
+            <div class="notice-message-size" style="margin-top: 75px;">
+                <img [src]="chat" alt="chat">
+                <div class="notice-title"><img [src]="titlePng" alt="titlePng"> Hai bisogno di aiuto?</div>
+                <mat-grid-list cols="12" rowHeight="8em">
+                    <mat-grid-tile [colspan]="colBreakpoint1" [rowspan]="colBreakpoint1"></mat-grid-tile>
+                    <mat-grid-tile [colspan]="colBreakpoint2" [rowspan]="1">
+                        <div class="notice-message">
+                            <div class="message-chatbot">
+                                <div class="icon-container">
+                                    <img class="icon-chatbot" alt="icon-chatbot" [src]="citbot" alt="CitBot">
+                                    <h4 style="margin: 0;">Chiedi al CitBot sono in basso a destra, oppure richiedi
+                                        <a target="_blank" rel="noopener"
+                                            href="https://servizi.piemonte.it/assistenza/spcatserv/?codice_applicativo=CFI1669">
+                                            assistenza tecnica</a>
+                                        per aiuto sui servizi dell'Energia.
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="colBreakpoint1" [rowspan]="colBreakpoint1"></mat-grid-tile>
+                </mat-grid-list>
+            </div>
+        </div>
+    </div>
 </div>

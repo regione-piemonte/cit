@@ -1,0 +1,95 @@
+.accordion-margin {
+    margin-top: 20px;
+}
+
+.card-row {
+    display: flex;
+    flex-direction: column
+}
+
+span.right-align {
+    float: right;
+    font-weight: bold;
+}
+
+mat-panel-title {
+    font-weight: bold;
+}
+
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: 100%;
+        margin: 10px 0px;
+    }
+
+    .card-row span.right-align {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .card {
+        width: 27%;
+        margin: 10px 10px;
+    }
+
+    .mid-width {
+        width: 40%;
+        text-align: right;
+    }
+
+    .list-card-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .card-row {
+            width: 40%;
+        }
+    }
+
+    .p-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .span-wrap{
+        display:block;
+        width:150px;
+        word-wrap:break-word;
+        text-align: right;
+    }
+
+}
+
+.card {
+    background-color: #f7f7f7;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.icon-delete {
+    color: #b8191a;
+    cursor: pointer;
+}
+
+.button-wrapper {
+    width: 100%;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.add-component {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.modul-card {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}

@@ -1,5 +1,6 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tipiDocDesc, TipoDoc } from 'src/app/enums/tipo-doc-enum';
@@ -50,14 +51,14 @@ export class DettaglioTipo1BComponent implements OnInit {
     }),
     trattamentoAcqua: this.fb.group({}),
     controlloImpianto: this.fb.group({
-      instInterna: [, Validators.required],
-      instEsterna: [, Validators.required],
-      aperture: [, Validators.required],
-      adeguateDim: [, Validators.required],
-      canaleFumo: [, Validators.required],
-      tempAmbiente: [, Validators.required],
-      idoneaTenuta: [, Validators.required],
-      puliziaCamino: [, Validators.required]
+      instInterna: ["", Validators.required],
+      instEsterna: ["", Validators.required],
+      aperture: ["", Validators.required],
+      adeguateDim: ["", Validators.required],
+      canaleFumo: ["", Validators.required],
+      tempAmbiente: ["", Validators.required],
+      idoneaTenuta: ["", Validators.required],
+      puliziaCamino: ["", Validators.required]
     }),
     controlloEnergetico: this.fb.array([]),
     checkList: this.fb.group({
@@ -87,6 +88,14 @@ export class DettaglioTipo1BComponent implements OnInit {
   idAllegatoNew: string;
   utente: UtenteLoggato;
 
+  colBreakpoint1: NumberInput;
+  colBreakpoint2: NumberInput;
+  colBreakpoint3: NumberInput;
+  colBreakpoint4: NumberInput;
+
+  dataInstallazione = new Date();
+  dataRiferimento = new Date('2022-04-22');
+  isDataSuperiore: boolean;
 
   constructor(private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -106,6 +115,11 @@ export class DettaglioTipo1BComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (window.innerWidth < 768) ? 0 : 6;
+    this.colBreakpoint3 = (window.innerWidth < 768) ? 10 : 5;
+    this.colBreakpoint4 = (window.innerWidth < 768) ? 1 : 0;
+
     this.xmlImpianto = this.localStorageService.getXmlImpianto();
     this.titleService.setTitle("REE TIPO 1B (Biomassa)");
     this.titleService.setSubtitle("Gruppi Termici a biomassa");
@@ -128,6 +142,9 @@ export class DettaglioTipo1BComponent implements OnInit {
       this.backService.setBackTitle("Torna ai risultati");
       this.backService.setRoute("/impianto/dettaglio/" + this.codiceImpianto + "/elenco-controlli/cerca-controlli");
       this.compilaDatiIniziali();
+      console.log(this.isDataSuperiore);
+      console.log(this.dataInstallazione);
+      console.log(this.dataRiferimento);
     }
 
     this.controlloService.getOnlineSubject().subscribe((elem) => {
@@ -135,12 +152,33 @@ export class DettaglioTipo1BComponent implements OnInit {
     });
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (event.target.innerWidth < 768) ? 0 : 6;
+    this.colBreakpoint3 = (event.target.innerWidth < 768) ? 10 : 5;
+    this.colBreakpoint4 = (event.target.innerWidth < 768) ? 1 : 0;
+  }
+
   compilaDatiIniziali() {
     let arr = this.getControlloEner();
     let datacontrollo = this.datePipe.transform(this.controlloDisponibile.dataControllo, DISPLAY_FORMAT);
     this.insertForm.controls.dataControllo.setValue(datacontrollo);
     this.insertForm.controls.ree.setValue(tipiDocDesc.get(TipoDoc.REE_1B));
+    //let dataInstall = this.datePipe.transform(this.controlloDisponibile.dataInstall, DISPLAY_FORMAT);
+    //this.dataInstallazione = new Date(dataInstall);
+    //this.isDataSuperiore = this.dataInstallazione > this.dataRiferimento;
+
     let dataInstall = this.datePipe.transform(this.controlloDisponibile.dataInstall, DISPLAY_FORMAT);
+
+    if (dataInstall && dataInstall.includes('/')) {
+      const [day, month, year] = dataInstall.split('/');
+      this.dataInstallazione = new Date(+year, +month - 1, +day);
+    } else {
+      this.dataInstallazione = new Date(dataInstall);
+    }
+    this.isDataSuperiore = this.dataInstallazione > this.dataRiferimento;
+
     const enerForm = this.fb.group({
       comp: [{ value: "GT-" + this.controlloDisponibile.progressivo, disabled: true }],
       dataInstall: [{ value: dataInstall, disabled: true }],
@@ -183,12 +221,12 @@ export class DettaglioTipo1BComponent implements OnInit {
         temperaturaAria: ["", [Validators.required, formatoDecimale(/^-?[0-9]{0,4}(?:\.[0-9]{0,2})?$/, 4, 2)]],
         o2: ["", [Validators.required, formatoDecimale(/^[0-9]{0,3}(?:\.[0-9]{0,2})?$/, 3, 2)]],
         co2: ["", [Validators.required, formatoDecimale(/^[0-9]{0,3}(?:\.[0-9]{0,2})?$/, 3, 2)]],
-        particolato: ["", [Validators.required, formatoDecimale(/^[0-9]{0,4}(?:\.[0-9]{0,2})?$/, 4, 2)]],
-        coCorretto: ["", [Validators.required, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]],
-        rendimentoCombustione: ["", [Validators.required, formatoDecimale(/^[0-9]{0,3}(?:\.[0-9]{0,2})?$/, 3, 2)]],
+        particolato: this.isDataSuperiore ? ["", [Validators.required, formatoDecimale(/^[0-9]{0,4}(?:\.[0-9]{0,2})?$/, 4, 2)]] : [""],
+        coCorretto: this.isDataSuperiore ? ["", [Validators.required, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]] : [""],
+        rendimentoCombustione: this.isDataSuperiore ? ["", [Validators.required, formatoDecimale(/^[0-9]{0,3}(?:\.[0-9]{0,2})?$/, 3, 2)]] : [""],
         rendimentoMinimoLegge: ["", [Validators.required, formatoDecimale(/^[0-9]{0,3}(?:\.[0-9]{0,2})?$/, 3, 2)]],
-        noxKw: ["", [Validators.required, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]],
-        noxNm3: ["", [Validators.required, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]],
+        noxKw: this.isDataSuperiore ? ["", [Validators.required, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]] : [""],
+        noxNm3: this.isDataSuperiore ? ["", [Validators.required, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]] : [""],
       });
       arr2.push(moduloForm);
     }
@@ -318,7 +356,6 @@ export class DettaglioTipo1BComponent implements OnInit {
         });
       }
 
-      /* this.compilaDettaglioomponente(); */
       if (rowAllegato) {
         rowAllegato.forEach((row: RowAllegato) => {
           this.dettaglioControllo.datiCompModelList.forEach((gt: DatiGTModel) => {
@@ -373,14 +410,16 @@ export class DettaglioTipo1BComponent implements OnInit {
       tipologia = 2;
     } else if (controlloEnergetico.flagTermocucina) {
       tipologia = 3;
-    }
-
-    if (controlloEnergetico.flagCaminoAperto) {
-      evacFumi = 0;
+    } else if (controlloEnergetico.flagStufaAssemblata) {
+      tipologia = 4;
+    } else if (controlloEnergetico.flagStufaPellet) {
+      tipologia = 5;
+    } else if (controlloEnergetico.flagCaminoAperto) {
+      tipologia = 6;
     } else if (controlloEnergetico.flagCaminoChiuso) {
-      evacFumi = 1;
+      tipologia = 7;
     } else if (controlloEnergetico.flagInsertoCamino) {
-      evacFumi = 2;
+      tipologia = 8;
     }
 
     let dataInstall = this.datePipe.transform(gt.dataInstall, DISPLAY_FORMAT);
@@ -426,12 +465,12 @@ export class DettaglioTipo1BComponent implements OnInit {
         temperaturaAria: [row.tempAria, [Validators.required, formatoDecimale(/^-?[0-9]{0,4}(?:\.[0-9]{0,2})?$/, 4, 2)]],
         o2: [row.o2, [Validators.required, formatoDecimale(/^[0-9]{0,3}(?:\.[0-9]{0,2})?$/, 3, 2)]],
         co2: [row.co2, [Validators.required, formatoDecimale(/^[0-9]{0,3}(?:\.[0-9]{0,2})?$/, 3, 2)]],
-        particolato: [row.particolato, [Validators.required, formatoDecimale(/^[0-9]{0,4}(?:\.[0-9]{0,2})?$/, 4, 2)]],
-        coCorretto: [row.cOcorretto, [Validators.required, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]],
-        rendimentoCombustione: [row.rendimCombu, [Validators.required, formatoDecimale(/^[0-9]{0,3}(?:\.[0-9]{0,2})?$/, 3, 2)]],
+        particolato: this.isDataSuperiore ? ["", [Validators.required, formatoDecimale(/^[0-9]{0,4}(?:\.[0-9]{0,2})?$/, 4, 2)]] : [""],
+        coCorretto: this.isDataSuperiore ? [row.cOcorretto, [Validators.required, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]] : [""],
+        rendimentoCombustione: this.isDataSuperiore ? [row.rendimCombu, [Validators.required, formatoDecimale(/^[0-9]{0,3}(?:\.[0-9]{0,2})?$/, 3, 2)]] : [""],
         rendimentoMinimoLegge: [row.rendimentoLegge, [Validators.required, formatoDecimale(/^[0-9]{0,3}(?:\.[0-9]{0,2})?$/, 3, 2)]],
-        noxKw: [{ value: row.noxUM === UM.MG_K_WH ? row.nox : "", disabled: row.noxUM === UM.MG_NM_3 }, [row.noxUM === UM.MG_K_WH ? Validators.required : Validators.nullValidator, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]],
-        noxNm3: [{ value: row.noxUM === UM.MG_NM_3 ? row.nox : "", disabled: row.noxUM === UM.MG_K_WH }, [row.noxUM === UM.MG_NM_3 ? Validators.required : Validators.nullValidator, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]],
+        noxKw: this.isDataSuperiore ? [{ value: row.noxUM === UM.MG_K_WH ? row.nox : "", disabled: row.noxUM === UM.MG_NM_3 }, [row.noxUM === UM.MG_K_WH ? Validators.required : Validators.nullValidator, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]] : [""],
+        noxNm3: this.isDataSuperiore ? [{ value: row.noxUM === UM.MG_NM_3 ? row.nox : "", disabled: row.noxUM === UM.MG_K_WH }, [row.noxUM === UM.MG_NM_3 ? Validators.required : Validators.nullValidator, formatoDecimale(/^[0-9]{0,7}(?:\.[0-9]{0,2})?$/, 7, 2)]] : [""],
       });
       rowFumiArr.push(rowFumiForm);
     });
@@ -663,16 +702,19 @@ export class DettaglioTipo1BComponent implements OnInit {
           case 3:
             row.controlloVerificaEnergetica.flagTermocucina = true;
             break;
-        }
-
-        switch (controlloEnergetico[index].condEvaquazioneFumi) {
-          case 0:
+          case 4:
+            row.controlloVerificaEnergetica.flagStufaAssemblata = true;
+            break;
+          case 5:
+            row.controlloVerificaEnergetica.flagStufaPellet = true;
+            break;
+          case 6:
             row.controlloVerificaEnergetica.flagCaminoAperto = true;
             break;
-          case 1:
+          case 7:
             row.controlloVerificaEnergetica.flagCaminoChiuso = true;
             break;
-          case 2:
+          case 8:
             row.controlloVerificaEnergetica.flagInsertoCamino = true;
             break;
         }
@@ -821,16 +863,19 @@ export class DettaglioTipo1BComponent implements OnInit {
         case 3:
           row.controlloVerificaEnergetica.flagTermocucina = true;
           break;
-      }
-
-      switch (elem.condEvaquazioneFumi) {
-        case 0:
+        case 4:
+          row.controlloVerificaEnergetica.flagStufaAssemblata = true;
+          break;
+        case 5:
+          row.controlloVerificaEnergetica.flagStufaPellet = true;
+          break;
+        case 6:
           row.controlloVerificaEnergetica.flagCaminoAperto = true;
           break;
-        case 1:
+        case 7:
           row.controlloVerificaEnergetica.flagCaminoChiuso = true;
           break;
-        case 2:
+        case 8:
           row.controlloVerificaEnergetica.flagInsertoCamino = true;
           break;
       }

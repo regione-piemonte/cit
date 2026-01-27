@@ -1,9 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ComuneEsteso } from '../models/comune-esteso.model';
-import { Observable } from 'rxjs';
+import { Provincia } from '../models/provincia.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +30,10 @@ export class SvistaService {
   }
 
   saveComuniEstesiToLocalStorage() {
-    if (localStorage.getItem('ComuniEstesi') == null) {
+    if (localStorage.getItem('ComuniEstesi') == null || localStorage.getItem('Province') == null) {
       this.callComuniEstesi().subscribe((data: ComuneEsteso[]) => {
         this.saveDataToLocalStorage(data);
+        this.saveProvinceFromComuniEstesi(data);
       });
     }
   }
@@ -61,4 +63,31 @@ export class SvistaService {
     });
   }
 
+  saveProvinceFromComuniEstesi(data: ComuneEsteso[]) {
+    //Converto ed elaboro comune esteso
+    const distinctData = Array.from(
+      new Set(data.map((obj) => ({
+        siglaProvincia: obj.siglaProvincia,
+        provincia: obj.provincia,
+        codiceRegione: obj.codiceIstat.substring(0, 2)
+      })))
+    );
+    const result = distinctData.filter((obj1, i, arr) =>
+      arr.findIndex(obj2 =>
+        JSON.stringify(obj2) === JSON.stringify(obj1)
+      ) === i
+    );
+    //Applico un ordinamento per cui vengono prima tutte le province del piemonte e poi il resto in ordine alfabetico
+
+    let piemonte = result.filter((obj) => obj.siglaProvincia == 'AL' || obj.siglaProvincia == 'AT' || obj.siglaProvincia == 'BI' || obj.siglaProvincia == 'CN' || obj.siglaProvincia == 'NO' || obj.siglaProvincia == 'TO' || obj.siglaProvincia == 'VC' || obj.siglaProvincia == 'VB');
+    let resto = result.filter((obj) => obj.siglaProvincia !== 'AL' && obj.siglaProvincia !== 'AT' && obj.siglaProvincia !== 'BI' &&  obj.siglaProvincia !== 'CN' && obj.siglaProvincia !== 'NO' && obj.siglaProvincia !== 'TO' && obj.siglaProvincia !== 'VC' && obj.siglaProvincia !== 'VB' && obj.siglaProvincia);
+    piemonte = piemonte.sort((a, b) => a.siglaProvincia.localeCompare(b.siglaProvincia));
+    resto = resto.sort((a, b) => a.siglaProvincia.localeCompare(b.siglaProvincia));
+    localStorage.setItem('Province', JSON.stringify(piemonte.concat(resto)));
+  }
+
+  loadProvinceFromLocalStorage(): Provincia[] {
+    const jsonData = localStorage.getItem('Province');
+    return jsonData ? JSON.parse(jsonData) : [];
+  }
 }

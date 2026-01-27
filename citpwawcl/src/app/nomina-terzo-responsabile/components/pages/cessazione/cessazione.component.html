@@ -1,0 +1,67 @@
+<div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div>
+        <app-title [title]="title" [subtitle]="subtitle"></app-title>
+        <app-back [title]="backTitile" [route]="route">
+        </app-back>
+        <div style="width: 83%; margin: auto;">
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo"></app-role-header>
+        <app-impianto-header [datiImpianto]="datiImpianto" [redirect]="false"></app-impianto-header>
+        <div class="wide-screen">
+            <div class="page-content-card">
+                <mat-card class="card mat-elevation-z8">
+                    <form [formGroup]="formGroup">
+                        <mat-card-content>                         
+                            <mat-grid-list [cols]="2" rowHeight="3em">
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                                    <mat-form-field style="font-weight: bold;">
+                                        <mat-label>Data Cessazione</mat-label>
+                                        <input matInput [max]="dataCessazioneMax" [matDatepicker]="picker1" formControlName="dataCessazione">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                               </mat-grid-tile>
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                                    <mat-form-field class="form-field">
+                                        <mat-select placeholder="Tipo Cessazione" formControlName="tipoCessazione"
+                                            (selectionChange)="selectTipo($event)">
+                                            <mat-option *ngFor="let recipient of tipoAutodichiarazione"
+                                                [value]="recipient.key">{{recipient.value}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                                    <mat-form-field class="form-field">
+                                        <input matInput placeholder="Motivo Cessazione" name="Motivo Cessazione"
+                                            formControlName="motivoCessazione" appUpper>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                                <mat-grid-tile [colspan]="2" rowHeight="3m">
+                                    <mat-label><strong>ATTENZIONE:</strong> Questa operazione ha la sola finalità di comunicare al CIT l’avvenuta cessazione dell’incarico.</mat-label>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                            <div style="display: flex; flex-wrap: wrap; margin-top: 25px;"
+                                *ngIf="tipoAutodichiarazioneSelected === 'Decadenza'">
+                                <mat-checkbox *ngFor="let check of checkboxesDichiarazioni | mapValue"
+                                    [formControlName]="check.key">{{check.value}}</mat-checkbox>
+                            </div>
+                        </mat-card-content>
+                    </form>
+                </mat-card>
+            </div>
+            <div class="page-content-card" style="display:flex; flex-direction: row;">
+                <div class="left-elem">
+                    <button mat-button class="annulla primary-color" (click)="annulla()">ANNULLA</button>
+                </div>
+                <div class="right-elem">
+                    <button [disabled]="!isSalvaEnabled()" mat-button class="default-button" (click)="salva()" id="buttonSalva">SALVA</button>
+                </div>
+            </div>
+            <div style="height: 20px; background-color: white;"></div>
+        </div>
+    </div>
+</div>

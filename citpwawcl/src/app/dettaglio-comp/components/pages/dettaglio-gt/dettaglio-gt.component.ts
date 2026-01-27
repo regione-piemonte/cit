@@ -1,5 +1,6 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -43,6 +44,10 @@ export class DettaglioGtComponent implements OnInit {
   utente: UtenteLoggato;
   operazione: number;
 
+  colBreakpoint1: NumberInput;
+  colBreakpoint2: NumberInput;
+  colBreakpoint3: NumberInput;
+
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -70,14 +75,18 @@ export class DettaglioGtComponent implements OnInit {
       tipologia: ["", [Validators.required]],
       nModuli: ["", [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]],
       canna: ["", [Validators.required]],
-      nOre: [, [Validators.pattern(/^\d*\.?\d*$/)]],
-      nMantenimenti: [, [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]],
+      nOre: [Validators.pattern(/^\d*\.?\d*$/)],
+      nMantenimenti: ["", [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]],
       note: [""]
     });
 
   }
 
   ngOnInit(): void {
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 6 : 2;
+    this.colBreakpoint2 = (window.innerWidth < 768) ? 6 : 4;
+    this.colBreakpoint3 = 6;
+
     this.titleService.setTitle("Dettaglio GT");
     this.backService.setBackTitle("Torna al dettaglio");
     this.backService.setRoute('impianto/dettaglio-impianto/' + this.codiceImpianto);
@@ -85,46 +94,31 @@ export class DettaglioGtComponent implements OnInit {
     this.componenteService.getFluido().subscribe((elem: CodiceDescrizione[]) => {
       this.fluidi = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+      this.setErroreRecuperoMessage(error);
     });
 
     this.componenteService.getCombustibile().subscribe((elem: CodiceDescrizione[]) => {
       this.combustibili = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+      this.setErroreRecuperoMessage(error);
     });
 
     this.componenteService.getMarca().subscribe((elem: CodiceDescrizione[]) => {
       this.fabbricanti = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+      this.setErroreRecuperoMessage(error);
     });
 
     this.componenteService.getTipoCannaFumaria().subscribe((elem: CodiceDescrizione[]) => {
       this.canne = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+      this.setErroreRecuperoMessage(error);
     });
 
     this.componenteService.getTipologiaGT().subscribe((elem: CodiceDescrizione[]) => {
       this.tipologie = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+      this.setErroreRecuperoMessage(error);
     });
     if (this.progr) {
       this.getData();
@@ -133,15 +127,26 @@ export class DettaglioGtComponent implements OnInit {
     }
   }
 
+  setErroreRecuperoMessage(error: Esito)
+  {
+    this.messageService.setTitolo("Errore recupero dati");
+    this.messageService.setDescrizione(error.descrizioneEsito);
+    this.messageService.showMessaggioM();
+    this.messageService.setType(2);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 6 : 2;
+    this.colBreakpoint2 = (event.target.innerWidth < 768) ? 6 : 4;
+  }
+
   getData() {
     this.componenteService.getGT(this.codiceImpianto, this.progr).subscribe((elem: DatiGTModel[]) => {
       this.datiGT = elem;
       this.preparaDati();
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+      this.setErroreRecuperoMessage(error);
     });
   }
 
@@ -168,12 +173,12 @@ export class DettaglioGtComponent implements OnInit {
 
   checkRuoloConsultazione() {
     let ruolo = this.utente.ruoloLoggato.ruolo;
-    return !((ruolo === RUOLI.RUOLO_CONSULTATORE
+    return !(ruolo === RUOLI.RUOLO_CONSULTATORE
       || ruolo === RUOLI.RUOLO_RESPONSABILE
       || ruolo === RUOLI.RUOLO_RESPONSABILE_IMPRESA
       || ruolo === RUOLI.RUOLO_3RESPONSABILE
       || ruolo === RUOLI.RUOLO_PROPRIETARIO
-      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA));
+      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA);
   }
 
   checkModificaButton(): boolean {
@@ -219,10 +224,7 @@ export class DettaglioGtComponent implements OnInit {
             this.dettForm.disable();
             this.operazione = OPERAZIONE_COMP.DISMETTI;
           }, (error: Esito) => {
-            this.messageService.setTitolo("Operazione non valida");
-            this.messageService.setDescrizione(error.descrizioneEsito);
-            this.messageService.showMessaggioM();
-            this.messageService.setType(2);
+            this.setOperazioneNonValidaMessage(error);
           });
         }
       } else {
@@ -261,13 +263,13 @@ export class DettaglioGtComponent implements OnInit {
         this.compilaForm(gt);
         this.dettForm.enable();
         this.dettForm.controls["dtInstall"].disable();
-        this.dettForm.get('tipologia').value && this.dettForm.get('tipologia').value == '1' ? this.dettForm.get('nModuli').disable() : null;
+        if(this.dettForm.get('tipologia').value && this.dettForm.get('tipologia').value == '1')
+        {
+          this.dettForm.get('nModuli').disable();
+        }
         this.operazione = OPERAZIONE_COMP.RIPRISTINA;
       }, (error: Esito) => {
-        this.messageService.setTitolo("Operazione non valida");
-        this.messageService.setDescrizione(error.descrizioneEsito);
-        this.messageService.showMessaggioM();
-        this.messageService.setType(2);
+        this.setOperazioneNonValidaMessage(error);
       });
     } else {
       const index = this.gtDismessi.indexOf(gt, 0);
@@ -280,10 +282,21 @@ export class DettaglioGtComponent implements OnInit {
     }
   }
 
+  setOperazioneNonValidaMessage(error : Esito)
+  {
+    this.messageService.setTitolo("Operazione non valida");
+    this.messageService.setDescrizione(error.descrizioneEsito);
+    this.messageService.showMessaggioM();
+    this.messageService.setType(2);
+  }
+
   riattiva() {
     this.dettForm.enable();
     this.dettForm.controls["dtInstall"].disable();
-    this.dettForm.get('tipologia').value && this.dettForm.get('tipologia').value == '1' ? this.dettForm.get('nModuli').disable() : null;
+    if(this.dettForm.get('tipologia').value && this.dettForm.get('tipologia').value == '1')
+    {
+      this.dettForm.get('nModuli').disable();
+    }
     this.operazione = OPERAZIONE_COMP.MODIFICA;
     this.dettForm.controls.dtDismiss.setValue("");
 
@@ -292,7 +305,10 @@ export class DettaglioGtComponent implements OnInit {
   modifica() {
     this.dettForm.enable();
     this.dettForm.controls["dtInstall"].disable();
-    this.dettForm.get('tipologia').value && this.dettForm.get('tipologia').value == '1' ? this.dettForm.get('nModuli').disable() : null;
+    if(this.dettForm.get('tipologia').value && this.dettForm.get('tipologia').value == '1')
+    {
+      this.dettForm.get('nModuli').disable();
+    }
     this.operazione = OPERAZIONE_COMP.MODIFICA;
   }
 
@@ -311,10 +327,7 @@ export class DettaglioGtComponent implements OnInit {
         this.dettForm.get("dtInstall").setValidators([Validators.required, validateDateIstall(this.getLastDate())]);
         this.dettForm.get("dtInstall").updateValueAndValidity();
       }, (error: Esito) => {
-        this.messageService.setTitolo("Operazione non valida");
-        this.messageService.setDescrizione(error.descrizioneEsito);
-        this.messageService.showMessaggioM();
-        this.messageService.setType(2);
+        this.setOperazioneNonValidaMessage(error);
       });
     } else {
       this.messageService.setTitolo("Dati inseriti non validi");
@@ -345,6 +358,9 @@ export class DettaglioGtComponent implements OnInit {
       this.componenteService.updateGT(this.codiceImpianto, newArray).subscribe((elem: Esito) => {
         this.router.navigate(["impianto/dettaglio-impianto/" + this.codiceImpianto, { success: true }]);
         this.dettForm.disable();
+        this.messageService.setTitolo("Componente inserito correttamente");
+        this.messageService.showMessaggioM();
+        this.messageService.setType(4);
       }, (error) => {
         if (this.operazione === OPERAZIONE_COMP.DISMETTI) {
           this.dettForm.disable();

@@ -1,59 +1,80 @@
-<mat-card class="card mat-elevation-z8">
-    <form class="form-container" [formGroup]="searchForm">
-        <mat-grid-list cols="1" rowHeight="4em">
-            <mat-grid-tile>
-                <mat-form-field class="form-field">
-                    <input matInput placeholder="Codice impianto" [formControlName]="'codiceImpianto'">
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-form-field class="form-field">
-                    <mat-select placeholder="Stato impianto" [formControlName]="'statoImpianto'">
-                        <mat-option *ngFor="let elem of stati" [value]="elem.codice">
-                            {{elem.descrizione}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <button mat-button class="secondary-button form-field" (click)="apriIndirizzoDialog()">CERCA
-                    INDIRIZZO</button>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-form-field class="form-field">
-                    <input matInput placeholder="CF Responsabile" [formControlName]="'cfResp'">
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-form-field class="form-field">
-                    <input matInput placeholder="CF Proprietario" [formControlName]="'cfProp'">
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-form-field class="form-field">
-                    <input matInput placeholder="CF Terzo Responsabile" [formControlName]="'cf3Resp'">
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-form-field class="form-field">
-                    <input matInput placeholder="POD" [formControlName]="'pod'">
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-form-field class="form-field">
-                    <input matInput placeholder="PDR" [formControlName]="'pdr'">
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <button mat-button class="default-button form-field" (click)="ricercaImpianto()"
-                    [disabled]="!searchForm.valid"><img [src]="search" id="buttonRicercaImpianto"> CERCA</button>
-            </mat-grid-tile>
-        </mat-grid-list>
-    </form>
-</mat-card>
-<mat-grid-list cols="1" rowHeight="4em">
-    <mat-grid-tile>
-        <button mat-button class="secondary-button form-field" *ngIf="isAbilitatoInserisciImpianto()"
-            (click)="apriInserisciimpianto()" id="buttonCreazioneImpianto">INSERISCI
-            NUOVO IMPIANTO TERMICO</button>
-    </mat-grid-tile>
-</mat-grid-list>
+<div class="wide-screen">
+    <mat-grid-list cols="12" [rowHeight]="heightBreakpoint">
+        <mat-grid-tile colspan="1"></mat-grid-tile>
+        <mat-grid-tile colspan="10" style="overflow: unset;">
+            <mat-card class="card mat-elevation-z8">
+                <form class="form-container" [formGroup]="searchForm">
+                    <mat-grid-list [cols]="formColBreakpoint" gutterSize="24px" rowHeight="4em">
+                        <mat-grid-tile>
+                            <mat-form-field class="form-field">
+                                <input matInput placeholder="Codice impianto" [formControlName]="'codiceImpianto'">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="form-field">
+                                <mat-select placeholder="Stato impianto" [formControlName]="'statoImpianto'">
+                                    <mat-option *ngFor="let elem of stati" [value]="elem.codice">
+                                        {{elem.descrizione}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <button type="button" mat-button class="secondary-button form-field" (click)="apriIndirizzoDialog()">CERCA
+                                INDIRIZZO</button>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="form-field">
+                                <input matInput placeholder="CF Responsabile" [formControlName]="'cfResp'">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="form-field">
+                                <input matInput placeholder="CF Proprietario" [formControlName]="'cfProp'">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="form-field">
+                                <input matInput placeholder="CF Terzo Responsabile" [formControlName]="'cf3Resp'">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="form-field">
+                                <input matInput placeholder="POD" [formControlName]="'pod'">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field class="form-field">
+                                <input matInput placeholder="PDR" [formControlName]="'pdr'">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <button type="submit" mat-button class="default-button form-field" (click)="ricercaImpianto()"
+                                [disabled]="!searchForm.valid"><img [src]="search" alt="search" id="buttonRicercaImpianto">
+                                CERCA</button>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="form-field full-width-container" *ngIf="isRicercaCompletaEnabled">
+                                <mat-checkbox class="checkbox-wrap" [(ngModel)]="isRicercaCompletaChecked" (change)="onRicercaCompletaChange($event)">
+                                    <span class="checkbox-label">
+                                        Ricerca Completa: effettuare la ricerca completa degli impianti termici censiti
+                                    </span>
+                                </mat-checkbox>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </form>
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1"></mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="12" rowHeight="10em" class="end-btn-margin">
+        <mat-grid-tile colspan="1"></mat-grid-tile>
+        <mat-grid-tile [colspan]="btnColBreakPoint">
+            <button mat-button class="secondary-button form-field" *ngIf="isAbilitatoInserisciImpianto()"
+                (click)="apriInserisciimpianto()" id="buttonCreazioneImpianto">INSERISCI
+                NUOVO IMPIANTO TERMICO</button>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="emptyColBreakPoint"></mat-grid-tile>
+    </mat-grid-list>
+</div>

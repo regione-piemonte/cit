@@ -1,11 +1,12 @@
+<div class="wide-screen">
 <app-message-box [titolo]="'ATTENZIONE'" [descrizione]="'Sei offline, alcune operazioni potrebbero essere interdette'"
     [type]="1" [ngClass]="{'online':!offline}">
 </app-message-box>
 <div *ngIf="!risultato">
-    <mat-card class="card mat-elevation-z8">
+ <mat-card class="card mat-elevation-z8">
         <form [formGroup]="searchForm">
-            <mat-grid-list cols="2" rowHeight="2em">
-                <mat-grid-tile colspan="2" rowspan="2">
+            <mat-grid-list cols="12" rowHeight="3em" gutterSize="15px">
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
                     <mat-form-field class="form-field">
                         <input matInput placeholder="Data controllo" [matDatepicker]="picker"
                             [matDatepickerFilter]="myFilter" [formControlName]="'dataControllo'" [disabled]="true">
@@ -15,7 +16,7 @@
                         <mat-datepicker #picker disabled="false"></mat-datepicker>
                     </mat-form-field>
                 </mat-grid-tile>
-                <mat-grid-tile colspan="2" rowspan="2">
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
                     <mat-form-field class="form-field">
                         <mat-select placeholder="Tipo controllo" [formControlName]="'tipoControllo'">
                             <mat-option *ngFor="let elem of tipiControllo" [value]="elem.codice">
@@ -23,7 +24,7 @@
                         </mat-select>
                     </mat-form-field>
                 </mat-grid-tile>
-                <mat-grid-tile colspan="2" rowspan="2">
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
                     <mat-form-field class="form-field">
                         <mat-select placeholder="Tipo componente" [formControlName]="'tipoComponente'">
                             <mat-option *ngFor="let elem of tipiComponente" [value]="elem.codice">
@@ -31,7 +32,7 @@
                         </mat-select>
                     </mat-form-field>
                 </mat-grid-tile>
-                <mat-grid-tile colspan="2" rowspan="2">
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
                     <button mat-button class="default-button" [disabled]="!searchForm.valid" (click)="cercaControlli()">
                         <mat-icon>search</mat-icon>CERCA
                     </button>
@@ -53,3 +54,6 @@
 <app-risultato-ricerca-controlli [result]="risultato" (closeSearch)="closeSearch($event)"
     *ngIf="risultato && risultato.length>0">
 </app-risultato-ricerca-controlli>
+
+<div style="height: 20px; background-color: white;"></div>
+</div>

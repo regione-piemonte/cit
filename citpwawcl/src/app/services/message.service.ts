@@ -43,7 +43,9 @@ export class MessageService {
       left: 0,
       behavior: 'smooth'
     });
-    var id = window.setTimeout(function () {}, 0);
+    var id = window.setTimeout(function () {
+      //This is intentional
+    }, 0);
     while (id--) {
       window.clearTimeout(id);
     }

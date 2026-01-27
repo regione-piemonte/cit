@@ -1,0 +1,145 @@
+<div class="cit-page-container">
+  <app-page-title>Dettaglio Verifica</app-page-title>
+  <app-breadcrumb label="Risultato Verifiche" [link]="['/', 'lista-verifiche']"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <mat-card style="margin-bottom: 40px">
+      <mat-card-title style="display: flex; justify-content: space-between; align-items: center">
+        Dati Verifica
+        <ng-container *ngIf="!editMode">
+          <button *ngxPermissionsOnly="'MODIFICA_VERIFICA'" mat-button color="primary" [routerLink]="['/', 'dettaglio-verifica', verifica.idVerifica, 'edit']">
+            <mat-icon>edit</mat-icon>
+            Modifica
+          </button>
+        </ng-container>
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="verificaForm" (ngSubmit)="submit()">
+          <div class="cit-two-cols-grid">
+            <mat-form-field>
+              <mat-label>Verifica numero</mat-label>
+              <input matInput formControlName="idVerifica" type="number">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Eseguito da</mat-label>
+              <mat-select formControlName="cfUtenteCaricamento">
+                <mat-option *ngFor="let assegnatario of assegnatarioList" [value]="assegnatario.codicefiscale">
+                  {{assegnatario.cognome}} {{assegnatario.nome}} ({{assegnatario.codicefiscale}})
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Data Caricamento</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dtCaricamento">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Tipo Verifica</mat-label>
+              <mat-select formControlName="fkTipoVerifica">
+                <mat-option *ngFor="let tipoVerifica of tipoVerificaList" [value]="tipoVerifica.id">
+                  {{tipoVerifica.value}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Codice impianto</mat-label>
+              <input matInput formControlName="codiceImpianto" type="number">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Indirizzo</mat-label>
+              <input matInput formControlName="indirizzo" appUpper>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Codice REE</mat-label>
+              <input matInput formControlName="codiceRee" appUpper>
+            </mat-form-field>
+            <div>
+              <mat-form-field>
+                <mat-label>Identificativo dato distributore</mat-label>
+                <input matInput formControlName="fkDatoDistrib" type="number">
+              </mat-form-field>
+              <p *ngIf="distributore" style="margin-top: 0; color: #00000061">
+                Stato: <strong>{{distributore.statoDistribDesc}}</strong><br>
+                Anno riferimento: <strong>{{distributore.annoRif}}</strong><br>
+                Dati utente: <strong>{{distributore.cognomeDenomFatt}} {{distributore.nomeFatt}} {{distributore.dugFatt}} {{distributore.indirizzoFatt}} {{distributore.civicoFatt}} {{distributore.istatComuneFatt}}</strong>
+              </p>
+            </div>
+            <mat-card style="margin-bottom: 20px; background-color: #F7F7F7">
+              <mat-card-title style="display: flex; justify-content: space-between; align-items: center">
+                Sveglia attuale
+                <button mat-icon-button color="accent" type="button" [disabled]="!editMode" (click)="clearSveglia()">
+                  <mat-icon>backspace</mat-icon>
+                </button>
+              </mat-card-title>
+              <mat-card-content>
+                <mat-card class="mat-elevation-z0">
+                  <mat-form-field>
+                    <mat-label>Data</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="dtSveglia">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Descrizione</mat-label>
+                    <textarea matInput formControlName="noteSveglia" rows="5" appUpper></textarea>
+                  </mat-form-field>
+                </mat-card>
+              </mat-card-content>
+            </mat-card>
+            <mat-form-field>
+              <mat-label>Note</mat-label>
+              <textarea matInput formControlName="note" rows="5" appUpper></textarea>
+            </mat-form-field>
+          </div>
+          <ng-container *ngIf="editMode">
+            <hr>
+            <button mat-button color="primary" [routerLink]="['/', 'dettaglio-verifica', verifica.idVerifica]">ANNULLA</button>
+            <button mat-flat-button color="primary" style="float: right">SALVA</button>
+          </ng-container>
+        </form>
+      </mat-card-content>
+    </mat-card>
+    <ng-container *ngIf="!editMode">
+      <app-page-title>Elenco azioni svolte</app-page-title>
+      <div *ngxPermissionsOnly="'AGGIUNGI_AZIONE'" style="margin-bottom: 10px; text-align: right">
+        <button mat-button color="primary" [routerLink]="['/', 'dettaglio-verifica', verifica.idVerifica, 'nuova-azione']">
+          <mat-icon>add</mat-icon>
+          Aggiungi
+        </button>
+      </div>
+      <div *ngIf="azioneList.length" class="cit-three-cols-grid" style="margin-bottom: 40px">
+        <mat-card *ngFor="let azione of azioneList">
+          <p>Data azione: <strong>{{azione.dtAzione | date:'dd/MM/yyyy'}}</strong></p>
+          <p>Eseguita da: <strong>{{azione.denomUtenteAzione}} ({{azione.cfUtenteAzione}})</strong></p>
+          <p>Nome documento: <strong>{{azione.nomeDocOriginale | orDash}}</strong></p>
+          <p>Descrizione: <strong>{{azione.descrizioneAzione}}</strong></p>
+          <ng-container *ngIf="azione.uidIndex">
+            <hr>
+            <button mat-button [color]="getDocumentoAzioneColor(azione)" (click)="downloadDocumentoAzione(azione)">
+              <mat-icon *ngIf="getDocumentoAzioneExt(azione) !== 'pdf'">{{getDocumentoAzioneIcon(azione)}}</mat-icon>
+              <img *ngIf="getDocumentoAzioneExt(azione) === 'pdf'" src="assets/misc/acrobat.svg" alt="" style="width: 24px; height: 24px">
+              {{getDocumentoAzioneLabel(azione)}}
+            </button>
+          </ng-container>
+        </mat-card>
+      </div>
+      <p *ngIf="!azioneList.length" style="margin-bottom: 40px">Nessuna azione presente per questa verifica.</p>
+      <button *ngIf="ispezioneList.length else avviaIspezione" mat-button color="primary" [routerLink]="['/', 'dettaglio-ispezione', ispezioneList[0].idIspezione2018]">
+        VISUALIZZA ISPEZIONE
+      </button>
+      <ng-template #avviaIspezione>
+        <button *ngxPermissionsOnly="'AVVIA_ACCERTAMENTO'" mat-button color="primary" style="margin-bottom: 10px" (click)="comingSoon()">
+          AVVIA ACCERTAMENTO
+        </button><br>
+        <button *ngxPermissionsOnly="'AVVIA_ISPEZIONE'" mat-button color="primary" [routerLink]="['/', 'dettaglio-verifica', verifica.idVerifica, 'nuova-ispezione']">
+          AVVIA ISPEZIONE
+        </button>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto 20px auto"></mat-spinner>
+  </ng-template>
+</div>

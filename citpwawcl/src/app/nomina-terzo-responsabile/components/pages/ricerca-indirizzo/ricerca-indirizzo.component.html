@@ -1,0 +1,117 @@
+<div class="wide-screen">
+    <!-- <app-loading *ngIf="spinnerService.visibility | async"></app-loading> -->
+    <div>
+        <app-title [title]="title" [subtitle]="subtitle"></app-title>
+        <app-back [title]="backTitile" [route]="route" *ngIf="route">
+        </app-back>
+        <div style="width: 83%; margin: auto;">
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo"></app-role-header>
+        <div class="wide-screen">
+            <div class="page-content">
+                <mat-card class="card mat-elevation-z8" style="width:95%">
+                    <form [formGroup]="insertForm">
+                        <mat-grid-list cols="12" rowHeight="2em" gutterSize="15px">
+                            <mat-grid-tile [colspan]="12" rowspan="2">
+                                <mat-form-field class="form-field">
+                                    <input matInput placeholder="Codice Impianto" [formControlName]="'codiceImpianto'">
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                                *ngIf="!insertForm.controls['stradario'].value">
+                                <mat-form-field class="form-field">
+                                    <input matInput placeholder="Indirizzo" [formControlName]="'indirizzoLoccsi'"
+                                        [matAutocomplete]="auto" id="indirizzoLoccsi" appUpper>
+                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                                        (optionSelected)='setLoccsiElem($event.option.value)'>
+                                        <mat-option *ngFor="let indirizzo of filteredOptions | async"
+                                            [value]="indirizzo" id="listaIndirizzi">
+                                            {{indirizzo.properties.loccsiLabel}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error
+                                        *ngIf="insertForm.controls.indirizzoLoccsi.errors?.['indirizzoNonSelezionato'] && !loccsiClicked">Selezionare
+                                        una
+                                        voce dall'elenco degli indirizzi</mat-error>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                                *ngIf="!insertForm.controls['stradario'].value">
+                                <mat-form-field class="form-field">
+                                    <input matInput placeholder="Civico" [formControlName]="'civicoLoccsi'"
+                                        id="civicoLoccsi" appUpper>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="12">
+                                <div class="label-tile">
+                                    <section>
+                                        <mat-checkbox [formControlName]="'stradario'"
+                                            (change)="toggleStradarioImpianto($event)">Non
+                                            trovato in
+                                            stradario</mat-checkbox>
+                                    </section>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                                *ngIf="insertForm.controls['stradario'].value">
+                                <mat-form-field class="form-field">
+                                    <input matInput placeholder="Indirizzo" [formControlName]="'indirizzo'" appUpper>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                                *ngIf="insertForm.controls['stradario'].value">
+                                <mat-form-field class="form-field">
+                                    <input matInput placeholder="Civico" [formControlName]="'civico'" appUpper>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                                *ngIf="insertForm.controls['stradario'].value">
+                                <mat-form-field class="form-field">
+                                    <input matInput placeholder="Comune" [formControlName]="'comune'"
+                                        [matAutocomplete]="autoComune" appUpper>
+                                    <mat-autocomplete #autoComune="matAutocomplete" [displayWith]="displayFn"
+                                        (optionSelected)='setProvinciaComune($event.option.value)'>
+                                        <mat-option *ngFor="let indirizzo of filteredOptionsComuni | async"
+                                            [value]="indirizzo">
+                                            {{indirizzo.properties.loccsiLabel}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error
+                                        *ngIf="insertForm.controls.comune.errors?.['indirizzoNonSelezionato'] && !loccsiClickedComuni">Selezionare
+                                        un comune</mat-error>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2"
+                                *ngIf="insertForm.controls['stradario'].value">
+                                <mat-form-field class="form-field">
+                                    <input matInput placeholder="Provincia" [formControlName]="'provincia'"  appUpper>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </form>
+                </mat-card>
+                <div style="margin-top: 20px;">
+                    <mat-grid-list cols="1" rowHeight="2em" class="modul-card">
+                        <mat-grid-tile>
+                          <div class="left-elem">
+                            <button mat-button class="add-component primary-color" (click)="verificaImpiantoSubentro()"
+                            *ngIf="isVericaImpiantoSubentroVisible()"
+                              [disabled]="!insertForm.valid" id="buttonVerificaImpiantoSubentro">VERIFICA IMPIANTO PER SUBENTRO</button>
+                          </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                          <div class="left-elem">
+                            <button mat-button class="add-component primary-color"  (click)="verificaTerzoResponsabile()"
+                            *ngIf="isVericaImpiantoNominaTerzoResponsabileVisible()"
+                            [disabled]="!insertForm.valid" id="buttonVerificaImpiantoPerNomina">VERIFICA IMPIANTO PER NOMINA TERZO RESPONSABILE</button>
+                          </div>
+                        </mat-grid-tile>
+                      </mat-grid-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

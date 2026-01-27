@@ -1,0 +1,37 @@
+<div class="wide-screen" style="cursor: default; padding-bottom: 30px;">
+    <ng-container>
+
+        <div class="card-padding">
+            <div class="order-container">
+                <span class="order">Ordina per:</span>
+                <mat-select class="select" [(value)]="sortSelected" (selectionChange)="sortDocumenti($event)">
+                    <mat-option *ngFor="let option of sortOptions" [value]="option.value">
+                        {{option.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </div>
+            <app-message-box [titolo]="titleBox" [descrizione]="messageBox" *ngIf="isSuccess" [type]="typeBox"
+                [mainClass]="''">
+            </app-message-box>
+            <div class="card-grid" *ngIf="documenti?.length != 0; else noDocumentRecord">
+                <app-card-documento [documento]="documento" *ngFor="let documento of documenti" (onDownload)="onDownload($event)" (onDelete)="onDelete($event)">
+                </app-card-documento>
+            </div>
+            <ng-template #noDocumentRecord >
+                <app-message-box [titolo]="'Attenzione'" [descrizione]="'Non è presente nessun dato.'"
+                    *ngIf=" documenti.length == 0 && searched" [type]="WARNING_TYPE" [mainClass]="''">
+                </app-message-box>
+            </ng-template>
+            <mat-card class="contaner-card mat-elevation-z0" style="margin-top:20px;">
+                <mat-grid-list cols="1" rowHeight="2em" class="modul-card">
+                    <mat-grid-tile>
+                        <div class="left-elem">
+                            <button mat-button class="add-component primary-color" id="buttonAggiungiDocumento"
+                                (click)="aggiungiDocumento()">AGGIUNGI DOCUMENTO</button>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+        </div>
+    </ng-container>
+</div>

@@ -21,7 +21,8 @@ import { MessageService } from 'src/app/services/message.service';
 import { ResultService } from 'src/app/services/result.service';
 import { SyncServiceService } from 'src/app/services/sync-service.service';
 import { TitleService } from 'src/app/services/title.service';
-import { DISPLAY_FORMAT, ESITO_OPERAZIONI, FORMAT, ICONSURL, OPERAZIONI, ORDINAMENTO, RUOLI, STATO_RAPP } from 'src/app/utils/constants';
+import { DISPLAY_FORMAT, ESITO_OPERAZIONI, FORMAT, OPERAZIONI, ORDINAMENTO, RUOLI, STATO_RAPP } from 'src/app/utils/constants';
+import { doDownloadFile } from 'src/app/utils/utils';
 import { v4 as uuidv4 } from 'uuid';
 import { UploadFileDialogComponent } from '../../upload-file-dialog/upload-file-dialog.component';
 
@@ -42,7 +43,7 @@ export class ElencoControlliComponent implements OnInit, OnDestroy {
   ordinamento = ORDINAMENTO;
   statoRapp = STATO_RAPP;
   tipiDoc = TipoDoc;
-  pdf: string = ICONSURL + "pdf.svg";
+  pdf: string = 'assets/misc/acrobat.svg';
 
   utente: UtenteLoggato;
 
@@ -103,6 +104,7 @@ export class ElencoControlliComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    //Not Implemented
   }
 
   sortControlli() {
@@ -254,9 +256,9 @@ export class ElencoControlliComponent implements OnInit, OnDestroy {
   caricaReeFirmato(controllo: DatoControlloModel) {
     if (!this.offline) {
       this.dialog.open(UploadFileDialogComponent, {
-        width: "90%",
+        width: "100%",
         data: controllo.controlloModel.idAllegato,
-        maxWidth: "500px",
+        maxWidth: "900px",
       }).afterClosed().subscribe(response => {
         if (response.data) {
           this.messageService.setTitolo("Successo");
@@ -302,12 +304,7 @@ export class ElencoControlliComponent implements OnInit, OnDestroy {
               .split('')
               .map((char) => char.charCodeAt(0))
           );
-          var blob = new Blob([byteArray], { type: doc.mimeType });
-          let url = window.URL.createObjectURL(blob);
-          let a = document.createElement('a');
-          a.href = url;
-          a.download = doc.name;
-          a.click();
+          doDownloadFile(byteArray, doc.name, doc.mimeType);
         }, (error: Esito) => {
           this.messageService.setTitolo("Errore download Riepilogo firmato");
           this.messageService.setDescrizione(error.descrizioneEsito);
@@ -337,12 +334,7 @@ export class ElencoControlliComponent implements OnInit, OnDestroy {
               .split('')
               .map((char) => char.charCodeAt(0))
           );
-          var blob = new Blob([byteArray], { type: doc.mimeType });
-          let url = window.URL.createObjectURL(blob);
-          let a = document.createElement('a');
-          a.href = url;
-          a.download = doc.name;
-          a.click();
+          doDownloadFile(byteArray, doc.name, doc.mimeType);
         }, (error: Esito) => {
           this.messageService.setTitolo("Errore download Riepilogo");
           this.messageService.setDescrizione(error.descrizioneEsito);
@@ -364,12 +356,7 @@ export class ElencoControlliComponent implements OnInit, OnDestroy {
   }
 
   downLoadFile(data: any, idAllegato: number, tipo: string) {
-    var blob = new Blob([data], { type: 'application/pdf' });
-    let url = window.URL.createObjectURL(blob);
-    let a = document.createElement('a');
-    a.href = url;
-    a.download = tipo + "_" + idAllegato + ".pdf";
-    a.click();
+    doDownloadFile(data, tipo + "_" + idAllegato + ".pdf");
   }
 
   inviaControllo(controllo: DatoControlloModel) {

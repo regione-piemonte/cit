@@ -1,0 +1,47 @@
+<div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div>
+        <app-title [title]="title" [subtitle]="subtitle"></app-title>
+        <app-back [title]="backTitile" [route]="route">
+        </app-back>
+        <div style="width: 83%; margin: auto;">
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo"></app-role-header>
+        <app-impianto-header [datiImpianto]="datiImpianto" [redirect]="false"></app-impianto-header>
+        <div class="wide-screen">
+            <div class="page-content-card">
+                <mat-card class="card mat-elevation-z8">
+                    <form [formGroup]="formGroup">
+                        <mat-card-content>
+                            <mat-grid-list [cols]="2" rowHeight="2em">
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                                    <mat-form-field class="form-field">
+                                        <input formControlName="dataFineContratto" matInput [matDatepicker]="picker"
+                                            [min]="today" placeholder="Data fine contratto" name="Data fine contratto">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                                    <mat-checkbox formControlName="tacitoRinnovo">Tacito rinnovo</mat-checkbox>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </mat-card-content>
+                    </form>
+                </mat-card>
+            </div>
+            <div class="page-content-card" style="display:flex; flex-direction: row;">
+                <div class="left-elem">
+                    <button mat-button class="annulla primary-color" (click)="annulla()">ANNULLA</button>
+                </div>
+                <div class="right-elem">
+                    <button [disabled]="!isSalvaEnabled()" mat-button class="default-button" (click)="salva()" id="buttonSalva">SALVA</button>
+                </div>
+            </div>
+            <div style="height: 20px; background-color: white;"></div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,6 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +8,7 @@ import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { DeleteDialogComponent } from 'src/app/common/components/delete-dialog/delete-dialog.component';
 import { CodiceDescrizione } from 'src/app/models/codice-descrizione';
+import { ComuneEsteso } from 'src/app/models/comune-esteso.model';
 import { DatiImpianto } from 'src/app/models/dati-impianto';
 import { Esito } from 'src/app/models/esito';
 import { LoccsiFeature } from 'src/app/models/loccsi-feature';
@@ -20,13 +22,14 @@ import { LibrettoService } from 'src/app/services/libretto.service';
 import { LocalStorageServiceService } from 'src/app/services/local-storage-service.service';
 import { MessageService } from 'src/app/services/message.service';
 import { ResultService } from 'src/app/services/result.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { SvistaService } from 'src/app/services/svista.service';
 import { TitleService } from 'src/app/services/title.service';
-import { ICONSURL, ID_PROPRIETARIO_PROPRIETARIO, ID_PROPRIETARIO_PROPRIETARIO_IMPRESA, RUOLI } from 'src/app/utils/constants';
+import { ID_PROPRIETARIO_PROPRIETARIO, ID_PROPRIETARIO_PROPRIETARIO_IMPRESA, RUOLI } from 'src/app/utils/constants';
+import { doDownloadFile } from 'src/app/utils/utils';
 import { validateIndirizzo, validateNumbers, validatePDR, validatePOD } from 'src/app/validators/custom.validator';
 import { AggiungiComponenteDialogComponent } from '../../aggiungi-componente-dialog/aggiungi-componente-dialog.component';
 import { NuovoResponsabileProprietarioComponent } from '../../nuovo-responsabile-proprietario/nuovo-responsabile-proprietario.component';
-import { ComuneEsteso } from 'src/app/models/comune-esteso.model';
-import { SvistaService } from 'src/app/services/svista.service';
 
 @Component({
   selector: 'app-dettaglio-impianto',
@@ -40,7 +43,7 @@ export class DettaglioImpiantoComponent implements OnInit {
   propForm: FormGroup;
   respForm: FormGroup;
   utente: UtenteLoggato;
-  pdf: string = ICONSURL + "pdf.svg";
+  pdf: string = 'assets/misc/acrobat.svg';
   success = false;
   codiceImpianto = "";
   mod: any;
@@ -90,6 +93,13 @@ export class DettaglioImpiantoComponent implements OnInit {
   emptyComponents: boolean;
   titoli: CodiceDescrizione[] = [];
 
+  dialogBoxWidth: string;
+  colBreakpoint1: NumberInput;
+  colBreakpoint2: NumberInput;
+  colBreakpoint3: NumberInput;
+  colBreakpoint4: NumberInput;
+  colBreakpoint5: NumberInput;
+
   constructor(public dialog: MatDialog, private readonly router: Router,
     private location: Location,
     private readonly impiantoService: ImpiantoService, private fb: FormBuilder,
@@ -100,18 +110,19 @@ export class DettaglioImpiantoComponent implements OnInit {
     private readonly messageService: MessageService,
     private readonly titleService: TitleService,
     private readonly localStorageService: LocalStorageServiceService,
-    private readonly componenteService: ComponenteService) {
+    private readonly componenteService: ComponenteService,
+    private readonly sharedService: SharedService) {
     this.utente = authService.getCurrentUserFromSession();
     this.stati = [];
     this.impiantoForm = this.fb.group({
       codiceImpianto: ["", validateNumbers()],
       statoImpianto: [""],
-      dataAss: ["", Validators.required],
-      dataVar: [, Validators.required],
+      dataVar: [Validators.required],
       motivazione: ["", Validators.required],
       tipo: ["", Validators.required],
       locTecnico: [false],
       contabilizzazione: [false],
+      flgMedioImpiantoCivile: [false],
       indirizzoLoccsi: ["", [Validators.required, validateIndirizzo()]],
       civicoLoccsi: ["", Validators.required],
       stradario: [false],
@@ -166,6 +177,13 @@ export class DettaglioImpiantoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dialogBoxWidth = (window.innerWidth < 1440) ? "500px" : "700px";
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (window.innerWidth < 768) ? 12 : 3;
+    this.colBreakpoint3 = (window.innerWidth < 768) ? 0 : 9;
+    this.colBreakpoint4 = (window.innerWidth < 768) ? 0 : 6;
+    this.colBreakpoint5 = (window.innerWidth < 768) ? 2 : 1;
+
     this.titleService.setTitle("Dettaglio impianti termici");
     this.backService.setBackTitle("Torna alla ricerca");
     this.backService.setRoute("impianto/ricerca-impianti");
@@ -184,14 +202,14 @@ export class DettaglioImpiantoComponent implements OnInit {
     this.isRespDisabled = true;
     this.isPropDisabled = true;
     this.success = !!this.route.snapshot.paramMap.get('success');
-    if (this.success) 
+    if (this.success)
     {
       this.messageService.setTitolo("Successo");
-      if (!!this.route.snapshot.paramMap.get('message')) 
+      if (!!this.route.snapshot.paramMap.get('message'))
       {
         this.messageService.setDescrizione(this.route.snapshot.paramMap.get('message'));
-      } 
-      else 
+      }
+      else
       {
         this.messageService.setDescrizione("Inserimento impianto avvenuto con successo");
       }
@@ -222,7 +240,7 @@ export class DettaglioImpiantoComponent implements OnInit {
           this.filteredOptionsImpiantoComuni = this.svistaService.loadDataFromLocalStorage(elem2)
           .pipe(
            map(name => name ? name : this.comuniEstesoImpianto.slice()));
-         } 
+         }
       });
 
     this.propForm.controls['indirizzoLoccsi'].valueChanges
@@ -248,7 +266,7 @@ export class DettaglioImpiantoComponent implements OnInit {
           this.filteredOptionsPropComuni = this.svistaService.loadDataFromLocalStorage(elem2)
           .pipe(
            map(name => name ? name : this.comuniEstesoProp.slice()));
-         } 
+         }
       });
 
     this.respForm.controls['indirizzoLoccsi'].valueChanges
@@ -278,10 +296,20 @@ export class DettaglioImpiantoComponent implements OnInit {
              this.filteredOptionsRespComuni = this.svistaService.loadDataFromLocalStorage(elem2)
              .pipe(
               map(name => name ? name : this.comuniEstesoResp.slice()));
-            } 
+            }
           });
     this.svistaService.saveComuniEstesiToLocalStorage();
     this.getDettaglioImpianto();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.dialogBoxWidth = (event.target.innerWidth < 1440) ? "500px" : "700px";
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (event.target.innerWidth < 768) ? 12 : 3;
+    this.colBreakpoint3 = (event.target.innerWidth < 768) ? 0 : 9;
+    this.colBreakpoint4 = (event.target.innerWidth < 768) ? 0 : 6;
+    this.colBreakpoint5 = (event.target.innerWidth < 768) ? 2 : 1;
   }
 
   getDettaglioImpianto() {
@@ -302,7 +330,7 @@ export class DettaglioImpiantoComponent implements OnInit {
     });
   }
 
-  checkMessageDescription(descrizione : String) : String {
+  checkMessageDescription(descrizione : string) : string {
     this.messageService.showMessaggioM();
     if(descrizione == "Codice POD o PDR inserito gia' presente sul sistema") {
       this.messageService.setType(1);
@@ -315,17 +343,17 @@ export class DettaglioImpiantoComponent implements OnInit {
   }
 
   inserisciImpianto() {
-        
+
     this.disableLoocsiValidators();
-    if (this.impiantoFormValid()) 
+    if (this.impiantoFormValid())
     {
       let impianto = this.creaNuovoImpianto();
-      this.impiantoService.updateImpianto(impianto, this.codiceImpianto).subscribe((elem) => 
+      this.impiantoService.updateImpianto(impianto, this.codiceImpianto).subscribe((elem) =>
       {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["/impianto/dettaglio-impianto/" + this.codiceImpianto, 
+        this.router.navigate(["/impianto/dettaglio-impianto/" + this.codiceImpianto,
         { success: true, message: this.checkMessageDescription(elem.descrizioneEsito)}]));
-      }, error => 
+      }, error =>
       {
         this.messageService.setTitolo("Errore aggiornamento impianto");
         let esito = error.error as Esito;
@@ -333,8 +361,8 @@ export class DettaglioImpiantoComponent implements OnInit {
         this.messageService.showMessaggioM();
         this.messageService.setType(2);
       });
-    } 
-    else 
+    }
+    else
     {
       this.impiantoForm.markAllAsTouched();
       this.messageService.setType(2);
@@ -349,7 +377,7 @@ export class DettaglioImpiantoComponent implements OnInit {
     let persona = this.creaNuovoResponsabile();
     this.impiantoService.updateResponsabileProprietario(this.codiceImpianto, persona).subscribe((elem) => {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["/impianto/dettaglio-impianto/" + this.codiceImpianto, 
+        this.router.navigate(["/impianto/dettaglio-impianto/" + this.codiceImpianto,
         { success: true, message: this.checkMessageDescription("Responsabile inserito con successo") }]));
     }, error => {
       this.messageService.setTitolo("Errore aggiornamento responsabile");
@@ -361,11 +389,11 @@ export class DettaglioImpiantoComponent implements OnInit {
   }
 
   inserisciProprietario() {
-    
+
     let persona = this.creaNuovoProprietario();
     this.impiantoService.updateResponsabileProprietario(this.codiceImpianto, persona).subscribe((elem) => {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["/impianto/dettaglio-impianto/" + this.codiceImpianto, 
+        this.router.navigate(["/impianto/dettaglio-impianto/" + this.codiceImpianto,
         { success: true, message: this.checkMessageDescription("Proprietario inserito con successo") }]));
     }, error => {
       this.messageService.setTitolo("Errore aggiornamento proprietario");
@@ -506,12 +534,12 @@ export class DettaglioImpiantoComponent implements OnInit {
     let impianto: DatiImpianto = new DatiImpianto();
     let codiceImpianto = this.impiantoForm.controls["codiceImpianto"].value;
     let statoImpianto = this.impiantoForm.controls["statoImpianto"].value;
-    let dataAss = this.impiantoForm.controls["dataAss"].value;
     let dataVar = this.impiantoForm.controls["dataVar"].value;
     let motivazione = this.impiantoForm.controls["motivazione"].value;
     let tipo = this.impiantoForm.controls["tipo"].value;
     let locTecnico = this.impiantoForm.controls["locTecnico"].value;
     let contabilizzazione = this.impiantoForm.controls["contabilizzazione"].value;
+    let flgMedioImpiantoCivile = this.impiantoForm.controls["flgMedioImpiantoCivile"].value;
     let civicoLoccsi = this.impiantoForm.controls["civicoLoccsi"].value;
     let stradario = this.impiantoForm.controls["stradario"].value;
     let indirizzo = this.impiantoForm.controls["indirizzo"].value;
@@ -525,11 +553,11 @@ export class DettaglioImpiantoComponent implements OnInit {
 
     if (codiceImpianto)
       impianto.codiceImpianto = codiceImpianto;
-    impianto.dataAssCi = dataAss;
     impianto.dataVar = dataVar;
     impianto.motivazione = motivazione;
     impianto.tipoImpianto = tipo;
     impianto.flgContabilizzazione = contabilizzazione;
+    impianto.flgMedioImpiantoCivile = flgMedioImpiantoCivile;
     if (stradario) {
       impianto.civico = civico;
       impianto.indirizzoNonTrovato = indirizzo;
@@ -553,8 +581,8 @@ export class DettaglioImpiantoComponent implements OnInit {
 
       impianto.provincia = this.currentAddressImpianto.properties.descProvincia;
       impianto.siglaProv = this.currentAddressImpianto.properties.siglaProvincia;
-      impianto.coordX = this.currentAddressImpianto.geometry.coordinates[0],
-        impianto.coordY = this.currentAddressImpianto.geometry.coordinates[1]
+      impianto.coordX = this.currentAddressImpianto.geometry.coordinates[0];
+      impianto.coordY = this.currentAddressImpianto.geometry.coordinates[1];
       impianto.istatComune = this.currentAddressImpianto.properties.codiceIstat ? this.currentAddressImpianto.properties.codiceIstat : undefined;
 
     }
@@ -603,7 +631,6 @@ export class DettaglioImpiantoComponent implements OnInit {
         this.impiantoForm.enable();
         this.isImpiantoDisabled = false;
         this.impiantoForm.controls["codiceImpianto"].disable();
-        this.impiantoForm.controls["dataAss"].disable();
         this.impiantoForm.controls["dataVar"].disable();
         this.impiantoForm.controls["motivazione"].disable();
 
@@ -648,6 +675,14 @@ export class DettaglioImpiantoComponent implements OnInit {
     }
   }
 
+  navigateToListaLibretti() {
+    this.router.navigate([`${this.router.url}/lista`]);
+  }
+
+  navigateToDocumenti() {
+    this.router.navigate([`${this.router.url}/documenti`]);
+  }
+
   isEditabile() {
     let ruolo = this.utente.ruoloLoggato.ruolo;
     return (ruolo === RUOLI.RUOLO_SUPER
@@ -680,7 +715,7 @@ export class DettaglioImpiantoComponent implements OnInit {
     this.dialog.open(NuovoResponsabileProprietarioComponent, {
       width: "90%",
       height: '90%',
-      maxWidth: "500px",
+      maxWidth: this.dialogBoxWidth,
       data: { isResp: false, codiceImpianto: this.codiceImpianto }
     }).afterClosed().subscribe(response => {
       if (response) {
@@ -695,7 +730,7 @@ export class DettaglioImpiantoComponent implements OnInit {
     this.dialog.open(NuovoResponsabileProprietarioComponent, {
       width: "90%",
       height: '90%',
-      maxWidth: "500px",
+      maxWidth: this.dialogBoxWidth,
       data: { isResp: true, codiceImpianto: this.codiceImpianto }
     }).afterClosed().subscribe(response => {
       if (response) {
@@ -711,9 +746,10 @@ export class DettaglioImpiantoComponent implements OnInit {
     this.dialog.open(AggiungiComponenteDialogComponent, {
       width: "90%",
       height: '90%',
-      maxWidth: "500px",
+      maxWidth: this.dialogBoxWidth,
       data: { codiceImpianto: this.codiceImpianto }
     }).afterClosed().subscribe(response => {
+      // This is intentional
     });
   }
 
@@ -722,8 +758,6 @@ export class DettaglioImpiantoComponent implements OnInit {
     this.loccsiClickedImpianto = false;
     this.impiantoForm.controls['codiceImpianto'].setValue(datiPrecompilati.codice_impianto);
     this.impiantoForm.controls['statoImpianto'].setValue(datiPrecompilati.statoImpianto);
-    let dataAss = new Date(datiPrecompilati.dataAssegnazioneCodiceImpianto);
-    this.impiantoForm.controls['dataAss'].setValue(dataAss);
     if (datiPrecompilati.dataUltimaVariazioneImpianto) {
       let datavar = new Date(datiPrecompilati.dataUltimaVariazioneImpianto);
       this.impiantoForm.controls['dataVar'].setValue(datavar);
@@ -733,6 +767,8 @@ export class DettaglioImpiantoComponent implements OnInit {
 
     this.impiantoForm.controls['locTecnico'].setValue(datiPrecompilati.localeTecnicoDedicato ? !!parseInt(datiPrecompilati.localeTecnicoDedicato) : false);
     this.impiantoForm.controls['contabilizzazione'].setValue(datiPrecompilati.contabilizzazioneSingolaUtenza ? !!parseInt(datiPrecompilati.contabilizzazioneSingolaUtenza) : false);
+    this.impiantoForm.controls['flgMedioImpiantoCivile'].setValue(datiPrecompilati.medioImpiantoCivile ? !!parseInt(datiPrecompilati.medioImpiantoCivile) : false);
+
     let fuoriStradario = !!parseInt(datiPrecompilati.fuoriStradario);
     let indirizzo = undefined;
     if (datiPrecompilati.L1_2indirizzo) {
@@ -828,7 +864,7 @@ export class DettaglioImpiantoComponent implements OnInit {
             this.svistaService.getComuneEsteso(datiPrecompilati.L1P_6comune).subscribe((elem: ComuneEsteso[]) => {
               this.setProvinciaComuneEstesoProp(elem[0]);
               this.propForm.controls['comune'].setValue(this.currentAddressPropComuniEsteso);
-            }); 
+            });
           }
           this.propForm.controls['provincia'].setValue(datiPrecompilati.L1P_6provincia);
           this.propForm.controls['stradario'].setValue(true);
@@ -1116,12 +1152,7 @@ export class DettaglioImpiantoComponent implements OnInit {
 
   scaricaLibretto() {
     this.librettoService.getLibrettoByCodice(this.codiceImpianto).subscribe(elem => {
-      var blob = new Blob([elem], { type: 'application/pdf' });
-      let url = window.URL.createObjectURL(blob);
-      let a = document.createElement('a');
-      a.href = url;
-      a.download = "libretto.pdf";
-      a.click();
+      doDownloadFile(elem, "libretto.pdf");
     }, error => {
       if (error.status === 404) {
         this.messageService.setTitolo("Errore recupero libretto");
@@ -1140,12 +1171,22 @@ export class DettaglioImpiantoComponent implements OnInit {
 
   isEnabledModifica() {
     let ruolo = this.utente.ruoloLoggato.ruolo;
-    return !((ruolo === RUOLI.RUOLO_CONSULTATORE
+    return !(ruolo === RUOLI.RUOLO_CONSULTATORE
+      || ruolo === RUOLI.RUOLO_RESPONSABILE
+      || ruolo === RUOLI.RUOLO_RESPONSABILE_IMPRESA
+      || ruolo === RUOLI.RUOLO_3RESPONSABILE
+      || ruolo === RUOLI.RUOLO_PROPRIETARIO
+      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA);
+  }
+
+  isEnabledModificaResp() {
+    let ruolo = this.utente.ruoloLoggato.ruolo;
+    return !(ruolo === RUOLI.RUOLO_CONSULTATORE
       //|| ruolo === RUOLI.RUOLO_RESPONSABILE
       //|| ruolo === RUOLI.RUOLO_RESPONSABILE_IMPRESA
       || ruolo === RUOLI.RUOLO_3RESPONSABILE
       || ruolo === RUOLI.RUOLO_PROPRIETARIO
-      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA));
+      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA);
   }
 
   isResponsabile(){
@@ -1157,10 +1198,10 @@ export class DettaglioImpiantoComponent implements OnInit {
     let ruolo = this.utente.ruoloLoggato.ruolo;
     let datiPrecompilati = this.mod && this.mod.Richiesta && this.mod.Richiesta.datiPrecompilati ?
       this.mod.Richiesta.datiPrecompilati : undefined;
-    if (!((ruolo === RUOLI.RUOLO_CONSULTATORE
+    if (!(ruolo === RUOLI.RUOLO_CONSULTATORE
       || ruolo === RUOLI.RUOLO_3RESPONSABILE
       || ruolo === RUOLI.RUOLO_PROPRIETARIO
-      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA))) {
+      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA)) {
       if (ruolo === RUOLI.RUOLO_RESPONSABILE_IMPRESA || ruolo === RUOLI.RUOLO_RESPONSABILE) {
         return datiPrecompilati && (datiPrecompilati.L1_6cf === this.utente.pfLoggato.codiceFiscalePF
           || datiPrecompilati.L1_6piva === this.utente.ruoloLoggato.piva);
@@ -1170,7 +1211,7 @@ export class DettaglioImpiantoComponent implements OnInit {
     } else
       return false;
   }
-  
+
   disableLoocsiValidators(){
     if (this.impiantoForm.controls["stradario"].value) {
       this.impiantoForm.controls["indirizzoLoccsi"].clearValidators();
@@ -1188,7 +1229,7 @@ export class DettaglioImpiantoComponent implements OnInit {
       this.impiantoForm.controls["provincia"].updateValueAndValidity();
     }
   }
-  
+
   enableLoocsiValidators(){
     if (!this.impiantoForm.controls["stradario"].value) {
       this.impiantoForm.controls["indirizzo"].clearValidators();
@@ -1205,12 +1246,12 @@ export class DettaglioImpiantoComponent implements OnInit {
       this.impiantoForm.controls["civicoLoccsi"].setValidators([Validators.required]);
       this.impiantoForm.controls["civicoLoccsi"].updateValueAndValidity();
     }
-      
+
   }
-  
+
   toggleStradarioImpianto($event) {
     if (this.impiantoForm.controls["stradario"].value) this.disableLoocsiValidators();
-    else this.enableLoocsiValidators();  
+    else this.enableLoocsiValidators();
     this.svistaService.saveComuniEstesiToLocalStorage();
   }
 
@@ -1406,6 +1447,23 @@ export class DettaglioImpiantoComponent implements OnInit {
         this.respForm.controls["civicoLoccsi"].updateValueAndValidity();
       }
     }
+  }
+
+  convertMillisecondsToDate(milliseconds: number): string {
+    const date = new Date(milliseconds);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+
+    if(milliseconds != null && milliseconds != 0){
+      return "Dismesso il: " + `${day}/${month}/${year}`;
+    }
+    else
+    {
+      return "";
+    }
+
+    
   }
 
   isPropPresent() {

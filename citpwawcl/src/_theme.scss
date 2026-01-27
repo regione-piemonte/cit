@@ -69,6 +69,7 @@ $accentPalette: (
 
 $my-primary: mat.define-palette($primaryPalette);
 $my-accent: mat.define-palette($accentPalette);
+$my-warn: mat.define-palette(mat.$red-palette);
 
 
 $my-theme: mat.define-light-theme(
@@ -76,6 +77,7 @@ $my-theme: mat.define-light-theme(
         color: (
             primary: $my-primary,
             accent: $my-accent,
+            warn: $my-warn,
         )
     )
 );

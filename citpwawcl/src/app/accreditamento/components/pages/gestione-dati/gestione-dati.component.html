@@ -1,0 +1,18 @@
+<div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="page-content">
+        <app-title [title]="title" [subtitle]="subtitle"></app-title>
+        <app-back [title]="backTitile" [route]="route" *ngIf="route">
+        </app-back>
+        <div style="width: 83%; margin: auto;">
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+        <div>
+            <commonwcl-gestione-dati-accreditamento #gestioneDati [apiUrl]="apiUrl" [codiceFiscalePF]="codiceFiscalePF"
+                (onMessage)="onMessage($event)"></commonwcl-gestione-dati-accreditamento>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="wide-screen" style="cursor: default; padding-bottom: 30px;">
+    <ng-container>
+        <div *ngFor="let sezione of sezioni; let i = index" [id]="'section-' + i">
+            <div class="card-padding">
+                <div style="display: flex;" [ngStyle]="{'margin-top': i == 0 ? '0px': '20px'}">
+                    <h3 style="text-align: left; width: 100%;">{{ sezione.title }}</h3>
+                    <div class="right-elem" style="width: 50%; margin-top: 12px;" *ngIf="sezione.showAddButton">
+                        <button mat-button [color]="'primary'" class="modify" *ngIf="sezione.showAddButton"
+                            (click)="aggiungi()">
+                            <mat-icon>add</mat-icon>
+                            Aggiungi
+                        </button>
+                    </div>
+                </div>
+                <app-message-box [ngClass]="{ 'fade-out': doFade }" [titolo]="titleBox" [descrizione]="messageBox"
+                    *ngIf="isSuccess && indexBox == i" [type]="typeBox" [mainClass]="''">
+                </app-message-box>
+                <div class="card-grid"
+                    *ngIf="sezione.documenti?.length != 0 && sezioni.length != 1; else noDocumentRecord">
+                    <mat-card class="card mat-elevation-z8" *ngFor="let documento of sezione.documenti">
+                        <div class="content" style="border-bottom: 1px solid #ccc; font-size: 12px;"
+                            *ngIf="!!documento.dataControllo || !!documento.statoREE || !!documento.tipoComponente">
+                            <p >Data controllo: <span class="right-align" *ngIf="!!documento.dataControllo">{{
+                                    documento.dataControllo | date:'dd/MM/yyyy' }}</span></p>
+                            <p>Stato controllo: <span class="right-align">{{ documento.descrizioneStatoRee }}</span></p>
+                            <p>Elenco apparecchiature: <span class="right-align">{{ documento.tipoComponente }}</span>
+                            </p>
+                        </div>
+                        <div class="content" style="border-bottom: 1px solid #ccc; font-size: 12px;"
+                            *ngIf="!!documento.codiceFiscale3Resp">
+                            <p style="height: 2em;">Dati terzo responsabile: <span class="right-align" style ="width: 50%; text-align: right;" *ngIf="!!documento.codiceFiscale3Resp">
+                                {{ documento.codiceFiscale3Resp + ' - ' + documento.denominazione3Resp }}</span></p>
+                            <p>Data inizio contratto: <span class="right-align">{{ documento.dataInizio |  date:'dd/MM/yyyy' }}</span></p>
+                            <p>Data fine contratto: <span class="right-align">{{ documento.dataFine |  date:'dd/MM/yyyy' }}</span>
+                            </p>
+                        </div>
+                        <div class="content">
+                            <p>Data di aggiunta: <span class="right-align" *ngIf="!!documento.dataUpload">{{
+                                    documento.dataUpload | date:'dd/MM/yyyy' }}</span></p>
+                            <p>
+                                Nome:
+                                <span class="right-align" *ngIf="documento.nomeDoc.length > maxDocumentoLengthForPipe"
+                                    [matTooltip]="documento.nomeDoc" matTooltipPosition="above">{{ documento.nomeDoc |
+                                    nomeDocPipe:maxDocumentoLengthForPipe }}</span>
+                                <span class="right-align"
+                                    *ngIf="documento.nomeDoc.length <= maxDocumentoLengthForPipe">{{ documento.nomeDoc
+                                    }}</span>
+                            </p>
+                            <div *ngIf="sezione.title === 'Documenti Aggiuntivi associati all\'impianto'"
+                                style="display: flex;justify-content: space-around;flex-direction: row;align-items: center; ">
+                                <p>Tipo: </p>
+                                <span style="text-align: right" class="right-align" *ngIf="!!documento.tipoDoc">{{
+                                    documento.tipoDocDes
+                                    }}</span>
+                            </div>
+                            <p>Descrizione: <span class="right-align">{{ documento.descrizione }}</span></p>
+                            <p>
+                                Stato:
+                                <span class="right-align"
+                                    [ngStyle]="{ 'color': documento.stato == statoDoc.ATTIVO? 'green': 'red' }">{{
+                                    documento.stato }}</span>
+                            </p>
+                        </div>
+                        <div class="footer">
+                            <button mat-button [color]="'primary'" class="modify"
+                                [ngClass]="{ 'pdf-icon': documento.isPdf }"
+                                (click)="download(documento.uidIndex, documento.stato, i, documento.nomeDoc)">
+                                <img style="width: 34px;" [ngStyle]="{ 'height.px': documento.isPdf? 28: 34 }"
+                                    [src]="documento.isPdf? PDF_SVG: IMG_SVG" alt="icon download">
+                                <span class="link-download" style="text-decoration: none !important;">{{
+                                    documento.isPdf? 'Documento': 'Immagine' }} {{
+                                    documento.mimeType }}</span>
+                            </button>
+                            <mat-icon *ngIf="sezione.showDeleteButton && documento.stato != statoDoc.CANCELLATO"
+                                class="icon-delete" (click)="delete(documento.uidIndex, i)">delete</mat-icon>
+                        </div>
+                    </mat-card>
+                </div>
+                <ng-template #noDocumentRecord>
+                    <app-message-box [titolo]="'Attenzione'" [descrizione]="'Non è presente nessun dato.'"
+                        *ngIf=" !sezione.documenti || sezione.documenti.length == 0 " [type]="WARNING_TYPE"
+                        [mainClass]="''">
+                    </app-message-box>
+                </ng-template>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template *ngIf="sezioni.length == 1">
+        <app-message-box [titolo]="'Nessun elemento trovato'" [descrizione]="'Nessun dato aggiuntivo trovato'"
+            [type]="1">
+        </app-message-box>
+    </ng-template>
+</div>

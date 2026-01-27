@@ -1,11 +1,16 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import { CercaImpresaComponent } from 'src/app/accreditamento/components/dialog/cerca-impresa/cerca-impresa.component';
 import { OperazioneControlloModel } from 'src/app/models/operazione-controllo-model';
 import { UtenteLoggato } from 'src/app/models/utente-loggato';
+import { RapprovaPendingOp, RapprovaPendingOpService } from 'src/app/rapprova/services/rapprova-pending-op.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalStorageServiceService } from 'src/app/services/local-storage-service.service';
-import { DISPLAY_FORMAT, ESITO_OPERAZIONI, ICONSURL, STATO_RAPP } from 'src/app/utils/constants';
+import { MessageService } from 'src/app/services/message.service';
+import { DISPLAY_FORMAT, ESITO_OPERAZIONI, ICONSURL, RUOLI, STATO_RAPP } from 'src/app/utils/constants';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,13 +20,17 @@ import { environment } from 'src/environments/environment';
 })
 export class HeaderComponent implements OnInit {
 
-  logo: string = ICONSURL + "logoMenu.png";
   logoblu: string = ICONSURL + "logo-blu.png";
-  menu: string = ICONSURL + "menu.png";
-  help: string = ICONSURL + "help.png";
   faq: string = ICONSURL + "info.png";
   ricerca: string = ICONSURL + "search.png";
+  impresa_primary: string = ICONSURL + "impresa_primary.svg";
+  subentro: string = ICONSURL + "subentro.svg";
+  verifiche: string = ICONSURL + "verifiche.svg";
+  accertamenti: string = ICONSURL + "accertamenti.svg";
+  ispezioni: string = ICONSURL + "ispezioni.svg";
+  faq2: string = ICONSURL + "faq.svg";
   ruolo: string = ICONSURL + "user.png";
+  accreditamento: string = ICONSURL + "user.png";
   mail: string = ICONSURL + "mail-fill.png";
   inizialiProfilo: string = "";
   ricercaImpiantiActive: boolean;
@@ -29,15 +38,19 @@ export class HeaderComponent implements OnInit {
   utente: UtenteLoggato;
   operazioni: OperazioneControlloModel[] = [];
   esitoOperazioni = ESITO_OPERAZIONI;
+  isDisponibilitaServizio: boolean;
+  pendingOps: RapprovaPendingOp[] = [];
 
+  @ViewChild(MatSidenav) trigger: MatSidenav;
 
-  constructor(private router: Router, private authService: AuthenticationService, private readonly localStorageService: LocalStorageServiceService, private datepipe: DatePipe) {
+  constructor(private router: Router, private authService: AuthenticationService, private readonly localStorageService: LocalStorageServiceService, private datepipe: DatePipe, private dialog: MatDialog, private messageService: MessageService, private rapprovaPendingOpService: RapprovaPendingOpService) {
     this.ricercaImpiantiActive = false;
     this.ruoloActive = false;
   }
 
   ngOnInit(): void {
-    this.operazioni = [];
+    this.isDisponibilitaServizio = true;
+
     this.utente = this.authService.getCurrentUserFromSession();
     this.inizialiProfilo = this.utente.pfLoggato.cognomePF.charAt(0) + this.utente.pfLoggato.nomePF.charAt(0);
     this.operazioni = this.localStorageService.getOperazioni();
@@ -45,12 +58,78 @@ export class HeaderComponent implements OnInit {
       if (elem)
         this.operazioni = elem;
     });
+
+    this.pendingOps = this.rapprovaPendingOpService.getList();
+  }
+
+  @HostListener('document:rapprovaPendingOpListChanged')
+  onRapprovaPendingOpListChanged(): void {
+    this.pendingOps = this.rapprovaPendingOpService.getList();
+  }
+
+  isDisponibilitaServizioPage(): boolean {
+    return this.router.url.includes('disponibilita-servizio');
   }
 
   navigateRicercaImpianti() {
+    this.localStorageService.clearDatiImpiantoDuplicato();
     this.router.navigate(["/impianto/ricerca-impianti"]);
   }
 
+  navigateRicercaImprese() {
+    this.openRicercaImprese("/accreditamento/elenco-imprese");
+  }
+
+
+  nominaTerzoResponsabile() {
+    if (this.isRuoloPA()) {
+      //aprire modale per ricerca e selezione impresa
+      this.openRicercaImprese("/nomina", true);
+    } else {
+      this.router.navigate(["/nomina"]);
+    }
+  }
+
+  openRicercaImprese(redirectUrl: string, checkImpresa?: boolean) {
+    this.trigger.close();
+    this.dialog.open(CercaImpresaComponent, {
+      width: "90%",
+      height: '90%',
+      maxWidth: "500px",
+      data: {
+        redirectUrl: redirectUrl,
+        checkImpresa
+      }
+    }).afterClosed().subscribe();
+  }
+
+  isRuoloPA() {
+    let utenteLoggato = this.authService.getCurrentUserFromSession();
+    if (utenteLoggato.ruoloLoggato.ruolo === RUOLI.RUOLO_ISPETTORE
+      || utenteLoggato.ruoloLoggato.ruolo === RUOLI.RUOLO_VALIDATORE
+      || utenteLoggato.ruoloLoggato.ruolo === RUOLI.RUOLO_SUPER
+      || utenteLoggato.ruoloLoggato.ruolo === RUOLI.RUOLO_CONSULTATORE) {
+      return true;
+    }
+    return false;
+  }
+
+  isSubentroVisible() {
+    let utenteLoggato = this.authService.getCurrentUserFromSession();
+    switch (utenteLoggato.ruoloLoggato.ruolo) {
+      case RUOLI.RUOLO_VALIDATORE:
+      case RUOLI.RUOLO_SUPER:
+      case RUOLI.RUOLO_RESPONSABILE:
+      case RUOLI.RUOLO_PROPRIETARIO:
+      case RUOLI.RUOLO_PROPRIETARIO_IMPRESA:
+      case RUOLI.RUOLO_3RESPONSABILE:
+      case RUOLI.RUOLO_IMPRESA:
+      case RUOLI.RUOLO_RESPONSABILE_IMPRESA:
+        return true;
+      default:
+        return false;
+    }
+  }
 
   logout() {
     this.authService.localLogout().subscribe(() => {
@@ -98,5 +177,9 @@ export class HeaderComponent implements OnInit {
       return this.datepipe.transform(data, DISPLAY_FORMAT);
     else
       return "-";
+  }
+
+  getNumNotifications(): number {
+    return this.operazioni.length + this.pendingOps.length;
   }
 }

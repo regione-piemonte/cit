@@ -4,5 +4,24 @@
 }
 
 .ree-button{
-    width: 60%;
+    width: 80%;
 }
+
+.mat-card-header, .mat-card-title{
+    font-size: 23px !important;
+}
+
+@media screen and (max-width: 768px) {
+    .button-align{
+        width: 100%;
+        text-align: left;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .button-align{
+        width: 100%;
+        text-align: right;
+    }
+}
+

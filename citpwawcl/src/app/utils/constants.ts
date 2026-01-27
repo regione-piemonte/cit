@@ -11,7 +11,11 @@ export const STRINGHE = {
 
 export const STATO_IMPIANTO = {
     ATTIVO: "1",
+}
 
+export const STATO_DATI_DOCUMENTO_IMPIANTO = {
+    ATTIVO: 'ATTIVO',
+    CANCELLATO: 'CANCELLATO',
 }
 
 export const STATO_RUOLO = {
@@ -103,6 +107,8 @@ export const TIPI_COMP = {
     CG: "CG"
 }
 
+
+
 export const KO_PG = "ko_pg";
 
 export const OK = "ok";
@@ -119,3 +125,65 @@ export const DISPLAY_FORMAT = "dd/MM/yyyy";
 export const MESSAGGIO_DECIMALE = "Ammette massimo {interi} interi e {decimali} decimali";
 
 export const ACCREDITATO = "A";
+
+export const TIPO_VERIFICA_IMPIANTO_ID = 1;
+export const TIPO_VERIFICA_REE_ID = 2;
+export const TIPO_VERIFICA_RELAZIONE_ESIMENTE_ID = 3;
+export const TIPO_VERIFICA_DATO_DISTRIBUTORE_ID = 4;
+export const TIPO_VERIFICA_SEGNALAZIONE_ID = 5;
+export const TIPO_VERIFICA_DECADENZA_3_RESPONSABILE_ID = 6;
+export const TIPO_VERIFICA_ALTRO_ID = 7;
+
+export const RUOLO_PA_CONSULTATORE_ID = 1;
+export const RUOLO_PA_ISPETTORE_ID = 2;
+export const RUOLO_PA_VALIDATORE_ID = 4;
+
+export const PROVINCE_PIEMONTESI = ['TO', 'CN', 'AT', 'AL', 'VC', 'NO', 'BI', 'VB'];
+
+export const STATO_ISPEZIONE_BOZZA_ID = 1;
+export const STATO_ISPEZIONE_CONSOLIDATO_ID = 2;
+export const STATO_ISPEZIONE_ANNULLATO_ID = 3;
+
+export const WORD_MIME_TYPE = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+export const EXCEL_MIME_TYPE = 'application/vnd.ms-excel';
+
+export const TITOLI = [
+  { id: 10, desc: 'Proprietario' },
+  { id: 11, desc: 'Occupante' },
+  { id: 12, desc: 'Amministratore di condominio' },
+  { id: 4, desc: 'Proprietario' },
+  { id: 5, desc: 'Occupante' },
+  { id: 13, desc: 'Amministratore di condominio' }
+];
+
+// COSTANTI PER STYLESHEET CONDIVISO IN QUANTO IL COMPONENTE E' UTILIZZATO IN PIU' PAGINE E LO STYLE.SCSS NON VIENE CONDIVISO
+
+export const ANIMATION_DO_FADE = `
+.fade-out {
+    animation: fadeOut 1s ease-in-out;
+}
+
+@keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+}
+`
+
+
+export const MAT_GRID_STYLE =
+`
+.card-padding {
+    padding: 0px 8.3%;
+    margin-right: 3.3%;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+    grid-gap: 45px;
+    max-width: 1200px;
+}`

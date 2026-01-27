@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxPermissionsService } from 'ngx-permissions';
 import { fromEvent, merge, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UtenteLoggato } from './models/utente-loggato';
+import { PERMS } from './perms';
+import { RapprovaWorkerService } from './rapprova/services/rapprova-worker.service';
 import { AuthenticationService } from './services/authentication.service';
+import { SharedService } from './services/shared.service';
 import { SyncServiceService } from './services/sync-service.service';
 
 @Component({
@@ -17,26 +21,40 @@ export class AppComponent {
   networkStatus: boolean = false;
   networkStatus$: Subscription = Subscription.EMPTY;
 
-  constructor(private readonly authService: AuthenticationService, private readonly syncService: SyncServiceService, private router: Router) {
-
-  }
+  constructor(
+    private readonly authService: AuthenticationService,
+    private readonly syncService: SyncServiceService,
+    private router: Router,
+    private sharedService: SharedService,
+    private permissions: NgxPermissionsService,
+    private rapprovaWorkerService: RapprovaWorkerService
+  ) {}
 
   keepAliveintervalId;
 
   ngOnInit(): void {
+    const datiPrecompilati = localStorage.getItem('datiPrecompilati');
+    if(!!datiPrecompilati) {
+      this.sharedService.datiPrecompilati = datiPrecompilati;
+    }
     let user = this.authService.getCurrentUserFromSession();
     this.checkNetworkStatus();
     if (!user) {
-      this.authService.getCurrentUser().subscribe(user => {
-        sessionStorage.setItem('currentUser', JSON.stringify(user));
+      this.authService.getCurrentUser().subscribe(userLogged => {
+        sessionStorage.setItem('currentUser', JSON.stringify(userLogged));
+        this.permissions.loadPermissions(PERMS[userLogged.ruoloLoggato.ruolo] ?? []);
         this.syncService.sync();
         this.router.navigate(["/ruoli"]);
       });
+    } else {
+      this.permissions.loadPermissions(PERMS[user.ruoloLoggato.ruolo] ?? []);
     }
 
     this.keepAliveintervalId = setInterval(() => {
       this.keepAlive();
     }, 300000);
+
+    this.rapprovaWorkerService.init();
   }
 
   ngOnDestroy(): void {
@@ -47,6 +65,7 @@ export class AppComponent {
   keepAlive(): void {
     this.authService.keepAlive().subscribe({
       next: (response: UtenteLoggato) => {
+        //This is Intentional
       }
     });
 

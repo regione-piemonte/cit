@@ -1,0 +1,109 @@
+<div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div>
+        <app-title [title]="title" [subtitle]="subtitle"></app-title>
+        <app-back [title]="backTitile" (click)="back()">
+        </app-back>
+        <div style="width: 83%; margin: auto;">
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio && !noImpianto">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo"></app-role-header>
+        <app-impianto-header [datiImpianto]="datiImpianto" [redirect]="false" *ngIf="!noImpianto"></app-impianto-header>
+        <div class="wide-screen">
+            <div class="page-content" *ngIf="selezionaSubentro && !noImpianto">
+                <ng-container *ngIf="step === 0">
+                    <!-- SELEZIONA TIPO SUBENTRO -->
+                    <div id="buttonsAddManutentori">
+                        <mat-grid-list cols="6" rowHeight="2em">
+                            <div *ngFor="let key of Object.keys(datiSchedaManutentore)">
+                                <mat-grid-tile colspan="6" rowspan="2" *ngIf="datiSchedaManutentore[key].visible && checkValueManutentore(key)" >
+                                    <div class="left-elem">
+                                        <button mat-raised-button class="component-button"
+                                            (click)="addManutentori(key)">
+                                            <div class="interno primary-color">{{ datiSchedaManutentore[key].title }}
+                                                <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </mat-grid-tile>
+                            </div>
+                        </mat-grid-list>
+                    </div>
+                    <hr class="hr-separator">
+
+                    <div *ngIf="!affidamentoOccasionale">
+                        <h5 class="clickable" style="display: flex;" (click)="modificaTemponeaneaLibretto()">
+                            <img [src]="subentro" alt="subentro">
+                            <p style="margin-left: 10px" class="primary-color">MODIFICA TEMPORANEA LIBRETTO <br> ->
+                                Effettua il subentro</p>
+                        </h5>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="step === 1">
+                  <mat-checkbox class="checkbox" (change)="selectAll($event)">
+                      TUTTE LE COMPONENTI
+                  </mat-checkbox><br><br>
+                  <ng-container *ngFor="let comp of componenti">
+                    <mat-checkbox class="checkbox" [(ngModel)]="comp.checked" [disabled]="comp.disabled ? comp.disabled : false">
+                        {{ comp?.sigla}}-{{ comp?.progressivo}}
+                        (Marca: {{getFabbricante(comp.fabbricante)?.descrizione ?? '-'}}, Modello: {{comp.modello ?? '-'}}, Matricola: {{comp.matricola ?? '-'}}, Potenza: {{comp.potenza ?? '-'}})
+                    </mat-checkbox><br><br>
+                  </ng-container>
+                  <button type="submit" mat-flat-button color="primary" class="cit-block-button" (click)="salva()"
+                      [disabled]="!anyoneSelected()">
+                      EFFETTUA IL SUBENTRO
+                  </button>
+                </ng-container>
+            </div>
+
+            <div class="page-content" *ngIf="!selezionaSubentro && !noImpianto">
+                <hr class="hr-separator">
+
+                <div *ngIf="!isProprietario()">
+                    <h5 class="clickable" style="display: flex;"
+                        (click)="effettuaSubentro('Amministratore di condominio')">
+                        <img [src]="subentro" alt="subentro">
+                        <p style="margin-left: 10px" class="primary-color">AMMINISTRATORE DI CONDOMINIO <br> ->
+                            Effettua il subentro</p>
+                    </h5>
+                </div>
+                <div *ngIf="!isProprietario()">
+                    <h5 class="clickable" style="display: flex;" (click)="effettuaSubentro('Occupante')">
+                        <img [src]="subentro" alt="subentro">
+                        <p style="margin-left: 10px" class="primary-color">OCCUPANTE <br> ->
+                            Effettua il subentro</p>
+                    </h5>
+                </div>
+                <div>
+                    <h5 class="clickable" style="display: flex;" (click)="effettuaSubentro('Proprietario')">
+                        <img [src]="subentro" alt="subentro">
+                        <p style="margin-left: 10px" class="primary-color">PROPRIETARIO <br> ->
+                            Effettua il subentro</p>
+                    </h5>
+                </div>
+            </div>
+
+
+            <div class="page-content" *ngIf="noImpianto">
+                <!-- NOIMPIANTO-->
+                <div style="margin: auto;">
+                    <app-message-box [titolo]="'Attenzione'" [descrizione]="'Codice impianto non censito a sistema: è comunque possibile procedere con il subentro previo il caricamento dei dati impianto'" [type]="1">
+                    </app-message-box>
+                </div>
+                <hr class="hr-separator">
+                <div *ngIf="!affidamentoOccasionale">
+                    <h5 class="clickable" style="display: flex;" (click)="goToNuovoImpianto()">
+                        <img [src]="subentro" alt="subentro">
+                        <p style="margin-left: 10px" class="primary-color">MODIFICA TEMPORANEA LIBRETTO <br> ->
+                            Effettua il subentro</p>
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

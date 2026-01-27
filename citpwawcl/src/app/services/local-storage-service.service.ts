@@ -14,6 +14,7 @@ export class LocalStorageServiceService {
   subjectOperazioni = new BehaviorSubject<OperazioneControlloModel[]>(null);
 
   constructor() {
+    //Not Implemented
   }
 
   getControllo(): DatiControlloModel {
@@ -157,5 +158,21 @@ export class LocalStorageServiceService {
       }
     });
     this.setOperazioni(operazioni);
+  }
+
+  setDatiImpiantoDuplicato(impianto: any, responsabilita?: number) {
+    localStorage.setItem("impianto-duplicato", JSON.stringify({
+      impianto,
+      responsabilita
+    }));
+  }
+
+  getDatiImpiantoDuplicato(): { impianto: any, responsabilita?: number } {
+    const serialized = localStorage.getItem("impianto-duplicato");
+    return serialized ? JSON.parse(serialized) : { impianto: null, responsabilita: undefined };
+  }
+
+  clearDatiImpiantoDuplicato() {
+    localStorage.removeItem("impianto-duplicato");
   }
 }

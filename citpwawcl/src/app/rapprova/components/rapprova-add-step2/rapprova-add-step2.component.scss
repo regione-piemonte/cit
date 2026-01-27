@@ -1,0 +1,10 @@
+.text-container {
+  width: calc(100% - 24px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+button[mat-button] {
+  font-size: 18px;
+}

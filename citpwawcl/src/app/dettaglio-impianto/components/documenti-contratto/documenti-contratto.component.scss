@@ -1,0 +1,50 @@
+.order-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: flex-end;
+}
+
+.select {
+    width: unset;
+}
+
+span.order {
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .order-container{
+        flex-direction: column;
+    }
+
+    .order{
+        width: 100%;
+        text-align: right;
+    }
+
+    .select{
+        width: 100%;
+    }
+
+    .mat-select-min-line{
+        text-align: right;
+    }
+
+    .mat-select-value{
+        text-align: right;
+    }
+
+    ::ng-deep .mat-select-trigger{
+        text-align: right;
+    }
+}
+
+.mat-card{
+    background-color: unset;
+}
+
+.add-component {
+    font-size: 1em;
+    font-weight: bold;
+}

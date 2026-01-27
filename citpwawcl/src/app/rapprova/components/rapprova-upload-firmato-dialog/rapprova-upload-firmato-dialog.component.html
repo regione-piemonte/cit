@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Carica Rapporto di Prova firmato elettronicamente</h1>
+<div mat-dialog-content>
+  <form id="uploadForm" [formGroup]="uploadForm" (ngSubmit)="submit()">
+  <div>
+    <small>Apri documento / immagine</small>
+    <div class="file-box">
+      <span *ngIf="uploadForm.value.nomeDocOriginale; else uploadTemplate">
+        {{uploadForm.value.nomeDocOriginale}}
+        <button mat-icon-button color="accent" (click)="clearDocument()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </span>
+      <ng-template #uploadTemplate>
+        <button mat-fab color="primary" type="button" (click)="file.click()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </ng-template>
+    </div>
+    <small style="float: right">PDF, P7M</small>
+    <input #file type="file" accept=".pdf,.p7m" style="display: none" (change)="openDocument($event)">
+  </div>
+  </form>
+</div>
+<div mat-dialog-actions style="justify-content: space-between">
+  <button mat-button color="primary" [mat-dialog-close]="false">Annulla</button>
+  <button mat-flat-button color="primary" form="uploadForm" [disabled]="!uploadForm.valid" cdkFocusInitial>Carica</button>
+</div>

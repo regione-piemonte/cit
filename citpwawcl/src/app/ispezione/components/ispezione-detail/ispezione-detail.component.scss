@@ -1,0 +1,56 @@
+$rapprova-locale-color: gold;
+$rapprova-in-attesa-color: darkorange;
+$rapprova-bozza-color: grey;
+$rapprova-inviato-color: green;
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-checkbox {
+  margin: 20px 0;
+}
+
+strong {
+  float: right;
+  overflow-wrap: anywhere;
+}
+
+.rapprova-locale-card,
+.rapprova-in-attesa-card,
+.rapprova-0-card,
+.rapprova-1-card {
+  border-top: 4px solid;
+}
+
+.rapprova-locale-card {
+  border-top-color: $rapprova-locale-color;
+
+  .rapprova-state {
+    color: $rapprova-locale-color;
+  }
+}
+
+.rapprova-in-attesa-card {
+  border-top-color: $rapprova-in-attesa-color;
+
+  .rapprova-state {
+    color: $rapprova-in-attesa-color;
+  }
+}
+
+.rapprova-0-card {
+  border-top-color: $rapprova-bozza-color;
+
+  .rapprova-state {
+    color: $rapprova-bozza-color;
+  }
+}
+
+.rapprova-1-card {
+  border-top-color: $rapprova-inviato-color;
+
+  .rapprova-state {
+    color: $rapprova-inviato-color;
+  }
+}

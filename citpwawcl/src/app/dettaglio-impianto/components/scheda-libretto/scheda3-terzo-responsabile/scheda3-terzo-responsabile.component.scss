@@ -1,0 +1,76 @@
+.default-button {
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-wrapper {
+    margin-bottom: 10px;
+}
+
+.wide-card {
+    min-height: 7em;
+}
+
+.card-title {
+    text-align: left;
+}
+
+textarea {
+    height: 19px;
+}
+
+
+.annulla {
+    font-weight: bold;
+}
+
+.toggle-flex {
+    display: flex;
+    flex-direction: column !important;
+    text-align: left;
+
+    mat-slide-toggle {
+        margin-top: 5px;
+    }
+}
+.icon-delete{
+    color:#b8191a;
+}
+
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .card {
+        width: 28%;
+        margin: 10px 10px;
+    }
+
+}
+
+
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.card-row {
+    display: flex;
+    flex-direction: column
+}
+
+span.right-align {
+    float: right;
+    font-weight: bold;
+}

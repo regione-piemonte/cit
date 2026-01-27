@@ -1,0 +1,3 @@
+<a id="alertHook"></a>
+<app-alert *ngIf="showOfflineAlert" title="ATTENZIONE" message="Sei offline, alcune operazioni potrebbero essere interdette" type="warn"></app-alert>
+<app-alert *ngFor="let alert of alert.alerts" [title]="alert.title" [message]="alert.message" [type]="alert.type"></app-alert>

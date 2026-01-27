@@ -49,7 +49,7 @@ export class ControlloService {
     parameters = parameters.append("data-controllo", dataControllo);
     return this.syncService.tryGet(url, parameters);
   }
-  
+
   modificaREE(idAllegato, codice, tipoControllo, inviaBool, xml, operazione) {
     let parameters: HttpParams = new HttpParams();
     const url: string = this.apiUrl + "/ree";

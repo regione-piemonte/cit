@@ -1,0 +1,76 @@
+<div class="cit-page-container">
+  <app-page-title>Cerca Verifica</app-page-title>
+  <app-breadcrumb label="Home" [link]="['/']"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <mat-card *ngIf="!loading; else loadingTemplate" style="margin-bottom: 40px">
+    <form [formGroup]="searchForm" (ngSubmit)="submit()">
+      <div class="cit-two-cols-grid">
+        <mat-form-field>
+          <mat-label>Identificativo</mat-label>
+          <input matInput formControlName="idVerifica" type="number">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Assegnato a</mat-label>
+          <mat-select formControlName="cfUtenteCaricamento">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let assegnatario of assegnatarioList" [value]="assegnatario.codicefiscale">
+              {{assegnatario.cognome}} {{assegnatario.nome}} ({{assegnatario.codicefiscale}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Data creazione DA</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dtCaricamentoDa">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Data creazione A</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="dtCaricamentoA">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Tipo verifica</mat-label>
+          <mat-select formControlName="fkTipoVerifica">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let tipoVerifica of tipoVerificaList" [value]="tipoVerifica.id">
+              {{tipoVerifica.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Codice impianto</mat-label>
+          <input matInput formControlName="codiceImpianto" type="number">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Sigla REE</mat-label>
+          <mat-select formControlName="siglaRee">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let siglaRee of siglaReeList" [value]="siglaRee">
+              {{siglaRee}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Numero REE</mat-label>
+          <input matInput formControlName="numeroRee" type="number">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Identificativo dato distributore</mat-label>
+          <input matInput formControlName="fkDatoDistrib" type="number">
+        </mat-form-field>
+      </div>
+      <button mat-flat-button color="primary" class="cit-block-button">
+        <mat-icon>search</mat-icon>
+        CERCA
+      </button>
+    </form>
+  </mat-card>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto 40px auto"></mat-spinner>
+  </ng-template>
+  <button *ngxPermissionsOnly="'INSERISCI_NUOVA_VERIFICA'" mat-stroked-button color="primary" class="cit-block-button" style="margin-bottom: 20px" [routerLink]="['/', 'nuova-verifica']">INSERISCI NUOVA VERIFICA</button><br>
+  <button *ngxPermissionsOnly="'INSERISCI_ISPEZIONI_MASSIVE'" mat-stroked-button color="primary" class="cit-block-button" [routerLink]="['/', 'nuova-ispezione-massiva']">INSERISCI ISPEZIONI MASSIVE</button>
+</div>

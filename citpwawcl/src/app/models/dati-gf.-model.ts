@@ -7,7 +7,7 @@ export class DatiGFModel {
     desDettaglioGf: string;
     flgSorgenteExt: string;
     flgFluidoUtenze: string;
-    fluidoFrigorigenodi: string;
+    fluidoFrigorigeno: string;
     nCircuiti: number;
     raffrescamentoEer: string;
     raffPotenzaKw: number;

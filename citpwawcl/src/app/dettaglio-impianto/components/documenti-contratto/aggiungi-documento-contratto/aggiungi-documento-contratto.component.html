@@ -1,0 +1,48 @@
+<div class="wide-screen">
+    <div class="card-padding" style="padding-bottom:50px">
+      <form [formGroup]="nuovoDocumentoForm">
+  
+        <mat-card class="card mat-elevation-z8">
+  
+          <div id="file-input">
+            <mat-label style="float: left; margin-bottom:10px;">Apri documento / immagine</mat-label>
+            <div class="file-upload-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+              (drop)="onDrop($event)">
+              <div class="file-upload-content">
+                <span class="plus-icon unselectable" [@rotatedState]='state' (click)="doPlusButton()">
+                  <mat-icon>add</mat-icon>
+                </span>
+                <p>{{ !!selectedFile? selectedFile.name: 'Trascina qui i file oppure clicca per caricare' }}</p>
+              </div>
+            </div>
+            <div *ngIf="showButtons" class="button-container" [ngStyle]="{ 'top.px': isMobile? -120: -60 }">
+              <input (change)="onFileSelected($event)" hidden type="file" accept="image/*" capture="environment"
+                #fileInputCamera>
+              <span matTooltip="Info about the action" matTooltipPosition="after" class="plus-icon unselectable"
+                *ngIf="isMobile" (click)="fileInputCamera.click()"><mat-icon>add_a_photo</mat-icon></span>
+              <input (change)="onFileSelected($event)" hidden type="file" accept="image/*" #fileInputImage>
+              <span matTooltip="Info about the action" matTooltipPosition="after" (click)="fileInputImage.click()"
+                class="plus-icon unselectable"><mat-icon>add_photo_alternate</mat-icon></span>
+              <input (change)="onFileSelected($event)" hidden type="file" accept=".pdf" #fileInputFile>
+              <span matTooltip="Info about the action" matTooltipPosition="after" (click)="fileInputFile.click()"
+                class="plus-icon unselectable"><mat-icon>picture_as_pdf</mat-icon></span>
+            </div>
+            <mat-label style="float: right; margin-top:10px; margin-bottom: 10px;">PDF, JPG, PNG</mat-label>
+          </div>
+          <div id="descrizione" style="float: left;">
+            <mat-form-field class="form-field">
+              <mat-label>Descrizione</mat-label>
+              <textarea matInput placeholder="Descrizione" formControlName="descrizioneDocumentoControl"
+                cdkTextareaAutosize cdkAutosizeMinRows="6" [readonly]="!selectedFile" appUpper></textarea>
+            </mat-form-field>
+          </div>
+          <div id="button-container">
+            <button mat-button class="secondary-button form-field" id="buttonCaricamentoFile" [disabled]="!selectedFile || !nuovoDocumentoForm.valid"
+            (click)="uploadDocument(idContratto)">
+              <mat-icon>upload</mat-icon>
+              CARICA DOCUMENTO</button>
+          </div>
+        </mat-card>
+      </form>
+    </div>
+  </div>

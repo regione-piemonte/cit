@@ -1,0 +1,50 @@
+<app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+<div class="wide-screen" #wideScreen *ngIf="loaded">
+    <div style="width: 83%; margin: auto; margin-bottom: 20px;">
+        <div class="card-container">
+            <mat-card *ngFor="let nomina of nomine" class="card mat-elevation-z8">
+                <mat-card-content>
+                    <div>
+                        <span>Terzo Responsabile: <br>
+                            <strong style="font-weight: 700;">{{nomina.L3ragSocialeDitta }} -
+                                {{nomina.L3codiceFiscaleDitta}} -
+                                {{nomina.L3cciaa}}</strong></span>
+                    </div>
+                    <div class="card-row">
+                        <p>Contratto dal: <span class="right-align">{{nomina.L3dataValiditaContrattoDal ? (parseDate(nomina.L3dataValiditaContrattoDal) | date:'dd/MM/yyyy' ) : ''}}</span>
+                        </p>
+                    </div>
+                    <div class="card-row">
+                        <p>Contratto a: <span class="right-align">{{nomina.L3dataValiditaContrattoAl ?  (parseDate(nomina.L3dataValiditaContrattoAl) | date:'dd/MM/yyyy' ) : '' }}</span>
+                        </p>
+                    </div>
+                    <div class="card-row">
+                        <p>Tacito rinnovo: <span class="right-align">{{(nomina.L3tacitoRinnovo == 1 && nomina.L3tacitoRinnovo == 1) ? 'SI' :
+                                'NO'}}</span></p>
+                    </div>
+                    <div class="card-row">
+                        <p>Data cessazione: <span class="right-align">{{nomina.L3dataCessazione ? (parseDate(nomina.L3dataCessazione) | date:'dd/MM/yyyy' ) : '' }}</span></p>
+                    </div>
+                    <div class="card-row">
+                        <p>Data caricamento contratto: <span class="right-align">{{isDateVisible() ? (nomina.L3dataCaricamento  ? (parseDate(nomina.L3dataCaricamento) | date:'dd/MM/yyyy' ) : '') : '-'
+                                }}</span></p>
+                    </div>
+                    <div class="card-row">
+                        <p>Data caricamento cessazione: <span class="right-align">{{ isDateVisible() ? (nomina.L3dataInserimentoCessazione ? (parseDate(nomina.L3dataInserimentoCessazione) | date:'dd/MM/yyyy' ) : '') : '-'}}</span></p>
+                    </div>
+                    <div class="card-row">
+                        <p>Tipo cessazione: <span class="right-align">{{nomina.L3tipoCessazione}}</span></p>
+                    </div>
+
+                    <div class="card-row">
+                        <button mat-button class="default-button form-field" (click)="dettaglioNomina(nomina.L3idContratto,nomina.L3dataValiditaContrattoDal)"
+                            *ngIf="isDettaglioNominaVisible(nomina)">DETTAGLIO NOMINA</button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <app-message-box *ngIf="!nomine" [titolo]="'Nessun elemento trovato'"
+            [descrizione]="'Non ci sono dati presenti nell\'elenco nomine'" [type]="1">
+        </app-message-box>
+    </div>
+</div>

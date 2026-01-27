@@ -1,5 +1,6 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -41,6 +42,9 @@ export class DettaglioGfComponent implements OnInit {
 
   operazione: number;
 
+  colBreakpoint1: NumberInput;
+  colBreakpoint2: NumberInput;
+
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -63,8 +67,8 @@ export class DettaglioGfComponent implements OnInit {
       matricola: ["", [Validators.required]],
       combustibile: [],
       potenza: ["", [Validators.required]],
-      flgSorgente: [, [Validators.required]],
-      flgFluido: [, [Validators.required]],
+      flgSorgente: ["", [Validators.required]],
+      flgFluido: ["", [Validators.required]],
       fluidoFrigorigeno: ["", [Validators.required]],
       nCircuiti: ["", [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]],
       raffrescamentoEE: [],
@@ -73,14 +77,17 @@ export class DettaglioGfComponent implements OnInit {
       riscCop: [],
       riscPotKw: [],
       riscPotAss: [],
-      fonteEn: [, [Validators.required]],
-      nMantenimenti: [, [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]],
+      fonteEn: ["", [Validators.required]],
+      nMantenimenti: ["",[Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]],
       note: [],
       tipologia: ["", Validators.required],
     });
   }
 
   ngOnInit(): void {
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 6 : 2;
+    this.colBreakpoint2 = (window.innerWidth < 768) ? 6 : 4;
+
     this.titleService.setTitle("Dettaglio GF");
     this.backService.setBackTitle("Torna al dettaglio");
     this.backService.setRoute('impianto/dettaglio-impianto/' + this.codiceImpianto);
@@ -88,38 +95,26 @@ export class DettaglioGfComponent implements OnInit {
     this.componenteService.getCombustibile().subscribe((elem: CodiceDescrizione[]) => {
       this.combustibili = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+        this.setErroreRecuperoMessage(error);
     });
 
     this.componenteService.getMarca().subscribe((elem: CodiceDescrizione[]) => {
       this.fabbricanti = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+        this.setErroreRecuperoMessage(error);
     });
 
 
     this.componenteService.getFonte().subscribe((elem: CodiceDescrizione[]) => {
       this.fonte = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+        this.setErroreRecuperoMessage(error);
     });
 
     this.componenteService.getTipologiaGF().subscribe((elem: CodiceDescrizione[]) => {
       this.tipologiaGF = elem;
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+        this.setErroreRecuperoMessage(error);
     });
 
     if (this.progr) {
@@ -129,15 +124,26 @@ export class DettaglioGfComponent implements OnInit {
     }
   }
 
+  setErroreRecuperoMessage(error: Esito)
+  {
+    this.messageService.setTitolo("Errore recupero dati");
+    this.messageService.setDescrizione(error.descrizioneEsito);
+    this.messageService.showMessaggioM();
+    this.messageService.setType(2);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 6 : 2;
+    this.colBreakpoint2 = (event.target.innerWidth < 768) ? 6 : 4;
+  }
+
   getData() {
     this.componenteService.getGF(this.codiceImpianto, this.progr).subscribe((elem: DatiGFModel[]) => {
       this.datiGF = elem;
       this.preparaDati();
     }, (error: Esito) => {
-      this.messageService.setTitolo("Errore recupero dati");
-      this.messageService.setDescrizione(error.descrizioneEsito);
-      this.messageService.showMessaggioM();
-      this.messageService.setType(2);
+      this.setErroreRecuperoMessage(error);
     });
   }
 
@@ -174,7 +180,7 @@ export class DettaglioGfComponent implements OnInit {
       potenza: dato.potenzaTermicaKw,
       flgSorgente: dato.flgSorgenteExt,
       flgFluido: dato.flgFluidoUtenze,
-      fluidoFrigorigeno: dato.fluidoFrigorigenodi,
+      fluidoFrigorigeno: dato.fluidoFrigorigeno,
       nCircuiti: dato.nCircuiti,
       raffrescamentoEE: dato.raffrescamentoEer,
       raffPotKw: dato.raffPotenzaKw,
@@ -198,12 +204,12 @@ export class DettaglioGfComponent implements OnInit {
 
   checkRuoloConsultazione(): boolean {
     let ruolo = this.utente.ruoloLoggato.ruolo;
-    return !((ruolo === RUOLI.RUOLO_CONSULTATORE
+    return !(ruolo === RUOLI.RUOLO_CONSULTATORE
       || ruolo === RUOLI.RUOLO_RESPONSABILE
       || ruolo === RUOLI.RUOLO_RESPONSABILE_IMPRESA
       || ruolo === RUOLI.RUOLO_3RESPONSABILE
       || ruolo === RUOLI.RUOLO_PROPRIETARIO
-      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA));
+      || ruolo === RUOLI.RUOLO_PROPRIETARIO_IMPRESA);
   }
 
   checkModificaButton(): boolean {
@@ -238,7 +244,7 @@ export class DettaglioGfComponent implements OnInit {
     let dataDismiss = this.dettForm.controls["dtDismiss"].value;
     if (dataDismiss && dataDismiss > this.dettForm.controls["dtInstall"].value) {
       if (this.dettForm.valid) {
-        if (this.operazione = OPERAZIONE_COMP.SOSTITUISCI) {
+        if (this.operazione == OPERAZIONE_COMP.SOSTITUISCI) {
           this.dettForm.disable();
           this.operazione = OPERAZIONE_COMP.DISMETTI;
           this.currentDato = this.compilaDatiGF();
@@ -249,10 +255,7 @@ export class DettaglioGfComponent implements OnInit {
             this.dettForm.disable();
             this.operazione = OPERAZIONE_COMP.DISMETTI;
           }, (error: Esito) => {
-            this.messageService.setTitolo("Operazione non valida");
-            this.messageService.setDescrizione(error.descrizioneEsito);
-            this.messageService.showMessaggioM();
-            this.messageService.setType(2);
+            this.setOperazioneNonValidaMessage(error);
           });
         }
       } else {
@@ -283,10 +286,7 @@ export class DettaglioGfComponent implements OnInit {
         this.dettForm.controls["dtInstall"].disable();
         this.operazione = OPERAZIONE_COMP.RIPRISTINA;
       }, (error: Esito) => {
-        this.messageService.setTitolo("Operazione non valida");
-        this.messageService.setDescrizione(error.descrizioneEsito);
-        this.messageService.showMessaggioM();
-        this.messageService.setType(2);
+        this.setOperazioneNonValidaMessage(error);
       });
     } else {
       const index = this.gfDismessi.indexOf(gf, 0);
@@ -297,6 +297,14 @@ export class DettaglioGfComponent implements OnInit {
       this.dettForm.controls["dtInstall"].disable();
       this.operazione = OPERAZIONE_COMP.RIPRISTINA;
     }
+  }
+
+  setOperazioneNonValidaMessage(error : Esito)
+  {
+    this.messageService.setTitolo("Operazione non valida");
+    this.messageService.setDescrizione(error.descrizioneEsito);
+    this.messageService.showMessaggioM();
+    this.messageService.setType(2);
   }
 
   riattiva() {
@@ -327,10 +335,7 @@ export class DettaglioGfComponent implements OnInit {
         this.dettForm.get("dtInstall").setValidators([Validators.required, validateDateIstall(this.getLastDate())]);
         this.dettForm.get("dtInstall").updateValueAndValidity();
       }, (error: Esito) => {
-        this.messageService.setTitolo("Operazione non valida");
-        this.messageService.setDescrizione(error.descrizioneEsito);
-        this.messageService.showMessaggioM();
-        this.messageService.setType(2);
+        this.setOperazioneNonValidaMessage(error);
       });
     } else {
       this.messageService.setTitolo("Dati inseriti non validi");
@@ -350,17 +355,17 @@ export class DettaglioGfComponent implements OnInit {
   }
 
   salvaDati() {
-    if (this.operazione === OPERAZIONE_COMP.DISMETTI) {
-      this.dettForm.enable();
-    }
-
     if (this.dettForm.valid || this.operazione === OPERAZIONE_COMP.DISMETTI) {
+      this.dettForm.enable();
       let datiGF: DatiGFModel = this.compilaDatiGF();
       let newArray: DatiGFModel[] = [datiGF];
       newArray = newArray.concat(this.gfDismessi);
       this.componenteService.updateGF(this.codiceImpianto, newArray).subscribe((elem: Esito) => {
         this.router.navigate(["impianto/dettaglio-impianto/" + this.codiceImpianto, { success: true }]);
         this.dettForm.disable();
+        this.messageService.setTitolo("Componente inserito correttamente");
+        this.messageService.showMessaggioM();
+        this.messageService.setType(4);
       }, (error) => {
         if (this.operazione === OPERAZIONE_COMP.DISMETTI) {
           this.dettForm.disable();
@@ -413,13 +418,13 @@ export class DettaglioGfComponent implements OnInit {
     dato.fkCombustibile = this.dettForm.controls["combustibile"].value;
     dato.potenzaTermicaKw = this.dettForm.controls["potenza"].value;
     dato.nCircuiti = this.dettForm.controls["nCircuiti"].value;
-    dato.tempoManutAnni = this.dettForm.controls["nMantenimenti"].value;
+    dato.tempoManutAnni = this.dettForm.controls["nMantenimenti"].value as number;
     dato.note = this.dettForm.controls["note"].value;
     dato.idTipoComponente = 'GF';
     dato.progressivo = parseInt(this.progr);
     dato.flgSorgenteExt = this.dettForm.controls["flgSorgente"].value;
     dato.flgFluidoUtenze = this.dettForm.controls["flgFluido"].value;
-    dato.fluidoFrigorigenodi = this.dettForm.controls["fluidoFrigorigeno"].value;
+    dato.fluidoFrigorigeno = this.dettForm.controls["fluidoFrigorigeno"].value;
     dato.nCircuiti = this.dettForm.controls["nCircuiti"].value;
     dato.raffPotenzaKw = this.dettForm.controls["raffPotKw"].value;
     dato.raffPotenzaAss = this.dettForm.controls["raffPotAss"].value;

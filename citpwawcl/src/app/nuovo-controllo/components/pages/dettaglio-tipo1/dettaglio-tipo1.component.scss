@@ -1,5 +1,6 @@
 .panel-title {
     font-weight: bold;
+    padding: 15px;
 }
 
 .expansion-panel {
@@ -22,7 +23,8 @@
 .card {
     margin-bottom: 1em;
     margin-top: 1em;
-    width: 90%;
+    width: 80% !important;
+    max-width: 1160px;
 }
 
 .label-tile {
@@ -46,4 +48,40 @@
 
 .secondary-button {
     width: 100%;
+}
+
+.default-button {
+    width: 100%;
+}
+
+.expansion-header-margin{
+    margin-right: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .mat-grid-tile-content {
+        display: block !important;
+    }
+
+    .expansion-panel {
+        width: 82.5%;
+    }
+
+    .secondary-button, .default-button{
+        margin: 7px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: 76% !important;
+    }
+
+    .expansion-panel {
+        width: 84.5%;
+    }
+
+    .secondary-button, .default-button{
+        margin: 0px;
+    }
 }

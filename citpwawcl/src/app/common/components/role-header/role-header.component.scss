@@ -1,34 +1,5 @@
-.role-icon {
-    color: #b8191a;
-}
-
-.expansion-panel {
-    background-color: transparent;
-    margin: 0;
-    width: 100%;
-    span {
-        vertical-align: middle;
-    }
-    p {
-        margin: 0.2em;
-    }
-
-    .expansion-content {
-        width: 95%;
-        background-color: #ddeeff;
-        padding: 0.5em;
-        font-weight: 300;
-        border-radius: 5px;
-    }
-}
-
 .role-header-content {
-    width: 100%;
+    height: -webkit-fill-available;
+    width: 99.5%;
     text-align: left;
-}
-
-.parent {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
 }

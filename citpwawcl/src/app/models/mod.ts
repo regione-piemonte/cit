@@ -133,8 +133,8 @@ export class RowFumi {
     portataCombu: string;
     valorePortata: number;
     coFumiSecchi: number;
-    rispettoIndBacharach: boolean;
-    minimo: boolean;
+    rispettoIndBacharach: number;
+    minimo: number;
     //tipo1B
     particolato: number;
     noxUM: string;

@@ -15,10 +15,45 @@
     }
 }
 
+.annulla {
+    font-weight: bold;
+}
+
 .card {
     margin-bottom: 1em;
+    width: 81% !important;
 }
 
 .intestazione {
     background-color: transparent;
+}
+
+.default-button {
+    width: 84%;
+    margin: 3% 8%;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(33%);
+    max-width: 1200px;
+    margin: 2% 11% 2% 7%;
+}
+
+
+@media screen and (min-width: 768px) {
+    .mat-grid-tile-content {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: 76% !important;
+    }
+
+    .card-grid {
+        gap: 15px;
+        margin: 0% 0% 0% 0%;
+    }
 }

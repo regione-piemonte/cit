@@ -1,0 +1,52 @@
+<div class="cit-page-container">
+  <app-page-title>Nuova Ispezione Massiva</app-page-title>
+  <app-breadcrumb label="Ricerca Verifiche" [link]="['/', 'cerca-verifiche']"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <mat-card style="margin-bottom: 40px">
+      <form id="verificaForm" [formGroup]="verificaForm" (ngSubmit)="submit()">
+        <div class="cit-two-cols-grid">
+          <mat-form-field>
+            <mat-label>Eseguito da</mat-label>
+            <mat-select formControlName="cfUtenteCaricamento">
+              <mat-option *ngFor="let assegnatario of assegnatarioList" [value]="assegnatario.codicefiscale">
+                {{assegnatario.cognome}} {{assegnatario.nome}} ({{assegnatario.codicefiscale}})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Data Caricamento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dtCaricamento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Tipo Verifica</mat-label>
+            <mat-select formControlName="fkTipoVerifica">
+              <mat-option *ngFor="let tipoVerifica of tipoVerificaList" [value]="tipoVerifica.id">
+                {{tipoVerifica.value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="isCodiceImpiantoVisible()">
+            <mat-label>Elenco codici impianto</mat-label>
+            <textarea matInput formControlName="codiceImpianto" appStripWhen="[^0-9;]+"></textarea>
+            <mat-hint>Inserisci i valori separati da ; (punto e virgola)</mat-hint>
+          </mat-form-field>
+          <mat-form-field *ngIf="isIdentificativoDatoDistributoreVisible()">
+            <mat-label>Elenco identificativi dato distributore</mat-label>
+            <textarea matInput formControlName="fkDatoDistrib" appStripWhen="[^0-9;]+"></textarea>
+            <mat-hint>Inserisci i valori separati da ; (punto e virgola)</mat-hint>
+          </mat-form-field>
+          <mat-checkbox formControlName="flgIspPagamento">Ispezione a pagamento</mat-checkbox>
+        </div>
+      </form>
+    </mat-card>
+    <button mat-button color="primary" [routerLink]="['/', 'cerca-verifiche']">ANNULLA</button>
+    <button mat-flat-button color="primary" form="verificaForm" style="float: right">SALVA</button>
+  </ng-container>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto"></mat-spinner>
+  </ng-template>
+</div>

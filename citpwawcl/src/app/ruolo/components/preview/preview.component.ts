@@ -1,7 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { NavigationStart, Router } from '@angular/router';
-import { IMAGESURL, ICONSURL, STRINGHE } from 'src/app/utils/constants';
+import { Component, OnInit } from '@angular/core';
+import { ICONSURL, STRINGHE } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-preview',
@@ -14,14 +12,15 @@ export class PreviewComponent implements OnInit {
   backgroundClass: string = "preview1";
   colorClass: string = "preview1-color";
   pwaIcon: string = ICONSURL + "add-to-home.svg";
-  descrizionePagina: String = STRINGHE.PAGINA_INIZIALE.PREVIEW1;
+  descrizionePagina: string = STRINGHE.PAGINA_INIZIALE.PREVIEW1;
   selectedTab: number = 1;
 
   constructor() {
-    
+    //Not Implemented
   }
 
   ngOnInit(): void {
+    //Not Implemented
   }
 
   prosegui() {
@@ -46,9 +45,10 @@ export class PreviewComponent implements OnInit {
   }
 
   public installPwa(): void {
+    //Not Implemented
   }
 
   public salta(): void {
-    
+    //Not Implemented
   }
 }

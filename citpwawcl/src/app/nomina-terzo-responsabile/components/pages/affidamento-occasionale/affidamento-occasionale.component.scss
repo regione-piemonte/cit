@@ -1,0 +1,52 @@
+mat-form-field {
+    width: 100%;
+}
+
+.page-content {
+    padding: 0 8% !important;
+    padding-bottom: 20px !important;
+    padding-top: 20px !important;
+}
+
+.add-component {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.component-button {
+    border-radius: 35px;
+    width: 95%;
+}
+
+
+.interno {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 768px) {
+    #buttonsAddManutentori {
+        width: 33%;
+    }
+    #componenti{
+        width: 33%;
+    }
+}
+
+
+.hr-separator {
+    width: 100%;
+    margin: 0% 2% 0% 0%;
+}
+
+.clickable:hover {
+    cursor: pointer;
+}
+
+.checkbox{
+    color:#006cb4;
+    font-weight: 700;    
+    margin-left: 5px;
+}

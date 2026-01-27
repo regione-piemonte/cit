@@ -1,15 +1,19 @@
-<mat-grid-list cols="1" rowHeight="1em" class="back-section">
-    <mat-grid-tile>
+<div class="wide-screen">
+  <mat-grid-list cols="12" rowHeight="1em" class="back-section">
+    <mat-grid-tile colspan="1"></mat-grid-tile>
+    <mat-grid-tile colspan="10">
       <div class="left-elem">
         <div class="top-back">
-          <button mat-icon-button (click)="back()">
+          <button mat-icon-button (click)="back($event)">
             <mat-icon>keyboard_arrow_left</mat-icon>
           </button>
-          <a (click)="back()">{{title}}</a>
+          <a (click)="back($event)">{{title}}</a>
         </div>
       </div>
     </mat-grid-tile>
+    <mat-grid-tile colspan="1"></mat-grid-tile>
   </mat-grid-list>
   <div class="divider-div">
     <mat-divider></mat-divider>
   </div>
+</div>

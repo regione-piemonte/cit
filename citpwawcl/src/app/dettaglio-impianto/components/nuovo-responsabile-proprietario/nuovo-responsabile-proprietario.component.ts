@@ -2,13 +2,17 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { ComuneEsteso } from 'src/app/models/comune-esteso.model';
 import { Esito } from 'src/app/models/esito';
 import { LoccsiFeature } from 'src/app/models/loccsi-feature';
 import { Persona } from 'src/app/models/persona';
 import { ImpiantoService } from 'src/app/services/impianto.service';
+import { MessageService } from 'src/app/services/message.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { SvistaService } from 'src/app/services/svista.service';
 import { ACCREDITATO, ICONSURL } from 'src/app/utils/constants';
 import { validateAlphanumeric, validateCFPIVA, validateDateBefore, validateIndirizzo } from 'src/app/validators/custom.validator';
 
@@ -41,8 +45,12 @@ export class NuovoResponsabileProprietarioComponent implements OnInit {
 
   loccsiClickedPropComuni = false;
   currentAddressPropComuni: LoccsiFeature;
-  filteredOptionsPropComuni: Observable<LoccsiFeature[]>;
+  //filteredOptionsPropComuni: Observable<LoccsiFeature[]>;
   comuniProp: LoccsiFeature[] = [];
+
+  currentAddressPropComuniEsteso: ComuneEsteso;
+  filteredOptionsPropComuni: Observable<ComuneEsteso[]>;
+  comuniEstesoProp: ComuneEsteso[] = [];
 
   titoloErrore = "";
   descrizioneErrore = "";
@@ -50,7 +58,12 @@ export class NuovoResponsabileProprietarioComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<NuovoResponsabileProprietarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private fb: FormBuilder, private readonly impiantoService: ImpiantoService, readonly spinnerService: SpinnerService) {
+    private fb: FormBuilder,
+    private readonly impiantoService: ImpiantoService,
+    readonly spinnerService: SpinnerService,
+    private readonly svistaService: SvistaService,
+    private readonly router: Router,
+    private readonly messageService: MessageService) {
 
     this.insertForm = this.fb.group({
       titolo: [""],
@@ -107,21 +120,31 @@ export class NuovoResponsabileProprietarioComponent implements OnInit {
       });
 
     this.insertForm.controls['comune'].valueChanges
-      .pipe(debounceTime(500), distinctUntilChanged(), filter(data => data ? data.length >= 3 : false)).subscribe(elem => {
+      .pipe(debounceTime(500), distinctUntilChanged(), filter(data => data ? data.length >= 2 : false)).subscribe(elem => {
         if (typeof elem === "string") {
           this.loccsiClickedPropComuni = false;
           this.currentAddressPropComuni = undefined;
           const elem2 = elem;
           this.insertForm.controls['civicoLoccsi'].enable();
-          this.filteredOptionsPropComuni = this.impiantoService.getProvinciaByComune(elem2)
-            .pipe(
-              map(name => name ? name : this.comuniProp.slice()));
-        }
+          this.filteredOptionsPropComuni = this.svistaService.loadDataFromLocalStorage(elem2)
+          .pipe(
+           map(name => name ? name : this.comuniEstesoProp.slice()));
+         }
       });
   }
 
   displayFn(indirizzo: LoccsiFeature): string {
     return indirizzo && indirizzo.properties && indirizzo.properties.loccsiLabel ? indirizzo.properties.loccsiLabel : '';
+  }
+
+  displayFnComune(indirizzo: ComuneEsteso): string {
+    return indirizzo && indirizzo.comune ? indirizzo.comune : '';
+  }
+
+  setProvinciaComuneEstesoProp(feature: ComuneEsteso) {
+    this.currentAddressPropComuniEsteso = feature;
+    this.insertForm.controls['provincia'].setValue(feature.siglaProvincia ? feature.siglaProvincia : "");
+    this.loccsiClickedPropComuni = true;
   }
 
   cercaPerCF() {
@@ -154,7 +177,7 @@ export class NuovoResponsabileProprietarioComponent implements OnInit {
       return this.insertForm.valid;
   }
 
-  inserisciPropResp() {
+  /*inserisciPropResp() {
     let persona: Persona = this.creaNuovoResponsabileProprietario();
     if (this.personaSelezionata)
       persona.idPersona = this.personaSelezionata.idPersona;
@@ -174,7 +197,38 @@ export class NuovoResponsabileProprietarioComponent implements OnInit {
         this.descrizioneErrore = "";
       }, 10000);
     });
+  }*/
+
+   inserisciPropResp() {
+    let persona: Persona = this.creaNuovoResponsabileProprietario();
+    if (this.personaSelezionata)
+      persona.idPersona = this.personaSelezionata.idPersona;
+      this.impiantoService.setResponsabileProprietario(this.data.codiceImpianto, persona).subscribe((elem) => {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["/impianto/dettaglio-impianto/" + this.data.codiceImpianto,
+          { success: true, message: this.checkMessageDescription("Inserimento avvenuto con successo") }]));
+          this.closeDialog();
+      }, error => {
+        this.messageService.setTitolo("Errore aggiornamento proprietario");
+        let esito = error.error as Esito;
+        this.messageService.setDescrizione(esito.descrizioneEsito);
+        this.messageService.showMessaggioM();
+        this.messageService.setType(2);
+      });
   }
+
+  checkMessageDescription(descrizione : string) : string {
+    this.messageService.showMessaggioM();
+    if(descrizione == "Codice POD o PDR inserito gia' presente sul sistema") {
+      this.messageService.setType(1);
+      return descrizione;
+    }
+    else{
+      this.messageService.setType(4);
+      return descrizione ??= "";
+    }
+  }
+
 
   creaNuovoResponsabileProprietario() {
     let persona: Persona = new Persona();
@@ -191,9 +245,9 @@ export class NuovoResponsabileProprietarioComponent implements OnInit {
     } else if (stradario) {
       persona.stradario = 1;
       persona.residenzaEstera = 0;
-      persona.comune = this.currentAddressPropComuni.properties.loccsiLabel;
-      persona.siglaProv = this.currentAddressPropComuni.properties.siglaProvincia ? this.currentAddressPropComuni.properties.siglaProvincia : this.currentAddressPropComuni.properties.pv;
-      persona.istatComune = this.currentAddressPropComuni.properties.codiceIstat ? this.currentAddressPropComuni.properties.codiceIstat : undefined;
+      persona.comune = this.currentAddressPropComuniEsteso.comune;
+      persona.siglaProv = this.currentAddressPropComuniEsteso.siglaProvincia;
+      persona.istatComune = this.currentAddressPropComuniEsteso.codiceIstat;
       persona.provincia = this.insertForm.controls["provincia"].value;
       persona.indirizzoNonTrovato = this.insertForm.controls["indirizzo"].value;
       persona.civico = this.insertForm.controls["civico"].value;
@@ -256,7 +310,7 @@ export class NuovoResponsabileProprietarioComponent implements OnInit {
   searchCF() {
     this.persone = [];
     let cf = this.searchForm.controls["cf"].value ? this.searchForm.controls["cf"].value.toUpperCase() : this.searchForm.controls["cf"].value;
-    this.impiantoService.cercaResponsabileProprietario(this.searchForm.controls["tipo"].value, cf).subscribe((elem: Persona[]) => {
+    this.impiantoService.cercaResponsabileProprietario(this.searchForm.controls["tipo"].value, cf, undefined, undefined, true).subscribe((elem: Persona[]) => {
       this.persone = elem;
       this.result = true;
     }, error => {
@@ -297,14 +351,14 @@ export class NuovoResponsabileProprietarioComponent implements OnInit {
       this.insertForm.controls["civico"].clearValidators();
       this.insertForm.controls["comune"].clearValidators();
       this.insertForm.controls["provincia"].clearValidators();
-    } 
-    else 
+    }
+    else
     {
       if (persona.stradario) {
         this.insertForm.controls["indirizzo"].setValue(persona.indirizzoNonTrovato);
         this.insertForm.controls["civico"].setValue(persona.civico);
-        this.impiantoService.getProvinciaByComune(persona.comune).subscribe((elem: LoccsiFeature[]) => {   
-          this.setProvinciaComuneProp(elem[0]); 
+        this.impiantoService.getProvinciaByComune(persona.comune).subscribe((elem: LoccsiFeature[]) => {
+          this.setProvinciaComuneProp(elem[0]);
           this.insertForm.controls['comune'].setValue(this.currentAddressPropComuni);
         });
         this.insertForm.controls["provincia"].setValue(persona.provincia);
@@ -318,15 +372,15 @@ export class NuovoResponsabileProprietarioComponent implements OnInit {
         this.insertForm.controls["civico"].setValidators([Validators.required]);
         this.insertForm.controls["comune"].setValidators([Validators.required, validateIndirizzo()]);
         this.insertForm.controls["provincia"].setValidators([Validators.required]);
-      } 
-      else 
+      }
+      else
       {
-          this.impiantoService.getIndirizzoStradario(persona.indirizzoSitad + "," + persona.comune).subscribe((elem: LoccsiFeature[]) => {  
+          this.impiantoService.getIndirizzoStradario(persona.indirizzoSitad + "," + persona.comune).subscribe((elem: LoccsiFeature[]) => {
           elem.forEach(element => {
-            if(element.properties.comune === persona.comune) 
-            {  
-              this.tempAddressProp.push(element); 
-            } 
+            if(element.properties.comune === persona.comune)
+            {
+              this.tempAddressProp.push(element);
+            }
           });
           this.setLoccsiElem(this.tempAddressProp[0]);
           this.insertForm.controls['indirizzoLoccsi'].setValue(this.currentAddressProp);
@@ -484,6 +538,8 @@ export class NuovoResponsabileProprietarioComponent implements OnInit {
       }
 
     }
+
+    this.svistaService.saveComuniEstesiToLocalStorage();
   }
 
   checkEnteImpresa(event: MatCheckboxChange) {

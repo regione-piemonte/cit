@@ -1,0 +1,73 @@
+<div class="cit-page-container">
+  <app-page-title>Nuova Ispezione</app-page-title>
+  <app-breadcrumb label="Dettaglio Verifica" [link]="['/', 'dettaglio-verifica', verifica?.idVerifica]"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <mat-card *ngIf="!loading; else loadingTemplate">
+    <form [formGroup]="ispezioneForm" (ngSubmit)="submit()">
+      <div class="cit-two-cols-grid">
+        <mat-form-field>
+          <mat-label>Ispezione numero</mat-label>
+          <input matInput formControlName="idIspezione2018" type="number">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Data creazione</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dtCreazione">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Assegnatario</mat-label>
+          <mat-select formControlName="cfUtenteAssegn">
+            <mat-option *ngFor="let ispettore of ispettoreList" [value]="ispettore.codicefiscale">
+              {{ispettore.cognome}} {{ispettore.nome}} ({{ispettore.codicefiscale}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Stato</mat-label>
+          <mat-select formControlName="fkStatoIspezione">
+            <mat-option *ngFor="let stato of statoIspezioneList" [value]="stato.idStatoIspezione">
+              {{stato.desStatoIspezione}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Codice impianto</mat-label>
+          <input matInput formControlName="codiceImpianto" type="number">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Indirizzo</mat-label>
+          <input matInput formControlName="indirizzo" appUpper>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Provincia competenza</mat-label>
+          <mat-select formControlName="istatProvCompetenza">
+            <mat-option *ngFor="let provincia of provinciaList" [value]="provincia.codiceIstat.substring(0, 3)">
+              {{provincia.provincia}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Comune competenza</mat-label>
+          <mat-select formControlName="istatComuneCompetenza">
+            <mat-option *ngFor="let comune of getComuneEstesoListByProvincia()" [value]="comune.codiceIstat">
+              {{comune.comune}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox formControlName="flgIspPagamento">Ispezione a pagamento</mat-checkbox>
+        <mat-form-field>
+          <mat-label>Note</mat-label>
+          <textarea matInput formControlName="note" rows="5" appUpper></textarea>
+        </mat-form-field>
+      </div>
+      <hr>
+      <button mat-button color="primary" [routerLink]="['/', 'dettaglio-verifica', verifica.idVerifica]">ANNULLA</button>
+      <button mat-flat-button color="primary" style="float: right">SALVA</button>
+    </form>
+  </mat-card>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto 20px auto"></mat-spinner>
+  </ng-template>
+</div>

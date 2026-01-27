@@ -1,12 +1,17 @@
 <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
 <div class="page-content">
-    
+
     <app-title [title]="title" [subtitle]="subtitle"></app-title>
-    <app-back [title]="backTitile" [route]="route" *ngIf="route">
+    <app-back [title]="backTitile" [route]="route" [queryParams]="queryParams" *ngIf="!isRicercaImpianto">
     </app-back>
-    <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
-        *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
-    </app-message-box>
+    <div class="wide-screen">
+        <div style="width: 83%; margin: auto;">
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+    </div>
     <app-role-header></app-role-header>
+    <app-impianto-header *ngIf="showImpDrops"></app-impianto-header>
     <router-outlet></router-outlet>
 </div>

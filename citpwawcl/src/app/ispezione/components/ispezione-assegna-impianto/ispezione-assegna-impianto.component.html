@@ -1,0 +1,27 @@
+<div class="cit-page-container">
+  <app-page-title>Assegna Impianto a Ispezione</app-page-title>
+  <app-breadcrumb label="Dettaglio Ispezione" [link]="['/', 'dettaglio-ispezione', ispezione?.idIspezione2018]"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <mat-card *ngIf="!loading; else loadingTemplate">
+    <form [formGroup]="ispezioneForm" (ngSubmit)="submit()">
+      <div style="display: grid; grid-template-columns: auto 100px; gap: 20px">
+        <mat-form-field>
+          <mat-label>Codice impianto</mat-label>
+          <input #codiceImpianto matInput type="number">
+        </mat-form-field>
+        <button mat-button color="primary" type="button" (click)="searchByCodiceImpianto(codiceImpianto.valueAsNumber)" [disabled]="!codiceImpianto.value">
+          <mat-icon>search</mat-icon>
+          Cerca
+        </button>
+      </div>
+      <p *ngIf="impianto" style="margin-top: 0">Localizzazione: <strong>{{getLocalizzazione()}}</strong></p>
+      <hr>
+      <button mat-button color="primary" [routerLink]="['/', 'dettaglio-ispezione', ispezione.idIspezione2018]">ANNULLA</button>
+      <button mat-flat-button color="primary" style="float: right">SALVA</button>
+    </form>
+  </mat-card>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto 20px auto"></mat-spinner>
+  </ng-template>
+</div>

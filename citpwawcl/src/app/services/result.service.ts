@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { ControlloDisponibileModel } from '../models/controllo-disponibile';
 import { DatoControlloModel } from '../models/dato-controllo-model';
 
@@ -7,12 +8,21 @@ import { DatoControlloModel } from '../models/dato-controllo-model';
 })
 export class ResultService {
 
-  constructor() { }
+  constructor() {
+    //Not Implemented
+   }
 
   result: any;
   resultControllo: DatoControlloModel;
   resultControlloDisponibile: ControlloDisponibileModel;
   privacy: boolean = false;
+
+  isRicercaCompletaCheckedSource = new BehaviorSubject<boolean>(false);
+  isRicercaCompletaChecked$ = this.isRicercaCompletaCheckedSource.asObservable();
+
+  setRicercaCompletaChecked(value: boolean) {
+    this.isRicercaCompletaCheckedSource.next(value);
+  }
 
   setResult(elem: any) {
     this.result = elem;

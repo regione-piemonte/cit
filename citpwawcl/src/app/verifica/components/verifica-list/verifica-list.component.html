@@ -1,0 +1,30 @@
+<div class="cit-page-container">
+  <app-page-title>Risultato Verifiche</app-page-title>
+  <app-breadcrumb label="Ricerca Verifiche" [link]="['/', 'cerca-verifiche']"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <p>Numero risultati trovati: {{verificaList.length}}</p>
+    <div class="cit-three-cols-grid" style="margin-bottom: 40px">
+      <mat-card *ngFor="let verifica of verificaList">
+        <p>Identificativo: <strong>{{verifica.idVerifica}}</strong></p>
+        <p>Caricato da: <strong>{{getAssegnatario(verifica)?.cognome}} {{getAssegnatario(verifica)?.nome}} ({{getAssegnatario(verifica)?.codicefiscale}})</strong></p>
+        <p>Data creazione: <strong>{{verifica.dtCaricamento | date:'dd/MM/yyyy'}}</strong></p>
+        <p>Tipo verifica: <strong>{{getTipoVerifica(verifica)?.value}}</strong></p>
+        <p>Codice impianto: <strong>{{verifica.codiceImpianto | zeroToNull | orDash}}</strong></p>
+        <p>REE: <strong>{{verifica.siglaBollino | orDash}} {{verifica.numeroBollino | zeroToNull | orDash}}</strong></p>
+        <p>Id. dato distributore: <strong>{{verifica.fkDatoDistrib | zeroToNull | orDash}}</strong></p>
+        <hr>
+        <button mat-button color="primary" [routerLink]="['/', 'dettaglio-verifica', verifica.idVerifica]">DETTAGLIO</button>
+        <button *ngxPermissionsOnly="'ELIMINA_VERIFICA'" mat-icon-button color="accent" style="float: right" (click)="deleteVerificaConfirm(verifica)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card>
+    </div>
+  </ng-container>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto 40px auto"></mat-spinner>
+  </ng-template>
+  <button *ngxPermissionsOnly="'INSERISCI_NUOVA_VERIFICA'" mat-stroked-button color="primary" class="cit-block-button" style="margin-bottom: 20px" [routerLink]="['/', 'nuova-verifica']">INSERISCI NUOVA VERIFICA</button><br>
+  <button *ngxPermissionsOnly="'INSERISCI_ISPEZIONI_MASSIVE'" mat-stroked-button color="primary" class="cit-block-button" [routerLink]="['/', 'nuova-ispezione-massiva']">INSERISCI ISPEZIONI MASSIVE</button>
+</div>

@@ -34,6 +34,11 @@ export class AuthenticationService {
 
   setAccesso(utente: UtenteLoggato) {
     const url: string = this.apiUrl + "/accesso";
+    return this.http.post<any>(url, utente);
+  }
+
+  getDisponibilitaServizio(utente: UtenteLoggato) {
+    const url: string = this.apiUrl + "/disponibilitaservizio";
     return this.http.post<Ruoli>(url, utente);
   }
 

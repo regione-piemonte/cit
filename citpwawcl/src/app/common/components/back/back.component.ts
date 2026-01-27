@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,17 +10,44 @@ import { Router } from '@angular/router';
 export class BackComponent implements OnInit {
 
   @Input()
-  title:string;
+  title: string;
   @Input()
-  route:string;
+  route: string;
+  @Input()
+  queryParams: any;
 
-  constructor(private router:Router) { }
+  @Output()
+  click: EventEmitter<any> = new EventEmitter();
+
+  lastEmit = 0;
+
+  constructor(
+    private router: Router,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
+    //Not Implemented
   }
 
-  back(){
-    this.router.navigate([this.route]);
+  back($event) {
+    if ((Date.now() - this.lastEmit) > 500) {
+      if (this.click.observers.length === 0) {
+        if (this.route) {
+          if (this.queryParams) {
+            this.router.navigate([this.route]);
+          } else {
+            this.router.navigate([this.route], { queryParams: this.queryParams });
+          }
+        } else {
+          this.location.back();
+        }
+      } else {
+        $event.preventDefault();
+        this.click.emit("click");
+      }
+      this.lastEmit = Date.now();
+    }
   }
 
 }

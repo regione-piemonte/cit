@@ -1,0 +1,16 @@
+<ng-container *ngFor="let pendingOp of pendingOps; trackBy: pendingOpTrackByFn">
+  <div class="notification">
+    <div>
+      <p>Ispezione: <strong>{{pendingOp.idIspezione2018}}</strong></p>
+      <p>Attività: <strong>{{getAttivita(pendingOp)}}</strong></p>
+      <p>Data inserimento: <strong>{{pendingOp.dataInserimento | date:'dd/MM/yyyy'}}</strong></p>
+      <p>Data rapporto di prova: <strong>{{pendingOp.dataRapportoDiProva | date:'dd/MM/yyyy'}}</strong></p>
+      <p>Data invio online: <strong>{{(pendingOp.dataInvioOnline | date:'dd/MM/yyyy') ?? '-'}}</strong></p>
+      <p>Esito: <strong [style.color]="pendingOp.dataInvioOnline ? 'green' : 'darkorange'">{{pendingOp.dataInvioOnline ? 'SUCCESSO' : 'IN ATTESA'}}</strong></p>
+    </div>
+    <button mat-icon-button [style.color]="pendingOp.dataInvioOnline ? 'green' : 'red'" (click)="cancelRapprovaPendingOp(pendingOp)">
+      <mat-icon>{{pendingOp.dataInvioOnline ? 'check' : 'delete'}}</mat-icon>
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+</ng-container>

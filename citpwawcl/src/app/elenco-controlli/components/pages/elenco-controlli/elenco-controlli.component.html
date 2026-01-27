@@ -1,183 +1,199 @@
-<app-message-box [titolo]="'ATTENZIONE'" [descrizione]="'Sei offline, alcune operazioni potrebbero essere interdette'"
-    [type]="1" [ngClass]="{'online':!offline}">
-</app-message-box>
-<mat-card class="card mat-elevation-z0 contaner-card">
-    <mat-grid-list cols="4" rowHeight="2em">
-        <mat-grid-tile>
-            <div class="left-elem">
-                <span class="filter-label">Ordina per</span>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="3">
-            <div class="right-elem">
-                <form [formGroup]="filterForm">
-                    <mat-form-field class="form-field">
-                        <mat-select placeholder="Filtra" [formControlName]="'filtro'">
-                            <mat-option [value]="ordinamento.STATO_DEL_CONTROLLO" (click)="sortOffline()" selected>
-                                Stato
-                                controllo</mat-option>
-                            <mat-option [value]="ordinamento.DATA_CONTROLLO_MENO_RECENTE" (click)="sortOffline()">
-                                Data
-                                controllo meno recente</mat-option>
-                            <mat-option [value]="ordinamento.DATA_CONTROLLO_PIU_RECENTE" (click)="sortOffline()">
-                                Data
-                                controllo piu recente</mat-option>
-                            <mat-option [value]="ordinamento.TIPOLOGIA_DI_CONTROLLO" (click)="sortOffline()">
-                                Tipologia
-                                di
-                                controllo</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </form>
-            </div>
-        </mat-grid-tile>
-    </mat-grid-list>
-</mat-card>
-<mat-card class="card mat-elevation-z8" [ngClass]="{'decoration-bozza':controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA,
+<div class="wide-screen">
+    <app-message-box [titolo]="'ATTENZIONE'"
+        [descrizione]="'Sei offline, alcune operazioni potrebbero essere interdette'" [type]="1"
+        [ngClass]="{'online':!offline}">
+    </app-message-box>
+    <mat-card class="query-panel mat-elevation-z0 contaner-card">
+        <mat-grid-list cols="4" rowHeight="2em">
+            <mat-grid-tile>
+                <div class="left-elem">
+                    <span class="filter-label">Ordina per</span>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <div class="right-elem">
+                    <form [formGroup]="filterForm">
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Filtra" [formControlName]="'filtro'">
+                                <mat-option [value]="ordinamento.STATO_DEL_CONTROLLO" (click)="sortOffline()" selected>
+                                    Stato
+                                    controllo</mat-option>
+                                <mat-option [value]="ordinamento.DATA_CONTROLLO_MENO_RECENTE" (click)="sortOffline()">
+                                    Data
+                                    controllo meno recente</mat-option>
+                                <mat-option [value]="ordinamento.DATA_CONTROLLO_PIU_RECENTE" (click)="sortOffline()">
+                                    Data
+                                    controllo piu recente</mat-option>
+                                <mat-option [value]="ordinamento.TIPOLOGIA_DI_CONTROLLO" (click)="sortOffline()">
+                                    Tipologia
+                                    di
+                                    controllo</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </form>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card>
+    <div class="card-grid">
+        <mat-card class="card mat-elevation-z8" [ngClass]="{'decoration-bozza':controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA,
     'decoration-attesa':controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_ELIMINAZIONE || 
     controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_INVIO || 
     controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_ELIMINAZIONE || 
     controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA_LOCALE,
     'decoration-inviato':controllo.controlloModel.fkStatoRapp==statoRapp.INVIATO,
     'decoration-respinto':controllo.controlloModel.fkStatoRapp==statoRapp.RESPINTO}"
-    *ngFor="let controllo of controlli">
-    <mat-grid-list cols="2" rowHeight="2em">
-        <mat-grid-tile>
-            <div class="left-elem">Data controllo:</div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="right-elem def-elem">
-                {{getDate(controllo.controlloModel.dataControllo)}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="left-elem">Tipo controllo:</div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="right-elem def-elem">
-                {{controllo.controlloModel.desTipoDocumento?controllo.controlloModel.desTipoDocumento:'-'}}
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="left-elem">Stato controllo:</div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="right-elem def-elem">
-                <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA" class="bozza">BOZZA</span>
-                <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA_LOCALE" class="attesa">BOZZA
-                    LOCALE</span>
-                <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.INVIATO" class="inviato">INVIATO</span>
-                <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.RESPINTO" class="respinto">RESPINTO</span>
-                <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_INVIO" class="attesa">IN
-                    ATTESA DI INVIO</span>
-                <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_MODIFICA" class="attesa">IN
-                    ATTESA DI MODIFICA</span>
-                <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_ELIMINAZIONE"
-                    class="attesa">IN ATTESA DI ELIMINAZIONE</span>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="left-elem">Elenco apparecchiature:</div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="right-elem def-elem">
-                {{controllo.controlloModel.elencoApparecchiatura?controllo.controlloModel.elencoApparecchiatura:'-'}}
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="left-elem">Intervento entro:</div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="right-elem def-elem">
-                {{getDate(controllo.controlloModel.fInterventoEntro)}}</div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2">
-            <mat-divider></mat-divider>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2"
-            *ngIf="(controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA 
+            *ngFor="let controllo of controlli">
+            <mat-grid-list cols="2" rowHeight="2em">
+                <mat-grid-tile>
+                    <div class="left-elem">Data controllo:</div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="right-elem def-elem">
+                        {{getDate(controllo.controlloModel.dataControllo)}}</div>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2">
+                    <div class="left-elem">Tipo controllo:</div>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2">
+                    <div class="right-elem def-elem">
+                        {{controllo.controlloModel.desTipoDocumento?controllo.controlloModel.desTipoDocumento:'-'}}
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="left-elem">Stato controllo:</div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="right-elem def-elem">
+                        <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA" class="bozza">BOZZA</span>
+                        <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA_LOCALE" class="attesa">BOZZA
+                            LOCALE</span>
+                        <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.INVIATO"
+                            class="inviato">INVIATO</span>
+                        <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.RESPINTO"
+                            class="respinto">RESPINTO</span>
+                        <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_INVIO"
+                            class="attesa">IN
+                            ATTESA DI INVIO</span>
+                        <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_MODIFICA"
+                            class="attesa">IN
+                            ATTESA DI MODIFICA</span>
+                        <span *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_ELIMINAZIONE"
+                            class="attesa">IN ATTESA DI ELIMINAZIONE</span>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="left-elem">Elenco apparecchiature:</div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="right-elem def-elem">
+                        {{controllo.controlloModel.elencoApparecchiatura?controllo.controlloModel.elencoApparecchiatura:'-'}}
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="left-elem">Intervento entro:</div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="right-elem def-elem">
+                        {{getDate(controllo.controlloModel.fInterventoEntro)}}</div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                    <mat-divider></mat-divider>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" *ngIf="(controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA 
             || controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA_LOCALE) && 
             (controllo.controlloModel.fkTipoDocumento.toString() != '10' 
             && controllo.controlloModel.fkTipoDocumento.toString() != '11' 
             && controllo.controlloModel.fkTipoDocumento.toString() != '12' 
             && controllo.controlloModel.fkTipoDocumento.toString() != '13')">
-            <div class="bozza-buttons">
-                <button mat-button class=" primary-color def-elem" (click)="inviaControllo(controllo)">INVIA</button>
-                <button mat-button class=" primary-color def-elem"
-                    (click)="modificaControllo(controllo)">MODIFICA</button>
-                <button mat-icon-button (click)="deleteControllo(controllo)">
-                    <mat-icon class="respinto">delete</mat-icon>
-                </button>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2"
-            *ngIf="(controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA_LOCALE) && 
+                    <div class="bozza-buttons">
+                        <button mat-button class=" primary-color def-elem"
+                            (click)="inviaControllo(controllo)">INVIA</button>
+                        <button mat-button class=" primary-color def-elem"
+                            (click)="modificaControllo(controllo)">MODIFICA</button>
+                        <button mat-icon-button (click)="deleteControllo(controllo)">
+                            <mat-icon class="respinto">delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" *ngIf="(controllo.controlloModel.fkStatoRapp==statoRapp.BOZZA_LOCALE) && 
             (controllo.controlloModel.fkTipoDocumento.toString() == '10' 
             || controllo.controlloModel.fkTipoDocumento.toString() == '11' 
             || controllo.controlloModel.fkTipoDocumento.toString() == '12' 
             || controllo.controlloModel.fkTipoDocumento.toString() == '13')">
-            <div class="bozza-buttons">
-                <button mat-button class=" primary-color def-elem" (click)="inviaManutenzione(controllo)">INVIA</button>
-                <button mat-icon-button (click)="deleteControllo(controllo)">
-                    <mat-icon class="respinto">delete</mat-icon>
-                </button>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_INVIO">
-            <div class="left-elem">
-                <button mat-button class=" primary-color def-elem" (click)=" annullaOperazione(controllo)">ANNULLA
-                    INVIO</button>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_MODIFICA">
-            <div class="left-elem">
-                <button mat-button class=" primary-color def-elem" (click)=" annullaOperazione(controllo)">ANNULLA
-                    MODIFICA</button>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_ELIMINAZIONE">
-            <div class="left-elem">
-                <button mat-button class=" primary-color def-elem" (click)=" annullaOperazione(controllo)">ANNULLA
-                    CANCELLAZIONE</button>
-            </div>
-        </mat-grid-tile>
+                    <div class="bozza-buttons">
+                        <button mat-button class=" primary-color def-elem"
+                            (click)="inviaManutenzione(controllo)">INVIA</button>
+                        <button mat-icon-button (click)="deleteControllo(controllo)">
+                            <mat-icon class="respinto">delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_INVIO">
+                    <div class="left-elem">
+                        <button mat-button class=" primary-color def-elem"
+                            (click)=" annullaOperazione(controllo)">ANNULLA
+                            INVIO</button>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2"
+                    *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_MODIFICA">
+                    <div class="left-elem">
+                        <button mat-button class=" primary-color def-elem"
+                            (click)=" annullaOperazione(controllo)">ANNULLA
+                            MODIFICA</button>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2"
+                    *ngIf="controllo.controlloModel.fkStatoRapp==statoRapp.IN_ATTESA_DI_ELIMINAZIONE">
+                    <div class="left-elem">
+                        <button mat-button class=" primary-color def-elem"
+                            (click)=" annullaOperazione(controllo)">ANNULLA
+                            CANCELLAZIONE</button>
+                    </div>
+                </mat-grid-tile>
 
-        <mat-grid-tile colspan="2" *ngIf="isRicevutaVisibile(controllo.controlloModel)">
-            <div class="left-elem pdf-button">
-                <button mat-button class="respinto def-elem" (click)="downloadRicevuta(controllo.controlloModel)">
-                    <img [src]="pdf" class="pdf-icon">Ricevuta
-                </button>
-            </div>
-        </mat-grid-tile>
+                <mat-grid-tile colspan="2" *ngIf="isRicevutaVisibile(controllo.controlloModel)">
+                    <div class="left-elem pdf-button">
+                        <button mat-button class="respinto def-elem"
+                            (click)="downloadRicevuta(controllo.controlloModel)">
+                            <img [src]="pdf" alt="pdf" class="pdf-icon">Ricevuta
+                        </button>
+                    </div>
+                </mat-grid-tile>
 
 
-        <mat-grid-tile colspan="2" *ngIf="isRepilogoVisibile(controllo.controlloModel)">
-            <div class="left-elem pdf-button">
-                <button mat-button class="respinto def-elem" (click)="downloadRee(controllo.controlloModel)">
-                    <img [src]="pdf" class="pdf-icon">PDF riepilogo
-                </button>
-            </div>
-        </mat-grid-tile>
+                <mat-grid-tile colspan="2" *ngIf="isRepilogoVisibile(controllo.controlloModel)">
+                    <div class="left-elem pdf-button">
+                        <button mat-button class="respinto def-elem" (click)="downloadRee(controllo.controlloModel)">
+                            <img [src]="pdf" alt="pdf" class="pdf-icon">PDF riepilogo
+                        </button>
+                    </div>
+                </mat-grid-tile>
 
-        <mat-grid-tile colspan="2" *ngIf="isRiepilogFirmatoVisibile(controllo.controlloModel)"
-            (click)="downloadReeFirmato(controllo.controlloModel)">
-            <div class="left-elem pdf-button">
-                <button mat-button class="respinto def-elem">
-                    <img [src]="pdf" class="pdf-icon">PDF riepilogo firmato
-                </button>
-            </div>
-        </mat-grid-tile>
+                <mat-grid-tile colspan="2" *ngIf="isRiepilogFirmatoVisibile(controllo.controlloModel)"
+                    (click)="downloadReeFirmato(controllo.controlloModel)">
+                    <div class="left-elem pdf-button">
+                        <button mat-button class="respinto def-elem">
+                            <img [src]="pdf" alt="pdf" class="pdf-icon">PDF riepilogo firmato
+                        </button>
+                    </div>
+                </mat-grid-tile>
 
-        <mat-grid-tile colspan="2" *ngIf="isCaricaReeVisibile(controllo.controlloModel)">
-            <div class="left-elem">
-                <button mat-button class="primary-color def-elem" (click)="caricaReeFirmato(controllo)">Carica REE
-                    firmato elettronicamente</button>
-            </div>
-        </mat-grid-tile>
-    </mat-grid-list>
-</mat-card>
-<mat-card class="mat-elevation-z0 contaner-card">
-    <div class="left-elem">
-        <button mat-button class="primary-color add-controllo" (click)="aggiungiControllo()"
-            *ngIf="isAggiungiControlloVisible()">AGGIUNGI CONTROLLO</button>
+                <mat-grid-tile colspan="2" *ngIf="isCaricaReeVisibile(controllo.controlloModel)">
+                    <div class="left-elem">
+                        <button mat-button class="primary-color def-elem" (click)="caricaReeFirmato(controllo)">Carica
+                            REE
+                            firmato elettronicamente</button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card>
     </div>
-</mat-card>
+    <mat-card class="mat-elevation-z0 contaner-card aggiungi-controllo">
+        <div class="left-elem">
+            <button mat-button class="primary-color add-controllo" (click)="aggiungiControllo()"
+                *ngIf="isAggiungiControlloVisible()">AGGIUNGI CONTROLLO</button>
+        </div>
+    </mat-card>
+</div>

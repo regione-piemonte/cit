@@ -1,0 +1,226 @@
+<div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div>
+        <app-title [title]="title" [subtitle]="subtitle"></app-title>
+        <!--<app-back [title]="backTitile" [route]="route" *ngIf="route">-->
+        <app-back [title]="backTitile">
+        </app-back>
+        <div style="width: 83%; margin: auto;">
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo"></app-role-header>
+        <app-impianto-header [datiImpianto]="datiImpianto" [redirect]="false"></app-impianto-header>
+        <div *ngIf="step ==1">
+            <div class="wide-screen">
+                <mat-grid-list cols="12" rowHeight="8em">
+                    <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+                    <mat-grid-tile colspan="10" rowspan="1">
+                        <mat-card class="title-card mat-elevation-z0 no-lateral-margin">
+                            <mat-card-header>
+                                <div mat-card-avatar *ngIf="title"><img [src]="titlePng" alt="titlePng"
+                                        class="title-img">
+                                </div>
+                                <mat-card-title class="title no-lateral-margin">Elenco storico responsabili
+                                    impianto</mat-card-title>
+                            </mat-card-header>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+                </mat-grid-list>
+            </div>
+            <div class="wide-screen">
+                <div class="page-content-card">
+                    <mat-card class="card mat-elevation-z8" *ngFor="let persona of persone">
+                        <mat-card-content>
+                            <div class="card-row">
+                                <p>Responsabile: <span class="right-align">{{persona.nome}}
+                                        {{persona.cognomeDenominazione}}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Titolo: <span class="right-align">{{persona.titolo}}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Dal: <span class="right-align">{{getDate(persona.dataInizioResp)}}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Al: <span class="right-align">{{getDate(persona.dataFineResp)}}</span></p>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <div class="wide-screen">
+                <div class="page-content-card">
+                    <mat-card class="card mat-elevation-z8" style="width: 100%;">
+                        <mat-card-title>
+                            <strong style="font-size: 20px;">Inserisci i dati del contratto</strong>
+                        </mat-card-title>
+                        <mat-card-content>
+                            <form [formGroup]="responsabileGroup">
+                                <mat-grid-list [cols]="12" rowHeight="2em">
+                                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                                        <mat-form-field class="form-field">
+                                            <input [formControlName]="'dal'" matInput [matDatepicker]="pickerDal"
+                                                placeholder="Dal" name="Dal" [max]="maxDate">
+                                            <mat-datepicker-toggle matSuffix [for]="pickerDal"></mat-datepicker-toggle>
+                                            <mat-datepicker #pickerDal></mat-datepicker>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                                        <mat-form-field class="form-field">
+                                            <input [formControlName]="'al'" matInput [matDatepicker]="pickerAl"
+                                                placeholder="Al" name="Al">
+                                            <mat-datepicker-toggle matSuffix [for]="pickerAl"></mat-datepicker-toggle>
+                                            <mat-datepicker #pickerAl></mat-datepicker>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                        <mat-checkbox [formControlName]="'tacitoRinnovo'">Tacito rinnovo</mat-checkbox>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                        <mat-form-field class="form-field">
+                                            <textarea [formControlName]="'note'" matInput placeholder="Note"
+                                                name="Note" appUpper></textarea>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [colspan]="6" rowspan="2">
+                                        <div class="left-elem">
+                                            <button mat-button class="back" class="annulla primary-color"
+                                                (click)="back()">ANNULLA</button>
+                                        </div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [colspan]="6" rowspan="2">
+                                        <div class="right-elem">
+                                            <button mat-button class="default-button form-field" [disabled]="responsabileGroup.invalid"
+                                                (click)="goNextStep()">SALVA</button>
+
+                                            <!-- [disabled]="!formImpresaGroup.valid || !isDichiarazioneRedattaChecked()" -->
+                                            <!-- [disabled]="!formImpresaGroup.valid" -->
+                                        </div>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+                            </form>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="step == 2">
+            <div class="wide-screen">
+                <div class="inner-title">
+                    <app-title title="Dati terzo responsabile"></app-title>
+                </div>
+                <div class="detail-card ">
+                    <mat-card class="card-riepilogo">
+                        <mat-card-content>
+                            <div class="list-card-row">
+                            <div class="card-row">
+                                <p>Codice REA: <span class="right-align">{{datiImpresa ? datiImpresa.sigla_rea + '-' +
+                                        datiImpresa.numero_rea : utenteLoggato.ruoloLoggato.siglaRea + '-' +
+                                        utenteLoggato.ruoloLoggato.numeroRea}}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Codice fiscale: <span class="right-align">{{ datiImpresa ? datiImpresa.codice_fiscale
+                                        : utenteLoggato.ruoloLoggato.piva }}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Denominazione: <span class="right-align">{{ datiImpresa? datiImpresa.denominazione :
+                                        utenteLoggato.ruoloLoggato.denominazione}}</span></p>
+                            </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="inner-title">
+                    <app-title title="Dati contratto terzo responsabile"></app-title>
+                </div>
+                <div class="detail-card ">
+                    <mat-card class="card-riepilogo">
+                        <mat-card-content>
+                            <div class="list-card-row">
+                            <div class="card-row">
+                                <p>Data inizio contratto: <span
+                                        class="right-align">{{responsabileGroup?.controls['dal']?.value ?
+                                        (responsabileGroup?.controls['dal']?.value |
+                                        date:'dd/MM/yyyy') : ''}}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Data fine contratto: <span
+                                        class="right-align">{{responsabileGroup?.controls['al']?.value ?
+                                        (responsabileGroup?.controls['al']?.value |
+                                        date:'dd/MM/yyyy') : ''}}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p>Tacito rinnovo: <span
+                                        class="right-align">{{responsabileGroup?.controls['tacitoRinnovo']?.value
+                                        ? 'SI' : 'NO'}}</span></p>
+                            </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="inner-title">
+
+                    <app-title title="Dati impianto"></app-title>
+                </div>
+                <div class="detail-card ">
+                    <mat-card class="card-riepilogo">
+                        <mat-card-content>
+                            <div class="list-card-row">
+                            <div class="card-row">
+                                <p>Codice impianto: <span class="right-align">{{codiceImpianto}}</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p class="p-flex">Ubicazione: <span class="right-align span-wrap"> {{ datiImpiantoUbicazione?.indirizzoNonTrovato != null ?
+                                    datiImpiantoUbicazione?.indirizzoNonTrovato : datiImpiantoUbicazione?.indirizzoSitad}}
+                                        {{datiImpiantoUbicazione?.civico}}, {{datiImpiantoUbicazione?.comune}}
+                                        ({{datiImpiantoUbicazione?.provincia}})</span></p>
+                            </div>
+                            <div class="card-row">
+                                <p class="p-flex">Responsabile alla data del contratto: <span class="right-align span-wrap">{{
+                                        responsabileAttivo?.cognomeDenominazione}} {{responsabileAttivo?.nome}}</span>
+                                </p>
+                            </div>
+                            <div class="card-row">
+                                <p>Ruolo: <span class="right-align">{{responsabileAttivo?.titolo}}</span></p>
+                            </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="inner-title">
+                    <app-title title="Autodichiarazione dei titoli e dello stato dell'impianto"></app-title>
+                </div>
+                <div class="detail-card ">
+                    <mat-card>
+                        <form [formGroup]="dichiarazioniForm">
+                            <mat-card-content>
+                                <div class="card-row-dichiarazione">
+                                    <div style="text-wrap: wrap;" *ngFor="let dichiarazione of dichiarazioni">
+                                        <mat-checkbox [formControlName]="dichiarazione.key">{{dichiarazione.value}}</mat-checkbox>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+
+                        </form>
+                    </mat-card>
+                    <div style="display: flex; padding-top: 10px;">
+                        <div class="left-elem">
+                            <button mat-button class="back" class="annulla primary-color"
+                                (click)="back()">ANNULLA</button>
+                        </div><div class="right-elem">
+                            <button mat-button class="default-button form-field"
+                                (click)="salvaNuovoTerzoResponsabile()">SALVA</button>
+
+                            <!-- [disabled]="!formImpresaGroup.valid || !isDichiarazioneRedattaChecked()" -->
+                            <!-- [disabled]="!formImpresaGroup.valid" -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

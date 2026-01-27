@@ -1,0 +1,97 @@
+<div class="cit-page-container">
+  <app-page-title>Cerca Ispezione</app-page-title>
+  <app-breadcrumb label="Home" [link]="['/']"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <mat-card *ngIf="!loading; else loadingTemplate">
+    <form [formGroup]="searchForm" (ngSubmit)="submit()">
+      <div class="cit-two-cols-grid">
+        <mat-form-field>
+          <mat-label>Identificativo</mat-label>
+          <input matInput formControlName="idIspezione2018" type="number">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Assegnato a</mat-label>
+          <mat-select formControlName="cfUtenteAssegn">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let assegnatario of assegnatarioList" [value]="assegnatario.codicefiscale">
+              {{assegnatario.cognome}} {{assegnatario.nome}} ({{assegnatario.codicefiscale}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Data creazione DA</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dtCreazioneDa">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Data creazione A</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="dtCreazioneA">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Data conclusione DA</mat-label>
+          <input matInput [matDatepicker]="picker3" formControlName="dtConclusioneDa">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Data conclusione A</mat-label>
+          <input matInput [matDatepicker]="picker4" formControlName="dtConclusioneA">
+          <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+          <mat-datepicker #picker4></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Stato ispezione</mat-label>
+          <mat-select formControlName="fkStatoIspezione">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let stato of statoIspezioneList" [value]="stato.idStatoIspezione">
+              {{stato.desStatoIspezione}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Esito ispezione</mat-label>
+          <mat-select formControlName="flgEsito">
+            <mat-option></mat-option>
+            <mat-option [value]="1">POSITIVO</mat-option>
+            <mat-option [value]="0">NEGATIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Codice impianto</mat-label>
+          <input matInput formControlName="codiceImpianto" type="number">
+        </mat-form-field>
+        <mat-checkbox formControlName="nonAssegnato">Non assegnato</mat-checkbox>
+        <mat-form-field>
+          <mat-label>Provincia competenza</mat-label>
+          <mat-select formControlName="istatProvCompetenza">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let provincia of provinciaList" [value]="provincia.codiceIstat.substring(0, 3)">
+              {{provincia.provincia}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Comune competenza</mat-label>
+          <mat-select formControlName="istatComuneCompetenza">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let comune of getComuneEstesoListByProvincia()" [value]="comune.codiceIstat">
+              {{comune.comune}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox formControlName="flgIspPagamento">Ispezione a pagamento</mat-checkbox>
+      </div>
+      <button mat-flat-button color="primary" class="cit-block-button">
+        <mat-icon>search</mat-icon>
+        CERCA
+      </button>
+    </form>
+  </mat-card>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto"></mat-spinner>
+  </ng-template>
+</div>

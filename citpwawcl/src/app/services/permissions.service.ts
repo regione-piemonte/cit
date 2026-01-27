@@ -22,4 +22,10 @@ export class PermissionsService {
     let ruolo = utenteLoggato.ruoloLoggato.ruolo;
     return ruolo && ruolo != "";
   }
+
+  isAccreditamentoEnabled(): boolean {
+    let utenteLoggato = this.authService.getCurrentUserFromSession();
+    let ruolo = utenteLoggato.ruoloLoggato.ruolo;
+    return ruolo && ruolo != "";
+  }
 }

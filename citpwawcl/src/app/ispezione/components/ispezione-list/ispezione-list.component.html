@@ -1,0 +1,45 @@
+<div class="cit-page-container">
+  <app-page-title>Risultato Ispezioni</app-page-title>
+  <app-breadcrumb label="Ricerca Ispezioni" [link]="['/', 'cerca-ispezioni']"></app-breadcrumb>
+  <app-role-info-box></app-role-info-box>
+  <app-alert-hook></app-alert-hook>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <p>Numero risultati trovati: {{ispezioneList.length}}</p>
+    <div class="cit-three-cols-grid" style="margin-bottom: 40px">
+      <mat-card *ngFor="let ispezione of ispezioneList">
+        <p>Identificativo: <strong>{{ispezione.idIspezione2018}}</strong></p>
+        <p>Ispett. assegnatario: <strong>{{ispezione.denomUtenteAssegn | orDash}} ({{ispezione.cfUtenteAssegn | orDash}})</strong></p>
+        <p>Secondo ispett.: <strong>{{ispezione.cfIspettoreSecondario}}</strong></p>
+        <p>Data creazione: <strong>{{ispezione.dtCreazione | date:'dd/MM/yyyy'}}</strong></p>
+        <p>Stato: <strong>{{getStatoIspezione(ispezione)?.desStatoIspezione}}</strong></p>
+        <p>Codice impianto: <strong>{{ispezione.codiceImpianto | zeroToNull | orDash}}</strong></p>
+        <p>Prov. competenza: <strong>{{getProvincia(ispezione)?.provincia}}</strong></p>
+        <p>Esito ispezione: <strong>{{getEsitoLabel(ispezione)}}</strong></p>
+        <p>Ispezione a pagamento: <strong>{{ispezione.flgIspPagamento ? 'Sì' : 'No'}}</strong></p>
+        <hr>
+        <button mat-button color="primary" [routerLink]="['/', 'dettaglio-ispezione', ispezione.idIspezione2018]">DETTAGLIO</button><br>
+        <ng-container *ngIf="ispezione.codiceImpianto">
+          <button *ngxPermissionsOnly="'COPERTINA_ISPEZIONE'" mat-button color="primary" (click)="downloadCopertinaIspezione(ispezione)">
+            <img src="assets/misc/word.svg" alt="" style="width: 24px; height: 24px">
+            Copertina ispezione
+          </button>
+        </ng-container><br>
+        <button *ngxPermissionsOnly="'LETTERA_AVVISO'" mat-button color="primary" (click)="downloadLetteraAvviso(ispezione)">
+          <img src="assets/misc/word.svg" alt="" style="width: 24px; height: 24px">
+          Lettera avviso
+        </button><br>
+        <button *ngxPermissionsOnly="'LETTERA_AVVISO_180_GIORNI'" mat-button color="primary" (click)="downloadLetteraAvviso180Gg(ispezione)">
+          <img src="assets/misc/word.svg" alt="" style="width: 24px; height: 24px">
+          Lettera avviso 180 giorni
+        </button>
+      </mat-card>
+    </div>
+    <button *ngxPermissionsOnly="'FILE_EXCEL'" mat-stroked-button color="primary" class="cit-block-button" (click)="downloadFileExcel()">
+      <img src="assets/misc/excel.svg" alt="" style="width: 24px; height: 24px">
+      Scarica dati in Excel (XLS)
+    </button>
+  </ng-container>
+  <ng-template #loadingTemplate>
+    <mat-spinner style="margin: 0 auto"></mat-spinner>
+  </ng-template>
+</div>

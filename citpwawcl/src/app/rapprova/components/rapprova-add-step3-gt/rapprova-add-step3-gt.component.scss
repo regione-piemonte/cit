@@ -1,0 +1,21 @@
+mat-form-field {
+  width: 100%;
+}
+
+mat-accordion {
+  display: block;
+  margin-bottom: 20px;
+}
+
+mat-radio-group {
+  display: block;
+  margin-bottom: 20px;
+
+  mat-radio-button {
+    margin-right: 100px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

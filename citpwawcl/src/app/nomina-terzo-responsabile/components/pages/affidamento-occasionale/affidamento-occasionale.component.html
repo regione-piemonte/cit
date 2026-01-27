@@ -1,0 +1,57 @@
+<div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div>
+        <app-title [title]="title" [subtitle]="subtitle"></app-title>
+        <app-back [title]="backTitile" (click)="back()">
+        </app-back>
+        <div style="width: 83%; margin: auto;">
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio && !noImpianto">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo"></app-role-header>
+        <app-impianto-header [datiImpianto]="datiImpianto" [redirect]="false" *ngIf="!noImpianto"></app-impianto-header>
+        <div class="wide-screen">
+            <div class="page-content" *ngIf="selezionaSubentro && !noImpianto">
+                <ng-container *ngIf="step === 0">
+                    <!-- SELEZIONA TIPO SUBENTRO -->
+                    <div id="buttonsAddManutentori">
+                        <mat-grid-list cols="6" rowHeight="2em">
+                            <div *ngFor="let key of Object.keys(datiSchedaManutentore)">
+                                <mat-grid-tile colspan="6" rowspan="2" *ngIf="datiSchedaManutentore[key].visible && checkValueManutentore(key)" >
+                                    <div class="left-elem">
+                                        <button mat-raised-button class="component-button"
+                                            (click)="addManutentori(key)">
+                                            <div class="interno primary-color">{{ datiSchedaManutentore[key].title }}
+                                                <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </mat-grid-tile>
+                            </div>
+                        </mat-grid-list>
+                    </div>
+                    <hr class="hr-separator">
+                </ng-container>
+
+                <ng-container *ngIf="step === 1">
+                  <mat-checkbox class="checkbox" (change)="selectAll($event)">
+                      TUTTE LE COMPONENTI
+                  </mat-checkbox><br><br>
+                  <ng-container *ngFor="let comp of componenti">
+                    <mat-checkbox class="checkbox" [(ngModel)]="comp.checked" [disabled]="comp.disabled ? comp.disabled : false">
+                        {{ comp?.sigla}}-{{ comp?.progressivo}}
+                        (Marca: {{getFabbricante(comp.fabbricante)?.descrizione | orDash}}, Modello: {{comp.modello | orDash}}, Matricola: {{comp.matricola | orDash}}, Potenza: {{comp.potenza | orDash}})
+                    </mat-checkbox><br><br>
+                  </ng-container>
+                  <button type="submit" mat-flat-button color="primary" class="cit-block-button" (click)="salva()"
+                      [disabled]="!anyoneSelected()">
+                      EFFETTUA DELEGA
+                  </button>
+                </ng-container>
+            </div>
+        </div>
+
+
+    </div>
+</div>

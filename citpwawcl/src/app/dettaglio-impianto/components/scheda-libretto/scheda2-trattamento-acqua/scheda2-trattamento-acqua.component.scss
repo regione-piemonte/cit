@@ -1,0 +1,70 @@
+.default-button {
+    width: 90%;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-wrapper {
+    margin-bottom: 10px;
+}
+
+.wide-card {
+    min-height: 7em;
+}
+
+.card-title {
+    text-align: left;
+}
+
+textarea {
+    height: 19px;
+}
+
+
+.annulla {
+    font-weight: bold;
+}
+
+.toggle-flex {
+    display: flex;
+    flex-direction: column !important;
+    text-align: left;
+
+    mat-slide-toggle {
+        margin-top: 5px;
+    }
+}
+
+
+.datiAggiuntivi {
+
+    display: flex;
+    flex-wrap: wrap;
+
+    @media screen and (min-width: 760px) {
+        mat-card {
+            padding: 10px;
+            width: 30%;
+        }
+
+        .datoAggiuntivo{
+            margin-left: 5px;
+            margin-right: 10px;
+        }
+    }
+
+    @media screen and (max-width: 760px) {
+        mat-card {
+            padding: 10px;
+            width: 100%;
+        }
+        
+    }
+}
+
+.icon-delete{
+    color:#b8191a;
+}

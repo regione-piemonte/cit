@@ -1,0 +1,40 @@
+<mat-card class="card mat-elevation-z8">
+    <div class="content" style="border-bottom: 1px solid #ccc; font-size: 12px;"
+        *ngIf="!!documento.dataControllo || !!documento.statoREE || !!documento.tipoComponente">
+        <p>Data controllo: <span class="right-align" *ngIf="!!documento.dataControllo">{{
+                documento.dataControllo | date:'dd/MM/yyyy' }}</span></p>
+        <p>Stato controllo: <span class="right-align">{{ documento.descrizioneStatoRee }}</span></p>
+        <p>Elenco apparecchiature: <span class="right-align">{{ documento.tipoComponente }}</span>
+        </p>
+    </div>
+    <div class="content">
+        <p>Data di aggiunta: <span class="right-align" *ngIf="!!documento.dataUpload">{{
+                documento.dataUpload | date:'dd/MM/yyyy' }}</span></p>
+        <p>
+            Nome:
+            <span class="right-align" *ngIf="documento.nomeDoc.length > maxDocumentoLengthForPipe"
+                [matTooltip]="documento.nomeDoc" matTooltipPosition="above">{{ documento.nomeDoc |
+                nomeDocPipe:maxDocumentoLengthForPipe }}</span>
+            <span class="right-align" *ngIf="documento.nomeDoc.length <= maxDocumentoLengthForPipe">{{ documento.nomeDoc
+                }}</span>
+        </p>
+        <p>Descrizione: <span class="right-align">{{ documento.descrizione }}</span></p>
+        <p>
+            Stato:
+            <span class="right-align" [ngStyle]="{ 'color': documento.stato == statoDoc.ATTIVO? 'green': 'red' }">{{
+                documento.stato }}</span>
+        </p>
+    </div>
+    <div class="footer">
+        <button mat-button [color]="'primary'" class="modify" [ngClass]="{ 'pdf-icon': documento.isPdf }"
+            (click)="download(documento.uidIndex, documento.stato, documento.nomeDoc)">
+            <img style="width: 34px;" [ngStyle]="{ 'height.px': documento.isPdf? 28: 34 }"
+                [src]="documento.isPdf? PDF_SVG: IMG_SVG" alt="icon download">
+            <span class="link-download" style="text-decoration: none !important;">{{
+                documento.isPdf? 'Documento': 'Immagine' }} {{
+                documento.mimeType }}</span>
+        </button>
+        <mat-icon *ngIf="documento.stato != statoDoc.CANCELLATO" class="icon-delete"
+            (click)="delete(documento.uidIndex)">delete</mat-icon>
+    </div>
+</mat-card>

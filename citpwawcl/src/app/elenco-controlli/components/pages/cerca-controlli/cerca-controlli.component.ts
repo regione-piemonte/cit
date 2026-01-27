@@ -1,5 +1,6 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TipoDoc } from 'src/app/enums/tipo-doc-enum';
@@ -41,6 +42,8 @@ export class CercaControlliComponent implements OnInit, OnDestroy {
 
   isSearchOk = false;
 
+  colBreakpoint1: NumberInput;
+
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -57,6 +60,8 @@ export class CercaControlliComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 12 : 3;
+
     this.risultato = undefined;
 
     this.controlloService.getOnlineSubject().subscribe((elem) => {
@@ -80,8 +85,13 @@ export class CercaControlliComponent implements OnInit, OnDestroy {
     new CodiceDescrizione("2", "Rapporto di Efficienza Energetica")];
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 12 : 3;
+  }
 
   ngOnDestroy(): void {
+    //Not Implemented
   }
 
   myFilter = (d: Date | null): boolean => {

@@ -1,0 +1,91 @@
+<div id="popup" class="ol-popup">
+    <div href="#" id="popup-closer" class="ol-popup-closer" (click)="closePopup()" [title]="'Chiudi identify'"></div>
+    <div id="popup-content" *ngIf="featureList[selectedFeatureId]">
+        <div class="popup-actions">
+            <button class="zoom-to-btn" (click)="goToFeature(featureList[selectedFeatureId])" [title]="'Zoom al punto selezionato'" [disabled]="!featureList[selectedFeatureId].get('zoomTo')">
+                <img src="assets\zoom-in.svg" alt="" height="15"> Vai al punto
+            </button>
+            <!--div class="switch-feature">
+                <button (click)="selectedFeatureId = selectedFeatureId-1" [disabled]="(selectedFeatureId + 1) === 1" [title]="'Punto precedente'"> < </button>
+                {{selectedFeatureId + 1}} di {{featureList.length}}
+                <button (click)="selectedFeatureId = selectedFeatureId+1" [disabled]="(selectedFeatureId + 1) === featureList.length" [title]="'Prossimo punto'"> > </button>
+            </div-->
+        </div>
+        <div class="grid-container" *ngIf="featureList[selectedFeatureId]">
+            <!--div class="layer-name">{{featureList[selectedFeatureId].get('layerName')}}</div-->
+            <table *ngIf="featureList[selectedFeatureId].get('layerName') == 'Impianti termici'" role="presentation">
+                <tbody>
+                    <ng-container *ngIf="featureList[selectedFeatureId]">
+                       <ng-container *ngFor="let key of featureList[selectedFeatureId].getKeys()">
+                            <tr *ngIf="key == 'Codice impianto'">
+                                <td class="table-custom-td">{{key}}</td>
+                                <td class="table-custom-td">{{featureList[selectedFeatureId].get(key)}}</td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngFor="let key of featureList[selectedFeatureId].getKeys()">
+                            <tr *ngIf="key == 'Comune'">
+                                <td class="table-custom-td">{{key}}</td>
+                                <td class="table-custom-td">{{featureList[selectedFeatureId].get(key)}}</td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngFor="let key of featureList[selectedFeatureId].getKeys()">
+                            <tr *ngIf="key == 'Indirizzo'">
+                                <td class="table-custom-td">{{key}}</td>
+                                <td class="table-custom-td">{{featureList[selectedFeatureId].get('Indirizzo')}} {{featureList[selectedFeatureId].get('Civico')}}</td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngFor="let key of featureList[selectedFeatureId].getKeys()">
+                            <tr *ngIf="key == 'Provincia'">
+                                <td class="table-custom-td">{{key}}</td>
+                                <td class="table-custom-td">{{getProvinciaBySiglaProvincia(featureList[selectedFeatureId].get(key))}}</td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngFor="let key of featureList[selectedFeatureId].getKeys()">
+                            <tr *ngIf="key == 'Responsabile CF'">
+                                <td class="table-custom-td">{{key}}</td>
+                                <td class="table-custom-td">{{featureList[selectedFeatureId].get(key)}}</td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngFor="let key of featureList[selectedFeatureId].getKeys()">
+                            <tr *ngIf="key == 'Responsabile'">
+                                <td class="table-custom-td">{{key}}</td>
+                                <td class="table-custom-td">{{featureList[selectedFeatureId].get(key)}}</td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngFor="let key of featureList[selectedFeatureId].getKeys()">
+                            <tr *ngIf="key == 'Stato'">
+                                <td class="table-custom-td">{{key}}</td>
+                                <td class="table-custom-td">{{featureList[selectedFeatureId].get(key)}}</td>
+                            </tr>
+                        </ng-container>
+                        </ng-container>
+                        </tbody>
+                        </table>
+                            <ng-container *ngFor="let key of featureList[selectedFeatureId].getKeys()">
+                                <div *ngIf="key == 'linkDettaglio'">
+                                    <div style="margin-left: 20%; margin-right:20%" class="table-custom-td">
+                                        <a [href]="featureList[selectedFeatureId].get(key)" target="_self" class="button-link">
+                                            Seleziona
+                                        </a>
+                                    </div>
+                                </div>
+                            </ng-container>
+            <table *ngIf="featureList[selectedFeatureId].get('layerName') != 'Impianti termici'" role="presentation">
+                <tbody>
+                    <ng-container *ngIf="featureList[selectedFeatureId]">
+                        <ng-container *ngFor="let key of featureList[selectedFeatureId].getKeys()">
+                            <!-- Does not show attribute called geometry, layerName and zoomTo -->
+                            <tr *ngIf="key !== 'geometry' && key !== 'layerName' && key !== 'zoomTo'">
+                                <td>{{key}}</td>
+                                <td *ngIf="!checkIfIsUrl(featureList[selectedFeatureId].get(key)); else urlBlock">{{featureList[selectedFeatureId].get(key)}}</td>
+                                <ng-template #urlBlock>
+                                    <td><a [href]="featureList[selectedFeatureId].get(key)" target="_blank">{{featureList[selectedFeatureId].get(key)}}</a></td>
+                                </ng-template>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

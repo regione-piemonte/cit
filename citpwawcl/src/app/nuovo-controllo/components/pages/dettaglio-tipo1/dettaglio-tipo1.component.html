@@ -1,1038 +1,1081 @@
-<app-message-box [titolo]="'ATTENZIONE'" [descrizione]="'Sei offline, alcune operazioni potrebbero essere interdette'"
-    [type]="1" [ngClass]="{'online':!offline}">
-</app-message-box>
-<form [formGroup]="insertForm" (ngSubmit)="onSubmit()" id="insertForm">
-    <mat-card class="card mat-elevation-z8">
-        <mat-grid-list cols="2" rowHeight="2em">
-            <mat-grid-tile rowspan="2">
-                <mat-form-field class="form-field">
-                    <input matInput [formControlName]="'dataControllo'" placeholder="Data controllo">
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile rowspan="2">
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2" rowspan="2">
-                <mat-form-field class="form-field">
-                    <input matInput [formControlName]="'tipoControllo'" placeholder="Tipo controllo">
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile rowspan="2" colspan="2">
-                <mat-form-field class="form-field">
-                    <input matInput [formControlName]="'ree'" placeholder="REE">
-                </mat-form-field>
-            </mat-grid-tile>
-        </mat-grid-list>
-    </mat-card>
-
-    <!-- SEZIONE A -->
-    <mat-accordion formGroupName="datiIdentificativi">
-        <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 0" (opened)="setStep(0)"
-            hideToggle>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <span class="panel-title">A - Dati identificativi</span>
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-grid-list cols="2" rowHeight="2em">
-                <mat-grid-tile colspan="2" rowspan="2">
+<div class="wide-screen">
+    <mat-grid-list cols="12" rowHeight="3em" gutterSize="15px">
+        <mat-grid-tile colspan="1" rowspan="2"></mat-grid-tile>
+        <mat-grid-tile colspan="10" rowspan="2">
+        <app-message-box [titolo]="'ATTENZIONE'"
+            [descrizione]="'Sei offline, alcune operazioni potrebbero essere interdette'" [type]="1"
+            [ngClass]="{'online':!offline}">
+        </app-message-box>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="2"></mat-grid-tile>
+    </mat-grid-list> 
+    <form [formGroup]="insertForm" (ngSubmit)="onSubmit()" id="insertForm">
+        <mat-card class="card mat-elevation-z8">
+            <mat-grid-list cols="12" rowHeight="2em" gutterSize="15px">
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
                     <mat-form-field class="form-field">
-                        <input matInput [formControlName]="'potenzaTermica'"
-                            placeholder="Potenza termica nominale totale max (KW)" type="number">
-                        <mat-error
-                            *ngIf="insertForm.get('datiIdentificativi.potenzaTermica').errors?.['erroreFormatoDecimale']">
-                            {{insertForm.get('datiIdentificativi.potenzaTermica').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                        <input matInput [formControlName]="'dataControllo'" placeholder="Data controllo">
+                    </mat-form-field>
+                </mat-grid-tile> 
+                <mat-grid-tile [colspan]="colBreakpoint2" rowspan="2">
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                    <mat-form-field class="form-field">
+                        <input matInput [formControlName]="'tipoControllo'" placeholder="Tipo controllo">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                    <mat-form-field class="form-field">
+                        <input matInput [formControlName]="'ree'" placeholder="REE">
                     </mat-form-field>
                 </mat-grid-tile>
             </mat-grid-list>
-        </mat-expansion-panel>
-    </mat-accordion>
+        </mat-card>
 
-    <!-- SEZIONE B -->
-    <mat-accordion formGroupName="docTecnica">
-        <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 1" (opened)="setStep(1)"
-            hideToggle>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <span class="panel-title">B - Doc tecnica e corredo</span>
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-grid-list cols="2" rowHeight="2em">
-                <mat-grid-tile colspan="2" rowspan="2">
-                    <div class="label-tile">
-                        <mat-label>Dichiarazione di conformità presente*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <div class="left-elem">
-                        <section>
-                            <mat-slide-toggle color="primary" class="toggle"
-                                [formControlName]="'dichiarazioneDiConformita'">
-                                Si
-                            </mat-slide-toggle>
-                        </section>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile></mat-grid-tile>
-
-                <mat-grid-tile colspan="2">
-                    <div class="label-tile">
-                        <mat-label>Libretto impianto presente*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <div class="left-elem">
-                        <section>
-                            <mat-slide-toggle color="primary" class="toggle" [formControlName]="'librettoPresente'">
-                                Si
-                            </mat-slide-toggle>
-                        </section>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile></mat-grid-tile>
-
-                <mat-grid-tile colspan="2">
-                    <div class="label-tile">
-                        <mat-label>Libretti uso/manutenzione generatore presenti*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <div class="left-elem">
-                        <section>
-                            <mat-slide-toggle color="primary" class="toggle" [formControlName]="'librettoUso'">
-                                Si
-                            </mat-slide-toggle>
-                        </section>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile></mat-grid-tile>
-
-                <mat-grid-tile colspan="2">
-                    <div class="label-tile">
-                        <mat-label>Libretto compilato in tutte le sue parti</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <div class="left-elem">
-                        <section>
-                            <mat-slide-toggle color="primary" class="toggle" [formControlName]="'librettoCompilato'">
-                                Si
-                            </mat-slide-toggle>
-                        </section>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile></mat-grid-tile>
-            </mat-grid-list>
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <!-- SEZIONE C -->
-    <mat-accordion formGroupName="trattamentoAcqua">
-        <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 2" (opened)="setStep(2)"
-            hideToggle>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <span class="panel-title">C - Trattamento dell'acqua</span>
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-grid-list cols="2" rowHeight="2em">
-                <mat-grid-tile colspan="2" rowspan="2">
-                    <mat-form-field class="form-field">
-                        <input matInput [formControlName]="'durezza'" placeholder="Durezza totale dell’acqua (°fr)">
-                    </mat-form-field>
-                </mat-grid-tile>
-
-                <mat-grid-tile colspan="2" rowspan="2">
-                    <mat-form-field class="form-field">
-                        <input matInput [formControlName]="'trattamentoRiscaldamento'"
-                            placeholder="Trattamento in riscaldamento">
-                    </mat-form-field>
-                </mat-grid-tile>
-
-                <mat-grid-tile colspan="2">
-                    <div class="label-tile">
-                        <mat-label
-                            [ngClass]="{'error':insertForm.get('trattamentoAcqua.richiestoRiscaldamento').errors?.['nonRichiesto']}">Richiesto*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <div class="left-elem">
-                        <section>
-                            <mat-slide-toggle color="primary" class="toggle"
-                                [formControlName]="'richiestoRiscaldamento'">
-                                Si
-                            </mat-slide-toggle>
-                        </section>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile></mat-grid-tile>
-                <mat-grid-tile colspan="2" rowspan="2">
-                    <div class="left-elem">
-                        <p *ngIf="insertForm.get('trattamentoAcqua.richiestoRiscaldamento').errors?.['nonRichiesto']"
-                            class="error">"Richiesto" obbligatorio a NO nel caso in cui non sia stato indicato nulla
-                            nella scheda 2 del libretto</p>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile colspan="2" rowspan="2">
-                    <mat-form-field class="form-field">
-                        <input matInput [formControlName]="'acs'" placeholder="Trattamento in ACS">
-                    </mat-form-field>
-                </mat-grid-tile>
-
-                <mat-grid-tile colspan="2">
-                    <div class="label-tile">
-                        <mat-label
-                            [ngClass]="{'error':insertForm.get('trattamentoAcqua.richiestoAcs').errors?.['nonRichiesto']}">Richiesto*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <div class="left-elem">
-                        <section>
-                            <mat-slide-toggle color="primary" class="toggle" [formControlName]="'richiestoAcs'">
-                                Si
-                            </mat-slide-toggle>
-                        </section>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile></mat-grid-tile>
-                <mat-grid-tile colspan="2" rowspan="2">
-                    <div class="left-elem">
-                        <p *ngIf="insertForm.get('trattamentoAcqua.richiestoAcs').errors?.['nonRichiesto']"
-                            class="error">"Richiesto" obbligatorio a NO nel caso in cui non sia stato indicato nulla
-                            nella scheda 2 del libretto</p>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <!-- SEZIONE D -->
-    <mat-accordion formGroupName="controlloImpianto">
-        <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 3" (opened)="setStep(3)"
-            hideToggle>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <span class="panel-title">D - Controllo dell'impianto</span>
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-grid-list cols="3" rowHeight="2em">
-                <mat-grid-tile colspan="3">
-                    <div class="label-tile">
-                        <mat-label>Per installazione interna: in locale idoneo*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-radio-group [formControlName]="'instInterna'">
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="1">SI</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="0">NO</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="2">NC</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                </mat-radio-group>
-
-                <mat-grid-tile colspan="3">
-                    <div class="label-tile">
-                        <mat-label>Per installazione esterna: generatori idonei*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-radio-group [formControlName]="'instEsterna'">
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="1">SI</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="0">NO</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="2">NC</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                </mat-radio-group>
-
-                <mat-grid-tile colspan="3">
-                    <div class="label-tile">
-                        <mat-label>Aperture ventilazione/aerazione libere da ostruzioni*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-radio-group [formControlName]="'aperture'">
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="1">SI</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="0">NO</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="2">NC</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                </mat-radio-group>
-
-                <mat-grid-tile colspan="3">
-                    <div class="label-tile">
-                        <mat-label>Adeguate dimensioni aperture di ventilazione/aerazione*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-radio-group [formControlName]="'adeguateDim'">
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="1">SI</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="0">NO</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="2">NC</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                </mat-radio-group>
-
-                <mat-grid-tile colspan="3">
-                    <div class="label-tile">
-                        <mat-label>Canale da fumo o condotti di scarico idonei (esame visivo)*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-radio-group [formControlName]="'canaleFumo'">
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="1">SI</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="0">NO</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button value="2">NC</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                </mat-radio-group>
-
-                <mat-grid-tile colspan="3">
-                    <div class="label-tile">
-                        <mat-label>Sistema di regolazione temperatura ambiente funzionante*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-radio-group [formControlName]="'tempAmbiente'">
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="1">SI</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="0">NO</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="2">NC</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                </mat-radio-group>
-
-                <mat-grid-tile colspan="3">
-                    <div class="label-tile">
-                        <mat-label>Assenza di perdite di combustibile liquido*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-radio-group [formControlName]="'assenzePerdite'">
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="1">SI</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="0">NO</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="2">NC</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                </mat-radio-group>
-
-
-                <mat-grid-tile colspan="3">
-                    <div class="label-tile">
-                        <mat-label>Idonea tenuta dell’impianto interno e raccordi con il generatore*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-radio-group [formControlName]="'idoneaTenuta'">
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="1">SI</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="0">NO</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            <mat-radio-button [value]="2">NC</mat-radio-button>
-                        </div>
-                    </mat-grid-tile>
-                </mat-radio-group>
-            </mat-grid-list>
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <!-- SEZIONE E -->
-    <div formGroupName="controlloEnergetico">
-        <mat-accordion *ngFor="let ener of insertForm['controls'].controlloEnergetico['controls']">
-            <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 4" (opened)="setStep(4)"
-                hideToggle [formGroup]="ener">
-                <mat-expansion-panel-header>
-                    <mat-panel-title class="title-e">
-                        <div class="panel-title">
-                            <span>E - Controllo e verifica energetica del gruppo termico</span>
-                        </div>
+        <!-- SEZIONE A -->
+        <mat-accordion formGroupName="datiIdentificativi">
+            <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 0" (opened)="setStep(0)">
+                <mat-expansion-panel-header class="expansion-header-margin">
+                    <mat-panel-title>
+                        <span class="panel-title">A - Dati identificativi</span>
                     </mat-panel-title>
-                    <mat-panel-description class="desc-e">
-                        <div class="panel-title">{{ener['controls'].comp.value}}</div>
-                    </mat-panel-description>
                 </mat-expansion-panel-header>
-                <mat-grid-list cols="3" rowHeight="2em">
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            Componente:
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="2">
-                        <div class="right-elem def-elem">
-                            <mat-form-field class="form-field">
-                                <input matInput [formControlName]="'comp'">
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile rowspan="2">
-                        <div class="left-elem">
-                            Data installazione:
-                        </div>
-                    </mat-grid-tile>
+                <mat-grid-list cols="2" rowHeight="2em">
                     <mat-grid-tile colspan="2" rowspan="2">
-                        <div class="right-elem def-elem">
-                            <mat-form-field class="form-field">
-                                <input matInput [formControlName]="'dataInstall'">
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            Fabbricante:
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="2">
-                        <div class="right-elem def-elem">
-                            <mat-form-field class="form-field">
-                                <input matInput [formControlName]="'fabbricante'">
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            Modello:
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="2">
-                        <div class="right-elem def-elem">
-                            <mat-form-field class="form-field">
-                                <input matInput [formControlName]="'modello'">
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            Matricola:
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="2">
-                        <div class="right-elem def-elem">
-                            <mat-form-field class="form-field">
-                                <input matInput [formControlName]="'matricola'">
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile>
-                        <div class="left-elem">
-                            Tipo:
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="2">
-                        <div class="right-elem def-elem">
-                            <mat-form-field class="form-field">
-                                <input matInput [formControlName]="'tipo'">
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile rowspan="2">
-                        <div class="left-elem">
-                            Pot. termica nominale utile (Kw):
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="2" rowspan="2">
-                        <div class="right-elem def-elem">
-                            <mat-form-field class="form-field">
-                                <input matInput [formControlName]="'potTermicaKw'">
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile colspan="3" rowspan="3">
                         <mat-form-field class="form-field">
-                            <input matInput placeholder="Pot. termica nominale max al focolare (Kw)"
-                                [formControlName]="'potTermica'" type="number">
-                                <mat-error *ngIf="ener.get('potTermica').errors?.['erroreFormatoDecimale']">
-                                    {{ener.get('potTermica').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                        </mat-form-field>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile colspan="3" rowspan="3">
-                        <mat-form-field class="form-field">
-                            <mat-select placeholder="Modalità evacuazione fumi" [formControlName]="'modEvaquazioneFumi'"
-                                (selectionChange)="selectEvacFumi($event,ener)">
-                                <mat-option value="N">Naturale</mat-option>
-                                <mat-option value="F">Forzata</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile colspan="3" rowspan="1">
-                        <div class="left-elem">
-                            <mat-checkbox [formControlName]="'climaInvernale'" class="checkbox"></mat-checkbox>
-                            <mat-label
-                                [ngClass]="{'error':ener.errors?.['checkboxCheck'] && (ener['controls'].climaInvernale.touched ||ener['controls'].prodAcs.touched)}">Climatizzazione
-                                invernale</mat-label>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="3" rowspan="1">
-                        <div class="left-elem">
-                            <mat-checkbox [formControlName]="'prodAcs'" class="checkbox"></mat-checkbox>
-                            <mat-label
-                                [ngClass]="{'error':ener.errors?.['checkboxCheck'] && (ener['controls'].climaInvernale.touched ||ener['controls'].prodAcs.touched)}">Produzione
-                                ACS</mat-label>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="3" rowspan="2">
-                        <div class="left-elem">
+                            <input matInput [formControlName]="'potenzaTermica'"
+                                placeholder="Potenza termica nominale totale max (KW)" type="number">
                             <mat-error
-                                *ngIf="ener.errors?.['checkboxCheck'] && (ener['controls'].climaInvernale.touched ||ener['controls'].prodAcs.touched)">Selezionare
-                                almeno una voce</mat-error>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="3" rowspan="2">
-                        <div class="left-elem">
-                            <mat-label>Depressione del canale da fumo (indicare solo per generatori a tiraggio naturale.
-                                Utilizzare UNI 10845)(Pa)</mat-label>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="3" rowspan="3">
-                        <mat-form-field class="form-field">
-                            <mat-label>Depressione del canale da fumo (indicare solo per generatori a tiraggio naturale.
-                                Utilizzare UNI 10845)(Pa)</mat-label>
-                            <input matInput [formControlName]="'depressCanaleFumo'" type="number">
-                            <mat-error
-                                *ngIf="ener['controls'].depressCanaleFumo.errors?.required && ener['controls'].depressCanaleFumo.touched">Obbligatorio
-                                se "Modalità evaquazione fumi" è naturale</mat-error>
-                            <mat-error *ngIf="ener.get('depressCanaleFumo').errors?.['erroreFormatoDecimale'] && ener['controls'].depressCanaleFumo.touched">
-                                {{ener.get('depressCanaleFumo').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                        </mat-form-field>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile colspan="3" rowspan="3">
-                        <mat-form-field class="form-field">
-                            <mat-label>Combustibile</mat-label>
-                            <input matInput [formControlName]="'combustibile'">
-                        </mat-form-field>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile colspan="3">
-                        <div class="label-tile">
-                            <mat-label>Disp. Comando e regolazione funzionanti correttamente*</mat-label>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-radio-group [formControlName]="'dispComando'">
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="1">SI</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="0">NO</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="2">NC</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                    </mat-radio-group>
-
-                    <mat-grid-tile colspan="3">
-                        <div class="label-tile">
-                            <mat-label>Disp. Sicurezza non manomessi e/o cortocircuitati*</mat-label>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-radio-group [formControlName]="'dispSicurezza'">
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="1">SI</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="0">NO</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="2">NC</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                    </mat-radio-group>
-
-                    <mat-grid-tile colspan="3">
-                        <div class="label-tile">
-                            <mat-label>Valvola di sicurezza alla sovrapressione a scarico libero*</mat-label>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-radio-group [formControlName]="'valvSicurezza'">
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="1">SI</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="0">NO</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="2">NC</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                    </mat-radio-group>
-
-                    <mat-grid-tile colspan="3">
-                        <div class="label-tile">
-                            <mat-label>Controllato e pulito lo scambiatore lato fumi*</mat-label>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-radio-group [formControlName]="'controllatoEPulito'">
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="1">SI</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="0">NO</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="2">NC</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                    </mat-radio-group>
-
-                    <mat-grid-tile colspan="3">
-                        <div class="label-tile">
-                            <mat-label>Presenza riflusso dei prodotti della combustione*</mat-label>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-radio-group [formControlName]="'presenzaRiflusso'">
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="1">SI</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="0">NO</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="2">NC</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                    </mat-radio-group>
-
-                    <mat-grid-tile colspan="3">
-                        <div class="label-tile">
-                            <mat-label>Risultati controllo, secondo UNI 10389-2, conformi alla legge*</mat-label>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-radio-group [formControlName]="'risControllo'">
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="1">SI</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="0">NO</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <div class="left-elem">
-                                <mat-radio-button [value]="2">NC</mat-radio-button>
-                            </div>
-                        </mat-grid-tile>
-                    </mat-radio-group>
-
-                    <mat-grid-tile colspan="3" rowspan="3">
-                        <mat-form-field class="form-field">
-                            <mat-label>Altro riferimento normativo</mat-label>
-                            <input matInput [formControlName]="'altroRif'">
-                            <mat-error *ngIf="ener.get('altroRif').errors?.maxlength">Limite caratteri
-                                raggiunto</mat-error>
+                                *ngIf="insertForm.get('datiIdentificativi.potenzaTermica').errors?.['erroreFormatoDecimale']">
+                                {{insertForm.get('datiIdentificativi.potenzaTermica').errors?.['erroreFormatoDecimale'].value}}</mat-error>
                         </mat-form-field>
                     </mat-grid-tile>
                 </mat-grid-list>
-                <mat-tab-group formGroupName="elencoModuli">
-                    <mat-tab *ngFor="let modulo of ener['controls'].elencoModuli['controls']; 
-                let i = index" [label]="'Modulo '+(i+1)">
-                        <mat-grid-list cols="3" rowHeight="2em" [formGroup]="modulo">
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>Temperatura fumi (°C)</mat-label>
-                                    <input matInput [formControlName]="'temperaturaFumi'" type="number">
-                                    <mat-error *ngIf="modulo.get('temperaturaFumi').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('temperaturaFumi').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>Temperatura aria comburente (°C)</mat-label>
-                                    <input matInput [formControlName]="'temperaturaAria'" type="number">
-                                    <mat-error *ngIf="modulo.get('temperaturaAria').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('temperaturaAria').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>O2 %</mat-label>
-                                    <input matInput [formControlName]="'o2'" type="number">
-                                    <mat-error *ngIf="modulo.get('o2').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('o2').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>CO2 %</mat-label>
-                                    <input matInput [formControlName]="'co2'" type="number">
-                                    <mat-error *ngIf="modulo.get('co2').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('co2').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>Bacharach volume 1</mat-label>
-                                    <input matInput [formControlName]="'bacharach1'" type="number">
-                                    <mat-error *ngIf="modulo.get('bacharach1').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('bacharach1').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>Bacharach volume 2</mat-label>
-                                    <input matInput [formControlName]="'bacharach2'" type="number">
-                                    <mat-error *ngIf="modulo.get('bacharach2').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('bacharach2').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>Bacharach volume 3</mat-label>
-                                    <input matInput [formControlName]="'bacharach3'" type="number">
-                                    <mat-error *ngIf="modulo.get('bacharach3').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('bacharach3').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>CO corretto (ppm)</mat-label>
-                                    <input matInput [formControlName]="'coCorretto'" type="number">
-                                    <mat-error *ngIf="modulo.get('coCorretto').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('coCorretto').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>rendimento di combustione % (riportare il valore letto maggiorato dei 2
-                                        punti previsti dalla normativa UNI 10389-1)</mat-label>
-                                    <input matInput [formControlName]="'rendimentoCombustione'" type="number">
-                                    <mat-error
-                                        *ngIf="modulo.get('rendimentoCombustione').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('rendimentoCombustione').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>rendimento minimo di legge % (riportare il valore limite previsto per il
-                                        gruppo termico analizzato)</mat-label>
-                                    <input matInput [formControlName]="'rendimentoMinimoLegge'" type="number">
-                                    <mat-error
-                                        *ngIf="modulo.get('rendimentoMinimoLegge').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('rendimentoMinimoLegge').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>NOX (mg/kWh) (al 3% di ossigeno)</mat-label>
-                                    <input matInput [formControlName]="'noxKw'" type="number">
-                                    <mat-error *ngIf="modulo.get('noxKw').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('noxKw').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-select placeholder="Portata combustibile UM"
-                                        [formControlName]="'portataCombu'">
-                                        <mat-option value="m3/h">m3/h</mat-option>
-                                        <mat-option value="Kg/h">Kg/h</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>Portata combustibile</mat-label>
-                                    <input matInput [formControlName]="'valorePortata'" type="number">
-                                    <mat-error *ngIf="modulo.get('valorePortata').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('valorePortata').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3" rowspan="3">
-                                <mat-form-field class="form-field">
-                                    <mat-label>CO nei fumi secchi (ppm v/v)</mat-label>
-                                    <input matInput [formControlName]="'fumiSecchi'" type="number">
-                                    <mat-error *ngIf="modulo.get('fumiSecchi').errors?.['erroreFormatoDecimale']">
-                                        {{modulo.get('fumiSecchi').errors?.['erroreFormatoDecimale'].value}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile colspan="3">
-                                <div class="label-tile">
-                                    <mat-label>Rispetta l’indice Bacharach</mat-label>
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile>
-                                <div class="left-elem">
-                                    <section>
-                                        <mat-slide-toggle color="primary" class="toggle"
-                                            [formControlName]="'rispettoIndBacharach'">
-                                            Si
-                                        </mat-slide-toggle>
-                                    </section>
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile></mat-grid-tile>
-
-                            <mat-grid-tile colspan="3">
-                                <div class="label-tile">
-                                    <mat-label>nc >= n minimo</mat-label>
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile>
-                                <div class="left-elem">
-                                    <section>
-                                        <mat-slide-toggle color="primary" class="toggle" [formControlName]="'minimo'">
-                                            Si
-                                        </mat-slide-toggle>
-                                    </section>
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile></mat-grid-tile>
-                        </mat-grid-list>
-                    </mat-tab>
-                </mat-tab-group>
             </mat-expansion-panel>
         </mat-accordion>
-    </div>
-    <!-- SEZIONE F -->
-    <mat-accordion formGroupName="checkList">
-        <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 5" (opened)="setStep(5)"
-            hideToggle>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <span class="panel-title">F - Check list</span>
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-grid-list cols="2" rowHeight="2em">
-                <mat-grid-tile colspan="2" rowspan="4">
-                    Elenco di possibili interventi, dei quali va valutata la convenienza economica, che qualora
-                    applicabili all’impianto, potrebbero comportare un miglioramento della prestazione energetica:
-                </mat-grid-tile>
 
-                <mat-grid-tile colspan="2" rowspan="3">
-                    <div class="left-elem">
-                        <mat-checkbox [formControlName]="'adozioneValvole'" class="checkbox"></mat-checkbox>
-                        <mat-label>L’adozione di valvole termostatiche sui
-                            corpi
-                            scaldanti</mat-label>
-                    </div>
-                </mat-grid-tile>
+        <!-- SEZIONE B -->
+        <mat-accordion formGroupName="docTecnica">
+            <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 1" (opened)="setStep(1)">
+                <mat-expansion-panel-header class="expansion-header-margin">
+                    <mat-panel-title>
+                        <span class="panel-title">B - Doc tecnica e corredo</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-grid-list cols="12" rowHeight="2em">
+                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                        <div style="display: block;">
+                            <div class="label-tile">
+                                <mat-label>Dichiarazione di conformità presente*</mat-label>
+                            </div>
+                            <div class="left-elem">
+                                <section>
+                                    <mat-slide-toggle color="primary" class="toggle"
+                                        [formControlName]="'dichiarazioneDiConformita'">
+                                        Si
+                                    </mat-slide-toggle>
+                                </section>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
 
-                <mat-grid-tile colspan="2" rowspan="3">
-                    <div class="left-elem">
-                        <mat-checkbox [formControlName]="'isolamentoRete'" class="checkbox"></mat-checkbox>
-                        <mat-label>L’isolamento della rete di distribuzione nei locali non riscaldati</mat-label>
-                    </div>
-                </mat-grid-tile>
+                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                        <div style="display: block;">
+                            <div class="label-tile">
+                                <mat-label>Libretto impianto presente*</mat-label>
+                            </div>
+                            <div class="left-elem">
+                                <section>
+                                    <mat-slide-toggle color="primary" class="toggle"
+                                        [formControlName]="'librettoPresente'">
+                                        Si
+                                    </mat-slide-toggle>
+                                </section>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
 
-                <mat-grid-tile colspan="2" rowspan="3">
-                    <div class="left-elem">
-                        <mat-checkbox [formControlName]="'introduzioneSistemaTrattamento'" class="checkbox">
-                        </mat-checkbox>
-                        <mat-label>L’introduzione di un sistema di trattamento dell’acqua sanitaria e per riscaldamento,
-                            ove assente</mat-label>
-                    </div>
-                </mat-grid-tile>
+                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                        <div style="display: block;">
+                            <div class="label-tile">
+                                <mat-label>Libretti uso/manutenzione generatore presenti*</mat-label>
+                            </div>
+                            <div class="left-elem">
+                                <section>
+                                    <mat-slide-toggle color="primary" class="toggle" [formControlName]="'librettoUso'">
+                                        Si
+                                    </mat-slide-toggle>
+                                </section>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
 
-                <mat-grid-tile colspan="2" rowspan="3">
-                    <div class="left-elem">
-                        <mat-checkbox [formControlName]="'sostituzioneSistemaRegolazione'" class="checkbox">
-                        </mat-checkbox>
-                        <mat-label>La sostituzione di un sistema di regolazione on/off con un sistema programmabile su
-                            più livelli di temperatura</mat-label>
-                    </div>
-                </mat-grid-tile>
+                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                        <div style="display: block;">
+                            <div class="label-tile">
+                                <mat-label>Libretto compilato in tutte le sue parti</mat-label>
+                            </div>
+                            <div class="left-elem">
+                                <section>
+                                    <mat-slide-toggle color="primary" class="toggle"
+                                        [formControlName]="'librettoCompilato'">
+                                        Si
+                                    </mat-slide-toggle>
+                                </section>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile></mat-grid-tile>
+                </mat-grid-list>
+            </mat-expansion-panel>
+        </mat-accordion>
 
-                <mat-grid-tile colspan="2" rowspan="3">
-                    <mat-form-field class="form-field">
-                        <textarea matInput placeholder="Osservazioni" [formControlName]="'osservazioni'"></textarea>
-                        <mat-error *ngIf="insertForm.get('checkList.osservazioni').errors?.maxlength">Limite caratteri
-                            raggiunto</mat-error>
-                    </mat-form-field>
-                </mat-grid-tile>
+        <!-- SEZIONE C -->
+        <mat-accordion formGroupName="trattamentoAcqua">
+            <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 2" (opened)="setStep(2)">
+                <mat-expansion-panel-header class="expansion-header-margin">
+                    <mat-panel-title>
+                        <span class="panel-title">C - Trattamento dell'acqua</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-grid-list cols="12" rowHeight="2em" gutterSize="15px">
+                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                        <mat-form-field class="form-field">
+                            <input matInput [formControlName]="'durezza'" placeholder="Durezza totale dell’acqua (°fr)">
+                        </mat-form-field>
+                    </mat-grid-tile>
 
-                <mat-grid-tile colspan="2" rowspan="3">
-                    <mat-form-field class="form-field">
-                        <textarea matInput placeholder="Raccomandazioni"
-                            [formControlName]="'raccomandazioni'"></textarea>
-                            <mat-error *ngIf="insertForm.get('checkList.raccomandazioni').errors?.maxlength">Limite caratteri
+                    <mat-grid-tile [colspan]="colBreakpoint2" rowspan="2"></mat-grid-tile>
+
+                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                        <mat-form-field class="form-field">
+                            <input matInput [formControlName]="'trattamentoRiscaldamento'"
+                                placeholder="Trattamento in riscaldamento">
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                        <div style="display:block">
+                            <div class="label-tile">
+                                <mat-label
+                                    [ngClass]="{'error':insertForm.get('trattamentoAcqua.richiestoRiscaldamento').errors?.['nonRichiesto']}">Richiesto*</mat-label>
+                            </div>
+                            <div class="left-elem">
+                                <section>
+                                    <mat-slide-toggle color="primary" class="toggle"
+                                        [formControlName]="'richiestoRiscaldamento'">
+                                        Si
+                                    </mat-slide-toggle>
+                                </section>
+                            </div>
+                        </div>
+
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="12" rowspan="1">
+                        <div class="left-elem">
+                            <p *ngIf="insertForm.get('trattamentoAcqua.richiestoRiscaldamento').errors?.['nonRichiesto']"
+                                class="error">"Richiesto" obbligatorio a NO nel caso in cui non sia stato indicato nulla
+                                nella scheda 2 del libretto</p>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                        <mat-form-field class="form-field">
+                            <input matInput [formControlName]="'acs'" placeholder="Trattamento in ACS">
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                        <div style="display:block">
+                            <div class="label-tile">
+                                <mat-label
+                                    [ngClass]="{'error':insertForm.get('trattamentoAcqua.richiestoAcs').errors?.['nonRichiesto']}">Richiesto*</mat-label>
+                            </div>
+                            <div class="left-elem">
+                                <section>
+                                    <mat-slide-toggle color="primary" class="toggle" [formControlName]="'richiestoAcs'">
+                                        Si
+                                    </mat-slide-toggle>
+                                </section>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile colspan="12" rowspan="2">
+                        <div class="left-elem">
+                            <p *ngIf="insertForm.get('trattamentoAcqua.richiestoAcs').errors?.['nonRichiesto']"
+                                class="error">"Richiesto" obbligatorio a NO nel caso in cui non sia stato indicato nulla
+                                nella scheda 2 del libretto</p>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <!-- SEZIONE D -->
+        <mat-accordion formGroupName="controlloImpianto">
+            <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 3" (opened)="setStep(3)">
+                <mat-expansion-panel-header class="expansion-header-margin">
+                    <mat-panel-title>
+                        <span class="panel-title">D - Controllo dell'impianto</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-grid-list cols="3" rowHeight="2em">
+                    <mat-grid-tile colspan="3">
+                        <div class="label-tile">
+                            <mat-label>Per installazione interna: in locale idoneo*</mat-label>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-radio-group [formControlName]="'instInterna'">
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="1">SI</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="0">NO</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="2">NC</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-radio-group>
+
+                    <mat-grid-tile colspan="3">
+                        <div class="label-tile">
+                            <mat-label>Per installazione esterna: generatori idonei*</mat-label>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-radio-group [formControlName]="'instEsterna'">
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="1">SI</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="0">NO</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="2">NC</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-radio-group>
+
+                    <mat-grid-tile colspan="3">
+                        <div class="label-tile">
+                            <mat-label>Aperture ventilazione/aerazione libere da ostruzioni*</mat-label>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-radio-group [formControlName]="'aperture'">
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="1">SI</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="0">NO</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="2">NC</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-radio-group>
+
+                    <mat-grid-tile colspan="3">
+                        <div class="label-tile">
+                            <mat-label>Adeguate dimensioni aperture di ventilazione/aerazione*</mat-label>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-radio-group [formControlName]="'adeguateDim'">
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="1">SI</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="0">NO</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="2">NC</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-radio-group>
+
+                    <mat-grid-tile colspan="3">
+                        <div class="label-tile">
+                            <mat-label>Canale da fumo o condotti di scarico idonei (esame visivo)*</mat-label>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-radio-group [formControlName]="'canaleFumo'">
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="1">SI</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="0">NO</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="2">NC</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-radio-group>
+
+                    <mat-grid-tile colspan="3">
+                        <div class="label-tile">
+                            <mat-label>Sistema di regolazione temperatura ambiente funzionante*</mat-label>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-radio-group [formControlName]="'tempAmbiente'">
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="1">SI</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="0">NO</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="2">NC</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-radio-group>
+
+                    <mat-grid-tile colspan="3">
+                        <div class="label-tile">
+                            <mat-label>Assenza di perdite di combustibile liquido*</mat-label>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-radio-group [formControlName]="'assenzePerdite'">
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="1">SI</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="0">NO</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="2">NC</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-radio-group>
+
+
+                    <mat-grid-tile colspan="3">
+                        <div class="label-tile">
+                            <mat-label>Idonea tenuta dell’impianto interno e raccordi con il generatore*</mat-label>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-radio-group [formControlName]="'idoneaTenuta'">
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="1">SI</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="0">NO</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="left-elem">
+                                <mat-radio-button [value]="2">NC</mat-radio-button>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-radio-group>
+                    <mat-grid-tile colspan="2"></mat-grid-tile>
+                </mat-grid-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <!-- SEZIONE E -->
+        <div formGroupName="controlloEnergetico">
+            <mat-accordion *ngFor="let ener of insertForm['controls'].controlloEnergetico['controls']">
+                <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 4"
+                    (opened)="setStep(4)" [formGroup]="ener">
+                    <mat-expansion-panel-header class="expansion-header-margin">
+                        <mat-panel-title class="title-e">
+                            <div class="panel-title">
+                                <span>E - Controllo e verifica energetica del gruppo termico</span>
+                            </div>
+                        </mat-panel-title>
+                        <mat-panel-description class="desc-e">
+                            <div class="panel-title">{{ener['controls'].comp.value}}</div>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-grid-list cols="12" rowHeight="2em" gutterSize="15px">
+                        <mat-grid-tile colspan="4">
+                            <div class="left-elem">
+                                Componente:
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="8">
+                            <div class="right-elem def-elem">
+                                <mat-form-field class="form-field">
+                                    <input matInput [formControlName]="'comp'">
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile colspan="4" rowspan="2">
+                            <div class="left-elem">
+                                Data installazione:
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="8" rowspan="2">
+                            <div class="right-elem def-elem">
+                                <mat-form-field class="form-field">
+                                    <input matInput [formControlName]="'dataInstall'">
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile colspan="4">
+                            <div class="left-elem">
+                                Fabbricante:
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="8">
+                            <div class="right-elem def-elem">
+                                <mat-form-field class="form-field">
+                                    <input matInput [formControlName]="'fabbricante'">
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile colspan="4">
+                            <div class="left-elem">
+                                Modello:
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="8">
+                            <div class="right-elem def-elem">
+                                <mat-form-field class="form-field">
+                                    <input matInput [formControlName]="'modello'">
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile colspan="4">
+                            <div class="left-elem">
+                                Matricola:
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="8">
+                            <div class="right-elem def-elem">
+                                <mat-form-field class="form-field">
+                                    <input matInput [formControlName]="'matricola'">
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile colspan="4">
+                            <div class="left-elem">
+                                Tipo:
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="8">
+                            <div class="right-elem def-elem">
+                                <mat-form-field class="form-field">
+                                    <input matInput [formControlName]="'tipo'">
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile colspan="4" rowspan="2">
+                            <div class="left-elem">
+                                Pot. termica nominale utile (Kw):
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="8" rowspan="2">
+                            <div class="right-elem def-elem">
+                                <mat-form-field class="form-field">
+                                    <input matInput [formControlName]="'potTermicaKw'">
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                            <mat-form-field class="form-field">
+                                <input matInput placeholder="Pot. termica nominale max al focolare (Kw)"
+                                    [formControlName]="'potTermica'" type="number">
+                                <mat-error *ngIf="ener.get('potTermica').errors?.['erroreFormatoDecimale']">
+                                    {{ener.get('potTermica').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                            <mat-form-field class="form-field">
+                                <mat-select placeholder="Modalità evacuazione fumi"
+                                    [formControlName]="'modEvaquazioneFumi'"
+                                    (selectionChange)="selectEvacFumi($event,ener)">
+                                    <mat-option value="N">Naturale</mat-option>
+                                    <mat-option value="F">Forzata</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile [colspan]="colBreakpoint1" rowspan="1">
+                            <div class="left-elem">
+                                <mat-checkbox [formControlName]="'climaInvernale'" class="checkbox"></mat-checkbox>
+                                <mat-label
+                                    [ngClass]="{'error':ener.errors?.['checkboxCheck'] && (ener['controls'].climaInvernale.touched ||ener['controls'].prodAcs.touched)}">Climatizzazione
+                                    invernale</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan]="colBreakpoint1" rowspan="1">
+                            <div class="left-elem">
+                                <mat-checkbox [formControlName]="'prodAcs'" class="checkbox"></mat-checkbox>
+                                <mat-label
+                                    [ngClass]="{'error':ener.errors?.['checkboxCheck'] && (ener['controls'].climaInvernale.touched ||ener['controls'].prodAcs.touched)}">Produzione
+                                    ACS</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="12" rowspan="1">
+                            <div class="left-elem">
+                                <mat-error
+                                    *ngIf="ener.errors?.['checkboxCheck'] && (ener['controls'].climaInvernale.touched ||ener['controls'].prodAcs.touched)">Selezionare
+                                    almeno una voce</mat-error>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="12" rowspan="2">
+                            <div class="left-elem">
+                                <mat-label>Depressione del canale da fumo (indicare solo per generatori a tiraggio
+                                    naturale.
+                                    Utilizzare UNI 10845)(Pa)</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                            <mat-form-field class="form-field">
+                                <mat-label>Depressione del canale da fumo (indicare solo per generatori a tiraggio
+                                    naturale.
+                                    Utilizzare UNI 10845)(Pa)</mat-label>
+                                <input matInput [formControlName]="'depressCanaleFumo'" type="number">
+                                <mat-error
+                                    *ngIf="ener['controls'].depressCanaleFumo.errors?.required && ener['controls'].depressCanaleFumo.touched">Obbligatorio
+                                    se "Modalità evaquazione fumi" è naturale</mat-error>
+                                <mat-error
+                                    *ngIf="ener.get('depressCanaleFumo').errors?.['erroreFormatoDecimale'] && ener['controls'].depressCanaleFumo.touched">
+                                    {{ener.get('depressCanaleFumo').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                            <mat-form-field class="form-field">
+                                <mat-label>Combustibile</mat-label>
+                                <input matInput [formControlName]="'combustibile'">
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile colspan="12">
+                            <div class="label-tile">
+                                <mat-label>Disp. Comando e regolazione funzionanti correttamente*</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-radio-group [formControlName]="'dispComando'">
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="1">SI</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="0">NO</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="2">NC</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                        </mat-radio-group>
+
+                        <mat-grid-tile colspan="12">
+                            <div class="label-tile">
+                                <mat-label>Disp. Sicurezza non manomessi e/o cortocircuitati*</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-radio-group [formControlName]="'dispSicurezza'">
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="1">SI</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="0">NO</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="2">NC</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                        </mat-radio-group>
+
+                        <mat-grid-tile colspan="12">
+                            <div class="label-tile">
+                                <mat-label>Valvola di sicurezza alla sovrapressione a scarico libero*</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-radio-group [formControlName]="'valvSicurezza'">
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="1">SI</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="0">NO</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="2">NC</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                        </mat-radio-group>
+
+                        <mat-grid-tile colspan="12">
+                            <div class="label-tile">
+                                <mat-label>Controllato e pulito lo scambiatore lato fumi*</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-radio-group [formControlName]="'controllatoEPulito'">
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="1">SI</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="0">NO</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="2">NC</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                        </mat-radio-group>
+
+                        <mat-grid-tile colspan="12">
+                            <div class="label-tile">
+                                <mat-label>Presenza riflusso dei prodotti della combustione*</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-radio-group [formControlName]="'presenzaRiflusso'">
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="1">SI</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="0">NO</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="2">NC</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                        </mat-radio-group>
+
+                        <mat-grid-tile colspan="12">
+                            <div class="label-tile">
+                                <mat-label>Risultati controllo, secondo UNI 10389-2, conformi alla legge*</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-radio-group [formControlName]="'risControllo'">
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="1">SI</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="0">NO</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="4">
+                                <div class="left-elem">
+                                    <mat-radio-button [value]="2">NC</mat-radio-button>
+                                </div>
+                            </mat-grid-tile>
+                        </mat-radio-group>
+
+                        <mat-grid-tile colspan="12" rowspan="3">
+                            <mat-form-field class="form-field">
+                                <mat-label>Altro riferimento normativo</mat-label>
+                                <input matInput [formControlName]="'altroRif'">
+                                <mat-error *ngIf="ener.get('altroRif').errors?.maxlength">Limite caratteri
+                                    raggiunto</mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                    <mat-tab-group formGroupName="elencoModuli">
+                        <mat-tab *ngFor="let modulo of ener['controls'].elencoModuli['controls']; 
+                let i = index" [label]="'Modulo '+(i+1)">
+                            <mat-grid-list cols="12" rowHeight="2em" gutterSize="15px" [formGroup]="modulo">
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>Temperatura fumi (°C)</mat-label>
+                                        <input matInput [formControlName]="'temperaturaFumi'" type="number">
+                                        <mat-error
+                                            *ngIf="modulo.get('temperaturaFumi').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('temperaturaFumi').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>Temperatura aria comburente (°C)</mat-label>
+                                        <input matInput [formControlName]="'temperaturaAria'" type="number">
+                                        <mat-error
+                                            *ngIf="modulo.get('temperaturaAria').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('temperaturaAria').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>O2 %</mat-label>
+                                        <input matInput [formControlName]="'o2'" type="number">
+                                        <mat-error *ngIf="modulo.get('o2').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('o2').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>CO2 %</mat-label>
+                                        <input matInput [formControlName]="'co2'" type="number">
+                                        <mat-error *ngIf="modulo.get('co2').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('co2').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>Bacharach volume 1</mat-label>
+                                        <input matInput [formControlName]="'bacharach1'" type="number">
+                                        <mat-error *ngIf="modulo.get('bacharach1').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('bacharach1').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>Bacharach volume 2</mat-label>
+                                        <input matInput [formControlName]="'bacharach2'" type="number">
+                                        <mat-error *ngIf="modulo.get('bacharach2').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('bacharach2').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>Bacharach volume 3</mat-label>
+                                        <input matInput [formControlName]="'bacharach3'" type="number">
+                                        <mat-error *ngIf="modulo.get('bacharach3').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('bacharach3').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>CO corretto (ppm)</mat-label>
+                                        <input matInput [formControlName]="'coCorretto'" type="number">
+                                        <mat-error *ngIf="modulo.get('coCorretto').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('coCorretto').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>rendimento di combustione % (riportare il valore letto maggiorato dei
+                                            2
+                                            punti previsti dalla normativa UNI 10389-1)</mat-label>
+                                        <input matInput [formControlName]="'rendimentoCombustione'" type="number">
+                                        <mat-error
+                                            *ngIf="modulo.get('rendimentoCombustione').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('rendimentoCombustione').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>rendimento minimo di legge % (riportare il valore limite previsto per
+                                            il
+                                            gruppo termico analizzato)</mat-label>
+                                        <input matInput [formControlName]="'rendimentoMinimoLegge'" type="number">
+                                        <mat-error
+                                            *ngIf="modulo.get('rendimentoMinimoLegge').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('rendimentoMinimoLegge').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>NOX (mg/kWh) (al 3% di ossigeno)</mat-label>
+                                        <input matInput [formControlName]="'noxKw'" type="number">
+                                        <mat-error *ngIf="modulo.get('noxKw').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('noxKw').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-select placeholder="Portata combustibile UM"
+                                            [formControlName]="'portataCombu'">
+                                            <mat-option value="m3/h">m3/h</mat-option>
+                                            <mat-option value="Kg/h">Kg/h</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>Portata combustibile</mat-label>
+                                        <input matInput [formControlName]="'valorePortata'" type="number">
+                                        <mat-error
+                                            *ngIf="modulo.get('valorePortata').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('valorePortata').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>CO nei fumi secchi (ppm v/v)</mat-label>
+                                        <input matInput [formControlName]="'fumiSecchi'" type="number">
+                                        <mat-error *ngIf="modulo.get('fumiSecchi').errors?.['erroreFormatoDecimale']">
+                                            {{modulo.get('fumiSecchi').errors?.['erroreFormatoDecimale'].value}}</mat-error>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile colspan="12">
+                                    <div class="label-tile">
+                                        <mat-label>Rispetta l’indice Bacharach*</mat-label>
+                                    </div>
+                                </mat-grid-tile>
+                                <mat-radio-group [formControlName]="'rispettoIndBacharach'">
+                                    <mat-grid-tile colspan="4">
+                                        <div class="left-elem">
+                                            <mat-radio-button [value]="1">SI</mat-radio-button>
+                                        </div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile colspan="4">
+                                        <div class="left-elem">
+                                            <mat-radio-button [value]="0">NO</mat-radio-button>
+                                        </div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile colspan="4">
+                                        <div class="left-elem">
+                                            <mat-radio-button [value]="2">NC</mat-radio-button>
+                                        </div>
+                                    </mat-grid-tile>
+                                </mat-radio-group>
+
+                                <mat-grid-tile colspan="12">
+                                    <div class="label-tile">
+                                        <mat-label><span>&#544;</span>c >= <span>&#544;</span> minimo*</mat-label>
+                                    </div>
+                                </mat-grid-tile>
+                                <mat-radio-group [formControlName]="'minimo'">
+                                    <mat-grid-tile colspan="4">
+                                        <div class="left-elem">
+                                            <mat-radio-button [value]="1">SI</mat-radio-button>
+                                        </div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile colspan="4">
+                                        <div class="left-elem">
+                                            <mat-radio-button [value]="0">NO</mat-radio-button>
+                                        </div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile colspan="4">
+                                        <div class="left-elem">
+                                            <mat-radio-button [value]="2">NC</mat-radio-button>
+                                        </div>
+                                    </mat-grid-tile>
+                                </mat-radio-group>
+
+                                <mat-grid-tile colspan="12" rowspan="1" style="height: 100%"></mat-grid-tile>
+
+                            </mat-grid-list>
+                        </mat-tab>
+                    </mat-tab-group>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <!-- SEZIONE F -->
+        <mat-accordion formGroupName="checkList">
+            <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="step === 5" (opened)="setStep(5)">
+                <mat-expansion-panel-header class="expansion-header-margin">
+                    <mat-panel-title>
+                        <span class="panel-title">F - Check list</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-grid-list cols="2" rowHeight="2em">
+                    <mat-grid-tile colspan="2" rowspan="4">
+                        Elenco di possibili interventi, dei quali va valutata la convenienza economica, che qualora
+                        applicabili all’impianto, potrebbero comportare un miglioramento della prestazione energetica:
+                    </mat-grid-tile>
+
+                    <mat-grid-tile colspan="2" rowspan="3">
+                        <div class="left-elem">
+                            <mat-checkbox [formControlName]="'adozioneValvole'" class="checkbox"></mat-checkbox>
+                            <mat-label>L’adozione di valvole termostatiche sui
+                                corpi
+                                scaldanti</mat-label>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile colspan="2" rowspan="3">
+                        <div class="left-elem">
+                            <mat-checkbox [formControlName]="'isolamentoRete'" class="checkbox"></mat-checkbox>
+                            <mat-label>L’isolamento della rete di distribuzione nei locali non riscaldati</mat-label>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile colspan="2" rowspan="3">
+                        <div class="left-elem">
+                            <mat-checkbox [formControlName]="'introduzioneSistemaTrattamento'" class="checkbox">
+                            </mat-checkbox>
+                            <mat-label>L’introduzione di un sistema di trattamento dell’acqua sanitaria e per
+                                riscaldamento,
+                                ove assente</mat-label>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile colspan="2" rowspan="3">
+                        <div class="left-elem">
+                            <mat-checkbox [formControlName]="'sostituzioneSistemaRegolazione'" class="checkbox">
+                            </mat-checkbox>
+                            <mat-label>La sostituzione di un sistema di regolazione on/off con un sistema programmabile
+                                su
+                                più livelli di temperatura</mat-label>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile colspan="2" rowspan="3">
+                        <mat-form-field class="form-field">
+                            <textarea matInput placeholder="Osservazioni" [formControlName]="'osservazioni'"></textarea>
+                            <mat-error *ngIf="insertForm.get('checkList.osservazioni').errors?.maxlength">Limite
+                                caratteri
                                 raggiunto</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile colspan="2" rowspan="3">
+                        <mat-form-field class="form-field">
+                            <textarea matInput placeholder="Raccomandazioni"
+                                [formControlName]="'raccomandazioni'"></textarea>
+                            <mat-error *ngIf="insertForm.get('checkList.raccomandazioni').errors?.maxlength">Limite
+                                caratteri
+                                raggiunto</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile colspan="2" rowspan="3">
+                        <mat-form-field class="form-field">
+                            <textarea matInput placeholder="Prescrizioni" [formControlName]="'prescrizioni'"></textarea>
+                            <mat-error *ngIf="insertForm.get('checkList.prescrizioni').errors?.maxlength">Limite
+                                caratteri
+                                raggiunto</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile colspan="2">
+                        <div class="label-tile">
+                            <mat-label>L’impianto può funzionare*</mat-label>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="left-elem">
+                            <section>
+                                <mat-slide-toggle color="primary" class="toggle"
+                                    [formControlName]="'impiantoPuoFunzionare'">
+                                    Si
+                                </mat-slide-toggle>
+                            </section>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile></mat-grid-tile>
+
+                    <mat-grid-tile colspan="2">
+                        <div class="label-tile">
+                            <mat-label>Prossimo intervento di controllo entro*</mat-label>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="2" rowspan="3">
+                        <mat-form-field class="form-field">
+                            <mat-label>GG/MM/AAAA</mat-label>
+                            <input matInput [matDatepicker]="pickerIntervento" [formControlName]="'interventoEntro'"
+                                [matDatepickerFilter]="myFilter">
+                            <mat-datepicker-toggle matSuffix [for]="pickerIntervento"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerIntervento></mat-datepicker>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-card class="card mat-elevation-z8" formGroupName="tecnico">
+            <mat-grid-list cols="2" rowHeight="2em" gutterSize="15px">
+                <mat-grid-tile colspan="2" rowspan="2">
+                    <mat-form-field class="form-field">
+                        <input matInput [formControlName]="'nomeCognome'" placeholder="Nome e cognome del tecnico">
                     </mat-form-field>
                 </mat-grid-tile>
-
-                <mat-grid-tile colspan="2" rowspan="3">
+                <mat-grid-tile rowspan="2">
                     <mat-form-field class="form-field">
-                        <textarea matInput placeholder="Prescrizioni" [formControlName]="'prescrizioni'"></textarea>
-                        <mat-error *ngIf="insertForm.get('checkList.prescrizioni').errors?.maxlength">Limite caratteri
-                            raggiunto</mat-error>
+                        <input matInput placeholder="Ora di arrivo" type="time" [formControlName]="'orarioArrivo'">
                     </mat-form-field>
                 </mat-grid-tile>
-
-                <mat-grid-tile colspan="2">
-                    <div class="label-tile">
-                        <mat-label>L’impianto può funzionare*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <div class="left-elem">
-                        <section>
-                            <mat-slide-toggle color="primary" class="toggle"
-                                [formControlName]="'impiantoPuoFunzionare'">
-                                Si
-                            </mat-slide-toggle>
-                        </section>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile></mat-grid-tile>
-
-                <mat-grid-tile colspan="2">
-                    <div class="label-tile">
-                        <mat-label>Prossimo intervento di controllo entro*</mat-label>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile colspan="2" rowspan="3">
+                <mat-grid-tile rowspan="2">
                     <mat-form-field class="form-field">
-                        <mat-label>GG/MM/AAAA</mat-label>
-                        <input matInput [matDatepicker]="pickerIntervento" [formControlName]="'interventoEntro'"
-                            [matDatepickerFilter]="myFilter">
-                        <mat-datepicker-toggle matSuffix [for]="pickerIntervento"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerIntervento></mat-datepicker>
+                        <input matInput placeholder="Ora di partenza" type="time" [formControlName]="'orarioPartenza'">
                     </mat-form-field>
                 </mat-grid-tile>
             </mat-grid-list>
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <mat-card class="card mat-elevation-z8" formGroupName="tecnico">
-        <mat-grid-list cols="2" rowHeight="2em">
-            <mat-grid-tile colspan="2" rowspan="2">
-                <mat-form-field class="form-field">
-                    <input matInput [formControlName]="'nomeCognome'" placeholder="Nome e cognome del tecnico">
-                </mat-form-field>
+        </mat-card>
+        <mat-grid-list cols="12" rowHeight="3em" gutterSize="15px">
+            <mat-grid-tile colspan="1"></mat-grid-tile>
+            <mat-grid-tile [colspan]="colBreakpoint3">
+                <button mat-button class="secondary-button" type="button" (click)="salvaBozza()">SALVA BOZZA
+                    LOCALE</button>
             </mat-grid-tile>
-            <mat-grid-tile rowspan="2">
-                <mat-form-field class="form-field">
-                    <input matInput placeholder="Ora di arrivo" type="time" [formControlName]="'orarioArrivo'">
-                </mat-form-field>
+            <mat-grid-tile [colspan]="colBreakpoint4"></mat-grid-tile>
+            <mat-grid-tile [colspan]="colBreakpoint4"></mat-grid-tile>
+            <mat-grid-tile [colspan]="colBreakpoint3">
+                <button mat-button class="default-button" type="submit">SALVA E
+                    INVIA</button>
             </mat-grid-tile>
-            <mat-grid-tile rowspan="2">
-                <mat-form-field class="form-field">
-                    <input matInput placeholder="Ora di partenza" type="time" [formControlName]="'orarioPartenza'">
-                </mat-form-field>
-            </mat-grid-tile>
+            <mat-grid-tile colspan="1"></mat-grid-tile>
         </mat-grid-list>
-    </mat-card>
-    <mat-grid-list cols="2" rowHeight="2em" gutterSize="1em">
-        <mat-grid-tile rowspan="2">
-            <button mat-button class="secondary-button" type="button" (click)="salvaBozza()">SALVA BOZZA LOCALE</button>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="2">
-            <button mat-button class="default-button" type="submit">SALVA E
-                INVIA</button>
-        </mat-grid-tile>
-    </mat-grid-list>
-</form>
+    </form>
+
+    <div style="height: 20px; background-color: white;"></div>
+</div>

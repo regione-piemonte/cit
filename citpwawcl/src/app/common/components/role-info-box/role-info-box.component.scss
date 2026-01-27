@@ -1,0 +1,19 @@
+#role-name-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #006CB4;
+
+  .icon {
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
+    margin-right: 10px;
+    color: #B8191A;
+  }
+}
+
+#role-info-box {
+  margin-bottom: 20px;
+  background-color: #DDEEFF;
+}

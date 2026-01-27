@@ -1,5 +1,6 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tipiDocDesc, TipoDoc } from 'src/app/enums/tipo-doc-enum';
@@ -50,14 +51,14 @@ export class DettaglioTipo1Component implements OnInit {
     }),
     trattamentoAcqua: this.fb.group({}),
     controlloImpianto: this.fb.group({
-      instInterna: [, Validators.required],
-      instEsterna: [, Validators.required],
-      aperture: [, Validators.required],
-      adeguateDim: [, Validators.required],
-      canaleFumo: [, Validators.required],
-      tempAmbiente: [, Validators.required],
-      assenzePerdite: [, Validators.required],
-      idoneaTenuta: [, Validators.required]
+      instInterna: ["", Validators.required],
+      instEsterna: ["", Validators.required],
+      aperture: ["", Validators.required],
+      adeguateDim: ["", Validators.required],
+      canaleFumo: ["", Validators.required],
+      tempAmbiente: ["", Validators.required],
+      assenzePerdite: ["", Validators.required],
+      idoneaTenuta: ["", Validators.required]
     }),
     controlloEnergetico: this.fb.array([]),
     checkList: this.fb.group({
@@ -88,6 +89,10 @@ export class DettaglioTipo1Component implements OnInit {
   idAllegatoNew: string;
   utente: UtenteLoggato;
 
+  colBreakpoint1: NumberInput;
+  colBreakpoint2: NumberInput;
+  colBreakpoint3: NumberInput;
+  colBreakpoint4: NumberInput;
 
   constructor(private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -106,6 +111,11 @@ export class DettaglioTipo1Component implements OnInit {
   }
 
   ngOnInit(): void {
+    this.colBreakpoint1 = (window.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (window.innerWidth < 768) ? 0 : 6;
+    this.colBreakpoint3 = (window.innerWidth < 768) ? 10 : 5;
+    this.colBreakpoint4 = (window.innerWidth < 768) ? 1 : 0;
+
     this.xmlImpianto = this.localStorageService.getXmlImpianto();
     this.titleService.setTitle("REE TIPO 1");
     this.titleService.setSubtitle("Gruppi termici");
@@ -130,6 +140,7 @@ export class DettaglioTipo1Component implements OnInit {
       this.compilaDatiIniziali();
     }
     if (this.controlloDisponibile) {
+      // Not Implemented
     } else if (!(this.dettaglioControllo && this.datiControllo)) {
       this.router.navigate(["/impianto/dettaglio/" + this.codiceImpianto + "/elenco-controlli"]);
     }
@@ -137,6 +148,14 @@ export class DettaglioTipo1Component implements OnInit {
     this.controlloService.getOnlineSubject().subscribe((elem) => {
       this.offline = !elem;
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.colBreakpoint1 = (event.target.innerWidth < 768) ? 12 : 6;
+    this.colBreakpoint2 = (event.target.innerWidth < 768) ? 0 : 6;
+    this.colBreakpoint3 = (event.target.innerWidth < 768) ? 10 : 5;
+    this.colBreakpoint4 = (event.target.innerWidth < 768) ? 1 : 0;
   }
 
   compilaDatiIniziali() {
@@ -188,8 +207,8 @@ export class DettaglioTipo1Component implements OnInit {
         portataCombu: ["", Validators.required],
         valorePortata: ["", [formatoDecimale(/^[0-9]{0,4}(?:\.[0-9]{0,2})?$/, 4, 2)]],
         fumiSecchi: ["", [formatoDecimale(/^[0-9]{0,4}(?:\.[0-9]{0,2})?$/, 4, 2)]],
-        rispettoIndBacharach: [""],
-        minimo: [""]
+        rispettoIndBacharach: ["", Validators.required],
+        minimo: ["", Validators.required]
       });
       arr2.push(moduloForm);
     }
@@ -395,8 +414,8 @@ export class DettaglioTipo1Component implements OnInit {
         portataCombu: [row.portataCombu, [Validators.required]],
         valorePortata: [row.valorePortata, formatoDecimale(/^[0-9]{0,4}(?:\.[0-9]{0,2})?$/, 4, 2)],
         fumiSecchi: [row.coFumiSecchi, formatoDecimale(/^[0-9]{0,4}(?:\.[0-9]{0,2})?$/, 4, 2)],
-        rispettoIndBacharach: [row.rispettoIndBacharach],
-        minimo: [row.minimo]
+        rispettoIndBacharach: [row.rispettoIndBacharach, Validators.required],
+        minimo: [row.minimo, Validators.required]
       });
       arr2.push(moduloForm);
     });
