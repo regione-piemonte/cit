@@ -27,7 +27,7 @@ Modificare il file di configurazione e compilare il progetto.
 I prerequisiti per l'installazione della componente sono i seguenti:
 ## Software
 - [JDK 8](https://www.apache.org)
-- [PostgreSQL 9.6.11](https://www.postgresql.org/download/)  
+- [PostgreSQL 15.8](https://www.postgresql.org/download/)  
 
 - Tutte le librerie elencate nel sigitbatchn.sbom.csv devono essere accessibili per compilare il progetto. Le librerie sono pubblicate su http://repart.csi.it, ma per semplicità sono state incluse nella cartella lib/.
 
