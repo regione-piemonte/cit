@@ -32,7 +32,6 @@ import it.csi.sigit.sigitwebn.util.GenericUtil;
   * - FINDERS:
  *   - findByPrimaryKey (datagen::FindByPK)
  *   - byFilter (datagen::CustomFinder)
- *   - componentiCancellate (datagen::CustomFinder)
  *   - BrRcLegateAGt (datagen::CustomFinder)
  *   - byTipoAndCodImpiantoOrdered (datagen::CustomFinder)
  *   - findAll (datagen::FindAll)
@@ -285,9 +284,6 @@ public class SigitTCompBrRcDaoImpl extends AbstractDAO implements SigitTCompBrRc
 	protected SigitTCompBrRcDaoRowMapper byFilterRowMapper = new SigitTCompBrRcDaoRowMapper(null,
 			SigitTCompBrRcDto.class, this);
 
-	protected SigitTCompBrRcDaoRowMapper componentiCancellateRowMapper = new SigitTCompBrRcDaoRowMapper(null,
-			SigitTCompBrRcDto.class, this);
-
 	protected SigitTCompBrRcDaoRowMapper BrRcLegateAGtRowMapper = new SigitTCompBrRcDaoRowMapper(null,
 			SigitTCompBrRcDto.class, this);
 
@@ -390,75 +386,6 @@ public class SigitTCompBrRcDaoImpl extends AbstractDAO implements SigitTCompBrRc
 		} finally {
 			stopWatch.dumpElapsed("SigitTCompBrRcDaoImpl", "findByFilter", "esecuzione query", sql.toString());
 			LOG.debug("[SigitTCompBrRcDaoImpl::findByFilter] END");
-		}
-		return list;
-	}
-
-	/** 
-	 * Implementazione del finder componentiCancellate
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	public List<SigitTCompBrRcDto> findComponentiCancellate(
-			it.csi.sigit.sigitwebn.business.dao.sigitwebn.filter.CompFilter input) throws SigitTCompBrRcDaoException {
-		LOG.debug("[SigitTCompBrRcDaoImpl::findComponentiCancellate] START");
-		StringBuilder sql = new StringBuilder();
-		MapSqlParameterSource paramMap = new MapSqlParameterSource();
-
-		sql.append(
-				"SELECT ID_COMP_BR_RC,TIPOLOGIA_BR_RC,PROGRESSIVO_BR_RC,FK_TIPO_COMPONENTE,FK_PROGRESSIVO,FK_DATA_INSTALL,CODICE_IMPIANTO,TIPOLOGIA,POT_TERM_MAX_KW,POT_TERM_MIN_KW,DATA_INSTALL,DATA_DISMISS,FK_MARCA,MODELLO,MATRICOLA,FK_COMBUSTIBILE,FLG_DISMISSIONE ");
-		sql.append(" FROM SIGIT_T_COMP_BR_RC");
-		sql.append(" WHERE ");
-		/*PROTECTED REGION ID(R406338056) ENABLED START*/
-
-		sql.append("CODICE_IMPIANTO = :codImpianto");
-		sql.append(" AND TIPOLOGIA_BR_RC = :tipoComponente");
-		if (GenericUtil.isNotNullOrEmpty(input.getProgressivo()))
-			sql.append(" AND PROGRESSIVO_BR_RC = :progressivo");
-		if (input.getListDateInstallazione() != null && !input.getListDateInstallazione().isEmpty()) {
-			sql.append(" AND TO_CHAR(DATA_INSTALL,'DD/MM/YYYY') NOT IN  (");
-			boolean aggVirg = false;
-			for (String data : input.getListDateInstallazione()) {
-				if (aggVirg)
-					sql.append(", ");
-				sql.append(" '" + data + "'");
-				aggVirg = true;
-			}
-			sql.append(") ");
-		}
-		if (input.getListProgressivi() != null && !input.getListProgressivi().isEmpty()) {
-			sql.append(" AND PROGRESSIVO_BR_RC NOT IN  (");
-			boolean aggVirg = false;
-			for (String progr : input.getListProgressivi()) {
-				if (aggVirg)
-					sql.append(", ");
-				sql.append(progr);
-				aggVirg = true;
-			}
-			sql.append(") ");
-		}
-
-		/*PROTECTED REGION END*/
-		/*PROTECTED REGION ID(R592141626) ENABLED START*/
-
-		paramMap.addValue("codImpianto", input.getCodImpianto(), java.sql.Types.NUMERIC);
-		paramMap.addValue("tipoComponente", input.getTipoComponente(), java.sql.Types.VARCHAR);
-		paramMap.addValue("progressivo", input.getProgressivo(), java.sql.Types.NUMERIC);
-
-		/*PROTECTED REGION END*/
-		List<SigitTCompBrRcDto> list = null;
-		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
-		try {
-			stopWatch.start();
-			list = jdbcTemplate.query(sql.toString(), paramMap, componentiCancellateRowMapper);
-
-		} catch (RuntimeException ex) {
-			LOG.error("[SigitTCompBrRcDaoImpl::findComponentiCancellate] esecuzione query", ex);
-			throw new SigitTCompBrRcDaoException("Query failed", ex);
-		} finally {
-			stopWatch.dumpElapsed("SigitTCompBrRcDaoImpl", "findComponentiCancellate", "esecuzione query",
-					sql.toString());
-			LOG.debug("[SigitTCompBrRcDaoImpl::findComponentiCancellate] END");
 		}
 		return list;
 	}

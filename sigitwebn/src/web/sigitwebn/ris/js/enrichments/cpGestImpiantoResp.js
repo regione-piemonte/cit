@@ -16,12 +16,6 @@ function initStdEnrichments4CpGestImpiantoResp() {
 			 	null);
 		};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_wpCodImpianto", addBasicEnrichmentToTfImpCodImp);
-	/// arricchimento per guigen::Calendar [cImpDataAss]: aggiunta datepicker
-	var addDateToCImpDataAss = function(){
-		uiNRichLib.addDatePickerNRich("widg_cImpDataAss", 
-		false, false, "", false);
-	};
-	uiEnricherMgr.registerEnrichment(contentPanelName, "p_wpCodImpianto", addDateToCImpDataAss);
 	/// arricchimento per guigen::ComboBox [cbImpStatoImp]: autonarrowing
 	var addNarrowingToCbImpStatoImp =
 		function(){

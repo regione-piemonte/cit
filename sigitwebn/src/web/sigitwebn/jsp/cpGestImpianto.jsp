@@ -322,40 +322,11 @@ maxlength="11"	disabled="isWidgetDisabled('cpGestImpianto','tfImpCodImp')"
 
 
 	
-<s:if test="isWidgetVisible('cpGestImpianto','cImpDataAss')" >
-
-	
-<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('cpGestImpianto.cImpDataAss.label')}" labelFor="widg_cImpDataAss" errorFor="appDataimpianto.impDataAssegnazione" labelId="cImpDataAssLbl"
-	position="first"  >
-
-
-<!-- widget cImpDataAss -->
-<s:textfield 
-	
-	
-	name="appDataimpianto.impDataAssegnazione" id="widg_cImpDataAss"
-	disabled="isWidgetDisabled('cpGestImpianto','cImpDataAss')"
-	size="10" maxlength="10" 
-	cssClass="calendar"
-/> <div class="infoCalendar"></div>
-
-	
-</customtag:widgetsPanelColumn>
-
-</s:if>
-
-	
-<s:else>
-	<customtag:widgetsPanelColumn textValue="" colSpan="2" position="first"/>
-</s:else>
-
-
-	
 <s:if test="isWidgetVisible('cpGestImpianto','cbImpStatoImp')" >
 
 	
 <customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('cpGestImpianto.cbImpStatoImp.label')}" labelFor="widg_cbImpStatoImp" errorFor="appDataimpianto.impIdStatoImp" labelId="cbImpStatoImpLbl"
-	position="last"  >
+	position="first"  >
 
 
 <!-- widget cbImpStatoImp -->
@@ -386,6 +357,27 @@ maxlength="11"	disabled="isWidgetDisabled('cpGestImpianto','tfImpCodImp')"
 	  />
 
 	</csiuicore:ajaxify>
+
+	
+</customtag:widgetsPanelColumn>
+
+</s:if>
+
+	
+<s:else>
+	<customtag:widgetsPanelColumn textValue="" colSpan="2" position="first"/>
+</s:else>
+
+
+	
+<s:if test="isWidgetVisible('cpGestImpianto','wpCodImpianto_2_2_fictitious_')" >
+
+	
+<customtag:widgetsPanelColumn  colSpan="2" position="last" >
+
+
+<!-- widget wpCodImpianto_2_2_fictitious_ -->
+
 
 	
 </customtag:widgetsPanelColumn>
@@ -655,13 +647,58 @@ maxlength="11"	disabled="isWidgetDisabled('cpGestImpianto','tfImpCodImp')"
 
 
 	
-<s:if test="isWidgetVisible('cpGestImpianto','wpCodImpianto_5_2_fictitious_')" >
+<s:if test="isWidgetVisible('cpGestImpianto','rbImpMedCiv')" >
 
 	
-<customtag:widgetsPanelColumn  colSpan="2" position="last" >
+<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('cpGestImpianto.rbImpMedCiv.label')}" labelFor="widg_rbImpMedCiv" errorFor="appDataimpianto.impFlgMedioCivile" labelId="rbImpMedCivLbl"
+	position="last"  >
 
 
-<!-- widget wpCodImpianto_5_2_fictitious_ -->
+<!-- widget rbImpMedCiv -->
+
+	
+<div id="appDataimpianto.impFlgMedioCivile" class="radiobuttons ">
+
+
+
+
+
+
+
+<s:radio
+	
+	
+	id="widg_rbImpMedCivSI" name="appDataimpianto.impFlgMedioCivile"
+	list="#{'true':'SI'}"
+	disabled="isWidgetDisabled('cpGestImpianto','rbImpMedCiv')"
+	cssClass="radio"
+	
+	/> <label  for="widg_rbImpMedCivSItrue"><s:text name="cpGestImpianto.rbImpMedCiv.rbImpMedCivSI.label" /></label>
+
+
+
+
+
+
+
+
+<s:radio
+	
+	
+	id="widg_rbImpMedCivNO" name="appDataimpianto.impFlgMedioCivile"
+	list="#{'false':'NO'}"
+	disabled="isWidgetDisabled('cpGestImpianto','rbImpMedCiv')"
+	cssClass="radio"
+	
+	/> <label  for="widg_rbImpMedCivNOfalse"><s:text name="cpGestImpianto.rbImpMedCiv.rbImpMedCivNO.label" /></label>
+
+
+
+
+
+	
+</div>
+
 
 
 	

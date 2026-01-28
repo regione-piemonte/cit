@@ -268,18 +268,6 @@ public class CpGestReeTipo1DettAction extends AbstractCPAction<CpGestReeTipo1Det
 
 	/**
 	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi 
-	 * al data-binding relativo al dataset DATASET del widget cbCondottoEvacuazioneFumi.
-	 * @return sempre il result "provideData"
-	 */
-	@SkipValidation
-	@FatClientOnly
-	public String provideCbCondottoEvacuazioneFumi_DATASET() throws CommandExecutionException {
-
-		return provideDataInternal("appDataelencoCondottoEvacuazioneFumiTipo1B", "", false, false);
-	}
-
-	/**
-	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi 
 	 * al data-binding relativo al dataset DATASET del widget cbStelle.
 	 * @return sempre il result "provideData"
 	 */

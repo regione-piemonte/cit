@@ -80,25 +80,6 @@ public class SigitTImpiantoExample extends AbstractExample {
 	/**
 	 * @generated
 	 */
-	private it.csi.sigit.sigitwebn.business.dao.qbe.FieldChk dataAssegnazione;
-
-	/**
-	 * @generated
-	 */
-	public void setDataAssegnazione(it.csi.sigit.sigitwebn.business.dao.qbe.FieldChk chk) {
-		dataAssegnazione = chk;
-	}
-
-	/**
-	 * @generated
-	 */
-	public it.csi.sigit.sigitwebn.business.dao.qbe.FieldChk getDataAssegnazione() {
-		return dataAssegnazione;
-	}
-
-	/**
-	 * @generated
-	 */
 	private it.csi.sigit.sigitwebn.business.dao.qbe.FieldChk dataDismissione;
 
 	/**
@@ -911,6 +892,25 @@ public class SigitTImpiantoExample extends AbstractExample {
 	 */
 	public it.csi.sigit.sigitwebn.business.dao.qbe.FieldChk getCoordYLatDd() {
 		return coordYLatDd;
+	}
+
+	/**
+	 * @generated
+	 */
+	private it.csi.sigit.sigitwebn.business.dao.qbe.FieldChk flgMedioimpianto;
+
+	/**
+	 * @generated
+	 */
+	public void setFlgMedioimpianto(it.csi.sigit.sigitwebn.business.dao.qbe.FieldChk chk) {
+		flgMedioimpianto = chk;
+	}
+
+	/**
+	 * @generated
+	 */
+	public it.csi.sigit.sigitwebn.business.dao.qbe.FieldChk getFlgMedioimpianto() {
+		return flgMedioimpianto;
 	}
 
 }

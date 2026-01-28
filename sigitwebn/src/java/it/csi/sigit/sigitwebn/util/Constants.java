@@ -85,16 +85,25 @@ public final class Constants {
 	public static final String COPERTINA_PLACEHOLDER_ASSEGNATARIO = "{{assegnatario}}";
 	public static final String COPERTINA_PLACEHOLDER_N_PRATICA = "{{n_pratica}}";
 
-	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_TERZO_RESP = "{{dati_terzo_resp}}";
-	public static final String LETTERA_AVVISO_PLACEHOLDER_VIA_TERZO_RESP = "{{via_terzo_resp}}";
-	public static final String LETTERA_AVVISO_PLACEHOLDER_CAP_TERZO_RESP = "{{cap_terzo_resp}}";
-	public static final String LETTERA_AVVISO_PLACEHOLDER_EMAIL_TERZO_RESP = "{{email_terzo_resp}}";
-
 	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_RESP = "{{dati_responsabile}}";
 	public static final String LETTERA_AVVISO_PLACEHOLDER_VIA_RESP = "{{via_responsabile}}";
 	public static final String LETTERA_AVVISO_PLACEHOLDER_CAP_RESP = "{{cap_responsabile}}";
 	public static final String LETTERA_AVVISO_PLACEHOLDER_EMAIL_RESP = "{{email_responsabile}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DESCR_RESP = "{{descr_dati_resp}}";
 
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_TERZO_RESP = "{{dati_terzo_resp}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_VIA_TERZO_RESP = "{{via_terzo_resp}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_CAP_TERZO_RESP = "{{cap_terzo_resp}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_EMAIL_TERZO_RESP = "{{email_terzo_resp}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DESCR_TERZO_RESP = "{{descr_dati_terzo_resp}}";
+
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_NOCIT = "{{nocit_denom_fatt}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_VIA_NOCIT = "{{nocit_indirizzo_fatt}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_COMUNE_NOCIT = "{{nocit_comune_fatt_tot}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DESCR_NOCIT = "{{descr_no_cit}}";
+	
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_CONCATENATI_MANUT = "{{dati_concatenati_manutentori}}";
+	
 	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_PC = "{{dati_pc}}";
 	public static final String LETTERA_AVVISO_PLACEHOLDER_VIA_PC = "{{via_pc}}";
 	public static final String LETTERA_AVVISO_PLACEHOLDER_CAP_PC = "{{cap_pc}}";
@@ -102,7 +111,10 @@ public final class Constants {
 
 	public static final String LETTERA_AVVISO_PLACEHOLDER_ANNO_GAU = "{{anno_gau}}";
 	public static final String LETTERA_AVVISO_PLACEHOLDER_CODICE_IMPIANTO = "{{codice_impianto}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_COMUNE_IMPIANTO = "{{comune_impianto}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_PROVINCIA_IMPIANTO = "{{provincia_impianto}}";
 	public static final String LETTERA_AVVISO_PLACEHOLDER_INDIRIZZO_IMPIANTO = "{{indirizzo_impianto}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_CIVICO_IMPIANTO = "{{civico_impianto}}";
 	public static final String LETTERA_AVVISO_PLACEHOLDER_DATA_ISPEZIONE = "{{data_ispezione}}";
 	public static final String LETTERA_AVVISO_PLACEHOLDER_ORA_ISPEZIONE = "{{ora_ispezione}}";
 
@@ -115,7 +127,8 @@ public final class Constants {
 	public static String MAIL_PWD = "mail.pwd";
 
 	public static final long COD_ID_PIEMONTE = 1l;
-	public static final String COD_ISTAT_PIEMONTE = "001";
+	public static final String COD_ISTAT_PIEMONTE = "01";
+	public static final String COD_TUTTE_LE_PROVINCE = "000";
 
 	//CODICE APPLICATIVO IRIDE
 	public static final String CODICE_APPLICATIVO_IRIDE = "SIGITWEB";
@@ -757,6 +770,7 @@ public final class Constants {
 	public static final String INDEX_METADATO_SUFFIX = "@cm\\:";
 	public static final String INDEX_NAME = "name:\"";
 	public static final String INDEX_FOLDER_DOC = "doc";
+	public static final String INDEX_FOLDER_DOC_PA = "doc_pa";
 
 	public static final String INDEX_FOLDER_ISPEZIONI = "ispezioni";
 	public static final String INDEX_FOLDER_VERIFICHE = "verifiche";
@@ -984,7 +998,7 @@ public final class Constants {
 	public final static String APIMAN_TOKEN_CONSUMERKEY = "apimanager.gwecosis.token.consumerkey";
 	public final static String APIMAN_TOKEN_CONSUMERSECRET = "apimanager.gwecosis.token.consumersecret";
 	public final static int APIMAN_TIMEOUT = 10000;
-	
+
 	//SVISTA
 	public final static String SVISTA_WSDL_URL = "svista.wsdl.url";
 
@@ -1038,6 +1052,8 @@ public final class Constants {
 	public final static int ID_STELLE_5 = 5;
 
 	public final static String CHIAVE_CONFIG_MAPPA_WMS = "LINK_MAPPA_WMS";
+
+	public static final int CARICATORE_VALIDITY_DAYS = 7;
 
 	/*PROTECTED REGION END*/
 }

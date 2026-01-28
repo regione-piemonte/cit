@@ -66,14 +66,6 @@ public interface SigitTCompScDao {
 	public SigitTCompScDto findByPrimaryKey(SigitTCompScPk pk) throws SigitTCompScDaoException;
 
 	/** 
-	 * Implementazione del finder componentiCancellate
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	public List<SigitTCompScDto> findComponentiCancellate(
-			it.csi.sigit.sigitwebn.business.dao.sigitwebn.filter.CompFilter input) throws SigitTCompScDaoException;
-
-	/** 
 	 * Implementazione del finder byExample
 	 * @generated
 	 */

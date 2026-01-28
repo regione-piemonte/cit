@@ -199,11 +199,15 @@ public class CPBECpGestAbilitazione {
 			try {
 
 				Abilitazione abilitazione = theModel.getAppDataabilitazione();
-
+				
 				//Aggiungo descrizione dell' abilitazione
-				abilitazione.setDescrAbilitazione(
-						getSigitMgr().getDescrizioneAbilitazioneDaCodIstat(abilitazione.getIstatAbilitazione()));
-
+				if (abilitazione.getIstatAbilitazione().equals(Constants.COD_TUTTE_LE_PROVINCE)) {
+					abilitazione.setIstatAbilitazione("01");
+					abilitazione.setDescrAbilitazione(Constants.LABEL_ABILITA_SU_TUTTE_PROVINCE);
+			    } else {
+					abilitazione.setDescrAbilitazione(getSigitMgr().getDescrizioneAbilitazioneDaCodIstat(abilitazione.getIstatAbilitazione()));
+				}
+				
 				getValidationMgr().validazioneFormaleAbilitazione(abilitazione);
 
 				getSigitMgr().salvaAbilitazione(abilitazione);
@@ -408,7 +412,7 @@ public class CPBECpGestAbilitazione {
 		ArrayList<CodeDescription> province = new ArrayList<CodeDescription>();
 
 		CodeDescription tutteLeProvince = new CodeDescription();
-		tutteLeProvince.setCode(Constants.COD_ISTAT_PIEMONTE);
+		tutteLeProvince.setCode(Constants.COD_TUTTE_LE_PROVINCE);
 		tutteLeProvince.setDescription(Constants.LABEL_ABILITA_SU_TUTTE_PROVINCE);
 
 		province.add(tutteLeProvince);
@@ -427,9 +431,9 @@ public class CPBECpGestAbilitazione {
 
 		ArrayList<CodeDescription> comuni = new ArrayList<CodeDescription>();
 
-		if (istatAbilitazione != null) {
+		if (istatAbilitazione != null && !istatAbilitazione.equals("")) {
 
-			if (!istatAbilitazione.equals(Constants.COD_ISTAT_PIEMONTE)) {
+			if (!istatAbilitazione.equals(Constants.COD_TUTTE_LE_PROVINCE)) {
 				CodeDescription tuttiIComuni = new CodeDescription();
 				tuttiIComuni.setCode(istatAbilitazione);
 				tuttiIComuni.setDescription(Constants.LABEL_ABILITA_SU_TUTTI_COMUNI);
@@ -440,13 +444,13 @@ public class CPBECpGestAbilitazione {
 
 				abilitazione.setIstatAbilitazione(istatAbilitazione);
 			} else {
-				CodeDescription tutteLeProvince = new CodeDescription();
-				tutteLeProvince.setCode(Constants.COD_ISTAT_PIEMONTE);
-				tutteLeProvince.setDescription(Constants.LABEL_ABILITA_SU_TUTTE_PROVINCE);
+				CodeDescription tuttiIComuni = new CodeDescription();
+				tuttiIComuni.setCode(istatAbilitazione);
+				tuttiIComuni.setDescription(Constants.LABEL_ABILITA_SU_TUTTI_COMUNI);
 
-				comuni.add(tutteLeProvince);
-
-				abilitazione.setIstatAbilitazione(Constants.COD_ISTAT_PIEMONTE);
+				comuni.add(tuttiIComuni);
+				
+				abilitazione.setIstatAbilitazione(Constants.COD_TUTTE_LE_PROVINCE);
 			}
 		}
 

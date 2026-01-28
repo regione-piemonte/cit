@@ -157,6 +157,10 @@ public class GestisciRitornoLibretto extends BaseAction<BaseSessionAwareDTO> {
 			{
 				ret = "gestLibScheda12";
 			}
+			else if (librettoScheda.equals("SCHEDA13"))
+			{
+				ret = "gestLibScheda13";
+			}
 			else if (librettoScheda.equals("SCHEDA14_1"))
 			{
 				ret = "gestLibScheda14_1";
@@ -172,6 +176,10 @@ public class GestisciRitornoLibretto extends BaseAction<BaseSessionAwareDTO> {
 			else if (librettoScheda.equals("SCHEDA14_4"))
 			{
 				ret = "gestLibScheda14_4";
+			}
+			else if (librettoScheda.equals("SCHEDA15"))
+			{
+				ret = "gestLibScheda15";
 			}
 
 		}

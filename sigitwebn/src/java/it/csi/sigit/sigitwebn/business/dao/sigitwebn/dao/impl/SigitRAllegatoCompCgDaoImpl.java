@@ -72,7 +72,7 @@ public class SigitRAllegatoCompCgDaoImpl extends AbstractDAO implements SigitRAl
 	{
 		LOG.debug("[SigitRAllegatoCompCgDaoImpl::insert] START");
 		final String sql = "INSERT INTO " + getTableName()
-				+ " ( 	ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,BUTTA_FK_R_PG,BUTTA_FK_3R_PG,BUTTA_FK_R_PF,BUTTA_FK_3RESP,BUTTA_FK_RESP,FK_IMP_RUOLO_PFPG,FK_CONTRATTO ) VALUES (  :ID_ALLEGATO , :ID_TIPO_COMPONENTE , :PROGRESSIVO , :CODICE_IMPIANTO , :DATA_INSTALL , :BUTTA_FK_R_PG , :BUTTA_FK_3R_PG , :BUTTA_FK_R_PF , :BUTTA_FK_3RESP , :BUTTA_FK_RESP , :FK_IMP_RUOLO_PFPG , :FK_CONTRATTO  )";
+				+ " ( 	ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,FK_IMP_RUOLO_PFPG,FK_CONTRATTO ) VALUES (  :ID_ALLEGATO , :ID_TIPO_COMPONENTE , :PROGRESSIVO , :CODICE_IMPIANTO , :DATA_INSTALL , :FK_IMP_RUOLO_PFPG , :FK_CONTRATTO  )";
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
 
@@ -90,21 +90,6 @@ public class SigitRAllegatoCompCgDaoImpl extends AbstractDAO implements SigitRAl
 
 		// valorizzazione paametro relativo a colonna [DATA_INSTALL]
 		params.addValue("DATA_INSTALL", dto.getDataInstall(), java.sql.Types.DATE);
-
-		// valorizzazione paametro relativo a colonna [BUTTA_FK_R_PG]
-		params.addValue("BUTTA_FK_R_PG", dto.getButtaFkRPg(), java.sql.Types.NUMERIC);
-
-		// valorizzazione paametro relativo a colonna [BUTTA_FK_3R_PG]
-		params.addValue("BUTTA_FK_3R_PG", dto.getButtaFk3rPg(), java.sql.Types.NUMERIC);
-
-		// valorizzazione paametro relativo a colonna [BUTTA_FK_R_PF]
-		params.addValue("BUTTA_FK_R_PF", dto.getButtaFkRPf(), java.sql.Types.NUMERIC);
-
-		// valorizzazione paametro relativo a colonna [BUTTA_FK_3RESP]
-		params.addValue("BUTTA_FK_3RESP", dto.getButtaFk3resp(), java.sql.Types.NUMERIC);
-
-		// valorizzazione paametro relativo a colonna [BUTTA_FK_RESP]
-		params.addValue("BUTTA_FK_RESP", dto.getButtaFkResp(), java.sql.Types.NUMERIC);
 
 		// valorizzazione paametro relativo a colonna [FK_IMP_RUOLO_PFPG]
 		params.addValue("FK_IMP_RUOLO_PFPG", dto.getFkImpRuoloPfpg(), java.sql.Types.NUMERIC);
@@ -240,7 +225,7 @@ public class SigitRAllegatoCompCgDaoImpl extends AbstractDAO implements SigitRAl
 	public SigitRAllegatoCompCgDto findByPrimaryKey(SigitRAllegatoCompCgPk pk) throws SigitRAllegatoCompCgDaoException {
 		LOG.debug("[SigitRAllegatoCompCgDaoImpl::findByPrimaryKey] START");
 		final StringBuilder sql = new StringBuilder(
-				"SELECT ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,BUTTA_FK_R_PG,BUTTA_FK_3R_PG,BUTTA_FK_R_PF,BUTTA_FK_3RESP,BUTTA_FK_RESP,FK_IMP_RUOLO_PFPG,FK_CONTRATTO FROM "
+				"SELECT ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,FK_IMP_RUOLO_PFPG,FK_CONTRATTO FROM "
 						+ getTableName()
 						+ " WHERE ID_ALLEGATO = :ID_ALLEGATO  AND ID_TIPO_COMPONENTE = :ID_TIPO_COMPONENTE  AND PROGRESSIVO = :PROGRESSIVO  AND CODICE_IMPIANTO = :CODICE_IMPIANTO  AND DATA_INSTALL = :DATA_INSTALL ");
 
@@ -291,7 +276,7 @@ public class SigitRAllegatoCompCgDaoImpl extends AbstractDAO implements SigitRAl
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 
 		sql.append(
-				"SELECT ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,BUTTA_FK_R_PG,BUTTA_FK_3R_PG,BUTTA_FK_R_PF,BUTTA_FK_3RESP,BUTTA_FK_RESP,FK_IMP_RUOLO_PFPG,FK_CONTRATTO ");
+				"SELECT ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,FK_IMP_RUOLO_PFPG,FK_CONTRATTO ");
 		sql.append(" FROM SIGIT_R_ALLEGATO_COMP_CG");
 		sql.append(" WHERE ");
 		/*PROTECTED REGION ID(R1231047493) ENABLED START*/

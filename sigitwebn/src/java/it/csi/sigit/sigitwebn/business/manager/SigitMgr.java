@@ -12933,6 +12933,8 @@ public class SigitMgr {
 
 		try {
 
+			SigitVTotImpiantoCercaUbicazioneImpiantoDto ubicazione = getDbMgr().cercaUbicazioneImpianto(ConvertUtil.convertToInteger(docFilter.getCodImpianto()));
+
 			//metodo in cui il docFilter contiene la descrizione che verra' persistita nella nuova riga di docContratto.
 			//il file puo' esserci o no
 			SigitTDocContrattoDto dtoDaPersistere = DocumentoContrattoDto.mapToSigitTDocContrattoDto(idContratto, docFilter, utente.getCodiceFiscale());
@@ -12950,6 +12952,9 @@ public class SigitMgr {
 	        	log.debug("inserisco il file fittizio - prima");
 
 	        	Metadati metadati = new Metadati();
+	        	metadati.setCodiceImpianto(ReplaceSpecialCharUtils.sanitize(docFilter.getCodImpianto()));
+	        	metadati.setCodIstatProvincia(StringUtils.substring(ReplaceSpecialCharUtils.sanitize(ubicazione.getIstatComune()), 0, 3));
+	        	metadati.setCodIstatComune(ReplaceSpecialCharUtils.sanitize(ubicazione.getIstatComune()));
 
 	        	final String uidIndex = getServiziMgr().indexUploadFileNew(nomeFileMod, new byte[0], metadati, Constants.INDEX_FOLDER_DOC, false);
 
@@ -13073,6 +13078,7 @@ public class SigitMgr {
 			SigitTAzionePk pk = getDbAzioneMgr().inserisciOModificaAzione(dtoDaPersistere);
 
 			if (docFilter != null) {
+				
 				SigitTDocAzioneDto docDto = DocumentoAzioneDto.mapToSigitTDocAzioneDto(pk.getIdAzione(), docFilter, utente.getCodiceFiscale());
 
 				getDbAzioneMgr().inserisciDocAzione(docDto);
@@ -13085,11 +13091,17 @@ public class SigitMgr {
 	        	log.debug("inserisco il file fittizio - prima");
 
 	        	Metadati metadati = new Metadati();
-//	        	metadati.setCodiceImpianto(docFilter.getCodImpianto());
-//	        	metadati.setCodIstatProvincia(StringUtils.substring(ubicazione.getIstatComune(), 0, 3));
-//	        	metadati.setCodIstatComune(ubicazione.getIstatComune());
 
-	        	final String uidIndex = getServiziMgr().indexUploadFileNew(nomeFileMod, new byte[0], metadati, Constants.INDEX_FOLDER_DOC, false);
+	        	if (docFilter.getCodImpianto() != null) {
+	    			SigitVTotImpiantoCercaUbicazioneImpiantoDto ubicazione = getDbMgr().cercaUbicazioneImpianto(ConvertUtil.convertToInteger(docFilter.getCodImpianto()));
+					
+		        	metadati.setCodiceImpianto(docFilter.getCodImpianto());
+		        	metadati.setCodIstatProvincia(StringUtils.substring(ubicazione.getIstatComune(), 0, 3));
+		        	metadati.setCodIstatComune(ubicazione.getIstatComune());
+				}
+				
+
+	        	final String uidIndex = getServiziMgr().indexUploadFileNew(nomeFileMod, new byte[0], metadati, Constants.INDEX_FOLDER_DOC_PA, false);
 
 	            log.debug("inserisco il file fittizio - dopo - uid: "+uidIndex);
 
@@ -17159,6 +17171,7 @@ public class SigitMgr {
 				accertamentoAuto.setSiglaProv(impiantoEntity.getSiglaProvincia());
 				accertamentoAuto.setCodIstatProv(GenericUtil.getCodIstatProvByCodIstatComune(impiantoEntity.getIstatComune()));
 			}
+
 			accertamentoAuto.setIdTipoAnomalia(ConvertUtil.convertToString(Constants.DATO_NON_DISPONIBILE));
 
 			String identificativoAccertamento = salvaAccertamento(accertamentoAuto, null, null);
@@ -17168,10 +17181,11 @@ public class SigitMgr {
 			{
 				getDbMgr().aggiornaImpiantoSblocca3R(codiceImpianto, utenteAuto.getCodiceFiscale(), true);
 				log.debug("[SigitMgr::creaAutomatismiAccertamento] salvataggio impianto");
-			}
+			} 
 
 			//String indirizzoMail = getDbMgr().getSigitExtDao().findIndirizzoMailAbilitazioneByExample(ruoloUtenteLoggato, impiantoEntity.getIstatComune());
 			String indirizzoMail = getDbMgr().cercaIndirizzoMailAbilitazioneValidatore(GenericUtil.getCodIstatProvByCodIstatComune(impiantoEntity.getIstatComune()), Constants.ID_RUOLO_PA_VALIDATORE);
+
 			log.debug("[SigitMgr::creaAutomatismiAccertamento] manca invio mail");
 
 			CodeDescription risultato = new CodeDescription();
@@ -19458,6 +19472,9 @@ public class SigitMgr {
 		Comune comuneDatoDistrib = null;
 		if (istatComune != null)
 			comuneDatoDistrib = getServiziMgr().getComuneDaCodiceIstat(istatComune);
+		
+		if(comuneDatoDistrib == null)
+			return "";
 
 		String indirizzoParziale = MapDto.getIndirizzoByDugIndirizzo(dug, indirizzo);
 		

@@ -15,7 +15,7 @@
 }
 ,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
 	"enable":false,
-	"targetsWidgets":["cbInstSiglaRea","tfInstNumRea","tfInstCf","tfImpCodImp","cImpDataAss"],
+	"targetsWidgets":["cbInstSiglaRea","tfInstNumRea","tfInstCf","tfImpCodImp"],
 	"targetsMenuElement":[]
 }
 ,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,

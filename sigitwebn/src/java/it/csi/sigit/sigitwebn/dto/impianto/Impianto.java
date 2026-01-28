@@ -170,25 +170,25 @@ public class Impianto implements java.io.Serializable {
 		return impCodImpianto;
 	}
 
-	/// Field [impDataAssegnazione]
-	private java.lang.String impDataAssegnazione = null;
+	/// Field [impFlgMedioCivile]
+	private java.lang.Boolean impFlgMedioCivile = null;
 
 	/**
-	 * imposta il valore del campo [impDataAssegnazione]
+	 * imposta il valore del campo [impFlgMedioCivile]
 	 * @param val
 	 * @generated
 	 */
 
-	public void setImpDataAssegnazione(java.lang.String val) {
-		impDataAssegnazione = val;
+	public void setImpFlgMedioCivile(java.lang.Boolean val) {
+		impFlgMedioCivile = val;
 	}
 
 	/**
-	 * legge il valore del campo [impDataAssegnazione]
+	 * legge il valore del campo [impFlgMedioCivile]
 	 * @generated
 	 */
-	public java.lang.String getImpDataAssegnazione() {
-		return impDataAssegnazione;
+	public java.lang.Boolean getImpFlgMedioCivile() {
+		return impFlgMedioCivile;
 	}
 
 	/// Field [impDataDismissione]

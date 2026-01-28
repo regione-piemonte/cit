@@ -22,9 +22,9 @@
 	"azioni":[
 { "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
 	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ScreenStateCommand" ,
-	"widgetsOn":["menu","cbInstSiglaRea","tfInstNumRea","tfInstCf","btnInstCercaCF","btnInstNuovaRicercaCF","tbManutentori","tfImpCodImp","cImpDataAss","cbImpStatoImp","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","btnImpLocCercaIndirizzo","cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocFoglio","tfImpLocSezione","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","taImpLocNote","btnImpiantoSalva","tbResponsabili","btnRespInserisci","btnRespModifica","btnImpIndietro","btnLibVisualizza","btnLibRappControllo","fuImpLib","btAvviaImport","btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti","btnModificaProp","cbVisuProprietario","btnApprofondisciImpianto"],
+	"widgetsOn":["menu","cbInstSiglaRea","tfInstNumRea","tfInstCf","btnInstCercaCF","btnInstNuovaRicercaCF","tbManutentori","tfImpCodImp","cbImpStatoImp","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","btnImpLocCercaIndirizzo","cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocFoglio","tfImpLocSezione","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","taImpLocNote","btnImpiantoSalva","tbResponsabili","btnRespInserisci","btnRespModifica","btnImpIndietro","btnLibVisualizza","btnLibRappControllo","fuImpLib","btAvviaImport","btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti","btnModificaProp","cbVisuProprietario","btnApprofondisciImpianto","rbImpMedCiv"],
 	"widgetsOff":["tfInstImpresa","cbInstPrimoCaricatore","cImpDataDismiss","taImpMotivazione","tfImpLocProprietario","tfImpLocPropDataInizio","tfImpLocPropIndirizzo","cImpDataCessazione","btnConfermaProp","btnCessaProp"],
-	"widgetsShown":["menu","cbInstSiglaRea","tfInstNumRea","tfInstCf","btnInstCercaCF","btnInstNuovaRicercaCF","tfInstImpresa","tbManutentori","tfImpCodImp","cImpDataAss","cbImpStatoImp","cImpDataDismiss","taImpMotivazione","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","btnImpLocCercaIndirizzo","cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocFoglio","tfImpLocSezione","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","tfImpLocProprietario","taImpLocNote","btnImpiantoSalva","tbResponsabili","btnRespInserisci","btnRespModifica","btnImpIndietro","btnLibVisualizza","btnLibRappControllo","fuImpLib","btAvviaImport","btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti","tfImpLocPropDataInizio","btnModificaProp","cbVisuProprietario","tfImpLocPropIndirizzo","btnApprofondisciImpianto"],
+	"widgetsShown":["menu","cbInstSiglaRea","tfInstNumRea","tfInstCf","btnInstCercaCF","btnInstNuovaRicercaCF","tfInstImpresa","tbManutentori","tfImpCodImp","cbImpStatoImp","cImpDataDismiss","taImpMotivazione","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","btnImpLocCercaIndirizzo","cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocFoglio","tfImpLocSezione","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","tfImpLocProprietario","taImpLocNote","btnImpiantoSalva","tbResponsabili","btnRespInserisci","btnRespModifica","btnImpIndietro","btnLibVisualizza","btnLibRappControllo","fuImpLib","btAvviaImport","btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti","tfImpLocPropDataInizio","btnModificaProp","cbVisuProprietario","tfImpLocPropIndirizzo","btnApprofondisciImpianto","rbImpMedCiv"],
 	"widgetsHidden":["cbInstPrimoCaricatore","cImpDataCessazione","btnConfermaProp","btnCessaProp"]
 }
 ,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,
@@ -111,30 +111,6 @@
 ],
 	"esiti":["ABILITA_VAR_IMP","DISABILITA_VAR_IMP"],
 	"nomeMetodo":"gestAbilLogicaVarImp",
-	"appDataToStore":[]
-}
-,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
-	"azioni":[
-{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
-	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
-	"enable":true,
-	"targetsWidgets":["cImpDataAss"],
-	"targetsMenuElement":[]
-}
-] 
-}
-,
-{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
-	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.OnOffCommand" ,
-	"enable":false,
-	"targetsWidgets":["cImpDataAss"],
-	"targetsMenuElement":[]
-}
-] 
-}
-],
-	"esiti":["ABILITA_COD_IMP_DATA","DISABILITA_COD_IMP_DATA"],
-	"nomeMetodo":"gestLogicaCodImpDataAss",
 	"appDataToStore":[]
 }
 ,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ExecCommand" ,
@@ -250,8 +226,8 @@
 { "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.SequenceCommand" ,
 	"actions": [{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ScreenStateCommand" ,
 	"widgetsOn":["menu","btnLibVisualizza","btnImpIndietro"],
-	"widgetsOff":["cbInstSiglaRea","tfInstNumRea","tfInstCf","btnInstCercaCF","btnInstNuovaRicercaCF","tfInstImpresa","cbInstPrimoCaricatore","tbManutentori","tfImpCodImp","btnApprofondisciImpianto","cImpDataAss","cbImpStatoImp","cImpDataDismiss","taImpMotivazione","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","btnImpLocCercaIndirizzo","cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocSezione","tfImpLocFoglio","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","cbVisuProprietario","taImpLocNote","btnImpiantoSalva","tfImpLocProprietario","tfImpLocPropDataInizio","tfImpLocPropIndirizzo","cImpDataCessazione","btnConfermaProp","btnModificaProp","btnCessaProp","tbResponsabili","btnRespInserisci","btnRespModifica","fuImpLib","btAvviaImport","btnLibRappControllo","btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti"],
-	"widgetsShown":["menu","cbInstSiglaRea","tfInstNumRea","tfInstCf","tfInstImpresa","tbManutentori","tfImpCodImp","cImpDataAss","cbImpStatoImp","cImpDataDismiss","taImpMotivazione","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","cbImpLocIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocFoglio","tfImpLocSezione","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","tfImpLocProprietario","taImpLocNote","tbResponsabili","btnLibVisualizza","btnImpIndietro","tfImpLocPropDataInizio","cbVisuProprietario","tfImpLocPropIndirizzo"],
+	"widgetsOff":["cbInstSiglaRea","tfInstNumRea","tfInstCf","btnInstCercaCF","btnInstNuovaRicercaCF","tfInstImpresa","cbInstPrimoCaricatore","tbManutentori","tfImpCodImp","btnApprofondisciImpianto","cbImpStatoImp","cImpDataDismiss","taImpMotivazione","rbImpTipo","rbImpUiExt","rbImpCont","rbImpMedCiv","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","btnImpLocCercaIndirizzo","cbImpLocIndirizzo","btnImpLocNuovaRicercaIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocSezione","tfImpLocFoglio","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","cbVisuProprietario","taImpLocNote","btnImpiantoSalva","tfImpLocProprietario","tfImpLocPropDataInizio","tfImpLocPropIndirizzo","cImpDataCessazione","btnConfermaProp","btnModificaProp","btnCessaProp","tbResponsabili","btnRespInserisci","btnRespModifica","fuImpLib","btAvviaImport","btnLibRappControllo","btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti"],
+	"widgetsShown":["menu","cbInstSiglaRea","tfInstNumRea","tfInstCf","tfInstImpresa","tbManutentori","tfImpCodImp","cbImpStatoImp","cImpDataDismiss","taImpMotivazione","rbImpTipo","rbImpUiExt","rbImpCont","cbImpLocProvincia","cbImpLocComune","tfImpLocIndirizzo","cbImpLocIndirizzo","tfImpLocNoStrad","tfImpLocCivico","tfImpLocCap","tfImpLocInterno","tfImpLocScala","tfImpLocPalazzo","tfImpLocFoglio","tfImpLocSezione","tfImpLocParticella","tfImpLocSubalterno","cbImpLocEdifNonAcc","tfImpLocPod","tfImpLocPdr","cbImpLocPdrNonPres","tfImpLocProprietario","taImpLocNote","tbResponsabili","btnLibVisualizza","btnImpIndietro","tfImpLocPropDataInizio","cbVisuProprietario","tfImpLocPropIndirizzo","rbImpMedCiv"],
 	"widgetsHidden":["btnInstCercaCF","btnInstNuovaRicercaCF","cbInstPrimoCaricatore","btnApprofondisciImpianto","btnImpLocCercaIndirizzo","btnImpLocNuovaRicercaIndirizzo","btnImpiantoSalva","cImpDataCessazione","btnConfermaProp","btnModificaProp","btnCessaProp","btnRespInserisci","btnRespModifica","fuImpLib","btAvviaImport","btnLibRappControllo","btnLibDocumentazione","btnVisLibrettoWeb","btnLibAggiornamenti"]
 }
 ,{ "class": "it.csi.sigit.sigitwebn.presentation.sigitwebn.action.ActivateMultiPanelItemCommand" ,

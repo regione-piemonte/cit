@@ -1171,7 +1171,7 @@ maxlength="16"	disabled="isWidgetDisabled('cpRicAvzImpianto','tfCfImpresa')"
 		</s:url>
 		<s:if test="%{#session.cpRicAvzImpianto_tsRicAvz_selectedMultiPanel == 'cpRicAvzImpianto_tsRicAvz_fpRicAvz3Resp'}">
 			<li class="item-3 active"
-			title="3° resp"
+			title="3Â° resp"
 			>
 			<span class="activeItem"><s:text name="cpRicAvzImpianto.fpRicAvz3Resp.label" /></span></li>
 		</s:if>
@@ -1187,7 +1187,7 @@ maxlength="16"	disabled="isWidgetDisabled('cpRicAvzImpianto','tfCfImpresa')"
 				<s:submit name="tsRicAvz"
 				          id="tsRicAvz_fpRicAvz3Resp"
 				          method="handle_CpRicAvzImpianto_TsRicAvz_FpRicAvz3Resp_CLICKED"
-				          title="3° resp"
+				          title="3Â° resp"
 				          key="cpRicAvzImpianto.fpRicAvz3Resp.label" />
 					
 	</csiuicore:ajaxify>

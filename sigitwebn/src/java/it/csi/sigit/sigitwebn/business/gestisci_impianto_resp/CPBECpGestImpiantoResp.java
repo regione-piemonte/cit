@@ -372,9 +372,9 @@ public class CPBECpGestImpiantoResp {
 
 				getValidationMgr().verificaRicercaIndirizzoIdentificazioneImpianto(impianto);
 
-				theModel.setAppDataelencoIndirizzi(
-						getServiziMgr().getListaVieValide(ReplaceSpecialCharUtils.sanitize(impianto.getImpLocIndirizzo()), 
-								ReplaceSpecialCharUtils.sanitize(impianto.getImpLocIdComune())));
+				theModel.setAppDataelencoIndirizzi(getServiziMgr().getListaVieValide(
+						ReplaceSpecialCharUtils.sanitize(impianto.getImpLocIndirizzo()),
+						ReplaceSpecialCharUtils.sanitize(impianto.getImpLocIdComune())));
 				//				setVisibilitaIndirizzoImpianto(theModel);
 
 				impianto.getLogicaVisual().setIsImpiantoIndConfermato(true);
@@ -500,7 +500,7 @@ public class CPBECpGestImpiantoResp {
 	 * ContentPanel cpGestImpiantoResp
 	 */
 	public ExecResults inserisciProprietario(
- 
+
 			it.csi.sigit.sigitwebn.dto.gestisci_impianto_resp.CpGestImpiantoRespModel theModel
 
 	) throws BEException {
@@ -706,8 +706,8 @@ public class CPBECpGestImpiantoResp {
 				getValidationMgr().verificaRicercaIndirizzoResponsabile(responsabile);
 
 				theModel.setAppDataelencoIndirizziResp(
-						getServiziMgr().getListaVieValide(ReplaceSpecialCharUtils.sanitize(responsabile.getIndirizzo())
-								, ReplaceSpecialCharUtils.sanitize(responsabile.getIdComune())));
+						getServiziMgr().getListaVieValide(ReplaceSpecialCharUtils.sanitize(responsabile.getIndirizzo()),
+								ReplaceSpecialCharUtils.sanitize(responsabile.getIdComune())));
 				//				setVisibilitaIndirizzoImpianto(theModel);
 
 				theModel.getAppDataimpianto().getLogicaVisual().setIsResponsabileIndConfermato(true);

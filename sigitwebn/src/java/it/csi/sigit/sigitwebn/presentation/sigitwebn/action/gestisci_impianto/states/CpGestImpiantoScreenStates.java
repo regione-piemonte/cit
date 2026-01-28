@@ -26,16 +26,16 @@ public final class CpGestImpiantoScreenStates {
 		 * widget abilitati nello stato
 		 */
 		static final String[] WIDGETS_ON = new String[]{"menu", "cbInstSiglaRea", "tfInstNumRea", "tfInstCf",
-				"btnInstCercaCF", "btnInstNuovaRicercaCF", "tbManutentori", "tfImpCodImp", "cImpDataAss",
-				"cbImpStatoImp", "rbImpTipo", "rbImpUiExt", "rbImpCont", "cbImpLocProvincia", "cbImpLocComune",
-				"tfImpLocIndirizzo", "btnImpLocCercaIndirizzo", "cbImpLocIndirizzo", "btnImpLocNuovaRicercaIndirizzo",
-				"tfImpLocNoStrad", "tfImpLocCivico", "tfImpLocCap", "tfImpLocInterno", "tfImpLocScala",
-				"tfImpLocPalazzo", "tfImpLocFoglio", "tfImpLocSezione", "tfImpLocParticella", "tfImpLocSubalterno",
-				"cbImpLocEdifNonAcc", "tfImpLocPod", "tfImpLocPdr", "cbImpLocPdrNonPres", "taImpLocNote",
-				"btnImpiantoSalva", "tbResponsabili", "btnRespInserisci", "btnRespModifica", "btnImpIndietro",
-				"btnLibVisualizza", "btnLibRappControllo", "fuImpLib", "btAvviaImport", "btnLibDocumentazione",
-				"btnVisLibrettoWeb", "btnLibAggiornamenti", "btnModificaProp", "cbVisuProprietario",
-				"btnApprofondisciImpianto"};
+				"btnInstCercaCF", "btnInstNuovaRicercaCF", "tbManutentori", "tfImpCodImp", "cbImpStatoImp", "rbImpTipo",
+				"rbImpUiExt", "rbImpCont", "cbImpLocProvincia", "cbImpLocComune", "tfImpLocIndirizzo",
+				"btnImpLocCercaIndirizzo", "cbImpLocIndirizzo", "btnImpLocNuovaRicercaIndirizzo", "tfImpLocNoStrad",
+				"tfImpLocCivico", "tfImpLocCap", "tfImpLocInterno", "tfImpLocScala", "tfImpLocPalazzo",
+				"tfImpLocFoglio", "tfImpLocSezione", "tfImpLocParticella", "tfImpLocSubalterno", "cbImpLocEdifNonAcc",
+				"tfImpLocPod", "tfImpLocPdr", "cbImpLocPdrNonPres", "taImpLocNote", "btnImpiantoSalva",
+				"tbResponsabili", "btnRespInserisci", "btnRespModifica", "btnImpIndietro", "btnLibVisualizza",
+				"btnLibRappControllo", "fuImpLib", "btAvviaImport", "btnLibDocumentazione", "btnVisLibrettoWeb",
+				"btnLibAggiornamenti", "btnModificaProp", "cbVisuProprietario", "btnApprofondisciImpianto",
+				"rbImpMedCiv"};
 
 		/**
 		 * widget disabilitati nello stato
@@ -49,8 +49,8 @@ public final class CpGestImpiantoScreenStates {
 		 */
 		static final String[] WIDGETS_SHOWN = new String[]{"menu", "cbInstSiglaRea", "tfInstNumRea", "tfInstCf",
 				"btnInstCercaCF", "btnInstNuovaRicercaCF", "tfInstImpresa", "tbManutentori", "tfImpCodImp",
-				"cImpDataAss", "cbImpStatoImp", "cImpDataDismiss", "taImpMotivazione", "rbImpTipo", "rbImpUiExt",
-				"rbImpCont", "cbImpLocProvincia", "cbImpLocComune", "tfImpLocIndirizzo", "btnImpLocCercaIndirizzo",
+				"cbImpStatoImp", "cImpDataDismiss", "taImpMotivazione", "rbImpTipo", "rbImpUiExt", "rbImpCont",
+				"cbImpLocProvincia", "cbImpLocComune", "tfImpLocIndirizzo", "btnImpLocCercaIndirizzo",
 				"cbImpLocIndirizzo", "btnImpLocNuovaRicercaIndirizzo", "tfImpLocNoStrad", "tfImpLocCivico",
 				"tfImpLocCap", "tfImpLocInterno", "tfImpLocScala", "tfImpLocPalazzo", "tfImpLocFoglio",
 				"tfImpLocSezione", "tfImpLocParticella", "tfImpLocSubalterno", "cbImpLocEdifNonAcc", "tfImpLocPod",
@@ -58,7 +58,7 @@ public final class CpGestImpiantoScreenStates {
 				"tbResponsabili", "btnRespInserisci", "btnRespModifica", "btnImpIndietro", "btnLibVisualizza",
 				"btnLibRappControllo", "fuImpLib", "btAvviaImport", "btnLibDocumentazione", "btnVisLibrettoWeb",
 				"btnLibAggiornamenti", "tfImpLocPropDataInizio", "btnModificaProp", "cbVisuProprietario",
-				"tfImpLocPropIndirizzo", "btnApprofondisciImpianto"};
+				"tfImpLocPropIndirizzo", "btnApprofondisciImpianto", "rbImpMedCiv"};
 
 		/**
 		 * widget nascosti nello stato
@@ -98,8 +98,8 @@ public final class CpGestImpiantoScreenStates {
 		 */
 		static final String[] WIDGETS_OFF = new String[]{"cbInstSiglaRea", "tfInstNumRea", "tfInstCf", "btnInstCercaCF",
 				"btnInstNuovaRicercaCF", "tfInstImpresa", "cbInstPrimoCaricatore", "tbManutentori", "tfImpCodImp",
-				"btnApprofondisciImpianto", "cImpDataAss", "cbImpStatoImp", "cImpDataDismiss", "taImpMotivazione",
-				"rbImpTipo", "rbImpUiExt", "rbImpCont", "cbImpLocProvincia", "cbImpLocComune", "tfImpLocIndirizzo",
+				"btnApprofondisciImpianto", "cbImpStatoImp", "cImpDataDismiss", "taImpMotivazione", "rbImpTipo",
+				"rbImpUiExt", "rbImpCont", "rbImpMedCiv", "cbImpLocProvincia", "cbImpLocComune", "tfImpLocIndirizzo",
 				"btnImpLocCercaIndirizzo", "cbImpLocIndirizzo", "btnImpLocNuovaRicercaIndirizzo", "tfImpLocNoStrad",
 				"tfImpLocCivico", "tfImpLocCap", "tfImpLocInterno", "tfImpLocScala", "tfImpLocPalazzo",
 				"tfImpLocSezione", "tfImpLocFoglio", "tfImpLocParticella", "tfImpLocSubalterno", "cbImpLocEdifNonAcc",
@@ -113,13 +113,13 @@ public final class CpGestImpiantoScreenStates {
 		 * widget visibili nello stato
 		 */
 		static final String[] WIDGETS_SHOWN = new String[]{"menu", "cbInstSiglaRea", "tfInstNumRea", "tfInstCf",
-				"tfInstImpresa", "tbManutentori", "tfImpCodImp", "cImpDataAss", "cbImpStatoImp", "cImpDataDismiss",
-				"taImpMotivazione", "rbImpTipo", "rbImpUiExt", "rbImpCont", "cbImpLocProvincia", "cbImpLocComune",
-				"tfImpLocIndirizzo", "cbImpLocIndirizzo", "tfImpLocNoStrad", "tfImpLocCivico", "tfImpLocCap",
-				"tfImpLocInterno", "tfImpLocScala", "tfImpLocPalazzo", "tfImpLocFoglio", "tfImpLocSezione",
-				"tfImpLocParticella", "tfImpLocSubalterno", "cbImpLocEdifNonAcc", "tfImpLocPod", "tfImpLocPdr",
-				"cbImpLocPdrNonPres", "tfImpLocProprietario", "taImpLocNote", "tbResponsabili", "btnLibVisualizza",
-				"btnImpIndietro", "tfImpLocPropDataInizio", "cbVisuProprietario", "tfImpLocPropIndirizzo"};
+				"tfInstImpresa", "tbManutentori", "tfImpCodImp", "cbImpStatoImp", "cImpDataDismiss", "taImpMotivazione",
+				"rbImpTipo", "rbImpUiExt", "rbImpCont", "cbImpLocProvincia", "cbImpLocComune", "tfImpLocIndirizzo",
+				"cbImpLocIndirizzo", "tfImpLocNoStrad", "tfImpLocCivico", "tfImpLocCap", "tfImpLocInterno",
+				"tfImpLocScala", "tfImpLocPalazzo", "tfImpLocFoglio", "tfImpLocSezione", "tfImpLocParticella",
+				"tfImpLocSubalterno", "cbImpLocEdifNonAcc", "tfImpLocPod", "tfImpLocPdr", "cbImpLocPdrNonPres",
+				"tfImpLocProprietario", "taImpLocNote", "tbResponsabili", "btnLibVisualizza", "btnImpIndietro",
+				"tfImpLocPropDataInizio", "cbVisuProprietario", "tfImpLocPropIndirizzo", "rbImpMedCiv"};
 
 		/**
 		 * widget nascosti nello stato

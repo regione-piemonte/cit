@@ -819,8 +819,7 @@ public class ReeBuilder extends BaseBuilder {
 		cell.setBorder(Rectangle.LEFT);
 		cell.setColspan(2);
 		tabella.addCell(cell);
-		
-		
+			
 		Paragraph paragraph = new Paragraph("Data di installazione ", FONT_HELVETICA_7);
 		paragraph.add(ConvertUtil.getStringValid(vSk4GtDto.getDataInstall()));
 		cell = new PdfPCell(paragraph);
@@ -3750,11 +3749,13 @@ public class ReeBuilder extends BaseBuilder {
 		phrase.add(new Chunk ("E. CONTROLLO E VERIFICA ENERGETICA DEL SCAMBIATORE ", FONT_HELVETICA_7_B));
 		phrase.add(new Chunk ("SC ", FONT_HELVETICA_7));
 		phrase.add(new Chunk (ConvertUtil.getStringValid(vSk4ScDto.getProgressivo()), FONT_HELVETICA_7_B));
-		
+		aggiungiSpaziVuoti(phrase, 17);
+		phrase.add(new Chunk ("Data di installazione: ", FONT_HELVETICA_7));
+		phrase.add(new Chunk (ConvertUtil.getStringValid(vSk4ScDto.getDataInstall()), FONT_HELVETICA_7));
 		PdfPCell cell;
 		cell = new PdfPCell(phrase);
-		cell.setColspan(3);
 		cell.setBorder(Rectangle.LEFT | Rectangle.RIGHT);
+		cell.setColspan(3);
 		tabella.addCell(cell);
 		
 		// riga2

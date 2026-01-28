@@ -903,37 +903,6 @@ public class ValidationMgr {
 
 		isDataFutura(allegato.getDataControllo(), ConstantsField.DATI_ALLEGATO_DATA_CONTROLLO);
 
-		try {
-			//controllo che la data di assegnazione bollino(data controllo) sia uguale o successiva alla data assegnazione dell'impianto
-			//[ riportare la data SIGIT_T_IMPIANTO.data_assegnazione]
-			String dataAssegnazione = getDbMgr().getDataAssegnazioneCodiceImpianto(allegato.getCodiceImpianto());
-			if(dataAssegnazione!=null){
-				boolean flagData = DateUtil.checkDateOrder(dataAssegnazione, allegato.getDataControllo(), true);
-				if(!flagData){
-					ex = new ValidationManagerException(new Message(Messages.S051,dataAssegnazione));
-					ex.addField(ConstantsField.DATI_ALLEGATO_DATA_CONTROLLO);
-
-					throw ex;
-					//throw new ValidationManagerException(new Message(Messages.S051,dataAssegnazione));
-				}
-			}
-
-			// Questo controllo e' stato spostato nella verifica apparecchiature (ogni app puo' avere un diverso 3 responsabile)
-			/*
-			// controllo che esista un responsabile attivo alla data di controllo
-			// Devo verificare che esista un responsabile alla data rapporto
-			if (getDbMgr().cercaResponsabileAttivoAllaDataByCodImpianto(allegato.getCodiceImpianto(), allegato.getDataControllo()) == null)
-			{
-				throw new ValidationManagerException(new Message(Messages.ERROR_RESPONSABILE_DATA_RAPP_ASSENTE));
-			}
-			*/
-
-
-
-		} catch (DbManagerException e) {
-			throw new ValidationManagerException(new Message(Messages.ERROR_RECUPERO_DB));
-		}
-
 	}
 
 
@@ -994,28 +963,11 @@ public class ValidationMgr {
 
 		isDataFutura(allegato.getDataControllo(), ConstantsField.DATI_ALLEGATO_ISP_DATA_CONTROLLO);
 
-		try {
-			//controllo che la data di assegnazione bollino(data controllo) sia uguale o successiva alla data assegnazione dell'impianto
-			//[ riportare la data SIGIT_T_IMPIANTO.data_assegnazione]
-			String dataAssegnazione = getDbMgr().getDataAssegnazioneCodiceImpianto(allegato.getCodiceImpianto());
-			if(dataAssegnazione!=null){
-				boolean flagData = DateUtil.checkDateOrder(dataAssegnazione, allegato.getDataControllo(), true);
-				if(!flagData){
-					throw new ValidationManagerException(new Message(Messages.S051,dataAssegnazione));
-				}
-			}
-
-			// controllo che esista un responsabile attivo alla data di controllo
-			// Devo verificare che esista un responsabile alla data rapporto
-			if (isNessunResponsabileByCodImpiantoApp(allegato.getCodiceImpianto(), allegato.getDataControllo(), allegato.getIdTipoAllegato(), allegato.getIdApparecchiature()))
-			{
-				throw new ValidationManagerException(new Message(Messages.ERROR_RESPONSABILE_DATA_RAPP_ASSENTE));
-			}
-
-
-
-		} catch (DbManagerException e) {
-			throw new ValidationManagerException(new Message(Messages.ERROR_RECUPERO_DB));
+		// controllo che esista un responsabile attivo alla data di controllo
+		// Devo verificare che esista un responsabile alla data rapporto
+		if (isNessunResponsabileByCodImpiantoApp(allegato.getCodiceImpianto(), allegato.getDataControllo(), allegato.getIdTipoAllegato(), allegato.getIdApparecchiature()))
+		{
+			throw new ValidationManagerException(new Message(Messages.ERROR_RESPONSABILE_DATA_RAPP_ASSENTE));
 		}
 
 	}
@@ -1063,66 +1015,6 @@ public class ValidationMgr {
 		}
 
 	}
-
-	/*
-	public void validazioneFormaleDatiAllegatoIsp(it.csi.sigit.sigitwebn.dto.ispezioni.DettaglioAllegato dettaglio) throws ValidationManagerException {
-
-		ValidationManagerException ex = null;
-
-		//Message message = new Message(Messages.ERROR_CAMPO_ABBIGATORIO);
-		//message.replacePlaceholder("");
-		ex = new ValidationManagerException();
-
-		if (GenericUtil.isNullOrEmpty(dettaglio.getDataControllo())) {
-			ex.addFieldRequired(ConstantsField.DATI_ALLEGAT0_DATA_CONTROLLO);
-
-		}
-
-		if (GenericUtil.isNullOrEmpty(dettaglio.getIdTipoAllegato())) {
-			ex.addFieldRequired(ConstantsField.DATI_ALLEGAT0_TIPO_DOCUMENTO);
-
-		}
-
-		if (GenericUtil.isNullOrEmpty(dettaglio.getNumeroBollinoVerde())) {
-			ex.addFieldRequired(ConstantsField.DATI_ALLEGAT0_NUMERO_BOLLINO);
-
-		}
-
-		if (ex.getFieldList().size() > 0)
-		{
-				throw ex;
-		}
-
-		checkDate(dettaglio.getDataControllo(), ConstantsField.DATI_ALLEGAT0_DATA_CONTROLLO);
-
-		isDataFutura(dettaglio.getDataControllo(), ConstantsField.DATI_ALLEGAT0_DATA_CONTROLLO);
-
-		try {
-			//controllo che la data di assegnazione bollino(data controllo) sia uguale o successiva alla data assegnazione dell'impianto
-			//[ riportare la data SIGIT_T_IMPIANTO.data_assegnazione]
-			String dataAssegnazione = getDbMgr().getDataAssegnazioneCodiceImpianto(dettaglio.getCodiceImpianto());
-			if(dataAssegnazione!=null){
-				boolean flagData = DateUtil.checkDateOrder(dataAssegnazione, dettaglio.getDataControllo(), true);
-				if(!flagData){
-					throw new ValidationManagerException(new Message(Messages.S051,dataAssegnazione));
-				}
-			}
-
-			// controllo che esista un responsabile attivo alla data di controllo
-			// Devo verificare che esista un responsabile alla data rapporto
-			if (getDbMgr().cercaResponsabileAttivoAllaDataByCodImpianto(dettaglio.getCodiceImpianto(), dettaglio.getDataControllo()) == null)
-			{
-				throw new ValidationManagerException(new Message(Messages.ERROR_RESPONSABILE_DATA_RAPP_ASSENTE));
-			}
-
-
-
-		} catch (DbManagerException e) {
-			throw new ValidationManagerException(new Message(Messages.ERROR_RECUPERO_DB));
-		}
-
-	}
-	*/
 
 	public void validazioneFormaleDatiIspezione(DettaglioIspezione dettaglio) throws ValidationManagerException {
 
@@ -2361,12 +2253,6 @@ public class ValidationMgr {
 		//message.replacePlaceholder("");
 		ex = new ValidationManagerException();
 
-
-		if (GenericUtil.isNullOrEmpty(impianto.getImpDataAssegnazione())) {
-			ex.addField(ConstantsField.GESTISCI_IMPIANTO_DATA_ASS);
-		}
-
-
 		if (GenericUtil.isNullOrEmpty(impianto.getImpIdStatoImp())) {
 			ex.addFieldRequired(ConstantsField.GESTISCI_IMPIANTO_ID_STATO_IMP);
 		}
@@ -2393,6 +2279,11 @@ public class ValidationMgr {
 			if (GenericUtil.isNullOrEmpty(impianto.getImpFlgAppareccUiExt())) {
 				ex.addFieldRequired(ConstantsField.GESTISCI_IMPIANTO_FLG_APPARECC_UI_EXT);
 			}
+		}
+		
+		if(GenericUtil.isNullOrEmpty(impianto.getImpFlgMedioCivile()))
+		{
+			ex.addFieldRequired(ConstantsField.GESTISCI_IMPIANTO_FLG_MEDIO_IMPIANTO_CIVILE);
 		}
 
 		if (GenericUtil.isNotNullOrEmpty(impianto.getImpTipoImpianto()) &&
@@ -2570,16 +2461,6 @@ public class ValidationMgr {
 				throw ex;
 		}
 
-		log.debug("Stampo getImpDataAssegnazione: "+impianto.getImpDataAssegnazione());
-		log.debug("Stampo getImpDataDismissione: "+impianto.getImpDataDismissione());
-
-		if (GenericUtil.isNotNullOrEmpty(impianto.getImpDataAssegnazione()))
-		{
-			checkDate(impianto.getImpDataAssegnazione(), ConstantsField.GESTISCI_IMPIANTO_DATA_ASS);
-
-			isDataFutura(impianto.getImpDataAssegnazione(), ConstantsField.GESTISCI_IMPIANTO_DATA_ASS);
-		}
-
 		/*
 		try
 		{
@@ -2654,11 +2535,6 @@ public class ValidationMgr {
 		*/
 
 		checkDate(impianto.getImpDataDismissione(), ConstantsField.GESTISCI_IMPIANTO_DATA_DISM);
-
-		if (!DateUtil.checkDateOrder(impianto.getImpDataAssegnazione(), impianto.getImpDataDismissione(), true))
-		{
-			throw new ValidationManagerException(new Message(Messages.S025));
-		}
 
 		if (impianto.getImpId() != null)
 		{
@@ -4692,9 +4568,9 @@ public class ValidationMgr {
 		if(impianto != null) {
 
 			boolean codiceImpiantoEmpty = GenericUtil.isNullOrEmpty(impianto.getImpCodImpianto());
-			boolean dataAssegnazioneEmpty = GenericUtil.isNullOrEmpty(impianto.getImpDataAssegnazione());
+
 			// Campi obbligatori
-			if(codiceImpiantoEmpty || dataAssegnazioneEmpty) {
+			if(codiceImpiantoEmpty) {
 
 				ex = new ValidationManagerException(new Message(Messages.ERROR_CAMPO_ABBIGATORIO));
 
@@ -4705,10 +4581,6 @@ public class ValidationMgr {
 					//ex.addField(IMPIANTI_IDENTIFICAZIONE_CODICE_IMPIANTO);
 				}
 
-				if(dataAssegnazioneEmpty) {
-					ex.addField(ConstantsField.GESTISCI_IMPIANTO_DATA_ASS);
-				}
-
 				//log.error("CAMPI OBBLIGATORI MANCANTI: "+ex.getFieldList());
 				//ex.setMsg(message);
 				throw ex;
@@ -4717,7 +4589,6 @@ public class ValidationMgr {
 			// Controlli formali
 
 			checkNumeroIntero(impianto.getImpCodImpianto().toString(), ConstantsField.GESTISCI_IMPIANTO_COD_IMP, Constants.MAX_CODICE_IMPIANTO_LEN);
-			checkDate(impianto.getImpDataAssegnazione(), ConstantsField.GESTISCI_IMPIANTO_DATA_ASS);
 
 			//verificaInserimentoCodiceImpianto(impianto);
 
@@ -4971,8 +4842,8 @@ public class ValidationMgr {
 		GenericUtil.eliminaCampoVuoto(subentro.getIdApparecchiature());
 
 
-		try
-		{
+//		try
+//		{
 
 			if (GenericUtil.isNullOrEmpty(subentro.getRespImpId()))
 			{
@@ -5001,26 +4872,26 @@ public class ValidationMgr {
 
 			verificaImpiantoSubentro(subentro, descRuolo);
 
-			SigitTImpiantoDto impianto = getDbMgr().cercaImpiantoDtoById(subentro.getImpCodImpianto());
-
-			// L'impianto esiste gia'
-			if (impianto != null)
-			{
-
-				if (descRuolo.equalsIgnoreCase(Constants.RUOLO_SUPER) ||
-						descRuolo.equalsIgnoreCase(Constants.RUOLO_VALIDATORE) ||
-						descRuolo.equalsIgnoreCase(Constants.RUOLO_IMPRESA))
-				{
-					PersonaGiuridica impresa = getDbMgr().cercaPersonaGiuridicaById(subentro.getRespImpId());
-
-					log.debug("STAMPO DATA ASSEGNAZIONE: "+impianto.getDataAssegnazione());
-					log.debug("STAMPO DATA CESSAZIONE: "+impresa.getDataCessazione());
-
-					if (!DateUtil.checkDateOrderIsPresents(ConvertUtil.convertToString(impianto.getDataAssegnazione()), impresa.getDataCessazione(), false))
-					{
-						throw new ValidationManagerException(new Message(Messages.S082,impresa.getDataCessazione()));
-					}
-				}
+//			SigitTImpiantoDto impianto = getDbMgr().cercaImpiantoDtoById(subentro.getImpCodImpianto());
+//
+//			// L'impianto esiste gia'
+//			if (impianto != null)
+//			{
+//
+//				if (descRuolo.equalsIgnoreCase(Constants.RUOLO_SUPER) ||
+//						descRuolo.equalsIgnoreCase(Constants.RUOLO_VALIDATORE) ||
+//						descRuolo.equalsIgnoreCase(Constants.RUOLO_IMPRESA))
+//				{
+//					PersonaGiuridica impresa = getDbMgr().cercaPersonaGiuridicaById(subentro.getRespImpId());
+//
+//					log.debug("STAMPO DATA ASSEGNAZIONE: "+impianto.getDataAssegnazione());
+//					log.debug("STAMPO DATA CESSAZIONE: "+impresa.getDataCessazione());
+//
+//					if (!DateUtil.checkDateOrderIsPresents(ConvertUtil.convertToString(impianto.getDataAssegnazione()), impresa.getDataCessazione(), false))
+//					{
+//						throw new ValidationManagerException(new Message(Messages.S082,impresa.getDataCessazione()));
+//					}
+//				}
 
 
 
@@ -5077,12 +4948,12 @@ public class ValidationMgr {
 						throw new ValidationManagerException(new Message(Messages.S075));
 					}
 				*/
-			}
-
-		}
-		catch(DbManagerException e) {
-			throw new ValidationManagerException(e, e.getMsg());
-		}
+//			}
+//
+//		}
+//		catch(DbManagerException e) {
+//			throw new ValidationManagerException(e, e.getMsg());
+//		}
 
 		log.debug("[ValidationMgr::validazioneFormaleSubentro] END");
 	}
@@ -6487,24 +6358,24 @@ public class ValidationMgr {
 		}
 	}
 
-	public void verificaDataAssegnazioneREE(String codiceImpianto, String dataControllo) throws ValidationManagerException {
-
-		//verifico che la data controllo sia successiva alla data assegnazione del numero REE
-		try
-		{
-			String dataAssegnazione = getDbMgr().getDataAssegnazioneCodiceImpianto(codiceImpianto);
-			if(dataAssegnazione!=null){
-				boolean flagData = DateUtil.checkDateOrder(dataAssegnazione, dataControllo, true);
-				if(!flagData){
-
-					throw new ValidationManagerException(new Message(Messages.S051,dataAssegnazione));
-				}
-			}
-		}
-		catch (DbManagerException e) {
-			throw new ValidationManagerException(new Message(Messages.ERROR_RECUPERO_DB));
-		}
-	}
+//	public void verificaDataAssegnazioneREE(String codiceImpianto, String dataControllo) throws ValidationManagerException {
+//
+//		//verifico che la data controllo sia successiva alla data assegnazione del numero REE
+//		try
+//		{
+//			String dataAssegnazione = getDbMgr().getDataAssegnazioneCodiceImpianto(codiceImpianto);
+//			if(dataAssegnazione!=null){
+//				boolean flagData = DateUtil.checkDateOrder(dataAssegnazione, dataControllo, true);
+//				if(!flagData){
+//
+//					throw new ValidationManagerException(new Message(Messages.S051,dataAssegnazione));
+//				}
+//			}
+//		}
+//		catch (DbManagerException e) {
+//			throw new ValidationManagerException(new Message(Messages.ERROR_RECUPERO_DB));
+//		}
+//	}
 
 	/**
 	 * Controllo se l'allegato che sto per modificare e' stato inserito o modificato dall'utente corrente
@@ -7156,7 +7027,7 @@ public class ValidationMgr {
 
 
 			//verifico che la data controllo sia successiva alla data assegnazione del numero REE
-			verificaDataAssegnazioneREE(codiceImpianto, ConvertUtil.convertToString(dataControllo));
+			//verificaDataAssegnazioneREE(codiceImpianto, ConvertUtil.convertToString(dataControllo));
 
 			//verificaCodiceBollino(codiceBollino);
 

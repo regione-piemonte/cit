@@ -5151,6 +5151,7 @@ public class ServiziMgr {
 			
 			
 			n = indexSearchFolder(getQueryLuceneSearchCartella(metadati, cartella), oc);
+			log.info("Ricerca cartella='" + cartella + "'; metadati=" + metadati.toString() + ": " + (n != null ? n.getUid() : "null"));
 
 			// Ho cercato la cartella passata come parametro
 			if (n == null)
@@ -5887,12 +5888,18 @@ public class ServiziMgr {
 
 		luceneQuery.append("PATH:\"");
 		luceneQuery.append(Constants.INDEX_ROOT_SIGIT);
-		luceneQuery.append(Constants.INDEX_FOLDER_SUFFIX);
-		luceneQuery.append(metadati.getCodIstatProvincia());
-		luceneQuery.append(Constants.INDEX_FOLDER_SUFFIX);
-		luceneQuery.append(metadati.getCodIstatComune());
-		luceneQuery.append(Constants.INDEX_FOLDER_SUFFIX);
-		luceneQuery.append(metadati.getCodiceImpianto());
+		if (metadati.getCodIstatProvincia() != null && !metadati.getCodIstatProvincia().equals("")) {
+			luceneQuery.append(Constants.INDEX_FOLDER_SUFFIX);
+			luceneQuery.append(metadati.getCodIstatProvincia());
+		}
+		if (metadati.getCodIstatComune() != null && !metadati.getCodIstatComune().equals("")) {
+			luceneQuery.append(Constants.INDEX_FOLDER_SUFFIX);
+			luceneQuery.append(metadati.getCodIstatComune());
+		}
+		if (metadati.getCodiceImpianto() != null && !metadati.getCodiceImpianto().equals("")) {
+			luceneQuery.append(Constants.INDEX_FOLDER_SUFFIX);
+			luceneQuery.append(metadati.getCodiceImpianto());
+		}
 		luceneQuery.append("/*");
 		luceneQuery.append("\"");
 		luceneQuery.append(" AND ");
@@ -6084,36 +6091,44 @@ public class ServiziMgr {
 	
 	private String indexGetFolder(Metadati metadati, OperationContext op) throws ServiceException {
 		log.debug("[ServiziMgr::indexGetFolder] BEGIN");
-		try{
+		boolean isSigitDocPaFolderMissing = true;
+		Node nodeApplicativo = null;
+		Node nodeProvincia = null;
+		Node nodeComune = null;
+		Node nodeCodImp = null;
+		
+		try {
 			
 			Content content = indexGetContentFolder(null);
 			
-			
-			Node nodeCodImp = indexSearchFolder(getQueryLuceneSearchCodImp(metadati), op);
-			
-			log.debug("Ho cercato il codice impianto: "+nodeCodImp);
+			if (metadati.getCodiceImpianto() != null && !metadati.getCodiceImpianto().equals("")) {
+				nodeCodImp = indexSearchFolder(getQueryLuceneSearchCodImp(metadati), op);
+				log.debug("Ho cercato il codice impianto: "+nodeCodImp);
+			}
 			
 			if (nodeCodImp == null)
 			{
 				log.debug("Non esiste il nodo codice impianto");
 				
-				Node nodeComune = indexSearchFolder(getQueryLuceneSearchComune(metadati), op);
-				
-				log.debug("Ho cercato il comune: "+nodeComune);
+				if (metadati.getCodIstatComune() != null && !metadati.getCodIstatComune().equals("")) {
+					nodeComune = indexSearchFolder(getQueryLuceneSearchComune(metadati), op);
+					log.debug("Ho cercato il comune: "+nodeComune);
+				}
 				
 				if (nodeComune == null)
 				{
 					log.debug("Non esiste il nodo comune");
 					
-					Node nodeProvincia = indexSearchFolder(getQueryLuceneSearchProvincia(metadati), op); 
-					
-					log.debug("Ho cercato la provincia: "+nodeProvincia);
+					if (metadati.getCodIstatProvincia() != null && !metadati.getCodIstatProvincia().equals("")) {
+						nodeProvincia = indexSearchFolder(getQueryLuceneSearchProvincia(metadati), op); 
+						log.debug("Ho cercato la provincia: "+nodeProvincia);
+					}
 					
 					if (nodeProvincia == null)
 					{
 						log.debug("Non esiste il nodo provincia");
 						
-						Node nodeApplicativo = indexSearchFolder(getQueryLuceneSearchApplicativo(), op); 
+						nodeApplicativo = indexSearchFolder(getQueryLuceneSearchApplicativo(), op); 
 
 						log.debug("Ho cercato l'applicativo: "+nodeApplicativo);
 						
@@ -6123,28 +6138,34 @@ public class ServiziMgr {
 							throw new ServiceException("Su INDEX non e' configurato l'applicativo");
 						}
 						
+						if (metadati.getCodIstatProvincia() != null && !metadati.getCodIstatProvincia().equals("")) {
+							log.debug("creo il nodo provincia");
+							nodeProvincia = indexCreateFolder(metadati.getCodIstatProvincia(), content, nodeApplicativo, op);
+							log.debug("ho creato il nodo provincia: "+nodeProvincia.getUid());
+							isSigitDocPaFolderMissing = false;
+						}
 						
-						log.debug("creo il nodo provincia");
-						
-						nodeProvincia = indexCreateFolder(metadati.getCodIstatProvincia(), content, nodeApplicativo, op);
-						
-						log.debug("ho creato il nodo provincia: "+nodeProvincia.getUid());
 					}
 					
-					log.debug("creo il nodo comune");
-
-					nodeComune = indexCreateFolder(metadati.getCodIstatComune(), content, nodeProvincia, op);
-
-					log.debug("ho creato il nodo comune: "+nodeComune.getUid());
+					if (metadati.getCodIstatComune() != null && !metadati.getCodIstatComune().equals("")) {
+						log.debug("creo il nodo comune");
+						nodeComune = indexCreateFolder(metadati.getCodIstatComune(), content, nodeProvincia, op);
+						log.debug("ho creato il nodo comune: " + nodeComune.getUid());
+						isSigitDocPaFolderMissing = false;
+					}
 
 				}
 
-				log.debug("creo il nodo codice impianto");
-
-				nodeCodImp = indexCreateFolder(metadati.getCodiceImpianto(), content, nodeComune, op);
+				if (metadati.getCodiceImpianto() != null && !metadati.getCodiceImpianto().equals("")) {
+					log.debug("creo il nodo codice impianto");
+					nodeCodImp = indexCreateFolder(metadati.getCodiceImpianto(), content, nodeComune, op);
+					log.debug("ho creato il nodo codice impianto: " + nodeCodImp.getUid());
+					isSigitDocPaFolderMissing = false;
+				}
 				
-				log.debug("ho creato il nodo codice impianto: "+nodeCodImp.getUid());
-
+				if (isSigitDocPaFolderMissing) {
+					nodeCodImp = nodeApplicativo;
+				}
 				
 			}
 			
@@ -6381,6 +6402,22 @@ public class ServiziMgr {
 		}
 	}
 	
+	public Documento downloadLetteraAvviso(Integer idIspezione, String codiceFiscalePF, String idPersonaGiuridica) throws ServiceException {
+		log.debug("[ServiziMgr::downloadLetteraAvviso] START");
+		try {
+			JWTDto jwtDto = JWTUtil.generaTokenFruitoreInterno(codiceFiscalePF, idPersonaGiuridica);
+			return getSigitExtMgr().getLetteraAvvisoJWT(idIspezione, jwtDto.getToken());
+		} catch (SigitextException e) {
+			log.error("Errore sigitext downloadLetteraAvviso", e);
+			throw new ServiceException(e, e.getMessage());
+		} catch (Exception e) {
+			log.error("Errore sigitext downloadLetteraAvviso", e);
+			throw new ServiceException(e, Messages.ERROR_RECUPERO_SERVIZIO);
+		} finally {
+			log.debug("[ServiziMgr::downloadLetteraAvviso] END");
+		}
+	}
+	
 	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByFiltroJWT(ImpiantoFiltro impiantoFiltro, UtenteLoggato utente) throws ServiceException {
 		log.debug("[ServiziMgr::getImpiantoByFiltroJWT] START");
 		try {
@@ -6464,7 +6501,11 @@ public class ServiziMgr {
 			throw new ServiceException("Coordinate non trovate per l'indirizzo " + indirizzo);
 			
 		} catch (ServiceException e) {
-			log.error("Errore LOCCSI getLOCCSICoordinates", e);
+			if (e.getMessage().contains("Coordinate non trovate")) {
+				log.info("Errore LOCCSI getLOCCSICoordinates", e);
+			} else {
+				log.error("Errore LOCCSI getLOCCSICoordinates", e);
+			}
 			throw e;
 		} catch (Exception e) {
 			log.error("Errore LOCCSI getLOCCSICoordinates", e);

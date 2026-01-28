@@ -606,10 +606,9 @@ public class SigitTUnitaImmobiliareDaoImpl extends AbstractDAO implements SigitT
 
 		paramMap.addValue("codImpianto", input.getCodiceImpianto());
 
-	
-		LOG.debug("findPrincipaleByFilter - fkL2: "+input.getFkL2());
-		LOG.debug("findPrincipaleByFilter - indirizzoSitad: "+input.getIndirizzoSitad());
-		
+		LOG.debug("findPrincipaleByFilter - fkL2: " + input.getFkL2());
+		LOG.debug("findPrincipaleByFilter - indirizzoSitad: " + input.getIndirizzoSitad());
+
 		if (GenericUtil.isNotNullOrEmpty(input.getFkL2())) {
 			paramMap.addValue("fkL2", input.getFkL2());
 			paramMap.addValue("indirizzoSitad", input.getIndirizzoSitad());

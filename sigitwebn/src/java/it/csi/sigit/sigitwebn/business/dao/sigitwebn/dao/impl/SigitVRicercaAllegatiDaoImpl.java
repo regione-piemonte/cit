@@ -268,7 +268,7 @@ public class SigitVRicercaAllegatiDaoImpl extends AbstractDAO implements SigitVR
 		//		if (GenericUtil.isNotNullOrEmpty(input.getImpiantiNonFunzionanti())) {
 		//			log.debug("FLAG PUO' FUNZIONARE --> "
 		//					+ input.getImpiantiNonFunzionanti());
-		//			//è un numerico sul db (1,0)
+		//			//ï¿½ un numerico sul db (1,0)
 		//			sql.append(" AND F_FLG_PUO_FUNZIONARE = :flgPuoFunzionare");
 		//			if (Constants.TRUE.equalsIgnoreCase(input
 		//					.getImpiantiNonFunzionanti()))
@@ -286,7 +286,7 @@ public class SigitVRicercaAllegatiDaoImpl extends AbstractDAO implements SigitVR
 		
 			log.debug("FLAG PUO' FUNZIONARE --> "
 					+ input.getImpiantiNonFunzionanti());
-			//è un numerico sul db (1,0)
+			//ï¿½ un numerico sul db (1,0)
 			sql.append(" AND F_FLG_PUO_FUNZIONARE = :flgPuoFunzionare");
 		
 			paramMap.addValue("flgPuoFunzionare",

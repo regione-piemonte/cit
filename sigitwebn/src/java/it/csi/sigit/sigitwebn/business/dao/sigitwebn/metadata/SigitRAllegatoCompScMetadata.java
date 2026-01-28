@@ -28,11 +28,9 @@ public class SigitRAllegatoCompScMetadata extends DAOMetadata {
 	 */
 	public SigitRAllegatoCompScMetadata() {
 		columnNames = new String[]{"ID_ALLEGATO", "ID_TIPO_COMPONENTE", "PROGRESSIVO", "CODICE_IMPIANTO",
-				"DATA_INSTALL", "BUTTA_FK_R_PG", "BUTTA_FK_3R_PG", "BUTTA_FK_R_PF", "BUTTA_FK_3RESP", "BUTTA_FK_RESP",
-				"FK_IMP_RUOLO_PFPG", "FK_CONTRATTO"};
+				"DATA_INSTALL", "FK_IMP_RUOLO_PFPG", "FK_CONTRATTO"};
 		propertyNames = new String[]{"idAllegato", "idTipoComponente", "progressivo", "codiceImpianto", "dataInstall",
-				"buttaFkRPg", "buttaFk3rPg", "buttaFkRPf", "buttaFk3resp", "buttaFkResp", "fkImpRuoloPfpg",
-				"fkContratto"};
+				"fkImpRuoloPfpg", "fkContratto"};
 		for (int i = 0; i < columnNames.length; i++) {
 			columnsNamesMap.put(propertyNames[i], columnNames[i]);
 

@@ -26,16 +26,6 @@ function initStdEnrichments4CpGestReeTipo1Dett() {
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_wpE", addNarrowingToCbTipologiaTipo1B);
 
 
-	/// arricchimento per guigen::ComboBox [cbCondottoEvacuazioneFumi]: autonarrowing
-	var addNarrowingToCbCondottoEvacuazioneFumi =
-		function(){
-			uiNRichLib.addComboNarrowingNRich(
-				'widg_cbCondottoEvacuazioneFumi',
-			 	true);
-		};
-	uiEnricherMgr.registerEnrichment(contentPanelName, "p_wpE", addNarrowingToCbCondottoEvacuazioneFumi);
-
-
 	/// arricchimento per guigen::ComboBox [cbStelle]: autonarrowing
 	var addNarrowingToCbStelle =
 		function(){

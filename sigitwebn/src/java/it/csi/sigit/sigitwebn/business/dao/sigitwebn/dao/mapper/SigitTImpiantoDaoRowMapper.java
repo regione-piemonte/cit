@@ -68,10 +68,6 @@ public class SigitTImpiantoDaoRowMapper extends BaseDaoRowMapper implements org.
 		if (mapAllColumns || columnsToReadMap.get("FK_STATO") != null)
 			dto.setFkStato(rs.getBigDecimal("FK_STATO"));
 
-		// colonna [DATA_ASSEGNAZIONE]
-		if (mapAllColumns || columnsToReadMap.get("DATA_ASSEGNAZIONE") != null)
-			dto.setDataAssegnazione(rs.getDate("DATA_ASSEGNAZIONE"));
-
 		// colonna [DATA_DISMISSIONE]
 		if (mapAllColumns || columnsToReadMap.get("DATA_DISMISSIONE") != null)
 			dto.setDataDismissione(rs.getDate("DATA_DISMISSIONE"));
@@ -243,6 +239,10 @@ public class SigitTImpiantoDaoRowMapper extends BaseDaoRowMapper implements org.
 		// colonna [COORD_Y_LAT_DD]
 		if (mapAllColumns || columnsToReadMap.get("COORD_Y_LAT_DD") != null)
 			dto.setCoordYLatDd((Double) rs.getObject("COORD_Y_LAT_DD"));
+
+		// colonna [FLG_MEDIOIMPIANTO]
+		if (mapAllColumns || columnsToReadMap.get("FLG_MEDIOIMPIANTO") != null)
+			dto.setFlgMedioimpianto(rs.getBigDecimal("FLG_MEDIOIMPIANTO"));
 
 		return dto;
 	}

@@ -25,18 +25,18 @@ public final class CpGestImpiantoRespScreenStates {
 		/**
 		 * widget abilitati nello stato
 		 */
-		static final String[] WIDGETS_ON = new String[]{"menu", "tfImpCodImp", "btnImpVerCodImp", "cImpDataAss",
-				"cbImpStatoImp", "rbImpTipo", "rbImpUiExt", "rbImpCont", "cbImpLocProvincia", "cbImpLocComune",
-				"tfImpLocIndirizzo", "btnImpLocCercaIndirizzo", "cbImpLocIndirizzo", "btnImpLocNuovaRicercaIndirizzo",
-				"tfImpLocNoStrad", "tfImpLocCivico", "tfImpLocCap", "tfImpLocInterno", "tfImpLocScala",
-				"tfImpLocPalazzo", "tfImpLocFoglio", "tfImpLocSezione", "tfImpLocParticella", "tfImpLocSubalterno",
-				"cbImpLocEdifNonAcc", "tfImpLocPod", "tfImpLocPdr", "cbImpLocPdrNonPres", "taImpLocNote",
-				"btnImpiantoSalva", "btnImpIndietro", "cbRespTitolo", "cbRespIndirizzoEst", "tfRespIndirizzo",
-				"btnRespCercaIndirizzo", "cbRespIndirizzo", "btnRespNuovaRicercaIndirizzo", "tfIRespNoStrad",
-				"tfRespCivico", "tfRespCap", "tfRespEstStato", "tfRespEstCitta", "tfRespEstIndirizzo",
-				"tfRespEstCivico", "tfRespEstCap", "cRespDataInizioResp", "tfRespEmail", "btnLibVisualizza",
-				"btnLibRappControllo", "btnLibDocumentazione", "btnVisLibrettoWeb", "btnModificaProp",
-				"cbVisuProprietario", "btnApprofondisciImpianto"};
+		static final String[] WIDGETS_ON = new String[]{"menu", "tfImpCodImp", "btnImpVerCodImp", "cbImpStatoImp",
+				"rbImpTipo", "rbImpUiExt", "rbImpCont", "cbImpLocProvincia", "cbImpLocComune", "tfImpLocIndirizzo",
+				"btnImpLocCercaIndirizzo", "cbImpLocIndirizzo", "btnImpLocNuovaRicercaIndirizzo", "tfImpLocNoStrad",
+				"tfImpLocCivico", "tfImpLocCap", "tfImpLocInterno", "tfImpLocScala", "tfImpLocPalazzo",
+				"tfImpLocFoglio", "tfImpLocSezione", "tfImpLocParticella", "tfImpLocSubalterno", "cbImpLocEdifNonAcc",
+				"tfImpLocPod", "tfImpLocPdr", "cbImpLocPdrNonPres", "taImpLocNote", "btnImpiantoSalva",
+				"btnImpIndietro", "cbRespTitolo", "cbRespIndirizzoEst", "tfRespIndirizzo", "btnRespCercaIndirizzo",
+				"cbRespIndirizzo", "btnRespNuovaRicercaIndirizzo", "tfIRespNoStrad", "tfRespCivico", "tfRespCap",
+				"tfRespEstStato", "tfRespEstCitta", "tfRespEstIndirizzo", "tfRespEstCivico", "tfRespEstCap",
+				"cRespDataInizioResp", "tfRespEmail", "btnLibVisualizza", "btnLibRappControllo", "btnLibDocumentazione",
+				"btnVisLibrettoWeb", "btnModificaProp", "cbVisuProprietario", "btnApprofondisciImpianto",
+				"rbImpMedCiv"};
 
 		/**
 		 * widget disabilitati nello stato
@@ -49,20 +49,19 @@ public final class CpGestImpiantoRespScreenStates {
 		/**
 		 * widget visibili nello stato
 		 */
-		static final String[] WIDGETS_SHOWN = new String[]{"menu", "tfImpCodImp", "cImpDataAss", "cbImpStatoImp",
-				"cImpDataDismiss", "taImpMotivivazione", "rbImpTipo", "rbImpUiExt", "rbImpCont", "cbImpLocProvincia",
-				"cbImpLocComune", "tfImpLocIndirizzo", "btnImpLocCercaIndirizzo", "cbImpLocIndirizzo",
-				"btnImpLocNuovaRicercaIndirizzo", "tfImpLocNoStrad", "tfImpLocCivico", "tfImpLocCap", "tfImpLocInterno",
-				"tfImpLocScala", "tfImpLocPalazzo", "tfImpLocFoglio", "tfImpLocSezione", "tfImpLocParticella",
-				"tfImpLocSubalterno", "cbImpLocEdifNonAcc", "tfImpLocPod", "tfImpLocPdr", "cbImpLocPdrNonPres",
-				"taImpLocNote", "btnImpiantoSalva", "btnImpIndietro", "cbRespTitolo", "tfRespCf", "tfRespCognome",
-				"tfRespNome", "cbRespIndirizzoEst", "cbRespProvincia", "cbRespComune", "tfRespIndirizzo",
-				"btnRespCercaIndirizzo", "cbRespIndirizzo", "btnRespNuovaRicercaIndirizzo", "tfIRespNoStrad",
-				"tfRespCivico", "tfRespCap", "tfRespEstStato", "tfRespEstCitta", "tfRespEstIndirizzo",
-				"tfRespEstCivico", "tfRespEstCap", "cRespDataInizioResp", "tfRespEmail", "btnLibVisualizza",
-				"btnLibRappControllo", "btnLibDocumentazione", "btnVisLibrettoWeb", "tfImpLocProprietario",
-				"tfImpLocPropDataInizio", "btnModificaProp", "cbVisuProprietario", "tfImpLocPropIndirizzo",
-				"btnApprofondisciImpianto"};
+		static final String[] WIDGETS_SHOWN = new String[]{"menu", "tfImpCodImp", "cbImpStatoImp", "cImpDataDismiss",
+				"taImpMotivivazione", "rbImpTipo", "rbImpUiExt", "rbImpCont", "cbImpLocProvincia", "cbImpLocComune",
+				"tfImpLocIndirizzo", "btnImpLocCercaIndirizzo", "cbImpLocIndirizzo", "btnImpLocNuovaRicercaIndirizzo",
+				"tfImpLocNoStrad", "tfImpLocCivico", "tfImpLocCap", "tfImpLocInterno", "tfImpLocScala",
+				"tfImpLocPalazzo", "tfImpLocFoglio", "tfImpLocSezione", "tfImpLocParticella", "tfImpLocSubalterno",
+				"cbImpLocEdifNonAcc", "tfImpLocPod", "tfImpLocPdr", "cbImpLocPdrNonPres", "taImpLocNote",
+				"btnImpiantoSalva", "btnImpIndietro", "cbRespTitolo", "tfRespCf", "tfRespCognome", "tfRespNome",
+				"cbRespIndirizzoEst", "cbRespProvincia", "cbRespComune", "tfRespIndirizzo", "btnRespCercaIndirizzo",
+				"cbRespIndirizzo", "btnRespNuovaRicercaIndirizzo", "tfIRespNoStrad", "tfRespCivico", "tfRespCap",
+				"tfRespEstStato", "tfRespEstCitta", "tfRespEstIndirizzo", "tfRespEstCivico", "tfRespEstCap",
+				"cRespDataInizioResp", "tfRespEmail", "btnLibVisualizza", "btnLibRappControllo", "btnLibDocumentazione",
+				"btnVisLibrettoWeb", "tfImpLocProprietario", "tfImpLocPropDataInizio", "btnModificaProp",
+				"cbVisuProprietario", "tfImpLocPropIndirizzo", "btnApprofondisciImpianto", "rbImpMedCiv"};
 
 		/**
 		 * widget nascosti nello stato
@@ -101,8 +100,8 @@ public final class CpGestImpiantoRespScreenStates {
 		 * widget disabilitati nello stato
 		 */
 		static final String[] WIDGETS_OFF = new String[]{"tfImpCodImp", "btnApprofondisciImpianto", "btnImpVerCodImp",
-				"cImpDataAss", "cbImpStatoImp", "cImpDataDismiss", "taImpMotivivazione", "rbImpTipo", "rbImpUiExt",
-				"rbImpCont", "cbImpLocProvincia", "cbImpLocComune", "tfImpLocIndirizzo", "btnImpLocCercaIndirizzo",
+				"cbImpStatoImp", "cImpDataDismiss", "taImpMotivivazione", "rbImpTipo", "rbImpUiExt", "rbImpCont",
+				"rbImpMedCiv", "cbImpLocProvincia", "cbImpLocComune", "tfImpLocIndirizzo", "btnImpLocCercaIndirizzo",
 				"cbImpLocIndirizzo", "btnImpLocNuovaRicercaIndirizzo", "tfImpLocNoStrad", "tfImpLocCivico",
 				"tfImpLocCap", "tfImpLocInterno", "tfImpLocScala", "tfImpLocPalazzo", "tfImpLocSezione",
 				"tfImpLocFoglio", "tfImpLocParticella", "tfImpLocSubalterno", "cbImpLocEdifNonAcc", "tfImpLocPod",
@@ -118,13 +117,13 @@ public final class CpGestImpiantoRespScreenStates {
 		/**
 		 * widget visibili nello stato
 		 */
-		static final String[] WIDGETS_SHOWN = new String[]{"menu", "tfImpCodImp", "cImpDataAss", "cbImpStatoImp",
-				"cImpDataDismiss", "taImpMotivivazione", "rbImpTipo", "rbImpUiExt", "rbImpCont", "cbImpLocProvincia",
-				"cbImpLocComune", "tfImpLocIndirizzo", "cbImpLocIndirizzo", "tfImpLocNoStrad", "taImpLocNote",
-				"tfImpLocCivico", "tfImpLocCap", "tfImpLocInterno", "tfImpLocScala", "tfImpLocPalazzo",
-				"tfImpLocFoglio", "tfImpLocSezione", "tfImpLocParticella", "tfImpLocSubalterno", "cbImpLocEdifNonAcc",
-				"tfImpLocPod", "tfImpLocPdr", "btnLibVisualizza", "btnImpIndietro", "tfImpLocProprietario",
-				"tfImpLocPropDataInizio", "cbVisuProprietario", "tfImpLocPropIndirizzo"};
+		static final String[] WIDGETS_SHOWN = new String[]{"menu", "tfImpCodImp", "cbImpStatoImp", "cImpDataDismiss",
+				"taImpMotivivazione", "rbImpTipo", "rbImpUiExt", "rbImpCont", "cbImpLocProvincia", "cbImpLocComune",
+				"tfImpLocIndirizzo", "cbImpLocIndirizzo", "tfImpLocNoStrad", "taImpLocNote", "tfImpLocCivico",
+				"tfImpLocCap", "tfImpLocInterno", "tfImpLocScala", "tfImpLocPalazzo", "tfImpLocFoglio",
+				"tfImpLocSezione", "tfImpLocParticella", "tfImpLocSubalterno", "cbImpLocEdifNonAcc", "tfImpLocPod",
+				"tfImpLocPdr", "btnLibVisualizza", "btnImpIndietro", "tfImpLocProprietario", "tfImpLocPropDataInizio",
+				"cbVisuProprietario", "tfImpLocPropIndirizzo", "rbImpMedCiv"};
 
 		/**
 		 * widget nascosti nello stato

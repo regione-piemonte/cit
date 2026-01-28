@@ -274,4 +274,10 @@ public class DateUtil {
 		return new SimpleDateFormat(format).format(date);
 	}
 	
+	public static java.sql.Date addDaysToSqlDate(java.sql.Date date, int days) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.DATE, days);
+		return new java.sql.Date(c.getTimeInMillis());
+	}
 }

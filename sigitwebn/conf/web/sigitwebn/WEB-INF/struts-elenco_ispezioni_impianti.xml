@@ -285,7 +285,7 @@
 			<result name="KO" type="chain">cpRisultatoRicercaIspezioni2018</result>
 		</action>
 
-		<action name="showPdfLetteraAvviso" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.showPdfLetteraAvviso">
+		<action name="showPdfLetteraAvviso" class="it.csi.sigit.sigitwebn.presentation.sigitwebn.action.pdf.ShowPdfLetteraAvviso">
 			<result name="downloadFile" type="stream">
 				<param name="contentType">${contentType}</param>
 				<param name="inputName">inputStream</param>

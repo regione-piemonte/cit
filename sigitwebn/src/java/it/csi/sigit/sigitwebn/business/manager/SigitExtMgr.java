@@ -185,4 +185,26 @@ public class SigitExtMgr {
 			throw new InternalServerErrorException("Errore interno del server");
 		}
 	}
+
+	public Documento getLetteraAvvisoJWT(Integer idIspezione, String token) throws IOException, SigitextException {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(Constants.SIGITEXT_URL + "/impianto/letteraAvviso");
+			builder.queryParam("idIspezione", idIspezione);
+			builder.queryParam("tokenJWT", token);
+			String urlTemplate = builder.build().toUriString();
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			HttpEntity<String> entity = new HttpEntity<>("", headers);
+			ResponseEntity<String> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, entity, String.class);
+			return mapper.readValue(response.getBody(), Documento.class);
+		} catch (HttpServerErrorException | HttpClientErrorException e) {
+			ObjectMapper mapper = new ObjectMapper();
+			Esito esito = mapper.readValue(e.getResponseBodyAsByteArray(), Esito.class);
+			throw new SigitextException(esito.getDescrizioneEsito());
+		} catch (Exception e) {
+			log.error("Errore chiamata servizio", e);
+			throw new InternalServerErrorException("Errore interno del server");
+		}
+	}
 }

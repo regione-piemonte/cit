@@ -143,6 +143,9 @@ public class CPBECpDettaglioIspezione2018 {
 	// ApplicationData: [elencoProvincePiemonteIstat, scope:USER_SESSION]
 	public static final String APPDATA_ELENCOPROVINCEPIEMONTEISTAT_CODE = "appDataelencoProvincePiemonteIstat";
 
+	// ApplicationData: [azioneCodImpianto, scope:USER_SESSION]
+	public static final String APPDATA_AZIONECODIMPIANTO_CODE = "appDataazioneCodImpianto";
+
 	//////////////////////////////////////////////////////////////////////////////
 	/// Metodi associati alla U.I.
 	//////////////////////////////////////////////////////////////////////////////
@@ -267,7 +270,7 @@ public class CPBECpDettaglioIspezione2018 {
 						theModel.getSession().put(Constants.SESSIONE_VAR_MESSAGGE,
 								new Message(Messages.MSG_AGGIORNAMENTO_CORRETTO, Message.INFO));
 						//result.getGlobalMessages().add(Messages.INFO_MODIFICA_CORRETTA);
- 
+
 					}
 
 					caricaIspezione(theModel);
@@ -1028,8 +1031,7 @@ public class CPBECpDettaglioIspezione2018 {
 				//viene svuotato il set di dati per la conclusione
 				ConclusioneIspezione2018 concludiIsp = new ConclusioneIspezione2018();
 				// riporto le note, l'utente le potra' modificare
-				concludiIsp.setNote(ReplaceSpecialCharUtils.sanitize(
-						theModel.getAppDataIspezione2018().getNote()));
+				concludiIsp.setNote(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataIspezione2018().getNote()));
 				theModel.setAppDataConclusioneIspezione2018(concludiIsp);
 
 				result.setResultCode(PREPARACONCLUDIISPEZIONE_OUTCOME_CODE__OK);
@@ -1278,7 +1280,8 @@ public class CPBECpDettaglioIspezione2018 {
 				//nell'appdata e' contenuto l'id della pf dell'ispettore scelto. dato il codice_impianto, l'id della persona da cercare e il ruolo ispettore
 				//si cerca la riga ATTIVA (con datafine null) corrispondente nella tabella r_imp_ruolo_pf_pg 
 				String infoEmail = getSigitMgr().associaIspezione(
-						ReplaceSpecialCharUtils.sanitize(theModel.getAppDataIspezione2018().getIdentificativoIspezione()),
+						ReplaceSpecialCharUtils
+								.sanitize(theModel.getAppDataIspezione2018().getIdentificativoIspezione()),
 						ReplaceSpecialCharUtils.sanitize(theModel.getAppDataIspettoreScelto()),
 						theModel.getAppDatautenteLoggato());
 
@@ -2306,6 +2309,10 @@ public class CPBECpDettaglioIspezione2018 {
 
 		theModel.setAppDataelencoSanzioni(getSigitMgr().getSanzioniByIdIspezione(ispezione.getIdentificativoIspezione(),
 				ConvertUtil.convertIdDescriptionsInMap(theModel.getAppDataelencoStatiSanzione())));
+
+		if (isp.getCodiceImpianto() != null && !isp.getCodiceImpianto().equals("")) {
+			theModel.setAppDataazioneCodImpianto(isp.getCodiceImpianto());
+		}
 
 		log.debug("Stampo ispezione.getIdentificativoIspezione(): " + ispezione.getIdentificativoIspezione());
 		//elenco dei rapporti di prova

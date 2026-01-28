@@ -78,4 +78,11 @@ public class Metadati implements Serializable {
 		this.codiceImpianto = codiceImpianto;
 	}
 	
+	@Override
+	public String toString() {
+		return "Metadati [idRapporto=" + idRapporto + ", idAllegato=" + idAllegato + ", codiceRea=" + codiceRea
+				+ ", codIstatProvincia=" + codIstatProvincia + ", codIstatComune=" + codIstatComune + ", bollinoVerde="
+				+ bollinoVerde + ", dataRapporto=" + dataRapporto + ", codiceImpianto=" + codiceImpianto + "]";
+	}
+	
 }

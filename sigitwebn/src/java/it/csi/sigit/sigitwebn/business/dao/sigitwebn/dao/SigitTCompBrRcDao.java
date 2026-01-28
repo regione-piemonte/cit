@@ -73,14 +73,6 @@ public interface SigitTCompBrRcDao {
 	public List<SigitTCompBrRcDto> findByFilter(SigitTCompBrRcDto input) throws SigitTCompBrRcDaoException;
 
 	/** 
-	 * Implementazione del finder componentiCancellate
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	public List<SigitTCompBrRcDto> findComponentiCancellate(
-			it.csi.sigit.sigitwebn.business.dao.sigitwebn.filter.CompFilter input) throws SigitTCompBrRcDaoException;
-
-	/** 
 	 * Implementazione del finder BrRcLegateAGt
 	 * @generated
 	 */

@@ -204,7 +204,6 @@ public class CPBECpRisRicImpianto {
 
 			impianto.setImpIdStatoImp(ConvertUtil.convertToString(Constants.ID_STATO_IMP_VALIDO));
 			impianto.setImpIdStatoImpOld(ConvertUtil.convertToString(Constants.ID_STATO_IMP_VALIDO));
-			impianto.setImpDataAssegnazione(DateUtil.getDataCorrenteFormat());
 			impianto.setImpDataDismissione(DateUtil.getDataCorrenteFormat());
 			impianto.setImpDataDismissioneOld(DateUtil.getDataCorrenteFormat());
 			impianto.setImpMotivazione(Constants.MOTIVAZIONE_STATO_IMPIANTO_DEFAULT);
@@ -270,7 +269,6 @@ public class CPBECpRisRicImpianto {
 
 			impianto.setImpIdStatoImp(ConvertUtil.convertToString(Constants.ID_STATO_IMP_VALIDO));
 			impianto.setImpIdStatoImpOld(ConvertUtil.convertToString(Constants.ID_STATO_IMP_VALIDO));
-			impianto.setImpDataAssegnazione(DateUtil.getDataCorrenteFormat());
 			impianto.setImpDataDismissione(DateUtil.getDataCorrenteFormat());
 			impianto.setImpDataDismissioneOld(DateUtil.getDataCorrenteFormat());
 			impianto.setImpMotivazione(Constants.MOTIVAZIONE_STATO_IMPIANTO_DEFAULT);

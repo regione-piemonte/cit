@@ -27,18 +27,18 @@ public class SigitTImpiantoMetadata extends DAOMetadata {
 	 * tabella: [SIGIT_T_IMPIANTO].
 	 */
 	public SigitTImpiantoMetadata() {
-		columnNames = new String[]{"CODICE_IMPIANTO", "ISTAT_COMUNE", "FK_STATO", "DATA_ASSEGNAZIONE",
-				"DATA_DISMISSIONE", "DENOMINAZIONE_COMUNE", "SIGLA_PROVINCIA", "DENOMINAZIONE_PROVINCIA",
-				"L1_3_POT_H2O_KW", "L1_3_POT_CLIMA_INV_KW", "L1_3_POT_CLIMA_EST_KW", "L1_3_ALTRO", "L1_4_FLG_H2O",
-				"L1_4_FLG_ARIA", "L1_4_ALTRO", "L1_5_FLG_GENERATORE", "L1_5_FLG_POMPA", "L1_5_FLG_FRIGO",
-				"L1_5_FLG_TELERISC", "L1_5_FLG_TELERAFFR", "L1_5_FLG_COGENERATORE", "L1_5_ALTRO",
-				"L1_5_SUP_PANNELLI_SOL_M2", "L1_5_ALTRO_INTEGRAZIONE", "L1_5_ALTRO_INTEGR_POT_KW",
-				"L1_5_FLG_ALTRO_CLIMA_INV", "L1_5_FLG_ALTRO_CLIMA_ESTATE", "L1_5_FLG_ALTRO_ACS", "L1_5_ALTRO_DESC",
-				"DATA_ULT_MOD", "UTENTE_ULT_MOD", "MOTIVAZIONE", "PROPRIETARIO", "DATA_INSERIMENTO", "NOTE",
-				"FLG_TIPO_IMPIANTO", "FLG_APPARECC_UI_EXT", "FLG_CONTABILIZZAZIONE", "DATA_INTERVENTO",
-				"FK_TIPO_INTERVENTO", "L11_1_FLG_NORMA_UNI_10389_1", "L11_1_ALTRA_NORMA", "FLG_BLOCCO_NOMINA_3R",
-				"FLG_VISU_PROPRIETARIO", "FLG_NO_OPENDATA", "COORD_X_LONG_DD", "COORD_Y_LAT_DD"};
-		propertyNames = new String[]{"codiceImpianto", "istatComune", "fkStato", "dataAssegnazione", "dataDismissione",
+		columnNames = new String[]{"CODICE_IMPIANTO", "ISTAT_COMUNE", "FK_STATO", "DATA_DISMISSIONE",
+				"DENOMINAZIONE_COMUNE", "SIGLA_PROVINCIA", "DENOMINAZIONE_PROVINCIA", "L1_3_POT_H2O_KW",
+				"L1_3_POT_CLIMA_INV_KW", "L1_3_POT_CLIMA_EST_KW", "L1_3_ALTRO", "L1_4_FLG_H2O", "L1_4_FLG_ARIA",
+				"L1_4_ALTRO", "L1_5_FLG_GENERATORE", "L1_5_FLG_POMPA", "L1_5_FLG_FRIGO", "L1_5_FLG_TELERISC",
+				"L1_5_FLG_TELERAFFR", "L1_5_FLG_COGENERATORE", "L1_5_ALTRO", "L1_5_SUP_PANNELLI_SOL_M2",
+				"L1_5_ALTRO_INTEGRAZIONE", "L1_5_ALTRO_INTEGR_POT_KW", "L1_5_FLG_ALTRO_CLIMA_INV",
+				"L1_5_FLG_ALTRO_CLIMA_ESTATE", "L1_5_FLG_ALTRO_ACS", "L1_5_ALTRO_DESC", "DATA_ULT_MOD",
+				"UTENTE_ULT_MOD", "MOTIVAZIONE", "PROPRIETARIO", "DATA_INSERIMENTO", "NOTE", "FLG_TIPO_IMPIANTO",
+				"FLG_APPARECC_UI_EXT", "FLG_CONTABILIZZAZIONE", "DATA_INTERVENTO", "FK_TIPO_INTERVENTO",
+				"L11_1_FLG_NORMA_UNI_10389_1", "L11_1_ALTRA_NORMA", "FLG_BLOCCO_NOMINA_3R", "FLG_VISU_PROPRIETARIO",
+				"FLG_NO_OPENDATA", "COORD_X_LONG_DD", "COORD_Y_LAT_DD", "FLG_MEDIOIMPIANTO"};
+		propertyNames = new String[]{"codiceImpianto", "istatComune", "fkStato", "dataDismissione",
 				"denominazioneComune", "siglaProvincia", "denominazioneProvincia", "l13PotH2oKw", "l13PotClimaInvKw",
 				"l13PotClimaEstKw", "l13Altro", "l14FlgH2o", "l14FlgAria", "l14Altro", "l15FlgGeneratore",
 				"l15FlgPompa", "l15FlgFrigo", "l15FlgTelerisc", "l15FlgTeleraffr", "l15FlgCogeneratore", "l15Altro",
@@ -46,7 +46,8 @@ public class SigitTImpiantoMetadata extends DAOMetadata {
 				"l15FlgAltroClimaEstate", "l15FlgAltroAcs", "l15AltroDesc", "dataUltMod", "utenteUltMod", "motivazione",
 				"proprietario", "dataInserimento", "note", "flgTipoImpianto", "flgAppareccUiExt",
 				"flgContabilizzazione", "dataIntervento", "fkTipoIntervento", "l111FlgNormaUni103891", "l111AltraNorma",
-				"flgBloccoNomina3r", "flgVisuProprietario", "flgNoOpendata", "coordXLongDd", "coordYLatDd"};
+				"flgBloccoNomina3r", "flgVisuProprietario", "flgNoOpendata", "coordXLongDd", "coordYLatDd",
+				"flgMedioimpianto"};
 		for (int i = 0; i < columnNames.length; i++) {
 			columnsNamesMap.put(propertyNames[i], columnNames[i]);
 

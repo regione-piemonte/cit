@@ -1096,6 +1096,9 @@ public class BackEndFacade {
 	// ApplicationData: [elencoSveglieIspezioneNonAss, scope:USER_SESSION]
 	public static final String APPDATA_ELENCOSVEGLIEISPEZIONENONASS_CODE = "appDataelencoSveglieIspezioneNonAss";
 
+	// ApplicationData: [azioneCodImpianto, scope:USER_SESSION]
+	public static final String APPDATA_AZIONECODIMPIANTO_CODE = "appDataazioneCodImpianto";
+
 	// ApplicationData: [idSanzioneSelezionata, scope:USER_SESSION]
 	public static final String APPDATA_IDSANZIONESELEZIONATA_CODE = "appDataidSanzioneSelezionata";
 
@@ -2368,21 +2371,6 @@ public class BackEndFacade {
 	) throws BEException {
 		// l'esecuzione viene delegata al bean corrispondente al ContentPanel cpGestImpianto
 		return getCPBECpGestImpianto().gestAbilLogicaVarImp(theModel);
-	}
-
-	////////////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * richiama il metodo gestLogicaCodImpDataAss utilizzato in un ExecCommand
-	 * del ContentPanel cpGestImpianto
-	 */
-	public ExecResults gestLogicaCodImpDataAss(
-
-			it.csi.sigit.sigitwebn.dto.gestisci_impianto.CpGestImpiantoModel theModel
-
-	) throws BEException {
-		// l'esecuzione viene delegata al bean corrispondente al ContentPanel cpGestImpianto
-		return getCPBECpGestImpianto().gestLogicaCodImpDataAss(theModel);
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////

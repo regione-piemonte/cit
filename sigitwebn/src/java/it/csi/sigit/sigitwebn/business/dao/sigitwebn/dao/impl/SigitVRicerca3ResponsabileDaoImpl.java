@@ -132,11 +132,11 @@ public class SigitVRicerca3ResponsabileDaoImpl extends AbstractDAO implements Si
 
 		paramMap.addValue("codImpianto", input.getCodiceImpianto());
 
-		// uso il parametro DataInizioContratto impropriamente (per comodità), in realtà è l'inizio responsabilità del responsabile 
+		// uso il parametro DataInizioContratto impropriamente (per comoditï¿½), in realtï¿½ ï¿½ l'inizio responsabilitï¿½ del responsabile 
 		paramMap.addValue("dataInizio", input.getDataInizioContratto());
 
 		if (GenericUtil.isNotNullOrEmpty(input.getDataFineContratto())) {
-			// uso il parametro DataFineContratto impropriamente (per comodità), in realtà è la fine responsabilità del responsabile 
+			// uso il parametro DataFineContratto impropriamente (per comoditï¿½), in realtï¿½ ï¿½ la fine responsabilitï¿½ del responsabile 
 			paramMap.addValue("dataFine", input.getDataFineContratto());
 		}
 
@@ -212,11 +212,11 @@ public class SigitVRicerca3ResponsabileDaoImpl extends AbstractDAO implements Si
 
 		paramMap.addValue("codImpianto", input.getCodiceImpianto());
 
-		// uso il parametro DataInizioContratto impropriamente (per comodità), in realtà è l'inizio responsabilità del responsabile 
+		// uso il parametro DataInizioContratto impropriamente (per comoditï¿½), in realtï¿½ ï¿½ l'inizio responsabilitï¿½ del responsabile 
 		paramMap.addValue("dataInizio", input.getDataInizioContratto());
 
 		if (GenericUtil.isNotNullOrEmpty(input.getDataFineContratto())) {
-			// uso il parametro DataFineContratto impropriamente (per comodità), in realtà è la fine responsabilità del responsabile 
+			// uso il parametro DataFineContratto impropriamente (per comoditï¿½), in realtï¿½ ï¿½ la fine responsabilitï¿½ del responsabile 
 			paramMap.addValue("dataFine", input.getDataFineContratto());
 		}
 
@@ -311,7 +311,7 @@ public class SigitVRicerca3ResponsabileDaoImpl extends AbstractDAO implements Si
 
 		}
 
-		// uso il parametro DataInizioContratto impropriamente (per comodità), in realtà è l'inizio responsabilità del responsabile 
+		// uso il parametro DataInizioContratto impropriamente (per comoditï¿½), in realtï¿½ ï¿½ l'inizio responsabilitï¿½ del responsabile 
 		paramMap.addValue("dataInizio", input.getDataInizioContratto());
 
 		/*PROTECTED REGION END*/

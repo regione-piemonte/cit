@@ -2145,19 +2145,26 @@ public class SigitExtDaoImpl extends AbstractDAO implements SigitExtDao {
 	public List<SigitExtIspezioniSenzaCodImpiantoDto> findIspezioniDettSenzaCodImpiantoByListIdIspez(ArrayList<String> listIdIspezioni)
 			throws SigitExtDaoException {
 		log.debug("[SigitExtDaoImpl::findIspezioniDettSenzaCodImpiantoByListIdIspez] START");
-		StringBuilder sql = new StringBuilder();
+		StringBuilder sql1 = new StringBuilder();
+		StringBuilder sql2 = new StringBuilder();
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 		
 		
-		sql.append("select i.id_ispezione_2018, d.flg_pf_pg, d.cognome_denom, d.nome, d.cf_piva, d.dug, d.indirizzo, d.civico, d.cap, d.istat_comune, ");
-		sql.append("d. flg_pf_pg_fatt, d.cognome_denom_fatt, d.nome_fatt, d.cf_piva_fatt, d.dug_fatt, d.indirizzo_fatt, d.civico_fatt, d.cap_fatt, d.istat_comune_fatt, ");
+		sql1.append("select i.id_ispezione_2018, d.flg_pf_pg, d.cognome_denom, d.nome, d.cf_piva, d.dug, d.indirizzo, d.civico, d.cap, d.istat_comune, ");
+		sql2.append("select i.id_ispezione_2018, d.flg_pf_pg, d.cognome_denom, d.nome, d.cf_piva, d.dug, d.indirizzo, d.civico, d.cap, d.istat_comune, ");
+		sql1.append("d.flg_pf_pg_fatt, d.cognome_denom_fatt, d.nome_fatt, d.cf_piva_fatt, d.dug_fatt, d.indirizzo_fatt, d.civico_fatt, d.cap_fatt, d.istat_comune_fatt, ");
+		sql2.append("d.flg_pf_pg_fatt, d.cognome_denom_fatt, d.nome_fatt, d.cf_piva_fatt, d.dug_fatt, d.indirizzo_fatt, d.civico_fatt, d.cap_fatt, d.istat_comune_fatt, ");
 
-		sql.append("c.des_tipo_contratto_distrib, u.des_categoria_util, comb.des_combustibile, m.des_unita_misura, ");
-		sql.append("d.anno_rif, d.nr_mesi_fattur, d.consumo_anno, d.consumo_mensile ");
+		sql1.append("c.des_tipo_contratto_distrib, u.des_categoria_util, comb.des_combustibile, m.des_unita_misura, ");
+		sql2.append("c.des_tipo_contratto_distrib, u.des_categoria_util, comb.des_combustibile, m.des_unita_misura, ");
+		sql1.append("d.anno_rif, d.nr_mesi_fattur, d.consumo_anno, d.consumo_mensile ");
+		sql2.append("d.anno_rif, d.nr_mesi_fattur, d.consumo_anno, d.consumo_mensile ");
 		
-		sql.append("from sigit_t_ispezione_2018 i, sigit_t_verifica v, sigit_t_dato_distrib d, ");
-		sql.append("sigit_d_tipo_contratto_distrib c, sigit_d_categoria_util u, sigit_d_combustibile comb, sigit_d_unita_misura m");
-		
+		sql1.append("from sigit_t_ispezione_2018 i, sigit_t_verifica v, sigit_t_dato_distrib d, ");
+		sql2.append("from sigit_t_ispezione_2018 i, sigit_t_verifica v, sigit_t_accertamento a, sigit_t_dato_distrib d, ");
+		sql1.append("sigit_d_tipo_contratto_distrib c, sigit_d_categoria_util u, sigit_d_combustibile comb, sigit_d_unita_misura m");
+		sql2.append("sigit_d_tipo_contratto_distrib c, sigit_d_categoria_util u, sigit_d_combustibile comb, sigit_d_unita_misura m");
+
 		//sql.append("where i.id_ispezione_2018 IN (194,175,157,151,150,139,136,129,116,115,112,102) ");
 		
 		String elencoidIspezioni = "";
@@ -2167,17 +2174,30 @@ public class SigitExtDaoImpl extends AbstractDAO implements SigitExtDao {
 				elencoidIspezioni += ",";
 			}
 		}
-		sql.append(" where i.id_ispezione_2018 IN (" + elencoidIspezioni + ") ");
+		sql1.append(" where i.id_ispezione_2018 IN (" + elencoidIspezioni + ") ");
+		sql2.append(" where i.id_ispezione_2018 IN (" + elencoidIspezioni + ") ");
 		
-		sql.append("and v.id_verifica = i.fk_verifica ");
-		sql.append("and v.fk_dato_distrib = d.id_dato_distrib ");
+		sql1.append("and i.fk_verifica <> 0 ");
+		sql1.append("and v.id_verifica = i.fk_verifica ");
+		
+		sql2.append("and i.fk_verifica = 0 ");
+		sql2.append("and a.id_accertamento = i.fk_accertamento ");
+		sql2.append("and v.id_verifica = a.fk_verifica ");
 
-		sql.append("and d.fk_tipo_contratto = c.id_tipo_contratto_distrib ");
-		sql.append("and d.fk_categoria_util = u.id_categoria_util ");
-		sql.append("and d.fk_combustibile = comb.id_combustibile ");
-		sql.append("and d.fk_unita_misura = m.id_unita_misura ");
+		sql1.append("and v.fk_dato_distrib = d.id_dato_distrib ");
+		sql2.append("and v.fk_dato_distrib = d.id_dato_distrib ");
 
-		sql.append("order by i.id_ispezione_2018 ");
+		sql1.append("and d.fk_tipo_contratto = c.id_tipo_contratto_distrib ");
+		sql2.append("and d.fk_tipo_contratto = c.id_tipo_contratto_distrib ");
+		sql1.append("and d.fk_categoria_util = u.id_categoria_util ");
+		sql2.append("and d.fk_categoria_util = u.id_categoria_util ");
+		sql1.append("and d.fk_combustibile = comb.id_combustibile ");
+		sql2.append("and d.fk_combustibile = comb.id_combustibile ");
+		sql1.append("and d.fk_unita_misura = m.id_unita_misura ");
+		sql2.append("and d.fk_unita_misura = m.id_unita_misura ");
+
+		sql1.append("order by i.id_ispezione_2018 ");
+		sql2.append("order by i.id_ispezione_2018 ");
 		
 		
 		// devo escludere i suoi????
@@ -2187,15 +2207,18 @@ public class SigitExtDaoImpl extends AbstractDAO implements SigitExtDao {
 //					java.sql.Types.NUMERIC);
 //		}
 		
-		log.debug("STAMPO LA QUERY: " + sql.toString());
+		log.debug("STAMPO LA QUERY 1: " + sql1.toString());
+		log.debug("STAMPO LA QUERY 2: " + sql2.toString());
 		
-		List<SigitExtIspezioniSenzaCodImpiantoDto> list = null;
+		List<SigitExtIspezioniSenzaCodImpiantoDto> list = new ArrayList<SigitExtIspezioniSenzaCodImpiantoDto>();
+		List<SigitExtIspezioniSenzaCodImpiantoDto> list1 = null;
+		List<SigitExtIspezioniSenzaCodImpiantoDto> list2 = null;
 		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
 		try {
 			stopWatch.start();
-			list = jdbcTemplate.query(sql.toString(), paramMap,
+			list1 = jdbcTemplate.query(sql1.toString(), paramMap,
 					ispezioniSenzaCodImpiantoRowMapper);
-
+			
 		} catch (RuntimeException ex) {
 			log.error(
 					"[SigitExtDaoImpl::findIspezioniDettSenzaCodImpiantoByListIdIspez] esecuzione query",
@@ -2203,9 +2226,30 @@ public class SigitExtDaoImpl extends AbstractDAO implements SigitExtDao {
 			throw new SigitExtDaoException("Query failed", ex);
 		} finally {
 			stopWatch.dumpElapsed("SigitExtDaoImpl", "findIspezioniDettSenzaCodImpiantoByListIdIspez",
-					"esecuzione query", sql.toString());
+					"esecuzione query", sql1.toString());
 			log.debug("[SigitExtDaoImpl::findIspezioniDettSenzaCodImpiantoByListIdIspez] END");
 		}
+
+		stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list2 = jdbcTemplate.query(sql2.toString(), paramMap,
+					ispezioniSenzaCodImpiantoRowMapper);
+			
+		} catch (RuntimeException ex) {
+			log.error(
+					"[SigitExtDaoImpl::findIspezioniDettSenzaCodImpiantoByListIdIspez] esecuzione query",
+					ex);
+			throw new SigitExtDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitExtDaoImpl", "findIspezioniDettSenzaCodImpiantoByListIdIspez",
+					"esecuzione query", sql2.toString());
+			log.debug("[SigitExtDaoImpl::findIspezioniDettSenzaCodImpiantoByListIdIspez] END");
+		}
+		
+		list.addAll(list1);
+		list.addAll(list2);
+
 		return list;
 	}
 	

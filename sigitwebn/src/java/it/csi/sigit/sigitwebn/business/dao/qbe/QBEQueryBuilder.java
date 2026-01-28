@@ -259,6 +259,9 @@ public class QBEQueryBuilder<TEX extends AbstractExample> {
 	 * @return toDate('<data>','DD/MM/YYYY HH24:MI:SS')
 	 */
 	private static String makeToDateTerm(java.util.Date date) {
+		
+		LOG.info("[test Postgrest15.8] START makeToDateTerm()");
+
 		StringBuilder retvalue = new StringBuilder("");
 		java.util.Calendar cal = java.util.Calendar.getInstance();
 		cal.setTime(date);
@@ -269,6 +272,9 @@ public class QBEQueryBuilder<TEX extends AbstractExample> {
 		retvalue.append(Integer.toString(cal.get(java.util.Calendar.MINUTE)) + ":");
 		retvalue.append(Integer.toString(cal.get(java.util.Calendar.SECOND)));
 		retvalue = new StringBuilder("to_date('" + retvalue + "','DD/MM/YYYY HH24:MI:SS')");
+		
+		LOG.info("[test Postgrest15.8] END makeToDateTerm()");
+
 		return retvalue.toString();
 	}
 

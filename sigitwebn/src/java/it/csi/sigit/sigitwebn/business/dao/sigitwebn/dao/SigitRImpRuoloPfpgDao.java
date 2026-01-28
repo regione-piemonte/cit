@@ -194,4 +194,13 @@ public interface SigitRImpRuoloPfpgDao {
 			it.csi.sigit.sigitwebn.business.dao.sigitwebn.filter.RicercaImpiantiSoggettoFilter input)
 			throws SigitRImpRuoloPfpgDaoException;
 
+	/** 
+	 * Implementazione del finder soloAttiviByFilter
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SigitRImpRuoloPfpgDto> findSoloAttiviByFilter(
+			it.csi.sigit.sigitwebn.business.dao.sigitwebn.filter.FiltroRicercaPfPg input)
+			throws SigitRImpRuoloPfpgDaoException;
+
 }

@@ -68,41 +68,6 @@ public class SigitTImpiantoDto extends SigitTImpiantoPk {
 	}
 
 	/**
-	 * store della proprieta' associata alla colonna DATA_ASSEGNAZIONE
-	 * @generated
-	 */
-	protected java.sql.Date dataAssegnazione;
-
-	/**
-	 * Imposta il valore della proprieta' dataAssegnazione associata alla
-	 * colonna DATA_ASSEGNAZIONE.
-	 * @generated
-	 */
-	public void setDataAssegnazione(java.sql.Date val) {
-
-		if (val != null) {
-			dataAssegnazione = new java.sql.Date(val.getTime());
-		} else {
-			dataAssegnazione = null;
-		}
-
-	}
-
-	/**
-	 * Legge il valore della proprieta' dataAssegnazione associata alla
-	 * @generated
-	 */
-	public java.sql.Date getDataAssegnazione() {
-
-		if (dataAssegnazione != null) {
-			return new java.sql.Date(dataAssegnazione.getTime());
-		} else {
-			return null;
-		}
-
-	}
-
-	/**
 	 * store della proprieta' associata alla colonna DATA_DISMISSIONE
 	 * @generated
 	 */
@@ -1292,6 +1257,33 @@ public class SigitTImpiantoDto extends SigitTImpiantoPk {
 	public Double getCoordYLatDd() {
 
 		return coordYLatDd;
+
+	}
+
+	/**
+	 * store della proprieta' associata alla colonna FLG_MEDIOIMPIANTO
+	 * @generated
+	 */
+	protected java.math.BigDecimal flgMedioimpianto;
+
+	/**
+	 * Imposta il valore della proprieta' flgMedioimpianto associata alla
+	 * colonna FLG_MEDIOIMPIANTO.
+	 * @generated
+	 */
+	public void setFlgMedioimpianto(java.math.BigDecimal val) {
+
+		flgMedioimpianto = val;
+
+	}
+
+	/**
+	 * Legge il valore della proprieta' flgMedioimpianto associata alla
+	 * @generated
+	 */
+	public java.math.BigDecimal getFlgMedioimpianto() {
+
+		return flgMedioimpianto;
 
 	}
 

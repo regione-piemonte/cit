@@ -573,37 +573,6 @@ maxlength="9"	disabled="isWidgetDisabled('cpGestReeTipo1Dett','tfPotMax')"
 
 
 	
-<s:if test="isWidgetVisible('cpGestReeTipo1Dett','cbCondottoEvacuazioneFumi')" >
-
-	
-<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('cpGestReeTipo1Dett.cbCondottoEvacuazioneFumi.label')}" labelFor="widg_cbCondottoEvacuazioneFumi" errorFor="appDatareeTipo1Dett.condottoEvacuazioneFiumi" labelId="cbCondottoEvacuazioneFumiLbl"
-	  >
-
-
-<!-- widget cbCondottoEvacuazioneFumi -->
-<s:select name="appDatareeTipo1Dett.condottoEvacuazioneFiumi" id="widg_cbCondottoEvacuazioneFumi"
-	 
-	
-		title=""
-			
-	  headerKey="" headerValue="" 
-	  list="appDataelencoCondottoEvacuazioneFumiTipo1B"
-	  disabled="isWidgetDisabled('cpGestReeTipo1Dett','cbCondottoEvacuazioneFumi')"
-	  listKey="id"
-	  listValue="description"
-	  
-	  />
-
-
-	
-</customtag:widgetsPanelColumn>
-
-</s:if>
-
-	
-
-
-	
 <s:if test="isWidgetVisible('cpGestReeTipo1Dett','cbStelle')" >
 
 	

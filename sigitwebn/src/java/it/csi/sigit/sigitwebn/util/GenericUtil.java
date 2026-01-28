@@ -2760,7 +2760,7 @@ public class GenericUtil {
 	public static String aggiungiCodIstatPiemonteAIstatAbilitazione(String istatAbilitazione) {
 		int istatAbilitazioneLength = istatAbilitazione.length();
 		if (istatAbilitazioneLength == 3 || istatAbilitazioneLength == 6) {
-			istatAbilitazione = Constants.COD_ISTAT_PIEMONTE + istatAbilitazione;
+			istatAbilitazione = "01" + istatAbilitazione;
 		}
 		
 		return istatAbilitazione;

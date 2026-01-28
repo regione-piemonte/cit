@@ -220,7 +220,7 @@ public class SigitTIspezione2018DaoImpl extends AbstractDAO implements SigitTIsp
 			throws SigitTIspezione2018DaoException {
 		LOG.debug("[SigitTIspezione2018DaoImpl::updateColumnsModificaIspezioneDaDettaglio] START");
 		final String sql = "UPDATE " + getTableName()
-				+ " SET NOTE = :NOTE ,CF_ISPETTORE_SECONDARIO = :CF_ISPETTORE_SECONDARIO ,FLG_ISP_PAGAMENTO = :FLG_ISP_PAGAMENTO ,ISTAT_COMUNE_COMPETENZA = :ISTAT_COMUNE_COMPETENZA ,ISTAT_PROV_COMPETENZA = :ISTAT_PROV_COMPETENZA  WHERE ID_ISPEZIONE_2018 = :ID_ISPEZIONE_2018 ";
+				+ " SET NOTE = :NOTE ,CF_ISPETTORE_SECONDARIO = :CF_ISPETTORE_SECONDARIO ,FLG_ISP_PAGAMENTO = :FLG_ISP_PAGAMENTO  WHERE ID_ISPEZIONE_2018 = :ID_ISPEZIONE_2018 ";
 
 		if (dto.getIdIspezione2018() == null) {
 			LOG.error(
@@ -238,12 +238,6 @@ public class SigitTIspezione2018DaoImpl extends AbstractDAO implements SigitTIsp
 
 		// valorizzazione paametro relativo a colonna [FLG_ISP_PAGAMENTO]
 		params.addValue("FLG_ISP_PAGAMENTO", dto.getFlgIspPagamento(), java.sql.Types.NUMERIC);
-
-		// valorizzazione paametro relativo a colonna [ISTAT_COMUNE_COMPETENZA]
-		params.addValue("ISTAT_COMUNE_COMPETENZA", dto.getIstatComuneCompetenza(), java.sql.Types.VARCHAR);
-
-		// valorizzazione paametro relativo a colonna [ISTAT_PROV_COMPETENZA]
-		params.addValue("ISTAT_PROV_COMPETENZA", dto.getIstatProvCompetenza(), java.sql.Types.VARCHAR);
 
 		// valorizzazione paametro relativo a colonna [ID_ISPEZIONE_2018]
 		params.addValue("ID_ISPEZIONE_2018", dto.getIdIspezione2018(), java.sql.Types.INTEGER);

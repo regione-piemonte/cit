@@ -249,6 +249,24 @@ public class CpDettaglioVerificaModel extends BaseSessionAwareDTO {
 		return (it.csi.sigit.sigitwebn.dto.ispezioni.Ispezione2018) (getSession().get("appDataIspezione2018"));
 	}
 
+	/**
+	 * imposta il valore dell' ApplicationData 'appDataazioneCodImpianto'
+	 * @param value
+	 * @generated
+	 */
+
+	public void setAppDataazioneCodImpianto(java.lang.String value) {
+		getSession().put("appDataazioneCodImpianto", value);
+	}
+
+	/**
+	 * legge il valore dell' ApplicationData 'appDataazioneCodImpianto'
+	 * @generated
+	 */
+	public java.lang.String getAppDataazioneCodImpianto() {
+		return (java.lang.String) (getSession().get("appDataazioneCodImpianto"));
+	}
+
 	////////////////////////////////////////////////////////////////////
 	/// campi per widget semplici
 	////////////////////////////////////////////////////////////////////

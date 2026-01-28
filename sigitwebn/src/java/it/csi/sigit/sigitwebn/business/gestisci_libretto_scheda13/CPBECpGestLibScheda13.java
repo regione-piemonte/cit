@@ -522,6 +522,8 @@ public class CPBECpGestLibScheda13 {
 			ExecResults result = new ExecResults();
 			/*PROTECTED REGION ID(R1540360465) ENABLED START*/
 			// inserire qui la logica applicativa da eseguire:
+			
+			GenericUtil.gestisciMessaggioSessione(theModel, result);
 
 			// impostazione del result code 
 			result.setResultCode(GESTISCIMSG_OUTCOME_CODE__OK);

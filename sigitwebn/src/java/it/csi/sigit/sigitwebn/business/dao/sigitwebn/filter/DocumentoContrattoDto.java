@@ -12,10 +12,25 @@ import it.csi.sigit.sigitwebn.util.DateUtil;
 
 public class DocumentoContrattoDto extends ImportFileSuper {
 
+	private String codImpianto;
 	private String idAllegato;
 	private String descrizione;
 
 	
+	public String getCodImpianto() {
+		return codImpianto;
+	}
+
+
+
+
+	public void setCodImpianto(String codImpianto) {
+		this.codImpianto = codImpianto;
+	}
+
+
+
+
 	public String getIdAllegato() {
 		return idAllegato;
 	}

@@ -189,6 +189,10 @@
 				<param name="actionName">cpGestLibScheda12</param>
 				<param name="namespace">/base/gestisci_libretto_scheda12</param>
 			</result>
+			<result name="gestLibScheda13" type="chain">
+				<param name="actionName">cpGestLibScheda13</param>
+				<param name="namespace">/base/gestisci_libretto_scheda13</param>
+			</result>
 			<result name="gestLibScheda14_1" type="chain">
 				<param name="actionName">cpGestLibScheda14_1</param>
 				<param name="namespace">/base/gestisci_libretto_scheda14_1</param>
@@ -204,6 +208,10 @@
 			<result name="gestLibScheda14_4" type="chain">
 				<param name="actionName">cpGestLibScheda14_4</param>
 				<param name="namespace">/base/gestisci_libretto_scheda14_4</param>
+			</result>
+			<result name="gestLibScheda15" type="chain">
+				<param name="actionName">cpGestLibScheda15</param>
+				<param name="namespace">/base/gestisci_libretto_scheda15</param>
 			</result>
 		</action>
 		

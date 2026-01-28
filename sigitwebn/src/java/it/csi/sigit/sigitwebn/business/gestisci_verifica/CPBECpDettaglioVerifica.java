@@ -89,6 +89,9 @@ public class CPBECpDettaglioVerifica {
 	// ApplicationData: [Ispezione2018, scope:USER_SESSION]
 	public static final String APPDATA_ISPEZIONE2018_CODE = "appDataIspezione2018";
 
+	// ApplicationData: [azioneCodImpianto, scope:USER_SESSION]
+	public static final String APPDATA_AZIONECODIMPIANTO_CODE = "appDataazioneCodImpianto";
+
 	//////////////////////////////////////////////////////////////////////////////
 	/// Metodi associati alla U.I.
 	//////////////////////////////////////////////////////////////////////////////
@@ -370,11 +373,13 @@ public class CPBECpDettaglioVerifica {
 			nuovaIspezione.setIdAccertamento(Constants.DATO_NON_DISPONIBILE_S);
 			nuovaIspezione.setIdVerifica(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataidVerificaSelezionata()));
 			nuovaIspezione.setIdentificativoIspezione(null);
-			nuovaIspezione.setCodiceImpianto(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataverifica().getCodiceImpianto()));
+			nuovaIspezione.setCodiceImpianto(
+					ReplaceSpecialCharUtils.sanitize(theModel.getAppDataverifica().getCodiceImpianto()));
 
 			if (GenericUtil.isNotNullOrEmpty(theModel.getAppDataverifica().getCodiceImpianto())) {
 				Impianto imp = getDbMgr().cercaImpiantoById(theModel.getAppDataverifica().getCodiceImpianto());
-				nuovaIspezione.setCodIstatProv(GenericUtil.getCodIstatProvByCodIstatComune(ReplaceSpecialCharUtils.sanitize(imp.getImpLocIdComune())));
+				nuovaIspezione.setCodIstatProv(GenericUtil
+						.getCodIstatProvByCodIstatComune(ReplaceSpecialCharUtils.sanitize(imp.getImpLocIdComune())));
 
 			} else if (GenericUtil.isNotNullOrEmpty(theModel.getAppDataverifica().getIdDatoDistributore())) {
 				SigitTDatoDistribDto datoDistrib = getDbMgr().cercaDatoDistributore(
@@ -389,7 +394,8 @@ public class CPBECpDettaglioVerifica {
 			}
 			nuovaIspezione.setIdDatoDistrib(
 					ConvertUtil.convertToInteger(theModel.getAppDataverifica().getIdDatoDistributore()));
-			nuovaIspezione.setLocalizzazioneImpianto(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataverifica().getRisultatoImpianto()));
+			nuovaIspezione.setLocalizzazioneImpianto(
+					ReplaceSpecialCharUtils.sanitize(theModel.getAppDataverifica().getRisultatoImpianto()));
 			nuovaIspezione.setDataCreazione(DateUtil.getDataCorrenteFormat());
 			nuovaIspezione.setIdStatoIspezione(ConvertUtil.convertToString(Constants.ID_STATO_ISPEZIONE_BOZZA));
 			nuovaIspezione.setDescrizioneStato(Constants.STATO_MODULO_BOZZA);
@@ -432,14 +438,17 @@ public class CPBECpDettaglioVerifica {
 
 			Ispezione2018 ispezioneEsistente = new Ispezione2018();
 			ispezioneEsistente.setIdAccertamento(Constants.DATO_NON_DISPONIBILE_S);
-			ispezioneEsistente.setIdVerifica(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataidVerificaSelezionata()));
-			ispezioneEsistente.setIdentificativoIspezione(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataverifica().getIdIspezione()));
-			ispezioneEsistente.setCodiceImpianto(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataverifica().getCodiceImpianto()));
+			ispezioneEsistente
+					.setIdVerifica(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataidVerificaSelezionata()));
+			ispezioneEsistente.setIdentificativoIspezione(
+					ReplaceSpecialCharUtils.sanitize(theModel.getAppDataverifica().getIdIspezione()));
+			ispezioneEsistente.setCodiceImpianto(
+					ReplaceSpecialCharUtils.sanitize(theModel.getAppDataverifica().getCodiceImpianto()));
 
 			if (GenericUtil.isNotNullOrEmpty(theModel.getAppDataverifica().getCodiceImpianto())) {
 				Impianto imp = getDbMgr().cercaImpiantoById(theModel.getAppDataverifica().getCodiceImpianto());
-				ispezioneEsistente
-						.setCodIstatProv(GenericUtil.getCodIstatProvByCodIstatComune(ReplaceSpecialCharUtils.sanitize(imp.getImpLocIdComune())));
+				ispezioneEsistente.setCodIstatProv(GenericUtil
+						.getCodIstatProvByCodIstatComune(ReplaceSpecialCharUtils.sanitize(imp.getImpLocIdComune())));
 			} else if (GenericUtil.isNotNullOrEmpty(theModel.getAppDataverifica().getIdDatoDistributore())) {
 				SigitTDatoDistribDto datoDistrib = getDbMgr().cercaDatoDistributore(
 						ConvertUtil.convertToInteger(theModel.getAppDataverifica().getIdDatoDistributore()));
@@ -454,7 +463,8 @@ public class CPBECpDettaglioVerifica {
 			ispezioneEsistente.setIdDatoDistrib(
 					ConvertUtil.convertToInteger(theModel.getAppDataverifica().getIdDatoDistributore()));
 
-			ispezioneEsistente.setLocalizzazioneImpianto(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataverifica().getRisultatoImpianto()));
+			ispezioneEsistente.setLocalizzazioneImpianto(
+					ReplaceSpecialCharUtils.sanitize(theModel.getAppDataverifica().getRisultatoImpianto()));
 
 			theModel.setAppDataIspezione2018(ispezioneEsistente);
 
@@ -757,6 +767,9 @@ public class CPBECpDettaglioVerifica {
 				Verifica verifica = getSigitMgr().getVerificaDaId(theModel.getAppDataidVerificaSelezionata(),
 						ConvertUtil.convertIdDescriptionsInMap(theModel.getAppDataelencoTipiVerifica()), true);
 				theModel.setAppDataverifica(verifica);
+				if (verifica.getCodiceImpianto() != null && !verifica.getCodiceImpianto().equals("")) {
+					theModel.setAppDataazioneCodImpianto(verifica.getCodiceImpianto());
+				}
 				//viene ricercata la lista delle azioni collegate alla verifica
 				Azione azioneFiltro = new Azione();
 				azioneFiltro.setFkAzione(ConvertUtil.convertToInteger(verifica.getIdentificativo()));

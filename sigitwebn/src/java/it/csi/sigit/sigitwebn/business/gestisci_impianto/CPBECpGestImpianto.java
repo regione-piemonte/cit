@@ -450,9 +450,9 @@ public class CPBECpGestImpianto {
 
 				getValidationMgr().verificaRicercaIndirizzoIdentificazioneImpianto(impianto);
 
-				theModel.setAppDataelencoIndirizzi(
-						getServiziMgr().getListaVieValide(ReplaceSpecialCharUtils.sanitize(impianto.getImpLocIndirizzo())
-								, ReplaceSpecialCharUtils.sanitize(impianto.getImpLocIdComune())));
+				theModel.setAppDataelencoIndirizzi(getServiziMgr().getListaVieValide(
+						ReplaceSpecialCharUtils.sanitize(impianto.getImpLocIndirizzo()),
+						ReplaceSpecialCharUtils.sanitize(impianto.getImpLocIdComune())));
 				//				setVisibilitaIndirizzoImpianto(theModel);
 
 				impianto.getLogicaVisual().setIsImpiantoIndConfermato(true);
@@ -926,7 +926,7 @@ public class CPBECpGestImpianto {
 
 						responsabileSelez = risultatoRicResponsabile;
 						responsabile = getSigitMgr().cercaResponsabileByRespSelez(responsabileSelez);
- 
+
 						if (!responsabile.getFlgIndirizzoEst()) {
 							settaComuneVieResponsabile(theModel, responsabile);
 						}
@@ -1806,53 +1806,6 @@ public class CPBECpGestImpianto {
 	////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Implementazione del metodo gestLogicaCodImpDataAss definito in un ExecCommand del
-	 * ContentPanel cpGestImpianto
-	 */
-	public ExecResults gestLogicaCodImpDataAss(
-
-			it.csi.sigit.sigitwebn.dto.gestisci_impianto.CpGestImpiantoModel theModel
-
-	) throws BEException {
-		/// definizione costanti di outcome
-		final String GESTLOGICACODIMPDATAASS_OUTCOME_CODE__ABILITA_COD_IMP_DATA = //NOSONAR  Reason:EIAS
-				"ABILITA_COD_IMP_DATA"; //NOSONAR  Reason:EIAS
-		final String GESTLOGICACODIMPDATAASS_OUTCOME_CODE__DISABILITA_COD_IMP_DATA = //NOSONAR  Reason:EIAS
-				"DISABILITA_COD_IMP_DATA"; //NOSONAR  Reason:EIAS
-		///
-		try {
-			ExecResults result = new ExecResults();
-			/*PROTECTED REGION ID(R1346763772) ENABLED START*/
-			// inserire qui la logica applicativa da eseguire:
-
-			LogicaVisualizzazione logica = theModel.getAppDataimpianto().getLogicaVisual();
-
-			if (logica.getCaso() == Constants.COD_CASO_A || logica.getCaso() == Constants.COD_CASO_E) {
-				// Sono in inserimento
-				log.debug("***ABILITA_COD_IMP_DATA***\n\n");
-				// impostazione del result code 
-				result.setResultCode(GESTLOGICACODIMPDATAASS_OUTCOME_CODE__ABILITA_COD_IMP_DATA);
-			} else {
-				log.debug("***DISABILITA_COD_IMP_DATA***\n\n");
-				// impostazione del result code 
-				result.setResultCode(GESTLOGICACODIMPDATAASS_OUTCOME_CODE__DISABILITA_COD_IMP_DATA);
-			}
-
-			// modifica degli attributi del model (che verranno propagati allo strato
-			// di presentation). si puo' agire anche direttamente sull'attributo "session".
-
-			result.setModel(theModel);
-			return result;
-			/*PROTECTED REGION END*/
-		} catch (Exception e) {
-			log.error("[BackEndFacade::gestLogicaCodImpDataAss] Errore occorso nell'esecuzione del metodo:" + e, e);
-			throw new BEException("Errore occorso nell'esecuzione del metodo:" + e, e);
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////////////
-
-	/**
 	 * Implementazione del metodo gestAbilLogicaImpLocIndirizzo definito in un ExecCommand del
 	 * ContentPanel cpGestImpianto
 	 */
@@ -2672,8 +2625,8 @@ public class CPBECpGestImpianto {
 		}
 
 		if (GenericUtil.isNotNullOrEmpty(responsabile.getIdProvincia())) {
-			theModel.setAppDataelencoComuniResp(
-					getServiziMgr().getListaComuniByIstatProvincia(ReplaceSpecialCharUtils.sanitize(responsabile.getIdProvincia())));
+			theModel.setAppDataelencoComuniResp(getServiziMgr()
+					.getListaComuniByIstatProvincia(ReplaceSpecialCharUtils.sanitize(responsabile.getIdProvincia())));
 
 		} else {
 			theModel.setAppDataelencoComuniResp(new ArrayList<CodeDescription>());

@@ -32,7 +32,6 @@ import it.csi.sigit.sigitwebn.util.GenericUtil;
  *   - (insert di default)
   * - FINDERS:
  *   - findByPrimaryKey (datagen::FindByPK)
- *   - componentiCancellate (datagen::CustomFinder)
   * - UPDATERS:
  *   - update (datagen::UpdateRow)
  * - DELETERS:
@@ -249,9 +248,6 @@ public class SigitTCompCsDaoImpl extends AbstractDAO implements SigitTCompCsDao 
 	protected SigitTCompCsDaoRowMapper findByPrimaryKeyRowMapper = new SigitTCompCsDaoRowMapper(null,
 			SigitTCompCsDto.class, this);
 
-	protected SigitTCompCsDaoRowMapper componentiCancellateRowMapper = new SigitTCompCsDaoRowMapper(null,
-			SigitTCompCsDto.class, this);
-
 	/**
 	 * 
 	 * Restituisce il nome della tabella su cui opera il DAO
@@ -302,84 +298,6 @@ public class SigitTCompCsDaoImpl extends AbstractDAO implements SigitTCompCsDao 
 			LOG.debug("[SigitTCompCsDaoImpl::findByPrimaryKey] END");
 		}
 		return list.isEmpty() ? null : list.get(0);
-	}
-
-	/** 
-	 * Implementazione del finder componentiCancellate
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	public List<SigitTCompCsDto> findComponentiCancellate(
-			it.csi.sigit.sigitwebn.business.dao.sigitwebn.filter.CompFilter input) throws SigitTCompCsDaoException {
-		LOG.debug("[SigitTCompCsDaoImpl::findComponentiCancellate] START");
-		StringBuilder sql = new StringBuilder();
-		MapSqlParameterSource paramMap = new MapSqlParameterSource();
-
-		sql.append(
-				"SELECT ID_TIPO_COMPONENTE,PROGRESSIVO,DATA_INSTALL,CODICE_IMPIANTO,NUM_COLLETTORI,SUP_APERTURA,DATA_DISMISS,FLG_DISMISSIONE,DATA_ULT_MOD,UTENTE_ULT_MOD,FK_MARCA ");
-		sql.append(" FROM SIGIT_T_COMP_CS");
-		sql.append(" WHERE ");
-		/*PROTECTED REGION ID(R965695127) ENABLED START*/
-		// personalizzare la query SQL relativa al finder
-
-		// personalizzare l'elenco dei parametri da passare al jdbctemplate (devono corrispondere in tipo e
-		// numero ai parametri definiti nella queryString)
-
-		sql.append("CODICE_IMPIANTO = :codImpianto");
-
-		sql.append(" AND ID_TIPO_COMPONENTE = :tipoComponente");
-
-		if (GenericUtil.isNotNullOrEmpty(input.getProgressivo()))
-			sql.append(" AND PROGRESSIVO = :progressivo");
-
-		if (input.getListDateInstallazione() != null && !input.getListDateInstallazione().isEmpty()) {
-			sql.append(" AND TO_CHAR(DATA_INSTALL,'DD/MM/YYYY') NOT IN  (");
-			boolean aggVirg = false;
-			for (String data : input.getListDateInstallazione()) {
-				if (aggVirg)
-					sql.append(", ");
-				sql.append(" '" + data + "'");
-				aggVirg = true;
-			}
-			sql.append(") ");
-		}
-
-		if (input.getListProgressivi() != null && !input.getListProgressivi().isEmpty()) {
-			sql.append(" AND PROGRESSIVO NOT IN  (");
-			boolean aggVirg = false;
-			for (String progr : input.getListProgressivi()) {
-				if (aggVirg)
-					sql.append(", ");
-				sql.append(progr);
-				aggVirg = true;
-			}
-			sql.append(") ");
-		}
-
-		/*PROTECTED REGION END*/
-		/*PROTECTED REGION ID(R752341643) ENABLED START*/
-		//***aggiungere tutte le condizioni
-
-		paramMap.addValue("codImpianto", input.getCodImpianto(), java.sql.Types.NUMERIC);
-		paramMap.addValue("tipoComponente", input.getTipoComponente(), java.sql.Types.VARCHAR);
-		paramMap.addValue("progressivo", input.getProgressivo(), java.sql.Types.NUMERIC);
-
-		/*PROTECTED REGION END*/
-		List<SigitTCompCsDto> list = null;
-		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
-		try {
-			stopWatch.start();
-			list = jdbcTemplate.query(sql.toString(), paramMap, componentiCancellateRowMapper);
-
-		} catch (RuntimeException ex) {
-			LOG.error("[SigitTCompCsDaoImpl::findComponentiCancellate] esecuzione query", ex);
-			throw new SigitTCompCsDaoException("Query failed", ex);
-		} finally {
-			stopWatch.dumpElapsed("SigitTCompCsDaoImpl", "findComponentiCancellate", "esecuzione query",
-					sql.toString());
-			LOG.debug("[SigitTCompCsDaoImpl::findComponentiCancellate] END");
-		}
-		return list;
 	}
 
 }

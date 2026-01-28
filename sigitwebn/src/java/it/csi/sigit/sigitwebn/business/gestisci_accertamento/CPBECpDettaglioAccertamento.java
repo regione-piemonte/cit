@@ -125,6 +125,9 @@ public class CPBECpDettaglioAccertamento {
 	// ApplicationData: [elencoSanzioni, scope:USER_SESSION]
 	public static final String APPDATA_ELENCOSANZIONI_CODE = "appDataelencoSanzioni";
 
+	// ApplicationData: [azioneCodImpianto, scope:USER_SESSION]
+	public static final String APPDATA_AZIONECODIMPIANTO_CODE = "appDataazioneCodImpianto";
+
 	//////////////////////////////////////////////////////////////////////////////
 	/// Metodi associati alla U.I.
 	//////////////////////////////////////////////////////////////////////////////
@@ -211,17 +214,21 @@ public class CPBECpDettaglioAccertamento {
 			//inizializzazione dell'ispezione a partire dall'accertamento
 			Ispezione2018 nuovaIspezione = new Ispezione2018();
 			nuovaIspezione.setIdVerifica(Constants.DATO_NON_DISPONIBILE_S);
-			nuovaIspezione.setIdAccertamento(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataidAccertamentoSelezionato()));
+			nuovaIspezione.setIdAccertamento(
+					ReplaceSpecialCharUtils.sanitize(theModel.getAppDataidAccertamentoSelezionato()));
 			nuovaIspezione.setIdentificativoIspezione(null);
-			nuovaIspezione.setCodiceImpianto(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataaccertamento().getCodiceImpianto()));
+			nuovaIspezione.setCodiceImpianto(
+					ReplaceSpecialCharUtils.sanitize(theModel.getAppDataaccertamento().getCodiceImpianto()));
 
 			if (GenericUtil.isNotNullOrEmpty(theModel.getAppDataaccertamento().getCodiceImpianto())) {
 				Impianto imp = getDbMgr().cercaImpiantoById(theModel.getAppDataaccertamento().getCodiceImpianto());
-				nuovaIspezione.setCodIstatProv(ReplaceSpecialCharUtils.sanitize(GenericUtil.getCodIstatProvByCodIstatComune(imp.getImpLocIdComune())));
+				nuovaIspezione.setCodIstatProv(ReplaceSpecialCharUtils
+						.sanitize(GenericUtil.getCodIstatProvByCodIstatComune(imp.getImpLocIdComune())));
 				nuovaIspezione.setCodIstatCom(ReplaceSpecialCharUtils.sanitize(imp.getImpLocIdComune()));
 			}
 
-			nuovaIspezione.setLocalizzazioneImpianto(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataaccertamento().getIndirizzoImpianto()));
+			nuovaIspezione.setLocalizzazioneImpianto(
+					ReplaceSpecialCharUtils.sanitize(theModel.getAppDataaccertamento().getIndirizzoImpianto()));
 			nuovaIspezione.setDataCreazione(DateUtil.getDataCorrenteFormat());
 			nuovaIspezione.setIdStatoIspezione(ConvertUtil.convertToString(Constants.ID_STATO_ISPEZIONE_BOZZA));
 			nuovaIspezione.setDescrizioneStato(Constants.STATO_MODULO_BOZZA);
@@ -341,9 +348,10 @@ public class CPBECpDettaglioAccertamento {
 
 			//viene preparata la nuova sanzione
 			DatiInserimentoSanzione nuovaSanzione = new DatiInserimentoSanzione();
-			nuovaSanzione.setAccertamentoAssociato(ReplaceSpecialCharUtils.sanitize(theModel.getAppDataidAccertamentoSelezionato()));
+			nuovaSanzione.setAccertamentoAssociato(
+					ReplaceSpecialCharUtils.sanitize(theModel.getAppDataidAccertamentoSelezionato()));
 			theModel.setAppDatadatiInserimentoSanzione(nuovaSanzione);
- 
+
 			// impostazione del result code 
 			result.setResultCode(AVVIASANZIONE_OUTCOME_CODE__OK);
 
@@ -603,7 +611,8 @@ public class CPBECpDettaglioAccertamento {
 				Map<String, String> mappaTipoAnomalieVerifica = ConvertUtil
 						.convertCodeDescriptionsInMap(theModel.getAppDataelencoTipoAnomalie());
 				if (mappaTipoAnomalieVerifica != null) {
-					accertamento.setDescTipoAnomalia(mappaTipoAnomalieVerifica.get(ReplaceSpecialCharUtils.sanitize(accertamento.getIdTipoAnomalia())));
+					accertamento.setDescTipoAnomalia(mappaTipoAnomalieVerifica
+							.get(ReplaceSpecialCharUtils.sanitize(accertamento.getIdTipoAnomalia())));
 				}
 
 				//accertamento = theModel.getAppDataaccertamento();
@@ -1054,6 +1063,10 @@ public class CPBECpDettaglioAccertamento {
 						ConvertUtil.convertIdDescriptionsInMap(theModel.getAppDataelencoTipoConclusione()));
 
 				theModel.setAppDataaccertamento(accertamento);
+				if (accertamento.getCodiceImpianto() != null && !accertamento.getCodiceImpianto().equals("")) {
+					theModel.setAppDataazioneCodImpianto(accertamento.getCodiceImpianto());
+				}
+
 				List<SigitTImpiantoDto> impainti = getDbMgr().getSigitTImpiantoDao()
 						.findByAccertamentoIstatComune(accertamento.getCodIstatCom());
 				if (impainti != null && impainti.size() != 0) {

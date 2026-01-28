@@ -45,6 +45,7 @@ import it.csi.sigit.sigitwebn.util.GenericUtil;
  *   - ruoloAttivoPgByCodImpiantoRuolo (datagen::CustomFinder)
  *   - genericByFilter (datagen::CustomFinder)
  *   - genericPfByFilter (datagen::CustomFinder)
+ *   - soloAttiviByFilter (datagen::CustomFinder)
   * - UPDATERS:
  *   - update (datagen::UpdateRow)
  *   - subentroRespImpResp (datagen::CustomUpdater)
@@ -260,7 +261,9 @@ public class SigitRImpRuoloPfpgDaoImpl extends AbstractDAO implements SigitRImpR
 		sql.append(" DATA_ULT_MOD = :dataUltMod ");
 		sql.append(" WHERE FK_RUOLO = :idRuolo ");
 		sql.append(" AND CODICE_IMPIANTO = :codImpianto ");
-		sql.append(" AND DATA_FINE IS NULL ");
+		//sql.append(" AND DATA_FINE IS NULL ");
+		sql.append(
+				" AND (DATA_FINE IS NULL OR (DATA_FINE is not null AND current_date >= DATA_INIZIO AND current_date <= DATA_FINE)) ");
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("codImpianto", filter.getCodiceImpianto());
@@ -439,6 +442,9 @@ public class SigitRImpRuoloPfpgDaoImpl extends AbstractDAO implements SigitRImpR
 
 	protected SigitRImpRuoloPfpgDaoRowMapper genericPfByFilterRowMapper = new SigitRImpRuoloPfpgDaoRowMapper(null,
 			SigitRImpRuoloPfpgGenericPfByFilterDto.class, this);
+
+	protected SigitRImpRuoloPfpgDaoRowMapper soloAttiviByFilterRowMapper = new SigitRImpRuoloPfpgDaoRowMapper(null,
+			SigitRImpRuoloPfpgDto.class, this);
 
 	/**
 	 * 
@@ -1238,6 +1244,93 @@ public class SigitRImpRuoloPfpgDaoImpl extends AbstractDAO implements SigitRImpR
 			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "findGenericPfByFilter", "esecuzione query",
 					sql.toString());
 			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findGenericPfByFilter] END");
+		}
+		return list;
+	}
+
+	/** 
+	 * Implementazione del finder soloAttiviByFilter
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SigitRImpRuoloPfpgDto> findSoloAttiviByFilter(
+			it.csi.sigit.sigitwebn.business.dao.sigitwebn.filter.FiltroRicercaPfPg input)
+			throws SigitRImpRuoloPfpgDaoException {
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findSoloAttiviByFilter] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_IMP_RUOLO_PFPG,FK_RUOLO,CODICE_IMPIANTO,DATA_INIZIO,DATA_FINE,FK_PERSONA_FISICA,FK_PERSONA_GIURIDICA,DATA_ULT_MOD,UTENTE_ULT_MOD,FLG_PRIMO_CARICATORE ");
+		sql.append(" FROM SIGIT_R_IMP_RUOLO_PFPG");
+		sql.append(" WHERE ");
+		/*PROTECTED REGION ID(R-1694328957) ENABLED START*/
+		// personalizzare la query SQL relativa al finder
+
+		// personalizzare l'elenco dei parametri da passare al jdbctemplate (devono corrispondere in tipo e
+		// numero ai parametri definiti nella queryString)
+
+		//sql.append(" DATA_FINE IS NULL");
+		sql.append(
+				" (DATA_FINE IS NULL OR (DATA_FINE is not null AND current_date >= DATA_INIZIO AND current_date <= DATA_FINE)) ");
+
+		if (input.getCodiceImpianto() != null) {
+			sql.append(" AND CODICE_IMPIANTO = :codImpianto");
+		}
+
+		if (input.getIdRuolo() != null) {
+			sql.append(" AND FK_RUOLO = :ruolo");
+		}
+
+		if (input.getIdRuoloList() != null && !input.getIdRuoloList().isEmpty()) {
+			sql.append(" AND FK_RUOLO IN (" + ConvertUtil.getStringByList(input.getIdRuoloList()) + ")");
+		}
+
+		if (input.getIdPersonaFisica() != null) {
+			sql.append(" AND FK_PERSONA_FISICA = :fkFisica");
+		}
+
+		if (input.getIdPersonaGiuridica() != null) {
+			sql.append(" AND FK_PERSONA_GIURIDICA = :fkGiuridica");
+		}
+
+		if (input.getIsEscludiDataOdierna()) {
+			sql.append(" AND DATA_INIZIO <> CURRENT_DATE ");
+		}
+
+		/*PROTECTED REGION END*/
+		/*PROTECTED REGION ID(R-104026337) ENABLED START*/
+		//***aggiungere tutte le condizioni
+
+		if (input.getCodiceImpianto() != null) {
+			paramMap.addValue("codImpianto", input.getCodiceImpianto(), java.sql.Types.NUMERIC);
+		}
+		if (input.getIdRuolo() != null) {
+			paramMap.addValue("ruolo", input.getIdRuolo(), java.sql.Types.NUMERIC);
+		}
+
+		if (input.getIdPersonaFisica() != null) {
+			paramMap.addValue("fkFisica", input.getIdPersonaFisica(), java.sql.Types.NUMERIC);
+		}
+
+		if (input.getIdPersonaGiuridica() != null) {
+			paramMap.addValue("fkGiuridica", input.getIdPersonaGiuridica(), java.sql.Types.NUMERIC);
+		}
+
+		/*PROTECTED REGION END*/
+		List<SigitRImpRuoloPfpgDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, soloAttiviByFilterRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRImpRuoloPfpgDaoImpl::findSoloAttiviByFilter] esecuzione query", ex);
+			throw new SigitRImpRuoloPfpgDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "findSoloAttiviByFilter", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findSoloAttiviByFilter] END");
 		}
 		return list;
 	}

@@ -236,40 +236,11 @@ maxlength="11"	disabled="isWidgetDisabled('cpGestImpiantoResp','tfImpCodImp')"
 
 
 	
-<s:if test="isWidgetVisible('cpGestImpiantoResp','cImpDataAss')" >
-
-	
-<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('cpGestImpiantoResp.cImpDataAss.label')}" labelFor="widg_cImpDataAss" errorFor="appDataimpianto.impDataAssegnazione" labelId="cImpDataAssLbl"
-	position="first"  >
-
-
-<!-- widget cImpDataAss -->
-<s:textfield 
-	
-	
-	name="appDataimpianto.impDataAssegnazione" id="widg_cImpDataAss"
-	disabled="isWidgetDisabled('cpGestImpiantoResp','cImpDataAss')"
-	size="10" maxlength="10" 
-	cssClass="calendar"
-/> <div class="infoCalendar"></div>
-
-	
-</customtag:widgetsPanelColumn>
-
-</s:if>
-
-	
-<s:else>
-	<customtag:widgetsPanelColumn textValue="" colSpan="2" position="first"/>
-</s:else>
-
-
-	
 <s:if test="isWidgetVisible('cpGestImpiantoResp','cbImpStatoImp')" >
 
 	
 <customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('cpGestImpiantoResp.cbImpStatoImp.label')}" labelFor="widg_cbImpStatoImp" errorFor="appDataimpianto.impIdStatoImp" labelId="cbImpStatoImpLbl"
-	  >
+	position="first"  >
 
 
 <!-- widget cbImpStatoImp -->
@@ -300,6 +271,27 @@ maxlength="11"	disabled="isWidgetDisabled('cpGestImpiantoResp','tfImpCodImp')"
 	  />
 
 	</csiuicore:ajaxify>
+
+	
+</customtag:widgetsPanelColumn>
+
+</s:if>
+
+	
+<s:else>
+	<customtag:widgetsPanelColumn textValue="" colSpan="2" position="first"/>
+</s:else>
+
+
+	
+<s:if test="isWidgetVisible('cpGestImpiantoResp','wpCodImpianto_2_2_fictitious_')" >
+
+	
+<customtag:widgetsPanelColumn  colSpan="2"  >
+
+
+<!-- widget wpCodImpianto_2_2_fictitious_ -->
+
 
 	
 </customtag:widgetsPanelColumn>
@@ -632,13 +624,58 @@ title=""
 
 
 	
-<s:if test="isWidgetVisible('cpGestImpiantoResp','wpCodImpianto_5_2_fictitious_')" >
+<s:if test="isWidgetVisible('cpGestImpiantoResp','rbImpMedCiv')" >
 
 	
-<customtag:widgetsPanelColumn  colSpan="2"  >
+<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('cpGestImpiantoResp.rbImpMedCiv.label')}" labelFor="widg_rbImpMedCiv" errorFor="appDataimpianto.impIdStatoImp" labelId="rbImpMedCivLbl"
+	  >
 
 
-<!-- widget wpCodImpianto_5_2_fictitious_ -->
+<!-- widget rbImpMedCiv -->
+
+	
+<div id="appDataimpianto.impIdStatoImp" class="radiobuttons ">
+
+
+
+
+
+
+
+<s:radio
+	
+title=""	
+	id="widg_rbImpMedCivSI" name="appDataimpianto.impIdStatoImp"
+	list="#{'true':'SI'}"
+	disabled="isWidgetDisabled('cpGestImpiantoResp','rbImpMedCiv')"
+	cssClass="radio"
+	
+	/> <label  for="widg_rbImpMedCivSItrue"><s:text name="cpGestImpiantoResp.rbImpMedCiv.rbImpMedCivSI.label" /></label>
+
+
+
+
+
+
+
+
+<s:radio
+	
+title=""	
+	id="widg_rbImpMedCivNO" name="appDataimpianto.impIdStatoImp"
+	list="#{'false':'NO'}"
+	disabled="isWidgetDisabled('cpGestImpiantoResp','rbImpMedCiv')"
+	cssClass="radio"
+	
+	/> <label  for="widg_rbImpMedCivNOfalse"><s:text name="cpGestImpiantoResp.rbImpMedCiv.rbImpMedCivNO.label" /></label>
+
+
+
+
+
+	
+</div>
+
 
 
 	

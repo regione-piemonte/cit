@@ -84,6 +84,9 @@ public class CPBECpAzione {
 	// ApplicationData: [idIspezioneSelezionato, scope:USER_SESSION]
 	public static final String APPDATA_IDISPEZIONESELEZIONATO_CODE = "appDataidIspezioneSelezionato";
 
+	// ApplicationData: [azioneCodImpianto, scope:USER_SESSION]
+	public static final String APPDATA_AZIONECODIMPIANTO_CODE = "appDataazioneCodImpianto";
+
 	//////////////////////////////////////////////////////////////////////////////
 	/// Metodi associati alla U.I.
 	//////////////////////////////////////////////////////////////////////////////
@@ -155,13 +158,18 @@ public class CPBECpAzione {
 							throw new ValidationManagerException(
 									new Message(Messages.S156, ConvertUtil.convertToString(maxMB)));
 						}
-						DocumentoAzioneDto doc = new DocumentoAzioneDto();
-						doc.setContentType(ReplaceSpecialCharUtils.sanitize(contType));
-						doc.setFile(file);
-						doc.setNomeFile(ReplaceSpecialCharUtils.sanitize(nomeFile));
+						DocumentoAzioneDto docFilter = new DocumentoAzioneDto();
+						docFilter.setContentType(ReplaceSpecialCharUtils.sanitize(contType));
+						docFilter.setFile(file);
+						docFilter.setNomeFile(ReplaceSpecialCharUtils.sanitize(nomeFile));
+
+						String codImpianto = theModel.getAppDataazioneCodImpianto();
+						if (codImpianto != null) {
+							docFilter.setCodImpianto(codImpianto);
+						}
 
 						getSigitMgr().inserisciAzioneEDocumento(theModel.getAppDataidTipoAzione(),
-								theModel.getAppDataazione(), doc, theModel.getAppDatautenteLoggato());
+								theModel.getAppDataazione(), docFilter, theModel.getAppDatautenteLoggato());
 
 						//						result.getGlobalMessages().add("Documento importato correttamente");
 						theModel.getSession().put(Constants.SESSIONE_VAR_MESSAGGE,

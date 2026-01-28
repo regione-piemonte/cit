@@ -101,7 +101,7 @@ public interface ConstantsField {
 	public final static String GESTISCI_IMPIANTO_TIPO_IMPIANTO = "appDataimpianto.impTipoImpianto";
 	public final static String GESTISCI_IMPIANTO_FLG_APPARECC_UI_EXT = "appDataimpianto.impFlgAppareccUiExt";
 	public final static String GESTISCI_IMPIANTO_FLG_CONTABILIZZATORE = "appDataimpianto.impFlgContabilizzatore";
-	
+	public final static String GESTISCI_IMPIANTO_FLG_MEDIO_IMPIANTO_CIVILE = "appDataimpianto.impFlgMedioCivile";
 	
 	public final static String GESTISCI_IMPIANTO_LOC_ID_PROVINCIA = "appDataimpianto.impLocIdProvincia";
 	public final static String GESTISCI_IMPIANTO_LOC_ID_COMUNE = "appDataimpianto.impLocIdComune";

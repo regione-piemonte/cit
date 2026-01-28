@@ -211,7 +211,7 @@ public class CPBECpDettaglio3Resp {
 			result.setResultCode(
 					GenericUtil.gestisciTreeClick(theModel.getIdNodo(), theModel.getAppDatalibrettoMenuTree()));
 
-			// Setto la pagina in cui sto andando, mi servirà nel caso ci sia necessità di ricaricare la pagina con un messaggio (es. consolida libretto)
+			// Setto la pagina in cui sto andando, mi servirï¿½ nel caso ci sia necessitï¿½ di ricaricare la pagina con un messaggio (es. consolida libretto)
 			theModel.getSession().put(Constants.SESSIONE_VAR_LIBRETTO_SCHEDA, result.getResultCode());
 
 			// modifica degli attributi del model (che verranno propagati allo strato
@@ -322,7 +322,7 @@ public class CPBECpDettaglio3Resp {
 				}
 
 				//se tutti i controlli sono andati a buon fine si passa alla parte di salvataggio
-				//viene invocato prima un metodo per salvare i dati in SIGIT_T_AZIONE_COTRATTO ( con descrizione Proroga nomina terza responsabilità impianto [codice_impianto])
+				//viene invocato prima un metodo per salvare i dati in SIGIT_T_AZIONE_COTRATTO ( con descrizione Proroga nomina terza responsabilitï¿½ impianto [codice_impianto])
 				//e per sostituire le informazioni sulla tabella CONTRATTO_2019
 				//viene poi invocato un secondo metodo per l'invio della mail al terzo responsabile e al responsabile dell'impianto
 				String infoEmail = getConnectorMgr().proroga3Responsabile2019(dettaglioResp, proroga,
@@ -590,9 +590,12 @@ public class CPBECpDettaglio3Resp {
 					ex.addFieldRequired(APPDATA_NUOVODOCCONTRATTO_CODE + ".descrizione");
 					throw ex;
 				} else {
-
-					DocumentoContrattoDto doc = new DocumentoContrattoDto();
-					doc.setDescrizione(ReplaceSpecialCharUtils.sanitize(
+					
+					DettaglioTerzoResponsabile dettaglioResp = theModel.getAppDatadettaglioTerzoResponsabile();
+					
+					DocumentoContrattoDto docFilter = new DocumentoContrattoDto();
+					docFilter.setCodImpianto(dettaglioResp.getCodImpianto());
+					docFilter.setDescrizione(ReplaceSpecialCharUtils.sanitize(
 							theModel.getAppDatanuovoDocContratto().getDescrizione()));
 
 					File file = theModel.getWidg_fuUpload();
@@ -618,15 +621,15 @@ public class CPBECpDettaglio3Resp {
 									new Message(Messages.S156, ConvertUtil.convertToString(maxMB)));
 						}
 
-						doc.setContentType(ReplaceSpecialCharUtils.sanitize(contType));
-						doc.setFile(file);
-						doc.setNomeFile(ReplaceSpecialCharUtils.sanitize(nomeFile));
+						docFilter.setContentType(ReplaceSpecialCharUtils.sanitize(contType));
+						docFilter.setFile(file);
+						docFilter.setNomeFile(ReplaceSpecialCharUtils.sanitize(nomeFile));
 
 					}
 
 					//il doc contratto viene inserito sempre per via della descrizione
 					DocContratto documentoAggiunto = getSigitMgr().inserisciDocContratto(
-							theModel.getAppDataidContrattoSelez(), doc, theModel.getAppDatautenteLoggato());
+							theModel.getAppDataidContrattoSelez(), docFilter, theModel.getAppDatautenteLoggato());
 
 					if (theModel.getAppDataelencoDocContratti() == null) {
 						theModel.setAppDataelencoDocContratti(new ArrayList<DocContratto>());

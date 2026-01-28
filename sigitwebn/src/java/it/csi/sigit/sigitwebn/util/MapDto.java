@@ -2799,7 +2799,7 @@ public class MapDto {
 		obj.setImpCodImpianto(ConvertUtil.convertToString(dto.getCodiceImpianto()));
 		obj.setImpIdStatoImp(ConvertUtil.convertToString(dto.getFkStato()));
 		obj.setImpIdStatoImpOld(ConvertUtil.convertToString(dto.getFkStato()));
-		obj.setImpDataAssegnazione(ConvertUtil.convertToString(dto.getDataAssegnazione()));
+		//obj.setImpDataAssegnazione(ConvertUtil.convertToString(dto.getDataAssegnazione()));
 		obj.setImpDataDismissione(ConvertUtil.convertToString(dto.getDataDismissione()));
 		obj.setImpDataDismissioneOld(ConvertUtil.convertToString(dto.getDataDismissione()));
 		obj.setImpMotivazione(ReplaceSpecialCharUtils.sanitize(dto.getMotivazione()));
@@ -2808,6 +2808,7 @@ public class MapDto {
 		obj.setImpTipoImpianto(ReplaceSpecialCharUtils.sanitize(dto.getFlgTipoImpianto()));
 		obj.setImpFlgAppareccUiExt(ConvertUtil.convertToBoolean(dto.getFlgAppareccUiExt()));
 		obj.setImpFlgContabilizzatore(ConvertUtil.convertToBoolean(dto.getFlgContabilizzazione()));
+		obj.setImpFlgMedioCivile(ConvertUtil.convertToBoolean(dto.getFlgMedioimpianto()));
 		
 		obj.setImpLocIdComune(ReplaceSpecialCharUtils.sanitize(dto.getIstatComune()));
 		obj.setImpLocIdProvincia(ReplaceSpecialCharUtils.sanitize(dto.getSiglaProvincia()));
@@ -2831,12 +2832,12 @@ public class MapDto {
 		dto.setCodiceImpianto(ConvertUtil.convertToBigDecimal(obj.getImpCodImpianto()));
 		
 		dto.setFkStato(ConvertUtil.convertToBigDecimal(obj.getImpIdStatoImp()));
-		dto.setDataAssegnazione(ConvertUtil.convertToSqlDate(obj.getImpDataAssegnazione()));
 		dto.setDataDismissione(ConvertUtil.convertToSqlDate(obj.getImpDataDismissione()));
 		
 		dto.setFlgTipoImpianto(ConvertUtil.getStringSql(ReplaceSpecialCharUtils.sanitize(obj.getImpTipoImpianto())));
 		dto.setFlgAppareccUiExt(ConvertUtil.convertToBigDecimal(obj.getImpFlgAppareccUiExt()));
 		dto.setFlgContabilizzazione(ConvertUtil.convertToBigDecimal(obj.getImpFlgContabilizzatore()));
+		dto.setFlgMedioimpianto(ConvertUtil.convertToBigDecimal(obj.getImpFlgMedioCivile()));
 		
 		dto.setIstatComune(ConvertUtil.getStringSql(ReplaceSpecialCharUtils.sanitize(obj.getImpLocIdComune())));
 		dto.setSiglaProvincia(ConvertUtil.getStringSql(ReplaceSpecialCharUtils.sanitize(obj.getImpLocIdProvincia())));
@@ -2856,6 +2857,7 @@ public class MapDto {
 		dto.setFlgVisuProprietario(ConvertUtil.convertToBigDecimal(obj.getVisuProprietario()));
 		dto.setCoordXLongDd(obj.getCoordLng());
 		dto.setCoordYLatDd(obj.getCoordLat());
+		dto.setFlgMedioimpianto(ConvertUtil.convertToBigDecimal(obj.getImpFlgMedioCivile()));
 		return dto;
 	}
 	
@@ -3207,6 +3209,7 @@ public class MapDto {
 		dto.setFkRuolo(ConvertUtil.convertToBigDecimal(Constants.ID_RUOLO_CARICATORE));
 		dto.setCodiceImpianto(idImpianto);
 		dto.setDataInizio(DateUtil.getSqlCurrentDate());
+		dto.setDataFine(DateUtil.addDaysToSqlDate(dto.getDataInizio(), Constants.CARICATORE_VALIDITY_DAYS));
 		
 		
 //		if (log.isDebugEnabled())
@@ -22348,6 +22351,13 @@ public class MapDto {
 		dett.setFlgStufaAssemblata(flgStufaAssemblata);
 		dett.setFlgStufaPellet(flgStufaPellet);
 		
+		Boolean flgCaminettoChiuso = ConvertUtil.convertToBoolean(rappTipo1Dto.getE1bFlgCaminettoChiuso());
+		Boolean flgCaminettoAperto = ConvertUtil.convertToBoolean(rappTipo1Dto.getE1bFlgCaminettoAperto());
+		Boolean flgInsertoCaminetto = ConvertUtil.convertToBoolean(rappTipo1Dto.getE1bFlgInsertoCaminetto());
+		dett.setFlgCaminettoChiuso(flgCaminettoChiuso);
+		dett.setFlgCaminettoAperto(flgCaminettoAperto);
+		dett.setFlgInsertoCaminetto(flgInsertoCaminetto);
+		
 		if (flgCaldaia != null && flgCaldaia) {
 			dett.setTipologiaTipo1B(TipologiaTipo1BEnum.CALDAIA.getId());
 		} else if (flgStufa != null && flgStufa) {
@@ -22360,23 +22370,14 @@ public class MapDto {
 			dett.setTipologiaTipo1B(TipologiaTipo1BEnum.STUFA_ASSEMBLATA.getId());			
 		} else if (flgStufaPellet != null && flgStufaPellet) {
 			dett.setTipologiaTipo1B(TipologiaTipo1BEnum.STUFA_PELLET.getId());						
-		}
-		
-		Boolean flgCaminettoChiuso = ConvertUtil.convertToBoolean(rappTipo1Dto.getE1bFlgCaminettoChiuso());
-		Boolean flgCaminettoAperto = ConvertUtil.convertToBoolean(rappTipo1Dto.getE1bFlgCaminettoAperto());
-		Boolean flgInsertoCaminetto = ConvertUtil.convertToBoolean(rappTipo1Dto.getE1bFlgInsertoCaminetto());
-		dett.setFlgCaminettoChiuso(flgCaminettoChiuso);
-		dett.setFlgCaminettoAperto(flgCaminettoAperto);
-		dett.setFlgInsertoCaminetto(flgInsertoCaminetto);
-
-		if (flgCaminettoChiuso != null && flgCaminettoChiuso) {
-			dett.setCondottoEvacuazioneFiumi(CondottoEvacuazioneFumiTipo1BEnum.CAMINETTO_CHIUSO.getId());
+		} else if (flgCaminettoChiuso != null && flgCaminettoChiuso) {
+			dett.setTipologiaTipo1B(TipologiaTipo1BEnum.CAMINETTO_CHIUSO.getId());
 		} else if (flgCaminettoAperto != null && flgCaminettoAperto) {
-			dett.setCondottoEvacuazioneFiumi(CondottoEvacuazioneFumiTipo1BEnum.CAMINETTO_APERTO.getId());
+			dett.setTipologiaTipo1B(TipologiaTipo1BEnum.CAMINETTO_APERTO.getId());
 		} else if (flgInsertoCaminetto != null && flgInsertoCaminetto) {
-			dett.setCondottoEvacuazioneFiumi(CondottoEvacuazioneFumiTipo1BEnum.INSERTO_CAMINETTO.getId());
+			dett.setTipologiaTipo1B(TipologiaTipo1BEnum.INSERTO_CAMINETTO.getId());
 		}
-		
+				
 		dett.setFkStelle(ConvertUtil.convertToInteger(rappTipo1Dto.getIdStelle()));
 		dett.setFkTipo1B(ConvertUtil.convertToInteger(rappTipo1Dto.getIdTipo1b()));
 		dett.setFkAriaComburente(ConvertUtil.convertToInteger(rappTipo1Dto.getIdAriaComburente()));

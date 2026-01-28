@@ -10,7 +10,10 @@ public enum TipologiaTipo1BEnum {
 	STUFA_ACCUMULO ("Stufa ad accumulo (UNI EN 15250)", 3),
 	TERMOCUCINA ("Termocucina (UNI EN 12815)", 4),
 	STUFA_ASSEMBLATA ("Stufa assemblata in opera (UNI EN 15544)", 5),
-	STUFA_PELLET ("Stufa a pellet (UNI EN 14785)", 6);
+	STUFA_PELLET ("Stufa a pellet (UNI EN 14785)", 6),
+	CAMINETTO_APERTO ("Caminetto aperto (UNI EN 13229)", 7),
+	CAMINETTO_CHIUSO ("Caminetto chiuso (UNI EN 13229)", 8),
+	INSERTO_CAMINETTO ("Inserto caminetto (UNI EN 13229)", 9);
 	
 	private TipologiaTipo1BEnum(String descrizione, Integer id) {
 		this.descrizione = descrizione;

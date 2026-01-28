@@ -212,6 +212,24 @@ public class CpAzioneModel extends BaseSessionAwareDTO {
 		return (java.lang.Integer) (getSession().get("appDataidIspezioneSelezionato"));
 	}
 
+	/**
+	 * imposta il valore dell' ApplicationData 'appDataazioneCodImpianto'
+	 * @param value
+	 * @generated
+	 */
+
+	public void setAppDataazioneCodImpianto(java.lang.String value) {
+		getSession().put("appDataazioneCodImpianto", value);
+	}
+
+	/**
+	 * legge il valore dell' ApplicationData 'appDataazioneCodImpianto'
+	 * @generated
+	 */
+	public java.lang.String getAppDataazioneCodImpianto() {
+		return (java.lang.String) (getSession().get("appDataazioneCodImpianto"));
+	}
+
 	////////////////////////////////////////////////////////////////////
 	/// campi per widget semplici
 	////////////////////////////////////////////////////////////////////

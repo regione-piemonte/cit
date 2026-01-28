@@ -5893,7 +5893,7 @@ public class DbMgr {
 		filter.setCodiceImpianto(ReplaceSpecialCharUtils.sanitize(codiceImpianto));
 		filter.setIdRuolo(ConvertUtil.convertToString(Constants.ID_RUOLO_CARICATORE));
 
-		List<SigitRImpRuoloPfpgDto> installatoriList = getSigitRImpRuoloPfpgDao().findAttiviByFilter(filter);
+		List<SigitRImpRuoloPfpgDto> installatoriList = getSigitRImpRuoloPfpgDao().findSoloAttiviByFilter(filter);
 		if (installatoriList != null && !installatoriList.isEmpty()) {
 			return installatoriList.get(0);
 		}
@@ -6563,6 +6563,7 @@ public class DbMgr {
 				getSigitRImpRuoloPfpgDao().customUpdaterSubentroInstManut(dtoUpdate, null);
 
 				dto.setFkPersonaGiuridica(ConvertUtil.convertToBigDecimal(subentro.getRespImpId()));
+				dto.setDataFine(DateUtil.addDaysToSqlDate(dto.getDataInizio(), Constants.CARICATORE_VALIDITY_DAYS));
 			}
 //			else if (subentro.getIdTipoSubentro().intValue() == Constants.ID_RUOLO_INSTALLATORE ||
 //					subentro.getIdTipoSubentro().intValue() == Constants.ID_RUOLO_MANUTENTORE_ALL_1 ||
@@ -10149,6 +10150,7 @@ public class DbMgr {
 		return null;
 	}
 
+	/*
 	public void consolidaBR(String codImpianto, String cfUtente, List<RowBR> listBr, List<RowGT> gtList) throws DbManagerException
 	{
 		log.debug("Consolidamento BR");
@@ -10248,7 +10250,9 @@ public class DbMgr {
 			throw new DbManagerException(e, new Message(Messages.ERROR_UPDATE_DB));
 		}
 	}
-
+	*/
+	
+	/*
 	public void consolidaRC(String codImpianto, String cfUtente, List<RowRC> listRc, List<RowGT> gtList) throws DbManagerException
 	{
 		log.debug("Consolidamento RC");
@@ -10352,6 +10356,7 @@ public class DbMgr {
 			throw new DbManagerException(e, new Message(Messages.ERROR_UPDATE_DB));
 		}
 	}
+	*/
 
 	private void cancellaListaComponentiBrRc(List<SigitTCompBrRcDto> componentiCancellate, String cfUtente) throws SigitTCompBrRcDaoException
 	{
@@ -12816,27 +12821,6 @@ public class DbMgr {
 	 * @throws DbManagerException Errore durante il recupero dei dati
 	 * @throws
 	 */
-
-	public String  getDataAssegnazioneCodiceImpianto(String codiceImpianto) throws DbManagerException {
-		String value = null;
-		log.debug("[DbMgr::getDataAssegnazioneCodiceImpianto] BEGIN");
-		try {
-			SigitTImpiantoPk pk = new SigitTImpiantoPk();
-			pk.setCodiceImpianto(new BigDecimal(codiceImpianto));
-			SigitTImpiantoDto impianto = getSigitTImpiantoDao().findByPrimaryKey(pk);
-
-			//trovo la data di assegnazione
-			if(impianto.getDataAssegnazione()!=null)
-				value =  ConvertUtil.convertToString(impianto.getDataAssegnazione());
-		}
-		catch (SigitTImpiantoDaoException e) {
-			throw new DbManagerException(e, new Message(Messages.ERROR_RECUPERO_DB));
-		}
-		finally {
-			log.debug("[DbMgr::getDataAssegnazioneCodiceImpianto] END");
-		}
-		return value;
-	}
 
 	/**
 	 * Cerco il codice bollino riferito alla data controllo
@@ -20500,6 +20484,9 @@ public class DbMgr {
 			rappTipo1Dto.setE1bFlgTermocucina(BigDecimal.ZERO);
 			rappTipo1Dto.setE1bFlgStufaAssemblata(BigDecimal.ZERO);
 			rappTipo1Dto.setE1bFlgStufaPellet(BigDecimal.ZERO);
+			rappTipo1Dto.setE1bFlgCaminettoAperto(BigDecimal.ZERO);
+			rappTipo1Dto.setE1bFlgCaminettoChiuso(BigDecimal.ZERO);
+			rappTipo1Dto.setE1bFlgInsertoCaminetto(BigDecimal.ZERO);
 
 			try {
 
@@ -20524,12 +20511,21 @@ public class DbMgr {
 					case TERMOCUCINA:
 						rappTipo1Dto.setE1bFlgTermocucina(BigDecimal.ONE);
 						break;
+					case CAMINETTO_APERTO:
+						rappTipo1Dto.setE1bFlgCaminettoAperto(BigDecimal.ONE);
+						break;
+					case CAMINETTO_CHIUSO:
+						rappTipo1Dto.setE1bFlgCaminettoChiuso(BigDecimal.ONE);
+						break;
+					case INSERTO_CAMINETTO:
+						rappTipo1Dto.setE1bFlgInsertoCaminetto(BigDecimal.ONE);
+						break;
 				}
 			} catch (Exception e) {
 				log.warn("Tipologia tipo 1B non trovata durante salvataggio dettaglio tipo 1B");
 			}
 
-			rappTipo1Dto.setE1bFlgCaminettoAperto(BigDecimal.ZERO);
+			/*rappTipo1Dto.setE1bFlgCaminettoAperto(BigDecimal.ZERO);
 			rappTipo1Dto.setE1bFlgCaminettoChiuso(BigDecimal.ZERO);
 			rappTipo1Dto.setE1bFlgInsertoCaminetto(BigDecimal.ZERO);
 
@@ -20550,7 +20546,7 @@ public class DbMgr {
 				}
 			} catch (Exception e) {
 				log.warn("Condotto evacuazione fumi tipo 1B non trovato durante salvataggio dettaglio tipo 1B");
-			}
+			}*/
 
 			rappTipo1Dto.setIdStelle(ConvertUtil.convertToBigDecimal(tipo1Dett.getFkStelle()));
 			rappTipo1Dto.setIdTipo1b(ConvertUtil.convertToBigDecimal(tipo1Dett.getFkTipo1B()));

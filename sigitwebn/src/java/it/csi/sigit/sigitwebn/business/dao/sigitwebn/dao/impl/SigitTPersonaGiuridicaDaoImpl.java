@@ -724,7 +724,7 @@ public class SigitTPersonaGiuridicaDaoImpl extends AbstractDAO implements SigitT
 		//				+ Constants.ID_RUOLO_OCCUPANTE + ")");
 
 		sql.append(" AND pfpg.FK_RUOLO = " + Constants.ID_RUOLO_CARICATORE);
-		sql.append(" AND DATA_FINE IS NULL ");
+		sql.append(" AND pfpg.DATA_FINE IS NULL ");
 
 		// personalizzare l'elenco dei parametri da passare al jdbctemplate (devono corrispondere in tipo e
 		// numero ai parametri definiti nella queryString)
