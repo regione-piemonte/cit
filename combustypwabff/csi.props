@@ -1,0 +1,5 @@
+CSI_BASE=false
+IMAGE_NAME=sigit/combustypwabff
+PRODUCT_MAIL=mariuccia.actisdato@csi.it
+TECHNOLOGY=java
+TEMPLATE_VERSION=v3.14.4.Final-csi-1.0.0

@@ -1,0 +1,2011 @@
+---
+openapi: 3.0.1
+info:
+  title: API combustypwabff
+  description: TODO add a description here
+  version: 1.1.0
+servers:
+  - url: /api
+paths:
+  /status:
+    get:
+      operationId: getStatus
+      tags:
+        - system
+      description: ping
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                type: string
+  /user/currentUser:
+    get:
+      operationId: getCurrentUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/UtenteLoggato"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/accesso:
+    post:
+      operationId: setAccesso
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UtenteLoggato"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/UtenteLoggato"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/keep-alive:
+    get:
+      operationId: keepAlive
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/disponibilitaservizio:
+    post:
+      operationId: getDisponibilitaServizio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UtenteLoggato"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /distributore/ruoli:
+    get:
+      operationId: getRuoliDistributore
+      parameters:
+        - name: cf
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: nome
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: cognome
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Ruoli'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /distributore/datiDistributore:
+    get:
+      operationId: getDettaglioDatiDistributoreJson
+      parameters:
+        - name: idPersonaGiuridica
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: anno
+          in: query
+          schema:
+            type: string
+        - name: mese
+          in: query
+          schema:
+            type: string
+        - name: tipoCaricamento
+          in: query
+          schema:
+            type: string
+        - name: statoFile
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: setDatiDistributoreSemplificatoJson
+      parameters:
+        - name: idPersonaGiuridica
+          in: query
+          schema:
+            type: integer
+        - name: piva
+          in: query
+          schema:
+            type: string
+        - name: cf
+          in: query
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImportDatiDistributore"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /distributore/datiImport:
+    get:
+      operationId: getDettaglioDatiImportJson
+      parameters:
+        - name: idID
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /distributore/uploadxml:
+    post:
+      operationId: uploadXMLDistributoreJWT
+      parameters:
+        - name: idPG
+          in: query
+          schema:
+            type: integer
+        - name: sostituzione
+          in: query
+          required: true
+          schema:
+            type: boolean
+        - name: idID
+          in: query
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/DocXml"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /distributore/acquisizione/annulla:
+    get:
+      operationId: annullaAcquisizioneDatoDistributore
+      parameters:
+        - name: cf
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: idID
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/problem+json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/dati:
+    get:
+      operationId: getDatiAccreditamento
+      parameters:
+        - name: codice_fiscale
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accreditamento'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/datiPersonaliUtente:
+    post:
+      operationId: setDatiPersonaliUtente
+      parameters:
+        - name: codice_fiscale
+          in: query
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Persona"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/dati/impresa:
+    get:
+      operationId: getDatiImpresa
+      parameters:
+        - name: codice_fiscale
+          in: query
+          schema:
+            type: string
+        - name: sigla_REA
+          in: query
+          schema:
+            type: string
+        - name: numero_REA
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaDatiImpresa'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/distributore/dati/impresa:
+    get:
+      operationId: getDatiImpresaDistributore
+      parameters:
+        - name: codice_fiscale
+          in: query
+          schema:
+            type: string
+        - name: sigla_REA
+          in: query
+          schema:
+            type: string
+        - name: numero_REA
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaDatiImpresa'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/impresa/set:
+    post:
+      operationId: setImpresaAssociata
+      parameters:
+        - name: operation
+          in: query
+          schema:
+            type: string
+        - name: codice_fiscale
+          in: query
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DatiImpresa"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/delega/set:
+    get:
+      operationId: setDelega
+      parameters:
+        - name: codice_fiscale
+          in: query
+          schema:
+            type: string
+        - name: id_persona_giuridica
+          in: query
+          schema:
+            type: integer
+        - name: id_persona
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/delega/delete:
+    post:
+      operationId: deleteDelega
+      parameters:
+        - name: id_persona
+          in: query
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UtenteLoggato"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/delega/delete/confirm:
+    delete:
+      operationId: deleteDelegaConfirm
+      parameters:
+        - name: codice_fiscale
+          in: query
+          schema:
+            type: string
+        - name: id_persona_giuridica
+          in: query
+          schema:
+            type: integer
+        - name: id_persona
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/delega/soggetti:
+    get:
+      operationId: getIncarichiSoggettiDelegati
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaIncarichiSoggettiDelegati'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/delega/soggetti/incarico/set:
+    get:
+      operationId: setIncaricoSoggettoDelegato
+      parameters:
+        - name: codice_fiscale
+          in: query
+          schema:
+            type: string
+        - name: id_persona_giuridica
+          in: query
+          schema:
+            type: integer
+        - name: id_persona_giuridica_cat
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/delega/soggetti/incarico/delete:
+    delete:
+      operationId: deleteIncaricoSoggettoDelegato
+      parameters:
+        - name: codice_fiscale
+          in: query
+          schema:
+            type: string
+        - name: id_persona_giuridica
+          in: query
+          schema:
+            type: integer
+        - name: id_persona_giuridica_cat
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/mail/send/prova:
+    get:
+      operationId: sendEmailProva
+      parameters:
+        - name: email_address
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/getElencoDeleghe:
+    get:
+      operationId: getElencoDeleghe
+      parameters:
+        - name: id_persona_giuridica
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaDatiDelega'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/getElencoIncarichi:
+    get:
+      operationId: getElencoIncarichi
+      parameters:
+        - name: id_persona_giuridica
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaDatiIncarico'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accreditamento/token/impresa:
+    get:
+      operationId: getDatiTokenImpresa
+      parameters:
+        - name: id_persona_giuridica
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatiToken'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: generateTokenImpresa
+      parameters:
+        - name: id_persona_giuridica
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatiToken'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /impianto/pv:
+    get:
+      operationId: getProvinciaImpianto
+      parameters:
+        - name: comune
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaFeatureModel'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /impianto/ce:
+    get:
+      operationId: getComuniEstesi
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaComuneEstesoModel'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /impianto/resp-prop:
+    get:
+      operationId: cercaResponsabileProprietario
+      parameters:
+        - name: tipo
+          in: query
+          schema:
+            type: integer
+        - name: cf
+          in: query
+          schema:
+            type: string
+        - name: sigla-rea
+          in: query
+          schema:
+            type: string
+        - name: numero-rea
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaPersone'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /impianto/indirizzo:
+    get:
+      operationId: getIndirizzoImpianto
+      parameters:
+        - name: indirizzo
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaFeatureModel'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /impianto/geojson:
+    get:
+      operationId: getGeoJsonImpianto
+      parameters:
+        - name: ruolo
+          in: query
+          schema:
+            type: string
+        - name: piva
+          in: query
+          schema:
+            type: string
+        - name: codiceFiscalePF
+          in: query
+          schema:
+            type: string
+        - name: cf3-resp
+          in: query
+          schema:
+            type: string
+        - name: cf-impresa
+          in: query
+          schema:
+            type: string
+        - name: cf-proprietario
+          in: query
+          schema:
+            type: string
+        - name: cf-responsabile
+          in: query
+          schema:
+            type: string
+        - name: civico
+          in: query
+          schema:
+            type: string
+        - name: codice-impianto
+          in: query
+          schema:
+            type: string
+        - name: desc-comune
+          in: query
+          schema:
+            type: string
+        - name: fk-stato
+          in: query
+          schema:
+            type: string
+        - name: flag-visu-proprietario
+          in: query
+          schema:
+            type: string
+        - name: id-comune
+          in: query
+          schema:
+            type: string
+        - name: indirizzo
+          in: query
+          schema:
+            type: string
+        - name: istat-comune
+          in: query
+          schema:
+            type: string
+        - name: sigla-rea
+          in: query
+          schema:
+            type: string
+        - name: numero-rea
+          in: query
+          schema:
+            type: string
+        - name: pdr
+          in: query
+          schema:
+            type: string
+        - name: pod
+          in: query
+          schema:
+            type: string
+        - name: sigla-provincia
+          in: query
+          schema:
+            type: string
+        - name: x
+          in: query
+          schema:
+            type: number
+            format: float
+        - name: y
+          in: query
+          schema:
+            type: number
+            format: float
+        - name: distanza
+          in: query
+          schema:
+            type: number
+            format: float
+        - name: ricercaCompleta
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureCollection'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /impianto/geojson/max:
+    get:
+      operationId: getGeoJsonImpiantoMaxResults
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureCollection'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /componente/combustibile:
+    get:
+      operationId: getCombustibile
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaCodiceDescrizione'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /componente/unita-misura:
+    get:
+      operationId: getUnitaMisura
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaCodiceDescrizione'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Unauthorized:
+      description: Authentication information is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Forbidden:
+      description: User is forbidden to access the resource
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    InternalServerError:
+      description: Generic server-side error
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Error"
+  schemas:
+    UserInfo:
+      type: object
+      properties:
+        nome:
+          type: string
+        cognome:
+          type: string
+        ente:
+          type: string
+        ruolo:
+          type: string
+        codFisc:
+          type: string
+        livAuth:
+          type: integer
+        community:
+          type: string
+    boolean_crit:
+      type: object
+      properties:
+        eq:
+          type: boolean
+    string_crit:
+      type: object
+      properties:
+        eq:
+          type: string
+        ne:
+          type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        nin:
+          type: array
+          items:
+            type: string
+        c:
+          type: string
+        ci:
+          type: string
+        s:
+          type: string
+        si:
+          type: string
+        e:
+          type: string
+        ei:
+          type: string
+      description: criterio su singola property di tipo stringa
+    integer_crit:
+      type: object
+      properties:
+        eq:
+          type: integer
+          format: int32
+        ne:
+          type: integer
+          format: int32
+        lt:
+          type: integer
+          format: int32
+        lte:
+          type: integer
+          format: int32
+        gt:
+          type: integer
+          format: int32
+        gte:
+          type: integer
+          format: int32
+        in:
+          type: array
+          items:
+            type: integer
+            format: int32
+        nin:
+          type: array
+          items:
+            type: integer
+            format: int32
+      description: criterio su singola property di tipo integer
+    date_crit:
+      type: object
+      properties:
+        eq:
+          type: string
+          format: date
+        ne:
+          type: string
+          format: date
+        lt:
+          type: string
+          format: date
+        lte:
+          type: string
+          format: date
+        gt:
+          type: string
+          format: date
+        gte:
+          type: string
+          format: date
+        in:
+          type: array
+          items:
+            type: string
+            format: date
+        nin:
+          type: array
+          items:
+            type: string
+            format: date
+      description: criterio su singola property di tipo data
+    UtenteLoggato:
+      type: object
+      properties:
+        pfLoggato:
+          $ref: "#/components/schemas/PFLoggato"
+        ruoloLoggato:
+          $ref: "#/components/schemas/RuoloLoggato"
+    PFLoggato:
+      type: object
+      properties:
+        codiceFiscalePF:
+          type: string
+        cognomePF:
+          type: string
+        nomePF:
+          type: string
+    RuoloLoggato:
+      type: object
+      properties:
+        ruolo:
+          type: string
+        piva:
+          type: string
+        siglaRea:
+          type: string
+        numeroRea:
+          type: string
+        denominazione:
+          type: string
+        dataCessazione:
+          type: string
+          format: date
+        idStato:
+          type: integer
+        descStato:
+          type: string
+        istatAbilitazione:
+          type: string
+        descrAbilitazione:
+          type: string
+        idPersonaGiuridica:
+          type: integer
+        cat:
+          type: boolean
+    Ruoli:
+      type: object
+      properties:
+        pfLoggato:
+          type: object
+          properties:
+            codiceFiscalePF:
+              type: string
+            cognomePF:
+              type: string
+            nomePF:
+              type: string
+        ruoliPF:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuoloPF'
+        ruoliPG:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuoloPG'
+        ruoliPA:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuoloPA'
+    RuoloPF:
+      type: object
+      properties:
+        ruoloPF:
+          type: string
+    RuoloPG:
+      type: object
+      properties:
+        piva:
+          type: string
+        idPersonaGiuridica:
+          type: integer
+        siglaREA:
+          type: string
+        numeroREA:
+          type: string
+        denominazione:
+          type: string
+        dataCessazione:
+          type: string
+          format: date
+        ruoloPG:
+          type: string
+        idStato:
+          type: integer
+        descStato:
+          type: string
+    RuoloPA:
+      type: object
+      properties:
+        ruoloPA:
+          type: string
+        idRuoloPA:
+          type: integer
+        istatAbilitazione:
+          type: string
+        descrAbilitazione:
+          type: string
+    Accreditamento:
+      type: object
+      properties:
+        persona:
+          $ref: '#/components/schemas/Persona'
+        datiImpresaList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatiImpresa'
+        datiDelegaList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatiDelega'
+        datiIncaricoList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatiIncarico'
+    Persona:
+      type: object
+      properties:
+        idPersona:
+          type: integer
+        titolo:
+          type: string
+        tipo:
+          type: integer
+        codiceFiscale:
+          type: string
+        cognomeDenominazione:
+          type: string
+        nome:
+          type: string
+        residenzaEstera:
+          type: integer
+        stradario:
+          type: integer
+        indirizzoSitad:
+          type: string
+        indirizzoNonTrovato:
+          type: string
+        comune:
+          type: string
+        provincia:
+          type: string
+        civico:
+          type: string
+        statoEstero:
+          type: string
+        cittaEstero:
+          type: string
+        indirizzoEstero:
+          type: string
+        capEstero:
+          type: string
+        dataInizioResp:
+          type: string
+          format: date
+        dataFineResp:
+          type: string
+          format: date
+        email:
+          type: string
+        flgResp:
+          type: boolean
+        siglaProv:
+          type: string
+        istatComune:
+          type: string
+        accreditato:
+          type: string
+        cap:
+          type: string
+        newsletter:
+          type: integer
+        gdpr:
+          type: integer
+    ListaPersone:
+      type: array
+      items:
+        $ref: '#/components/schemas/Persona'
+    DatiImpresa:
+      type: object
+      properties:
+        id_persona_giuridica:
+          type: integer
+        denominazione:
+          type: string
+        codice_fiscale:
+          type: string
+        indirizzo_sitad:
+          type: string
+        stradario:
+          type: integer
+        indirizzo_non_trovato:
+          type: string
+        sigla_prov:
+          type: string
+        istat_comune:
+          type: string
+        comune:
+          type: string
+        provincia:
+          type: string
+        civico:
+          type: string
+        cap:
+          type: string
+        email:
+          type: string
+        data_inizio_attivita:
+          type: string
+          format: date
+        data_cessazione:
+          type: string
+          format: date
+        sigla_rea:
+          type: string
+        numero_rea:
+          type: integer
+        codice_rea:
+          type: string
+        flg_amministratore:
+          type: integer
+        data_ult_mod:
+          type: string
+          format: date
+        utente_ult_mod:
+          type: string
+        flg_terzo_responsabile:
+          type: integer
+        flg_distributore:
+          type: integer
+        flg_cat:
+          type: integer
+        flg_indirizzo_estero:
+          type: integer
+        stato_estero:
+          type: string
+        indirizzo_estero:
+          type: string
+        cap_estero:
+          type: string
+        fk_stato_pg:
+          type: integer
+        dt_agg_dichiarazione:
+          type: string
+          format: date
+        flg_dm37_letterac:
+          type: integer
+        flg_dm37_letterad:
+          type: integer
+        flg_dm37_letterae:
+          type: integer
+        flg_fgas:
+          type: integer
+        flg_conduttore:
+          type: integer
+        flg_sogg_incaricato:
+          type: integer
+        data_fine_legame:
+          type: string
+          format: date
+        flg_delega:
+          type: integer
+        delega_sogg_incaricato:
+          type: string
+        pec:
+          type: string
+        telefono:
+          type: string
+        token:
+          type: string
+        dt_creazione_token:
+          type: string
+          format: date
+        dt_scadenza_token:
+          type: string
+          format: date
+        citta_estero:
+          type: string
+        desStato:
+          type: string
+    ListaDatiImpresa:
+      type: array
+      items:
+        $ref: '#/components/schemas/DatiImpresa'
+    DatiDelega:
+      type: object
+      properties:
+        id_persona_fisica:
+          type: integer
+        id_persona_giuridic:
+          type: integer
+        cognome:
+          type: string
+        nome:
+          type: string
+        codice_fiscale:
+          type: string
+        data_inizio_legame:
+          type: string
+        tipo_legame:
+          type: string
+    ListaDatiDelega:
+      type: array
+      items:
+        $ref: '#/components/schemas/DatiDelega'
+    DatiIncarico:
+      type: object
+      properties:
+        id_persona_giuridica_cat:
+          type: integer
+        id_persona_giuridica_impresa:
+          type: integer
+        denominazione:
+          type: string
+        codice_fiscale:
+          type: string
+        data_inizio_legame:
+          type: string
+        data_fine_legame:
+          type: string
+    ListaDatiIncarico:
+      type: array
+      items:
+        $ref: '#/components/schemas/DatiIncarico'
+    IncarichiSoggettiDelegati:
+      type: object
+      properties:
+        idPersonaGiuridica:
+          type: integer
+        denominazione:
+          type: string
+    ListaIncarichiSoggettiDelegati:
+      type: array
+      items:
+        $ref: '#/components/schemas/IncarichiSoggettiDelegati'
+    ImportDatiDistributore:
+      type: object
+      properties:
+        id_import_distrib:
+          type: number
+        fk_persona_giuridica:
+          type: number
+        fk_stato_distrib:
+          type: number
+        des_stato_distrib:
+          type: string
+        data_inizio_elab:
+          type: string
+        data_fine_elab:
+          type: string
+        data_annullamento:
+          type: string
+        nome_file_import:
+          type: string
+        uid_index:
+          type: string
+        anno_riferimento:
+          type: string
+        data_invio_mail_distrib:
+          type: string
+        data_invio_mail_assistenza:
+          type: string
+        tot_record_elaborati:
+          type: number
+        tot_record_scartati:
+          type: number
+        data_ult_mod:
+          type: string
+        utente_ult_mod:
+          type: string
+        utente_caricamento:
+          type: string
+        datiFornitura:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatiFornitura'
+    DatiFornitura:
+      type: object
+      properties:
+        id_dato_distrib:
+          type: number
+        fk_tipo_contratto:
+          type: number
+        fk_import_distrib:
+          type: number
+        fk_categoria_util:
+          type: string
+        fk_combustibile:
+          type: number
+        des_combustibile:
+          type: string
+        fk_unita_misura:
+          type: number
+        des_unita_misura:
+          type: string
+        flg_pf_pg:
+          type: string
+        cognome_denom:
+          type: string
+        nome:
+          type: string
+        cf_piva:
+          type: string
+        anno_rif:
+          type: string
+        nr_mesi_fattur:
+          type: number
+        dug:
+          type: string
+        indirizzo:
+          type: string
+        civico:
+          type: string
+        cap:
+          type: string
+        istat_comune:
+          type: string
+        des_comune:
+          type: string
+        consumo_anno:
+          type: string
+        flg_pf_pg_fatt:
+          type: string
+        cognome_denom_fatt:
+          type: string
+        nome_fatt:
+          type: string
+        cf_piva_fatt:
+          type: string
+        dug_fatt:
+          type: string
+        indirizzo_fatt:
+          type: string
+        civico_fatt:
+          type: string
+        cap_fatt:
+          type: string
+        istat_comune_fatt:
+          type: string
+        codice_impianto:
+          type: number
+        logDatiFornitura:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogDatiFornitura'
+    LogDatiFornitura:
+      type: object
+      properties:
+        id_log_distrib:
+          type: number
+        fk_import_distrib:
+          type: number
+        msg_errore:
+          type: string
+    ComuneEstesoModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        cap:
+          type: string
+        codiceIstat:
+          type: string
+        comune:
+          type: string
+        idProvincia:
+          type: integer
+        siglaProvincia:
+          type: string
+        provincia:
+          type: string
+    ListaComuneEstesoModel:
+      type: array
+      items:
+        $ref: '#/components/schemas/ComuneEstesoModel'
+    FeatureModel:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        geometry:
+          $ref: '#/components/schemas/GeometryModel'
+        properties:
+          $ref: '#/components/schemas/PropertiesModel'
+    GeometryModel:
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: number
+    PropertiesModel:
+      type: object
+      properties:
+        codiceIstat:
+          type: string
+        localita:
+          type: string
+        cap:
+          type: string
+        comune:
+          type: string
+        loccsiLabel:
+          type: string
+        civicoNum:
+          type: string
+        nomeVia:
+          type: string
+        civicoSub:
+          type: string
+        tipoVia:
+          type: string
+        pv:
+          type: string
+        toponimo:
+          type: string
+        preposizione:
+          type: string
+        descProvincia:
+          type: string
+        siglaProvincia:
+          type: string
+        circoscrizione:
+          type: string
+    ListaFeatureModel:
+      type: array
+      items:
+        $ref: '#/components/schemas/FeatureModel'
+    FeatureCollection:
+      type: object
+      properties:
+        type:
+          type: string
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/Feature'
+        crs:
+          $ref: '#/components/schemas/Crs'
+        bbox:
+          type: array
+          items:
+            type: number
+            format: float
+    Feature:
+      type: object
+      properties:
+        type:
+          type: string
+        geometry:
+          $ref: '#/components/schemas/Geometry'
+        properties:
+          type: string
+          additionalProperties:
+            type: string
+    Crs:
+      type: object
+      properties:
+        type:
+          type: string
+        properties:
+          type: string
+          additionalProperties:
+            type: string
+    Geometry:
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: number
+            format: float
+    DocXml:
+      type: object
+      properties:
+        nome_file:
+          type: string
+        descrizione:
+          type: string
+        data_upload:
+          type: string
+        uid_index:
+          type: string
+        file:
+          type: string
+          format: binary
+    CodiceDescrizione:
+      type: object
+      properties:
+        codice:
+          type: string
+        descrizione:
+          type: string
+    ListaCodiceDescrizione:
+      type: array
+      items:
+        $ref: '#/components/schemas/CodiceDescrizione'
+    DatiToken:
+      type: object
+      properties:
+        id_persona_giuridica:
+          type: integer
+        denominazione:
+          type: string
+        codice_fiscale:
+          type: string
+        sigla_rea:
+          type: string
+        numero_rea:
+          type: integer
+        token:
+          type: string
+        dt_creazione_token:
+          type: string
+          format: date
+        dt_scadenza_token:
+          type: string
+          format: date
+    Esito:
+      type: object
+      properties:
+        esito:
+          type: string
+        descrizioneEsito:
+          type: string
+    Error:
+      type: object
+      properties:
+        errorMessage:
+          type: string

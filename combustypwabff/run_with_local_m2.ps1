@@ -1,0 +1,1 @@
+docker run -v ${PWD}:/usr/src/mymaven -v ${PWD}/.m2:/root/.m2 -p 8080:8080 -p 5005:5005 -it -w /usr/src/mymaven docker-base.ecosis.csi.it/maven:3.9.2-j17-csi-r1 mvn quarkus:dev --settings .mvn/conf/settings.xml "-DdebugHost=0.0.0.0" "-Ddebug=5005" "-Dquarkus.http.host=0.0.0.0"
