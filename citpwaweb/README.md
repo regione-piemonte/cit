@@ -25,7 +25,7 @@ I prerequisiti per l'installazione della componente sono i seguenti:
 - [AdoptOpenJDK 11](https://openjdk.org)
 - [Apache 2.4](https://www.apache.org)
 - [WildFly 23](https://www.wildfly.org)
-- [PostgreSQL 9.6.11](https://www.postgresql.org)
+- [PostgreSQL 15.8](https://www.postgresql.org)
 
 - Tutte le librerie elencate nel citpwaweb.sbom.csv devono essere accessibili per compilare il progetto. Le librerie sono pubblicate su [Maven](https://maven.apache.org/).
 
@@ -36,7 +36,7 @@ Installare il file ear sull'ambiente WildFly 23.
 Per la gestione del codice sorgente viene utilizzata Git. Per la gestione del versioning si fa riferimento alla metodologia [Semantic Versioning](https://semver.org/).
 
 # Copyrights
-(C) Copyright 2023 Regione Piemonte
+(C) Copyright 2026 Regione Piemonte
 
 # License
 [EUPL-1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12) Compatibile. Consulta il file [LICENSE.txt](LICENSE.txt) per i dettagli sulla licenza.
