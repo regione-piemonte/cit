@@ -139,12 +139,6 @@
         <dependency org="others" name="wsdl4j" rev="1.6.2" />
         <dependency org="others" name="xml-resolver" rev="1.2" />
         
-        
-		<!-- TAVT -->
-		<!--dependency org="csipiemonte" name="tavt-client" rev="3.1.0">
-			<artifact name="tavt-client-3.1.0" type="jar" />
-		</dependency-->
-
 		<!-- TOPE -->
 		<!--dependency org="csipiemonte" name="tope" rev="4.3.0">
 			<artifact name="tope-dbmng-delegate-4.3.0" type="jar" />

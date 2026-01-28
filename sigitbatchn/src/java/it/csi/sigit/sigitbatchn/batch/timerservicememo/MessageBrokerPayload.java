@@ -11,11 +11,12 @@ public class MessageBrokerPayload {
 	private Boolean trusted;
 	private MessageBrokerEmail email;
 	private MessageBrokerMex mex;
+	private MessageBrokerIo io;
 
 	public MessageBrokerPayload() {
 	}
 
-	public MessageBrokerPayload(String id, String bulkId, String userId, String tag, Boolean trusted, MessageBrokerEmail email, MessageBrokerMex mex) {
+	public MessageBrokerPayload(String id, String bulkId, String userId, String tag, Boolean trusted, MessageBrokerEmail email, MessageBrokerMex mex, MessageBrokerIo io) {
 		this.id = id;
 		this.bulkId = bulkId;
 		this.userId = userId;
@@ -23,6 +24,7 @@ public class MessageBrokerPayload {
 		this.trusted = trusted;
 		this.email = email;
 		this.mex = mex;
+		this.io = io;
 	}
 
 	public String getId() {
@@ -81,10 +83,18 @@ public class MessageBrokerPayload {
 		this.mex = mex;
 	}
 
+	public MessageBrokerIo getIo() {
+		return io;
+	}
+
+	public void setIo(MessageBrokerIo io) {
+		this.io = io;
+	}
+
 	@Override
 	public String toString() {
 		return "MessageBrokerPayload{" + "id='" + id + '\'' + ", bulkId='" + bulkId + '\'' + ", userId='" + userId + '\'' + ", tag='" + tag + '\'' + ", trusted=" + trusted + ", email=" + email
-				+ ", mex=" + mex + '}';
+				+ ", mex=" + mex + ", io=" + io + "}";
 	}
 
 	public JSONObject toJsonObject() throws JSONException {
@@ -96,6 +106,8 @@ public class MessageBrokerPayload {
 			jsonObject.put("trusted", trusted);
 			jsonObject.put("email", email.toJsonObject());
 			jsonObject.put("mex", mex.toJsonObject());
+			if (io != null)
+				jsonObject.put("io", io.toJsonObject());
 			return jsonObject;
 	}
 }

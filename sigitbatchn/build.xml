@@ -158,10 +158,6 @@
 			    token="@mail.server@"
 			    value="${mail.server}" /-->
 		
-	  	<!--replace file="${build}/temp/config/META-INF/defpd_tavt.xml" 
-	  			token="@tavt.tavt.tavt.pa.url@"  
-	  			value="${tavt.tavt.tavt.pa.url}"/-->
-	  	
 	  	<!--replace file="${build}/temp/config/META-INF/defpd_indexmngmt.xml" 
 	  			token="@index.ecmengine.indexmngmt.pa.url@"  
 	  			value="${index.ecmengine.indexmngmt.pa.url}"/>

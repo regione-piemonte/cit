@@ -600,6 +600,10 @@ public final class Constants {
 
 	public static final String CIT_MEMO_SCADENZA_PT_LIMITE = "CIT_MEMO_SCADENZA_PT_LIMITE";
 
+	public static final String INTEGRAZIONE_APP_IO_ATTIVA = "BATCH_INTEGRAZIONE_APP_IO_ATTIVA";
+	
+	public static final Integer NUMBER_OF_DAY = 30;
+
 
 	/*PROTECTED REGION END*/
 }

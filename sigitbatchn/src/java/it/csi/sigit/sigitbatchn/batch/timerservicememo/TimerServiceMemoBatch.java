@@ -63,7 +63,7 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 		log.debug("[TimerServiceMemoBatch::execute] BEGIN");
 
 		try {
-			// Procedura “MEMO Sveglie PA”
+			// Procedura 'MEMO Sveglie PA'
 			if (!dbMgr.cercaConfigValueFlg(Constants.CONFIG_KEY_CIT_MEMO_SVEGLIA_PA_ATTIVO)) {
 				insertWrkLogMemo("CIT_MEMO_SVEGLIA_PA_ATTIVO non attivato");
 			} else {
@@ -72,7 +72,7 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 				insertWrkLogMemo("Procedura MEMO_SVEGLIA_PA conclusa");
 			}
 
-			//Procedura “MEMO scadenza Responsabile Impianto”
+			//Procedura 'MEMO scadenza Responsabile Impianto'
 			if (!dbMgr.cercaConfigValueFlg(Constants.CONFIG_KEY_CIT_MEMO_SCADENZA_RI_ATTIVO)) {
 				insertWrkLogMemo("CIT_MEMO_SCADENZA_RI_ATTIVO non attivato");
 			} else {
@@ -80,7 +80,7 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 				insertWrkLogMemo("Procedura CIT_MEMO_SCADENZA_RI_ATTIVO conclusa");
 			}
 
-			//Procedura “MEMO scadenza Responsabile Impianto Piemonte Tu”
+			//Procedura 'MEMO scadenza Responsabile Impianto Piemonte Tu'
 			if (!dbMgr.cercaConfigValueFlg(Constants.CONFIG_KEY_CIT_MEMO_SCADENZA_PT_ATTIVO)) {
 				insertWrkLogMemoPtu("CIT_MEMO_SCADENZA_PT_ATTIVO non attivato", "");
 			} else {
@@ -251,7 +251,7 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 		try {
 			List<SigitTVerificaByUtentiNonAttiviDto> sveglieVerifiche = dbMgr.findVerificheByUtentiNonAttivi();
 			if (!sveglieVerifiche.isEmpty()) {
-				List<String> errors = sigitBatchMgr.invioSveglieUtentiNonAttivi("CIT: MEMO Sveglie VERIFICHE utenti non più attivi", "VERIFICA", sveglieVerifiche);
+				List<String> errors = sigitBatchMgr.invioSveglieUtentiNonAttivi("CIT: MEMO Sveglie VERIFICHE utenti non piï¿½ attivi", "VERIFICA", sveglieVerifiche);
 				insertWrkLogMemo(errors);
 			}
 		} catch (Exception e) {
@@ -261,7 +261,7 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 		try {
 			List<SigitTAccertamentoByUtentiNonAttiviDto> sveglieAccertamento = dbMgr.findAccertamentiByUtentiNonAttivi();
 			if (!sveglieAccertamento.isEmpty()) {
-				List<String> errors = sigitBatchMgr.invioSveglieUtentiNonAttivi("CIT: MEMO Sveglie ACCERTAMENTI utenti non più attivi", "ACCERTAMENTO", sveglieAccertamento);
+				List<String> errors = sigitBatchMgr.invioSveglieUtentiNonAttivi("CIT: MEMO Sveglie ACCERTAMENTI utenti non piï¿½ attivi", "ACCERTAMENTO", sveglieAccertamento);
 				insertWrkLogMemo(errors);
 			}
 		} catch (Exception e) {
@@ -271,7 +271,7 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 		try {
 			List<SigitTIspezione2018ByUtentiNonAttiviDto> sveglieIspezione2018 = dbMgr.findIspezioni2018ByUtentiNonAttivi();
 			if (!sveglieIspezione2018.isEmpty()) {
-				List<String> errors = sigitBatchMgr.invioSveglieUtentiNonAttivi("CIT: MEMO Sveglie ISPEZIONI utenti non più attivi", "ISPEZIONE", sveglieIspezione2018);
+				List<String> errors = sigitBatchMgr.invioSveglieUtentiNonAttivi("CIT: MEMO Sveglie ISPEZIONI utenti non piï¿½ attivi", "ISPEZIONE", sveglieIspezione2018);
 				insertWrkLogMemo(errors);
 			}
 		} catch (Exception e) {
@@ -281,7 +281,7 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 		try {
 			List<SigitTSanzioneAccertamentiByUtentiNonAttiviDto> sveglieSanzioniAccertamenti = dbMgr.findSanzioniAccertamentiByUtentiNonAttivi();
 			if (!sveglieSanzioniAccertamenti.isEmpty()) {
-				List<String> errors = sigitBatchMgr.invioSveglieUtentiNonAttivi("CIT: MEMO Sveglie SANZIONI (ACCERTAMENTI) di utenti non più attivi", "SANZIONE", sveglieSanzioniAccertamenti);
+				List<String> errors = sigitBatchMgr.invioSveglieUtentiNonAttivi("CIT: MEMO Sveglie SANZIONI (ACCERTAMENTI) di utenti non piï¿½ attivi", "SANZIONE", sveglieSanzioniAccertamenti);
 				insertWrkLogMemo(errors);
 			}
 		} catch (Exception e) {
@@ -291,7 +291,7 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 		try {
 			List<SigitTSanzioneIspezione2018ByUtentiNonAttiviDto> sveglieSanzioniIspezioni2018 = dbMgr.findSanzioniIspezione2018ByUtentiNonAttivi();
 			if (!sveglieSanzioniIspezioni2018.isEmpty()) {
-				List<String> errors = sigitBatchMgr.invioSveglieUtentiNonAttivi("CIT: MEMO Sveglie SANZIONI (ISPEZIONI) di utenti non più attivi", "SANZIONE", sveglieSanzioniIspezioni2018);
+				List<String> errors = sigitBatchMgr.invioSveglieUtentiNonAttivi("CIT: MEMO Sveglie SANZIONI (ISPEZIONI) di utenti non piï¿½ attivi", "SANZIONE", sveglieSanzioniIspezioni2018);
 				insertWrkLogMemo(errors);
 			}
 		} catch (Exception e) {
@@ -366,10 +366,11 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 		SigitbatchMgr sigitBatchMgr = getSigitbatchMgr();
 		DbMgr dbMgr = sigitBatchMgr.getDbMgr();
 		Integer limitCount = dbMgr.cercaConfigValueNumerico(Constants.CIT_MEMO_SCADENZA_PT_LIMITE);
+		Boolean isIntegrazioneAppIoAttiva = dbMgr.cercaConfigValueFlg(Constants.INTEGRAZIONE_APP_IO_ATTIVA);
 		Integer limit = limitCount;
 		try {
 			SigitWrkLogMemoTuPk log1 = insertWrkLogMemoPtu("Componenti con manutentore una Persona Giuridica o indirizzo mail non valido", "");
-			List<SigitVRicercaAllegatiDto> impiantiConInterventiDaNotificare = dbMgr.findAllegatiInviatiByDaysIntervalPTU(30);
+			List<SigitVRicercaAllegatiDto> impiantiConInterventiDaNotificare = dbMgr.findAllegatiInviatiByDaysIntervalPTU(Constants.NUMBER_OF_DAY);
 			List<JSONObject> listaNotificheDaAggiungere = new ArrayList<JSONObject>();
 			SigitWrkLogMemoTuPk log2 = null;
 			UUID uniqueUUID = null;
@@ -393,7 +394,7 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 								if (responsabileFkPersonaFisica != null) {
 									SigitTPersonaFisicaDto personaFisica = dbMgr.cercaTPersonaFisicaById(ConvertUtil.convertToInteger(responsabileFkPersonaFisica));
 									idLogPtu = log2.getIdLogMemoPtu();
-									listaNotificheDaAggiungere.add(creaOggettoNotifica(impianto, allegatoDto, uniqueUUID, personaFisica).toJsonObject());
+									listaNotificheDaAggiungere.add(creaOggettoNotifica(impianto, allegatoDto, uniqueUUID, personaFisica, isIntegrazioneAppIoAttiva).toJsonObject());
 									limit--;
 								}
 							}
@@ -438,12 +439,13 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 
 	}
 
-	private MessageBrokerModel creaOggettoNotifica(SigitVRicercaAllegatiDto impianto, SigitTAllegatoDto allegatoDto, UUID uniqueUUID, SigitTPersonaFisicaDto personaFisicaDto) {
+	private MessageBrokerModel creaOggettoNotifica(SigitVRicercaAllegatiDto impianto, SigitTAllegatoDto allegatoDto, UUID uniqueUUID, SigitTPersonaFisicaDto personaFisicaDto, Boolean isIntegrazioneAppIoAttiva) {
 		MessageBrokerModel messageBrokerModel = new MessageBrokerModel();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ITALY);
+		SimpleDateFormat formatIso8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ITALY);
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY);
 		Date expireAt = DateUtils.addDays(allegatoDto.getFInterventoEntro(), 30);
 		messageBrokerModel.setUuid(UUID.randomUUID().toString());
-		messageBrokerModel.setExpireAt(format.format(expireAt));
+		messageBrokerModel.setExpireAt(formatIso8601.format(expireAt));
 		MessageBrokerPayload payload = new MessageBrokerPayload();
 		payload.setId(messageBrokerModel.getUuid());
 		payload.setBulkId(uniqueUUID.toString());
@@ -472,7 +474,7 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 		testoHtml.append(impianto.getElencoApparecchiature());
 		testoHtml.append("<BR>entro ");
 		testoHtml.append(ConvertUtil.convertToString(impianto.getFInterventoEntro()));
-		testoHtml.append("<BR><BR>Nel caso in cui l'intervento sulle apparecchiature sia gia' stato eseguito, "
+		testoHtml.append("<BR><BR>Nel caso in cui l'intervento sulle apparecchiature sia gi&agrave; stato eseguito, "
 				+ "si prega di non considerare questo messaggio. ");
 		email.setBody(testoHtml.toString());
 		email.setTemplate("energiapt-cit-template.html");
@@ -492,10 +494,30 @@ public class TimerServiceMemoBatch extends AbstractBatch {
 		testoHtml.append(impianto.getComuneImpianto());
 		testoHtml.append(", deve essere rinnovato.");
 		testoHtml.append(" ");
-		testoHtml.append("Nel caso in cui l'intervento sulle apparecchiature sia gia' stato eseguito, ");
+		testoHtml.append("Nel caso in cui l'intervento sulle apparecchiature sia gi&agrave; stato eseguito, ");
 		testoHtml.append("si prega di non considerare questo messaggio. ");
 		mex.setBody(testoHtml.toString());
 		mex.setCallToAction(getProperties().getProperty(Constants.CITPWA_URL));
+		
+		if (isIntegrazioneAppIoAttiva) {
+			MessageBrokerIo io = new MessageBrokerIo();
+			io.setTime_to_live(3600);
+			MessageBrokerIoContent content = new MessageBrokerIoContent();
+			content.setSubject("Catasto Impianti Termici: Promemoria per Manutenzione e/o Controllo dell'impianto n. " + impianto.getCodiceImpianto());
+			StringBuffer markdown = new StringBuffer();
+			markdown.append("# memo ## In base a quanto riportato sul Libretto n . " + impianto.getCodiceImpianto() + " del tuo impianto sito in ");
+			markdown.append(impianto.getIndirizzoUnitaImmob() + ", " + impianto.getCivicoUnitaImmob() + ", ");
+			markdown.append(impianto.getComuneImpianto() + " (" + impianto.getSiglaProvImpianto() + ") ");
+			markdown.append("deve essere effettuato un intervento di Manutenzione e/o Controllo entro il " + format.format(allegatoDto.getFInterventoEntro()) + ".");
+			markdown.append("\n");
+			markdown.append("Nel caso in cui l'intervento sia gia' stato eseguito si prega di non considerare questo messaggio.");
+			markdown.append("Per consultare la situazione del tuo impianto puoi collegarti al portale www.PiemonteTu.it");
+			content.setMarkdown(markdown.toString());
+			content.setDue_date(formatIso8601.format(expireAt));
+			io.setContent(content);
+			payload.setIo(io);
+		}
+		
 		payload.setEmail(email);
 		payload.setMex(mex);
 		messageBrokerModel.setPayload(payload);

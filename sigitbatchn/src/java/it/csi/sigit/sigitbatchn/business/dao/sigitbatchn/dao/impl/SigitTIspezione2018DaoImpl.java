@@ -146,7 +146,7 @@ public class SigitTIspezione2018DaoImpl extends AbstractDAO implements SigitTIsp
 		sql.append(
 				"A.id_ruolo_pa = 2 AND R.data_fine is not null AND T.dt_sveglia <= NOW() AND T.fk_stato_ispezione = 1");
 		/*PROTECTED REGION ID(R-747388315) ENABLED START*/ //inserire qui i parametri indicati nella espressione di where, ad esempio:
-		sql.append("ORDER BY  A.ID_RUOLO_PA ASC, A.ISTAT_ABILITAZIONE ASC, A.MAIL_COMUNICAZIONE ASC");
+		sql.append(" ORDER BY  A.ID_RUOLO_PA ASC, A.ISTAT_ABILITAZIONE ASC, A.MAIL_COMUNICAZIONE ASC");
 		//paramMap.addValue("param", input);
 
 		/*PROTECTED REGION END*/

@@ -141,7 +141,6 @@ public class ServiziMgr {
 	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE
 			+ ".business.manager");
 	
-	//private final String TAVT_RESOURCE = "/META-INF/defpd_tavt.xml";
 	//private final String TOPE_RESOURCE = "/META-INF/pd_topesv_Topo.xml";
 	private final String PROPERTIES_RESOURCE = "/META-INF/sigitbatchn.properties";
 //	private final String MODOL_RESOURCE = "/META-INF/defpd_modolsrv.xml";
@@ -370,7 +369,7 @@ public class ServiziMgr {
 	public boolean sendMail(ArrayList<String> emailListDest, String oggetto, String testoHtml, String testoTxt, Hashtable<String, ByteArrayOutputStream> attachmentList)
 			throws ServiceException {
 		
-		// il metodo ritorna true anche se solo 1 è corretto
+		// il metodo ritorna true anche se solo 1 ï¿½ corretto
 		boolean isCorrectRet = false;
 	
 		boolean isCorrect = false;
@@ -452,12 +451,12 @@ public class ServiziMgr {
 		catch (DbManagerException e)
 		{
 			log.error("Errore recupero indirizzo email assistenza", e);
-			// Se c'è un errore non faccio niente e vado avanti
+			// Se c'ï¿½ un errore non faccio niente e vado avanti
 			log.error(e);
 		}
 		catch (Exception e) {
 			log.error("Errore invio email all'ASSISTENZA", e);
-			// Se c'è un errore non faccio niente e vado avanti
+			// Se c'ï¿½ un errore non faccio niente e vado avanti
 			log.error(e);
 		}
 		
@@ -1168,7 +1167,7 @@ public class ServiziMgr {
 
 //			InputStream bufferedIn = new BufferedInputStream(in, 4096); 
 //			bufferedIn.mark(0);
-//			// Devo verificare se l'xml è coerente con l'xsd
+//			// Devo verificare se l'xml ï¿½ coerente con l'xsd
 			//validazioneXmlImportDistributore(bufferedIn);
 //			bufferedIn.reset();
 			
@@ -1252,7 +1251,7 @@ public class ServiziMgr {
 
 			//String schemasDir = "sigitbatchn-xmlbean-client.jar/";
 			String schemasDir = "schemaorg_apache_xmlbeans/src/src/adobe/Schemas/";
-			String distributoreSchema = schemasDir + "Import-Utenze-Distributori-2.0.1.xsd";
+			String distributoreSchema = schemasDir + "Import-Utenze-Distributori-2.0.2.xsd";
 
 			// Copiato da:
 			// http://blog.bdoughan.com/2010/12/jaxb-and-marshalunmarshal-schema.html
@@ -1730,8 +1729,8 @@ public class ServiziMgr {
 //        	outStream.write(buffer);
 //        	
 //        	File targetFile = new File("src/main/resources/targetFile.tmp");
-//        	    OutputStream outStream = new FileOutputStream(targetFile);
-//        	    outStream.write(buffer);
+//        	ï¿½ï¿½ï¿½ï¿½OutputStream outStream = new FileOutputStream(targetFile);
+//        	ï¿½ï¿½ï¿½ï¿½outStream.write(buffer);
         	
         	
         	

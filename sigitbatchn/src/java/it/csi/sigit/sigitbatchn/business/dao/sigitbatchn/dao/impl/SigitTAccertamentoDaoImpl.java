@@ -145,7 +145,7 @@ public class SigitTAccertamentoDaoImpl extends AbstractDAO implements SigitTAcce
 		sql.append(
 				"A.id_ruolo_pa = 4 AND R.data_fine is not null AND ACC.dt_sveglia <= NOW() AND ACC.fk_stato_accertamento = 1");
 		/*PROTECTED REGION ID(R140291772) ENABLED START*/ //inserire qui i parametri indicati nella espressione di where, ad esempio:
-		sql.append("ORDER BY  A.ID_RUOLO_PA ASC, A.ISTAT_ABILITAZIONE ASC, A.MAIL_COMUNICAZIONE ASC");
+		sql.append(" ORDER BY  A.ID_RUOLO_PA ASC, A.ISTAT_ABILITAZIONE ASC, A.MAIL_COMUNICAZIONE ASC");
 		//paramMap.addValue("param", input);
 
 		/*PROTECTED REGION END*/

@@ -45,6 +45,9 @@ public class NotifyMgr {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("x-authentication", getProperties().getProperty(Constants.NOTIFY_TOKEN));
 			headers.setContentType(MediaType.APPLICATION_JSON);
+			
+			//log.debug("[NotifyMgr::sendMessages] messages: "+messages);
+			
 			HttpEntity<String> entity = new HttpEntity<String>(messages, headers);
 			ResponseEntity<String> response = restTemplate.exchange(urlTemplate, HttpMethod.POST, entity, String.class);
 			return response.getStatusCode().value()+" "+response.getStatusCode().getReasonPhrase()+": "+response.getBody();
