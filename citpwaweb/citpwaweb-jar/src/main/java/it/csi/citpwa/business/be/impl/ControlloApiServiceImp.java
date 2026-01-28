@@ -12,7 +12,6 @@ package it.csi.citpwa.business.be.impl;
 import it.csi.citpwa.business.be.IControlloApi;
 import it.csi.citpwa.business.service.IAuthenticationService;
 import it.csi.citpwa.business.service.IControlliService;
-import it.csi.citpwa.exception.SigitExtException;
 import it.csi.citpwa.exception.ValidationErrorException;
 import it.csi.citpwa.model.ManutFormModel;
 import it.csi.citpwa.model.PdfControlloModel;

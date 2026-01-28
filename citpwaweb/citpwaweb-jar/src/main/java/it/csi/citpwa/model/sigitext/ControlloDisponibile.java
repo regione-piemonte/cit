@@ -32,6 +32,7 @@ public class ControlloDisponibile {
 	private String numeroReaImpresa;
 
 	public ControlloDisponibile() {
+		//Not implemented
 	}
 
 	public String getNomeComponente() {

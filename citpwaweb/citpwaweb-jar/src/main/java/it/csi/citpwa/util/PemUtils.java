@@ -56,7 +56,6 @@ public class PemUtils {
 			System.out.println("Could not reconstruct the private key, the given algorithm could not be found.");
 		} catch (InvalidKeySpecException e) {
 			System.out.println("Could not reconstruct the private key");
-			e.printStackTrace();
 		}
 
 		return privateKey;

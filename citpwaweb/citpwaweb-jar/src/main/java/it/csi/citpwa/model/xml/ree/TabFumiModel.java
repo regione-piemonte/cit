@@ -24,7 +24,7 @@ public class TabFumiModel {
 
 	public List<RowFumiModel> getRowFumi() {
 		if (rowFumi == null) {
-			rowFumi = new ArrayList<RowFumiModel>();
+			rowFumi = new ArrayList<>();
 		}
 		return this.rowFumi;
 	}

@@ -14,7 +14,6 @@ import java.util.Date;
 public class DatiImpiantoModel {
 	private String codiceImpianto;
 	private String stato;
-	private Date dataAssCi;
 	private Date dataVar;
 	private String motivazione;
 	private String tipoImpianto;
@@ -34,14 +33,14 @@ public class DatiImpiantoModel {
 	private Double coordY;
 	private String siglaProv;
 	private String istatComune;
+	private Boolean flgMedioImpiantoCivile;
 
 	public DatiImpiantoModel() {
 	}
 
-	public DatiImpiantoModel(String codiceImpianto, String stato, Date dataAssCi, String motivazione, String tipoImpianto, Boolean flgApparevvUiExt, Boolean flgContabilizzazione, Boolean stradario, String indirizzoSitad, String indirizzoNonTrovato, String comune, String civico, String provincia, String pod, String pdr, Boolean flgNoPdr, Boolean flgVisuProprietario, Double coordX, Double coordY, String siglaProv, String istatComune) {
+	public DatiImpiantoModel(String codiceImpianto, String stato, String motivazione, String tipoImpianto, Boolean flgApparevvUiExt, Boolean flgContabilizzazione, Boolean stradario, String indirizzoSitad, String indirizzoNonTrovato, String comune, String civico, String provincia, String pod, String pdr, Boolean flgNoPdr, Boolean flgVisuProprietario, Double coordX, Double coordY, String siglaProv, String istatComune, Boolean flgMedioImpiantoCivile) {
 		this.codiceImpianto = codiceImpianto;
 		this.stato = stato;
-		this.dataAssCi = dataAssCi;
 		this.motivazione = motivazione;
 		this.tipoImpianto = tipoImpianto;
 		this.flgApparevvUiExt = flgApparevvUiExt;
@@ -60,6 +59,7 @@ public class DatiImpiantoModel {
 		this.coordY = coordY;
 		this.siglaProv = siglaProv;
 		this.istatComune = istatComune;
+		this.flgMedioImpiantoCivile = flgMedioImpiantoCivile;
 	}
 
 	public String getCodiceImpianto() {
@@ -76,14 +76,6 @@ public class DatiImpiantoModel {
 
 	public void setStato(String stato) {
 		this.stato = stato;
-	}
-
-	public Date getDataAssCi() {
-		return dataAssCi;
-	}
-
-	public void setDataAssCi(Date dataAssCi) {
-		this.dataAssCi = dataAssCi;
 	}
 
 	public String getMotivazione() {
@@ -230,6 +222,14 @@ public class DatiImpiantoModel {
 		this.istatComune = istatComune;
 	}
 
+	public Boolean getFlgMedioImpiantoCivile() {
+		return flgMedioImpiantoCivile;
+	}
+
+	public void setFlgMedioImpiantoCivile(Boolean flgMedioImpiantoCivile) {
+		this.flgMedioImpiantoCivile = flgMedioImpiantoCivile;
+	}
+
 	public Date getDataVar() {
 		return dataVar;
 	}
@@ -240,10 +240,13 @@ public class DatiImpiantoModel {
 
 	@Override
 	public String toString() {
-		return "DatiImpiantoModel{" + "codiceImpianto='" + codiceImpianto + '\'' + ", stato='" + stato + '\'' + ", dataAssCi=" + dataAssCi + ", dataVar=" + dataVar + ", motivazione='" + motivazione
-				+ '\'' + ", tipoImpianto='" + tipoImpianto + '\'' + ", flgApparevvUiExt=" + flgApparevvUiExt + ", flgContabilizzazione=" + flgContabilizzazione + ", stradario=" + stradario
-				+ ", indirizzoSitad='" + indirizzoSitad + '\'' + ", indirizzoNonTrovato='" + indirizzoNonTrovato + '\'' + ", comune='" + comune + '\'' + ", civico='" + civico + '\'' + ", provincia='"
-				+ provincia + '\'' + ", pod='" + pod + '\'' + ", pdr='" + pdr + '\'' + ", flgNoPdr=" + flgNoPdr + ", flgVisuProprietario=" + flgVisuProprietario + ", coordX=" + coordX + ", coordY="
-				+ coordY + ", siglaProv='" + siglaProv + '\'' + ", istatComune='" + istatComune + '\'' + '}';
+		return "DatiImpiantoModel [codiceImpianto=" + codiceImpianto + ", stato=" + stato + ", dataVar=" + dataVar
+				+ ", motivazione=" + motivazione + ", tipoImpianto=" + tipoImpianto + ", flgApparevvUiExt="
+				+ flgApparevvUiExt + ", flgContabilizzazione=" + flgContabilizzazione + ", stradario=" + stradario
+				+ ", indirizzoSitad=" + indirizzoSitad + ", indirizzoNonTrovato=" + indirizzoNonTrovato + ", comune="
+				+ comune + ", civico=" + civico + ", provincia=" + provincia + ", pod=" + pod + ", pdr=" + pdr
+				+ ", flgNoPdr=" + flgNoPdr + ", flgVisuProprietario=" + flgVisuProprietario + ", coordX=" + coordX
+				+ ", coordY=" + coordY + ", siglaProv=" + siglaProv + ", istatComune=" + istatComune
+				+ ", flgMedioImpiantoCivile=" + flgMedioImpiantoCivile + "]";
 	}
 }

@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 public class ObjectConverter<T, R> implements IObjectConverter<T, R> {
 
-	final private Function<T, R> mapper;
+	private final Function<T, R> mapper;
 
 	public ObjectConverter(Function<T, R> mapper) {
 		super();

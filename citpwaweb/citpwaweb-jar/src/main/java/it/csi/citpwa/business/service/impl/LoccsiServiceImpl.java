@@ -7,7 +7,6 @@
 package it.csi.citpwa.business.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.csi.citpwa.business.service.ILoccsiService;
 import it.csi.citpwa.model.loccsi.LoccsiModel;
@@ -58,7 +57,7 @@ public class LoccsiServiceImpl implements ILoccsiService {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + tokenOauthLoccsi);
-		headers.set("charset", "UTF-8");
+		headers.set(Constants.LOCCSI_SERVICE_CHARSET, Constants.LOCCSI_SERVICE_UTF);
 		HttpEntity<String> entity = new HttpEntity<>("", headers);
 		try {
 			ResponseEntity<String> response = restTemplate.exchange(apiUrlString.toString(), HttpMethod.GET, entity, String.class);
@@ -69,7 +68,7 @@ public class LoccsiServiceImpl implements ILoccsiService {
 			if (e.getStatusCode() == HttpStatus.UNAUTHORIZED || e.getStatusCode() == HttpStatus.FORBIDDEN) {
 				this.tokenOauthLoccsi = getTokenLoccsi();
 				headers.set("Authorization", "Bearer " + tokenOauthLoccsi);
-				headers.set("charset", "UTF-8");
+				headers.set(Constants.LOCCSI_SERVICE_CHARSET, Constants.LOCCSI_SERVICE_UTF);
 				entity = new HttpEntity<>("", headers);
 				ResponseEntity<String> response = restTemplate.exchange(apiUrlString.toString(), HttpMethod.GET, entity, String.class);
 				String jsonResponseString = response.getBody();
@@ -78,7 +77,11 @@ public class LoccsiServiceImpl implements ILoccsiService {
 			}
 			throw new ServiceException();
 		} catch (JSONException | JsonProcessingException e) {
-			log.error("Errore LOCCSI getLOCCSICoordinates", e);
+			if (e.getMessage().contains("Coordinate non trovate")) {
+				log.info("Errore LOCCSI getLOCCSICoordinates", e);
+			} else {
+				log.error("Errore LOCCSI getLOCCSICoordinates", e);
+			}
 			throw e;
 		} finally {
 			log.info("[ServiziMgr::getLOCCSICoordinates] END");
@@ -97,7 +100,7 @@ public class LoccsiServiceImpl implements ILoccsiService {
 			HttpHeaders headers = new HttpHeaders();
 
 			headers.set("Content-Type", "application/x-www-form-urlencoded");
-			headers.set("charset", "UTF-8");
+			headers.set(Constants.LOCCSI_SERVICE_CHARSET, Constants.LOCCSI_SERVICE_UTF);
 
 			log.info(oauthURL);
 			log.info(consumerSecret);

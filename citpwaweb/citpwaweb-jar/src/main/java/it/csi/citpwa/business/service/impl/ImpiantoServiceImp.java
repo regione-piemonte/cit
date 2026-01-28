@@ -9,28 +9,36 @@
 
 package it.csi.citpwa.business.service.impl;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.csi.citpwa.business.service.ICitService;
 import it.csi.citpwa.business.service.IImpiantoService;
 import it.csi.citpwa.business.service.ILoccsiService;
 import it.csi.citpwa.business.service.ValidationService;
 import it.csi.citpwa.exception.SigitExtException;
+import it.csi.citpwa.exception.SvistaException;
 import it.csi.citpwa.exception.ValidationErrorException;
 import it.csi.citpwa.model.DatiImpiantoModel;
 import it.csi.citpwa.model.JWTModel;
+import it.csi.citpwa.model.SubentroComponente;
 import it.csi.citpwa.model.loccsi.LoccsiFeatureModel;
 import it.csi.citpwa.model.loccsi.LoccsiModel;
 import it.csi.citpwa.model.sigitext.*;
+import it.csi.citpwa.model.sigitext.geojson.FeatureCollection;
 import it.csi.citpwa.model.xsd.libretto.MOD;
 import it.csi.citpwa.util.Constants;
 import it.csi.citpwa.util.JWTUtil;
 import it.csi.sigit.sigitext.ws.service.client.Impianto;
 import it.csi.sigit.sigitext.ws.service.client.SigitUserNotAuthorizedException;
-import it.csi.sigit.sigitext.ws.service.client.SigitextException;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import javax.ws.rs.NotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,13 +58,13 @@ public class ImpiantoServiceImp implements IImpiantoService {
 	private ValidationService validationService;
 
 	@Override
-	public CodiceDescrizione[] getStatoImpianto() throws Exception {
+	public CodiceDescrizione[] getStatoImpianto() throws SvistaException {
 		log.info(Constants.IMPIANTO_LOG + "getStatoImpianto - start");
 		try {
 			return citService.getStatoImpianto();
 		} catch (Exception e) {
 			log.error(Constants.IMPIANTO_LOG + "getStatoImpianto - error: ", e);
-			throw new Exception("Errore recupero STATI impianto");
+			throw new SvistaException("Errore recupero STATI impianto");
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + "getStatoImpianto - end");
 		}
@@ -64,12 +72,12 @@ public class ImpiantoServiceImp implements IImpiantoService {
 
 	@Override
 	public List<Impianto> getImpiantiByfiltro(UtenteLoggato utenteLoggato, String cf3Responsabile, String cfImpresa, String cfProprietario, String cfResponsabile, String civico, String codiceImpianto, String descComune, String fkStato, String flagVisuProprietario, String idComune, String indirizzo, String istatComune, String numeroRea, String pdr, String pod, String siglaProvincia, String siglaRea, Float x, Float y, Float distanza)
-			throws Exception {
+			throws SvistaException {
 		log.info(Constants.IMPIANTO_LOG + "getImpiantiByFiltro - start");
 		try {
 
 			ImpiantoFiltro impiantoFiltro = mapParamToImpiantoFiltro(cf3Responsabile, cfImpresa, cfProprietario, cfResponsabile, civico, codiceImpianto, descComune, fkStato, flagVisuProprietario, idComune, indirizzo, istatComune, numeroRea, pdr, pod, siglaProvincia, siglaRea, x, y, distanza, utenteLoggato);
-			if (validationService.validateRicercaImpianto(utenteLoggato, impiantoFiltro)) {
+			if (validationService.validateRicercaImpianto(utenteLoggato, impiantoFiltro).equals(true)) {
 				if (utenteLoggato.getRuoloLoggato().getRuolo().equals(Constants.RUOLO_IMPRESA)) {
 					impiantoFiltro.setNumeroRea(Integer.parseInt(utenteLoggato.getRuoloLoggato().getNumeroRea()));
 					impiantoFiltro.setSiglaRea(utenteLoggato.getRuoloLoggato().getSiglaRea());
@@ -100,14 +108,110 @@ public class ImpiantoServiceImp implements IImpiantoService {
 			return null;
 		} catch (Exception e) {
 			log.error(Constants.IMPIANTO_LOG + "getImpiantiByFiltro - error: ", e);
-			throw new Exception("Errore generico nel recupero impianti");
+			throw new SvistaException("Errore generico nel recupero impianti");
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + "getImpiantiByFiltro - end");
 		}
 	}
 
 	@Override
-	public List<LoccsiFeatureModel> getIndirizzoByLoccsi(String indirizzo) throws Exception {
+	public FeatureCollection getGeoJsonImpiantiByfiltro(UtenteLoggato utenteLoggato, String cf3Responsabile, String cfImpresa, String cfProprietario, String cfResponsabile, String civico, String codiceImpianto, String descComune, String fkStato, String flagVisuProprietario, String idComune, String indirizzo, String istatComune, String numeroRea, String pdr, String pod, String siglaProvincia, String siglaRea, Float x, Float y, Float distanza, Boolean ricercaCompleta)
+			throws SvistaException {
+		log.info(Constants.IMPIANTO_LOG + "getImpiantiByFiltro - start");
+		log.info("UtenteLoggato: " + utenteLoggato.toString());
+		try {
+
+			ImpiantoFiltro impiantoFiltro = mapParamToImpiantoFiltro(cf3Responsabile, cfImpresa, cfProprietario, cfResponsabile, civico, codiceImpianto, descComune, fkStato, flagVisuProprietario, idComune, indirizzo, istatComune, numeroRea, pdr, pod, siglaProvincia, siglaRea, x, y, distanza, utenteLoggato);
+			if (validationService.validateRicercaImpianto(utenteLoggato, impiantoFiltro).equals(true)) {
+				if (!ricercaCompleta && utenteLoggato.getRuoloLoggato().getRuolo().equals(Constants.RUOLO_IMPRESA)) {
+					impiantoFiltro.setNumeroRea(Integer.parseInt(utenteLoggato.getRuoloLoggato().getNumeroRea()));
+					impiantoFiltro.setSiglaRea(utenteLoggato.getRuoloLoggato().getSiglaRea());
+					impiantoFiltro.setCfImpresa(utenteLoggato.getRuoloLoggato().getPiva());
+				}
+
+				if (utenteLoggato.getRuoloLoggato().getRuolo().equals(Constants.RUOLO_PROPRIETARIO) || utenteLoggato.getRuoloLoggato().getRuolo().equals(Constants.RUOLO_PROPRIETARIO_IMPRESA)) {
+					impiantoFiltro.setFlagVisuProprietario(true);
+				}
+
+				if (utenteLoggato.getRuoloLoggato().getIstatAbilitazione() != null && !utenteLoggato.getRuoloLoggato().getIstatAbilitazione().isEmpty()) {
+					if (utenteLoggato.getRuoloLoggato().getIstatAbilitazione().length() > 2) {
+						String cod = utenteLoggato.getRuoloLoggato().getIstatAbilitazione().substring(2);
+						impiantoFiltro.setIstatComune(cod);
+					}
+				}
+
+				JWTModel tokenJWT = JWTUtil.generaTokenFruitoreInterno(utenteLoggato.getPfLoggato().getCodiceFiscalePF(), null);
+				log.info("ImpiantoFiltro: " + impiantoFiltro.toString());
+				FeatureCollection fc= citService.getGeoJsonImpiantoByFiltroJWT(impiantoFiltro, tokenJWT.getToken());
+				log.info("Valore della FeatureCollection: " + fc);
+				if (fc != null && fc.getFeatures() != null && fc.getFeatures().length != 0)
+					return fc;
+				else
+				{
+					return null;
+				}
+			} else
+				throw new SigitUserNotAuthorizedException();
+		} catch (NotFoundException e) {
+			return null;
+		} catch (Exception e) {
+			log.error(Constants.IMPIANTO_LOG + "getImpiantiByFiltro - error: ", e);
+			throw new SvistaException("Errore generico nel recupero impianti");
+		} finally {
+			log.info(Constants.IMPIANTO_LOG + "getImpiantiByFiltro - end");
+		}
+	}
+	
+	@Override
+	public FeatureCollection getGeoJsonImpiantiDuplicatiByfiltroResponsabile(UtenteLoggato utenteLoggato, String cf3Responsabile, String cfImpresa, String cfProprietario, String cfResponsabile, String civico, String codiceImpianto, String descComune, String fkStato, String flagVisuProprietario, String idComune, String indirizzo, String istatComune, String numeroRea, String pdr, String pod, String siglaProvincia, String siglaRea, Float x, Float y, Float distanza, Boolean ricercaCompleta)
+			throws SvistaException {
+		log.info(Constants.IMPIANTO_LOG + "getImpiantiByFiltro - start");
+		log.info("UtenteLoggato: " + utenteLoggato.toString());
+		try {
+
+			ImpiantoFiltro impiantoFiltro = mapParamToImpiantoFiltro(cf3Responsabile, cfImpresa, cfProprietario, cfResponsabile, civico, codiceImpianto, descComune, fkStato, flagVisuProprietario, idComune, indirizzo, istatComune, numeroRea, pdr, pod, siglaProvincia, siglaRea, x, y, distanza, utenteLoggato);
+			if (validationService.validateRicercaImpianto(utenteLoggato, impiantoFiltro).equals(true)) {
+				if (!ricercaCompleta && utenteLoggato.getRuoloLoggato().getRuolo().equals(Constants.RUOLO_IMPRESA)) {
+					impiantoFiltro.setNumeroRea(Integer.parseInt(utenteLoggato.getRuoloLoggato().getNumeroRea()));
+					impiantoFiltro.setSiglaRea(utenteLoggato.getRuoloLoggato().getSiglaRea());
+					impiantoFiltro.setCfImpresa(utenteLoggato.getRuoloLoggato().getPiva());
+				}
+
+				if (utenteLoggato.getRuoloLoggato().getRuolo().equals(Constants.RUOLO_PROPRIETARIO) || utenteLoggato.getRuoloLoggato().getRuolo().equals(Constants.RUOLO_PROPRIETARIO_IMPRESA)) {
+					impiantoFiltro.setFlagVisuProprietario(true);
+				}
+
+				if (utenteLoggato.getRuoloLoggato().getIstatAbilitazione() != null && !utenteLoggato.getRuoloLoggato().getIstatAbilitazione().isEmpty()) {
+					if (utenteLoggato.getRuoloLoggato().getIstatAbilitazione().length() > 2) {
+						String cod = utenteLoggato.getRuoloLoggato().getIstatAbilitazione().substring(2);
+						impiantoFiltro.setIstatComune(cod);
+					}
+				}
+
+				JWTModel tokenJWT = JWTUtil.generaTokenFruitoreInterno(utenteLoggato.getPfLoggato().getCodiceFiscalePF(), null);
+				log.info("ImpiantoFiltro: " + impiantoFiltro.toString());
+				FeatureCollection fc= citService.getGeoJsonImpiantoDuplicatiByFiltroResponsabileJWT(impiantoFiltro, tokenJWT.getToken());
+				log.info("Valore della FeatureCollection: " + fc);
+				if (fc != null && fc.getFeatures() != null && fc.getFeatures().length != 0)
+					return fc;
+				else
+				{
+					return null;
+				}
+			} else
+				throw new SigitUserNotAuthorizedException();
+		} catch (NotFoundException e) {
+			return null;
+		} catch (Exception e) {
+			log.error(Constants.IMPIANTO_LOG + "getImpiantiByFiltro - error: ", e);
+			throw new SvistaException("Errore generico nel recupero impianti");
+		} finally {
+			log.info(Constants.IMPIANTO_LOG + "getImpiantiByFiltro - end");
+		}
+	}
+
+	@Override
+	public List<LoccsiFeatureModel> getIndirizzoByLoccsi(String indirizzo) throws SvistaException {
 		log.info(Constants.IMPIANTO_LOG + "getIndirizzoByLoccsi - start");
 		try {
 			List<LoccsiModel> model;
@@ -136,6 +240,8 @@ public class ImpiantoServiceImp implements IImpiantoService {
 								featureModels.add(featureModel);
 							}
 							break;
+						default:
+							break;
 					}
 				}
 				return featureModels;
@@ -143,7 +249,7 @@ public class ImpiantoServiceImp implements IImpiantoService {
 				return null;
 		} catch (Exception e) {
 			log.error(Constants.IMPIANTO_LOG + "getIndirizzoByLoccsi - error: ", e);
-			throw new Exception("Errore recupero indirizzo su loccsi");
+			throw new SvistaException("Errore recupero indirizzo su loccsi");
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + "getIndirizzoByLoccsi - end");
 		}
@@ -151,10 +257,10 @@ public class ImpiantoServiceImp implements IImpiantoService {
 	}
 
 	@Override
-	public List<Persona> cercaResponsabileProprietario(UtenteLoggato utente, Integer tipo, String cf, String siglaRea, String numeroRea) throws Exception {
+	public List<Persona> cercaResponsabileProprietario(UtenteLoggato utente, Integer tipo, String cf, String siglaRea, String numeroRea, Boolean checkAbilitazioneInsImpianto) throws SvistaException {
 		log.info(Constants.IMPIANTO_LOG + "cercaResponsabileProprietario - start");
 		try {
-			if (validationService.isAbilitatoInserisciImpianto(utente)) {
+			if (!checkAbilitazioneInsImpianto || validationService.isAbilitatoInserisciImpianto(utente).equals(true)) {
 				Persona[] persona = citService.getRespProp(tipo, cf, siglaRea, numeroRea);
 				if (persona != null && persona.length != 0)
 					return Arrays.asList(persona);
@@ -171,18 +277,18 @@ public class ImpiantoServiceImp implements IImpiantoService {
 			throw new NotFoundException();
 		} catch (Exception e) {
 			log.error(Constants.IMPIANTO_LOG + "cercaResponsabileProprietario - error: ", e);
-			throw new Exception("Errore recupero persone");
+			throw new SvistaException("Errore recupero persone");
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + "cercaresponsabileProprietario - end");
 		}
 	}
 
 	@Override
-	public Esito setRespprop(UtenteLoggato utenteLoggato, String codiceImpianto, Persona persona) throws Exception {
+	public Esito setRespprop(UtenteLoggato utenteLoggato, String codiceImpianto, Persona persona) throws SvistaException {
 		log.info(Constants.IMPIANTO_LOG + "setRespProp - start");
 		Persona[] personaRicerca;
 		try {
-			if (validationService.isAbilitatoInserisciImpianto(utenteLoggato)) {
+			if (validationService.isAbilitatoInserisciImpianto(utenteLoggato).equals(true)) {
 				Esito esito = validationService.validaNuovoResponsabileProprietario(persona);
 				if (esito.getEsito().equals(Constants.OK)) {
 					if (persona.getIdPersona() == null) {
@@ -202,33 +308,33 @@ public class ImpiantoServiceImp implements IImpiantoService {
 				throw new SigitUserNotAuthorizedException();
 			}
 		} catch (SigitExtException e) {
-			log.error(Constants.IMPIANTO_LOG + "setRespProp - error: ", e);
+			log.error(Constants.IMPIANTO_LOG + Constants.IMPIANTO_SERVICE_ERRORE_SET_RESP_PROP, e);
 			throw new SigitExtException(e.getMessage());
 		} catch (ValidationErrorException e) {
-			log.error(Constants.IMPIANTO_LOG + "setRespProp - error: ", e);
+			log.error(Constants.IMPIANTO_LOG + Constants.IMPIANTO_SERVICE_ERRORE_SET_RESP_PROP, e);
 			throw new ValidationErrorException(e.getMessage());
 		} catch (SigitUserNotAuthorizedException e) {
 			log.error(Constants.IMPIANTO_LOG + "setRespProp - utente non autorizzato: ", e);
 			throw new NotFoundException();
 		} catch (Exception e) {
-			log.error(Constants.IMPIANTO_LOG + "setRespProp - error: ", e);
-			throw new Exception("Errore inserimento responsabile/proprietario", e);
+			log.error(Constants.IMPIANTO_LOG + Constants.IMPIANTO_SERVICE_ERRORE_SET_RESP_PROP, e);
+			throw new SvistaException("Errore inserimento responsabile/proprietario", e);
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + "setRespProp - end");
 		}
 	}
 
 	@Override
-	public Esito aggiornaRespProp(UtenteLoggato utenteLoggato, String codiceImpianto, Persona persona) throws Exception {
+	public Esito aggiornaRespProp(UtenteLoggato utenteLoggato, String codiceImpianto, Persona persona) throws SvistaException {
 		log.info(Constants.IMPIANTO_LOG + "aggiornaRespProp - start");
 		try {
 			Persona[] personaRicerca;
-			if (validationService.isAbilitatoInserisciImpianto(utenteLoggato)) {
+			if (validationService.isAbilitatoInserisciImpianto(utenteLoggato).equals(true)) {
 				personaRicerca = citService.getRespProp(persona.getTipo(), persona.getCodiceFiscale(),null,null);
 				if (personaRicerca != null && personaRicerca.length != 0) {
 					persona.setIdPersona(personaRicerca[0].getIdPersona());
 				} else
-					throw new NotFoundException("Nessun responsabile trovato");
+					throw new NotFoundException("Nessun proprietario/responsabile trovato");
 				RespPropModel respPropModel = new RespPropModel();
 				respPropModel.setPersona(persona);
 				respPropModel.setUtenteLoggato(utenteLoggato);
@@ -245,17 +351,17 @@ public class ImpiantoServiceImp implements IImpiantoService {
 			throw new NotFoundException();
 		} catch (Exception e) {
 			log.error(Constants.IMPIANTO_LOG + "aggiornaRespProp - error: ", e);
-			throw new Exception("Errore inserimento responsabile/proprietario", e);
+			throw new SvistaException("Errore inserimento responsabile/proprietario", e);
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + "aggiornaRespProp - end");
 		}
 	}
 
 	@Override
-	public Esito setImpianto(UtenteLoggato utenteLoggato, DatiImpiantoModel datiImpianto, String codice, Integer responsabilita) throws Exception {
+	public Esito setImpianto(UtenteLoggato utenteLoggato, DatiImpiantoModel datiImpianto, String codice, Integer responsabilita) throws SvistaException, SigitUserNotAuthorizedException {
 		log.info(Constants.IMPIANTO_LOG + "setimpianto - start");
 		try {
-			if (validationService.isAbilitatoInserisciImpianto(utenteLoggato)) {
+			if (validationService.isAbilitatoInserisciImpianto(utenteLoggato).equals(true)) {
 				Esito esito = validationService.validaInserisciImpianto(datiImpianto, utenteLoggato);
 				if (esito.getEsito().equals(Constants.OK)) {
 					if (codice == null)
@@ -270,14 +376,14 @@ public class ImpiantoServiceImp implements IImpiantoService {
 				throw new SigitUserNotAuthorizedException();
 
 		} catch (ValidationErrorException e) {
-			log.error(Constants.IMPIANTO_LOG + "setImpianto - error: ", e);
+			log.error(Constants.IMPIANTO_LOG + Constants.IMPIANTO_SERVICE_ERRORE_SET_IMPIANTO, e);
 			throw new ValidationErrorException(e.getMessage());
 		} catch (SigitUserNotAuthorizedException e) {
-			log.error(Constants.IMPIANTO_LOG + "setImpianto - error: ", e);
+			log.error(Constants.IMPIANTO_LOG + Constants.IMPIANTO_SERVICE_ERRORE_SET_IMPIANTO, e);
 			throw new SigitUserNotAuthorizedException();
 		} catch (Exception e) {
-			log.error(Constants.IMPIANTO_LOG + "setImpianto - error: ", e);
-			throw new Exception(e.getMessage());
+			log.error(Constants.IMPIANTO_LOG + Constants.IMPIANTO_SERVICE_ERRORE_SET_IMPIANTO, e);
+			throw new SvistaException(e.getMessage());
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + "setImpianto - end");
 		}
@@ -329,7 +435,7 @@ public class ImpiantoServiceImp implements IImpiantoService {
 	}
 
 	@Override
-	public List<LoccsiFeatureModel> getProvinciaByLoccsi(String comune) throws Exception {
+	public List<LoccsiFeatureModel> getProvinciaByLoccsi(String comune) throws SvistaException {
 		try {
 			List<LoccsiModel> model;
 			List<LoccsiFeatureModel> featureModels = new ArrayList<>();
@@ -346,14 +452,14 @@ public class ImpiantoServiceImp implements IImpiantoService {
 				return null;
 		} catch (Exception e) {
 			log.error(Constants.IMPIANTO_LOG + "getProvinciaByLoccsi - error: ", e);
-			throw new Exception("Errore recupero indirizzo su loccsi");
+			throw new SvistaException("Errore recupero indirizzo su loccsi");
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + "getPorivinciaByLoccsi - end");
 		}
 	}
 
 	@Override
-	public MOD getDatiImpiantoXML(String codiceImpianto, UtenteLoggato utenteLoggato) throws Exception {
+	public MOD getDatiImpiantoXML(String codiceImpianto, UtenteLoggato utenteLoggato) throws SvistaException {
 		log.info(Constants.IMPIANTO_LOG + "getDatiImpiantoXML - start");
 		try {
 			JWTModel tokenJWT = JWTUtil.generaTokenFruitoreInterno(utenteLoggato.getPfLoggato().getCodiceFiscalePF(), null);
@@ -362,14 +468,14 @@ public class ImpiantoServiceImp implements IImpiantoService {
 			return null;
 		} catch (Exception e) {
 			log.error(Constants.IMPIANTO_LOG + "getDatiImpiantoXML - error: ", e);
-			throw new Exception("Errore generico nel recupero del libretto");
+			throw new SvistaException("Errore generico nel recupero del libretto");
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + " getDatiImpiantoXML - end");
 		}
 	}
 
 	@Override
-	public Esito podDuplicato(UtenteLoggato utenteLoggato, String pod) throws Exception {
+	public Esito podDuplicato(UtenteLoggato utenteLoggato, String pod) throws SvistaException {
 		log.info(Constants.IMPIANTO_LOG + "podPdrDuplicato - start");
 		Esito esito = new Esito(Constants.OK,"Codice pod univoco");
 		try {
@@ -386,13 +492,45 @@ public class ImpiantoServiceImp implements IImpiantoService {
 			throw new SigitExtException("Codice pod duplicato");
 		} catch (Exception e) {
 			log.error(Constants.IMPIANTO_LOG + "podPdrDuplicato - error: ", e);
-			throw new Exception("Errore generico nel recupero degli impianti");
+			throw new SvistaException("Errore generico nel recupero degli impianti");
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + " podPdrDuplicato - end");
 		}
 	}
+	
+	@Override
+	public String verifyIndirizzoImpianto(DatiImpianto datiImpianto, Boolean checkContrattoInEssere) throws SvistaException {
+		log.info(Constants.IMPIANTO_LOG + "verifyIndirizzoImpianto - start");
+		try {
+			return citService.verifyIndirizzoImpianto(datiImpianto, checkContrattoInEssere);
+		} catch (SigitExtException e) {
+			throw e;
+		} catch (Exception e) {
+			log.error(Constants.IMPIANTO_LOG + "verifyIndirizzoImpianto - error: ", e);
+			throw new SvistaException("Errore generico nel recupero degli impianti");
+		} finally {
+			log.info(Constants.IMPIANTO_LOG + " verifyIndirizzoImpianto - end");
+		}
+	}
+	
+	@Override
+	public List<Persona> getElencoStoricoResponsabiliImpianto(String codiceImpianto) throws SvistaException {
+		log.info(Constants.IMPIANTO_LOG + "getElencoStoricoResponsabiliImpianto - start");
+		try {
+			return citService.getElencoStoricoResponsabiliImpianto(codiceImpianto);
+		} catch (SigitExtException e) {
+			throw new SigitExtException("Errore generico nel recupero dei responsabili");
+		} catch (Exception e) {
+			log.error(Constants.IMPIANTO_LOG + "getElencoStoricoResponsabiliImpianto - error: ", e);
+			throw new SvistaException("Errore generico nel recupero dei responsabili");
+		} finally {
+			log.info(Constants.IMPIANTO_LOG + " getElencoStoricoResponsabiliImpianto - end");
+		}
+	}
 
-	public Esito pdrDuplicato(UtenteLoggato utenteLoggato,  String pdr) throws Exception {
+
+
+	public Esito pdrDuplicato(UtenteLoggato utenteLoggato,  String pdr) throws SvistaException {
 		log.info(Constants.IMPIANTO_LOG + "pdrDuplicato - start");
 		Esito esito = new Esito(Constants.OK,"Codice pdr univoco");
 		try {
@@ -409,9 +547,84 @@ public class ImpiantoServiceImp implements IImpiantoService {
 			throw new SigitExtException("Codice pdr duplicato");
 		} catch (Exception e) {
 			log.error(Constants.IMPIANTO_LOG + "pdrDuplicato - error: ", e);
-			throw new Exception("Errore generico nel recupero degli impianti");
+			throw new SvistaException("Errore generico nel recupero degli impianti");
 		} finally {
 			log.info(Constants.IMPIANTO_LOG + " pdrDuplicato - end");
 		}
 	}
+
+	@Override
+	public Esito setSubentroComponente(String codiceImpianto, String idPersonaGiuridica, Boolean sendMail, SubentroComponente subentro) {
+		log.info(Constants.IMPIANTO_LOG + "setSubentroComponente - start");
+		try {
+			return citService.setSubentroComponente(codiceImpianto, idPersonaGiuridica, sendMail, subentro);
+		} catch (SigitExtException e) {
+			throw new SigitExtException("Errore generico");
+		} catch (Exception e) {
+			log.error(Constants.IMPIANTO_LOG + "setSubentroComponente - error: ", e);
+			throw new SvistaException("Impossibile completare l'operazione");
+		} finally {
+			log.info(Constants.IMPIANTO_LOG + " setSubentroComponente - end");
+		}
+	}
+
+	@Override
+	public Impianto[] getImpiantoByCodiceJWT(String codiceImpianto, JWTModel tokenJWT) throws SigitExtException, IOException  {
+
+		log.info(Constants.IMPIANTO_LOG + "getImpiantoByCodiceJWT - start");
+		try {
+			return citService.getImpiantoByCodiceJWT(codiceImpianto, tokenJWT);
+		} catch (SigitExtException e) {
+			throw new SigitExtException("Errore generico nel recupero dei impianto");
+		} catch (Exception e) {
+			log.error(Constants.IMPIANTO_LOG + "getImpiantoByCodiceJWT - error: ", e);
+			if(e instanceof HttpClientErrorException) {
+				manageHttpClientErrorException((HttpClientErrorException) e);
+			}if(e instanceof HttpServerErrorException) {
+				manageHttpClientErrorException((HttpServerErrorException) e);
+			} else{
+				throw new SvistaException("Errore generico nel recupero dei impianto");
+			}
+		} finally {
+			log.info(Constants.IMPIANTO_LOG + " getImpiantoByCodiceJWT - end");
+		}
+
+		return null;
+	}
+
+	private static void manageHttpClientErrorException(HttpClientErrorException e) throws IOException {
+		int responseCode = e.getStatusCode().value();
+		if (responseCode == 404) {
+			throw new NotFoundException();
+		} else {
+			ObjectMapper mapper = new ObjectMapper();
+			Esito esito = mapper.readValue(e.getResponseBodyAsByteArray(), Esito.class);
+			throw new SigitExtException(esito.getDescrizioneEsito());
+		}
+	}
+
+	private static void manageHttpClientErrorException(HttpServerErrorException e) throws IOException {
+		int responseCode = e.getStatusCode().value();
+		if (responseCode == 404) {
+			throw new NotFoundException();
+		} else {
+			ObjectMapper mapper = new ObjectMapper();
+			Esito esito = mapper.readValue(e.getResponseBodyAsByteArray(), Esito.class);
+			throw new SigitExtException(esito.getDescrizioneEsito());
+		}
+	}
+
+	@Override
+	public Integer getGeoJsonImpiantoMaxResults() throws SvistaException {
+		log.info(Constants.IMPIANTO_LOG + "getGeoJsonImpiantoMaxResults - start");
+		try {
+			return citService.getGeoJsonImpiantoMaxResults();
+		} catch (Exception e) {
+			log.error(Constants.IMPIANTO_LOG + "getGeoJsonImpiantoMaxResults - error: ", e);
+			throw new SvistaException("Errore recupero numero massimo impianti restituiti.", e);
+		} finally {
+			log.info(Constants.IMPIANTO_LOG + "getGeoJsonImpiantoMaxResults - end");
+		}
+	}
+
 }

@@ -4,8 +4,6 @@ import it.csi.citpwa.model.sigitext.PdfControllo;
 import it.csi.citpwa.util.ObjectConverter;
 import org.apache.commons.codec.binary.Base64;
 
-import java.util.Arrays;
-
 public class PdfControlloModel {
 
 	public static ObjectConverter<PdfControllo,PdfControlloModel> dtoToModel = new ObjectConverter<>(u->{

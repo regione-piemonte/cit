@@ -38,7 +38,7 @@ public class DatiGFModel {
 
 		model.setFlgSorgenteExt(u.getFlgSorgenteExt());
 		model.setFlgFluidoUtenze(u.getFlgFluidoUtenze());
-		model.setFluidoFrigorigenodi(u.getFluidoFrigorigenodi());
+		model.setFluidoFrigorigeno(u.getFluidoFrigorigeno());
 		model.setRaffrescamentoEer(u.getRaffrescamentoEer());
 		model.setRaffPotenzaKw(u.getRaffPotenzaKw());
 		model.setRaffPotenzaAss(u.getRaffPotenzaAss());
@@ -101,7 +101,7 @@ public class DatiGFModel {
 
 		dto.setFlgSorgenteExt(u.getFlgSorgenteExt());
 		dto.setFlgFluidoUtenze(u.getFlgFluidoUtenze());
-		dto.setFluidoFrigorigenodi(u.getFluidoFrigorigenodi());
+		dto.setFluidoFrigorigeno(u.getFluidoFrigorigeno());
 		dto.setRaffrescamentoEer(u.getRaffrescamentoEer());
 		dto.setRaffPotenzaKw(u.getRaffPotenzaKw());
 		dto.setRaffPotenzaAss(u.getRaffPotenzaAss());
@@ -124,7 +124,7 @@ public class DatiGFModel {
 	private String desDettaglioGf;
 	private String flgSorgenteExt;
 	private String flgFluidoUtenze;
-	private String fluidoFrigorigenodi;
+	private String fluidoFrigorigeno;
 	private Integer nCircuiti;
 	private String raffrescamentoEer;
 
@@ -159,6 +159,7 @@ public class DatiGFModel {
 	private String numeroRea;
 
 	public DatiGFModel() {
+		//Not implemented
 	}
 
 	public String getIdTipoComponente() {
@@ -225,12 +226,12 @@ public class DatiGFModel {
 		this.flgFluidoUtenze = flgFluidoUtenze;
 	}
 
-	public String getFluidoFrigorigenodi() {
-		return fluidoFrigorigenodi;
+	public String getFluidoFrigorigeno() {
+		return fluidoFrigorigeno;
 	}
 
-	public void setFluidoFrigorigenodi(String fluidoFrigorigenodi) {
-		this.fluidoFrigorigenodi = fluidoFrigorigenodi;
+	public void setFluidoFrigorigeno(String fluidoFrigorigeno) {
+		this.fluidoFrigorigeno = fluidoFrigorigeno;
 	}
 
 	public Integer getnCircuiti() {
@@ -453,7 +454,7 @@ public class DatiGFModel {
 	public String toString() {
 		return "DatiGFModel{" + "idTipoComponente='" + idTipoComponente + '\'' + ", progressivo=" + progressivo + ", dataInstall='" + dataInstall + '\'' + ", codiceImpianto=" + codiceImpianto
 				+ ", fkDettaglioGf=" + fkDettaglioGf + ", desDettaglioGf='" + desDettaglioGf + '\'' + ", flgSorgenteExt='" + flgSorgenteExt + '\'' + ", flgFluidoUtenze='" + flgFluidoUtenze + '\''
-				+ ", fluidoFrigorigenodi='" + fluidoFrigorigenodi + '\'' + ", nCircuiti=" + nCircuiti + ", raffrescamentoEer='" + raffrescamentoEer + '\'' + ", raffPotenzaKw=" + raffPotenzaKw
+				+ ", fluidoFrigorigeno='" + fluidoFrigorigeno + '\'' + ", nCircuiti=" + nCircuiti + ", raffrescamentoEer='" + raffrescamentoEer + '\'' + ", raffPotenzaKw=" + raffPotenzaKw
 				+ ", raffPotenzaAss=" + raffPotenzaAss + ", riscaldamentoCop='" + riscaldamentoCop + '\'' + ", riscPotenzaKw=" + riscPotenzaKw + ", riscPotenzaAssKw=" + riscPotenzaAssKw
 				+ ", dataDismiss='" + dataDismiss + '\'' + ", flgDismissione=" + flgDismissione + ", dataUltMod='" + dataUltMod + '\'' + ", utenteUltMod='" + utenteUltMod + '\'' + ", fkMarca="
 				+ fkMarca + ", desMarca='" + desMarca + '\'' + ", fkCombustibile=" + fkCombustibile + ", desCombustibile='" + desCombustibile + '\'' + ", matricola='" + matricola + '\''

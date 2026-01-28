@@ -393,7 +393,6 @@ public class MapDto {
 
 		for (RowAllegatoIV source : ree.getRichiesta().getDatiAllegato().getAllegatoIV().getRowAllegatoIV()) {
 			TabFumiModel tabFumi = new TabFumiModel();
-			TabCombustibileModel tabCombustibile = new TabCombustibileModel();
 			RowAllegatoModel target = new RowAllegatoModel();
 			target.setNum(source.getAENumSC());
 			ControlloVerificaEnergeticaModel controlloVerificaEnergetica = ControlloVerificaEnergeticaModel.tipo3DtoToModel.convert(source.getControlloVerificaEnergetica());

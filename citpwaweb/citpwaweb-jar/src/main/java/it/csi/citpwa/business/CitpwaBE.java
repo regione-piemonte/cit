@@ -10,8 +10,14 @@
 package it.csi.citpwa.business;
 
 import it.csi.citpwa.business.service.IAuthenticationService;
+import it.csi.citpwa.exception.SvistaException;
+import it.csi.citpwa.exception.ValidationErrorException;
 import it.csi.citpwa.model.sigitext.UtenteLoggato;
+import it.csi.sigit.sigitext.ws.service.client.SigitUserNotAuthorizedException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.net.SocketTimeoutException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -31,7 +37,7 @@ public class CitpwaBE {
 
 	@GET
 	@Path("/currentUser")
-	public UtenteLoggato getCurrentUser(@Context HttpServletRequest req) {
+	public UtenteLoggato getCurrentUser(@Context HttpServletRequest req) throws SocketTimeoutException, SigitUserNotAuthorizedException, SvistaException, ValidationErrorException {
 		return authService.getCurrentUser(req);
 	}
 }

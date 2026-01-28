@@ -24,7 +24,7 @@ public class AllegatoModel {
 
 	public List<RowAllegatoModel> getRowAllegato() {
 		if (rowAllegato == null) {
-			rowAllegato = new ArrayList<RowAllegatoModel>();
+			rowAllegato = new ArrayList<>();
 		}
 		return this.rowAllegato;
 	}

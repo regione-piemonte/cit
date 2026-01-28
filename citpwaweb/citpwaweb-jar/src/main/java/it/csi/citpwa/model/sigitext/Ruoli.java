@@ -31,9 +31,9 @@ public class Ruoli {
 		} else {
 			// non si puo' usare System.arrayCopy perche' i DTO devono essere compilati Java 1.3
 			ruoliPF = new RuoloPF[val.length];
-			for (int i = 0; i < val.length; i++) { //NOSONAR  Reason:NOTINJ13
-				ruoliPF[i] = val[i]; //NOSONAR  Reason:NOTINJ13
-			} //NOSONAR  Reason:NOTINJ13
+			for (int i = 0; i < val.length; i++) {  
+				ruoliPF[i] = val[i];  
+			}  
 		}
 	}
 
@@ -43,9 +43,9 @@ public class Ruoli {
 		} else {
 			// non si puo' usare System.arrayCopy perche' i DTO devono essere compilati Java 1.3
 			RuoloPF[] copy = new RuoloPF[ruoliPF.length];
-			for (int i = 0; i < ruoliPF.length; i++) { //NOSONAR  Reason:NOTINJ13
-				copy[i] = ruoliPF[i]; //NOSONAR  Reason:NOTINJ13
-			} //NOSONAR  Reason:NOTINJ13
+			for (int i = 0; i < ruoliPF.length; i++) {  
+				copy[i] = ruoliPF[i];  
+			}  
 			return copy;
 		}
 	}
@@ -58,9 +58,9 @@ public class Ruoli {
 		} else {
 			// non si puo' usare System.arrayCopy perche' i DTO devono essere compilati Java 1.3
 			ruoliPG = new RuoloPG[val.length];
-			for (int i = 0; i < val.length; i++) { //NOSONAR  Reason:NOTINJ13
-				ruoliPG[i] = val[i]; //NOSONAR  Reason:NOTINJ13
-			} //NOSONAR  Reason:NOTINJ13
+			for (int i = 0; i < val.length; i++) {  
+				ruoliPG[i] = val[i];  
+			}  
 		}
 	}
 
@@ -70,9 +70,9 @@ public class Ruoli {
 		} else {
 			// non si puo' usare System.arrayCopy perche' i DTO devono essere compilati Java 1.3
 			RuoloPG[] copy = new RuoloPG[ruoliPG.length];
-			for (int i = 0; i < ruoliPG.length; i++) { //NOSONAR  Reason:NOTINJ13
-				copy[i] = ruoliPG[i]; //NOSONAR  Reason:NOTINJ13
-			} //NOSONAR  Reason:NOTINJ13
+			for (int i = 0; i < ruoliPG.length; i++) {  
+				copy[i] = ruoliPG[i];  
+			}  
 			return copy;
 		}
 	}
@@ -85,9 +85,9 @@ public class Ruoli {
 		} else {
 			// non si puo' usare System.arrayCopy perche' i DTO devono essere compilati Java 1.3
 			ruoliPA = new RuoloPA[val.length];
-			for (int i = 0; i < val.length; i++) { //NOSONAR  Reason:NOTINJ13
-				ruoliPA[i] = val[i]; //NOSONAR  Reason:NOTINJ13
-			} //NOSONAR  Reason:NOTINJ13
+			for (int i = 0; i < val.length; i++) {  
+				ruoliPA[i] = val[i];  
+			}  
 		}
 	}
 
@@ -97,9 +97,9 @@ public class Ruoli {
 		} else {
 			// non si puo' usare System.arrayCopy perche' i DTO devono essere compilati Java 1.3
 			RuoloPA[] copy = new RuoloPA[ruoliPA.length];
-			for (int i = 0; i < ruoliPA.length; i++) { //NOSONAR  Reason:NOTINJ13
-				copy[i] = ruoliPA[i]; //NOSONAR  Reason:NOTINJ13
-			} //NOSONAR  Reason:NOTINJ13
+			for (int i = 0; i < ruoliPA.length; i++) {  
+				copy[i] = ruoliPA[i];  
+			}  
 			return copy;
 		}
 	}

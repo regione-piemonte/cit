@@ -7,6 +7,8 @@
 
 package it.csi.citpwa.business.ws.service.svista.client;
 
+import it.csi.citpwa.util.Constants;
+
 public class LimammEnteServiceLocator extends org.apache.axis.client.Service implements it.csi.citpwa.business.ws.service.svista.client.LimammEnteService {
 
     public LimammEnteServiceLocator() {
@@ -22,14 +24,14 @@ public class LimammEnteServiceLocator extends org.apache.axis.client.Service imp
     }
 
     // Use to get a proxy class for limammEnte
-    private java.lang.String limammEnte_address = "http://tst-applogic.reteunitaria.piemonte.it/limammApplEnteWsfad/services/limammEnte";
+    private java.lang.String limammEnteAddress = "http://tst-applogic.reteunitaria.piemonte.it/limammApplEnteWsfad/services/limammEnte";
 
     public java.lang.String getlimammEnteAddress() {
-        return limammEnte_address;
+        return limammEnteAddress;
     }
 
     // The WSDD service name defaults to the port name.
-    private java.lang.String limammEnteWSDDServiceName = "limammEnte";
+    private java.lang.String limammEnteWSDDServiceName = Constants.LIMAMM_ENTE;
 
     public java.lang.String getlimammEnteWSDDServiceName() {
         return limammEnteWSDDServiceName;
@@ -39,10 +41,10 @@ public class LimammEnteServiceLocator extends org.apache.axis.client.Service imp
         limammEnteWSDDServiceName = name;
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.LimammEnte_PortType getlimammEnte() throws javax.xml.rpc.ServiceException {
+    public it.csi.citpwa.business.ws.service.svista.client.LimammEntePortType getlimammEnte() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
-            endpoint = new java.net.URL(limammEnte_address);
+            endpoint = new java.net.URL(limammEnteAddress);
         }
         catch (java.net.MalformedURLException e) {
             throw new javax.xml.rpc.ServiceException(e);
@@ -50,11 +52,11 @@ public class LimammEnteServiceLocator extends org.apache.axis.client.Service imp
         return getlimammEnte(endpoint);
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.LimammEnte_PortType getlimammEnte(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public it.csi.citpwa.business.ws.service.svista.client.LimammEntePortType getlimammEnte(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-        	it.csi.citpwa.business.ws.service.svista.client.LimammEnteSoapBindingStub _stub = new it.csi.citpwa.business.ws.service.svista.client.LimammEnteSoapBindingStub(portAddress, this);
-            _stub.setPortName(getlimammEnteWSDDServiceName());
-            return _stub;
+        	it.csi.citpwa.business.ws.service.svista.client.LimammEnteSoapBindingStub stub = new it.csi.citpwa.business.ws.service.svista.client.LimammEnteSoapBindingStub(portAddress, this);
+            stub.setPortName(getlimammEnteWSDDServiceName());
+            return stub;
         }
         catch (org.apache.axis.AxisFault e) {
             return null;
@@ -62,7 +64,7 @@ public class LimammEnteServiceLocator extends org.apache.axis.client.Service imp
     }
 
     public void setlimammEnteEndpointAddress(java.lang.String address) {
-        limammEnte_address = address;
+        limammEnteAddress = address;
     }
 
     /**
@@ -72,10 +74,10 @@ public class LimammEnteServiceLocator extends org.apache.axis.client.Service imp
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (it.csi.citpwa.business.ws.service.svista.client.LimammEnte_PortType.class.isAssignableFrom(serviceEndpointInterface)) {
-            	it.csi.citpwa.business.ws.service.svista.client.LimammEnteSoapBindingStub _stub = new it.csi.citpwa.business.ws.service.svista.client.LimammEnteSoapBindingStub(new java.net.URL(limammEnte_address), this);
-                _stub.setPortName(getlimammEnteWSDDServiceName());
-                return _stub;
+            if (it.csi.citpwa.business.ws.service.svista.client.LimammEntePortType.class.isAssignableFrom(serviceEndpointInterface)) {
+            	it.csi.citpwa.business.ws.service.svista.client.LimammEnteSoapBindingStub stub = new it.csi.citpwa.business.ws.service.svista.client.LimammEnteSoapBindingStub(new java.net.URL(limammEnteAddress), this);
+                stub.setPortName(getlimammEnteWSDDServiceName());
+                return stub;
             }
         }
         catch (java.lang.Throwable t) {
@@ -94,13 +96,13 @@ public class LimammEnteServiceLocator extends org.apache.axis.client.Service imp
             return getPort(serviceEndpointInterface);
         }
         java.lang.String inputPortName = portName.getLocalPart();
-        if ("limammEnte".equals(inputPortName)) {
+        if (Constants.LIMAMM_ENTE.equals(inputPortName)) {
             return getlimammEnte();
         }
         else  {
-            java.rmi.Remote _stub = getPort(serviceEndpointInterface);
-            ((org.apache.axis.client.Stub) _stub).setPortName(portName);
-            return _stub;
+            java.rmi.Remote stub = getPort(serviceEndpointInterface);
+            ((org.apache.axis.client.Stub) stub).setPortName(portName);
+            return stub;
         }
     }
 
@@ -113,7 +115,7 @@ public class LimammEnteServiceLocator extends org.apache.axis.client.Service imp
     public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
-            ports.add(new javax.xml.namespace.QName("ente", "limammEnte"));
+            ports.add(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE));
         }
         return ports.iterator();
     }
@@ -123,7 +125,7 @@ public class LimammEnteServiceLocator extends org.apache.axis.client.Service imp
     */
     public void setEndpointAddress(java.lang.String portName, java.lang.String address) throws javax.xml.rpc.ServiceException {
         
-if ("limammEnte".equals(portName)) {
+if (Constants.LIMAMM_ENTE.equals(portName)) {
             setlimammEnteEndpointAddress(address);
         }
         else 

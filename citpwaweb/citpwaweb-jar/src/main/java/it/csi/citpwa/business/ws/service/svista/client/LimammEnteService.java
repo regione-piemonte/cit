@@ -10,7 +10,7 @@ package it.csi.citpwa.business.ws.service.svista.client;
 public interface LimammEnteService extends javax.xml.rpc.Service {
     public java.lang.String getlimammEnteAddress();
 
-    public it.csi.citpwa.business.ws.service.svista.client.LimammEnte_PortType getlimammEnte() throws javax.xml.rpc.ServiceException;
+    public it.csi.citpwa.business.ws.service.svista.client.LimammEntePortType getlimammEnte() throws javax.xml.rpc.ServiceException;
 
-    public it.csi.citpwa.business.ws.service.svista.client.LimammEnte_PortType getlimammEnte(java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
+    public it.csi.citpwa.business.ws.service.svista.client.LimammEntePortType getlimammEnte(java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
 }

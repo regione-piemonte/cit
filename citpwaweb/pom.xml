@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.csi.citpwa</groupId>
 	<artifactId>citpwaweb</artifactId>
-	<version>1.2.0</version>
+	<version>1.8.0</version>
 	<build>
 		<plugins>
 			<plugin>
@@ -43,7 +43,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.24.RELEASE</spring.version>
-		<tar.version>1.2.0</tar.version>
+		<tar.version>1.8.0</tar.version>
 		<java.version>11</java.version>
 	</properties>
 
@@ -52,14 +52,14 @@
 			<dependency>
 				<groupId>it.csi.citpwa</groupId>
 				<artifactId>citpwaweb-jar</artifactId>
-				<version>1.2.0</version>
+				<version>1.8.0</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>it.csi.citpwa</groupId>
 				<artifactId>citpwaweb-web</artifactId>
-				<version>1.2.0</version>
+				<version>1.8.0</version>
 				<type>war</type>
 				<scope>compile</scope>
 			</dependency>

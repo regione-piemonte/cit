@@ -49,7 +49,7 @@ public class ComponentApiServiceImp implements IComponenteApi {
 		} catch (ValidationErrorException e) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.KO, e.getMessage())).build();
 		} catch (SigitUserNotAuthorizedException e) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Esito(Constants.KO, "Utente non autorizzato")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(new Esito(Constants.KO, Constants.UTENTE_NON_AUTORIZZATO)).build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.KO, e.getMessage())).build();
 		}
@@ -64,7 +64,7 @@ public class ComponentApiServiceImp implements IComponenteApi {
 		} catch (ValidationErrorException e) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.KO, e.getMessage())).build();
 		} catch (SigitUserNotAuthorizedException e) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Esito(Constants.KO, "Utente non autorizzato")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(new Esito(Constants.KO, Constants.UTENTE_NON_AUTORIZZATO)).build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.KO, e.getMessage())).build();
 		}
@@ -79,7 +79,7 @@ public class ComponentApiServiceImp implements IComponenteApi {
 		} catch (ValidationErrorException e) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.KO, e.getMessage())).build();
 		} catch (SigitUserNotAuthorizedException e) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Esito(Constants.KO, "Utente non autorizzato")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(new Esito(Constants.KO, Constants.UTENTE_NON_AUTORIZZATO)).build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.KO, e.getMessage())).build();
 		}
@@ -94,7 +94,7 @@ public class ComponentApiServiceImp implements IComponenteApi {
 		} catch (ValidationErrorException e) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.KO, e.getMessage())).build();
 		} catch (SigitUserNotAuthorizedException e) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Esito(Constants.KO, "Utente non autorizzato")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(new Esito(Constants.KO, Constants.UTENTE_NON_AUTORIZZATO)).build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.KO, e.getMessage())).build();
 		}
@@ -103,10 +103,9 @@ public class ComponentApiServiceImp implements IComponenteApi {
 	@Override
 	public Response getmarcaCIT(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req) {
 		try {
-			UtenteLoggato user = authenticationService.getCurrentUser(req);
 			return Response.ok(componentService.getMarcaCIT()).build();
 		} catch (NotFoundException e) {
-			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), "nessun combustibile trovato"))
+			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), Constants.NESSUN_COMBUSTIBILE_TROVATO))
 					.build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -117,10 +116,9 @@ public class ComponentApiServiceImp implements IComponenteApi {
 	@Override
 	public Response getFluidoCIT(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req) {
 		try {
-			UtenteLoggato user = authenticationService.getCurrentUser(req);
 			return Response.ok(componentService.getFluidoCIT()).build();
 		} catch (NotFoundException e) {
-			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), "nessun combustibile trovato"))
+			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), Constants.NESSUN_COMBUSTIBILE_TROVATO))
 					.build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -131,10 +129,35 @@ public class ComponentApiServiceImp implements IComponenteApi {
 	@Override
 	public Response getCombustibileCIT(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req) {
 		try {
-			UtenteLoggato user = authenticationService.getCurrentUser(req);
 			return Response.ok(componentService.getCombustibileCIT()).build();
 		} catch (NotFoundException e) {
-			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), "nessun combustibile trovato"))
+			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), Constants.NESSUN_COMBUSTIBILE_TROVATO))
+					.build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(new Errore(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage())).build();
+		}
+	}
+
+	@Override
+	public Response getClassDpr66096CIT(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req) {
+		try {
+			return Response.ok(componentService.getClassDpr66096CIT()).build();
+		} catch (NotFoundException e) {
+			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), Constants.NESSUN_ELEMENTO_TROVATO))
+					.build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(new Errore(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage())).build();
+		}
+	}
+
+	@Override
+	public Response getFrequenzaManutCIT(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req) {
+		try {
+			return Response.ok(componentService.getFrequenzaManutCIT()).build();
+		} catch (NotFoundException e) {
+			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), Constants.NESSUN_ELEMENTO_TROVATO))
 					.build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -145,10 +168,9 @@ public class ComponentApiServiceImp implements IComponenteApi {
 	@Override
 	public Response getTipologiaGT(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req) {
 		try {
-			UtenteLoggato user = authenticationService.getCurrentUser(req);
 			return Response.ok(componentService.getTipologiaGT()).build();
 		} catch (NotFoundException e) {
-			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), "nessun combustibile trovato"))
+			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), Constants.NESSUN_COMBUSTIBILE_TROVATO))
 					.build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -159,10 +181,9 @@ public class ComponentApiServiceImp implements IComponenteApi {
 	@Override
 	public Response getTipologiaGF(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req) {
 		try {
-			UtenteLoggato user = authenticationService.getCurrentUser(req);
 			return Response.ok(componentService.getTipologiaGF()).build();
 		} catch (NotFoundException e) {
-			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), "nessun combustibile trovato"))
+			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), Constants.NESSUN_COMBUSTIBILE_TROVATO))
 					.build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -174,7 +195,7 @@ public class ComponentApiServiceImp implements IComponenteApi {
 		try {
 			return Response.ok(componentService.getFonteCIT()).build();
 		} catch (NotFoundException e) {
-			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), "nessun combustibile trovato"))
+			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), Constants.NESSUN_COMBUSTIBILE_TROVATO))
 					.build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -185,10 +206,9 @@ public class ComponentApiServiceImp implements IComponenteApi {
 	@Override
 	public Response getTipoCannaFumaria(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req) {
 		try {
-			UtenteLoggato user = authenticationService.getCurrentUser(req);
 			return Response.ok(componentService.getTipoCannaFumaria()).build();
 		} catch (NotFoundException e) {
-			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), "nessun combustibile trovato"))
+			return Response.status(Response.Status.NOT_FOUND).entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), Constants.NESSUN_COMBUSTIBILE_TROVATO))
 					.build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -255,7 +275,6 @@ public class ComponentApiServiceImp implements IComponenteApi {
 	@Override
 	public Response checkDismettiSostituisciComponente(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req, String dataMinima, String dataMassima, String dataDismiss) {
 		try {
-			UtenteLoggato user = authenticationService.getCurrentUser(req);
 			Esito esito = componentService.chekDismettiSostituisci(dataMinima, dataMassima, dataDismiss);
 			return Response.ok(esito).build();
 		} catch (ValidationErrorException e) {

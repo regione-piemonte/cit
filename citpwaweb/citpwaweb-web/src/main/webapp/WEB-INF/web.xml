@@ -31,7 +31,7 @@
     </filter-mapping>
 
     <!-- filtro di recepimento token autenticazione -->
-
+ 
         <filter>
             <filter-name>IrideIdAdapterFilter</filter-name>
             <filter-class>it.csi.citpwa.filter.IrideIdAdapterFilter</filter-class>
@@ -58,6 +58,11 @@
         <filter-name>CorsFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+    <error-page>
+		<error-code>404</error-code>
+		<location>/</location>
+	</error-page>
 
     <!-- replica della sessione (pur essendo i servizi stateless, serve per
         replicare il contesto di autenticazione e il token xsrf, quindi e' necessario

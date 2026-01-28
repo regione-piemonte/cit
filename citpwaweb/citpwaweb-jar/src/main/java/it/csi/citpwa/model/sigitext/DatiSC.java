@@ -22,7 +22,7 @@ public class DatiSC {
 	private Date dataMinimaControllo;
 	private Date dataMassimaControllo;
 
-	private String NomeProprietario;
+	private String nomeProprietario;
 	private String cfProprietario;
 
 	private String cf;
@@ -32,6 +32,7 @@ public class DatiSC {
 	private String numeroRea;
 
 	public DatiSC() {
+		//Not implemented
 	}
 
 	public DatiSC(String idTipoComponente, Integer progressivo, Date dataInstall, Integer codiceImpianto, Date dataDismiss, Integer flgDismissione, Date dataUltMod, String utenteUltMod, Integer fkMarca, String descMarca, String matricola, String modello, BigDecimal potenzaTermicaKw, String note, Integer tempoManutAnni, Date dataMinimaControllo, Date dataMassimaControllo, String nomeProprietario, String cfProprietario) {
@@ -52,7 +53,7 @@ public class DatiSC {
 		this.tempoManutAnni = tempoManutAnni;
 		this.dataMinimaControllo = dataMinimaControllo;
 		this.dataMassimaControllo = dataMassimaControllo;
-		NomeProprietario = nomeProprietario;
+		this.nomeProprietario = nomeProprietario;
 		this.cfProprietario = cfProprietario;
 	}
 
@@ -193,11 +194,11 @@ public class DatiSC {
 	}
 
 	public String getNomeProprietario() {
-		return NomeProprietario;
+		return nomeProprietario;
 	}
 
 	public void setNomeProprietario(String nomeProprietario) {
-		NomeProprietario = nomeProprietario;
+		this.nomeProprietario = nomeProprietario;
 	}
 
 	public String getCfProprietario() {
@@ -237,7 +238,7 @@ public class DatiSC {
 		return "DatiSC{" + "idTipoComponente='" + idTipoComponente + '\'' + ", progressivo=" + progressivo + ", dataInstall=" + dataInstall + ", codiceImpianto=" + codiceImpianto + ", dataDismiss="
 				+ dataDismiss + ", flgDismissione=" + flgDismissione + ", dataUltMod=" + dataUltMod + ", utenteUltMod='" + utenteUltMod + '\'' + ", fkMarca=" + fkMarca + ", descMarca='" + descMarca
 				+ '\'' + ", matricola='" + matricola + '\'' + ", modello='" + modello + '\'' + ", potenzaTermicaKw=" + potenzaTermicaKw + ", note='" + note + '\'' + ", tempoManutAnni="
-				+ tempoManutAnni + ", dataMinimaControllo=" + dataMinimaControllo + ", dataMassimaControllo=" + dataMassimaControllo + ", NomeProprietario='" + NomeProprietario + '\''
+				+ tempoManutAnni + ", dataMinimaControllo=" + dataMinimaControllo + ", dataMassimaControllo=" + dataMassimaControllo + ", NomeProprietario='" + nomeProprietario + '\''
 				+ ", cfProprietario='" + cfProprietario + '\'' + '}';
 	}
 }

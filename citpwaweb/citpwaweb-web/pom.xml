@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>it.csi.citpwa</groupId>
 		<artifactId>citpwaweb</artifactId>
-		<version>1.2.0</version>
+		<version>1.8.0</version>
 	</parent>
 
 	<artifactId>citpwaweb-web</artifactId>
@@ -17,7 +17,7 @@
 		<dependency>
 			<groupId>it.csi.citpwa</groupId>
 			<artifactId>citpwaweb-jar</artifactId>
-			<version>1.2.0</version>
+			<version>1.8.0</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
@@ -28,7 +28,7 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
+			<groupId>apache-log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 			<scope>provided</scope>

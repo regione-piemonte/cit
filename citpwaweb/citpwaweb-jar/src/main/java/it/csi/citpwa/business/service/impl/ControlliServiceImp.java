@@ -15,6 +15,7 @@ import it.csi.citpwa.business.service.ICitService;
 import it.csi.citpwa.business.service.IControlliService;
 import it.csi.citpwa.business.service.ValidationService;
 import it.csi.citpwa.exception.SigitExtException;
+import it.csi.citpwa.exception.SvistaException;
 import it.csi.citpwa.model.*;
 import it.csi.citpwa.model.enums.TipoImportAllegatoEnum;
 import it.csi.citpwa.model.sigitext.*;
@@ -27,7 +28,6 @@ import it.csi.citpwa.model.xsd.controllo4.MODV;
 import it.csi.citpwa.util.Constants;
 import it.csi.citpwa.util.JWTUtil;
 import it.csi.citpwa.util.MapDto;
-import it.csi.sigit.sigitext.ws.service.client.Documento;
 import it.csi.sigit.sigitext.ws.service.client.SigitUserNotAuthorizedException;
 import org.apache.axis.utils.StringUtils;
 import org.apache.log4j.Logger;
@@ -61,7 +61,7 @@ public class ControlliServiceImp implements IControlliService {
 	ValidationService validationService;
 
 	@Override
-	public DatiControlloModel recuperaDati(String codiceImpianto, String ordinamento, Integer numRighe, UtenteLoggato utenteLoggato) throws Exception {
+	public DatiControlloModel recuperaDati(String codiceImpianto, String ordinamento, Integer numRighe, UtenteLoggato utenteLoggato) throws SvistaException, SocketTimeoutException {
 		log.info(Constants.CONTROLLI_LOG + "getControlli - start");
 		List<ControlloModel> controlloModelList = null;
 		DatiControlloModel datiControlloModel = new DatiControlloModel();
@@ -170,6 +170,8 @@ public class ControlliServiceImp implements IControlliService {
 								}
 								datoControlloModel = controlloTipo4Model;
 								break;
+							default:
+								break;
 						}
 					}
 					datoControlloModel.setControlloModel(model);
@@ -228,7 +230,7 @@ public class ControlliServiceImp implements IControlliService {
 			throw new NotFoundException();
 		} catch (Exception e) {
 			log.error(Constants.CONTROLLI_LOG + "getControlli - error: ", e);
-			throw new Exception("Errore recupero controlli", e);
+			throw new SvistaException("Errore recupero controlli", e);
 		} finally {
 			log.info(Constants.CONTROLLI_LOG + "getControlli - end");
 		}
@@ -236,7 +238,7 @@ public class ControlliServiceImp implements IControlliService {
 	}
 
 	@Override
-	public Object getXmlCOntrollo(Integer idAllegato, String tipoDoc, UtenteLoggato user) throws Exception {
+	public Object getXmlCOntrollo(Integer idAllegato, String tipoDoc, UtenteLoggato user) throws SvistaException, SocketTimeoutException, JAXBException {
 		byte[] xmlControllo = citService.getXMLControllo(idAllegato);
 		if (Constants.ALLEGATO_TIPO_1.equals(tipoDoc)) {
 			Source source = new StreamSource(new ByteArrayInputStream(xmlControllo));
@@ -255,7 +257,7 @@ public class ControlliServiceImp implements IControlliService {
 	}
 
 	@Override
-	public byte[] getRicevuta(String tipoComponente, String codiceImpianto, Integer progressivo, Date dataInstallazione, String idAllegato, UtenteLoggato utenteLoggato) throws Exception {
+	public byte[] getRicevuta(String tipoComponente, String codiceImpianto, Integer progressivo, Date dataInstallazione, String idAllegato, UtenteLoggato utenteLoggato) throws SvistaException, SocketTimeoutException, SigitUserNotAuthorizedException {
 		log.info(Constants.CONTROLLI_LOG + "getRicevuta - start");
 		byte[] ricevuta = null;
 		try {
@@ -277,7 +279,7 @@ public class ControlliServiceImp implements IControlliService {
 			throw new NotFoundException();
 		} catch (Exception e) {
 			log.error(Constants.CONTROLLI_LOG + "getRicevuta - error: ", e);
-			throw new Exception("Errore recupero ricevuta", e);
+			throw new SvistaException("Errore recupero ricevuta", e);
 		} finally {
 			log.info(Constants.CONTROLLI_LOG + "getRicevuta - end");
 		}
@@ -285,7 +287,7 @@ public class ControlliServiceImp implements IControlliService {
 
 	@Override
 	public PdfControllo getPDFControllo(String tipoComponente, String codiceImpianto, Integer progressivo, Date dataInstallazione, String idAllegato, Boolean firmato, UtenteLoggato utenteLoggato)
-			throws Exception {
+			throws SvistaException, SocketTimeoutException, SigitUserNotAuthorizedException {
 		log.info(Constants.CONTROLLI_LOG + "getPDFControllo - start");
 		PdfControllo ricevuta = null;
 		try {
@@ -307,7 +309,7 @@ public class ControlliServiceImp implements IControlliService {
 			throw new NotFoundException();
 		} catch (Exception e) {
 			log.error(Constants.CONTROLLI_LOG + "getPDFControllo - error: ", e);
-			throw new Exception("Errore recupero ree", e);
+			throw new SvistaException("Errore recupero ree", e);
 		} finally {
 			log.info(Constants.CONTROLLI_LOG + "getPDFControllo - end");
 		}
@@ -315,7 +317,7 @@ public class ControlliServiceImp implements IControlliService {
 
 	@Override
 	public List<ControlloDisponibileModel> getControlliDisponibili(String codiceImpianto, String tipoComponente, String tipoControllo, String dataControllo, UtenteLoggato utenteLoggato)
-			throws Exception {
+			throws SvistaException, SigitUserNotAuthorizedException, SocketTimeoutException {
 		log.info(Constants.CONTROLLI_LOG + "getControlliDisponibili - start");
 		List<ControlloDisponibile> controlli = null;
 		try {
@@ -333,6 +335,8 @@ public class ControlliServiceImp implements IControlliService {
 						break;
 					case Constants.TIPO_COMPONENTE_CG:
 						tipoControllo = tipoControllo.equals(Constants.TIPO_CONTROLLO_MANUT) ? Constants.MANUTENZIONE_CG : Constants.ALLEGATO_TIPO_3;
+						break;
+					default:
 						break;
 				}
 				controlli = citService.getControlliDisponibili(codiceImpianto, tipoComponente, tipoControllo, dataControllo, utenteLoggato);
@@ -353,14 +357,14 @@ public class ControlliServiceImp implements IControlliService {
 			throw new NotFoundException();
 		} catch (Exception e) {
 			log.error(Constants.CONTROLLI_LOG + "getControlliDisponibili - error: ", e);
-			throw new Exception("Errore recupero controlli disponibili", e);
+			throw new SvistaException("Errore recupero controlli disponibili", e);
 		} finally {
 			log.info(Constants.CONTROLLI_LOG + "getControlliDisponibili - end");
 		}
 	}
 
 	@Override
-	public void uploadReeFirmato(Integer idAllegato, File ree, String fileName, String mimeType, UtenteLoggato user) throws Exception {
+	public void uploadReeFirmato(Integer idAllegato, File ree, String fileName, String mimeType, UtenteLoggato user) throws SvistaException, SocketTimeoutException {
 		log.info(Constants.CONTROLLI_LOG + "uploadReeFirmato - start");
 		try {
 			byte[] fileContent = Files.readAllBytes(ree.toPath());
@@ -374,14 +378,14 @@ public class ControlliServiceImp implements IControlliService {
 			throw e;
 		} catch (Exception e) {
 			log.error(Constants.CONTROLLI_LOG + "uploadReeFirmato - error: ", e);
-			throw new Exception("Errore upload ree firmato", e);
+			throw new SvistaException("Errore upload ree firmato", e);
 		} finally {
 			log.info(Constants.CONTROLLI_LOG + "uploadReeFirmato - end");
 		}
 	}
 
 	@Override
-	public void inviaManutenzione(String codiceImpianto, String tipoControllo, ManutFormModel manutFormModel, UtenteLoggato user) throws Exception {
+	public void inviaManutenzione(String codiceImpianto, String tipoControllo, ManutFormModel manutFormModel, UtenteLoggato user) throws SvistaException, SocketTimeoutException {
 		log.info(Constants.CONTROLLI_LOG + "inviaManutenzione - start");
 		try {
 			String[] nomeCognome = StringUtils.split(manutFormModel.getNomeCognomeTecnico(), ' ');
@@ -408,6 +412,8 @@ public class ControlliServiceImp implements IControlliService {
 					String xmlStringCG = MapDto.createManutenzioneCGXML(manutFormModel, nome, cognome, dataProssimoIntervento, dataControllo, codiceImpianto, user);
 					xmlManut = xmlStringCG.getBytes(StandardCharsets.UTF_8);
 					break;
+				default:
+					break;
 			}
 			JWTModel tokenJWT = JWTUtil.generaTokenFruitoreInterno(user.getPfLoggato().getCodiceFiscalePF(), null);
 			TipoImportAllegatoEnum tipoCOntrollo = TipoImportAllegatoEnum.valueOfId(tipoControllo);
@@ -422,14 +428,14 @@ public class ControlliServiceImp implements IControlliService {
 			throw e;
 		} catch (Exception e) {
 			log.error(Constants.CONTROLLI_LOG + "inviaManutenzione - error: ", e);
-			throw new Exception("Errore invio nuova manutenzione", e);
+			throw new SvistaException("Errore invio nuova manutenzione", e);
 		} finally {
 			log.info(Constants.CONTROLLI_LOG + "inviaManutenzione - end");
 		}
 	}
 
 	@Override
-	public Esito inserisciREE(String codiceImpianto, String tipoControllo, String ree, boolean invia, UtenteLoggato user) throws Exception {
+	public Esito inserisciREE(String codiceImpianto, String tipoControllo, String ree, boolean invia, UtenteLoggato user) throws SvistaException, SocketTimeoutException {
 		log.info(Constants.CONTROLLI_LOG + "inviaRee - start");
 		try {
 			byte[] convertedXml = convertModModelToByteArray(ree, tipoControllo);
@@ -456,7 +462,7 @@ public class ControlliServiceImp implements IControlliService {
 			throw e;
 		} catch (Exception e) {
 			log.error(Constants.CONTROLLI_LOG + "inviaRee - error: ", e);
-			throw new Exception("Errore invio ree", e);
+			throw new SvistaException("Errore invio ree", e);
 		} finally {
 			log.info(Constants.CONTROLLI_LOG + "inviaRee - end");
 		}
@@ -509,13 +515,15 @@ public class ControlliServiceImp implements IControlliService {
 				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 				jaxbMarshaller.marshal(modv, sw);
 				break;
+			default:
+				break;
 		}
 		log.info(sw.toString());
 		return sw.toString().getBytes(StandardCharsets.UTF_8);
 	}
 
 	@Override
-	public void modificaREE(Integer idAllegato, String codiceImpianto, String tipoControllo, boolean invia, String ree, UtenteLoggato user) throws Exception {
+	public void modificaREE(Integer idAllegato, String codiceImpianto, String tipoControllo, boolean invia, String ree, UtenteLoggato user) throws SvistaException, SocketTimeoutException {
 		log.info(Constants.CONTROLLI_LOG + "modificaREE - start");
 		try {
 			byte[] convertedXml = convertModModelToByteArray(ree, tipoControllo);
@@ -536,14 +544,14 @@ public class ControlliServiceImp implements IControlliService {
 			throw e;
 		} catch (Exception e) {
 			log.error(Constants.CONTROLLI_LOG + "modificaREE - error: ", e);
-			throw new Exception("Errore modifica ree", e);
+			throw new SvistaException("Errore modifica ree", e);
 		} finally {
 			log.info(Constants.CONTROLLI_LOG + "modificaREE - end");
 		}
 	}
 
 	@Override
-	public Esito inviaREE(Integer idAllegato, UtenteLoggato user) throws Exception {
+	public Esito inviaREE(Integer idAllegato, UtenteLoggato user) throws SvistaException, SocketTimeoutException {
 		log.info(Constants.CONTROLLI_LOG + "inviaREE - start");
 		try {
 			return citService.inviaREE(idAllegato, user.getRuoloLoggato().getIdPersonaGiuridica(), user.getPfLoggato().getCodiceFiscalePF(), user.getRuoloLoggato());
@@ -555,14 +563,14 @@ public class ControlliServiceImp implements IControlliService {
 			throw e;
 		} catch (Exception e) {
 			log.error(Constants.CONTROLLI_LOG + "inviaREE - error: ", e);
-			throw new Exception("Errore modifica ree", e);
+			throw new SvistaException("Errore modifica ree", e);
 		} finally {
 			log.info(Constants.CONTROLLI_LOG + "inviaREE - end");
 		}
 	}
 
 	@Override
-	public void deleteControllo(Integer idAllegato, Integer statoRapp, UtenteLoggato utenteLoggato) throws Exception {
+	public void deleteControllo(Integer idAllegato, Integer statoRapp, UtenteLoggato utenteLoggato) throws SvistaException, SocketTimeoutException {
 		log.info(Constants.CONTROLLI_LOG + "deleteControllo - start");
 		try {
 			if (statoRapp.equals(Constants.BOZZA)) {
@@ -580,7 +588,7 @@ public class ControlliServiceImp implements IControlliService {
 			throw e;
 		} catch (Exception e) {
 			log.error(Constants.CONTROLLI_LOG + "deleteControllo - error: ", e);
-			throw new Exception("Errore cancellazione controllo", e);
+			throw new SvistaException("Errore cancellazione controllo", e);
 		} finally {
 			log.info(Constants.CONTROLLI_LOG + "deleteControllo - end");
 		}

@@ -29,6 +29,7 @@ public class ManutFormModel {
 	private String siglaRea;
 
 	public ManutFormModel() {
+		//Not implemented
 	}
 
 	public String getDataControllo() {

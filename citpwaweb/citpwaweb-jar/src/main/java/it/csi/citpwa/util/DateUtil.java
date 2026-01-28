@@ -57,8 +57,8 @@ public class DateUtil {
 			return null;
 	}
 
-	public static String xmlGregorianCalendarToString(XMLGregorianCalendar date, String format) throws ParseException, DatatypeConfigurationException {
-		if (date != null) {
+    public static String xmlGregorianCalendarToString(XMLGregorianCalendar date, String format) throws ParseException, DatatypeConfigurationException {		
+    	if (date != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat(format);
 			return sdf.format(date.toGregorianCalendar().getTime());
 		} else

@@ -1,6 +1,5 @@
 package it.csi.citpwa.model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import it.csi.citpwa.model.sigitext.Controllo;
 import it.csi.citpwa.util.Constants;
 import it.csi.citpwa.util.ObjectConverter;
@@ -206,6 +205,7 @@ public class ControlloModel {
 	});
 
 	public ControlloModel() {
+		//Not implemented
 	}
 
 	public Integer getIdAllegato() {

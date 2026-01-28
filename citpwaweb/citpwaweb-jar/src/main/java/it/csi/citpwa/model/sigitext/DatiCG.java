@@ -47,6 +47,7 @@ public class DatiCG {
 	private String numeroRea;
 
 	public DatiCG() {
+		//Not implemented
 	}
 
 	public String getIdTipoComponente() {

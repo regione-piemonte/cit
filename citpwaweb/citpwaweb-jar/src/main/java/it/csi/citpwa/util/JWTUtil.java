@@ -17,6 +17,8 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import it.csi.citpwa.model.JWTModel;
 import it.csi.citpwa.model.enums.JWTUserEnum;
+
+import org.apache.log4j.Logger;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
@@ -29,6 +31,8 @@ import java.util.Date;
 public class JWTUtil {
 
 	private static final String PRIVATE_KEY = "/keystore/private_key.pem";
+	
+	private static final Logger log = Logger.getLogger(Constants.COMPONENT_NAME);
 
 	public static JWTModel generaTokenFruitoreInterno(String codiceFiscalePF, String idPersonaGiuridica) {
 		JWTModel jwtModel = new JWTModel(JWTUserEnum.FRUITORE_INTERNO);
@@ -44,8 +48,7 @@ public class JWTUtil {
 
 	public static void createToken(JWTModel dto) {
 		String token = null;
-		try {
-			InputStream ioBf = new FileInputStream(new ClassPathResource(PRIVATE_KEY).getFile());
+		try ( InputStream ioBf = new FileInputStream(new ClassPathResource(PRIVATE_KEY).getFile()) ) {
 			Reader targetReader = new InputStreamReader(ioBf);
 			RSAKey privRSA = (RSAKey) PemUtils.readPrivateKeyFromFile(targetReader, "RSA");
 			Algorithm algorithmRS = Algorithm.RSA256(null, (RSAPrivateKey) privRSA);
@@ -56,8 +59,6 @@ public class JWTUtil {
 			Builder tokenBuilder = JWT.create().withIssuer(dto.getIssuer()).withSubject(dto.getSubject());
 
 			dtScadenzaToken = getScadenzaToken(dtCreazioneToken, Calendar.DATE, 1);
-
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:sss");
 
 			if (dto.getIdPg() != null) {
 
@@ -75,15 +76,15 @@ public class JWTUtil {
 			dto.setToken(token);
 
 		} catch (IOException exception) {
-			System.err.println("Invalid token (IOException): " + exception);
+			log.error("Invalid token (IOException): " + exception);
 		} catch (JWTDecodeException exception) {
 			// Invalid token
-			System.err.println("Invalid token (JWTDecodeException): " + exception);
+			log.error("Invalid token (JWTDecodeException): " + exception);
 		} catch (JWTCreationException exception) {
 			// Invalid Signing configuration / Couldn't convert Claims.
-			System.err.println("Invalid JWTCreationException: " + exception);
+			log.error("Invalid JWTCreationException: " + exception);
 		} catch (Exception exception) {
-			System.err.println("Invalid token (Exception): " + exception);
+			log.error("Invalid token (Exception): " + exception);
 		}
 
 	}

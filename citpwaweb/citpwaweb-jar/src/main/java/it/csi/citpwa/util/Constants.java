@@ -10,18 +10,91 @@
 package it.csi.citpwa.util;
 
 public class Constants {
-	public final static String COMPONENT_NAME = "citpwaweb";
+	public static final String COMPONENT_NAME = "citpwaweb";
 
-	public final static String AUTHENTICATION_LOG = "[AuthenticationServiceImp]";
+	public static final String AUTHENTICATION_LOG = "[AuthenticationServiceImp]";
 
-	public final static String IMPIANTO_LOG = "[ImpiantoServiceImp]";
-	public final static String COMPONENT_LOG = "[ComponentServiceImp]";
+	public static final String IMPIANTO_LOG = "[ImpiantoServiceImp]";
+	public static final String COMPONENT_LOG = "[ComponentServiceImp]";
+	public static final String SETLIBSCHEDA1IMPIANTO_LOG = "[SetLibSch1IdImpianto]";
+	public static final String SETLIBSCHEDA2IMPIANTO_LOG = "[SetLibSch2IdImpianto]";
 
-	public final static String CONTROLLI_LOG = "[ControlliServiceImp]";
-	public final static String LIBRETTO_LOG = "[LibrettoServiceImp]";
+	public static final String CONTROLLI_LOG = "[ControlliServiceImp]";
+	public static final String LIBRETTO_LOG = "[LibrettoServiceImp]";
+	public static final String DOCUMENTO_LOG = "[DocumentoServiceImp]";
+	public static final String NOMINA_TERZO_RESPONSABILE_LOG = "[NominaTerzoResponsabileServiceImp]";
 
-	public final static String CITSERVICE_LOG = "[CitServiceImp]";
-
+	public static final String CITSERVICE_LOG = "[CitServiceImp]";
+	
+	public static final String ISPEZIONESERVICE_LOG = "[IspezioneServiceImp]";
+	
+	public static final String CITSERVICE_MEDIA_TYPE = "application";
+	
+	public static final String CITSERVICE_ERRORE_SETACCESSO = "Errore durante la chiamata a setAccesso";
+	public static final String CITSERVICE_ERRORE_SALVATAGGIO_ACCESSO = "Errore durante il salvataggio dell'accesso";
+	public static final String CITSERVICE_ERRORE_RECUPERO_IMPIANTI = "Errore durante il recupero degli impianti";
+	public static final String CITSERVICE_ERRORE_RECUPERO_LIBRETTO = "Errore durante il recupero del libretto";
+	public static final String CITSERVICE_ERRORE_DELETE_DOCUMENTO = "Errore durante la cancellazione del documento";
+	public static final String CITSERVICE_ERRORE_RECUPERO_DOCUMENTO = "Errore durante il recupero del documento";
+	public static final String CITSERVICE_ERRORE_SALVATAGGIO_DOCUMENTO = "Errore durante il salvataggio del documento";
+	public static final String CITSERVICE_ERRORE_RECUPERO_DATI = "Errore durante il recupero dei dati";
+	public static final String CITSERVICE_ERRORE_RECUPERO_XML_CONTROLLO = "Errore durante il recupero dell'xml del controllo";
+	public static final String CITSERVICE_ERRORE_RECUPERO_RESP_PROP = "Errore durante il recupero del responsabile/proprietario";
+	public static final String CITSERVICE_ERRORE_INVIO_COMP = "Errore durante l'invio del componente: ";
+	public static final String CITSERVICE_ERRORE_RECUPERO_COMP_GT = "Errore durante il recupero dei componenti GT";
+	public static final String CITSERVICE_ERRORE_RECUPERO_COMP_GF = "Errore durante il recupero dei componenti GF";
+	public static final String CITSERVICE_ERRORE_RECUPERO_COMP_SC = "Errore durante il recupero dei componenti SC";
+	public static final String CITSERVICE_ERRORE_RECUPERO_COMP_CG = "Errore durante il recupero dei componenti CG";
+	public static final String CITSERVICE_ERRORE_AGGIORNAMENTO = "Errore durante l'aggiornamento";
+	public static final String CITSERVICE_ERRORE_RECUPERO_RICEVUTA = "Errore recupero ricevuta";
+	public static final String CITSERVICE_ERRORE_RECUPERO_CONTROLLO_DISP = "Errore recupero controllo disponibile";
+	public static final String CITSERVICE_ERRORE_UPLOAD_REE = "Errore durante l'upload del ree";
+	public static final String CITSERVICE_ERRORE_SETLIBSCHEDA1IMPIANTO = "Errore durante la chiamata a setLibSch1IdImpianto";
+	public static final String CITSERVICE_ERRORE_SETLIBSCHEDA2IMPIANTO = "Errore durante la chiamata a setLibSch2IdImpianto";
+	
+	public static final String CITSERVICE_PARAM_ID_ALLEGATO = "id-allegato";
+	public static final String CITSERVICE_PARAM_CODICE_IMPIANTO = "codice-impianto";
+	public static final String CITSERVICE_PARAM_TOKEN_JWT = "tokenJWT";
+	public static final String CITSERVICE_PARAM_PROGRESSIVO = "progressivo";
+	public static final String CITSERVICE_PARAM_ID_PERSONA = "id-persona";
+	public static final String CITSERVICE_PARAM_ID_IMPRESA = "id-impresa";
+	public static final String CITSERVICE_PARAM_RUOLO = "ruolo";
+	
+	public static final String COMPONENT_SERVICE_ERRORE_RECUPERO_DATI = "Errore recupero dati";
+	
+	public static final String IMPIANTO_SERVICE_ERRORE_SET_RESP_PROP = "setRespProp - error: ";
+	public static final String IMPIANTO_SERVICE_ERRORE_SET_IMPIANTO = "setImpianto - error: ";
+	
+	public static final String LOCCSI_SERVICE_CHARSET = "charset";
+	public static final String LOCCSI_SERVICE_UTF = "UTF-8";
+	
+	public static final String XML_SCHEMA = "http://www.w3.org/2001/XMLSchema";
+	public static final String TYPE_STRING = "string";
+	
+	public static final String LIMAMM_ENTE = "limammEnte";
+	public static final String LIMAMM_ENTE_PARAM_COMUNE = "Comune";
+	public static final String LIMAMM_ENTE_PARAM_PROVINCIA = "Provincia";
+	public static final String LIMAMM_ENTE_PARAM_REGIONE = "Regione";
+	public static final String LIMAMM_ENTE_PARAM_LOCALITA = "Localita";
+	public static final String FAULT = "fault";
+	public static final String FAULT1 = "fault1";
+	public static final String FAULT2 = "fault2";
+	public static final String FAULT3 = "fault3";
+	public static final String FAULT4 = "fault4";
+	public static final String FAULT5 = "fault5";
+	public static final String SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION = "it.csi.svista.ws.service.svista.client.UnrecoverableException";
+	public static final String SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION = "UnrecoverableException";
+	public static final String SVISTA_SERVICE_CSI_EXCEPTION = "it.csi.svista.ws.service.svista.client.CSIException";
+	public static final String SVISTA_SERVICE_PARAM_CSI_EXCEPTION = "CSIException";
+	public static final String SVISTA_SERVICE_SYSTEM_EXCEPTION = "it.csi.svista.ws.service.svista.client.SystemException";
+	public static final String SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION = "SystemException";
+	public static final String SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION = "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException";
+	public static final String SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION = "ParInputValNonCorrettoException";
+	public static final String SVISTA_SERVICE_OUTPUT_EXCEPTION = "it.csi.svista.ws.service.svista.client.OutputException";
+	public static final String SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION = "OutputException";
+	public static final String SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION = "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException";
+	public static final String SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION = "ParInputObblMancantiException";
+	
 	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
 
 	public static final String AUTH_ID_MARKER = "Shib-Iride-IdentitaDigitale";
@@ -36,7 +109,7 @@ public class Constants {
 
 	public static final Long ID_RUOLO_SUPERUSER = 1L;
 
-	public final static String CODICE_FRUITORE_SIGITEXT_SIGIT = "SIGIT";
+	public static final String CODICE_FRUITORE_SIGITEXT_SIGIT = "SIGIT";
 
 	public static final String SUBJECT_JWT_FRUITORE = "INTERNO";
 
@@ -96,6 +169,7 @@ public class Constants {
 
 	public static final String OK = "OK";
 	public static final String KO = "KO";
+	public static final String WARN = "WARN";
 	public static final String IND_LOCCSI_COMUNI = "ind_loccsi_comuni";
 
 	public static final String IND_LOCCSI_CIVICI_FULL = "ind_loccsi_civici_bdtre";
@@ -124,28 +198,33 @@ public class Constants {
 	public static final String POD = "IT[0-9]{3}[E]{1}[0-9a-zA-Z]+";
 	public static final String PDR = "[0-9]{14}";
 
-	public final static String STATO_DEL_CONTROLLO = "fk_stato_rapp";
-	public final static String DATA_CONTROLLO_MENO_RECENTE = "da\ta_controllo";
-	public final static String DATA_CONTROLLO_PIU_RECENTE = "data_controllo DESC";
-	public final static String TIPOLOGIA_DI_CONTROLLO = "fk_tipo_documento";
+	public static final String STATO_DEL_CONTROLLO = "fk_stato_rapp";
+	public static final String DATA_CONTROLLO_MENO_RECENTE = "da\ta_controllo";
+	public static final String DATA_CONTROLLO_PIU_RECENTE = "data_controllo DESC";
+	public static final String TIPOLOGIA_DI_CONTROLLO = "fk_tipo_documento";
 	public static final int PARTITA_IVA_LEN = 11;
 
-	public final static String TIPO_CONTROLLO_MANUT = "1";
-	public final static String TIPO_CONTROLLO_REE = "2";
+	public static final String TIPO_CONTROLLO_MANUT = "1";
+	public static final String TIPO_CONTROLLO_REE = "2";
 
 	public static final Integer BOZZA = 0;
 	public static final String APPLICATION_CODE = "sigitext";
-	public final static String UTF_8_ENCODING = "UTF-8";
+	public static final String UTF_8_ENCODING = "UTF-8";
 	public static final String FORMAT = "MM/dd/yyyy";
 	public static final String STATO_IMPIANTO_ATTIVO = "Attivo";
 	public static final int FK_STATO_IMPIANTO_ATTIVO = 1;
 
 	//API MANAGER GWEECOSIS
-	public final static String APIMAN_TOKEN_URL = "apimanager.gwecosis.token.url";
-	public final static String APIMAN_TOKEN_CONSUMERKEY = "apimanager.gwecosis.token.consumerkey";
-	public final static String APIMAN_TOKEN_CONSUMERSECRET = "apimanager.gwecosis.token.consumersecret";
-	public final static int APIMAN_TIMEOUT = 10000;
+	public static final String APIMAN_TOKEN_URL = "apimanager.gwecosis.token.url";
+	public static final String APIMAN_TOKEN_CONSUMERKEY = "apimanager.gwecosis.token.consumerkey";
+	public static final String APIMAN_TOKEN_CONSUMERSECRET = "apimanager.gwecosis.token.consumersecret";
+	public static final int APIMAN_TIMEOUT = 10000;
+	
+	//API SERVICE IMP
+	public static final String UTENTE_NON_AUTORIZZATO = "Utente non autorizzato";
+	public static final String NESSUN_COMBUSTIBILE_TROVATO = "nessun combustibile trovato";
+	public static final String NESSUN_ELEMENTO_TROVATO = "nessun elemento trovato";
 	
 	//SVISTA
-	public final static String SVISTA_WSDL_URL = "svista.wsdl.url";
+	public static final String SVISTA_WSDL_URL = "svista.wsdl.url";
 }

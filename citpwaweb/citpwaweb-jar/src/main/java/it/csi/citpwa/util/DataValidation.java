@@ -21,7 +21,7 @@ public class DataValidation {
 	}
 
 	public static boolean validateString(String data) {
-		Pattern p = Pattern.compile("/^[A-Za-z]+$/");
+		Pattern p = Pattern.compile("^[A-Za-z]+$");
 		Matcher m = p.matcher(data);
 		return m.find();
 	}

@@ -1,18 +1,21 @@
 package it.csi.citpwa.model.sigitext;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class DatiGF {
 	private String idTipoComponente;
 	private Integer progressivo;
+	@JsonFormat(shape = JsonFormat.Shape.NUMBER)
 	private Date dataInstall;
 	private Integer codiceImpianto;
 	private Integer fkDettaglioGf;
 	private String desDettaglioGf;
 	private String flgSorgenteExt;
 	private String flgFluidoUtenze;
-	private String fluidoFrigorigenodi;
+	private String fluidoFrigorigeno;
 	private Integer nCircuiti;
 	private String raffrescamentoEer;
 	private BigDecimal raffPotenzaKw;
@@ -46,6 +49,7 @@ public class DatiGF {
 	private String numeroRea;
 
 	public DatiGF() {
+		//Not implemented
 	}
 
 	public String getIdTipoComponente() {
@@ -112,12 +116,12 @@ public class DatiGF {
 		this.flgFluidoUtenze = flgFluidoUtenze;
 	}
 
-	public String getFluidoFrigorigenodi() {
-		return fluidoFrigorigenodi;
+	public String getFluidoFrigorigeno() {
+		return fluidoFrigorigeno;
 	}
 
-	public void setFluidoFrigorigenodi(String fluidoFrigorigenodi) {
-		this.fluidoFrigorigenodi = fluidoFrigorigenodi;
+	public void setFluidoFrigorigeno(String fluidoFrigorigeno) {
+		this.fluidoFrigorigeno = fluidoFrigorigeno;
 	}
 
 	public Integer getnCircuiti() {

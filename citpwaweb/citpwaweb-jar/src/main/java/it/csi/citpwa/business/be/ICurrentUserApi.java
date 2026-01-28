@@ -12,7 +12,12 @@
  **********************************************/
 package it.csi.citpwa.business.be;
 
+import it.csi.citpwa.exception.SvistaException;
+import it.csi.citpwa.exception.ValidationErrorException;
 import it.csi.citpwa.model.sigitext.UtenteLoggato;
+import it.csi.sigit.sigitext.ws.service.client.SigitUserNotAuthorizedException;
+
+import java.net.SocketTimeoutException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -30,7 +35,8 @@ public interface ICurrentUserApi {
 
 	@GET
 	@Produces({ "application/json" })
-	public Response getCurrentUser(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest req);
+	public Response getCurrentUser(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest req)
+	throws SigitUserNotAuthorizedException, SocketTimeoutException, SvistaException, ValidationErrorException;
 
 	@GET
 	@Path("/roles")
@@ -46,5 +52,10 @@ public interface ICurrentUserApi {
 	@Path("/accesso")
 	@Produces({ "application/json" })
 	public Response setAccesso(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest req, UtenteLoggato utenteLoggato);
+
+	@POST
+	@Path("/disponibilitaservizio")
+	@Produces({ "application/json" })
+	public Response getDisponibilitaServizio(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest req, UtenteLoggato utenteLoggato);
 
 }

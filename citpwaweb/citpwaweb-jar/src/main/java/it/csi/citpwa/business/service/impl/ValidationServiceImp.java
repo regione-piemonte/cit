@@ -21,7 +21,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
@@ -58,16 +57,6 @@ public class ValidationServiceImp implements ValidationService {
 		if (!isNotNullOrEmpty(datiImpianto.getStato())) {
 			esito.setEsito(Constants.KO);
 			descEsito.append("Stato impianto non valido");
-			descEsito.append("\n");
-		}
-
-		if (!isNotNullOrEmpty(datiImpianto.getDataAssCi())) {
-			esito.setEsito(Constants.KO);
-			descEsito.append("Data Associazione impianto non valida");
-			descEsito.append("\n");
-		} else if (isDataFutura(datiImpianto.getDataAssCi())) {
-			esito.setEsito(Constants.KO);
-			descEsito.append("Data Associazione impianto non valida. Data indicata successiva alla data odierna");
 			descEsito.append("\n");
 		}
 
@@ -111,7 +100,7 @@ public class ValidationServiceImp implements ValidationService {
 			}
 		}
 
-		if (datiImpianto.getStradario()) {
+		if (datiImpianto.getStradario().equals(true)) {
 			if (!isNotNullOrEmpty(datiImpianto.getIndirizzoNonTrovato())) {
 				esito.setEsito(Constants.KO);
 				descEsito.append("Indirizzo inserito non valido");
@@ -256,6 +245,8 @@ public class ValidationServiceImp implements ValidationService {
 			case Constants.RUOLO_CAT:
 				result = false;
 				break;
+			default:
+				break;
 		}
 		return result;
 	}
@@ -284,22 +275,22 @@ public class ValidationServiceImp implements ValidationService {
 		dati.setCoordX(datiImpianto.getCoordX());
 		dati.setIndirizzoNonTrovato(datiImpianto.getIndirizzoNonTrovato());
 		dati.setIndirizzoSitad(datiImpianto.getIndirizzoSitad());
-		dati.setDataAssCi(datiImpianto.getDataAssCi());
 		dati.setDataVar(datiImpianto.getDataVar());
 		dati.setCoordY(datiImpianto.getCoordY());
-		dati.setFlgNoPdr(datiImpianto.getFlgNoPdr() ? 1 : 0);
-		dati.setFlgApparevvUiExt(datiImpianto.getFlgApparevvUiExt() ? 1 : 0);
-		dati.setFlgContabilizzazione(datiImpianto.getFlgContabilizzazione() ? 1 : 0);
-		dati.setFlgVisuProprietario(datiImpianto.getFlgVisuProprietario() ? 1 : 0);
+		dati.setFlgNoPdr(datiImpianto.getFlgNoPdr().equals(true) ? 1 : 0);
+		dati.setFlgApparevvUiExt(datiImpianto.getFlgApparevvUiExt().equals(true) ? 1 : 0);
+		dati.setFlgContabilizzazione(datiImpianto.getFlgContabilizzazione().equals(true) ? 1 : 0);
+		dati.setFlgVisuProprietario(datiImpianto.getFlgVisuProprietario().equals(true) ? 1 : 0);
 		dati.setPdr(datiImpianto.getPdr());
 		dati.setPod(datiImpianto.getPod());
 		dati.setProvincia(datiImpianto.getProvincia());
 		dati.setStato(datiImpianto.getStato());
 		dati.setTipoImpianto(datiImpianto.getTipoImpianto());
-		dati.setStradario(datiImpianto.getStradario() ? 1 : 0);
+		dati.setStradario(datiImpianto.getStradario().equals(true) ? 1 : 0);
 		dati.setMotivazione(datiImpianto.getMotivazione());
 		dati.setSiglaProv(datiImpianto.getSiglaProv());
 		dati.setIstatComune(datiImpianto.getIstatComune());
+		dati.setFlgMedioimpianto(datiImpianto.getFlgMedioImpiantoCivile().equals(true) ? 1 : 0);
 		return dati;
 	}
 
@@ -449,8 +440,8 @@ public class ValidationServiceImp implements ValidationService {
 		boolean ok = false;
 		int controllo = -1;
 		int resto;
-		int sum_pari = 0;
-		int sum_dispari = 0;
+		int sumPari = 0;
+		int sumDispari = 0;
 		int restoTwo = 0;
 		String codiceFiscale = null;
 
@@ -465,12 +456,11 @@ public class ValidationServiceImp implements ValidationService {
 				for (row = 1; row <= 36; row++) {
 					if (carattere[row - 1] == caratt) {
 						if ((i / 2) * 2 == i) {
-							sum_pari = sum_pari + valore_pari[row - 1];
-							break;
+							sumPari = sumPari + valore_pari[row - 1];
 						} else {
-							sum_dispari = sum_dispari + valore_dispari[row - 1];
-							break;
+							sumDispari = sumDispari + valore_dispari[row - 1];
 						}
+						break;
 					}
 				}
 				if (row > 36) {
@@ -478,7 +468,7 @@ public class ValidationServiceImp implements ValidationService {
 				}
 			}
 
-			resto = (sum_pari + sum_dispari) - ((sum_pari + sum_dispari) / 26) * 26;
+			resto = (sumPari + sumDispari) - ((sumPari + sumDispari) / 26) * 26;
 			caratt = codFiscale.charAt(0);
 
 			for (int row = 1; row <= 36; row++) {

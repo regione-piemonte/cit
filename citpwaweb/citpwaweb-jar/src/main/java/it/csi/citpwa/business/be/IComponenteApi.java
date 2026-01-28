@@ -13,8 +13,6 @@ import it.csi.citpwa.model.DatiCGModel;
 import it.csi.citpwa.model.DatiGFModel;
 import it.csi.citpwa.model.DatiGTModel;
 import it.csi.citpwa.model.DatiSCModel;
-import it.csi.citpwa.model.sigitext.DatiGT;
-import it.csi.citpwa.model.sigitext.UpdateGtModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -74,6 +72,16 @@ public interface IComponenteApi {
 	@Path("/combustibile")
 	@Produces({ "application/json" })
 	public Response getCombustibileCIT(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest req);
+
+	@GET
+	@Path("/classDpr66096")
+	@Produces({ "application/json" })
+	public Response getClassDpr66096CIT(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest req);
+
+	@GET
+	@Path("/frequenzaManut")
+	@Produces({ "application/json" })
+	public Response getFrequenzaManutCIT(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest req);
 
 	@GET
 	@Path("/tipologiaGT")

@@ -124,7 +124,9 @@ public class DatiGTModel {
 		dto.setPotenzaTermicaKw(u.getPotenzaTermicaKw());
 		dto.setNote(u.getNote());
 		dto.setTempoManutAnni(u.getTempoManutAnni());
-		dto.setMediImpOreOperative(u.getMediImpOreOperative());
+		if(u.getMediImpOreOperative() != null) {
+			dto.setMediImpOreOperative(u.getMediImpOreOperative());
+		}
 		dto.setIdTipocannaFumaria(u.getIdTipocannaFumaria());
 		dto.setDescCombustibile(u.getDescCombustibile());
 		dto.setDescMarca(u.getDescMarca());
@@ -147,6 +149,7 @@ public class DatiGTModel {
 	});
 
 	public DatiGTModel() {
+		//Not implemented
 	}
 
 	public String getIdTipoComponente() {

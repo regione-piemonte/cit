@@ -1,5 +1,7 @@
 package it.csi.citpwa.model.sigitext;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -39,7 +41,12 @@ public class DatiGT {
 
 	private String numeroRea;
 
+	private String desFluido;
+	private String desMarca;
+	private String desDettaglioGt;
+
 	public DatiGT() {
+		//Not implemented
 	}
 
 	public String getIdTipoComponente() {
@@ -280,6 +287,30 @@ public class DatiGT {
 
 	public void setNumeroRea(String numeroRea) {
 		this.numeroRea = numeroRea;
+	}
+
+	public String getDesFluido() {
+		return desFluido;
+	}
+
+	public void setDesFluido(String desFluido) {
+		this.desFluido = desFluido;
+	}
+
+	public String getDesMarca() {
+		return desMarca;
+	}
+
+	public void setDesMarca(String desMarca) {
+		this.desMarca = desMarca;
+	}
+
+	public String getDesDettaglioGt() {
+		return desDettaglioGt;
+	}
+
+	public void setDesDettaglioGt(String desDettaglioGt) {
+		this.desDettaglioGt = desDettaglioGt;
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package it.csi.citpwa.model.sigitext;
 
-public class UtenteLoggato {
+import java.io.Serializable;
+
+public class UtenteLoggato implements Serializable {
 	private PFLoggato pfLoggato;
 	private RuoloLoggato ruoloLoggato;
 
@@ -27,4 +29,11 @@ public class UtenteLoggato {
 	public void setRuoloLoggato(RuoloLoggato ruoloLoggato) {
 		this.ruoloLoggato = ruoloLoggato;
 	}
+
+	@Override
+	public String toString() {
+		return "UtenteLoggato [pfLoggato=" + pfLoggato.toString() + ", ruoloLoggato=" + ruoloLoggato.toString() + "]";
+	}
+	
+	
 }

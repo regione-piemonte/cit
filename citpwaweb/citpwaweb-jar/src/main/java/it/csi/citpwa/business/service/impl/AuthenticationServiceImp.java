@@ -12,7 +12,8 @@ package it.csi.citpwa.business.service.impl;
 import it.csi.citpwa.business.service.IAuthenticationService;
 import it.csi.citpwa.business.service.ICitService;
 import it.csi.citpwa.business.service.ValidationService;
-import it.csi.citpwa.exception.SigitExtException;
+import it.csi.citpwa.exception.SvistaException;
+import it.csi.citpwa.exception.ValidationErrorException;
 import it.csi.citpwa.model.sigitext.*;
 import it.csi.citpwa.util.Constants;
 import it.csi.sigit.sigitext.ws.service.client.SigitUserNotAuthorizedException;
@@ -38,7 +39,7 @@ public class AuthenticationServiceImp implements IAuthenticationService {
 	private ValidationService validationService;
 
 	@Override
-	public UtenteLoggato getCurrentUser(HttpServletRequest req) {
+	public UtenteLoggato getCurrentUser(HttpServletRequest req) throws SvistaException, SocketTimeoutException, ValidationErrorException, SigitUserNotAuthorizedException {
 		return (UtenteLoggato) req.getSession().getAttribute(Constants.USERINFO_SESSIONATTR);
 	}
 
@@ -48,7 +49,7 @@ public class AuthenticationServiceImp implements IAuthenticationService {
 	}
 
 	@Override
-	public Ruoli getRuoliUtente(HttpServletRequest req) throws Exception {
+	public Ruoli getRuoliUtente(HttpServletRequest req) throws SvistaException, SigitUserNotAuthorizedException, SocketTimeoutException, ValidationErrorException {
 		log.info(Constants.AUTHENTICATION_LOG + "getRuoloUtente - start");
 		UtenteLoggato user = getCurrentUser(req);
 		try {
@@ -73,14 +74,14 @@ public class AuthenticationServiceImp implements IAuthenticationService {
 				throw new SigitUserNotAuthorizedException();
 		} catch (Exception e) {
 			log.error(Constants.AUTHENTICATION_LOG + "getRuoliUtente - error: ", e);
-			throw new Exception("Errore recupero ruoli utente");
+			throw new SvistaException("Errore recupero ruoli utente");
 		} finally {
 			log.info(Constants.AUTHENTICATION_LOG + "getRuoliUtente - end");
 		}
 	}
 
 	@Override
-	public UtenteLoggato setAccesso(HttpServletRequest req, UtenteLoggato utenteLoggato) throws Exception {
+	public UtenteLoggato setAccesso(HttpServletRequest req, UtenteLoggato utenteLoggato) throws SvistaException, SigitUserNotAuthorizedException {
 		UtenteLoggato utenteLoggatoInvio = new UtenteLoggato();
 		RuoloLoggato ruoloLoggatoInvio = new RuoloLoggato();
 		PFLoggato pfLoggatoInvio = new PFLoggato();
@@ -88,7 +89,7 @@ public class AuthenticationServiceImp implements IAuthenticationService {
 		BeanUtils.copyProperties(utenteLoggato.getPfLoggato(), pfLoggatoInvio);
 		utenteLoggatoInvio.setPfLoggato(pfLoggatoInvio);
 		utenteLoggatoInvio.setRuoloLoggato(ruoloLoggatoInvio);
-		if (validationService.isStatoPGValido(utenteLoggatoInvio)) {
+		if (validationService.isStatoPGValido(utenteLoggatoInvio).equals(true)) {
 			StringBuilder builder = new StringBuilder(utenteLoggatoInvio.getRuoloLoggato().getRuolo());
 			builder.append(" (CITPWA)");
 			if (utenteLoggatoInvio.getRuoloLoggato().getNumeroRea() != null)
@@ -114,7 +115,11 @@ public class AuthenticationServiceImp implements IAuthenticationService {
 	}
 
 	@Override
-	public void ping() throws Exception {
+	public String getDisponibilitaServizio(UtenteLoggato utenteLoggato) throws SvistaException {
+		return iCitService.getDisponibilitaServizio(utenteLoggato);
+	}
+
+	@Override	public void ping() throws SvistaException, SocketTimeoutException {
 		log.info(Constants.AUTHENTICATION_LOG + "ping - start");
 		try {
 			iCitService.ping();
@@ -125,4 +130,5 @@ public class AuthenticationServiceImp implements IAuthenticationService {
 			log.info(Constants.AUTHENTICATION_LOG + "ping - end");
 		}
 	}
+
 }

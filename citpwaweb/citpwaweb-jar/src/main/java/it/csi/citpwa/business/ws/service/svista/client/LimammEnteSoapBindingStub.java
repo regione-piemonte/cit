@@ -7,1331 +7,1333 @@
 
 package it.csi.citpwa.business.ws.service.svista.client;
 
-public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub implements it.csi.citpwa.business.ws.service.svista.client.LimammEnte_PortType {
+import it.csi.citpwa.util.Constants;
+
+public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub implements it.csi.citpwa.business.ws.service.svista.client.LimammEntePortType {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
     private java.util.Vector cachedSerFactories = new java.util.Vector();
     private java.util.Vector cachedDeserFactories = new java.util.Vector();
 
-    static org.apache. axis.description.OperationDesc [] _operations;
+    static org.apache. axis.description.OperationDesc [] operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[27];
-        _initOperationDesc1();
-        _initOperationDesc2();
-        _initOperationDesc3();
+        operations = new org.apache.axis.description.OperationDesc[27];
+        initOperationDesc1();
+        initOperationDesc2();
+        initOperationDesc3();
     }
 
-    private static void _initOperationDesc1(){
+    private static void initOperationDesc1(){
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaEstensioneComune");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), long.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        oper.setReturnType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING));
         oper.setReturnClass(java.lang.String.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaEstensioneComuneReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[0] = oper;
+        operations[0] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaTuttiIComuni");
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Comune"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_COMUNE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaTuttiIComuniReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[1] = oper;
+        operations[1] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaComunePerCodiceIstat");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Comune"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_COMUNE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Comune.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaComunePerCodiceIstatReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[2] = oper;
+        operations[2] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaComuniPerIdProvincia");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), java.lang.Long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), java.lang.Long.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Comune"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_COMUNE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaComuniPerIdProvinciaReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[3] = oper;
+        operations[3] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaComuniPerCap");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Comune"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_COMUNE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaComuniPerCapReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[4] = oper;
+        operations[4] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaComunePerCodiceBelfiore");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Comune"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_COMUNE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Comune.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaComunePerCodiceBelfioreReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[5] = oper;
+        operations[5] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaComunePerIdComune");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), java.lang.Long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), java.lang.Long.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Comune"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_COMUNE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Comune.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaComunePerIdComuneReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[6] = oper;
+        operations[6] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaComuniPerNome");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "int"), int.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Comune"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_COMUNE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaComuniPerNomeReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[7] = oper;
+        operations[7] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaComuniPerNomeECodIstatProvincia");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "int"), int.class, false, false);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Comune"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_COMUNE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaComuniPerNomeECodIstatProvinciaReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[8] = oper;
+        operations[8] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaComuniPerNomeEIdProvincia");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "int"), int.class, false, false);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), long.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Comune"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_COMUNE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaComuniPerNomeEIdProvinciaReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[9] = oper;
+        operations[9] = oper;
 
     }
 
-    private static void _initOperationDesc2(){
+    private static void initOperationDesc2(){
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaTutteLeProvince");
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Provincia"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_PROVINCIA));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Provincia[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaTutteLeProvinceReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[10] = oper;
+        operations[10] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaProvincePerIdRegione");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), long.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Provincia"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_PROVINCIA));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Provincia[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaProvincePerIdRegioneReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[11] = oper;
+        operations[11] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaProvinciaPerCodiceIstat");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Provincia"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_PROVINCIA));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Provincia.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaProvinciaPerCodiceIstatReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[12] = oper;
+        operations[12] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaProvinciaPerIdProvincia");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), java.lang.Long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), java.lang.Long.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Provincia"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_PROVINCIA));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Provincia.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaProvinciaPerIdProvinciaReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[13] = oper;
+        operations[13] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaProvincePerNome");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), java.lang.Integer.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "int"), java.lang.Integer.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Provincia"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_PROVINCIA));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Provincia[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaProvincePerNomeReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[14] = oper;
+        operations[14] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaTutteLeRegioni");
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Regione"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_REGIONE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Regione[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaTutteLeRegioniReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[15] = oper;
+        operations[15] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaRegionePerIdRegione");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), java.lang.Long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), java.lang.Long.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Regione"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_REGIONE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Regione.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaRegionePerIdRegioneReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[16] = oper;
+        operations[16] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaRegionePerCodIstat");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Regione"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_REGIONE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Regione.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaRegionePerCodIstatReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[17] = oper;
+        operations[17] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaRegioniPerNome");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "int"), int.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Regione"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_REGIONE));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Regione[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaRegioniPerNomeReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[18] = oper;
+        operations[18] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaLocalitaPerIdComune");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), java.lang.Long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), java.lang.Long.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Localita"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_LOCALITA));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Localita[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerIdComuneReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[19] = oper;
+        operations[19] = oper;
 
     }
 
-    private static void _initOperationDesc3(){
+    private static void initOperationDesc3(){
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaLocalitaPerIdLocalita");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), java.lang.Long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), java.lang.Long.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Localita"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_LOCALITA));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Localita.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerIdLocalitaReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[20] = oper;
+        operations[20] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaLocalitaPerNome");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING), java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "int"), int.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("ente", "Localita"));
+        oper.setReturnType(new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_LOCALITA));
         oper.setReturnClass(it.csi.citpwa.business.ws.service.svista.client.Localita[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerNomeReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[21] = oper;
+        operations[21] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaGeometriaComune");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), long.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        oper.setReturnType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING));
         oper.setReturnClass(java.lang.String.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaGeometriaComuneReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[22] = oper;
+        operations[22] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaEstensioneRegione");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), long.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        oper.setReturnType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING));
         oper.setReturnClass(java.lang.String.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaEstensioneRegioneReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[23] = oper;
+        operations[23] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaGeometriaRegione");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), long.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        oper.setReturnType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING));
         oper.setReturnClass(java.lang.String.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaGeometriaRegioneReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[24] = oper;
+        operations[24] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaEstensioneProvincia");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), long.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        oper.setReturnType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING));
         oper.setReturnClass(java.lang.String.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaEstensioneProvinciaReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[25] = oper;
+        operations[25] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("cercaGeometriaProvincia");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("ente", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"), long.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        oper.setReturnType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING));
         oper.setReturnClass(java.lang.String.class);
         oper.setReturnQName(new javax.xml.namespace.QName("ente", "cercaGeometriaProvinciaReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault2"),
-                      "it.csi.svista.ws.service.svista.client.UnrecoverableException",
-                      new javax.xml.namespace.QName("ente", "UnrecoverableException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT2),
+                      Constants.SVISTA_SERVICE_UNRECOVERABLE_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault"),
-                      "it.csi.svista.ws.service.svista.client.CSIException",
-                      new javax.xml.namespace.QName("ente", "CSIException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT),
+                      Constants.SVISTA_SERVICE_CSI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault1"),
-                      "it.csi.svista.ws.service.svista.client.SystemException",
-                      new javax.xml.namespace.QName("ente", "SystemException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT1),
+                      Constants.SVISTA_SERVICE_SYSTEM_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault5"),
-                      "it.csi.svista.ws.service.svista.client.ParInputValNonCorrettoException",
-                      new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT5),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_NON_CORRETTO_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault3"),
-                      "it.csi.svista.ws.service.svista.client.OutputException",
-                      new javax.xml.namespace.QName("ente", "OutputException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT3),
+                      Constants.SVISTA_SERVICE_OUTPUT_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION), 
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("ente", "fault4"),
-                      "it.csi.svista.ws.service.svista.client.ParInputObblMancantiException",
-                      new javax.xml.namespace.QName("ente", "ParInputObblMancantiException"), 
+                      new javax.xml.namespace.QName("ente", Constants.FAULT4),
+                      Constants.SVISTA_SERVICE_PAR_INPUT_OBBL_MANCANTI_EXCEPTION,
+                      new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION), 
                       true
                      ));
-        _operations[26] = oper;
+        operations[26] = oper;
 
     }
 
@@ -1356,14 +1358,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
             javax.xml.namespace.QName qName2;
             java.lang.Class beansf = org.apache.axis.encoding.ser.BeanSerializerFactory.class;
             java.lang.Class beandf = org.apache.axis.encoding.ser.BeanDeserializerFactory.class;
-            java.lang.Class enumsf = org.apache.axis.encoding.ser.EnumSerializerFactory.class;
-            java.lang.Class enumdf = org.apache.axis.encoding.ser.EnumDeserializerFactory.class;
-            java.lang.Class arraysf = org.apache.axis.encoding.ser.ArraySerializerFactory.class;
-            java.lang.Class arraydf = org.apache.axis.encoding.ser.ArrayDeserializerFactory.class;
-            java.lang.Class simplesf = org.apache.axis.encoding.ser.SimpleSerializerFactory.class;
-            java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
-            java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
-            java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
+
             qName = new javax.xml.namespace.QName("ente", "ArrayOfAsl");
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.Asl[].class;
@@ -1380,70 +1375,70 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("ente", "Comune");
+            qName = new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_COMUNE);
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.Comune.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("ente", "CSIException");
+            qName = new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_CSI_EXCEPTION);
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.CSIException.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("ente", "Localita");
+            qName = new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_LOCALITA);
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.Localita.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("ente", "OutputException");
+            qName = new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_OUTPUT_EXCEPTION);
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.OutputException.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("ente", "ParInputObblMancantiException");
+            qName = new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_OBBL_MANCANTI_EXCEPTION);
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("ente", "ParInputValNonCorrettoException");
+            qName = new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_PAR_INPUT_NON_CORRETTO_EXCEPTION);
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("ente", "Provincia");
+            qName = new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_PROVINCIA);
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.Provincia.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("ente", "Regione");
+            qName = new javax.xml.namespace.QName("ente", Constants.LIMAMM_ENTE_PARAM_REGIONE);
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.Regione.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("ente", "SystemException");
+            qName = new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_SYSTEM_EXCEPTION);
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.SystemException.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("ente", "UnrecoverableException");
+            qName = new javax.xml.namespace.QName("ente", Constants.SVISTA_SERVICE_PARAM_UNRECOVERABLE_EXCEPTION);
             cachedSerQNames.add(qName);
             cls = it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException.class;
             cachedSerClasses.add(cls);
@@ -1461,29 +1456,29 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 
     protected org.apache.axis.client.Call createCall() throws java.rmi.RemoteException {
         try {
-            org.apache.axis.client.Call _call = super._createCall();
+            org.apache.axis.client.Call call = super._createCall();
             if (super.maintainSessionSet) {
-                _call.setMaintainSession(super.maintainSession);
+                call.setMaintainSession(super.maintainSession);
             }
             if (super.cachedUsername != null) {
-                _call.setUsername(super.cachedUsername);
+                call.setUsername(super.cachedUsername);
             }
             if (super.cachedPassword != null) {
-                _call.setPassword(super.cachedPassword);
+                call.setPassword(super.cachedPassword);
             }
             if (super.cachedEndpoint != null) {
-                _call.setTargetEndpointAddress(super.cachedEndpoint);
+                call.setTargetEndpointAddress(super.cachedEndpoint);
             }
             if (super.cachedTimeout != null) {
-                _call.setTimeout(super.cachedTimeout);
+                call.setTimeout(super.cachedTimeout);
             }
             if (super.cachedPortName != null) {
-                _call.setPortName(super.cachedPortName);
+                call.setPortName(super.cachedPortName);
             }
             java.util.Enumeration keys = super.cachedProperties.keys();
             while (keys.hasMoreElements()) {
                 java.lang.String key = (java.lang.String) keys.nextElement();
-                _call.setProperty(key, super.cachedProperties.get(key));
+                call.setProperty(key, super.cachedProperties.get(key));
             }
             // All the type mapping information is registered
             // when the first call is made.
@@ -1493,7 +1488,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
             synchronized (this) {
                 if (firstCall()) {
                     // must set encoding style before registering serializers
-                    _call.setEncodingStyle(null);
+                    call.setEncodingStyle(null);
                     for (int i = 0; i < cachedSerFactories.size(); ++i) {
                         java.lang.Class cls = (java.lang.Class) cachedSerClasses.get(i);
                         javax.xml.namespace.QName qName =
@@ -1504,52 +1499,53 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
                                  cachedSerFactories.get(i);
                             java.lang.Class df = (java.lang.Class)
                                  cachedDeserFactories.get(i);
-                            _call.registerTypeMapping(cls, qName, sf, df, false);
+                            call.registerTypeMapping(cls, qName, sf, df, false);
                         }
                         else if (x instanceof javax.xml.rpc.encoding.SerializerFactory) {
                             org.apache.axis.encoding.SerializerFactory sf = (org.apache.axis.encoding.SerializerFactory)
                                  cachedSerFactories.get(i);
                             org.apache.axis.encoding.DeserializerFactory df = (org.apache.axis.encoding.DeserializerFactory)
                                  cachedDeserFactories.get(i);
-                            _call.registerTypeMapping(cls, qName, sf, df, false);
+                            call.registerTypeMapping(cls, qName, sf, df, false);
                         }
                     }
                 }
             }
-            return _call;
+            return call;
         }
-        catch (java.lang.Throwable _t) {
-            throw new org.apache.axis.AxisFault("Failure trying to get the Call object", _t);
+        catch (java.lang.Throwable t) {
+            throw new org.apache.axis.AxisFault("Failure trying to get the Call object", t);
         }
     }
 
-    public java.lang.String cercaEstensioneComune(long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public java.lang.String cercaEstensioneComune(long in0) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[0]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaEstensioneComune"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[0]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaEstensioneComune"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(in0)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {Long.valueOf(in0)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (java.lang.String) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.String.class);
+                return (java.lang.String) resp;
+            } catch (java.lang.Exception exception) {
+                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(resp, java.lang.String.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -1580,33 +1576,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaTuttiIComuni() throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaTuttiIComuni() throws java.rmi.RemoteException{
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[1]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaTuttiIComuni"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[1]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaTuttiIComuni"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -1637,33 +1634,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Comune cercaComunePerCodiceIstat(java.lang.String in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Comune cercaComunePerCodiceIstat(java.lang.String in0) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[2]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComunePerCodiceIstat"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[2]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComunePerCodiceIstat"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Comune.class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Comune.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -1694,33 +1692,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaComuniPerIdProvincia(java.lang.Long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaComuniPerIdProvincia(java.lang.Long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[3]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerIdProvincia"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[3]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerIdProvincia"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -1751,33 +1750,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaComuniPerCap(java.lang.String in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaComuniPerCap(java.lang.String in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[4]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerCap"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[4]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerCap"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -1808,33 +1808,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Comune cercaComunePerCodiceBelfiore(java.lang.String in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Comune cercaComunePerCodiceBelfiore(java.lang.String in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[5]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComunePerCodiceBelfiore"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[5]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComunePerCodiceBelfiore"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Comune.class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Comune.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -1865,33 +1866,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Comune cercaComunePerIdComune(java.lang.Long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Comune cercaComunePerIdComune(java.lang.Long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[6]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComunePerIdComune"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[6]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComunePerIdComune"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Comune.class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Comune.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -1922,33 +1924,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaComuniPerNome(java.lang.String in0, int in1) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaComuniPerNome(java.lang.String in0, int in1) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[7]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerNome"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[7]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerNome"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, new java.lang.Integer(in1)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0, Integer.valueOf(in1)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -1979,33 +1982,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaComuniPerNomeECodIstatProvincia(java.lang.String in0, int in1, java.lang.String in2) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaComuniPerNomeECodIstatProvincia(java.lang.String in0, int in1, java.lang.String in2) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[8]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerNomeECodIstatProvincia"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[8]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerNomeECodIstatProvincia"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, new java.lang.Integer(in1), in2});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0, Integer.valueOf(in1), in2});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2036,33 +2040,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaComuniPerNomeEIdProvincia(java.lang.String in0, int in1, long in2) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Comune[] cercaComuniPerNomeEIdProvincia(java.lang.String in0, int in1, long in2) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[9]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerNomeEIdProvincia"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[9]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerNomeEIdProvincia"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, new java.lang.Integer(in1), new java.lang.Long(in2)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0, Integer.valueOf(in1), Long.valueOf(in2)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Comune[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Comune[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2093,33 +2098,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Provincia[] cercaTutteLeProvince() throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Provincia[] cercaTutteLeProvince() throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[10]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaTutteLeProvince"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[10]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaTutteLeProvince"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Provincia[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Provincia[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2150,33 +2156,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Provincia[] cercaProvincePerIdRegione(long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Provincia[] cercaProvincePerIdRegione(long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[11]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvincePerIdRegione"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[11]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvincePerIdRegione"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(in0)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {Long.valueOf(in0)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Provincia[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Provincia[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2207,33 +2214,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Provincia cercaProvinciaPerCodiceIstat(java.lang.String in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Provincia cercaProvinciaPerCodiceIstat(java.lang.String in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[12]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvinciaPerCodiceIstat"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[12]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvinciaPerCodiceIstat"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Provincia) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Provincia) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Provincia.class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Provincia) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Provincia) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Provincia.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2264,33 +2272,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Provincia cercaProvinciaPerIdProvincia(java.lang.Long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Provincia cercaProvinciaPerIdProvincia(java.lang.Long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[13]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvinciaPerIdProvincia"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[13]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvinciaPerIdProvincia"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Provincia) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Provincia) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Provincia.class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Provincia) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Provincia) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Provincia.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2321,33 +2330,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Provincia[] cercaProvincePerNome(java.lang.String in0, java.lang.Integer in1) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Provincia[] cercaProvincePerNome(java.lang.String in0, java.lang.Integer in1) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[14]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvincePerNome"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[14]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvincePerNome"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, in1});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0, in1});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Provincia[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Provincia[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Provincia[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2378,33 +2388,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Regione[] cercaTutteLeRegioni() throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Regione[] cercaTutteLeRegioni() throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[15]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaTutteLeRegioni"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[15]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaTutteLeRegioni"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Regione[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Regione[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Regione[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Regione[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Regione[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Regione[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2435,33 +2446,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Regione cercaRegionePerIdRegione(java.lang.Long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Regione cercaRegionePerIdRegione(java.lang.Long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[16]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaRegionePerIdRegione"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[16]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaRegionePerIdRegione"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Regione) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Regione) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Regione.class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Regione) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Regione) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Regione.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2492,33 +2504,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Regione cercaRegionePerCodIstat(java.lang.String in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Regione cercaRegionePerCodIstat(java.lang.String in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[17]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaRegionePerCodIstat"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[17]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaRegionePerCodIstat"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Regione) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Regione) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Regione.class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Regione) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Regione) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Regione.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2549,33 +2562,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Regione[] cercaRegioniPerNome(java.lang.String in0, int in1) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Regione[] cercaRegioniPerNome(java.lang.String in0, int in1) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[18]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaRegioniPerNome"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[18]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaRegioniPerNome"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, new java.lang.Integer(in1)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0, Integer.valueOf(in1)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Regione[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Regione[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Regione[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Regione[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Regione[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Regione[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2606,33 +2620,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Localita[] cercaLocalitaPerIdComune(java.lang.Long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Localita[] cercaLocalitaPerIdComune(java.lang.Long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[19]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerIdComune"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[19]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerIdComune"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Localita[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Localita[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Localita[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Localita[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Localita[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Localita[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2663,33 +2678,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Localita cercaLocalitaPerIdLocalita(java.lang.Long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Localita cercaLocalitaPerIdLocalita(java.lang.Long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[20]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerIdLocalita"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[20]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerIdLocalita"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Localita) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Localita) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Localita.class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Localita) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Localita) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Localita.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2720,33 +2736,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public it.csi.citpwa.business.ws.service.svista.client.Localita[] cercaLocalitaPerNome(java.lang.String in0, int in1) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public it.csi.citpwa.business.ws.service.svista.client.Localita[] cercaLocalitaPerNome(java.lang.String in0, int in1) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[21]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerNome"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[21]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerNome"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, new java.lang.Integer(in1)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {in0, Integer.valueOf(in1)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (it.csi.citpwa.business.ws.service.svista.client.Localita[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (it.csi.citpwa.business.ws.service.svista.client.Localita[]) org.apache.axis.utils.JavaUtils.convert(_resp, it.csi.citpwa.business.ws.service.svista.client.Localita[].class);
+                return (it.csi.citpwa.business.ws.service.svista.client.Localita[]) resp;
+            } catch (java.lang.Exception exception) {
+                return (it.csi.citpwa.business.ws.service.svista.client.Localita[]) org.apache.axis.utils.JavaUtils.convert(resp, it.csi.citpwa.business.ws.service.svista.client.Localita[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2777,33 +2794,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public java.lang.String cercaGeometriaComune(long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public java.lang.String cercaGeometriaComune(long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[22]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaGeometriaComune"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[22]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaGeometriaComune"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(in0)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {Long.valueOf(in0)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (java.lang.String) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.String.class);
+                return (java.lang.String) resp;
+            } catch (java.lang.Exception exception) {
+                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(resp, java.lang.String.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2834,33 +2852,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public java.lang.String cercaEstensioneRegione(long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public java.lang.String cercaEstensioneRegione(long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[23]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaEstensioneRegione"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[23]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaEstensioneRegione"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(in0)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {Long.valueOf(in0)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (java.lang.String) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.String.class);
+                return (java.lang.String) resp;
+            } catch (java.lang.Exception exception) {
+                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(resp, java.lang.String.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2891,33 +2910,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public java.lang.String cercaGeometriaRegione(long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public java.lang.String cercaGeometriaRegione(long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[24]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaGeometriaRegione"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[24]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaGeometriaRegione"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(in0)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {Long.valueOf(in0)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (java.lang.String) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.String.class);
+                return (java.lang.String) resp;
+            } catch (java.lang.Exception exception) {
+                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(resp, java.lang.String.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2948,33 +2968,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public java.lang.String cercaEstensioneProvincia(long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public java.lang.String cercaEstensioneProvincia(long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[25]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaEstensioneProvincia"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[25]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaEstensioneProvincia"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(in0)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {Long.valueOf(in0)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (java.lang.String) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.String.class);
+                return (java.lang.String) resp;
+            } catch (java.lang.Exception exception) {
+                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(resp, java.lang.String.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -3005,33 +3026,34 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
 }
     }
 
-    public java.lang.String cercaGeometriaProvincia(long in0) throws java.rmi.RemoteException, it.csi.citpwa.business.ws.service.svista.client.UnrecoverableException, it.csi.citpwa.business.ws.service.svista.client.CSIException, it.csi.citpwa.business.ws.service.svista.client.SystemException, it.csi.citpwa.business.ws.service.svista.client.ParInputValNonCorrettoException, it.csi.citpwa.business.ws.service.svista.client.OutputException, it.csi.citpwa.business.ws.service.svista.client.ParInputObblMancantiException {
+    public java.lang.String cercaGeometriaProvincia(long in0) throws java.rmi.RemoteException { 
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[26]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaGeometriaProvincia"));
+        org.apache.axis.client.Call call = createCall();
+        call.setOperation(operations[26]);
+        call.setUseSOAPAction(true);
+        call.setSOAPActionURI("");
+        call.setEncodingStyle(null);
+        call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        call.setOperationName(new javax.xml.namespace.QName("ente", "cercaGeometriaProvincia"));
+        call.setTimeout(30000);
 
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(in0)});
+        setRequestHeaders(call);
+        setAttachments(call);
+ try {        java.lang.Object resp = call.invoke(new java.lang.Object[] {Long.valueOf(in0)});
 
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
+        if (resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)resp;
         }
         else {
-            extractAttachments(_call);
+            extractAttachments(call);
             try {
-                return (java.lang.String) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.String.class);
+                return (java.lang.String) resp;
+            } catch (java.lang.Exception exception) {
+                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(resp, java.lang.String.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

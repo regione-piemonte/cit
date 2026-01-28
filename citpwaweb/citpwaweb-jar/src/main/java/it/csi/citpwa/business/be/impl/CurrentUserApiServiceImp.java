@@ -11,6 +11,8 @@ package it.csi.citpwa.business.be.impl;
 
 import it.csi.citpwa.business.be.ICurrentUserApi;
 import it.csi.citpwa.business.service.IAuthenticationService;
+import it.csi.citpwa.exception.SvistaException;
+import it.csi.citpwa.exception.ValidationErrorException;
 import it.csi.citpwa.model.sigitext.Errore;
 import it.csi.citpwa.model.sigitext.Esito;
 import it.csi.citpwa.model.sigitext.UtenteLoggato;
@@ -31,9 +33,9 @@ public class CurrentUserApiServiceImp implements ICurrentUserApi {
 
 	@Autowired
 	private IAuthenticationService authService;
-
+	
 	@Override
-	public Response getCurrentUser(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req) {
+	public Response getCurrentUser(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest req) throws SigitUserNotAuthorizedException, SocketTimeoutException, SvistaException, ValidationErrorException {
 		return Response.ok(authService.getCurrentUser(req)).build();
 	}
 
@@ -79,6 +81,18 @@ public class CurrentUserApiServiceImp implements ICurrentUserApi {
 		} catch (SigitUserNotAuthorizedException e) {
 			return Response.status(Response.Status.UNAUTHORIZED)
 					.entity(new Errore(Response.Status.UNAUTHORIZED.getStatusCode(), Response.Status.UNAUTHORIZED.getReasonPhrase(), "RUOLO SOSPESO O RADIATO")).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(new Errore(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage())).build();
+		}
+	}
+
+	@Override
+	public Response getDisponibilitaServizio(SecurityContext securityContext, HttpHeaders httpHeaders,
+			HttpServletRequest req, UtenteLoggato utenteLoggato) {
+
+		try {
+			return Response.ok(authService.getDisponibilitaServizio(utenteLoggato)).build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity(new Errore(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage())).build();

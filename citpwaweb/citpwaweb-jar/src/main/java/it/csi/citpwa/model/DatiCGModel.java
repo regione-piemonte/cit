@@ -162,6 +162,7 @@ public class DatiCGModel {
 
 
 	public DatiCGModel() {
+		//Not implemented
 	}
 
 	public String getIdTipoComponente() {

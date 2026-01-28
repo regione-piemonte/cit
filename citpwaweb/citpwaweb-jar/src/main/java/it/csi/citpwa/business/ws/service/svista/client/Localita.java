@@ -7,6 +7,8 @@
 
 package it.csi.citpwa.business.ws.service.svista.client;
 
+import it.csi.citpwa.util.Constants;
+
 public class Localita  implements java.io.Serializable {
     private long id;
 
@@ -86,45 +88,44 @@ public class Localita  implements java.io.Serializable {
         this.nome = nome;
     }
 
-    private java.lang.Object __equalsCalc = null;
+    private java.lang.Object equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
+        if (obj == null) return false;
         if (!(obj instanceof Localita)) return false;
         Localita other = (Localita) obj;
-        if (obj == null) return false;
         if (this == obj) return true;
-        if (__equalsCalc != null) {
-            return (__equalsCalc == obj);
+        if (equalsCalc != null) {
+            return (equalsCalc == obj);
         }
-        __equalsCalc = obj;
-        boolean _equals;
-        _equals = true && 
-            this.id == other.getId() &&
+        equalsCalc = obj;
+        boolean equals;
+        equals = this.id == other.getId() &&
             ((this.idComune==null && other.getIdComune()==null) || 
              (this.idComune!=null &&
               this.idComune.equals(other.getIdComune()))) &&
             ((this.nome==null && other.getNome()==null) || 
              (this.nome!=null &&
               this.nome.equals(other.getNome())));
-        __equalsCalc = null;
-        return _equals;
+        equalsCalc = null;
+        return equals;
     }
 
-    private boolean __hashCodeCalc = false;
+    private boolean hashCodeCalc = false;
     public synchronized int hashCode() {
-        if (__hashCodeCalc) {
+        if (hashCodeCalc) {
             return 0;
         }
-        __hashCodeCalc = true;
-        int _hashCode = 1;
-        _hashCode += new Long(getId()).hashCode();
+        hashCodeCalc = true;
+        int hashCode = 1;
+        hashCode += Long.valueOf(getId()).hashCode();
         if (getIdComune() != null) {
-            _hashCode += getIdComune().hashCode();
+            hashCode += getIdComune().hashCode();
         }
         if (getNome() != null) {
-            _hashCode += getNome().hashCode();
+            hashCode += getNome().hashCode();
         }
-        __hashCodeCalc = false;
-        return _hashCode;
+        hashCodeCalc = false;
+        return hashCode;
     }
 
     // Type metadata
@@ -136,19 +137,19 @@ public class Localita  implements java.io.Serializable {
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("id");
         elemField.setXmlName(new javax.xml.namespace.QName("ente", "id"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"));
+        elemField.setXmlType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"));
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("idComune");
         elemField.setXmlName(new javax.xml.namespace.QName("ente", "idComune"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"));
+        elemField.setXmlType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("nome");
         elemField.setXmlName(new javax.xml.namespace.QName("ente", "nome"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setXmlType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
     }
@@ -165,11 +166,11 @@ public class Localita  implements java.io.Serializable {
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
            java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
+           java.lang.Class javaType,  
+           javax.xml.namespace.QName xmlType) {
         return 
           new  org.apache.axis.encoding.ser.BeanSerializer(
-            _javaType, _xmlType, typeDesc);
+            javaType, xmlType, typeDesc);
     }
 
     /**
@@ -177,11 +178,11 @@ public class Localita  implements java.io.Serializable {
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
            java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
+           java.lang.Class javaType,  
+           javax.xml.namespace.QName xmlType) {
         return 
           new  org.apache.axis.encoding.ser.BeanDeserializer(
-            _javaType, _xmlType, typeDesc);
+            javaType, xmlType, typeDesc);
     }
 
 }

@@ -1,6 +1,5 @@
 package it.csi.citpwa.business.service.impl;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,20 +7,16 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.xml.rpc.ServiceException;
-
 import org.apache.log4j.Logger;
-import org.codehaus.jettison.json.JSONException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import it.csi.citpwa.business.service.ISvistaService;
 import it.csi.citpwa.business.ws.service.svista.client.Comune;
 import it.csi.citpwa.business.ws.service.svista.client.LimammEnteServiceLocator;
-import it.csi.citpwa.business.ws.service.svista.client.LimammEnte_PortType;
+import it.csi.citpwa.business.ws.service.svista.client.LimammEntePortType;
 import it.csi.citpwa.business.ws.service.svista.client.Provincia;
+import it.csi.citpwa.exception.SvistaException;
 import it.csi.citpwa.model.ComuneEstesoModel;
 import it.csi.citpwa.util.AppServletContextListener;
 import it.csi.citpwa.util.Constants;
@@ -64,15 +59,20 @@ public class SvistaServiceImpl implements ISvistaService {
 		}
 		return comuniEstesi;
 	}
-	public List<ComuneEstesoModel> cercaTuttiIComuniEstesi()
-			throws ServiceException, JSONException, JsonProcessingException {
+	
+	public List<ComuneEstesoModel> cercaTuttiIComuniEstesi() {
+		
 		log.info("START [SvistaServiceImpl::cercaTuttiIComuniEstesi]");
-		List<ComuneEstesoModel> tuttiIComuniEstesi = new ArrayList<ComuneEstesoModel>();
+		List<ComuneEstesoModel> tuttiIComuniEstesi = new ArrayList<>();
 		List<Comune> tuttiIComuni = null;
 		List<Provincia> tutteLeProvince = null;
 		try {
+			log.info("cercaTuttiIComuni - START");
 			tuttiIComuni = Arrays.asList(getSvista().cercaTuttiIComuni());
+			log.info("cercaTuttiIComuni - END");
+			log.info("cercaTutteLeProvince - START");
 			tutteLeProvince = Arrays.asList(getSvista().cercaTutteLeProvince());		
+			log.info("cercaTutteLeProvince - END");
 			Map<Long, Provincia> mapProvince = tutteLeProvince.stream()
 					.collect(Collectors.toMap(Provincia::getId, Function.identity()));
 			tuttiIComuniEstesi = tuttiIComuni.stream()
@@ -81,23 +81,23 @@ public class SvistaServiceImpl implements ISvistaService {
 							mapProvince.get(comune.getIdProvincia()).getSigla(),
 							mapProvince.get(comune.getIdProvincia()).getNome()))
 					.collect(Collectors.toList());
-			} 
-		catch (RemoteException e) {
+		} catch (Exception e) {
 			 log.error( "Errore chiamata servizio esterno: ",e);
+			 tuttiIComuniEstesi = null;
 		}
 		log.info("END [SvistaServiceImpl::cercaTuttiIComuniEstesi]");
 		return tuttiIComuniEstesi;
 	}
 
-	private LimammEnte_PortType getSvista() {
+	private LimammEntePortType getSvista() throws SvistaException {
 		int timeout = Constants.APIMAN_TIMEOUT;
 
-		LimammEnte_PortType limAmmEnte = null;
+		LimammEntePortType limAmmEnte = null;
 
 		try {
 			LimammEnteServiceLocator serviceLoc = new LimammEnteServiceLocator();
 			serviceLoc.setlimammEnteEndpointAddress(svistaWsdlUrl);
-			LimammEnte_PortType port = serviceLoc.getlimammEnte();
+			LimammEntePortType port = serviceLoc.getlimammEnte();
 
 			TokenRetryManager trm = new TokenRetryManager();
 			trm.setOauthHelper(getOauthHelper(apiGwecosisTokenUrl, apiGwecosisTokenConsumerkey, apiGwecosisTokenConsumerkeysecret, timeout));
@@ -106,14 +106,16 @@ public class SvistaServiceImpl implements ISvistaService {
 			trm.setWsProvider(wsp);
 			GenericWrapperFactoryBean gwfb = new GenericWrapperFactoryBean();
 			gwfb.setEndPoint(svistaWsdlUrl);
-			gwfb.setWrappedClass(LimammEnte_PortType.class.getCanonicalName());
+			gwfb.setWrappedClass(LimammEntePortType.class.getCanonicalName());
 			gwfb.setTokenRetryManager(trm);
 			gwfb.setPort(port);
-			limAmmEnte = (LimammEnte_PortType) gwfb.create();
+			limAmmEnte = (LimammEntePortType) gwfb.create();
 		
 		} catch (javax.xml.rpc.ServiceException | ClassNotFoundException e) {
 			log.error("Errore SvistaServiceImpl::getSvista: ", e);
+			throw new SvistaException();
 		}
+		
 		log.info("END [SvistaServiceImpl::getSvista]");
 		return limAmmEnte;
 	}

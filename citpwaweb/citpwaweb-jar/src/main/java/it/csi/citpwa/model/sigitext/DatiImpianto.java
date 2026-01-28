@@ -9,12 +9,15 @@
 
 package it.csi.citpwa.model.sigitext;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class DatiImpianto {
+public class DatiImpianto implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String codiceImpianto;
 	private String stato;
-	private Date dataAssCi;
 	private Date dataVar;
 	private String motivazione;
 	private String tipoImpianto;
@@ -34,14 +37,14 @@ public class DatiImpianto {
 	private Double coordY;
 	private String siglaProv;
 	private String istatComune;
+	private Integer flgMedioimpianto;
 
 	public DatiImpianto() {
 	}
 
-	public DatiImpianto(String codiceImpianto, String stato, Date dataAssCi, String motivazione, String tipoImpianto, Integer flgApparevvUiExt, Integer flgContabilizzazione, Integer stradario, String indirizzoSitad, String indirizzoNonTrovato, String comune, String civico, String provincia, String pod, String pdr, Integer flgNoPdr, Integer flgVisuProprietario, Double coordX, Double coordY, String siglaProv, String istatComune) {
+	public DatiImpianto(String codiceImpianto, String stato, String motivazione, String tipoImpianto, Integer flgApparevvUiExt, Integer flgContabilizzazione, Integer stradario, String indirizzoSitad, String indirizzoNonTrovato, String comune, String civico, String provincia, String pod, String pdr, Integer flgNoPdr, Integer flgVisuProprietario, Double coordX, Double coordY, String siglaProv, String istatComune, Integer flgMedioimpianto) {
 		this.codiceImpianto = codiceImpianto;
 		this.stato = stato;
-		this.dataAssCi = dataAssCi;
 		this.motivazione = motivazione;
 		this.tipoImpianto = tipoImpianto;
 		this.flgApparevvUiExt = flgApparevvUiExt;
@@ -60,6 +63,7 @@ public class DatiImpianto {
 		this.coordY = coordY;
 		this.siglaProv = siglaProv;
 		this.istatComune = istatComune;
+		this.flgMedioimpianto = flgMedioimpianto;
 	}
 
 	public String getCodiceImpianto() {
@@ -76,14 +80,6 @@ public class DatiImpianto {
 
 	public void setStato(String stato) {
 		this.stato = stato;
-	}
-
-	public Date getDataAssCi() {
-		return dataAssCi;
-	}
-
-	public void setDataAssCi(Date dataAssCi) {
-		this.dataAssCi = dataAssCi;
 	}
 
 	public String getMotivazione() {
@@ -230,6 +226,14 @@ public class DatiImpianto {
 		this.istatComune = istatComune;
 	}
 
+	public Integer getFlgMedioimpianto() {
+		return flgMedioimpianto;
+	}
+
+	public void setFlgMedioimpianto(Integer flgMedioimpianto) {
+		this.flgMedioimpianto = flgMedioimpianto;
+	}
+
 	public Date getDataVar() {
 		return dataVar;
 	}
@@ -240,10 +244,13 @@ public class DatiImpianto {
 
 	@Override
 	public String toString() {
-		return "DatiImpianto{" + "codiceImpianto='" + codiceImpianto + '\'' + ", stato='" + stato + '\'' + ", dataAssCi=" + dataAssCi + ", dataVar=" + dataVar + ", motivazione='" + motivazione + '\''
-				+ ", tipoImpianto='" + tipoImpianto + '\'' + ", flgApparevvUiExt=" + flgApparevvUiExt + ", flgContabilizzazione=" + flgContabilizzazione + ", stradario=" + stradario
-				+ ", indirizzoSitad='" + indirizzoSitad + '\'' + ", indirizzoNonTrovato='" + indirizzoNonTrovato + '\'' + ", comune='" + comune + '\'' + ", civico='" + civico + '\'' + ", provincia='"
-				+ provincia + '\'' + ", pod='" + pod + '\'' + ", pdr='" + pdr + '\'' + ", flgNoPdr=" + flgNoPdr + ", flgVisuProprietario=" + flgVisuProprietario + ", coordX=" + coordX + ", coordY="
-				+ coordY + ", siglaProv='" + siglaProv + '\'' + ", istatComune='" + istatComune + '\'' + '}';
+		return "DatiImpianto [codiceImpianto=" + codiceImpianto + ", stato=" + stato + ", dataVar=" + dataVar
+				+ ", motivazione=" + motivazione + ", tipoImpianto=" + tipoImpianto + ", flgApparevvUiExt="
+				+ flgApparevvUiExt + ", flgContabilizzazione=" + flgContabilizzazione + ", stradario=" + stradario
+				+ ", indirizzoSitad=" + indirizzoSitad + ", indirizzoNonTrovato=" + indirizzoNonTrovato + ", comune="
+				+ comune + ", civico=" + civico + ", provincia=" + provincia + ", pod=" + pod + ", pdr=" + pdr
+				+ ", flgNoPdr=" + flgNoPdr + ", flgVisuProprietario=" + flgVisuProprietario + ", coordX=" + coordX
+				+ ", coordY=" + coordY + ", siglaProv=" + siglaProv + ", istatComune=" + istatComune
+				+ ", flgMedioimpianto=" + flgMedioimpianto + "]";
 	}
 }

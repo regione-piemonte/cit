@@ -114,6 +114,7 @@ public class DatiSCModel {
 	});
 
 	public DatiSCModel() {
+		//Not implemented
 	}
 
 	public DatiSCModel(String idTipoComponente, Integer progressivo, String dataInstall, Integer codiceImpianto, String dataDismiss, Integer flgDismissione, String dataUltMod, String utenteUltMod, Integer fkMarca, String descMarca, String matricola, String modello, BigDecimal potenzaTermicaKw, String note, Integer tempoManutAnni, String dataMinimaControllo, String dataMassimaControllo, String nomeProprietario, String cfProprietario) {

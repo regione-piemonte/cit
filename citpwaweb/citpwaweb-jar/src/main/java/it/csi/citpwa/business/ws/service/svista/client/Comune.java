@@ -9,6 +9,8 @@ package it.csi.citpwa.business.ws.service.svista.client;
 
 import javax.xml.namespace.QName;
 
+import it.csi.citpwa.util.Constants;
+
 public class Comune  implements java.io.Serializable {
     private it.csi.citpwa.business.ws.service.svista.client.Asl[] aslDiRiferimento;
 
@@ -184,19 +186,18 @@ public class Comune  implements java.io.Serializable {
         this.nome = nome;
     }
 
-    private java.lang.Object __equalsCalc = null;
+    private java.lang.Object equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
+        if (obj == null) return false;
         if (!(obj instanceof Comune)) return false;
         Comune other = (Comune) obj;
-        if (obj == null) return false;
         if (this == obj) return true;
-        if (__equalsCalc != null) {
-            return (__equalsCalc == obj);
+        if (equalsCalc != null) {
+            return (equalsCalc == obj);
         }
-        __equalsCalc = obj;
-        boolean _equals;
-        _equals = true && 
-            ((this.aslDiRiferimento==null && other.getAslDiRiferimento()==null) || 
+        equalsCalc = obj;
+        boolean equals;
+        equals = ((this.aslDiRiferimento==null && other.getAslDiRiferimento()==null) || 
              (this.aslDiRiferimento!=null &&
               java.util.Arrays.equals(this.aslDiRiferimento, other.getAslDiRiferimento()))) &&
             ((this.cap==null && other.getCap()==null) || 
@@ -213,17 +214,17 @@ public class Comune  implements java.io.Serializable {
             ((this.nome==null && other.getNome()==null) || 
              (this.nome!=null &&
               this.nome.equals(other.getNome())));
-        __equalsCalc = null;
-        return _equals;
+        equalsCalc = null;
+        return equals;
     }
 
-    private boolean __hashCodeCalc = false;
+    private boolean hashCodeCalc = false;
     public synchronized int hashCode() {
-        if (__hashCodeCalc) {
+        if (hashCodeCalc) {
             return 0;
         }
-        __hashCodeCalc = true;
-        int _hashCode = 1;
+        hashCodeCalc = true;
+        int hashCode = 1;
         if (getAslDiRiferimento() != null) {
             for (int i=0;
                  i<java.lang.reflect.Array.getLength(getAslDiRiferimento());
@@ -231,26 +232,26 @@ public class Comune  implements java.io.Serializable {
                 java.lang.Object obj = java.lang.reflect.Array.get(getAslDiRiferimento(), i);
                 if (obj != null &&
                     !obj.getClass().isArray()) {
-                    _hashCode += obj.hashCode();
+                    hashCode += obj.hashCode();
                 }
             }
         }
         if (getCap() != null) {
-            _hashCode += getCap().hashCode();
+            hashCode += getCap().hashCode();
         }
         if (getCodCatasto() != null) {
-            _hashCode += getCodCatasto().hashCode();
+            hashCode += getCodCatasto().hashCode();
         }
         if (getCodIstat() != null) {
-            _hashCode += getCodIstat().hashCode();
+            hashCode += getCodIstat().hashCode();
         }
-        _hashCode += new Long(getId()).hashCode();
-        _hashCode += new Long(getIdProvincia()).hashCode();
+        hashCode += Long.valueOf(getId()).hashCode();
+        hashCode += Long.valueOf(getIdProvincia()).hashCode();
         if (getNome() != null) {
-            _hashCode += getNome().hashCode();
+            hashCode += getNome().hashCode();
         }
-        __hashCodeCalc = false;
-        return _hashCode;
+        hashCodeCalc = false;
+        return hashCode;
     }
 
     // Type metadata
@@ -269,37 +270,37 @@ public class Comune  implements java.io.Serializable {
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("cap");
         elemField.setXmlName(new javax.xml.namespace.QName("ente", "cap"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setXmlType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("codCatasto");
         elemField.setXmlName(new javax.xml.namespace.QName("ente", "codCatasto"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setXmlType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("codIstat");
         elemField.setXmlName(new javax.xml.namespace.QName("ente", "codIstat"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setXmlType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("id");
         elemField.setXmlName(new javax.xml.namespace.QName("ente", "id"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"));
+        elemField.setXmlType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"));
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("idProvincia");
         elemField.setXmlName(new javax.xml.namespace.QName("ente", "idProvincia"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"));
+        elemField.setXmlType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, "long"));
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("nome");
         elemField.setXmlName(new javax.xml.namespace.QName("ente", "nome"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setXmlType(new javax.xml.namespace.QName(Constants.XML_SCHEMA, Constants.TYPE_STRING));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
     }
@@ -316,11 +317,11 @@ public class Comune  implements java.io.Serializable {
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
            java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
+           java.lang.Class javaType,  
+           javax.xml.namespace.QName xmlType) {
         return 
           new  org.apache.axis.encoding.ser.BeanSerializer(
-            _javaType, _xmlType, typeDesc);
+            javaType, xmlType, typeDesc);
     }
 
     /**
@@ -328,11 +329,11 @@ public class Comune  implements java.io.Serializable {
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
            java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
+           java.lang.Class javaType,  
+           javax.xml.namespace.QName xmlType) {
         return 
           new  org.apache.axis.encoding.ser.BeanDeserializer(
-            _javaType, _xmlType, typeDesc);
+            javaType, xmlType, typeDesc);
     }
 
 }

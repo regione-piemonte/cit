@@ -7,7 +7,7 @@
     <parent>
         <groupId>it.csi.citpwa</groupId>
         <artifactId>citpwaweb</artifactId>
-        <version>1.2.0</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>citpwaweb-jar</artifactId>
@@ -77,7 +77,7 @@
             <version>${spring.version}</version>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
+            <groupId>apache-log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
         </dependency>
@@ -266,7 +266,7 @@
                         <configuration>
                             <packageName>it.csi.citpwa.model.xsd.libretto</packageName>
                             <sources>
-                                <source>${basedir}/src/main/resources/XSD/MODsigit-schema-v3.0.4.xsd</source>
+                                <source>${basedir}/src/main/resources/XSD/MODsigit-schema-v3.0.5.xsd</source>
                             </sources>
                         </configuration>
                     </execution>

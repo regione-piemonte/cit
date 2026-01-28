@@ -9,9 +9,10 @@
 
 package it.csi.citpwa.model.sigitext;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RuoloLoggato {
+public class RuoloLoggato implements Serializable {
 	private String ruolo;
 	private String piva;
 	private String siglaRea;
@@ -137,5 +138,13 @@ public class RuoloLoggato {
 
 	public void setCat(Boolean cat) {
 		isCat = cat;
+	}
+
+	@Override
+	public String toString() {
+		return "RuoloLoggato [ruolo=" + ruolo + ", piva=" + piva + ", siglaRea=" + siglaRea + ", numeroRea=" + numeroRea
+				+ ", denominazione=" + denominazione + ", dataCessazione=" + dataCessazione + ", idStato=" + idStato
+				+ ", descStato=" + descStato + ", istatAbilitazione=" + istatAbilitazione + ", descrAbilitazione="
+				+ descrAbilitazione + ", idPersonaGiuridica=" + idPersonaGiuridica + ", isCat=" + isCat + "]";
 	}
 }

@@ -9,14 +9,11 @@
 
 package it.csi.citpwa.model;
 
-import it.csi.citpwa.model.sigitext.Controllo;
 import it.csi.citpwa.model.sigitext.ControlloDisponibile;
 import it.csi.citpwa.util.Constants;
 import it.csi.citpwa.util.ObjectConverter;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ControlloDisponibileModel {
 	private String nomeComponente;
@@ -71,6 +68,7 @@ public class ControlloDisponibileModel {
 	});
 
 	public ControlloDisponibileModel() {
+		//Not implemented
 	}
 
 	public String getNomeComponente() {

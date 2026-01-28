@@ -7,7 +7,6 @@
 package it.csi.citpwa.business.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import it.csi.citpwa.model.loccsi.LoccsiFeatureModel;
 import it.csi.citpwa.model.loccsi.LoccsiModel;
 import org.codehaus.jettison.json.JSONException;
 

@@ -8,8 +8,6 @@
 package it.csi.citpwa.business.ws.service.svista.client;
 
 public class SystemException  extends it.csi.citpwa.business.ws.service.svista.client.CSIException  implements java.io.Serializable {
-    public SystemException() {
-    }
 
     public SystemException(
            java.lang.String nestedExcClassName,
@@ -21,31 +19,31 @@ public class SystemException  extends it.csi.citpwa.business.ws.service.svista.c
             stackTraceMessage);
     }
 
-    private java.lang.Object __equalsCalc = null;
+    private java.lang.Object equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
+        if (obj == null) return false;
         if (!(obj instanceof SystemException)) return false;
         SystemException other = (SystemException) obj;
-        if (obj == null) return false;
         if (this == obj) return true;
-        if (__equalsCalc != null) {
-            return (__equalsCalc == obj);
+        if (equalsCalc != null) {
+            return (equalsCalc == obj);
         }
-        __equalsCalc = obj;
-        boolean _equals;
-        _equals = super.equals(obj);
-        __equalsCalc = null;
-        return _equals;
+        equalsCalc = obj;
+        boolean equals;
+        equals = super.equals(obj);
+        equalsCalc = null;
+        return equals;
     }
 
-    private boolean __hashCodeCalc = false;
+    private boolean hashCodeCalc = false;
     public synchronized int hashCode() {
-        if (__hashCodeCalc) {
+        if (hashCodeCalc) {
             return 0;
         }
-        __hashCodeCalc = true;
-        int _hashCode = super.hashCode();
-        __hashCodeCalc = false;
-        return _hashCode;
+        hashCodeCalc = true;
+        int hashCode = super.hashCode();
+        hashCodeCalc = false;
+        return hashCode;
     }
 
     // Type metadata
@@ -68,11 +66,11 @@ public class SystemException  extends it.csi.citpwa.business.ws.service.svista.c
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
            java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
+           java.lang.Class javaType,  
+           javax.xml.namespace.QName xmlType) {
         return 
           new  org.apache.axis.encoding.ser.BeanSerializer(
-            _javaType, _xmlType, typeDesc);
+            javaType, xmlType, typeDesc);
     }
 
     /**
@@ -80,11 +78,11 @@ public class SystemException  extends it.csi.citpwa.business.ws.service.svista.c
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
            java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
+           java.lang.Class javaType,  
+           javax.xml.namespace.QName xmlType) {
         return 
           new  org.apache.axis.encoding.ser.BeanDeserializer(
-            _javaType, _xmlType, typeDesc);
+            javaType, xmlType, typeDesc);
     }
 
 

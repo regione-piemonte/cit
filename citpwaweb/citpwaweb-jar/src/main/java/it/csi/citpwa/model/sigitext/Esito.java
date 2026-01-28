@@ -1,11 +1,20 @@
 package it.csi.citpwa.model.sigitext;
 
+import it.csi.sigit.sigitext.ws.service.client.Impianto;
+
 public class Esito {
 	private String esito;
 	private String descrizioneEsito;
 	private String codiceImpianto;
 	private Integer idAllegatoNew;
 	private byte[] xmlLibretto;
+	private Boolean impiantoNonConformeDlgs1022014;
+
+	private Long idVerifica;
+	private Long idAzione;
+	private Long idIspezione2018;
+
+	private Impianto[] impiantoArray;
 
 	public Esito() {
 	}
@@ -59,5 +68,45 @@ public class Esito {
 
 	public void setIdAllegatoNew(Integer idAllegatoNew) {
 		this.idAllegatoNew = idAllegatoNew;
+	}
+
+	public Long getIdVerifica() {
+		return idVerifica;
+	}
+
+	public void setIdVerifica(Long idVerifica) {
+		this.idVerifica = idVerifica;
+	}
+
+	public Long getIdAzione() {
+		return idAzione;
+	}
+
+	public void setIdAzione(Long idAzione) {
+		this.idAzione = idAzione;
+	}
+
+	public Long getIdIspezione2018() {
+		return idIspezione2018;
+	}
+
+	public void setIdIspezione2018(Long idIspezione2018) {
+		this.idIspezione2018 = idIspezione2018;
+	}
+
+	public Impianto[] getImpiantoArray() {
+		return impiantoArray;
+	}
+
+	public void setImpiantoArray(Impianto[] impiantoArray) {
+		this.impiantoArray = impiantoArray;
+	}
+
+	public Boolean getImpiantoNonConformeDlgs1022014() {
+		return impiantoNonConformeDlgs1022014;
+	}
+
+	public void setImpiantoNonConformeDlgs1022014(Boolean impiantoNonConformeDlgs1022014) {
+		this.impiantoNonConformeDlgs1022014 = impiantoNonConformeDlgs1022014;
 	}
 }

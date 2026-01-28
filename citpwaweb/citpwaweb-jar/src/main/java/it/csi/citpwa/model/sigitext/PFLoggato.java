@@ -9,7 +9,9 @@
 
 package it.csi.citpwa.model.sigitext;
 
-public class PFLoggato {
+import java.io.Serializable;
+
+public class PFLoggato implements Serializable {
 	private String codiceFiscalePF = null;
 	private String cognomePF = null;
 	private String nomePF = null;
@@ -31,5 +33,11 @@ public class PFLoggato {
 	}
 	public String getNomePF() {
 		return nomePF;
+	}
+
+	@Override
+	public String toString() {
+		return "PFLoggato [codiceFiscalePF=" + codiceFiscalePF + ", cognomePF=" + cognomePF + ", nomePF=" + nomePF
+				+ "]";
 	}
 }

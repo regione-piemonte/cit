@@ -48,8 +48,17 @@ public class RowFumiModel {
 		model.setPortataCombu(u.getAEPortataCombu() != null ? u.getAEPortataCombu().value() : "");
 		model.setValorePortata(u.getAEValorePortata());
 		model.setCoFumiSecchi(u.getAECOfumiSecchi());
-		model.setRispettoIndBacharach(u.isAERispettoIndBacharach());
-		model.setMinimo(u.isAEMinimo());
+		
+		if (u.isAERispettoIndBacharach() == null)
+			model.setRispettoIndBacharach(BigInteger.TWO);
+		else 
+			model.setRispettoIndBacharach(Boolean.TRUE.equals(u.isAERispettoIndBacharach()) ? BigInteger.ONE : BigInteger.ZERO);
+	
+		if (u.isAEMinimo() == null)
+			model.setMinimo(BigInteger.TWO);		
+		else 
+			model.setMinimo(Boolean.TRUE.equals(u.isAEMinimo()) ? BigInteger.ONE : BigInteger.ZERO);
+			
 		return model;
 	});
 
@@ -70,8 +79,14 @@ public class RowFumiModel {
 		dto.setAEPortataCombu(!StringUtils.isEmpty(u.getPortataCombu())?Portata.fromValue(u.getPortataCombu()):null);
 		dto.setAEValorePortata(u.getValorePortata());
 		dto.setAECOfumiSecchi(u.getCoFumiSecchi());
-		dto.setAERispettoIndBacharach(u.getRispettoIndBacharach());
-		dto.setAEMinimo(u.getMinimo());
+		if (BigInteger.ZERO.equals(u.getRispettoIndBacharach()))
+			dto.setAERispettoIndBacharach(false);
+		else if (BigInteger.ONE.equals(u.getRispettoIndBacharach()))
+			dto.setAERispettoIndBacharach(true);
+		if (BigInteger.ZERO.equals(u.getMinimo()))
+			dto.setAEMinimo(false);
+		else if (BigInteger.ONE.equals(u.getMinimo()))
+			dto.setAEMinimo(true);
 		return dto;
 	});
 
@@ -275,8 +290,8 @@ public class RowFumiModel {
 	protected String portataCombu;
 	protected BigDecimal valorePortata;
 	protected BigDecimal coFumiSecchi;
-	protected Boolean rispettoIndBacharach;
-	protected Boolean minimo;
+	protected BigInteger rispettoIndBacharach;
+	protected BigInteger minimo;
 
 	//tipo 1B
 	protected BigDecimal particolato;
@@ -347,7 +362,7 @@ public class RowFumiModel {
 	public RowFumiModel() {
 	}
 
-	public RowFumiModel(BigDecimal tempFumi, BigDecimal tempAria, BigDecimal o2, BigDecimal co2, BigDecimal bacharach1, BigDecimal bacharach2, BigDecimal bacharach3, BigDecimal cOcorretto, BigDecimal rendimCombu, BigDecimal rendimentoLegge, BigDecimal nox, BigInteger moduloTermico, String portataCombu, BigDecimal valorePortata, BigDecimal coFumiSecchi, Boolean rispettoIndBacharach, Boolean minimo, BigDecimal particolato, String noxUM, BigDecimal surrisc, BigDecimal sottoRaffr, BigDecimal condens, BigDecimal evaporaz, BigDecimal ingLatoEst, BigDecimal uscLatoEst, BigDecimal ingLatoUtenze, BigDecimal uscLatoUtenze, BigInteger numCircuito, BigDecimal tuscFluido, BigDecimal tbulboUmido, BigDecimal tingFluidoSorg, BigDecimal tuscFluidoSorg, BigDecimal tingFluidoMacc, BigDecimal tuscFluidoMacc, BigDecimal potenzaAss, Boolean filtriPuliti, boolean verifica, String dataRipristino, BigDecimal tempEst, BigDecimal tempMandPrim, BigDecimal tempRitPrim, BigDecimal potenzaTerm, BigDecimal portataFluido, BigDecimal tempMandSecond, BigDecimal tempRitSecond, BigDecimal tempAriaCombur, BigDecimal tempAcquaUsc, BigDecimal tempAcquaIng, BigDecimal potenzaMorsetti, BigDecimal tempH2Omotore, BigDecimal tempFumiAvalle, BigDecimal tempFumiAmonte, BigDecimal sovraFreqSoglia1, BigDecimal sovraFreqSoglia2, BigDecimal sovraFreqSoglia3, BigDecimal sovraFreqTempo1, BigDecimal sovraFreqTempo2, BigDecimal sovraFreqTempo3, BigDecimal sottoFreqSoglia1, BigDecimal sottoFreqSoglia2, BigDecimal sottoFreqSoglia3, BigDecimal sottoFreqTempo1, BigDecimal sottoFreqTempo2, BigDecimal sottoFreqTempo3, BigDecimal sovraTensSoglia1, BigDecimal sovraTensSoglia2, BigDecimal sovraTensSoglia3, BigDecimal sovraTensTempo1, BigDecimal sovraTensTempo2, BigDecimal sovraTensTempo3, BigDecimal sottoTensSoglia1, BigDecimal sottoTensSoglia2, BigDecimal sottoTensSoglia3, BigDecimal sottoTensTempo1, BigDecimal sottoTensTempo2, BigDecimal sottoTensTempo3) {
+	public RowFumiModel(BigDecimal tempFumi, BigDecimal tempAria, BigDecimal o2, BigDecimal co2, BigDecimal bacharach1, BigDecimal bacharach2, BigDecimal bacharach3, BigDecimal cOcorretto, BigDecimal rendimCombu, BigDecimal rendimentoLegge, BigDecimal nox, BigInteger moduloTermico, String portataCombu, BigDecimal valorePortata, BigDecimal coFumiSecchi, BigInteger rispettoIndBacharach, BigInteger minimo, BigDecimal particolato, String noxUM, BigDecimal surrisc, BigDecimal sottoRaffr, BigDecimal condens, BigDecimal evaporaz, BigDecimal ingLatoEst, BigDecimal uscLatoEst, BigDecimal ingLatoUtenze, BigDecimal uscLatoUtenze, BigInteger numCircuito, BigDecimal tuscFluido, BigDecimal tbulboUmido, BigDecimal tingFluidoSorg, BigDecimal tuscFluidoSorg, BigDecimal tingFluidoMacc, BigDecimal tuscFluidoMacc, BigDecimal potenzaAss, Boolean filtriPuliti, boolean verifica, String dataRipristino, BigDecimal tempEst, BigDecimal tempMandPrim, BigDecimal tempRitPrim, BigDecimal potenzaTerm, BigDecimal portataFluido, BigDecimal tempMandSecond, BigDecimal tempRitSecond, BigDecimal tempAriaCombur, BigDecimal tempAcquaUsc, BigDecimal tempAcquaIng, BigDecimal potenzaMorsetti, BigDecimal tempH2Omotore, BigDecimal tempFumiAvalle, BigDecimal tempFumiAmonte, BigDecimal sovraFreqSoglia1, BigDecimal sovraFreqSoglia2, BigDecimal sovraFreqSoglia3, BigDecimal sovraFreqTempo1, BigDecimal sovraFreqTempo2, BigDecimal sovraFreqTempo3, BigDecimal sottoFreqSoglia1, BigDecimal sottoFreqSoglia2, BigDecimal sottoFreqSoglia3, BigDecimal sottoFreqTempo1, BigDecimal sottoFreqTempo2, BigDecimal sottoFreqTempo3, BigDecimal sovraTensSoglia1, BigDecimal sovraTensSoglia2, BigDecimal sovraTensSoglia3, BigDecimal sovraTensTempo1, BigDecimal sovraTensTempo2, BigDecimal sovraTensTempo3, BigDecimal sottoTensSoglia1, BigDecimal sottoTensSoglia2, BigDecimal sottoTensSoglia3, BigDecimal sottoTensTempo1, BigDecimal sottoTensTempo2, BigDecimal sottoTensTempo3) {
 		this.tempFumi = tempFumi;
 		this.tempAria = tempAria;
 		this.o2 = o2;
@@ -546,19 +561,19 @@ public class RowFumiModel {
 		this.coFumiSecchi = coFumiSecchi;
 	}
 
-	public Boolean getRispettoIndBacharach() {
+	public BigInteger getRispettoIndBacharach() {
 		return rispettoIndBacharach;
 	}
 
-	public void setRispettoIndBacharach(Boolean rispettoIndBacharach) {
+	public void setRispettoIndBacharach(BigInteger rispettoIndBacharach) {
 		this.rispettoIndBacharach = rispettoIndBacharach;
 	}
 
-	public Boolean getMinimo() {
+	public BigInteger getMinimo() {
 		return minimo;
 	}
 
-	public void setMinimo(Boolean minimo) {
+	public void setMinimo(BigInteger minimo) {
 		this.minimo = minimo;
 	}
 
