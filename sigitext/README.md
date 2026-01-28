@@ -29,7 +29,7 @@ I prerequisiti per l'installazione della componente sono i seguenti:
 ## Software
 - [JDK 8](https://www.apache.org)
 - [RedHat JBoss 6.4 GA](https://developers.redhat.com)  
-- [PostgreSQL 9.6.11](https://www.postgresql.org/download/)  
+- [PostgreSQL 15.8](https://www.postgresql.org/download/)  
 
 - Tutte le librerie elencate nel sigitext.sbom.csv devono essere accessibili per compilare il progetto. Le librerie sono pubblicate su http://repart.csi.it, ma per semplicità sono state incluse nella cartella lib/, ad esclusione della libreria weblogic-client-3.0.0.jar che deve essere scaricata autonomamente dal sito di Oracle.
 
