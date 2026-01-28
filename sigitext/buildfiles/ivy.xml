@@ -189,6 +189,14 @@
         <dependency org="others" name="wstx-asl" rev="3.2.9" />
         <dependency org="others" name="wsdl4j" rev="1.6.2" />
         <dependency org="others" name="xml-resolver" rev="1.2" />
+        
+		<dependency org="dom4j" name="dom4j-full" rev="1.3"/>
+        <dependency org="apache" name="poi" rev="3.9" />
+
+		<!-- XLS -->
+		<dependency org="others" name="jexcelapi" rev="2.6">
+			<artifact name="jxl-2.6" type="jar" />
+		</dependency>
 
         <conflict org="csipiemonte" module="util-struts2-csitemplate" manager="all" />
     </dependencies>

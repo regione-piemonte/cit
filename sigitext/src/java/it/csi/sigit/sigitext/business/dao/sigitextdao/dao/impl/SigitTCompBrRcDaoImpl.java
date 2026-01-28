@@ -1,23 +1,28 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTCompBrRcDao;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTCompBrRcDaoRowMapper;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompBrRcDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompBrRcPk;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompBrRcDaoException;
-import it.csi.sigit.sigitext.business.dao.util.Constants;
-import it.csi.util.performance.StopWatch;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.util.List;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTCompBrRcDao;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTCompBrRcDaoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompBrRcBrRcLegateAGtComplexDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompBrRcDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompBrRcPk;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompBrRcDaoException;
+import it.csi.sigit.sigitext.business.dao.util.Constants;
+import it.csi.sigit.sigitext.business.util.GenericUtil;
+import it.csi.util.performance.StopWatch;
 
 public class SigitTCompBrRcDaoImpl extends AbstractDAO implements SigitTCompBrRcDao {
 	protected static final Logger LOG = Logger.getLogger(Constants.APPLICATION_CODE);
 
 	protected SigitTCompBrRcDaoRowMapper BrRcLegateAGtRowMapper = new SigitTCompBrRcDaoRowMapper(null, SigitTCompBrRcDto.class, this);
+	
+	protected SigitTCompBrRcDaoRowMapper BrRcLegateAGtComplexRowMapper = new SigitTCompBrRcDaoRowMapper(null,SigitTCompBrRcBrRcLegateAGtComplexDto.class, this);
 
 	protected NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -173,8 +178,8 @@ public class SigitTCompBrRcDaoImpl extends AbstractDAO implements SigitTCompBrRc
 		return list;
 	}
 
-	public List<SigitTCompBrRcDto> findBrRcLegateAGt(CompFilter input) throws SigitTCompBrRcDaoException {
-		LOG.debug("[SigitTCompBrRcDaoImpl::findBrRcLegateAGt] START");
+	public List<SigitTCompBrRcDto> findBrRcLegateATipoComponente(CompFilter input) throws SigitTCompBrRcDaoException {
+		LOG.debug("[SigitTCompBrRcDaoImpl::findBrRcLegateAGtGf] START");
 		StringBuilder sql = new StringBuilder();
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 
@@ -188,7 +193,7 @@ public class SigitTCompBrRcDaoImpl extends AbstractDAO implements SigitTCompBrRc
 			sql.append(" AND CODICE_IMPIANTO = :codiceImpianto ");
 		}
 
-		sql.append(" AND FK_TIPO_COMPONENTE = 'GT' ");
+		sql.append(" AND FK_TIPO_COMPONENTE = :tipoComponente ");
 
 		if (input.getDataInstallazione() != null) {
 			sql.append(" AND FK_DATA_INSTALL = :dataInstallazione ");
@@ -211,6 +216,10 @@ public class SigitTCompBrRcDaoImpl extends AbstractDAO implements SigitTCompBrRc
 		if (input.getProgressivo() != null) {
 			paramMap.addValue("progressivo", input.getProgressivo(), java.sql.Types.NUMERIC);
 		}
+		
+		if(input.getTipoComponente() != null) {
+			paramMap.addValue("tipoComponente", input.getTipoComponente(), java.sql.Types.VARCHAR);
+		}
 
 		/*PROTECTED REGION END*/
 		List<SigitTCompBrRcDto> list = null;
@@ -220,11 +229,77 @@ public class SigitTCompBrRcDaoImpl extends AbstractDAO implements SigitTCompBrRc
 			list = jdbcTemplate.query(sql.toString(), paramMap, BrRcLegateAGtRowMapper);
 
 		} catch (RuntimeException ex) {
-			LOG.error("[SigitTCompBrRcDaoImpl::findBrRcLegateAGt] esecuzione query", ex);
+			LOG.error("[SigitTCompBrRcDaoImpl::findBrRcLegateAGtGf] esecuzione query", ex);
 			throw new SigitTCompBrRcDaoException("Query failed", ex);
 		} finally {
-			stopWatch.dumpElapsed("SigitTCompBrRcDaoImpl", "findBrRcLegateAGt", "esecuzione query", sql.toString());
-			LOG.debug("[SigitTCompBrRcDaoImpl::findBrRcLegateAGt] END");
+			stopWatch.dumpElapsed("SigitTCompBrRcDaoImpl", "findBrRcLegateAGtGf", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTCompBrRcDaoImpl::findBrRcLegateAGtGf] END");
+		}
+		return list;
+	}
+	
+	public List<SigitTCompBrRcBrRcLegateAGtComplexDto> findBrRcLegateAGtComplex(
+			CompFilter input) throws SigitTCompBrRcDaoException {
+		LOG.debug("[SigitTCompBrRcDaoImpl::findBrRcLegateAGtComplex] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_COMP_BR_RC, TIPOLOGIA_BR_RC, PROGRESSIVO_BR_RC, FK_TIPO_COMPONENTE, FK_PROGRESSIVO, FK_DATA_INSTALL, CODICE_IMPIANTO, MODELLO, MATRICOLA, ID_MARCA, DES_MARCA");
+
+		sql.append(" FROM SIGIT_T_COMP_BR_RC, SIGIT_D_MARCA");
+
+		sql.append(" WHERE ");
+
+		sql.append("FK_MARCA = ID_MARCA");
+
+		sql.append(" AND ");
+
+		sql.append("1 = 1");
+		/*PROTECTED REGION ID(R1526394083) ENABLED START*/ //inserire qui i parametri indicati nella espressione di where, ad esempio:
+
+		if (input.getCodImpianto() != null) {
+			sql.append(" AND CODICE_IMPIANTO = :codiceImpianto ");
+			paramMap.addValue("codiceImpianto", input.getCodImpianto(), java.sql.Types.NUMERIC);
+		}
+
+		sql.append(" AND FK_TIPO_COMPONENTE = 'GT' ");
+
+		if (input.getDataInstallazione() != null) {
+			sql.append(" AND FK_DATA_INSTALL = :dataInstallazione ");
+			paramMap.addValue("dataInstallazione", input.getDataInstallazione(), java.sql.Types.DATE);
+		}
+
+		if (input.getProgressivo() != null) {
+			sql.append(" AND FK_PROGRESSIVO = :progressivo ");
+			paramMap.addValue("progressivo", input.getProgressivo(), java.sql.Types.NUMERIC);
+		}
+
+		if (GenericUtil.isNotNullOrEmpty(input.getTipoComponente())) {
+			sql.append(" AND TIPOLOGIA_BR_RC = :tipoComponente ");
+			paramMap.addValue("tipoComponente", input.getTipoComponente());
+		}
+
+		if (input.getDataControllo() != null) {
+			sql.append(" AND :dataControllo BETWEEN DATA_INSTALL AND COALESCE(DATA_DISMISS, CURRENT_DATE) ");
+			paramMap.addValue("dataControllo", input.getDataControllo(), java.sql.Types.DATE);
+		}
+
+		/*PROTECTED REGION END*/
+
+		List<SigitTCompBrRcBrRcLegateAGtComplexDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, BrRcLegateAGtComplexRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTCompBrRcDaoImpl::findBrRcLegateAGtComplex] ERROR esecuzione query", ex);
+			throw new SigitTCompBrRcDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTCompBrRcDaoImpl", "findBrRcLegateAGtComplex", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitTCompBrRcDaoImpl::findBrRcLegateAGtComplex] END");
 		}
 		return list;
 	}

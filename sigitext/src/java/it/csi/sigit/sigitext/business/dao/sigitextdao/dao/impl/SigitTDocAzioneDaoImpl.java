@@ -234,6 +234,7 @@ public class SigitTDocAzioneDaoImpl extends AbstractDAO implements SigitTDocAzio
 		sql.append(" WHERE ");
 		/*PROTECTED REGION ID(R588243442) ENABLED START*/
 		sql.append(" FK_AZIONE = :idAzione");
+		sql.append("  ORDER BY DATA_ULT_MOD DESC");
 		/*PROTECTED REGION END*/
 		/*PROTECTED REGION ID(R1936241296) ENABLED START*/
 

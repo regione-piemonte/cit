@@ -1,10 +1,11 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDocAllegatoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDocAllegatoPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTDocAllegatoDaoException;
-
-import java.util.List;
 
 /**
  * Interfaccia pubblica del DAO sigitTDocAllegato.
@@ -65,5 +66,9 @@ public interface SigitTDocAllegatoDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SigitTDocAllegatoDto> findByIdAllegato(Integer input) throws SigitTDocAllegatoDaoException;
+	
+	public SigitTDocAllegatoDto findByUidIndex(String uidIndex) throws SigitTDocAllegatoDaoException;
+	
+	public void delete(BigDecimal idAllegato) throws SigitTDocAllegatoDaoException;
 
 }

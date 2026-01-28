@@ -100,6 +100,14 @@ public class SigitVRicercaImpiantiDaoRowMapper extends BaseDaoRowMapper implemen
 		if (mapAllColumns || columnsToReadMap.get("PDR_GAS") != null)
 			dto.setPdrGas(rs.getString("PDR_GAS"));
 
+		// colonna [ID_PF_RESPONSABILE]
+		if (mapAllColumns || columnsToReadMap.get("ID_PF_RESPONSABILE") != null)
+			dto.setIdPfResponsabile(rs.getBigDecimal("ID_PF_RESPONSABILE"));
+
+		// colonna [ID_PG_RESPONSABILE]
+		if (mapAllColumns || columnsToReadMap.get("ID_PG_RESPONSABILE") != null)
+			dto.setIdPgResponsabile(rs.getBigDecimal("ID_PG_RESPONSABILE"));
+
 		// colonna [DENOMINAZIONE_RESPONSABILE]
 		if (mapAllColumns || columnsToReadMap.get("DENOMINAZIONE_RESPONSABILE") != null)
 			dto.setDenominazioneResponsabile(rs.getString("DENOMINAZIONE_RESPONSABILE"));

@@ -29,6 +29,34 @@ public class SigitTImportDistribByIdPersonaGiuridicaDto implements Serializable 
 		return idIdImportDistrib;
 
 	}
+	
+	private Integer fkPersonaGiuridica;
+	
+	public Integer getFkPersonaGiuridica() {
+		
+		return fkPersonaGiuridica;
+	
+	}
+	
+	public void setFkPersonaGiuridica(Integer fkPersonaGiuridica) {
+		
+		this.fkPersonaGiuridica = fkPersonaGiuridica;
+	
+	}
+	
+	private Integer fkStatoDistrib;
+	
+	public Integer getFkStatoDistrib() {
+		
+		return fkStatoDistrib;
+
+	}
+	
+	public void setFkStatoDistrib(Integer fkStatoDistrib) {
+	
+		this.fkStatoDistrib = fkStatoDistrib;
+	
+	}
 
 	/*	 
 	 * @generated
@@ -111,6 +139,20 @@ public class SigitTImportDistribByIdPersonaGiuridicaDto implements Serializable 
 		return idNomeFileImport;
 
 	}
+	
+	private String uidIndex;
+	
+	public String getUidIndex() {
+		
+		return uidIndex;
+	
+	}
+	
+	public void setUidIndex(String uidIndex) {
+	
+		this.uidIndex = uidIndex;
+	
+	}
 
 	/*	 
 	 * @generated
@@ -132,6 +174,34 @@ public class SigitTImportDistribByIdPersonaGiuridicaDto implements Serializable 
 
 		return idAnnoRiferimento;
 
+	}
+	
+	private String dataInvioMailDistrib;
+	
+	public String getDataInvioMailDistrib() {
+		
+		return dataInvioMailDistrib;
+	
+	}
+	
+	public void setDataInvioMailDistrib(String dataInvioMailDistrib) {
+	
+		this.dataInvioMailDistrib = dataInvioMailDistrib;
+	
+	}
+
+	private String dataInvioMailAssistenza;
+	
+	public String getDataInvioMailAssistenza() {
+	
+		return dataInvioMailAssistenza;
+	
+	}
+	
+	public void setDataInvioMailAssistenza(String dataInvioMailAssistenza) {
+	
+		this.dataInvioMailAssistenza = dataInvioMailAssistenza;
+	
 	}
 
 	/*	 
@@ -229,6 +299,49 @@ public class SigitTImportDistribByIdPersonaGiuridicaDto implements Serializable 
 		return idTotRecordScartati;
 
 	}
+	
+	private String dataUltMod;
+	
+	public String getDataUltMod() {
+	
+		return dataUltMod;
+
+	}
+	
+	public void setDataUltMod(String dataUltMod) {
+	
+		this.dataUltMod = dataUltMod;
+	
+	}
+	
+	private String utenteUltMod;
+	
+	public String getUtenteUltMod() {
+		
+		return utenteUltMod;
+	
+	}
+	
+	public void setUtenteUltMod(String utenteUltMod) {
+	
+		this.utenteUltMod = utenteUltMod;
+	
+	}
+	
+	private String utenteCaricamento;
+	
+	public String getUtenteCaricamento() {
+	
+		return utenteCaricamento;
+	
+	}
+	
+	public void setUtenteCaricamento(String utenteCaricamento) {
+	
+		this.utenteCaricamento = utenteCaricamento;
+	
+	}
+
 
 	/**
 	 * Method 'equals'

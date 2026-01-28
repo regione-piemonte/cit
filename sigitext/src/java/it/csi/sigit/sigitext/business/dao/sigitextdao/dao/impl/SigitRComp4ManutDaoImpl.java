@@ -1,18 +1,20 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitRComp4ManutDao;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitRComp4ManutDaoRowMapper;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutPk;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRComp4ManutDaoException;
-import it.csi.sigit.sigitext.business.dao.util.Constants;
-import it.csi.util.performance.StopWatch;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.util.List;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitRComp4ManutDao;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitRComp4ManutDaoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutManutentoriByCodiceImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutPk;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRComp4ManutDaoException;
+import it.csi.sigit.sigitext.business.dao.util.Constants;
+import it.csi.util.performance.StopWatch;
 
 /*PROTECTED REGION ID(R579102717) ENABLED START*/
 // aggiungere qui eventuali import custom. 
@@ -110,6 +112,31 @@ public class SigitRComp4ManutDaoImpl extends AbstractDAO implements SigitRComp4M
 		return dto.createPk();
 
 	}
+	
+	public void updateDataFine(SigitRComp4ManutDto dto) throws SigitRComp4ManutDaoException {
+		LOG.debug("[SigitRComp4ManutDaoImpl::updateDataFine] START");
+
+		final String sql = "UPDATE " + getTableName()
+				+ " SET DATA_FINE = :DATA_FINE WHERE CODICE_IMPIANTO = :CODICE_IMPIANTO AND ID_TIPO_COMPONENTE = :ID_TIPO_COMPONENTE AND PROGRESSIVO = :PROGRESSIVO AND DATA_FINE IS NULL";
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		// valorizzazione paametro relativo a colonna [DATA_FINE]
+		params.addValue("DATA_FINE", dto.getDataFine(), java.sql.Types.DATE);
+
+		params.addValue("CODICE_IMPIANTO", dto.getCodiceImpianto(), java.sql.Types.NUMERIC);
+
+		// valorizzazione paametro relativo a colonna [ID_TIPO_COMPONENTE]
+		params.addValue("ID_TIPO_COMPONENTE", dto.getIdTipoComponente(), java.sql.Types.VARCHAR);
+
+		params.addValue("PROGRESSIVO", dto.getProgressivo(), java.sql.Types.NUMERIC);
+
+
+		update(jdbcTemplate, sql.toString(), params);
+
+		LOG.debug("[SigitRComp4ManutDaoImpl::updateDataFine] END");
+
+	}
 
 	/**
 	 * Custom deleter in the SIGIT_R_COMP4_MANUT table.
@@ -134,6 +161,9 @@ public class SigitRComp4ManutDaoImpl extends AbstractDAO implements SigitRComp4M
 	protected SigitRComp4ManutDaoRowMapper byPersonaGiuridicaCodImpiantoRowMapper = new SigitRComp4ManutDaoRowMapper(null, SigitRComp4ManutDto.class, this);
 
 	protected SigitRComp4ManutDaoRowMapper byRuoloFunzPersonaGiuridicaCodImpiantoRowMapper = new SigitRComp4ManutDaoRowMapper(null, SigitRComp4ManutDto.class, this);
+
+	protected SigitRComp4ManutDaoRowMapper manutentoriByCodiceImpiantoRowMapper = new SigitRComp4ManutDaoRowMapper(null,
+			SigitRComp4ManutManutentoriByCodiceImpiantoDto.class, this);
 
 	/**
 	 * Restituisce il nome della tabella su cui opera il DAO
@@ -209,6 +239,8 @@ public class SigitRComp4ManutDaoImpl extends AbstractDAO implements SigitRComp4M
 		}
 		return list;
 	}
+	
+	
 
 	/**
 	 * Implementazione del finder byPersonaGiuridicaCodImpianto
@@ -232,6 +264,8 @@ public class SigitRComp4ManutDaoImpl extends AbstractDAO implements SigitRComp4M
 		sql.append("  DATA_FINE IS NULL");
 		if (input.getIdPG() != null)
 			sql.append(" AND FK_PERSONA_GIURIDICA = :idPersonaGiuridica");
+		if (input.getNotIdPG() != null)
+			sql.append(" AND FK_PERSONA_GIURIDICA != :idPersonaGiuridica");
 		if (input.getCodImpianto() != null)
 			sql.append(" AND CODICE_IMPIANTO = :codiceImpianto");
 		if (input.getIdRuolo() != null)
@@ -254,6 +288,8 @@ public class SigitRComp4ManutDaoImpl extends AbstractDAO implements SigitRComp4M
 
 		if (input.getIdPG() != null)
 			paramMap.addValue("idPersonaGiuridica", input.getIdPG(), java.sql.Types.NUMERIC);
+		if (input.getNotIdPG() != null)
+			paramMap.addValue("idPersonaGiuridica", input.getNotIdPG(), java.sql.Types.NUMERIC);
 		if (input.getCodImpianto() != null)
 			paramMap.addValue("codiceImpianto", input.getCodImpianto(), java.sql.Types.NUMERIC);
 		if (input.getIdRuolo() != null)
@@ -388,4 +424,54 @@ public class SigitRComp4ManutDaoImpl extends AbstractDAO implements SigitRComp4M
 		delete(jdbcTemplate, sql.toString(), params);
 		LOG.debug("[SigitRComp4ManutDaoImpl::customDeleterByFilter] END");
 	}
+	
+	/** 
+	 * Implementazione del finder manutentoriByCodiceImpianto con Qdef
+	 * @generated
+	 */
+
+	public List<SigitRComp4ManutManutentoriByCodiceImpiantoDto> findManutentoriByCodiceImpianto(java.lang.Integer input)
+			throws SigitRComp4ManutDaoException {
+		LOG.debug("[SigitRComp4ManutDaoImpl::findManutentoriByCodiceImpianto] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+	
+		sql.append(
+				"SELECT pg.CODICE_FISCALE, pg.SIGLA_REA, pg.NUMERO_REA, pg.DENOMINAZIONE, td.DES_TIPO_DOCUMENTO, cm.PROGRESSIVO, cm.FK_PERSONA_GIURIDICA, cm.ID_TIPO_COMPONENTE");
+	
+		sql.append(
+				" FROM SIGIT_R_COMP4_MANUT cm, SIGIT_T_PERSONA_GIURIDICA pg, SIGIT_R_RUOLO_TIPODOC rtd, SIGIT_D_TIPO_DOCUMENTO td");
+	
+		sql.append(" WHERE ");
+	
+		sql.append(
+				"cm.FK_PERSONA_GIURIDICA = pg.ID_PERSONA_GIURIDICA AND cm.FK_RUOLO = rtd.ID_RUOLO AND rtd.ID_TIPO_DOCUMENTO = td.ID_TIPO_DOCUMENTO");
+	
+		sql.append(" AND ");
+	
+		sql.append("cm.DATA_FINE IS NULL AND cm.CODICE_IMPIANTO = :codImpianto");
+		/*PROTECTED REGION ID(R145619045) ENABLED START*///inserire qui i parametri indicati nella espressione di where, ad esempio:
+	
+		sql.append(" ORDER BY td.ID_TIPO_DOCUMENTO , cm.FK_PERSONA_GIURIDICA, cm.PROGRESSIVO");
+		paramMap.addValue("codImpianto", input, java.sql.Types.NUMERIC);
+	
+		/*PROTECTED REGION END*/
+	
+		List<SigitRComp4ManutManutentoriByCodiceImpiantoDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+	
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, manutentoriByCodiceImpiantoRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRComp4ManutDaoImpl::findManutentoriByCodiceImpianto] ERROR esecuzione query", ex);
+			throw new SigitRComp4ManutDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRComp4ManutDaoImpl", "findManutentoriByCodiceImpianto", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRComp4ManutDaoImpl::findManutentoriByCodiceImpianto] END");
+		}
+		return list;
+	}
+
 }

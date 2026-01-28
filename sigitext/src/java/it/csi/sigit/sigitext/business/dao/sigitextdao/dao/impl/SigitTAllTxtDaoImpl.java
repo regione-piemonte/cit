@@ -1,6 +1,13 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
 
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTAllTxtDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTAllTxtDaoRowMapper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllTxtDto;
@@ -8,11 +15,6 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllTxtPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTAllTxtDaoException;
 import it.csi.sigit.sigitext.business.dao.util.Constants;
 import it.csi.util.performance.StopWatch;
-import org.apache.log4j.Logger;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import java.util.List;
 
 /*PROTECTED REGION ID(R-150179837) ENABLED START*/
 // aggiungere qui eventuali import custom. 
@@ -171,6 +173,21 @@ public class SigitTAllTxtDaoImpl extends AbstractDAO implements SigitTAllTxtDao 
 			LOG.debug("[SigitTAllTxtDaoImpl::findByPrimaryKey] END");
 		}
 		return list.isEmpty() ? null : list.get(0);
+	}
+	
+	public void delete(BigDecimal idAllegato) throws SigitTAllTxtDaoException {
+
+		LOG.debug("[SigitTAllTxtDaoImpl::delete] START");
+		final String sql = "DELETE FROM " + getTableName() + " WHERE ID_ALLEGATO = :ID_ALLEGATO ";
+		if (idAllegato == null) {
+			LOG.error("[SigitTAllTxtDaoImpl::delete] ERROR chiave primaria non impostata");
+			throw new SigitTAllTxtDaoException("Chiave primaria non impostata");
+		}
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("ID_ALLEGATO", idAllegato, java.sql.Types.NUMERIC);
+		delete(jdbcTemplate, sql.toString(), params);
+		LOG.debug("[SigitTAllTxtDaoImpl::delete] END");
+		
 	}
 
 }

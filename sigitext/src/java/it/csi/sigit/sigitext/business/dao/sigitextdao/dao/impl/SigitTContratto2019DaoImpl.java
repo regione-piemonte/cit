@@ -273,6 +273,61 @@ public class SigitTContratto2019DaoImpl extends AbstractDAO implements SigitTCon
 		}
 		return list.isEmpty() ? null : list.get(0);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public SigitTContratto2019Dto findByIdContrattoAndCodiceImpianto(Integer idContratto, Integer codiceImpianto) throws SigitTContratto2019DaoException {
+		LOG.debug("[SigitTContratto2019DaoImpl::findByIdContrattoAndCodiceImpianto] START");
+		final StringBuilder sql = new StringBuilder(
+				"SELECT ID_CONTRATTO,FK_PG_3_RESP,FK_IMP_RUOLO_PFPG_RESP,CODICE_IMPIANTO,DATA_INIZIO,DATA_FINE,FLG_TACITO_RINNOVO,DATA_CARICAMENTO,DATA_ULT_MOD,UTENTE_ULT_MOD,DATA_CESSAZIONE,DATA_INSERIMENTO_CESSAZIONE,MOTIVO_CESSAZIONE,FK_TIPO_CESSAZIONE,NOTE FROM "
+						+ getTableName() + " WHERE ID_CONTRATTO = :ID_CONTRATTO AND CODICE_IMPIANTO = :CODICE_IMPIANTO");
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		// valorizzazione paametro relativo a colonna [ID_CONTRATTO]
+		params.addValue("ID_CONTRATTO", idContratto, java.sql.Types.NUMERIC);
+		params.addValue("CODICE_IMPIANTO", codiceImpianto, java.sql.Types.NUMERIC);
+
+		List<SigitTContratto2019Dto> list = null;
+
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), params, findByPrimaryKeyRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTContratto2019DaoImpl::findByIdContrattoAndCodiceImpianto] ERROR esecuzione query", ex);
+			throw new SigitTContratto2019DaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTContratto2019DaoImpl", "findByIdContrattoAndCodiceImpianto", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTContratto2019DaoImpl::findByIdContrattoAndCodiceImpianto] END");
+		}
+		return list.isEmpty() ? null : list.get(0);
+	}
+	
+	public List<SigitTContratto2019Dto> findByCodiceImpianto(Integer codiceImpianto) throws SigitTContratto2019DaoException {
+		LOG.debug("[SigitTContratto2019DaoImpl::findByCodiceImpianto] START");
+		final StringBuilder sql = new StringBuilder(
+				"SELECT ID_CONTRATTO,FK_PG_3_RESP,FK_IMP_RUOLO_PFPG_RESP,CODICE_IMPIANTO,DATA_INIZIO,DATA_FINE,FLG_TACITO_RINNOVO,DATA_CARICAMENTO,DATA_ULT_MOD,UTENTE_ULT_MOD,DATA_CESSAZIONE,DATA_INSERIMENTO_CESSAZIONE,MOTIVO_CESSAZIONE,FK_TIPO_CESSAZIONE,NOTE FROM "
+						+ getTableName() + " WHERE CODICE_IMPIANTO = :CODICE_IMPIANTO");
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		params.addValue("CODICE_IMPIANTO", codiceImpianto, java.sql.Types.NUMERIC);
+
+		List<SigitTContratto2019Dto> list = null;
+
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), params, findByPrimaryKeyRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTContratto2019DaoImpl::findByCodiceImpianto] ERROR esecuzione query", ex);
+			throw new SigitTContratto2019DaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTContratto2019DaoImpl", "findByCodiceImpianto", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTContratto2019DaoImpl::findByCodiceImpianto] END");
+		}
+		return list;
+	}
 
 	/** 
 	 * Implementazione del finder byFilter
@@ -518,6 +573,22 @@ public class SigitTContratto2019DaoImpl extends AbstractDAO implements SigitTCon
 			LOG.debug("[SigitTContratto2019DaoImpl::findByCodImpSysdate] END");
 		}
 		return list;
+	}
+
+	@Override
+	public SigitTContratto2019Dto checkContrattoInEssere(String codiceImpianto) {
+		String sql = "SELECT * "
+				+ "FROM SIGIT_T_CONTRATTO_2019 "
+				+ "WHERE data_cessazione IS NULL "
+				+ "AND (flg_tacito_rinnovo = 1::numeric OR (flg_tacito_rinnovo = 0::numeric AND data_fine > now()::date)) "
+				+ "AND codice_impianto = :codiceImpianto";
+
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		paramMap.addValue("codiceImpianto", codiceImpianto, java.sql.Types.NUMERIC);
+
+		List<SigitTContratto2019Dto> list = jdbcTemplate.query(sql, paramMap, findByPrimaryKeyRowMapper);
+
+		return !list.isEmpty() ? list.get(0) : null;
 	}
 
 }

@@ -1,12 +1,12 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import it.csi.sigit.sigitext.business.dao.impl.BaseDaoRowMapper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTCompGfDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTCompGfDaoImpl;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompGfCompletoDto;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * RowMapper specifico del DAO SigitTCompGfDao
@@ -86,7 +86,7 @@ public class SigitTCompGfCompletoDaoRowMapper extends BaseDaoRowMapper implement
 
 		// colonna [N_CIRCUITI]
 		if (mapAllColumns || columnsToReadMap.get("N_CIRCUITI") != null)
-			dto.setnCircuiti(rs.getBigDecimal("N_CIRCUITI"));
+			dto.setNCircuiti(rs.getBigDecimal("N_CIRCUITI"));
 
 		// colonna [RAFFRESCAMENTO_EER]
 		if (mapAllColumns || columnsToReadMap.get("RAFFRESCAMENTO_EER") != null)

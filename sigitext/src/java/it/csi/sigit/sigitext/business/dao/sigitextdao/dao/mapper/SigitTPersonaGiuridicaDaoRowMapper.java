@@ -1,17 +1,18 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import it.csi.sigit.sigitext.business.dao.impl.BaseDaoRowMapper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTPersonaGiuridicaDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTPersonaGiuridicaDaoImpl;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaGiuridicaDto;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 /**
  * RowMapper specifico del DAO SigitTPersonaGiuridicaDao
  * @generated
  */
+@SuppressWarnings("rawtypes")
 public class SigitTPersonaGiuridicaDaoRowMapper extends BaseDaoRowMapper
 		implements
 			org.springframework.jdbc.core.RowMapper {
@@ -30,8 +31,8 @@ public class SigitTPersonaGiuridicaDaoRowMapper extends BaseDaoRowMapper
 	public SigitTPersonaGiuridicaDaoRowMapper(String[] columnsToRead, Class dtoClass, SigitTPersonaGiuridicaDao dao) {
 		super(columnsToRead, dtoClass);
 		this.dao = (SigitTPersonaGiuridicaDaoImpl) dao;
-	}
-
+	} 
+	
 	/**
 	 * Method 'mapRow'
 	 * 
@@ -214,6 +215,14 @@ public class SigitTPersonaGiuridicaDaoRowMapper extends BaseDaoRowMapper
 		// colonna [TOKEN]
 		if (mapAllColumns || columnsToReadMap.get("TOKEN") != null)
 			dto.setToken(rs.getString("TOKEN"));
+		
+		if (mapAllColumns || columnsToReadMap.get("TELEFONO") != null)
+			dto.setTelefono(rs.getString("TELEFONO"));
+
+		
+		if (mapAllColumns || columnsToReadMap.get("PEC") != null)
+			dto.setPec(rs.getString("PEC"));
+
 
 		return dto;
 	}

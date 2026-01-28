@@ -6,6 +6,7 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImportDistribByI
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImportDistribDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImportDistribRicevutaByIdImportDistribDto;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -125,30 +126,67 @@ public class SigitTImportDistribDaoRowMapper extends BaseDaoRowMapper
 
 		if (mapAllColumns || columnsToReadMap.get("ID_IMPORT_DISTRIB") != null)
 			dto.setIdIdImportDistrib((Integer) rs.getObject("ID_IMPORT_DISTRIB"));
+		
+		// colonna [FK_PERSONA_GIURIDICA]
+			if (mapAllColumns || columnsToReadMap.get("FK_PERSONA_GIURIDICA") != null) {
+				BigDecimal fkPersonaGiuridica = rs.getBigDecimal("FK_PERSONA_GIURIDICA");
+			    if (fkPersonaGiuridica != null) {
+			        dto.setFkPersonaGiuridica(fkPersonaGiuridica.intValue());
+			    } else {
+			        dto.setFkPersonaGiuridica(null); 
+			    }
+			}
 
+		// colonna [FK_STATO_DISTRIB]
+		if (mapAllColumns || columnsToReadMap.get("FK_STATO_DISTRIB") != null)
+			dto.setFkStatoDistrib((Integer) rs.getObject("FK_STATO_DISTRIB"));
+
+		if (mapAllColumns || columnsToReadMap.get("DES_STATO_DISTRIB") != null)
+			dto.setSdDesStatoDistrib(rs.getString("DES_STATO_DISTRIB"));
+		
 		if (mapAllColumns || columnsToReadMap.get("DATA_INIZIO_ELAB") != null)
 			dto.setIdDataInizioElab(rs.getTimestamp("DATA_INIZIO_ELAB"));
 
 		if (mapAllColumns || columnsToReadMap.get("DATA_FINE_ELAB") != null)
 			dto.setIdDataFineElab(rs.getTimestamp("DATA_FINE_ELAB"));
 
+		if (mapAllColumns || columnsToReadMap.get("DATA_ANNULLAMENTO") != null)
+			dto.setIdDataAnnullamento(rs.getTimestamp("DATA_ANNULLAMENTO"));
+
 		if (mapAllColumns || columnsToReadMap.get("NOME_FILE_IMPORT") != null)
 			dto.setIdNomeFileImport(rs.getString("NOME_FILE_IMPORT"));
 
+		if (mapAllColumns || columnsToReadMap.get("UID_INDEX") != null)
+			dto.setUidIndex(rs.getString("UID_INDEX"));
+		
 		if (mapAllColumns || columnsToReadMap.get("ANNO_RIFERIMENTO") != null)
 			dto.setIdAnnoRiferimento(rs.getBigDecimal("ANNO_RIFERIMENTO"));
 
-		if (mapAllColumns || columnsToReadMap.get("DES_STATO_DISTRIB") != null)
-			dto.setSdDesStatoDistrib(rs.getString("DES_STATO_DISTRIB"));
+		// colonna [DATA_INVIO_MAIL_DISTRIB]
+		if (mapAllColumns || columnsToReadMap.get("DATA_INVIO_MAIL_DISTRIB") != null)
+			dto.setDataInvioMailDistrib(rs.getString("DATA_INVIO_MAIL_DISTRIB"));
 
-		if (mapAllColumns || columnsToReadMap.get("DATA_ANNULLAMENTO") != null)
-			dto.setIdDataAnnullamento(rs.getTimestamp("DATA_ANNULLAMENTO"));
+		// colonna [DATA_INVIO_MAIL_ASSISTENZA]
+		if (mapAllColumns || columnsToReadMap.get("DATA_INVIO_MAIL_ASSISTENZA") != null)
+			dto.setDataInvioMailAssistenza(rs.getString("DATA_INVIO_MAIL_ASSISTENZA"));
 
 		if (mapAllColumns || columnsToReadMap.get("TOT_RECORD_ELABORATI") != null)
 			dto.setIdTotRecordElaborati(rs.getBigDecimal("TOT_RECORD_ELABORATI"));
 
 		if (mapAllColumns || columnsToReadMap.get("TOT_RECORD_SCARTATI") != null)
 			dto.setIdTotRecordScartati(rs.getBigDecimal("TOT_RECORD_SCARTATI"));
+		
+		// colonna [DATA_ULT_MOD]
+		if (mapAllColumns || columnsToReadMap.get("DATA_ULT_MOD") != null)
+			dto.setDataUltMod(rs.getString("DATA_ULT_MOD"));
+
+		// colonna [UTENTE_ULT_MOD]
+		if (mapAllColumns || columnsToReadMap.get("UTENTE_ULT_MOD") != null)
+			dto.setUtenteUltMod(rs.getString("UTENTE_ULT_MOD"));
+
+		// colonna [UTENTE_CARICAMENTO]
+		if (mapAllColumns || columnsToReadMap.get("UTENTE_CARICAMENTO") != null)
+			dto.setUtenteCaricamento(rs.getString("UTENTE_CARICAMENTO"));
 
 		return dto;
 	}

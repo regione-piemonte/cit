@@ -3,7 +3,11 @@ package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitDDettaglioGfDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitDDettaglioGfDaoRowMapper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDDettaglioGfDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDDettaglioGfPk;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDDettaglioGtDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDDettaglioGtPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitDDettaglioGfDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitDDettaglioGtDaoException;
 import it.csi.sigit.sigitext.business.dao.util.Constants;
 import it.csi.util.performance.StopWatch;
 import org.apache.log4j.Logger;
@@ -86,6 +90,37 @@ public class SigitDDettaglioGfDaoImpl extends AbstractDAO implements SigitDDetta
 			LOG.debug("[SigitDDettaglioGfDaoImpl::findAll] END");
 		}
 		return list;
+	}
+	
+	/** 
+	 * Returns all rows from the SIGIT_D_DETTAGLIO_GT table that match the primary key criteria
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public SigitDDettaglioGfDto findByPrimaryKey(SigitDDettaglioGfPk pk) throws SigitDDettaglioGfDaoException {
+		LOG.debug("[SigitDDettaglioGfDaoImpl::findByPrimaryKey] START");
+		final StringBuilder sql = new StringBuilder(
+				"SELECT ID_DETTAGLIO_GF,DES_DETTAGLIO_GF FROM " + getTableName() + " WHERE ID_DETTAGLIO_GF = :ID_DETTAGLIO_GF ");
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		// valorizzazione paametro relativo a colonna [ID_DETTAGLIO_GT]
+		params.addValue("ID_DETTAGLIO_GF", pk.getIdDettaglioGf(), java.sql.Types.NUMERIC);
+
+		List<SigitDDettaglioGfDto> list = null;
+
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), params, findAllRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitDDettaglioGfDaoImpl::findByPrimaryKey] ERROR esecuzione query", ex);
+			throw new SigitDDettaglioGfDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitDDettaglioGfDaoImpl", "findByPrimaryKey", "esecuzione query", sql.toString());
+			LOG.debug("[SigitDDettaglioGfDaoImpl::findByPrimaryKey] END");
+		}
+		return list.isEmpty() ? null : list.get(0);
 	}
 
 }

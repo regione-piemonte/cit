@@ -1,6 +1,7 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao;
 
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompBrRcBrRcLegateAGtComplexDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompBrRcDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompBrRcPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompBrRcDaoException;
@@ -43,5 +44,7 @@ public interface SigitTCompBrRcDao {
 			SigitTCompBrRcDto input)
 			throws SigitTCompBrRcDaoException;
 
-	public List<SigitTCompBrRcDto> findBrRcLegateAGt(CompFilter filtroGT) throws SigitTCompBrRcDaoException;
+	public List<SigitTCompBrRcDto> findBrRcLegateATipoComponente(CompFilter filtroGT) throws SigitTCompBrRcDaoException;
+	
+	public List<SigitTCompBrRcBrRcLegateAGtComplexDto> findBrRcLegateAGtComplex(CompFilter input) throws SigitTCompBrRcDaoException;
 }

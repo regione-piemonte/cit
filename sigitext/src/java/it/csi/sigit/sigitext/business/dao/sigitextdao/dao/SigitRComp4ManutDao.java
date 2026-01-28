@@ -2,6 +2,7 @@ package it.csi.sigit.sigitext.business.dao.sigitextdao.dao;
 
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutManutentoriByCodiceImpiantoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRComp4ManutDaoException;
 
@@ -63,5 +64,9 @@ public interface SigitRComp4ManutDao {
 	public List<SigitRComp4ManutDto> findByFilter(CompFilter input) throws SigitRComp4ManutDaoException;
 
 	public void customDeleterByFilter(SigitRComp4ManutDto filter) throws SigitRComp4ManutDaoException;
+
+	public List<SigitRComp4ManutManutentoriByCodiceImpiantoDto> findManutentoriByCodiceImpianto(Integer input) throws SigitRComp4ManutDaoException;
+	
+	void updateDataFine(SigitRComp4ManutDto dto) throws SigitRComp4ManutDaoException;
 
 }

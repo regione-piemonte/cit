@@ -160,14 +160,17 @@ public class SigitTAzioneDaoImpl extends AbstractDAO implements SigitTAzioneDao 
 		LOG.debug("[SigitTAzioneDaoImpl::delete] END");
 	}
 
-	protected SigitTAzioneDaoRowMapper findByPrimaryKeyRowMapper = new SigitTAzioneDaoRowMapper(null,
-			SigitTAzioneDto.class, this);
+	protected SigitTAzioneDaoRowMapper findByPrimaryKeyRowMapper = new SigitTAzioneDaoRowMapper(null, SigitTAzioneDto.class, this);
 
-	protected SigitTAzioneDaoRowMapper byExampleRowMapper = new SigitTAzioneDaoRowMapper(null, SigitTAzioneDto.class,
-			this);
+	protected SigitTAzioneDaoRowMapper byExampleRowMapper = new SigitTAzioneDaoRowMapper(null, SigitTAzioneDto.class, this);
 
-	protected SigitTAzioneDaoRowMapper findAllRowMapper = new SigitTAzioneDaoRowMapper(null, SigitTAzioneDto.class,
-			this);
+	protected SigitTAzioneDaoRowMapper findAllRowMapper = new SigitTAzioneDaoRowMapper(null, SigitTAzioneDto.class, this);
+	
+	protected SigitTAzioneDaoRowMapper findByFkVerifica = new SigitTAzioneDaoRowMapper(null, SigitTAzioneDto.class, this);
+	
+	protected SigitTAzioneDaoRowMapper findByFkAccertamento = new SigitTAzioneDaoRowMapper(null, SigitTAzioneDto.class, this);
+	
+	protected SigitTAzioneDaoRowMapper findByFkIspezione2018 = new SigitTAzioneDaoRowMapper(null, SigitTAzioneDto.class, this);
 
 	/**
 	 * 
@@ -308,6 +311,101 @@ public class SigitTAzioneDaoImpl extends AbstractDAO implements SigitTAzioneDao 
 		} finally {
 			stopWatch.dumpElapsed("SigitTAzioneDaoImpl", "findAll", "esecuzione query", sql.toString());
 			LOG.debug("[SigitTAzioneDaoImpl::findAll] END");
+		}
+		return list;
+	}
+	
+	public List<SigitTAzioneDto> findByFkVerifica(Integer fkVerifica) throws SigitTAzioneDaoException {
+		LOG.debug("[SigitTAzioneDaoImpl::findByFkVerifica] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_AZIONE,DT_AZIONE,FK_TIPO_AZIONE,FK_VERIFICA,FK_ACCERTAMENTO,FK_ISPEZIONE_2018,FK_SANZIONE,DESCRIZIONE_AZIONE,CF_UTENTE_AZIONE,DENOM_UTENTE_AZIONE ");
+		sql.append(" FROM SIGIT_T_AZIONE");
+		sql.append(" WHERE FK_VERIFICA= :fkVerifica");		
+		
+
+		paramMap.addValue("fkVerifica", fkVerifica, java.sql.Types.INTEGER);
+
+
+		/*PROTECTED REGION END*/
+		List<SigitTAzioneDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, findByFkVerifica);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTAzioneDaoImpl::findByFkVerifica] esecuzione query", ex);
+			throw new SigitTAzioneDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTAzioneDaoImpl", "findByFkVerifica", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTAzioneDaoImpl::findByFkVerifica] END");
+		}
+		return list;
+	}
+	
+	@Override
+	public List<SigitTAzioneDto> findByFkAccertamento(Integer fkAccertamento) throws SigitTAzioneDaoException {
+		LOG.debug("[SigitTAzioneDaoImpl::findByFkAccertamento] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_AZIONE,DT_AZIONE,FK_TIPO_AZIONE,FK_VERIFICA,FK_ACCERTAMENTO,FK_ISPEZIONE_2018,FK_SANZIONE,DESCRIZIONE_AZIONE,CF_UTENTE_AZIONE,DENOM_UTENTE_AZIONE ");
+		sql.append(" FROM SIGIT_T_AZIONE");
+		sql.append(" WHERE FK_ACCERTAMENTO= :fkAccertamento");
+		
+
+		paramMap.addValue("fkAccertamento", fkAccertamento, java.sql.Types.INTEGER);
+
+
+		/*PROTECTED REGION END*/
+		List<SigitTAzioneDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, findByFkAccertamento);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTAzioneDaoImpl::findByFkAccertamento] esecuzione query", ex);
+			throw new SigitTAzioneDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTAzioneDaoImpl", "findByFkAccertamento", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTAzioneDaoImpl::findByFkAccertamento] END");
+		}
+		return list;
+	}
+	
+	@Override
+	public List<SigitTAzioneDto> findByFkIspezione2018(Integer fkIspezione2018) throws SigitTAzioneDaoException {
+		LOG.debug("[SigitTAzioneDaoImpl::findByFkIspezione2018] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_AZIONE,DT_AZIONE,FK_TIPO_AZIONE,FK_VERIFICA,FK_ACCERTAMENTO,FK_ISPEZIONE_2018,FK_SANZIONE,DESCRIZIONE_AZIONE,CF_UTENTE_AZIONE,DENOM_UTENTE_AZIONE ");
+		sql.append(" FROM SIGIT_T_AZIONE");
+		sql.append(" WHERE FK_ISPEZIONE_2018= :fkIspezione2018");
+		
+
+		paramMap.addValue("fkIspezione2018", fkIspezione2018, java.sql.Types.INTEGER);
+
+
+		/*PROTECTED REGION END*/
+		List<SigitTAzioneDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, findByFkIspezione2018);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTAzioneDaoImpl::findByFkIspezione2018] esecuzione query", ex);
+			throw new SigitTAzioneDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTAzioneDaoImpl", "findByFkIspezione2018", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTAzioneDaoImpl::findByFkAccertamento] END");
 		}
 		return list;
 	}

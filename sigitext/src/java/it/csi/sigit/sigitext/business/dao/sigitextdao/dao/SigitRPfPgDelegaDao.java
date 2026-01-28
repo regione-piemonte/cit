@@ -21,4 +21,8 @@ public interface SigitRPfPgDelegaDao {
 
 	public List<SigitRPfPgDelegaFindByPfDto> findFindByPf(Integer input) throws SigitRPfPgDelegaDaoException;
 	public List<SigitRPfPgDelegaDto> findFindByPg(Integer input) throws SigitRPfPgDelegaDaoException;
+	List<SigitRPfPgDelegaDto> findByPfAndPg(Integer idPersonaFisica, Integer idPersonaGiuridica) throws SigitRPfPgDelegaDaoException;
+	void insert(SigitRPfPgDelegaDto dto) throws SigitRPfPgDelegaDaoException;
+	List<SigitRPfPgDelegaDto> findFindByIdPersonaFisica(Integer input) throws SigitRPfPgDelegaDaoException;
+	void update(SigitRPfPgDelegaDto dto) throws SigitRPfPgDelegaDaoException;
 }

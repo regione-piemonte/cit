@@ -40,7 +40,7 @@ Installare il file ear sull'ambiente JBoss 6.4.
 Per la gestione del codice sorgente viene utilizzata Git. Per la gestione del versioning si fa riferimento alla metodologia [Semantic Versioning](https://semver.org/).
 
 # Copyrights
-(C) Copyright 2023 Regione Piemonte
+(C) Copyright 2026 Regione Piemonte
 
 # License
 [EUPL-1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12) Compatibile. Consulta il file [LICENSE.txt](LICENSE.txt) per i dettagli sulla licenza.

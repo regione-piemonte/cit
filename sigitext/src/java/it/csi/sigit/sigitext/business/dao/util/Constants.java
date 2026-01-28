@@ -34,39 +34,54 @@ public final class Constants {
 	public static final String RUOLO_IMPRESA = it.csi.sigit.sigitext.business.util.Constants.RUOLO_IMPRESA;
 
 	// ID RUOLO PROPRIETARIO
-	public final static int ID_RUOLO_PROPRIETARIO = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_PROPRIETARIO;
+	public static final int ID_RUOLO_PROPRIETARIO = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_PROPRIETARIO;
 
 	// ID RUOLO PROPRIETARIO
-	public final static int ID_RUOLO_OCCUPANTE = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_OCCUPANTE;
+	public static final int ID_RUOLO_OCCUPANTE = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_OCCUPANTE;
 
 	// ID RUOLO RESPONSABILE IMPRESA PROPRIETARIO
-	public final static int ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO;
+	public static final int ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO;
 
 	// ID RUOLO RESPONSABILE IMPRESA OCCUPANTE
-	public final static int ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE;
+	public static final int ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE;
 
 	// ID RUOLO RESPONSABILE IMPRESA AMMINISTRATORE
-	public final static int ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE;
+	public static final int ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE;
 
 	// ID RUOLO AMMINISTRATORE
-	public final static int ID_RUOLO_AMMINISTRATORE = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_AMMINISTRATORE;
+	public static final int ID_RUOLO_AMMINISTRATORE = it.csi.sigit.sigitext.business.util.Constants.ID_RUOLO_AMMINISTRATORE;
 
-	public final static String ALLEGATO_TIPO_1 = it.csi.sigit.sigitext.business.util.Constants.ALLEGATO_TIPO_1;
-	public final static String ALLEGATO_TIPO_1B = it.csi.sigit.sigitext.business.util.Constants.ALLEGATO_TIPO_1B;
-	public final static String ALLEGATO_TIPO_2 = it.csi.sigit.sigitext.business.util.Constants.ALLEGATO_TIPO_2;
-	public final static String ALLEGATO_TIPO_3 = it.csi.sigit.sigitext.business.util.Constants.ALLEGATO_TIPO_3;
-	public final static String ALLEGATO_TIPO_4 = it.csi.sigit.sigitext.business.util.Constants.ALLEGATO_TIPO_4;
-	public final static String MANUTENZIONE_GT = it.csi.sigit.sigitext.business.util.Constants.MANUTENZIONE_GT;
-	public final static String MANUTENZIONE_GF = it.csi.sigit.sigitext.business.util.Constants.MANUTENZIONE_GF;
-	public final static String MANUTENZIONE_SC = it.csi.sigit.sigitext.business.util.Constants.MANUTENZIONE_SC;
-	public final static String MANUTENZIONE_CG = it.csi.sigit.sigitext.business.util.Constants.MANUTENZIONE_CG;
+	// ID RUOLO MANUTENTORE ALLEGATO TIPIO 1
+	public static final int ID_RUOLO_MANUTENTORE_ALL_1 = 6;
+
+	// ID RUOLO MANUTENTORE ALLEGATO TIPIO 2
+	public static final int ID_RUOLO_MANUTENTORE_ALL_2 = 7;
+
+	// ID RUOLO MANUTENTORE ALLEGATO TIPIO 3
+	public static final int ID_RUOLO_MANUTENTORE_ALL_3 = 8;
+
+	// ID RUOLO MANUTENTORE ALLEGATO TIPIO 4
+	public static final int ID_RUOLO_MANUTENTORE_ALL_4 = 9;
+
+	public static final String ALLEGATO_TIPO_1 = it.csi.sigit.sigitext.business.util.Constants.ALLEGATO_TIPO_1;
+	public static final String ALLEGATO_TIPO_1B = it.csi.sigit.sigitext.business.util.Constants.ALLEGATO_TIPO_1B;
+	public static final String ALLEGATO_TIPO_2 = it.csi.sigit.sigitext.business.util.Constants.ALLEGATO_TIPO_2;
+	public static final String ALLEGATO_TIPO_3 = it.csi.sigit.sigitext.business.util.Constants.ALLEGATO_TIPO_3;
+	public static final String ALLEGATO_TIPO_4 = it.csi.sigit.sigitext.business.util.Constants.ALLEGATO_TIPO_4;
+	public static final String MANUTENZIONE_GT = it.csi.sigit.sigitext.business.util.Constants.MANUTENZIONE_GT;
+	public static final String MANUTENZIONE_GF = it.csi.sigit.sigitext.business.util.Constants.MANUTENZIONE_GF;
+	public static final String MANUTENZIONE_SC = it.csi.sigit.sigitext.business.util.Constants.MANUTENZIONE_SC;
+	public static final String MANUTENZIONE_CG = it.csi.sigit.sigitext.business.util.Constants.MANUTENZIONE_CG;
+	
+	public static final int RAPPORTO_PROVA_GT = 8;
+	public static final int RAPPORTO_PROVA_GF = 9;
 
 	public static final String ID_DETT_GF_ASS_REC_CALORE = "1";
 	public static final String ID_DETT_GF_ASS_FIAMM_COMB = "2";
 	public static final String ID_DETT_GF_CICLO_COMPRESS = "3";
 
-	public final static int ID_TIPO_CONSUMO_1B_ACQUA_REINTEGRO = 1;
-	public final static int ID_TIPO_CONSUMO_1B_CONSUMO_BIOMASSA = 2;
+	public static final int ID_TIPO_CONSUMO_1B_ACQUA_REINTEGRO = 1;
+	public static final int ID_TIPO_CONSUMO_1B_CONSUMO_BIOMASSA = 2;
 
 	public static final String ID_DETT_GT_GRUPPO_TERM_SING = "1";
 	public static final String ID_DETT_GT_GRUPPO_TERM_MOD = "2";
@@ -78,42 +93,51 @@ public final class Constants {
 
 	public static final String FLAG_MODALITA_RAFFRESCAMENTO = "RAF";
 	public static final String FLAG_MODALITA_RISCALDAMENTO = "RIS";
-	public final static int ID_STELLE_NON_APPLICABILE = 0;
-	public final static int ID_STELLE_3 = 3;
-	public final static int ID_STELLE_4 = 4;
-	public final static int ID_STELLE_5 = 5;
+	public static final int ID_STELLE_NON_APPLICABILE = 0;
+	public static final int ID_STELLE_3 = 3;
+	public static final int ID_STELLE_4 = 4;
+	public static final int ID_STELLE_5 = 5;
 
-	public final static int ID_TIPO_1B_TRADIZIONALE = 1;
-	public final static int ID_TIPO_1B_CONDENSAZIONE = 2;
-	public final static int ID_TIPO_1B_ALTRO = 3;
+	public static final int ID_TIPO_1B_TRADIZIONALE = 1;
+	public static final int ID_TIPO_1B_CONDENSAZIONE = 2;
+	public static final int ID_TIPO_1B_ALTRO = 3;
 
-	public final static int ID_TIPO_COMBUSTIBILE_PELLET = 5;
-	public final static int ID_TIPO_COMBUSTIBILE_TRONCHETTI = 6;
-	public final static int ID_TIPO_COMBUSTIBILE_CIPPATO = 7;
-	public final static int ID_TIPO_COMBUSTIBILE_ALTRA_BIOMASSA_SOLIDA = 9;
-	public final static int ID_TIPO_COMBUSTIBILE_BIOMASSA_LIQUIDA = 10;
-	public final static int ID_TIPO_COMBUSTIBILE_BIOMASSA_GASSOSA = 11;
-	public final static int ID_TIPO_COMBUSTIBILE_LEGNA = 13;
-	public final static int ID_TIPO_COMBUSTIBILE_BRICCHETTE = 14;
-	public final static int ID_TIPO_COMBUSTIBILE_TRONCHETTI_PELLET = 96;
-	public final static int ID_TIPO_COMBUSTIBILE_CIPPATO_PELLET = 97;
-	public final static int ID_TIPO_COMBUSTIBILE_POLICOMBUSTIBILE_BIOMASSA_GAS_GASOLIO = 98;
-	public final static Integer[] ID_TIPO_COMBUSIBILE_BIOMASSA_ARRAY = { ID_TIPO_COMBUSTIBILE_PELLET, ID_TIPO_COMBUSTIBILE_TRONCHETTI, ID_TIPO_COMBUSTIBILE_CIPPATO,
+	public static final int ID_TIPO_COMBUSTIBILE_PELLET = 5;
+	public static final int ID_TIPO_COMBUSTIBILE_TRONCHETTI = 6;
+	public static final int ID_TIPO_COMBUSTIBILE_CIPPATO = 7;
+	public static final int ID_TIPO_COMBUSTIBILE_ALTRA_BIOMASSA_SOLIDA = 9;
+	public static final int ID_TIPO_COMBUSTIBILE_BIOMASSA_LIQUIDA = 10;
+	public static final int ID_TIPO_COMBUSTIBILE_BIOMASSA_GASSOSA = 11;
+	public static final int ID_TIPO_COMBUSTIBILE_LEGNA = 13;
+	public static final int ID_TIPO_COMBUSTIBILE_BRICCHETTE = 14;
+	public static final int ID_TIPO_COMBUSTIBILE_TRONCHETTI_PELLET = 96;
+	public static final int ID_TIPO_COMBUSTIBILE_CIPPATO_PELLET = 97;
+	public static final int ID_TIPO_COMBUSTIBILE_POLICOMBUSTIBILE_BIOMASSA_GAS_GASOLIO = 98;
+	public static final Integer[] ID_TIPO_COMBUSIBILE_BIOMASSA_ARRAY = { ID_TIPO_COMBUSTIBILE_PELLET, ID_TIPO_COMBUSTIBILE_TRONCHETTI, ID_TIPO_COMBUSTIBILE_CIPPATO,
 			ID_TIPO_COMBUSTIBILE_ALTRA_BIOMASSA_SOLIDA, ID_TIPO_COMBUSTIBILE_BIOMASSA_LIQUIDA, ID_TIPO_COMBUSTIBILE_BIOMASSA_GASSOSA, ID_TIPO_COMBUSTIBILE_LEGNA, ID_TIPO_COMBUSTIBILE_BRICCHETTE,
 			ID_TIPO_COMBUSTIBILE_TRONCHETTI_PELLET, ID_TIPO_COMBUSTIBILE_CIPPATO_PELLET, ID_TIPO_COMBUSTIBILE_POLICOMBUSTIBILE_BIOMASSA_GAS_GASOLIO };
 
-	public final static Integer[] ID_TIPO_COMBUSTIBILE_CHECKBOX_PDF = { ID_TIPO_COMBUSTIBILE_PELLET, ID_TIPO_COMBUSTIBILE_CIPPATO, ID_TIPO_COMBUSTIBILE_LEGNA, ID_TIPO_COMBUSTIBILE_BRICCHETTE };
+	public static final Integer[] ID_TIPO_COMBUSTIBILE_CHECKBOX_PDF = { ID_TIPO_COMBUSTIBILE_PELLET, ID_TIPO_COMBUSTIBILE_CIPPATO, ID_TIPO_COMBUSTIBILE_LEGNA, ID_TIPO_COMBUSTIBILE_BRICCHETTE };
 
 
-	public final static int ID_ARIA_COMBURENTE_DA_ESTERNO = 1;
-	public final static int ID_ARIA_COMBURENTE_DA_LOCALE_INSTALLAZIONE = 2;
+	public static final int ID_ARIA_COMBURENTE_DA_ESTERNO = 1;
+	public static final int ID_ARIA_COMBURENTE_DA_LOCALE_INSTALLAZIONE = 2;
 
-	public final static int ID_CONTROLLO_ARIA_COMBURENTE_AUTOMATICO = 1;
-	public final static int ID_CONTROLLO_ARIA_COMBURENTE_SEMIAUTOMATICO = 2;
-	public final static int ID_CONTROLLO_ARIA_COMBURENTE_MANUALE = 3;
+	public static final int ID_CONTROLLO_ARIA_COMBURENTE_AUTOMATICO = 1;
+	public static final int ID_CONTROLLO_ARIA_COMBURENTE_SEMIAUTOMATICO = 2;
+	public static final int ID_CONTROLLO_ARIA_COMBURENTE_MANUALE = 3;
 
-	public final static int ID_CARICAMENTO_COMBUSTIBILE_AUTOMATICO = 1;
-	public final static int ID_CARICAMENTO_COMBUSTIBILE_MANUALE = 2;
-	public final static int ID_CARICAMENTO_COMBUSTIBILE_AUTOMATICO_MANUALE = 3;
+	public static final int ID_CARICAMENTO_COMBUSTIBILE_AUTOMATICO = 1;
+	public static final int ID_CARICAMENTO_COMBUSTIBILE_MANUALE = 2;
+	public static final int ID_CARICAMENTO_COMBUSTIBILE_AUTOMATICO_MANUALE = 3;
+	
+	private final static String DEFAULT_ERROR_COUNT_2000_UP_MESSAGE = "Sono stati estratti %1$s record. E' necessario restringere il campo della ricerca. Il massimo consentito e' %2$s record.";
+	
+	public static final int MAX_COUNT_SQL = 2000;
+	
+	public static String getMessaggeErrorDefaultCount(int current, int max) {
+		return String.format(DEFAULT_ERROR_COUNT_2000_UP_MESSAGE, current, max);
+	}
+	
 	/*PROTECTED REGION END*/
 }

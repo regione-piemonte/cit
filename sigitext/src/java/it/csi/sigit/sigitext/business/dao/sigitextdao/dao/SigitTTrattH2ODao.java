@@ -21,9 +21,19 @@ public interface SigitTTrattH2ODao {
 	 * @generated
 	 */
 
-	public SigitTTrattH2OPk insert(SigitTTrattH2ODto dto)
+	public SigitTTrattH2OPk insert(SigitTTrattH2ODto dto)  throws SigitTTrattH2ODaoException;
+	
+	/**
+	 * Metodo di aggiornamento del DAO sigitTTrattH2O. Al termine dell'esecuzione il metodo
+	 * ritorna il valore della primary key.
+	 * 
+	 * @param dto
+	 * @return SigitTTrattH2OPk
+	 * @generated
+	 */
 
-	;
+	public SigitTTrattH2OPk update(SigitTTrattH2ODto dto)  throws SigitTTrattH2ODaoException;
+	
 
 	/** 
 	 * Custom deleter in the SIGIT_T_TRATT_H2O table.

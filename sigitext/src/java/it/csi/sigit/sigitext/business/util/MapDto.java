@@ -4,10 +4,139 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.xmlbeans.XmlBoolean;
+import org.apache.xmlbeans.XmlException;
+import org.xml.sax.SAXException;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ImportFilter;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.*;
-import it.csi.sigit.sigitext.dto.sigitext.*;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.CombustibileCITDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.ControlloDisponibileDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.FluidoCITDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.MarcaCITDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.PersonaGiuridicaSigitWebn;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDAriaComburenteDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDControlloAriaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDStatoIspezioneDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDStelleDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDTipo1BDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtContrattoImpDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtRespImpDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRImpRuoloPfpgDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRIspezIspetDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitSLibrettoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAccertamentoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllegatoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAzioneDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTComp4Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTComp4Pk;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompBrRcDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompCgCompletoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompCgDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompGfCompletoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompGfDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompGtCompletoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompGtDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompScCompletoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompScDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompVxDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompXDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompXSempliceDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTConsumo14_4Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTConsumoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTConsumoTipo1BDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDatoDistribDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo4Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImportDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTIspezione2018Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTLibrettoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaFisicaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaGiuridicaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTStoricoVariazStatoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTTrattH2ODto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTUnitaImmobiliareDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTVerificaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompAcDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompAgDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompCgDettDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompCiDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompCsDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompGfDettDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompGtDettDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompPoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompRcDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompRvDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompScDettDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompSrDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompTeDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompUtDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompVmDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVCompVrDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVRicerca3ResponsabileDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVRicercaAllegatiDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVRicercaIspezioniConsByCodiceImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVRicercaIspezioniDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4CgDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4GfDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4GtDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4ScDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVTotImpiantoCercaUbicazioneImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVTotImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitWrkLogDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.UnitaMisuraCITDto;
+import it.csi.sigit.sigitext.dto.IdDescription;
+import it.csi.sigit.sigitext.dto.Tipo1Consumo;
+import it.csi.sigit.sigitext.dto.sigitext.Accertamento;
+import it.csi.sigit.sigitext.dto.sigitext.Azione;
+import it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione;
+import it.csi.sigit.sigitext.dto.sigitext.Controllo;
+import it.csi.sigit.sigitext.dto.sigitext.ControlloDisponibile;
+import it.csi.sigit.sigitext.dto.sigitext.DatiCG;
+import it.csi.sigit.sigitext.dto.sigitext.DatiGF;
+import it.csi.sigit.sigitext.dto.sigitext.DatiGT;
+import it.csi.sigit.sigitext.dto.sigitext.DatiImpianto;
+import it.csi.sigit.sigitext.dto.sigitext.DatiImpresa;
+import it.csi.sigit.sigitext.dto.sigitext.DatiSC;
+import it.csi.sigit.sigitext.dto.sigitext.DatiToken;
+import it.csi.sigit.sigitext.dto.sigitext.DettaglioAllegato;
+import it.csi.sigit.sigitext.dto.sigitext.DettaglioIspezione;
+import it.csi.sigit.sigitext.dto.sigitext.DettaglioPersonaGiuridica;
+import it.csi.sigit.sigitext.dto.sigitext.Impianto;
+import it.csi.sigit.sigitext.dto.sigitext.Ispezione2018;
+import it.csi.sigit.sigitext.dto.sigitext.Metadati;
+import it.csi.sigit.sigitext.dto.sigitext.Persona;
+import it.csi.sigit.sigitext.dto.sigitext.PersonaFisica;
+import it.csi.sigit.sigitext.dto.sigitext.Responsabile;
+import it.csi.sigit.sigitext.dto.sigitext.RisultatoRicResponsabile;
+import it.csi.sigit.sigitext.dto.sigitext.StelleEnum;
+import it.csi.sigit.sigitext.dto.sigitext.UtenteLoggatoModel;
+import it.csi.sigit.sigitext.dto.sigitext.Verifica;
+import it.csi.sigit.sigitext.dto.sigitext.geojson.Feature;
+import it.csi.sigit.sigitext.dto.sigitext.geojson.Geometry;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.LibrettoDocument;
 import it.csi.sigit.sigitwebn.xml.libretto.data.DatiAltriComponentiCIDocument.DatiAltriComponentiCI.SezCI;
 import it.csi.sigit.sigitwebn.xml.libretto.data.DatiAltriComponentiRVDocument.DatiAltriComponentiRV.SezRV;
@@ -113,26 +242,12 @@ import it.csi.sigit.sigitwebn.xml.libretto.data.RowVMsostDocument.RowVMsost;
 import it.csi.sigit.sigitwebn.xml.libretto.data.RowVRDocument.RowVR;
 import it.csi.sigit.sigitwebn.xml.libretto.data.RowVRsostDocument.RowVRsost;
 import it.csi.sigit.sigitwebn.xml.libretto.data.RowVasiDocument.RowVasi;
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.xmlbeans.XmlBoolean;
-import org.apache.xmlbeans.XmlException;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.sql.Timestamp;
-import java.util.*;
 
 public class MapDto {
 
 	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".SigitextManager==>");
+	
+	private static final String AGGIUNGO_BR_SOSTITUITE = "aggiungo br sostituite ";
 
 	public static XmlBoolean getXmlBoolean(boolean b) {
 		XmlBoolean newInstance = XmlBoolean.Factory.newInstance();
@@ -221,12 +336,6 @@ public class MapDto {
 			datiPrecompilati.setStatoImpianto(impianto.getFkStato().toEngineeringString());
 		}
 
-		if (GenericUtil.isNotNullOrEmpty(impianto.getDataAssegnazione())) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(impianto.getDataAssegnazione());
-			datiPrecompilati.setDataAssegnazioneCodiceImpianto(calendar);
-		}
-
 		if (GenericUtil.isNotNullOrEmpty(impianto.getDataDismissione())) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(impianto.getDataDismissione());
@@ -241,6 +350,8 @@ public class MapDto {
 			datiPrecompilati.setContabilizzazioneSingolaUtenza(impianto.getFlgContabilizzazione().toEngineeringString());
 		if (GenericUtil.isNotNullOrEmpty(impianto.getFlgVisuProprietario()))
 			datiPrecompilati.setConsultazioneStatoProprietario(impianto.getFlgVisuProprietario().toEngineeringString());
+		if (GenericUtil.isNotNullOrEmpty(impianto.getFlgMedioimpianto()))
+			datiPrecompilati.setMedioImpiantoCivile(impianto.getFlgMedioimpianto().toEngineeringString());
 		datiPrecompilati.setL12Civico(unitaImmobPrincipale.getCivico());
 		datiPrecompilati.setL12Scala(unitaImmobPrincipale.getScala());
 		datiPrecompilati.setL12Interno(unitaImmobPrincipale.getInterno());
@@ -346,11 +457,11 @@ public class MapDto {
 		BigDecimal progressivo = null;
 		Date lastDataInstall = null;
 		//Date maxDataControllo = null;
-		List<RowGT> listGt = new ArrayList<RowGT>();
-		RowGT gt = null;
-		List<RowGTsost> listSost = new ArrayList<RowGTsost>();
+		List<RowGT> listGt = new ArrayList<>();
+		RowGT gt =  RowGT.Factory.newInstance(); 
+		List<RowGTsost> listSost = new ArrayList<>();
 
-		if (compGtImpianto.size() > 0)
+		if (!compGtImpianto.isEmpty())
 			progressivo = compGtImpianto.get(0).getProgressivo();
 
 		log.debug("mapping scheda GT");
@@ -363,12 +474,12 @@ public class MapDto {
 
 			log.debug("GT: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall() + ", data controllo: " + dto.getDataControllo());
 
-			if (progressivo.equals(dto.getProgressivo()) && lastDataInstall != null && lastDataInstall.compareTo(dto.getDataInstall()) == 0) {
+			if (progressivo!=null && progressivo.equals(dto.getProgressivo()) && lastDataInstall != null && lastDataInstall.compareTo(dto.getDataInstall()) == 0) {
 				log.debug("duplicato, scartato");
 				continue;
 			}
 
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo gt sostituite " + listSost.size());
@@ -377,7 +488,7 @@ public class MapDto {
 				}
 				listGt.add(gt);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowGTsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 
@@ -521,10 +632,10 @@ public class MapDto {
 		log.debug("mapToSchedaBR: START");
 		SezBR sezBR = schedaBr.addNewSezBR();
 		BigDecimal progressivo = null;
-		List<RowBR> listGt = new ArrayList<RowBR>();
-		RowBR br = null;
-		List<RowBRsost> listSost = new ArrayList<RowBRsost>();
-		if (listBr != null && listBr.size() > 0)
+		List<RowBR> listGt = new ArrayList<>();
+		RowBR br = RowBR.Factory.newInstance();
+		List<RowBRsost> listSost = new ArrayList<>();
+		if (!listBr.isEmpty())
 			progressivo = listBr.get(0).getProgressivoBrRc();
 		log.debug("mapping scheda BR");
 		int numInProgr = 1;
@@ -532,16 +643,16 @@ public class MapDto {
 			log.debug("i=" + i + ",progressivo: " + progressivo + ", inProgr: " + numInProgr);
 			SigitTCompBrRcDto dto = listBr.get(i);
 			log.debug("BR: progr:" + dto.getProgressivoBrRc() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivoBrRc())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivoBrRc())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
-					log.debug("aggiungo br sostituite " + listSost.size());
+					log.debug(AGGIUNGO_BR_SOSTITUITE + listSost.size());
 					br.addNewSezBRsostituite();
 					br.getSezBRsostituite().getRowBRsostList().addAll(listSost);
 				}
 				listGt.add(br);
 				progressivo = dto.getProgressivoBrRc();
-				listSost = new ArrayList<RowBRsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;//riparto dal primo
 			}
 
@@ -560,7 +671,7 @@ public class MapDto {
 			}
 		}
 		if (!listSost.isEmpty()) {
-			log.debug("aggiungo br sostituite " + listSost.size());
+			log.debug(AGGIUNGO_BR_SOSTITUITE + listSost.size());
 			br.addNewSezBRsostituite();
 			br.getSezBRsostituite().getRowBRsostList().addAll(listSost);
 		}
@@ -608,10 +719,10 @@ public class MapDto {
 		log.debug("mapToSchedaRC: START");
 		SezRC sezRC = schedaRc.addNewSezRC();
 		BigDecimal progressivo = null;
-		List<RowRC> listGt = new ArrayList<RowRC>();
-		RowRC rc = null;
-		List<RowRCsost> listSost = new ArrayList<RowRCsost>();
-		if (listRc != null && listRc.size() > 0)
+		List<RowRC> listGt = new ArrayList<>();
+		RowRC rc = RowRC.Factory.newInstance();
+		List<RowRCsost> listSost = new ArrayList<>();
+		if (listRc != null && !listRc.isEmpty())
 			progressivo = listRc.get(0).getProgressivoBrRc();
 		log.debug("mapping scheda RC");
 		int numInProgr = 1;
@@ -619,16 +730,16 @@ public class MapDto {
 			log.debug("i=" + i);
 			SigitTCompBrRcDto dto = listRc.get(i);
 			log.debug("RC: progr:" + dto.getProgressivoBrRc() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivoBrRc())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivoBrRc())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
-					log.debug("aggiungo br sostituite " + listSost.size());
+					log.debug(AGGIUNGO_BR_SOSTITUITE + listSost.size());
 					rc.addNewSezRCsostituite();
 					rc.getSezRCsostituite().getRowRCsostList().addAll(listSost);
 				}
 				listGt.add(rc);
 				progressivo = dto.getProgressivoBrRc();
-				listSost = new ArrayList<RowRCsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			// Beppe
@@ -645,7 +756,7 @@ public class MapDto {
 			}
 		}
 		if (!listSost.isEmpty()) {
-			log.debug("aggiungo br sostituite " + listSost.size());
+			log.debug(AGGIUNGO_BR_SOSTITUITE + listSost.size());
 			rc.addNewSezRCsostituite();
 			rc.getSezRCsostituite().getRowRCsostList().addAll(listSost);
 		}
@@ -697,10 +808,10 @@ public class MapDto {
 		BigDecimal progressivo = null;
 		Date lastDataInstall = null;
 		//Date maxDataControllo = null;
-		List<RowGF> listGf = new ArrayList<RowGF>();
-		RowGF gf = null;
-		List<RowGFsost> listSost = new ArrayList<RowGFsost>();
-		if (comp4.size() > 0)
+		List<RowGF> listGf = new ArrayList<>();
+		RowGF gf = RowGF.Factory.newInstance();
+		List<RowGFsost> listSost = new ArrayList<>();
+		if (!comp4.isEmpty())
 			progressivo = comp4.get(0).getProgressivo();
 		log.debug("mapping scheda GF");
 		int numInProgr = 1;
@@ -709,11 +820,11 @@ public class MapDto {
 			SigitVSk4GfDto dto = comp4.get(i);
 			log.debug("GF: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
 
-			if (progressivo.equals(dto.getProgressivo()) && lastDataInstall != null && lastDataInstall.compareTo(dto.getDataInstall()) == 0) {
+			if (progressivo!=null && progressivo.equals(dto.getProgressivo()) && lastDataInstall != null && lastDataInstall.compareTo(dto.getDataInstall()) == 0) {
 				log.debug("duplicato, scartato");
 				continue;
 			}
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo gf sostituite " + listSost.size());
@@ -722,7 +833,7 @@ public class MapDto {
 				}
 				listGf.add(gf);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowGFsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 
@@ -834,9 +945,9 @@ public class MapDto {
 		BigDecimal progressivo = null;
 		Date lastDataInstall = null;
 		//Date maxDataControllo = null;
-		List<RowSC> listSc = new ArrayList<RowSC>();
-		RowSC sc = null;
-		List<RowSCsost> listSost = new ArrayList<RowSCsost>();
+		List<RowSC> listSc = new ArrayList<>();
+		RowSC sc = RowSC.Factory.newInstance();
+		List<RowSCsost> listSost = new ArrayList<>();
 		if (compScImpianto.size() > 0)
 			progressivo = compScImpianto.get(0).getProgressivo();
 		log.debug("mapping scheda SC");
@@ -846,11 +957,11 @@ public class MapDto {
 			SigitVSk4ScDto dto = compScImpianto.get(i);
 			log.debug("SC: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
 
-			if (progressivo.equals(dto.getProgressivo()) && lastDataInstall != null && lastDataInstall.compareTo(dto.getDataInstall()) == 0) {
+			if (progressivo!=null && progressivo.equals(dto.getProgressivo()) && lastDataInstall != null && lastDataInstall.compareTo(dto.getDataInstall()) == 0) {
 				log.debug("duplicato, scartato");
 				continue;
 			}
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo sc sostituite " + listSost.size());
@@ -859,7 +970,7 @@ public class MapDto {
 				}
 				listSc.add(sc);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowSCsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -925,9 +1036,9 @@ public class MapDto {
 		BigDecimal progressivo = null;
 		Date lastDataInstall = null;
 		//Date maxDataControllo = null;
-		List<RowCG> listSc = new ArrayList<RowCG>();
-		RowCG cg = null;
-		List<RowCGsost> listSost = new ArrayList<RowCGsost>();
+		List<RowCG> listSc = new ArrayList<>();
+		RowCG cg = RowCG.Factory.newInstance();
+		List<RowCGsost> listSost = new ArrayList<>();
 		if (compCgImpianto.size() > 0)
 			progressivo = compCgImpianto.get(0).getProgressivo();
 		log.debug("mapping scheda CG");
@@ -950,7 +1061,7 @@ public class MapDto {
 				}
 				listSc.add(cg);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowCGsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1046,10 +1157,10 @@ public class MapDto {
 		log.debug("mapToSchedaCS: START");
 		SezCS sezCs = schedaCs.addNewSezCS();
 		BigDecimal progressivo = null;
-		List<RowCS> listSc = new ArrayList<RowCS>();
-		RowCS sc = null;
-		List<RowCSvar> listVar = new ArrayList<RowCSvar>();
-		if (compCsImpianto.size() > 0)
+		List<RowCS> listSc = new ArrayList<>();
+		RowCS sc = RowCS.Factory.newInstance();
+		List<RowCSvar> listVar = new ArrayList<>();
+		if (!compCsImpianto.isEmpty())
 			progressivo = compCsImpianto.get(0).getProgressivo();
 		log.debug("mapping scheda CS");
 		int numInProgr = 1;
@@ -1057,7 +1168,7 @@ public class MapDto {
 			log.debug("i=" + i + ", inProgr=" + numInProgr);
 			SigitVCompCsDto dto = compCsImpianto.get(i);
 			log.debug("CS: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listVar.isEmpty()) {
 					log.debug("aggiungo cs sostituite " + listVar.size());
@@ -1066,7 +1177,7 @@ public class MapDto {
 				}
 				listSc.add(sc);
 				progressivo = dto.getProgressivo();
-				listVar = new ArrayList<RowCSvar>();
+				listVar = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1117,10 +1228,10 @@ public class MapDto {
 		log.debug("mapToSchedaAG: START");
 		SezAG sezCs = schedaAg.addNewSezAG();
 		BigDecimal progressivo = null;
-		List<RowAG> listAg = new ArrayList<RowAG>();
-		RowAG ag = null;
-		List<RowAGsost> listSost = new ArrayList<RowAGsost>();
-		if (compAgImpianto.size() > 0)
+		List<RowAG> listAg = new ArrayList<>();
+		RowAG ag = RowAG.Factory.newInstance();
+		List<RowAGsost> listSost = new ArrayList<>();
+		if (!compAgImpianto.isEmpty())
 			progressivo = compAgImpianto.get(0).getProgressivo();
 		log.debug("mapping scheda AG");
 		int numInProgr = 1;
@@ -1128,7 +1239,7 @@ public class MapDto {
 			log.debug("i=" + i + ", inProgr=" + numInProgr);
 			SigitVCompAgDto dto = compAgImpianto.get(i);
 			log.debug("AG: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo AG sostituite " + listSost.size());
@@ -1137,7 +1248,7 @@ public class MapDto {
 				}
 				listAg.add(ag);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowAGsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1243,10 +1354,10 @@ public class MapDto {
 	public static void mapToSchedaSR(SezSR sezSR, List<SigitVCompSrDto> srList) {
 		log.debug("mapToSchedaSR: START");
 		BigDecimal progressivo = null;
-		List<RowSR> listSr = new ArrayList<RowSR>();
-		RowSR sr = null;
-		List<RowSRsost> listSost = new ArrayList<RowSRsost>();
-		if (srList.size() > 0)
+		List<RowSR> listSr = new ArrayList<>();
+		RowSR sr = RowSR.Factory.newInstance();
+		List<RowSRsost> listSost = new ArrayList<>();
+		if (!srList.isEmpty())
 			progressivo = srList.get(0).getProgressivo();
 		log.debug("mapping scheda SR");
 		int numInProgr = 1;
@@ -1254,7 +1365,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitVCompSrDto dto = srList.get(i);
 			log.debug("SR: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo sr sostituite " + listSost.size());
@@ -1263,7 +1374,7 @@ public class MapDto {
 				}
 				listSr.add(sr);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowSRsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1323,10 +1434,10 @@ public class MapDto {
 	public static void mapToSchedaVR(SezVR sezVR, List<SigitVCompVrDto> vrList) {
 		log.debug("mapToSchedaVR: START");
 		BigDecimal progressivo = null;
-		List<RowVR> listVr = new ArrayList<RowVR>();
-		RowVR vr = null;
-		List<RowVRsost> listSost = new ArrayList<RowVRsost>();
-		if (vrList.size() > 0)
+		List<RowVR> listVr = new ArrayList<>();
+		RowVR vr = RowVR.Factory.newInstance();
+		List<RowVRsost> listSost = new ArrayList<>();
+		if (!vrList.isEmpty())
 			progressivo = vrList.get(0).getProgressivo();
 		log.debug("mapping scheda VR");
 		int numInProgr = 1;
@@ -1334,7 +1445,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitVCompVrDto dto = vrList.get(i);
 			log.debug("VR: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo sr sostituite " + listSost.size());
@@ -1343,7 +1454,7 @@ public class MapDto {
 				}
 				listVr.add(vr);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowVRsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1390,7 +1501,7 @@ public class MapDto {
 	}
 
 	public static void mapToSchedaVX(SezVasi sezVX, List<SigitTCompVxDto> vxList) {
-		List<RowVasi> listVx = new ArrayList<RowVasi>();
+		List<RowVasi> listVx = new ArrayList<>();
 		for (SigitTCompVxDto dto : vxList) {
 			RowVasi rv = RowVasi.Factory.newInstance();
 			rv.setL63Capacita(dto.getCapacitaL());
@@ -1406,10 +1517,10 @@ public class MapDto {
 	public static void mapToSchedaPO(SezPO sezPO, List<SigitVCompPoDto> poList) {
 		log.debug("mapToSchedaPO: START");
 		BigDecimal progressivo = null;
-		List<RowPO> listPo = new ArrayList<RowPO>();
-		RowPO po = null;
-		List<RowPOsost> listSost = new ArrayList<RowPOsost>();
-		if (poList.size() > 0)
+		List<RowPO> listPo = new ArrayList<>();
+		RowPO po = RowPO.Factory.newInstance();
+		List<RowPOsost> listSost = new ArrayList<>();
+		if (!poList.isEmpty())
 			progressivo = poList.get(0).getProgressivo();
 		log.debug("mapping scheda PO");
 		int numInProgr = 1;
@@ -1417,7 +1528,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitVCompPoDto dto = poList.get(i);
 			log.debug("PO: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo PO sostituite " + listSost.size());
@@ -1425,7 +1536,7 @@ public class MapDto {
 				}
 				listPo.add(po);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowPOsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1488,10 +1599,10 @@ public class MapDto {
 	public static void mapToSchedaAC(SezAC sezAC, List<SigitVCompAcDto> acList) {
 		log.debug("mapToSchedaAc: START");
 		BigDecimal progressivo = null;
-		List<RowAC> listPo = new ArrayList<RowAC>();
-		RowAC ac = null;
-		List<RowACsost> listSost = new ArrayList<RowACsost>();
-		if (acList.size() > 0)
+		List<RowAC> listPo = new ArrayList<>();
+		RowAC ac = RowAC.Factory.newInstance();
+		List<RowACsost> listSost = new ArrayList<>();
+		if (!acList.isEmpty())
 			progressivo = acList.get(0).getProgressivo();
 		log.debug("mapping scheda AC");
 		int numInProgr = 1;
@@ -1499,7 +1610,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitVCompAcDto dto = acList.get(i);
 			log.debug("AC: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo AC sostituite " + listSost.size());
@@ -1507,7 +1618,7 @@ public class MapDto {
 				}
 				listPo.add(ac);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowACsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1565,10 +1676,10 @@ public class MapDto {
 	public static void mapToSchedaTE(SezTE sezTE, List<SigitVCompTeDto> teList) {
 		log.debug("mapToSchedaTE: START");
 		BigDecimal progressivo = null;
-		List<RowTE> listTe = new ArrayList<RowTE>();
-		RowTE ac = null;
-		List<RowTEsost> listSost = new ArrayList<RowTEsost>();
-		if (teList.size() > 0)
+		List<RowTE> listTe = new ArrayList<>();
+		RowTE ac = RowTE.Factory.newInstance();
+		List<RowTEsost> listSost = new ArrayList<>();
+		if (!teList.isEmpty())
 			progressivo = teList.get(0).getProgressivo();
 		log.debug("mapping scheda TE");
 		int numInProgr = 1;
@@ -1576,7 +1687,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitVCompTeDto dto = teList.get(i);
 			log.debug("TE: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo TE sostituite " + listSost.size());
@@ -1584,7 +1695,7 @@ public class MapDto {
 				}
 				listTe.add(ac);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowTEsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1636,10 +1747,10 @@ public class MapDto {
 	public static void mapToSchedaRV(SezRV sezRV, List<SigitVCompRvDto> rvList) {
 		log.debug("mapToSchedaRV: START");
 		BigDecimal progressivo = null;
-		List<RowRV> listTe = new ArrayList<RowRV>();
-		RowRV ac = null;
-		List<RowRVsost> listSost = new ArrayList<RowRVsost>();
-		if (rvList.size() > 0)
+		List<RowRV> listTe = new ArrayList<>();
+		RowRV ac = RowRV.Factory.newInstance();
+		List<RowRVsost> listSost = new ArrayList<>();
+		if (!rvList.isEmpty())
 			progressivo = rvList.get(0).getProgressivo();
 		log.debug("mapping scheda RV");
 		int numInProgr = 1;
@@ -1647,7 +1758,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitVCompRvDto dto = rvList.get(i);
 			log.debug("RV: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo RV sostituite " + listSost.size());
@@ -1655,7 +1766,7 @@ public class MapDto {
 				}
 				listTe.add(ac);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowRVsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1705,10 +1816,10 @@ public class MapDto {
 	public static void mapToSchedaSCX(it.csi.sigit.sigitwebn.xml.libretto.data.DatiAltriComponentiSCDocument.DatiAltriComponentiSC.SezSC sezSC, List<SigitTCompXDto> scxList) {
 		log.debug("mapToSchedaSCX: START");
 		BigDecimal progressivo = null;
-		List<RowSCcal> listScx = new ArrayList<RowSCcal>();
-		RowSCcal ac = null;
-		List<RowSCcalsost> listSost = new ArrayList<RowSCcalsost>();
-		if (scxList.size() > 0)
+		List<RowSCcal> listScx = new ArrayList<>();
+		RowSCcal ac = RowSCcal.Factory.newInstance();
+		List<RowSCcalsost> listSost = new ArrayList<>();
+		if (!scxList.isEmpty())
 			progressivo = scxList.get(0).getProgressivo();
 		log.debug("mapping scheda SCX");
 		int numInProgr = 1;
@@ -1716,7 +1827,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitTCompXDto dto = scxList.get(i);
 			log.debug("SCX: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo SCX sostituite " + listSost.size());
@@ -1724,7 +1835,7 @@ public class MapDto {
 				}
 				listScx.add(ac);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowSCcalsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1768,10 +1879,10 @@ public class MapDto {
 	public static void mapToSchedaCI(SezCI sez, List<SigitVCompCiDto> list) {
 		log.debug("mapToSchedaCI: START");
 		BigDecimal progressivo = null;
-		List<RowCI> listCi = new ArrayList<RowCI>();
-		RowCI ac = null;
-		List<RowCIsost> listSost = new ArrayList<RowCIsost>();
-		if (list.size() > 0)
+		List<RowCI> listCi = new ArrayList<>();
+		RowCI ac = RowCI.Factory.newInstance();
+		List<RowCIsost> listSost = new ArrayList<>();
+		if (!list.isEmpty())
 			progressivo = list.get(0).getProgressivo();
 		log.debug("mapping scheda CI");
 		int numInProgr = 1;
@@ -1779,7 +1890,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitVCompCiDto dto = list.get(i);
 			log.debug("CI: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo CI sostituite " + listSost.size());
@@ -1787,7 +1898,7 @@ public class MapDto {
 				}
 				listCi.add(ac);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowCIsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1832,10 +1943,10 @@ public class MapDto {
 	public static void mapToSchedaUT(SezUT sez, List<SigitVCompUtDto> list) {
 		log.debug("mapToSchedaUT: START");
 		BigDecimal progressivo = null;
-		List<RowUT> listUT = new ArrayList<RowUT>();
-		RowUT ac = null;
-		List<RowUTsost> listSost = new ArrayList<RowUTsost>();
-		if (list.size() > 0)
+		List<RowUT> listUT = new ArrayList<>();
+		RowUT ac = RowUT.Factory.newInstance();
+		List<RowUTsost> listSost = new ArrayList<>();
+		if (!list.isEmpty())
 			progressivo = list.get(0).getProgressivo();
 		log.debug("mapping scheda UT");
 		int numInProgr = 1;
@@ -1843,7 +1954,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitVCompUtDto dto = list.get(i);
 			log.debug("UT: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo UT sostituite " + listSost.size());
@@ -1851,7 +1962,7 @@ public class MapDto {
 				}
 				listUT.add(ac);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowUTsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1904,10 +2015,10 @@ public class MapDto {
 	public static void mapToSchedaRC(it.csi.sigit.sigitwebn.xml.libretto.data.DatiAltriComponentiRCDocument.DatiAltriComponentiRC.SezRC sez, List<SigitVCompRcDto> list) {
 		log.debug("mapToSchedaRC: START");
 		BigDecimal progressivo = null;
-		List<RowRCcal> listRC = new ArrayList<RowRCcal>();
-		RowRCcal ac = null;
-		List<RowRCcalsost> listSost = new ArrayList<RowRCcalsost>();
-		if (list.size() > 0)
+		List<RowRCcal> listRC = new ArrayList<>();
+		RowRCcal ac = RowRCcal.Factory.newInstance();
+		List<RowRCcalsost> listSost = new ArrayList<>();
+		if (!list.isEmpty())
 			progressivo = list.get(0).getProgressivo();
 		log.debug("mapping scheda RC");
 		int numInProgr = 1;
@@ -1915,7 +2026,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitVCompRcDto dto = list.get(i);
 			log.debug("RC: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo RC sostituite " + listSost.size());
@@ -1923,7 +2034,7 @@ public class MapDto {
 				}
 				listRC.add(ac);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowRCcalsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -1976,10 +2087,10 @@ public class MapDto {
 	public static void mapToSchedaVM(SezVM sez, List<SigitVCompVmDto> list) {
 		log.debug("mapToSchedaVM: START");
 		BigDecimal progressivo = null;
-		List<RowVM> listVM = new ArrayList<RowVM>();
-		RowVM ac = null;
-		List<RowVMsost> listSost = new ArrayList<RowVMsost>();
-		if (list.size() > 0)
+		List<RowVM> listVM = new ArrayList<>();
+		RowVM ac = RowVM.Factory.newInstance();
+		List<RowVMsost> listSost = new ArrayList<>();
+		if (!list.isEmpty())
 			progressivo = list.get(0).getProgressivo();
 		log.debug("mapping scheda VM");
 		int numInProgr = 1;
@@ -1987,7 +2098,7 @@ public class MapDto {
 			log.debug("i=" + i + ", posInProgr = " + numInProgr);
 			SigitVCompVmDto dto = list.get(i);
 			log.debug("VM: progr:" + dto.getProgressivo() + ", data install: " + dto.getDataInstall());
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!listSost.isEmpty()) {
 					log.debug("aggiungo VM sostituite " + listSost.size());
@@ -1995,7 +2106,7 @@ public class MapDto {
 				}
 				listVM.add(ac);
 				progressivo = dto.getProgressivo();
-				listSost = new ArrayList<RowVMsost>();
+				listSost = new ArrayList<>();
 				numInProgr = 1;
 			}
 			if (numInProgr++ == 1) {
@@ -2056,7 +2167,7 @@ public class MapDto {
 		//it.csi.sigit.sigitwebn.xml.libretto.data.DatiRisultatiGTDocument.DatiRisultatiGT.SezGruppiTermici sezGT = datiRisultatiGT.addNewSezGruppiTermici();
 		BigDecimal progressivo = null;
 		Date lastDataControllo = null;
-		List<L111RowGT> listGt = new ArrayList<L111RowGT>();
+		List<L111RowGT> listGt = new ArrayList<>();
 		L111RowGT gt = L111RowGT.Factory.newInstance();
 		gt.addNewSezDateGT();
 		if (compGtImpiantoDett.size() > 0)
@@ -2192,10 +2303,10 @@ public class MapDto {
 			return;
 		BigDecimal progressivo = null;
 		Date lastDataControllo = null;
-		List<L112RowGF> listGf = new ArrayList<L112RowGF>();
+		List<L112RowGF> listGf = new ArrayList<>();
 		L112RowGF gf = L112RowGF.Factory.newInstance();
 		gf.addNewSezDateGF();
-		if (compGfImpianto.size() > 0)
+		if (!compGfImpianto.isEmpty())
 			progressivo = compGfImpianto.get(0).getProgressivo();
 		log.debug("mapping scheda RisultatiGF");
 		RowCircuitiGF modulo = RowCircuitiGF.Factory.newInstance();
@@ -2214,7 +2325,7 @@ public class MapDto {
 				continue;
 			}
 
-			if (!progressivo.equals(dto.getProgressivo())) {
+			if (progressivo!=null && !progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				if (!rowDateGF.getSezCircuitiGF().getRowCircuitiGFList().isEmpty()) {//se non ci sono dati, non aggiungo la lista vuota
 					//gf.setL112NumGF(ConvertUtil.convertToBigInteger(progressivo));
@@ -2303,7 +2414,7 @@ public class MapDto {
 		if (compScImpianto == null || compScImpianto.isEmpty())
 			return;
 		BigDecimal progressivo = null;
-		List<L113RowSC> listSC = new ArrayList<L113RowSC>();
+		List<L113RowSC> listSC = new ArrayList<>();
 		L113RowSC sc = L113RowSC.Factory.newInstance();
 		sc.addNewSezSC();
 		progressivo = compScImpianto.get(0).getProgressivo();
@@ -2382,12 +2493,12 @@ public class MapDto {
 		if (compCgImpiantoDett == null || compCgImpiantoDett.isEmpty())
 			return;
 		BigDecimal progressivo = null;
-		List<L114RowCG> listCG = new ArrayList<L114RowCG>();
+		List<L114RowCG> listCG = new ArrayList<>();
 		L114RowCG cg = L114RowCG.Factory.newInstance();
 		cg.addNewSezCG();
 		progressivo = compCgImpiantoDett.get(0).getProgressivo();
 		log.debug("mapping scheda RisultatiCG");
-		RowDateCG rowDateCG = RowDateCG.Factory.newInstance();
+		
 		for (int i = 0; i < compCgImpiantoDett.size(); i++) {
 			log.debug("i=" + i + ", progressivo: " + progressivo);
 			SigitVCompCgDettDto dto = compCgImpiantoDett.get(i);
@@ -2403,14 +2514,13 @@ public class MapDto {
 			if (!progressivo.equals(dto.getProgressivo())) {
 				log.debug("cambio progressivo");
 				listCG.add(cg);
-
-				rowDateCG = RowDateCG.Factory.newInstance();
+		
 				progressivo = dto.getProgressivo();
 				cg = L114RowCG.Factory.newInstance();
 				cg.addNewSezCG();
 			}
 			log.debug("CG attivo");
-			rowDateCG = mapToRowDateCG(dto);
+			RowDateCG rowDateCG = mapToRowDateCG(dto);
 			cg.setL114NumCG(ConvertUtil.convertToBigInteger(progressivo));
 			rowDateCG.setL114Data(ConvertUtil.convertToXmlCalendar(dataControllo));
 			cg.getSezCG().getRowDateCGList().add(rowDateCG);
@@ -2541,7 +2651,7 @@ public class MapDto {
 
 		ri.setL15IntManEntroIl(ConvertUtil.convertToXmlCalendar(dto.getFInterventoEntro()));
 
-		StringBuffer note = new StringBuffer();
+		StringBuilder note = new StringBuilder();
 
 		note.append("Comp.: ");
 		note.append(MapDto.mapToElencoApparecchiatureSplit(dto.getElencoApparecchiature()));
@@ -2715,7 +2825,7 @@ public class MapDto {
 		if (contrattiAll == null || contrattiAll.isEmpty())
 			return;
 
-		List<SigitExtContrattoImpDto> contratti = new ArrayList<SigitExtContrattoImpDto>();
+		List<SigitExtContrattoImpDto> contratti = new ArrayList<>();
 
 		SigitExtContrattoImpDto sigitExtContrattoImpDtoOld = null;
 
@@ -2764,7 +2874,7 @@ public class MapDto {
 		// Devo aggiungere l'ultimo
 		contratti.add(sigitExtContrattoImpDtoOld);
 
-		List<RowNomine> list = new ArrayList<RowNomine>();
+		List<RowNomine> list = new ArrayList<>();
 		for (SigitExtContrattoImpDto dto : contratti) {
 			RowNomine row = RowNomine.Factory.newInstance();
 			row.setL3DataValiditaContrattoDal(ConvertUtil.convertToXmlCalendar(dto.getDataInizioContratto()));
@@ -2798,6 +2908,25 @@ public class MapDto {
 				row.setL3Cognome(dto.getRespDenominazione());
 				row.setL3CodiceFiscale(dto.getRespCodiceFiscale());
 			}
+			row.setL3IdContratto(dto.getIdContratto().toPlainString());
+			row.setL3CodiceFiscaleDitta(dto.getCodiceFiscale3Resp());
+			Calendar cal = Calendar.getInstance();
+			if(dto.getFlagTacitoRinnovo() != null) {
+				row.setL3TacitoRinnovo(ConvertUtil.convertToString(dto.getFlagTacitoRinnovo(), 0));
+			}
+			if(dto.getDataCessazione() != null) {
+				cal.setTime(dto.getDataCessazione());
+				row.setL3DataCessazione(cal);
+			}
+			if(dto.getDataCaricamento() != null) {
+				cal.setTime(dto.getDataCaricamento());
+				row.setL3DataCaricamento(cal);
+			}
+			if(dto.getDataInserimentoCessazione() != null) {
+				cal.setTime(dto.getDataInserimentoCessazione());
+				row.setL3DataInserimentoCessazione(cal);
+			}
+			row.setL3TipoCessazione(dto.getDesTipoCessazione());
 			row.setL3RagSocialeDitta(dto.getTerzoRespDenominazione());
 			row.setL3Cciaa(getCodiceRea(dto.getTerzoRespSiglaRea(), ConvertUtil.convertToInteger(dto.getTerzoRespNumeroRea())));
 			if (dto.getFkRuolo().toString().equals(Constants.ID_RUOLO_PROPRIETARIO + "") || dto.getFkRuolo().toString().equals(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO + "")
@@ -2825,7 +2954,7 @@ public class MapDto {
 		BigDecimal newCombustibile = null;
 		String newUM = null;
 
-		List<RowConsumo> listRc = new ArrayList<RowConsumo>();
+		List<RowConsumo> listRc = new ArrayList<>();
 		for (SigitTConsumoDto dto : list) {
 			log.debug("tipo combustibile: " + dto.getFkCombustibile() + ", lettura iniziale: " + dto.getLetturaIniziale());
 			RowConsumo row = mapToRowConsumo(dto);
@@ -2848,7 +2977,7 @@ public class MapDto {
 				lastCombustibile = newCombustibile;
 				lastUM = newUM;
 
-				listRc = new ArrayList<RowConsumo>();
+				listRc = new ArrayList<>();
 				listRc.add(row);
 			}
 		}
@@ -2990,6 +3119,10 @@ public class MapDto {
 		return getCodiceRea(siglaRea, ConvertUtil.convertToString(numeroRea));
 	}
 
+	public static String getCodiceRea(String siglaRea, BigDecimal numeroRea) {
+		return getCodiceRea(siglaRea, ConvertUtil.convertToString(numeroRea));
+	}
+
 	public static String getCodiceRea(String siglaRea, String numeroRea) {
 		return normalizeString(GenericUtil.getStringValid(siglaRea) + Constants.INTERVAL_SEP + GenericUtil.getStringValid(numeroRea));
 	}
@@ -3028,7 +3161,7 @@ public class MapDto {
 	}
 
 	public static String mapToElencoApparecchiatureSplit(String listaApparecchiature) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		if (GenericUtil.isNotNullOrEmpty(listaApparecchiature)) {
 
@@ -3296,7 +3429,7 @@ public class MapDto {
 			hashComb.put(dto.getIdCombustibile(), dto.getDesCombustibile());
 		}
 
-		Collection coll = hashComb.values();
+		Collection<?> coll = hashComb.values();
 
 		String elencoCombustibili = null;
 		for (Object descComb : coll) {
@@ -3413,12 +3546,32 @@ public class MapDto {
 
 	}
 
+	public static Feature mapSigitExtImpiantoDtoToFeature(SigitExtImpiantoDto dto) {
+		Feature feature = new Feature();
+		Geometry point = new Geometry(new Float[] {dto.getCoordLong(), dto.getCoordLat()});
+		feature.setGeometry(point);
+		HashMap<String, String> properties = new HashMap<String, String>();
+		properties.put("Codice impianto", dto.getCodiceImpianto().toString());
+		properties.put("Stato", ConvertUtils.convert(dto.getDesStato()));
+		properties.put("Indirizzo", ConvertUtils.convert(dto.getIndirizzoUnitaImmob()));
+		properties.put("Civico", ConvertUtils.convert(dto.getCivico()));
+		properties.put("Comune", ConvertUtils.convert(dto.getDenominazioneComune()));
+		properties.put("Provincia", ConvertUtils.convert(dto.getSiglaProvincia()));
+		properties.put("Responsabile - nome", ConvertUtils.convert(dto.getDenominazioneResponsabile()));
+		properties.put("Responsabile - codice fiscale", ConvertUtils.convert(dto.getCodiceFiscaleResponsabile()));
+		properties.put("idPgResponsabile", ConvertUtils.convert(dto.getIdPgResponsabile()));
+		properties.put("idPfResponsabile", ConvertUtils.convert(dto.getIdPfResponsabile()));
+		//properties.put("", ConvertUtils.convert(dto.getUidLibretto()));
+		feature.setProperties(properties);
+
+		return feature;
+	}
+
 	public static SigitTImpiantoDto mapToSigitTImpiantoDto(DatiImpianto impianto, String cfUtenteMod) {
 		SigitTImpiantoDto impiantoDto = new SigitTImpiantoDto();
 		impiantoDto.setCodiceImpianto(ConvertUtil.convertToBigDecimal(impianto.getCodiceImpianto()));
 		impiantoDto.setDenominazioneComune(impianto.getComune());
 		impiantoDto.setDenominazioneProvincia(impianto.getProvincia());
-		impiantoDto.setDataAssegnazione(impianto.getDataAssCi() != null ? new java.sql.Date(impianto.getDataAssCi().getTime()) : null);
 		impiantoDto.setDataDismissione(impianto.getDataVar() != null ? new java.sql.Date(impianto.getDataVar().getTime()) : null);
 		impiantoDto.setMotivazione(impianto.getMotivazione() != null ? impianto.getMotivazione() : "Primo caricamento impianto");
 		impiantoDto.setFlgTipoImpianto(impianto.getTipoImpianto());
@@ -3433,6 +3586,7 @@ public class MapDto {
 		impiantoDto.setFlgNoOpendata(new BigDecimal(0));
 		impiantoDto.setSiglaProvincia(impianto.getSiglaProv());
 		impiantoDto.setIstatComune(impianto.getIstatComune());
+		impiantoDto.setFlgMedioimpianto(new BigDecimal(impianto.getFlgMedioimpianto()));
 		return impiantoDto;
 	}
 
@@ -3505,7 +3659,7 @@ public class MapDto {
 		dto.setDataInizio(ConvertUtil.convertToSqlDate(obj.getDataInizioResp()));
 		dto.setDataFine(ConvertUtil.convertToSqlDate(obj.getDataFineResp()));
 
-		if (obj.getFlgImpresa()) {
+		if (Boolean.TRUE.equals(obj.getFlgImpresa())) {
 			dto.setFkPersonaGiuridica(ConvertUtil.convertToBigDecimal(obj.getIdResponsabile()));
 		} else {
 			dto.setFkPersonaFisica(ConvertUtil.convertToBigDecimal(obj.getIdResponsabile()));
@@ -3574,7 +3728,9 @@ public class MapDto {
 		obj.setDenominazione(dto.getDenominazione());
 		obj.setSiglaRea(dto.getSiglaRea());
 		obj.setNumeroRea(ConvertUtil.convertToUDTPositiveInteger(dto.getNumeroRea()));
-		obj.setCodiceRea(getCodiceRea(obj.getSiglaRea(), obj.getNumeroRea().getValue()));
+		if(obj.getNumeroRea() != null) {
+			obj.setCodiceRea(getCodiceRea(obj.getSiglaRea(), obj.getNumeroRea().getValue()));
+		}
 		obj.setPec(dto.getPec());
 		obj.setTelefono(dto.getTelefono());
 
@@ -3592,7 +3748,7 @@ public class MapDto {
 		obj.setFlgSoggIncaricato(ConvertUtil.convertToBooleanAllways(dto.getFlgSoggIncaricato()));
 		obj.setFlgAltraImpresa(obj.getFlgAmministratore() || obj.getFlgSoggIncaricato());
 		obj.setDelegaSoggIncaricato(dto.getDelegaSoggIncaricato());
-		obj.setDescFlgAmministratore(obj.getFlgAmministratore() ? Constants.SI : Constants.NO);
+		obj.setDescFlgAmministratore(Boolean.TRUE.equals(obj.getFlgAmministratore()) ? Constants.SI : Constants.NO);
 		//		obj.setDescFlgInstallatore(obj.getFlgInstallatore() ? Constants.SI : Constants.NO);
 		//		obj.setDescFlgManutentore(obj.getFlgManutentore() ? Constants.SI : Constants.NO);
 		obj.setDescFlgTerzoResponsabile(obj.getFlgTerzoResponsabile() ? Constants.SI : Constants.NO);
@@ -3984,7 +4140,7 @@ public class MapDto {
 	public static DatiGT mapToDatiGT(SigitTCompGtDto dto) {
 		DatiGT dato = new DatiGT();
 		dato.setIdTipoComponente(dto.getIdTipoComponente());
-		dato.setProgressivo(dto.getProgressivo().intValue());
+		dato.setProgressivo(dto.getProgressivo());
 		dato.setDataInstall(dto.getDataInstall() != null ? dto.getDataInstall() : null);
 		dato.setCodiceImpianto(dto.getCodiceImpianto().intValue());
 		dato.setFkFluido(dto.getFkFluido() != null ? dto.getFkFluido().intValue() : null);
@@ -4010,7 +4166,7 @@ public class MapDto {
 	public static DatiGT mapToDatiGT(SigitTCompGtCompletoDto dto) {
 		DatiGT dato = new DatiGT();
 		dato.setIdTipoComponente(dto.getIdTipoComponente());
-		dato.setProgressivo(dto.getProgressivo().intValue());
+		dato.setProgressivo(dto.getProgressivo());
 		dato.setDataInstall(dto.getDataInstall() != null ? dto.getDataInstall() : null);
 		dato.setCodiceImpianto(dto.getCodiceImpianto().intValue());
 		dato.setFkFluido(dto.getFkFluido() != null ? dto.getFkFluido().intValue() : null);
@@ -4043,20 +4199,20 @@ public class MapDto {
 	public static DatiGF mapToDatiGF(SigitTCompGfCompletoDto dto) {
 		DatiGF dato = new DatiGF();
 		dato.setIdTipoComponente(dto.getIdTipoComponente());
-		dato.setProgressivo(dto.getProgressivo().intValue());
+		dato.setProgressivo(dto.getProgressivo());
 		dato.setDataInstall(dto.getDataInstall() != null ? dto.getDataInstall() : null);
 		dato.setCodiceImpianto(dto.getCodiceImpianto().intValue());
 		dato.setFkDettaglioGf(dto.getFkDettaglioGf() != null ? dto.getFkDettaglioGf().intValue() : null);
 		dato.setFlgSorgenteExt(dto.getFlgSorgenteExt());
 		dato.setFlgFluidoUtenze(dto.getFlgFluidoUtenze());
-		dato.setFluidoFrigorigenodi(dto.getFluidoFrigorigeno());
+		dato.setFluidoFrigorigeno(dto.getFluidoFrigorigeno());
 		dato.setRaffrescamentoEer(dto.getRaffrescamentoEer());
 		dato.setRaffPotenzaKw(dto.getRaffPotenzaKw());
 		dato.setRaffPotenzaAss(dto.getRaffPotenzaAss());
 		dato.setRiscaldamentoCop(dto.getRiscaldamentoCop());
 		dato.setRiscPotenzaAssKw(dto.getRiscPotenzaAssKw());
 		dato.setRiscPotenzaKw(dto.getRiscPotenzaKw());
-		dato.setnCircuiti(dto.getnCircuiti() != null ? dto.getnCircuiti().intValue() : null);
+		dato.setnCircuiti(dto.getNCircuiti() != null ? dto.getNCircuiti().intValue() : null);
 		dato.setDataDismiss(dto.getDataDismiss() != null ? dto.getDataDismiss() : null);
 		dato.setFlgDismissione(dto.getFlgDismissione() != null ? dto.getFlgDismissione().intValue() : null);
 		dato.setDataUltMod(dto.getDataUltMod() != null ? dto.getDataUltMod() : null);
@@ -4245,7 +4401,7 @@ public class MapDto {
 		entity.setRiscPotenzaKw(ConvertUtil.convertToBigDecimal(dto.getRiscPotenzaKw()));
 		entity.setRiscPotenzaAssKw(ConvertUtil.convertToBigDecimal(dto.getRiscPotenzaAssKw()));
 		entity.setUtenteUltMod(cfUtenteMod);
-		entity.setFluidoFrigorigeno(dto.getFluidoFrigorigenodi());
+		entity.setFluidoFrigorigeno(dto.getFluidoFrigorigeno());
 		entity.setDataUltMod(DateUtil.getSqlDataCorrente());
 
 		return entity;
@@ -4496,6 +4652,8 @@ public class MapDto {
 				case Constants.TIPO_COMPONENTE_CG:
 					model.setTipoControllo(tipoControllo.equals(Constants.MANUTENZIONE_CG) ? Constants.MANUTENZIONE_CG : Constants.ALLEGATO_TIPO_4);
 					break;
+				default: 
+					
 			}
 			modelList.add(model);
 		}
@@ -4584,7 +4742,7 @@ public class MapDto {
 	}
 
 	public static List<SigitVRicerca3ResponsabileDto> convertToListTotImpianto(List<SigitExtContrattoImpDto> list) {
-		List<SigitVRicerca3ResponsabileDto> output = new ArrayList<SigitVRicerca3ResponsabileDto>();
+		List<SigitVRicerca3ResponsabileDto> output = new ArrayList<>();
 		if (list != null) {
 			for (SigitExtContrattoImpDto cont : list) {
 				SigitVRicerca3ResponsabileDto resp = new SigitVRicerca3ResponsabileDto();
@@ -4638,7 +4796,7 @@ public class MapDto {
 		entity.setFkDatoDistrib(ConvertUtil.convertToInteger(verifica.getIdDatoDistributore()));
 		entity.setFkAllegato(ConvertUtil.convertToBigDecimal(verifica.getIdAllegato()));
 		entity.setNote(verifica.getNote());
-		entity.setNoteSveglia(verifica.getNoteSveglia());
+		entity.setNoteSveglia(verifica.getNoteSveglia()==null?"":verifica.getNoteSveglia());
 		entity.setSiglaBollino(verifica.getSiglaBollino());
 		entity.setNumeroBollino(ConvertUtil.convertToBigDecimal(verifica.getNumeroBollino()));
 
@@ -4653,6 +4811,7 @@ public class MapDto {
 
 		entity.setIdAzione(ConvertUtil.convertToInteger(azione.getIdAzione()));
 		entity.setDescrizioneAzione(azione.getDescrizione());
+		entity.setDtAzione(ConvertUtil.convertToSqlDate(azione.getDataAzione()));
 
 		switch (tipoAzione) {
 			case Constants.ID_TIPO_AZIONE_VERIFICA:
@@ -4780,5 +4939,231 @@ public class MapDto {
 		if(stella!=null)
 			return stella.idXsd;
 		return null;
+	}
+
+	public static PersonaGiuridicaSigitWebn mapToPersonaGiuridicaSigitWebn(SigitTPersonaGiuridicaDto dto) {
+		PersonaGiuridicaSigitWebn obj = new PersonaGiuridicaSigitWebn();
+		obj.setIdPersonaGiuridica(ConvertUtil.convertToInteger(dto.getIdPersonaGiuridica()));
+		obj.setCodiceFiscale(ReplaceSpecialCharUtils.sanitize(dto.getCodiceFiscale()));
+		obj.setDenominazione(ReplaceSpecialCharUtils.sanitize(dto.getDenominazione()));
+		obj.setSiglaRea(ReplaceSpecialCharUtils.sanitize(dto.getSiglaRea()));
+		obj.setNumeroRea(ConvertUtil.convertToUDTPositiveInteger(dto.getNumeroRea()));
+		obj.setCodiceRea(getCodiceRea(ReplaceSpecialCharUtils.sanitize(obj.getSiglaRea()), ConvertUtil.convertToInteger(obj.getNumeroRea())));
+		obj.setPec(ReplaceSpecialCharUtils.sanitize(dto.getPec()));
+		obj.setTelefono(ReplaceSpecialCharUtils.sanitize(dto.getTelefono()));
+		
+//		obj.setFlgInstallatore(ConvertUtil.convertToBooleanAllways(dto.getFlgInstallatore()));
+//		obj.setFlgManutentore(ConvertUtil.convertToBooleanAllways(dto.getFlgManutentore()));
+		obj.setFlgAmministratore(ConvertUtil.convertToBooleanAllways(dto.getFlgAmministratore()));
+		obj.setFlgTerzoResponsabile(ConvertUtil.convertToBooleanAllways(dto.getFlgTerzoResponsabile()));
+		obj.setFlgDistributore(ConvertUtil.convertToBooleanAllways(dto.getFlgDistributore()));
+		obj.setFlgCat(ConvertUtil.convertToBooleanAllways(dto.getFlgCat()));
+		obj.setFlgDm37LetteraC(ConvertUtil.convertToBooleanAllways(dto.getFlgDm37Letterac()));
+		obj.setFlgDm37LetteraD(ConvertUtil.convertToBooleanAllways(dto.getFlgDm37Letterad()));
+		obj.setFlgDm37LetteraE(ConvertUtil.convertToBooleanAllways(dto.getFlgDm37Letterae()));
+		obj.setFlgFGas(ConvertUtil.convertToBooleanAllways(dto.getFlgFgas()));
+		obj.setFlgConduttore(ConvertUtil.convertToBooleanAllways(dto.getFlgConduttore()));
+		obj.setFlgSoggIncaricato(ConvertUtil.convertToBooleanAllways(dto.getFlgSoggIncaricato()));
+		obj.setFlgAltraImpresa(obj.getFlgAmministratore() || obj.getFlgSoggIncaricato());
+		obj.setDelegaSoggIncaricato(ReplaceSpecialCharUtils.sanitize(dto.getDelegaSoggIncaricato()));
+		obj.setDescFlgAmministratore(obj.getFlgAmministratore() ? Constants.SI : Constants.NO);
+//		obj.setDescFlgInstallatore(obj.getFlgInstallatore() ? Constants.SI : Constants.NO);
+//		obj.setDescFlgManutentore(obj.getFlgManutentore() ? Constants.SI : Constants.NO);
+		obj.setDescFlgTerzoResponsabile(obj.getFlgTerzoResponsabile() ? Constants.SI : Constants.NO);
+		obj.setDescFlgDistributore(obj.getFlgDistributore() ? Constants.SI : Constants.NO);
+		obj.setDescFlgCat(obj.getFlgCat() ? Constants.SI : Constants.NO);
+		obj.setDescFlgDm37LetteraC(obj.getFlgDm37LetteraC() ? Constants.SI : Constants.NO);
+		obj.setDescFlgDm37LetteraD(obj.getFlgDm37LetteraD() ? Constants.SI : Constants.NO);
+		obj.setDescFlgDm37LetteraE(obj.getFlgDm37LetteraE() ? Constants.SI : Constants.NO);
+		obj.setDescFlgFGas(obj.getFlgFGas() ? Constants.SI : Constants.NO);
+		obj.setDescFlgConduttore(obj.getFlgConduttore() ? Constants.SI : Constants.NO);
+		obj.setDescFlgSoggIncaricato(obj.getFlgSoggIncaricato() ? Constants.SI : Constants.NO);
+		obj.setDescFlgAltraImpresa(obj.getFlgAltraImpresa() ? Constants.SI : Constants.NO);
+		obj.setFlgIndirizzoEst(ConvertUtil.getNumberAsBoolean(dto.getFlgIndirizzoEstero()));
+		obj.setDtCreazioneToken(ConvertUtil.convertToString(dto.getDtCreazioneToken()));
+		obj.setDtScadenzaToken(ConvertUtil.convertToString(dto.getDtScadenzaToken()));
+		obj.setToken(ReplaceSpecialCharUtils.sanitize(dto.getToken()));
+		
+		if (obj.getFlgIndirizzoEst())
+		{
+			obj.setEstStato(ReplaceSpecialCharUtils.sanitize(dto.getStatoEstero()));
+			obj.setEstCitta(ReplaceSpecialCharUtils.sanitize(dto.getCittaEstero()));
+			obj.setEstIndirizzo(ReplaceSpecialCharUtils.sanitize(dto.getIndirizzoEstero()));
+			obj.setEstCap(ReplaceSpecialCharUtils.sanitize(dto.getCapEstero()));
+		}
+		else
+		{
+			
+			if (dto.getFkL2() != null) {
+				obj.setIdIndirizzoSel(ConvertUtil.convertToString(dto.getFkL2()));
+			}
+			else if (GenericUtil.isNotNullOrEmpty(dto.getIndirizzoSitad()))
+			{
+				obj.setIdIndirizzoSel(Constants.INDIRIZZO_CARICATO_PWA);
+			}
+			//obj.setIdIndirizzoSel(ConvertUtil.convertToString(dto.getFkL2()));
+			
+			
+			obj.setIdProvinciaSelez(ReplaceSpecialCharUtils.sanitize(dto.getSiglaProv()));
+			obj.setProvincia(ReplaceSpecialCharUtils.sanitize(dto.getProvincia()));
+			obj.setIdComuneSelez(ReplaceSpecialCharUtils.sanitize(dto.getIstatComune()));
+			obj.setComune(ReplaceSpecialCharUtils.sanitize(dto.getComune()));
+			obj.setIndirizzo(ReplaceSpecialCharUtils.sanitize(dto.getIndirizzoSitad()));
+			obj.setIndirizzoNonTrovato(ReplaceSpecialCharUtils.sanitize(dto.getIndirizzoNonTrovato()));
+			obj.setCap(ReplaceSpecialCharUtils.sanitize(dto.getCap()));
+		}
+
+		// Questo campo e' comune a tutti e due gli indirizzi (ESTERO/NAZIONALE)
+		obj.setCivico(ReplaceSpecialCharUtils.sanitize(dto.getCivico()));
+		
+
+		obj.setDataCessazione(ConvertUtil.convertToString(dto.getDataCessazione()));
+		obj.setDataInizioAttivita(ConvertUtil.convertToString(dto.getDataInizioAttivita()));
+		obj.setEmail(ReplaceSpecialCharUtils.sanitize(dto.getEmail()));
+		obj.setPec(ReplaceSpecialCharUtils.sanitize(dto.getPec()));
+		obj.setTelefono(ReplaceSpecialCharUtils.sanitize(dto.getTelefono()));
+		
+		obj.setIdStatoPg(dto.getFkStatoPg());
+		obj.setIdStatoPgOld(dto.getFkStatoPg());
+		return obj;
+	}
+	
+	public static String getdatoDistributoreAnnoRiferimentoDatiUtente(SigitTDatoDistribDto risultatoDistributore) {
+		if (risultatoDistributore != null) {
+			String annoRif = risultatoDistributore.getAnnoRif() == null ? "" : "ANNO RIFERIMENTO= " + ConvertUtil.convertToString(risultatoDistributore.getAnnoRif());
+			String datiUtente = GenericUtil.isNullOrEmpty(risultatoDistributore.getCognomeDenom()) ? "" : "DATI UTENTE=" + ReplaceSpecialCharUtils.sanitize(risultatoDistributore.getCognomeDenom());
+			
+			String risultato = ConvertUtil.getStringByConcat(" ", annoRif, datiUtente);
+					
+			return risultato;
+		}
+		return null;
+	}
+	
+	public static Ispezione2018 mapToIspezione2018(SigitTIspezione2018Dto entity, Map<Integer, String> mappaStatoIspezione, SigitVTotImpiantoCercaUbicazioneImpiantoDto impianto, SigitRIspezIspetDto ispezIspet, SigitTPersonaFisicaDto ispettore, SigitTDatoDistribDto datoDistrib, String indirizzoDatoDistrib, String datoDistributoreAnnoRiferimentoDatiUtente) {
+		Ispezione2018 dto = new Ispezione2018();
+		dto.setCfSecondoIspettore(entity.getCfIspettoreSecondario());
+		if (entity.getCodiceImpianto() != null && entity.getCodiceImpianto().intValue() != Constants.COD_IMPIANTO_VUOTO) {
+			dto.setCodiceImpianto(ConvertUtil.convertToString(entity.getCodiceImpianto()));
+			if (impianto != null) {
+				String ubicazioneImpianto =  MapDto.getRisultatoImpianto(impianto);
+
+				dto.setLocalizzazioneImpianto("localizzazione : " + ubicazioneImpianto);
+				dto.setCodIstatProv(GenericUtil.getCodIstatProvByCodIstatComune(impianto.getIstatComune()));
+				dto.setCodIstatCom(impianto.getIstatComune());
+			}
+		} else {
+			dto.setCodiceImpianto(null);
+			dto.setCodIstatProv(entity.getIstatProvCompetenza());
+			dto.setCodIstatCom(entity.getIstatComuneCompetenza());
+			if (datoDistrib != null) {
+				dto.setIdDatoDistrib(datoDistrib.getIdDatoDistrib());
+				dto.setLocalizzazioneDistributore("localizzazione : " + indirizzoDatoDistrib);
+				dto.setDatoDistributoreAnnoRiferimentoDatiUtente(datoDistributoreAnnoRiferimentoDatiUtente);
+			}
+		}
+		
+		dto.setDataConclusione(ConvertUtil.convertToString(entity.getDtConclusione()));
+		dto.setDataCreazione(ConvertUtil.convertToString(entity.getDtCreazione()));
+		
+		if (ispezIspet != null) {
+			dto.setIdIspezIspet(ConvertUtil.convertToInteger(ispezIspet.getIdIspezIspet()));
+			dto.setIdPfIspettore(ConvertUtil.convertToInteger(ispezIspet.getFkPersonaFisica()));
+
+		}
+		
+		if (ispettore != null) {
+			dto.setDescrizioneIspettore(ConvertUtil.getStringByConcat(" ", ispettore.getCognome(), ispettore.getNome(), "("+ispettore.getCodiceFiscale()+")"));
+		}
+		
+		
+		if (mappaStatoIspezione != null) {
+			if (entity.getFkStatoIspezione() != null && entity.getFkStatoIspezione().intValue() != 0) {
+				dto.setDescrizioneStato(mappaStatoIspezione.get(ConvertUtil.convertToInteger(entity.getFkStatoIspezione())));
+			}
+		}
+		
+		dto.setDescrizioneSveglia(ConvertUtil.getStringByConcat(" ", ConvertUtil.convertToString(entity.getDtSveglia()), entity.getNoteSveglia()));
+		
+		dto.setEnteCompetente(entity.getEnteCompetente());
+		dto.setEsito(entity.getFlgEsito() == null ? "" : ConvertUtil.convertToBooleanAllways(entity.getFlgEsito())?Constants.DESC_ESITO_POSITIVO:Constants.DESC_ESITO_NEGATIVO);
+		dto.setIdAccertamento(ConvertUtil.convertToString(entity.getFkAccertamento()));
+		dto.setIdentificativoIspezione(ConvertUtil.convertToString(entity.getIdIspezione2018()));
+		dto.setIdVerifica(ConvertUtil.convertToString(entity.getFkVerifica()));
+
+		dto.setNote(entity.getNote());
+
+		dto.setFlgIspPagamento(ConvertUtil.convertToBooleanAllways(entity.getFlgIspPagamento()));
+		
+		dto.setIdStatoIspezione(ConvertUtil.convertToString(entity.getFkStatoIspezione()));
+		
+		return dto;
+	}
+	
+	public static String getRisultatoImpianto(SigitVTotImpiantoCercaUbicazioneImpiantoDto risultatoImpianto) {
+		if (risultatoImpianto != null) {
+			return MapDto.getIndirizzoCompleto(risultatoImpianto.getComune(), risultatoImpianto.getIndirizzo(), risultatoImpianto.getCivico(), risultatoImpianto.getSiglaProvincia());
+		}
+		return null;
+	}
+	
+	public static ArrayList<IdDescription> mapToStatiIspezione(List<SigitDStatoIspezioneDto>  listaStatiIspezioni) {
+		ArrayList<IdDescription> result = new ArrayList<IdDescription>();
+		if (listaStatiIspezioni != null) {
+			for (SigitDStatoIspezioneDto obj : listaStatiIspezioni) {
+				
+				if (ConvertUtil.convertToInteger(obj.getIdStatoIspezione()) != Constants.DATO_NON_DISPONIBILE)
+				{
+					IdDescription cd = new IdDescription();
+					cd.setId(ConvertUtil.convertToInteger(obj.getIdStatoIspezione()));
+					cd.setDescription(obj.getDesStatoIspezione());
+	
+					result.add(cd);
+				}
+			}
+		}
+		return result;
+	}
+	
+public static String getIndirizzoByDugIndirizzo(String dug, String indirizzo) {
+		
+		String indirizzoConDug = indirizzo;
+		
+		if (GenericUtil.isNotNullOrEmpty(dug) && !indirizzo.startsWith(dug)) {
+			
+			indirizzoConDug = dug + " " + indirizzo;
+		}
+		
+		return indirizzoConDug;
+	}
+	
+	public static SigitTConsumoTipo1BDto mapToSigitTConsumoTipo1BDto(Tipo1Consumo tipo1Consumo, BigDecimal idAllegato) {
+		
+		SigitTConsumoTipo1BDto dto = new SigitTConsumoTipo1BDto();
+		dto.setIdConsumoTipo1b(ConvertUtil.convertToBigDecimal(tipo1Consumo.getIdConsumo()));
+		dto.setEsercizio(ConvertUtil.convertToBigDecimal(tipo1Consumo.getEsercizio()));
+		dto.setLetturaIniziale(ConvertUtil.convertToBigDecimal(tipo1Consumo.getLetturaIniziale(), 14));
+		dto.setLetturaFinale(ConvertUtil.convertToBigDecimal(tipo1Consumo.getLetturaFinale(), 14));
+		dto.setConsumo(ConvertUtil.convertToBigDecimal(tipo1Consumo.getConsumoFinale(), 14));
+		dto.setFkAllegato(idAllegato);
+		dto.setIdUnitaMisura(ReplaceSpecialCharUtils.sanitize(tipo1Consumo.getIdUnitaMisura()));
+		dto.setIdTipoConsumo1b(ConvertUtil.convertToBigDecimal(tipo1Consumo.getIdTipoConsumo()));
+		return dto;
+	}
+
+	public static DatiToken mapToDatiToken(SigitTPersonaGiuridicaDto dto) {
+		
+		DatiToken datToken = new DatiToken();
+
+		datToken.setId_persona_giuridica(dto.getIdPersonaGiuridica().intValue());
+		datToken.setDenominazione(dto.getDenominazione());
+		datToken.setSigla_rea(dto.getSiglaRea());
+		datToken.setNumero_rea(dto.getNumeroRea() != null ? dto.getNumeroRea().intValue() : null);
+		datToken.setCodice_fiscale(dto.getCodiceFiscale());
+		datToken.setDt_creazione_token(dto.getDtCreazioneToken());
+		datToken.setDt_scadenza_token(dto.getDtScadenzaToken());
+		datToken.setToken(dto.getToken());
+
+		return datToken;
 	}
 }

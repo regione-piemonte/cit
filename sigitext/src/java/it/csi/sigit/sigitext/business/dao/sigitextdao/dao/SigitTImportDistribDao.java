@@ -6,6 +6,7 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImportDistribPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImportDistribRicevutaByIdImportDistribDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTImportDistribDaoException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface SigitTImportDistribDao {
@@ -18,8 +19,16 @@ public interface SigitTImportDistribDao {
 
 	public List<SigitTImportDistribByIdPersonaGiuridicaDto> findByIdPersonaGiuridica(java.lang.Integer input)
 			throws SigitTImportDistribDaoException;
+	
+	public List<SigitTImportDistribByIdPersonaGiuridicaDto> findByIdPersonaGiuridicaAndFiltri(java.lang.Integer input, String anno, String mese, String tipoCaricamento, String statoFile, BigDecimal bigDecimal)
+			throws SigitTImportDistribDaoException;
 
 	public List<SigitTImportDistribRicevutaByIdImportDistribDto> findRicevutaByIdImportDistrib(java.lang.Integer input)
 			throws SigitTImportDistribDaoException;
 
+	public List<SigitTImportDistribByIdPersonaGiuridicaDto> findByIdPersonaGiuridicaAndNomeFile(java.lang.Integer idPersonaGiuridica, String nome_file)
+			throws SigitTImportDistribDaoException;
+
+	public void updateUidIndex(SigitTImportDistribPk pk, String uidIndex) throws SigitTImportDistribDaoException;
+	
 }

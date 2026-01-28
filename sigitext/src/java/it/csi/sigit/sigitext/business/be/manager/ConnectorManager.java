@@ -76,10 +76,14 @@ public class ConnectorManager {
 				CodiceReaAndFiscaleFilter codiceReaAndFiscaleFilter = new CodiceReaAndFiscaleFilter();
 				codiceReaAndFiscaleFilter.setCodiceFiscale(dettaglioAllegato.getCodiceFiscalePg());
 				List<SigitTPersonaGiuridicaDto> manutentore = getDbServiceImp().getSigitTPersonaGiuridicaDao().findByCodiceReaAndFiscale(codiceReaAndFiscaleFilter);
+
 				if (manutentore != null)
 					resultInvioMail = getServiceManager().sendMailInserisciManutenzione(vAllegato, manutentore.get(0), emailResponsabile, personaGiuridica);
 			}
-		} catch (SigitextException | SigitTPersonaGiuridicaDaoException | ServiceException e) {
+		}catch (SigitextException e) {
+			log.debug("errore validazione xml", e);
+			throw e;
+		} catch (SigitTPersonaGiuridicaDaoException | ServiceException e) {
 			throw new SigitextException(e.getMessage());
 		} finally {
 			log.debug("ConnectorManager::salvaAllegatoImportTrans - END");

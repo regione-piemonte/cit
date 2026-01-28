@@ -111,6 +111,52 @@ public class UnitaImmobiliareDaoImpl extends AbstractDAO implements UnitaImmobil
 		}
 		return list;
 	}
+	
+	
+	/** 
+	 * Implementazione del finder byCodiceImpianto
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public UnitaImmobiliareDto findPrincipaleByCodiceImpianto(Integer input) throws UnitaImmobiliareDaoException {
+		LOG.debug("[UnitaImmobiliareDaoImpl::findByCodiceImpianto] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_UNITA_IMM,CODICE_IMPIANTO,FK_L2,INDIRIZZO_SITAD,INDIRIZZO_NON_TROVATO,CIVICO,CAP,SCALA,PALAZZO,INTERNO,NOTE,FLG_PRINCIPALE,SEZIONE,FOGLIO,PARTICELLA,SUBALTERNO,POD_ELETTRICO,PDR_GAS,DATA_ULT_MOD,UTENTE_ULT_MOD,L1_2_FLG_SINGOLA_UNITA,L1_2_FK_CATEGORIA,L1_2_VOL_RISC_M3,L1_2_VOL_RAFF_M3,FLG_NOPDR,FLG_NOACCATASTATO ");
+		sql.append(" FROM SIGIT_T_UNITA_IMMOBILIARE");
+		sql.append(" WHERE ");
+		/*PROTECTED REGION ID(R-132743322) ENABLED START*/
+		// personalizzare la query SQL relativa al finder
+
+		// personalizzare l'elenco dei parametri da passare al jdbctemplate (devono corrispondere in tipo e
+		// numero ai parametri definiti nella queryString)
+		sql.append("CODICE_IMPIANTO = :codImpianto ");
+		sql.append("AND flg_principale = 1");
+		/*PROTECTED REGION END*/
+		/*PROTECTED REGION ID(R304810564) ENABLED START*/
+		//***aggiungere tutte le condizioni
+
+		paramMap.addValue("codImpianto", input);
+
+		/*PROTECTED REGION END*/
+		List<UnitaImmobiliareDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, byCodiceImpiantoRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[UnitaImmobiliareDaoImpl::findByCodiceImpianto] esecuzione query", ex);
+			throw new UnitaImmobiliareDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("UnitaImmobiliareDaoImpl", "findByCodiceImpianto", "esecuzione query",
+					sql.toString());
+			LOG.debug("[UnitaImmobiliareDaoImpl::findByCodiceImpianto] END");
+		}
+		return  list.size()>0  ? list.get(0) : null;
+	}
 
 	/** 
 	 * Implementazione del finder byPod

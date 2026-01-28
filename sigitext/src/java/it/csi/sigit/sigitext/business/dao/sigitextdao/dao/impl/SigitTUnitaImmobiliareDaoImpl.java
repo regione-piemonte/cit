@@ -68,81 +68,107 @@ public class SigitTUnitaImmobiliareDaoImpl extends AbstractDAO implements SigitT
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
 
+		LOG.debug("dto.getIdUnitaImm(): " + dto.getIdUnitaImm());
 		// valorizzazione paametro relativo a colonna [ID_UNITA_IMM]
 		params.addValue("ID_UNITA_IMM", dto.getIdUnitaImm(), java.sql.Types.NUMERIC);
 
+		LOG.debug("dto.getCodiceImpianto(): " + dto.getCodiceImpianto());
 		// valorizzazione paametro relativo a colonna [CODICE_IMPIANTO]
 		params.addValue("CODICE_IMPIANTO", dto.getCodiceImpianto(), java.sql.Types.NUMERIC);
 
+		LOG.debug("dto.getFkL2(): " + dto.getFkL2());
 		// valorizzazione paametro relativo a colonna [FK_L2]
 		params.addValue("FK_L2", dto.getFkL2(), java.sql.Types.NUMERIC);
 
+		LOG.debug("dto.getIndirizzoSitad(): " + dto.getIndirizzoSitad());
 		// valorizzazione paametro relativo a colonna [INDIRIZZO_SITAD]
 		params.addValue("INDIRIZZO_SITAD", dto.getIndirizzoSitad(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getIndirizzoNonTrovato(): " + dto.getIndirizzoNonTrovato());
 		// valorizzazione paametro relativo a colonna [INDIRIZZO_NON_TROVATO]
 		params.addValue("INDIRIZZO_NON_TROVATO", dto.getIndirizzoNonTrovato(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getCivico(): " + dto.getCivico());
 		// valorizzazione paametro relativo a colonna [CIVICO]
 		params.addValue("CIVICO", dto.getCivico(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getCap(): " + dto.getCap());
 		// valorizzazione paametro relativo a colonna [CAP]
 		params.addValue("CAP", dto.getCap(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getScala(): " + dto.getScala());
 		// valorizzazione paametro relativo a colonna [SCALA]
 		params.addValue("SCALA", dto.getScala(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getPalazzo(): " + dto.getPalazzo());
 		// valorizzazione paametro relativo a colonna [PALAZZO]
 		params.addValue("PALAZZO", dto.getPalazzo(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getInterno(): " + dto.getInterno());
 		// valorizzazione paametro relativo a colonna [INTERNO]
 		params.addValue("INTERNO", dto.getInterno(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getNote(): " + dto.getNote());
 		// valorizzazione paametro relativo a colonna [NOTE]
 		params.addValue("NOTE", dto.getNote(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getFlgPrincipale(): " + dto.getFlgPrincipale());
 		// valorizzazione paametro relativo a colonna [FLG_PRINCIPALE]
 		params.addValue("FLG_PRINCIPALE", dto.getFlgPrincipale(), java.sql.Types.NUMERIC);
 
+		LOG.debug("dto.getSezione(): " + dto.getSezione());
 		// valorizzazione paametro relativo a colonna [SEZIONE]
 		params.addValue("SEZIONE", dto.getSezione(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getFoglio(): " + dto.getFoglio());
 		// valorizzazione paametro relativo a colonna [FOGLIO]
 		params.addValue("FOGLIO", dto.getFoglio(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getParticella(): " + dto.getParticella());
 		// valorizzazione paametro relativo a colonna [PARTICELLA]
 		params.addValue("PARTICELLA", dto.getParticella(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getSubalterno(): " + dto.getSubalterno());
 		// valorizzazione paametro relativo a colonna [SUBALTERNO]
 		params.addValue("SUBALTERNO", dto.getSubalterno(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getPodElettrico(): " + dto.getPodElettrico());
 		// valorizzazione paametro relativo a colonna [POD_ELETTRICO]
 		params.addValue("POD_ELETTRICO", dto.getPodElettrico(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getPdrGas(): " + dto.getPdrGas());
 		// valorizzazione paametro relativo a colonna [PDR_GAS]
 		params.addValue("PDR_GAS", dto.getPdrGas(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getDataUltMod(): " + dto.getDataUltMod());
 		// valorizzazione paametro relativo a colonna [DATA_ULT_MOD]
 		params.addValue("DATA_ULT_MOD", dto.getDataUltMod(), java.sql.Types.TIMESTAMP);
 
+		LOG.debug("dto.getUtenteUltMod(): " + dto.getUtenteUltMod());
 		// valorizzazione paametro relativo a colonna [UTENTE_ULT_MOD]
 		params.addValue("UTENTE_ULT_MOD", dto.getUtenteUltMod(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getL12FlgSingolaUnita(): " + dto.getL12FlgSingolaUnita());
 		// valorizzazione paametro relativo a colonna [L1_2_FLG_SINGOLA_UNITA]
 		params.addValue("L1_2_FLG_SINGOLA_UNITA", dto.getL12FlgSingolaUnita(), java.sql.Types.NUMERIC);
 
+		LOG.debug("dto.getL12FkCategoria(): " + dto.getL12FkCategoria());
 		// valorizzazione paametro relativo a colonna [L1_2_FK_CATEGORIA]
 		params.addValue("L1_2_FK_CATEGORIA", dto.getL12FkCategoria(), java.sql.Types.VARCHAR);
 
+		LOG.debug("dto.getL12VolRiscM3(): " + dto.getL12VolRiscM3());
 		// valorizzazione paametro relativo a colonna [L1_2_VOL_RISC_M3]
 		params.addValue("L1_2_VOL_RISC_M3", dto.getL12VolRiscM3(), java.sql.Types.NUMERIC);
 
+		LOG.debug("dto.getL12VolRaffM3(): " + dto.getL12VolRaffM3());
 		// valorizzazione paametro relativo a colonna [L1_2_VOL_RAFF_M3]
 		params.addValue("L1_2_VOL_RAFF_M3", dto.getL12VolRaffM3(), java.sql.Types.NUMERIC);
 
+		LOG.debug("dto.getFlgNopdr(): " + dto.getFlgNopdr());
 		// valorizzazione paametro relativo a colonna [FLG_NOPDR]
 		params.addValue("FLG_NOPDR", dto.getFlgNopdr(), java.sql.Types.NUMERIC);
 
+		LOG.debug("dto.getFlgNoaccatastato(): " + dto.getFlgNoaccatastato());
 		// valorizzazione paametro relativo a colonna [FLG_NOACCATASTATO]
 		params.addValue("FLG_NOACCATASTATO", dto.getFlgNoaccatastato(), java.sql.Types.NUMERIC);
 
@@ -434,5 +460,18 @@ public class SigitTUnitaImmobiliareDaoImpl extends AbstractDAO implements SigitT
 
 		update(jdbcTemplate, sql.toString(), params);
 		LOG.debug("[SigitTUnitaImmobiliareDaoImpl::updateColumnsDaOnline] END");
+	}
+	
+	@Override
+	public void remove(SigitTUnitaImmobiliarePk sigitTUnitaImmobiliarePk) throws SigitTUnitaImmobiliareDaoException {
+		LOG.debug("[SigitTUnitaImmobiliareDaoImpl::remove] START");
+		final String sql = "DELETE FROM " + getTableName() + "   WHERE ID_UNITA_IMM = :ID_UNITA_IMM";
+		
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		params.addValue("ID_UNITA_IMM", sigitTUnitaImmobiliarePk.getIdUnitaImm(), java.sql.Types.NUMERIC);
+		
+		delete(jdbcTemplate, sql, params);
+		LOG.debug("[SigitTUnitaImmobiliareDaoImpl::remove] END");
 	}
 }

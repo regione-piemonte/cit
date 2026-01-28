@@ -4,18 +4,75 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.be.manager;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ImportFilter;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.*;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllegatoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTComp4Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTComp4Pk;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompGtDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTContratto2019Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTControlloLibrettoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo1Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo2Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo3Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo4Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDocAggiuntivaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTLibrettoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaGiuridicaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTUnitaImmobiliareDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVAllegatiComponentiDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVPfPgDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4CgDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4GfDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4GtDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4ScDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.MarcaCITDaoException;
-import it.csi.sigit.sigitext.business.util.*;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTComp4DaoException;
+import it.csi.sigit.sigitext.business.util.ComparatorDto;
+import it.csi.sigit.sigitext.business.util.ComparatorUtil;
+import it.csi.sigit.sigitext.business.util.Constants;
+import it.csi.sigit.sigitext.business.util.ConstantsField;
+import it.csi.sigit.sigitext.business.util.ConvertUtil;
+import it.csi.sigit.sigitext.business.util.DateUtil;
+import it.csi.sigit.sigitext.business.util.GenericUtil;
+import it.csi.sigit.sigitext.business.util.MapDto;
+import it.csi.sigit.sigitext.business.util.Message;
+import it.csi.sigit.sigitext.business.util.Messages;
+import it.csi.sigit.sigitext.business.util.XmlBeanUtils;
+import it.csi.sigit.sigitext.business.util.XmlValidator;
 import it.csi.sigit.sigitext.business.util.exceptions.ValidationManagerException;
 import it.csi.sigit.sigitext.business.util.exceptions.XmlValidatorException;
-import it.csi.sigit.sigitext.dto.sigitext.*;
+import it.csi.sigit.sigitext.dto.sigitext.DatiImpianto;
+import it.csi.sigit.sigitext.dto.sigitext.DettaglioAllegato;
+import it.csi.sigit.sigitext.dto.sigitext.DocXml;
+import it.csi.sigit.sigitext.dto.sigitext.Responsabile;
+import it.csi.sigit.sigitext.dto.sigitext.RisultatoRicResponsabile;
+import it.csi.sigit.sigitext.dto.sigitext.TipoImportAllegatoEnum;
 import it.csi.sigit.sigitext.exception.sigitext.SigitextException;
 import it.csi.sigit.sigitwebn.xml.importmassivo.allegato2.data.DatiManutentoreDocument.DatiManutentore;
 import it.csi.sigit.sigitwebn.xml.importmassivo.allegato2.data.Portata;
 import it.csi.sigit.sigitwebn.xml.importmassivo.allegato2.data.RowAllegatoIIDocument.RowAllegatoII;
 import it.csi.sigit.sigitwebn.xml.importmassivo.allegato2B.data.RowAllegatoIIBDocument.RowAllegatoIIB;
+import it.csi.sigit.sigitwebn.xml.importmassivo.allegato2B.data.RowFumiDocument.RowFumi;
 import it.csi.sigit.sigitwebn.xml.importmassivo.allegato3.data.RowAllegatoIIIDocument.RowAllegatoIII;
 import it.csi.sigit.sigitwebn.xml.importmassivo.allegato4.data.RowAllegatoIVDocument.RowAllegatoIV;
 import it.csi.sigit.sigitwebn.xml.importmassivo.allegato5.data.RowAllegatoVDocument.RowAllegatoV;
@@ -44,7 +101,14 @@ import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L47CampoSolareTerm
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L48AltroGeneratoreDocument.L48AltroGeneratore;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L48AltroGeneratoreSostituitoDocument.L48AltroGeneratoreSostituito;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori;
-import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.*;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L41GT;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L42BR;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L43RC;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L44GF;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L45SC;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L46CG;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L47CS;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L48AG;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L51SistemaRegolazioneDocument.L51SistemaRegolazione;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L51SistemaRegolazioneSostituitoDocument.L51SistemaRegolazioneSostituito;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L51ValvolaRegolazioneDocument.L51ValvolaRegolazione;
@@ -75,22 +139,15 @@ import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L95UnitaTrattAriaS
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L96RecuperatoreAriaAmbDocument.L96RecuperatoreAriaAmb;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L96RecuperatoreAriaAmbSostituitoDocument.L96RecuperatoreAriaAmbSostituito;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L9AltriComponentiDocument.L9AltriComponenti;
-import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L9AltriComponentiDocument.L9AltriComponenti.*;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L9AltriComponentiDocument.L9AltriComponenti.L91TE;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L9AltriComponentiDocument.L9AltriComponenti.L92RV;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L9AltriComponentiDocument.L9AltriComponenti.L93SCX;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L9AltriComponentiDocument.L9AltriComponenti.L94CI;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L9AltriComponentiDocument.L9AltriComponenti.L95UT;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L9AltriComponentiDocument.L9AltriComponenti.L96RCX;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.LibrettoCatastoDocument.LibrettoCatasto;
+import it.doqui.index.ecmengine.client.webservices.dto.engine.security.Document;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.LibrettoDocument;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import javax.xml.bind.ValidationException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringReader;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ValidationManager {
 
@@ -168,6 +225,35 @@ public class ValidationManager {
 		}
 	}
 
+	public void validazioneXmlImportDistributore(DocXml docXml) throws SigitextException {
+		
+		log.debug("validazioneXmlImportDistributore START");
+		String schema = Constants.XML_IMPORT_SCHEMA_DIR + Constants.FILE_IMPORT_DISTRIBUTORE;
+
+		try {
+
+			String readXml = XmlBeanUtils.readByteArray(docXml.getFile());
+			Reader xmlReader = new StringReader(readXml);
+			log.debug("Stampo il readFile: " + readXml);
+
+			InputStreamReader xmlSchemaReader = new InputStreamReader(GenericUtil.getFileInClassPath(schema));
+			XmlValidator.validate(xmlReader, xmlSchemaReader);
+			
+		} catch (IOException e) {
+			log.error("Errore: ", e);
+			throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S096, Constants.ESTENSIONE_XML));
+		} catch (XmlValidatorException e) {
+			log.debug("errore validazione xml", e);
+			throw new SigitextException(Messages.S098);
+		} catch (Exception e) {
+			log.debug("errore validazione xml", e);
+			throw new SigitextException(e.getMessage());
+		} finally {
+			log.debug("validazioneXmlImportDistributore END");
+		}
+
+	}
+	
 	private void validazioneL1SchedaIdentificativa(LibrettoCatasto richiesta) throws SigitextException {
 		L1SchedaIdentificativa l1SchedaIdent = richiesta.getL1SchedaIdentificativa();
 
@@ -2862,6 +2948,7 @@ public class ValidationManager {
 			String codiceFiscale;
 			Calendar dataControllo;
 			Calendar dataIntervento;
+			Date dataInstall = null;
 			Integer idRuolo;
 			String tipoAllegato = "";
 			String idTipoAllegato;
@@ -2920,7 +3007,14 @@ public class ValidationManager {
 					dataControllo = richiestaIIB.getDatiIntestazione().getAFDataControllo();
 					dataIntervento = richiestaIIB.getDatiAllegato().getDatiTecnico().getAFDataIntervento();
 					listaRowIIB = richiestaIIB.getDatiAllegato().getAllegatoIIB().getRowAllegatoIIBList();
-
+					
+					List<SigitTDettTipo1Dto> componenti = getDbServiceImp().getDettTipo1(codiceImpianto.toString(), null, null);
+					
+					if(componenti != null && !componenti.isEmpty()) {
+						dataInstall = componenti.get(0).getDataInstall();
+						log.debug("data installazione: " + dataInstall.toString());						
+					} 
+					
 					numComponenti = listaRowIIB.size();
 					idRuolo = Constants.ID_RUOLO_MANUTENTORE_ALL_1;
 					idTipoAllegato = Constants.ALLEGATO_TIPO_1B;
@@ -3069,7 +3163,7 @@ public class ValidationManager {
 
 			if (personaGiuridica != null && !(personaGiuridica.getSiglaRea().equalsIgnoreCase(siglaRea) && ConvertUtil.convertToString(personaGiuridica.getNumeroRea()).equalsIgnoreCase(numeroRea)
 					&& personaGiuridica.getCodiceFiscale().equalsIgnoreCase(codiceFiscale))) {
-				log.debug("L'impresa indicata nell'xml e' diversa da quella loggata");
+				log.error("L'impresa indicata nell'xml e' diversa da quella loggata");
 				throw new SigitextException(Messages.S044);
 
 			}
@@ -3078,7 +3172,7 @@ public class ValidationManager {
 			List<SigitTPersonaGiuridicaDto> pgList = getDbServiceImp().cercaPersonaGiuridica(codiceFiscale, siglaRea, ConvertUtil.convertToBigDecimal(numeroRea));
 			SigitTPersonaGiuridicaDto pg = null;
 			if (pgList == null || pgList.isEmpty()) {
-				log.debug("Persona giuridica non trovata");
+				log.error("Persona giuridica non trovata");
 				throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S100, MapDto.getCodiceRea(siglaRea, ConvertUtil.convertToInteger(numeroRea))));
 			}
 
@@ -3115,6 +3209,25 @@ public class ValidationManager {
 					for (int i = 0; i < listaRowIIB.size(); i++) {
 						RowAllegatoIIB rowAllegatoIIB = listaRowIIB.get(i);
 						String progressivo = ConvertUtil.convertToString(rowAllegatoIIB.getAENumGT());
+						
+						if (dataInstall != null) {
+							if (dataInstall.after(ConvertUtil.convertToDate(Constants.DATA_CONTROLLO_OBBLIGATORIETA_REE_TIPO_1B))) {
+								for (RowFumi rowFumi : rowAllegatoIIB.getTabFumi().getRowFumiList()) {
+									if(!rowFumi.isNil()) {
+										if (rowFumi.getAECOcorretto() == null)
+											throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S170, "CO corretto", Constants.DATA_CONTROLLO_OBBLIGATORIETA_REE_TIPO_1B));
+										if (rowFumi.getAENox() == null)
+											throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S170, "NOX (mg/kwh)", Constants.DATA_CONTROLLO_OBBLIGATORIETA_REE_TIPO_1B));
+										if (rowFumi.getAENoxUM() == null)
+											throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S170, "NOX (mg/Nm3)", Constants.DATA_CONTROLLO_OBBLIGATORIETA_REE_TIPO_1B));
+										if (rowFumi.getAERendimCombu() == null)
+											throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S170, "Rendimento di combustione", Constants.DATA_CONTROLLO_OBBLIGATORIETA_REE_TIPO_1B));
+										if (rowFumi.getAEParticolato() == null)
+											throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S170, "Particolato", Constants.DATA_CONTROLLO_OBBLIGATORIETA_REE_TIPO_1B));
+									}
+								}
+							}
+						}
 
 						if (!listaProgressivi.contains(progressivo)) {
 							listaProgressivi.add(progressivo);
@@ -3216,6 +3329,7 @@ public class ValidationManager {
 			allegato.setIdApparecchiatureFunz(listaProgressivi);
 			allegato.setIdCom4Manut(listaIdCom4Manut);
 			allegato.setCodiceReaPg(siglaRea + numeroRea);
+			allegato.setCodiceFiscalePg(codiceFiscale);
 			allegato.setIdTipoRapProva(ConvertUtil.convertToInteger(idTipoManutenzione));
 
 			ImportFilter data = new ImportFilter();
@@ -3230,7 +3344,13 @@ public class ValidationManager {
 			log.error("Errore: ", e);
 			throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S096, Constants.ESTENSIONE_XML));
 		} catch (XmlValidatorException e) {
-			log.debug("errore validazione xml", e);
+			log.error("errore validazione xml", e);
+			throw new SigitextException(Messages.S098);
+		} catch (SigitextException e) {
+			log.error("errore logico sulla validazione", e);
+			throw e;
+		} catch (Exception e) {
+			log.error("errore validazione xml", e);
 			throw new SigitextException(Messages.S098);
 		} finally {
 			log.debug("validazionePreImportXmlControllo END");
@@ -3319,6 +3439,8 @@ public class ValidationManager {
 						throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S106, GenericUtil.getDescSezioneComp(Constants.TIPO_COMPONENTE_GT, rowAllegatoII.getAENumGT()), MapDto.getCodiceRea(pg.getSiglaRea(), ConvertUtil.convertToInteger(pg.getNumeroRea()))));
 						// La componente GT rowAllegatoII.getAENumGT() non risulta associato al manutentore pg.getSiglaRea() + NumRFea
 					}
+					
+					checkControlloWebComponente(gt.getCodiceImpianto(), gt.getIdTipoComponente(), gt.getProgressivo());
 
 					List<it.csi.sigit.sigitwebn.xml.importmassivo.allegato2.data.RowFumiDocument.RowFumi> listFumi = rowAllegatoII.getTabFumi().getRowFumiList();
 
@@ -3394,6 +3516,8 @@ public class ValidationManager {
 						// La componente GT rowAllegatoII.getAENumGT() non risulta associato al manutentore pg.getSiglaRea() + NumRFea
 					}
 
+					checkControlloWebComponente(gt.getCodiceImpianto(), gt.getIdTipoComponente(), gt.getProgressivo());
+
 					List<it.csi.sigit.sigitwebn.xml.importmassivo.allegato2B.data.RowFumiDocument.RowFumi> listFumi = rowAllegatoIIB.getTabFumi().getRowFumiList();
 
 					int nModuliDb = GenericUtil.isNotNullOrEmpty(gt.getNModuli()) ? gt.getNModuli().intValue() : 1;
@@ -3453,6 +3577,8 @@ public class ValidationManager {
 						// Il numero del GT non e' corretto, non risulta associato al manutentore
 						throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S106, GenericUtil.getDescSezioneComp(Constants.TIPO_COMPONENTE_GT, progCompManut), MapDto.getCodiceRea(pg.getSiglaRea(), ConvertUtil.convertToInteger(pg.getNumeroRea()))));
 					}
+
+					checkControlloWebComponente(gt.getCodiceImpianto(), gt.getIdTipoComponente(), gt.getProgressivo());
 				}
 			}
 		} else if (tipoImportAllegato.equals(TipoImportAllegatoEnum.ALLEGATOIII) || tipoImportAllegato.equals(TipoImportAllegatoEnum.MANUT_GF)) {
@@ -3492,6 +3618,8 @@ public class ValidationManager {
 						throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S106, GenericUtil.getDescSezioneComp(Constants.TIPO_COMPONENTE_GF, rowAllegatoIII.getAENumGF()), MapDto.getCodiceRea(pg.getSiglaRea(), ConvertUtil.convertToInteger(pg.getNumeroRea()))));
 
 					}
+
+					checkControlloWebComponente(gf.getCodiceImpianto(), gf.getIdTipoComponente(), gf.getProgressivo());
 
 					List<it.csi.sigit.sigitwebn.xml.importmassivo.allegato3.data.RowFumiDocument.RowFumi> listFumi = rowAllegatoIII.getTabFumi().getRowFumiList();
 
@@ -3552,6 +3680,8 @@ public class ValidationManager {
 						// Il numero del GF non e' corretto, non risulta associato al manutentore
 						throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S106, GenericUtil.getDescSezioneComp(Constants.TIPO_COMPONENTE_GF, progCompManut), MapDto.getCodiceRea(pg.getSiglaRea(), ConvertUtil.convertToInteger(pg.getNumeroRea()))));
 					}
+
+					checkControlloWebComponente(gf.getCodiceImpianto(), gf.getIdTipoComponente(), gf.getProgressivo());
 				}
 			}
 		} else if (tipoImportAllegato.equals(TipoImportAllegatoEnum.ALLEGATOIV) || tipoImportAllegato.equals(TipoImportAllegatoEnum.MANUT_SC)) {
@@ -3587,6 +3717,8 @@ public class ValidationManager {
 						throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S106, GenericUtil.getDescSezioneComp(Constants.TIPO_COMPONENTE_SC, rowAllegatoIV.getAENumSC()), MapDto.getCodiceRea(pg.getSiglaRea(), ConvertUtil.convertToInteger(pg.getNumeroRea()))));
 
 					}
+
+					checkControlloWebComponente(sc.getCodiceImpianto(), sc.getIdTipoComponente(), sc.getProgressivo());
 
 					it.csi.sigit.sigitwebn.xml.importmassivo.allegato4.data.ControlloVerificaEnergeticaDocument.ControlloVerificaEnergetica controlloVEner = rowAllegatoIV.getControlloVerificaEnergetica();
 
@@ -3632,6 +3764,8 @@ public class ValidationManager {
 						// Il numero del SC non e' corretto, non risulta associato al manutentore
 						throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S106, GenericUtil.getDescSezioneComp(Constants.TIPO_COMPONENTE_SC, progCompManut), MapDto.getCodiceRea(pg.getSiglaRea(), ConvertUtil.convertToInteger(pg.getNumeroRea()))));
 					}
+
+					checkControlloWebComponente(sc.getCodiceImpianto(), sc.getIdTipoComponente(), sc.getProgressivo());
 				}
 			}
 		} else if (tipoImportAllegato.equals(TipoImportAllegatoEnum.ALLEGATOV) || tipoImportAllegato.equals(TipoImportAllegatoEnum.MANUT_CG)) {
@@ -3666,6 +3800,8 @@ public class ValidationManager {
 						throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S106, GenericUtil.getDescSezioneComp(Constants.TIPO_COMPONENTE_CG, rowAllegatoV.getAENumCG()), MapDto.getCodiceRea(pg.getSiglaRea(), ConvertUtil.convertToInteger(pg.getNumeroRea()))));
 
 					}
+
+					checkControlloWebComponente(cg.getCodiceImpianto(), cg.getIdTipoComponente(), cg.getProgressivo());
 
 					it.csi.sigit.sigitwebn.xml.importmassivo.allegato5.data.ControlloVerificaEnergeticaDocument.ControlloVerificaEnergetica controlloVEner = rowAllegatoV.getControlloVerificaEnergetica();
 
@@ -3705,8 +3841,23 @@ public class ValidationManager {
 						// Il numero del CG non e' corretto, non risulta associato al manutentore
 						throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S106, GenericUtil.getDescSezioneComp(Constants.TIPO_COMPONENTE_CG, progCompManut), MapDto.getCodiceRea(pg.getSiglaRea(), ConvertUtil.convertToInteger(pg.getNumeroRea()))));
 					}
+
+					checkControlloWebComponente(cg.getCodiceImpianto(), cg.getIdTipoComponente(), cg.getProgressivo());
 				}
 			}
+		}
+	}
+
+	private void checkControlloWebComponente(BigDecimal codiceImpianto, String idTipoComponente, BigDecimal progressivo) throws SigitextException {
+		try {
+			SigitTComp4Pk pk = new SigitTComp4Pk(codiceImpianto, idTipoComponente, progressivo);
+			SigitTComp4Dto sigitTComp4dto =  getDbServiceImp().getSigitTComp4Dao().findByPrimaryKey(pk);
+			
+			if (sigitTComp4dto.getDtControlloweb() == null)
+				throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S160, idTipoComponente + "-" + progressivo));							
+		} catch (SigitTComp4DaoException e) {
+			log.error("Errore durante il recupero dei dati della componente (" + codiceImpianto + "," + idTipoComponente + "-" + progressivo +").", e);
+			throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S161, idTipoComponente + "-" + progressivo));
 		}
 	}
 
@@ -3777,7 +3928,7 @@ public class ValidationManager {
 		log.debug("[ValidationMgr::verificaInserimentoCodiceImpianto] BEGIN");
 		try {
 			if (getDbServiceImp().cercaImpiantoDtoById(codImpianto) != null) {
-				throw new SigitextException("Impianto già esistente");
+				throw new SigitextException("Impianto giï¿½ esistente");
 			}
 
 			if (ConvertUtil.convertToInteger(codImpianto) > getDbServiceImp().getMaxIdSeqCodiceImpianto()) {
@@ -3794,10 +3945,6 @@ public class ValidationManager {
 		ValidationManagerException ex = null;
 
 		ex = new ValidationManagerException();
-
-		if (GenericUtil.isNullOrEmpty(datiImpianto.getDataAssCi())) {
-			ex.addField(ConstantsField.DATA_ASS);
-		}
 
 		if (GenericUtil.isNullOrEmpty(datiImpianto.getDataVar())) {
 			ex.addField(ConstantsField.DATA_VAR);
@@ -3870,14 +4017,6 @@ public class ValidationManager {
 		if (ex.getFieldList().size() > 0) {
 			//ex.setMsg(message);
 			throw ex;
-		}
-
-		if (GenericUtil.isNotNullOrEmpty(datiImpianto.getDataAssCi())) {
-			isDataFutura(datiImpianto.getDataAssCi(), ConstantsField.DATA_ASS);
-		}
-
-		if (!DateUtil.checkDateOrder(datiImpianto.getDataAssCi(), datiImpianto.getDataVar(), true)) {
-			throw new ValidationManagerException();
 		}
 
 		if (b && GenericUtil.isNullOrEmpty(datiImpianto.getPdr()) && !ConvertUtil.convertToBooleanAllways(new BigDecimal(datiImpianto.getFlgNoPdr()))) {
@@ -4157,7 +4296,7 @@ public class ValidationManager {
 		}
 	}
 
-	private void checkCodiceFiscalePartitaIva(String codiceFiscale, String codiceFiscaleField) throws ValidationManagerException {
+	public void checkCodiceFiscalePartitaIva(String codiceFiscale, String codiceFiscaleField) throws ValidationManagerException {
 
 		if (GenericUtil.isNotNullOrEmpty(codiceFiscale)) {
 			if (codiceFiscale.length() == Constants.PARTITA_IVA_LEN) {
@@ -4213,7 +4352,7 @@ public class ValidationManager {
 		}
 	}
 
-	private void controlloCf(String codFiscale, String codiceFiscaleField) throws ValidationManagerException {
+	public void controlloCf(String codFiscale, String codiceFiscaleField) throws ValidationManagerException {
 		ValidationManagerException ex = null;
 		char caratt;
 		boolean ok = false;
@@ -4509,7 +4648,7 @@ public class ValidationManager {
 	public void verificaLibrettoWeb(String codiceImpianto) throws ValidationManagerException, SigitextException {
 		log.debug("[ValidationMgr::verificaLibrettoWeb] BEGIN");
 		try {
-			//			verificaControlloLibretto(codiceImpianto, getDbServiceImp().findControlloLibretto(codiceImpianto));
+			verificaControlloLibretto(getDbServiceImp().findControlloLibretto(codiceImpianto));
 			List<SigitTComp4Dto> compNonControllate = getDbServiceImp().cercaTComp4NonControllateByCodImp(codiceImpianto);
 			if (compNonControllate != null && compNonControllate.size() > 0) {
 				String elencoComp = GenericUtil.getDescComponentiNonComp(compNonControllate);
@@ -4520,13 +4659,13 @@ public class ValidationManager {
 		}
 	}
 
-	//	private void verificaControlloLibretto (String codiceImpianto, SigitTControlloLibrettoDto controlloLibDto) throws ValidationManagerException {
-	//		if (controlloLibDto == null ||
-	//				!ConvertUtil.convertToBooleanAllways(controlloLibDto.getFlgL1Controlloweb()) ||
-	//				!ConvertUtil.convertToBooleanAllways(controlloLibDto.getFlgL5Controlloweb()) ||
-	//				!ConvertUtil.convertToBooleanAllways(controlloLibDto.getFlgL6Controlloweb()) ||
-	//				!ConvertUtil.convertToBooleanAllways(controlloLibDto.getFlgL7Controlloweb())) {
-	//			throw new ValidationManagerException(new Message(Messages.ERROR_LIBRETTO_NON_CONTROLLATO));
-	//		}
-	//	}
+	private void verificaControlloLibretto (SigitTControlloLibrettoDto controlloLibDto) throws ValidationManagerException {
+		if (controlloLibDto == null ||
+				!ConvertUtil.convertToBooleanAllways(controlloLibDto.getFlgL1Controlloweb()) /* ||
+				!ConvertUtil.convertToBooleanAllways(controlloLibDto.getFlgL5Controlloweb()) ||
+				!ConvertUtil.convertToBooleanAllways(controlloLibDto.getFlgL6Controlloweb()) ||
+				!ConvertUtil.convertToBooleanAllways(controlloLibDto.getFlgL7Controlloweb())*/) {
+			throw new ValidationManagerException(new Message(Messages.ERROR_LIBRETTO_NON_CONTROLLATO));
+		}
+	}
 }

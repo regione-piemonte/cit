@@ -127,6 +127,56 @@ public class SigitRImpRuoloPfpgDaoImpl extends AbstractDAO implements SigitRImpR
 		}
 		return list;
 	}
+	
+	public List<SigitRImpRuoloPfpgDto> findRespImpByCodImpianto(Integer input) throws SigitRImpRuoloPfpgDaoException {
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findRespImpByCodImpianto] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_IMP_RUOLO_PFPG,FK_RUOLO,CODICE_IMPIANTO,DATA_INIZIO,DATA_FINE,FK_PERSONA_FISICA,FK_PERSONA_GIURIDICA,DATA_ULT_MOD,UTENTE_ULT_MOD,FLG_PRIMO_CARICATORE ");
+		sql.append(" FROM SIGIT_R_IMP_RUOLO_PFPG");
+		sql.append(" WHERE ");
+		/*PROTECTED REGION ID(R1136823091) ENABLED START*/
+		// personalizzare la query SQL relativa al finder
+
+		// personalizzare l'elenco dei parametri da passare al jdbctemplate (devono corrispondere in tipo e
+		// numero ai parametri definiti nella queryString)
+
+		sql.append(" CODICE_IMPIANTO = :codImpianto");
+
+		sql.append(" AND FK_RUOLO IN (" + Constants.ID_RUOLO_PROPRIETARIO + "," + Constants.ID_RUOLO_OCCUPANTE + ","
+				+ Constants.ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO + ","
+				+ Constants.ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE + ","
+				+ Constants.ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE + "," + Constants.ID_RUOLO_AMMINISTRATORE
+				+ ")");
+
+
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findRespImpAttivoByCodImpianto] query: " + sql);
+
+		/*PROTECTED REGION END*/
+		/*PROTECTED REGION ID(R1006663703) ENABLED START*/
+		//***aggiungere tutte le condizioni
+
+		paramMap.addValue("codImpianto", input);
+
+		/*PROTECTED REGION END*/
+		List<SigitRImpRuoloPfpgDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, respImpAttivoByCodImpiantoRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRImpRuoloPfpgDaoImpl::findRespImpByCodImpianto] esecuzione query", ex);
+			throw new SigitRImpRuoloPfpgDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "findRespImpByCodImpianto", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findRespImpByCodImpianto] END");
+		}
+		return list;
+	}
 
 	/** 
 	 * Implementazione del finder byRuoloFunzPersonaGiuridicaCodImpianto
@@ -153,8 +203,9 @@ public class SigitRImpRuoloPfpgDaoImpl extends AbstractDAO implements SigitRImpR
 		// personalizzare l'elenco dei parametri da passare al jdbctemplate (devono corrispondere in tipo e
 		// numero ai parametri definiti nella queryString)
 		sql.append("impRuoloPfPg.FK_RUOLO = ruolo.ID_RUOLO");
-		sql.append(" AND impRuoloPfPg.DATA_FINE IS NULL");
-		sql.append(" AND impRuoloPfPg.FK_PERSONA_GIURIDICA = :idPersonaGiuridica");
+		//sql.append(" AND impRuoloPfPg.DATA_FINE IS NULL");
+        sql.append(" AND (impRuoloPfPg.DATA_FINE IS NULL OR (impRuoloPfPg.DATA_FINE is not null AND current_date >= impRuoloPfPg.DATA_INIZIO AND current_date <= impRuoloPfPg.DATA_FINE)) ");		
+        sql.append(" AND impRuoloPfPg.FK_PERSONA_GIURIDICA = :idPersonaGiuridica");
 		sql.append(" AND impRuoloPfPg.CODICE_IMPIANTO = :codiceImpianto");
 		sql.append(" AND ruolo.RUOLO_FUNZ = :ruoloFunz");
 		/*PROTECTED REGION END*/
@@ -288,7 +339,8 @@ public class SigitRImpRuoloPfpgDaoImpl extends AbstractDAO implements SigitRImpR
 		sql.append(" WHERE ");
 		/*PROTECTED REGION ID(R279095556) ENABLED START*/
 
-		sql.append(" DATA_FINE IS NULL");
+		//sql.append(" DATA_FINE IS NULL");
+		sql.append(" (DATA_FINE IS NULL OR (DATA_FINE is not null AND :inData >= DATA_INIZIO AND :inData <= DATA_FINE)) ");		
 
 		if (input.getCodiceImpianto() != null) {
 			sql.append(" AND CODICE_IMPIANTO = :codImpianto");
@@ -311,7 +363,7 @@ public class SigitRImpRuoloPfpgDaoImpl extends AbstractDAO implements SigitRImpR
 		}
 
 		if (input.getIsEscludiDataOdierna()) {
-			sql.append(" AND DATA_INIZIO <> CURRENT_DATE ");
+			sql.append(" AND DATA_INIZIO <> :inData ");
 		}
 
 		/*PROTECTED REGION END*/
@@ -331,6 +383,8 @@ public class SigitRImpRuoloPfpgDaoImpl extends AbstractDAO implements SigitRImpR
 			paramMap.addValue("fkGiuridica", input.getIdPersonaGiuridica(), java.sql.Types.NUMERIC);
 		}
 
+		paramMap.addValue("inData", input.getInData(), java.sql.Types.DATE);
+
 		/*PROTECTED REGION END*/
 		List<SigitRImpRuoloPfpgDto> list = null;
 		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
@@ -345,6 +399,73 @@ public class SigitRImpRuoloPfpgDaoImpl extends AbstractDAO implements SigitRImpR
 			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "findAttiviByFilter", "esecuzione query",
 					sql.toString());
 			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findAttiviByFilter] END");
+		}
+		return list;
+	}
+	
+	
+	public List<SigitRImpRuoloPfpgDto> findAttiviByCodiceImpianto(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException {
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findAttiviByCodiceImpianto] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_IMP_RUOLO_PFPG,FK_RUOLO,CODICE_IMPIANTO,DATA_INIZIO,DATA_FINE,FK_PERSONA_FISICA,FK_PERSONA_GIURIDICA,DATA_ULT_MOD,UTENTE_ULT_MOD,FLG_PRIMO_CARICATORE ");
+		sql.append(" FROM SIGIT_R_IMP_RUOLO_PFPG");
+		sql.append(" WHERE ");
+		sql.append(" DATA_FINE IS NULL OR data_fine = current_date ");	
+		sql.append(" AND CODICE_IMPIANTO = :codiceImpianto");
+
+		
+		paramMap.addValue("codiceImpianto", codiceImpianto, java.sql.Types.NUMERIC);
+
+		List<SigitRImpRuoloPfpgDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, attiviByFilterRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRImpRuoloPfpgDaoImpl::findAttiviByCodiceImpianto] esecuzione query", ex);
+			throw new SigitRImpRuoloPfpgDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "findAttiviByCodiceImpianto", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findAttiviByCodiceImpianto] END");
+		}
+		return list;
+	}
+	
+	
+
+	public List<SigitRImpRuoloPfpgDto> findSigitRImpRuoloPfpgByCodiceImpiantoEDataFineOggiONull(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException {
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findAttiviByCodiceImpianto] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_IMP_RUOLO_PFPG,FK_RUOLO,CODICE_IMPIANTO,DATA_INIZIO,DATA_FINE,FK_PERSONA_FISICA,FK_PERSONA_GIURIDICA,DATA_ULT_MOD,UTENTE_ULT_MOD,FLG_PRIMO_CARICATORE ");
+		sql.append(" FROM SIGIT_R_IMP_RUOLO_PFPG");
+		sql.append(" WHERE ");
+		sql.append(" (DATA_FINE IS NULL OR data_fine = current_date) ");	
+		sql.append(" AND CODICE_IMPIANTO = :codiceImpianto");
+
+		
+		paramMap.addValue("codiceImpianto", codiceImpianto, java.sql.Types.NUMERIC);
+
+		List<SigitRImpRuoloPfpgDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, attiviByFilterRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRImpRuoloPfpgDaoImpl::findAttiviByCodiceImpianto] esecuzione query", ex);
+			throw new SigitRImpRuoloPfpgDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "findAttiviByCodiceImpianto", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findAttiviByCodiceImpianto] END");
 		}
 		return list;
 	}
@@ -375,6 +496,187 @@ public class SigitRImpRuoloPfpgDaoImpl extends AbstractDAO implements SigitRImpR
 
 		update(jdbcTemplate, sql.toString(), params);
 		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::updateColumnsTerminaRiga] END");
+	}
+	
+	public List<SigitRImpRuoloPfpgDto> findByPrimaryKey(SigitRImpRuoloPfpgPk pk) throws SigitRImpRuoloPfpgDaoException {
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findByPrimaryKey] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_IMP_RUOLO_PFPG,FK_RUOLO,CODICE_IMPIANTO,DATA_INIZIO,DATA_FINE,FK_PERSONA_FISICA,FK_PERSONA_GIURIDICA,DATA_ULT_MOD,UTENTE_ULT_MOD,FLG_PRIMO_CARICATORE ");
+		sql.append(" FROM SIGIT_R_IMP_RUOLO_PFPG");
+		sql.append(" WHERE ID_IMP_RUOLO_PFPG = :ID_IMP_RUOLO_PFPG");
+
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findByPrimaryKey] query: " + sql);
+
+
+		paramMap.addValue("ID_IMP_RUOLO_PFPG", pk.getIdImpRuoloPfpg());
+
+		/*PROTECTED REGION END*/
+		List<SigitRImpRuoloPfpgDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, respImpAttivoByCodImpiantoRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRImpRuoloPfpgDaoImpl::findByPrimaryKey] esecuzione query", ex);
+			throw new SigitRImpRuoloPfpgDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "findByPrimaryKey", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findByPrimaryKey] END");
+		}
+		return list;
+	}
+	
+	public Integer checkResponsabileImpresa(Integer codiceImpianto, Integer idPersona, String ruoloFunz) throws SigitRImpRuoloPfpgDaoException {
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::checkResponsabileImpresa] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("select count(*) from sigit_r_imp_ruolo_pfpg, sigit_d_ruolo ");
+		sql.append("where sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg.fk_ruolo ");
+		sql.append("and sigit_r_imp_ruolo_pfpg.codice_impianto = :codiceImpianto ");
+		sql.append("and sigit_r_imp_ruolo_pfpg.data_fine is null ");
+		sql.append("and sigit_r_imp_ruolo_pfpg.fk_persona_giuridica = :idPersona ");
+		sql.append("and sigit_d_ruolo.ruolo_funz = :ruoloFunz ");
+
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::checkResponsabileImpresa] query: " + sql);
+
+
+		paramMap.addValue("codiceImpianto", codiceImpianto);
+		paramMap.addValue("idPersona", idPersona);
+		paramMap.addValue("ruoloFunz", ruoloFunz);
+
+		/*PROTECTED REGION END*/
+		Integer result = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			result = jdbcTemplate.queryForInt(sql.toString(), paramMap);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRImpRuoloPfpgDaoImpl::checkResponsabileImpresa] esecuzione query", ex);
+			throw new SigitRImpRuoloPfpgDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "checkResponsabileImpresa", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::checkResponsabileImpresa] END");
+		}
+		return result;
+	}
+	
+	/**
+	 * 
+	 */
+	public Integer checkResponsabile(Integer codiceImpianto, String cfPersona) throws SigitRImpRuoloPfpgDaoException {
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::checkResponsabile] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("select count(*) from sigit_r_imp_ruolo_pfpg, sigit_d_ruolo, sigit_t_persona_fisica ");
+		sql.append("where sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg.fk_ruolo ");
+		sql.append("and sigit_r_imp_ruolo_pfpg.fk_persona_fisica = sigit_t_persona_fisica.id_persona_fisica ");
+		sql.append("and sigit_r_imp_ruolo_pfpg.codice_impianto = :codiceImpianto ");
+		sql.append("and sigit_r_imp_ruolo_pfpg.data_fine is null and sigit_t_persona_fisica.codice_fiscale = :idPersona ");
+		sql.append("and sigit_d_ruolo.ruolo_funz in ('RESPONSABILE')");
+
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::checkResponsabile] query: " + sql);
+
+
+		paramMap.addValue("codiceImpianto", codiceImpianto);
+		paramMap.addValue("idPersona", cfPersona);
+
+		/*PROTECTED REGION END*/
+		Integer result = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			result = jdbcTemplate.queryForInt(sql.toString(), paramMap);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRImpRuoloPfpgDaoImpl::checkResponsabile] esecuzione query", ex);
+			throw new SigitRImpRuoloPfpgDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "checkResponsabile", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::checkResponsabile] END");
+		}
+		return result;
+	}
+	
+	public Integer checkProprietario(Integer codiceImpianto, String cfPersona) throws SigitRImpRuoloPfpgDaoException {
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::checkProprietario] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("select count(*) from sigit_r_imp_ruolo_pfpg, sigit_d_ruolo, sigit_t_persona_fisica ");
+		sql.append("where sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg.fk_ruolo ");
+		sql.append("and sigit_r_imp_ruolo_pfpg.fk_persona_fisica = sigit_t_persona_fisica.id_persona_fisica ");
+		sql.append("and sigit_r_imp_ruolo_pfpg.codice_impianto = :codiceImpianto ");
+		sql.append("and sigit_r_imp_ruolo_pfpg.data_fine is null and sigit_t_persona_fisica.codice_fiscale = :idPersona ");
+		sql.append("and sigit_d_ruolo.ruolo_funz in ('PROPRIETARIO')");
+
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::checkProprietario] query: " + sql);
+
+
+		paramMap.addValue("codiceImpianto", codiceImpianto);
+		paramMap.addValue("idPersona", cfPersona);
+
+		/*PROTECTED REGION END*/
+		Integer result = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			result = jdbcTemplate.queryForInt(sql.toString(), paramMap);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRImpRuoloPfpgDaoImpl::checkProprietario] esecuzione query", ex);
+			throw new SigitRImpRuoloPfpgDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "checkProprietario", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::checkProprietario] END");
+		}
+		return result;
+	}
+	
+	
+	public List<SigitRImpRuoloPfpgDto> findByCodiceImpiantoAndRuolo(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException {
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findByCodiceImpianto] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_IMP_RUOLO_PFPG,FK_RUOLO,CODICE_IMPIANTO,DATA_INIZIO,DATA_FINE,FK_PERSONA_FISICA,FK_PERSONA_GIURIDICA,DATA_ULT_MOD,UTENTE_ULT_MOD,FLG_PRIMO_CARICATORE ");
+		sql.append(" FROM SIGIT_R_IMP_RUOLO_PFPG");
+		sql.append(" WHERE CODICE_IMPIANTO = :CODICE_IMPIANTO");
+		sql.append(" AND FK_RUOLO IN (4, 5, 10, 11, 12, 13)");
+		sql.append(" AND DATA_FINE IS NULL");
+
+		LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findByCodiceImpianto] query: " + sql);
+
+
+		paramMap.addValue("CODICE_IMPIANTO", codiceImpianto);
+
+		/*PROTECTED REGION END*/
+		List<SigitRImpRuoloPfpgDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, respImpAttivoByCodImpiantoRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRImpRuoloPfpgDaoImpl::findByCodiceImpianto] esecuzione query", ex);
+			throw new SigitRImpRuoloPfpgDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRImpRuoloPfpgDaoImpl", "findByCodiceImpianto", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRImpRuoloPfpgDaoImpl::findByCodiceImpianto] END");
+		}
+		return list;
 	}
 
 }

@@ -2,6 +2,7 @@ package it.csi.sigit.sigitext.business.dao.sigitextdao.dao;
 
 
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDDettaglioGfDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDDettaglioGfPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitDDettaglioGfDaoException;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface SigitDDettaglioGfDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SigitDDettaglioGfDto> findAll() throws SigitDDettaglioGfDaoException;
+	
+	public SigitDDettaglioGfDto findByPrimaryKey(SigitDDettaglioGfPk pk) throws SigitDDettaglioGfDaoException;
 
 }

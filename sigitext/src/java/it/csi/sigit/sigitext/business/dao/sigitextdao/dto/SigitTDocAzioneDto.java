@@ -177,6 +177,15 @@ public class SigitTDocAzioneDto extends SigitTDocAzionePk {
 		return utenteUltMod;
 
 	}
+	
+	private String mimeTypeDoc;	
+	public String getMimeTypeDoc() {
+		return mimeTypeDoc;
+	}
+
+	public void setMimeTypeDoc(String mimeTypeDoc) {
+		this.mimeTypeDoc = mimeTypeDoc;
+	}
 
 	/**
 	 * Crea una istanza di SigitTDocAzionePk a partire dal valore dei campi chiave del DTO

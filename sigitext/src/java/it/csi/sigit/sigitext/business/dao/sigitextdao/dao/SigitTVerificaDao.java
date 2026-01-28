@@ -4,6 +4,7 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.RicercaVerifica
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTVerificaDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTVerificaPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTVerificaDaoException;
+import it.csi.sigit.sigitext.dto.RicercaDatiVerifica;
 
 import java.util.List;
 
@@ -40,5 +41,7 @@ public interface SigitTVerificaDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SigitTVerificaDto> findSveglieAttiveByCF(String input) throws SigitTVerificaDaoException;
+	
+	public List<SigitTVerificaDto> getElencoVerifiche(RicercaDatiVerifica input) throws SigitTVerificaDaoException;
 
 }

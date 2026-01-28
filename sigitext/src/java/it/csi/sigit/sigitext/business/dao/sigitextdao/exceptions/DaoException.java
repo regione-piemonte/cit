@@ -37,7 +37,7 @@ public class DaoException extends Exception {
 	 * @return Throwable
 	 * @generated
 	 */
-	public Throwable getCause() {
+	public synchronized Throwable getCause() {
 		return throwable;
 	}
 

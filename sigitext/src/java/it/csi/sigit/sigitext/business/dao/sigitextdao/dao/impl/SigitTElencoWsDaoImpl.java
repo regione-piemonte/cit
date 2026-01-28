@@ -89,6 +89,7 @@ public class SigitTElencoWsDaoImpl extends AbstractDAO implements SigitTElencoWs
 			stopWatch.dumpElapsed("SigitTElencoWsDaoImpl", "findByPrimaryKey", "esecuzione query", sql.toString());
 			LOG.debug("[SigitTElencoWsDaoImpl::findByPrimaryKey] END");
 		}
+		log.debug("list SigitTElencoWsDto findByPrimaryKey isEmpty : " + list.isEmpty());
 		return list.isEmpty() ? null : list.get(0);
 	}
 

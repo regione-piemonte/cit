@@ -73,14 +73,15 @@ public interface SigitTDocAggiuntivaDao {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	public List<SigitTDocAggiuntivaDto> findByCodImp(java.lang.Integer input) throws SigitTDocAggiuntivaDaoException;
+	public List<SigitTDocAggiuntivaDto> findByCodImp(java.lang.String input) throws SigitTDocAggiuntivaDaoException;
 
 	/** 
 		 * Implementazione del finder byCodImpDecod con Qdef
 		 * @generated
 		 */
 
-	public List<SigitTDocAggiuntivaByCodImpDecodDto> findByCodImpDecod(java.lang.Integer input)
-			throws SigitTDocAggiuntivaDaoException;
-
+	public List<SigitTDocAggiuntivaByCodImpDecodDto> findByCodImpDecod(java.lang.Integer input) throws SigitTDocAggiuntivaDaoException;
+	
+	public SigitTDocAggiuntivaDto findByUidIndex(String uidIndex) throws SigitTDocAggiuntivaDaoException;
+	
 }

@@ -58,6 +58,10 @@
   
   <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.RappControllo" qname="ns10:RappControllo" xmlns:ns10="urn:sigitextSigitext"/>
   
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.DettaglioPersonaGiuridica" qname="ns10:DettaglioPersonaGiuridica" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.UDTPositiveInteger" qname="ns10:UDTPositiveInteger" xmlns:ns10="urn:sigitextSigitext"/>
+  
   <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.Utente" qname="ns10:Utente" xmlns:ns10="urn:sigitextSigitext"/>
   
   <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.Documento" qname="ns10:Documento" xmlns:ns10="urn:sigitextSigitext"/>
@@ -69,6 +73,8 @@
   <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro" qname="ns10:ImpiantoFiltro" xmlns:ns10="urn:sigitextSigitext"/>
   
   <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.IndirizzoFiltro" qname="ns10:IndirizzoFiltro" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.ConsumoPodPdr" qname="ns10:ConsumoPodPdr" xmlns:ns10="urn:sigitextSigitext"/>
   
   <!-- mapping delle user defined exceptions -->
   

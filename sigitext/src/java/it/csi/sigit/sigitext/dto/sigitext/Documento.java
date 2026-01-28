@@ -330,6 +330,9 @@ public class Documento implements java.io.Serializable {
 		return isPdfStatico;
 	}
 
+	
+	
+
 	/*PROTECTED REGION ID(R-1498908681) ENABLED START*/
 	/// inserire qui eventuali ridefinizioni di toString, hashCode, equals
 	/*PROTECTED REGION END*/

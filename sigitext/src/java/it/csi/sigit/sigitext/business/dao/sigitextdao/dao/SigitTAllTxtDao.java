@@ -1,5 +1,7 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao;
 
+import java.math.BigDecimal;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllTxtDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllTxtPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTAllTxtDaoException;
@@ -44,5 +46,7 @@ public interface SigitTAllTxtDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public SigitTAllTxtDto findByPrimaryKey(SigitTAllTxtPk pk) throws SigitTAllTxtDaoException;
+	
+	public void delete(BigDecimal idAllegato) throws SigitTAllTxtDaoException;
 
 }

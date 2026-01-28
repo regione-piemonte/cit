@@ -79,32 +79,31 @@ public class ModolXFAReader
         return getStringFromDocument(docResult);
     }
 
-    private static Document getNewDocumentFromElement(DocumentBuilder db, Document document, String tagname)
-    {
-        Document docResult = null;
-        NodeList results = document.getElementsByTagName(tagname);
-        
-        /*
-        log.debug("\n\nStampo il NodeList: "+results);
-        
-        
-        
+	private static Document getNewDocumentFromElement(DocumentBuilder db, Document document, String tagname) {
+		Document docResult = null;
+		NodeList results = document.getElementsByTagName(tagname);
 
-        GenericUtil.stampa(document, false, 3);
-        
-        */
-        
-        assert (results != null);
-        assert (results.getLength() == 1);
-        if (results != null && results.getLength() > 0)
-        {
-            Element node = (Element) results.item(0);
-            docResult = db.newDocument();
+		/*
+		 * log.debug("\n\nStampo il NodeList: "+results);
+		 * 
+		 * 
+		 * 
+		 * 
+		 * GenericUtil.stampa(document, false, 3);
+		 * 
+		 */
+		assert (results != null);
+		if (results != null) {
+			assert (results.getLength() == 1);
+			if (results != null && results.getLength() > 0) {
+				Element node = (Element) results.item(0);
+				docResult = db.newDocument();
 
-            docResult.appendChild(docResult.importNode(node, true));
-        }
-        return docResult;
-    }
+				docResult.appendChild(docResult.importNode(node, true));
+			}
+		}
+		return docResult;
+	}
 
     private static String getStringFromDocument(Document doc)
     {

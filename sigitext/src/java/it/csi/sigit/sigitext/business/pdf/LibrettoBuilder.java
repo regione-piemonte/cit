@@ -18,6 +18,7 @@ import it.csi.sigit.sigitext.business.util.Constants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.*;
@@ -27,19 +28,28 @@ public class LibrettoBuilder extends BaseBuilder {
 	private static String FILE = "C:/Repo/CSI/sigit/sigit_sigitext/test/java/test/sigitext/";
 		
 	public static void main(String[] args) {
+		FileOutputStream fileStream = null;
 		try {
 			LibrettoBuilder ispezione = new LibrettoBuilder();
 
 			Documento documento = ispezione.generaLibretto(null, true, true);
 			byte[] libretto = documento.getDoc(); 
 			
-			FileOutputStream fileStream =  new FileOutputStream(FILE+getDataCompleta()+"_test_libretto.pdf");
+			fileStream =  new FileOutputStream(FILE+getDataCompleta()+"_test_libretto.pdf");
 			
 			fileStream.write(libretto);   
 			fileStream.flush(); 
 			fileStream.close(); 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			if(fileStream!=null) {
+				try {
+					fileStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -4997,7 +5007,7 @@ public class LibrettoBuilder extends BaseBuilder {
 		datiTabella.add(datoTabella);
 		
 		datoTabella = new DatoTabella();
-		datoTabella.setLabel("Capcit\u00E1 nominale");
+		datoTabella.setLabel("Capacit\u00E1 nominale");
 		datoTabella.setValore(ConvertUtil.convertToStringOrEmpty(compTeImpianto.getCapacitaL()) + "(l)");
 		datoTabella.setTipoDato(TipoDato.TESTO);
 		datiTabella.add(datoTabella);

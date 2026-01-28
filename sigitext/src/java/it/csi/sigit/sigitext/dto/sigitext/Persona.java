@@ -9,9 +9,13 @@
 
 package it.csi.sigit.sigitext.dto.sigitext;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Persona {
+public class Persona implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private Integer idPersona;
 	private String titolo;
 	private Integer tipo;
@@ -30,6 +34,7 @@ public class Persona {
 	private String indirizzoEstero;
 	private String capEstero;
 	private Date dataInizioResp;
+	private Date dataFineResp;
 	private String email;
 	private Boolean flgResp;
 
@@ -38,6 +43,34 @@ public class Persona {
 	private String istatComune;
 
 	private String accreditato;
+	
+	private String cap;
+	private Integer newsletter;
+	private Integer gdpr;
+
+	public String getCap() {
+		return cap;
+	}
+
+	public void setCap(String cap) {
+		this.cap = cap;
+	}
+
+	public Integer getNewsletter() {
+		return newsletter;
+	}
+
+	public void setNewsletter(Integer newsletter) {
+		this.newsletter = newsletter;
+	}
+
+	public Integer getGdpr() {
+		return gdpr;
+	}
+
+	public void setGdpr(Integer gdpr) {
+		this.gdpr = gdpr;
+	}
 
 	public Persona() {
 	}
@@ -249,6 +282,16 @@ public class Persona {
 
 	public void setAccreditato(String accreditato) {
 		this.accreditato = accreditato;
+	}
+	
+	
+
+	public Date getDataFineResp() {
+		return dataFineResp;
+	}
+
+	public void setDataFineResp(Date dataFineResp) {
+		this.dataFineResp = dataFineResp;
 	}
 
 	@Override

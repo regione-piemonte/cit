@@ -43,6 +43,10 @@ public class SigitExtImpiantoDto implements Serializable {
 	private String codiceFiscaleProprietario;
 	private String denominazioneProprietario;
 	private String uidLibretto;
+	private Float coordLong;
+	private Float coordLat;
+	private BigDecimal idPfResponsabile;
+	private BigDecimal idPgResponsabile;
 	
 	public BigDecimal getCodiceImpianto() {
 		return codiceImpianto;
@@ -221,12 +225,34 @@ public class SigitExtImpiantoDto implements Serializable {
 	public void setDenominazioneProprietario(String denominazioneProprietario) {
 		this.denominazioneProprietario = denominazioneProprietario;
 	}
-
 	public String getUidLibretto() {
 		return uidLibretto;
 	}
-
 	public void setUidLibretto(String uidLibretto) {
 		this.uidLibretto = uidLibretto;
+	}
+	public Float getCoordLong() {
+		return coordLong;
+	}
+	public void setCoordLong(Float coordLong) {
+		this.coordLong = coordLong;
+	}
+	public Float getCoordLat() {
+		return coordLat;
+	}
+	public void setCoordLat(Float coordLat) {
+		this.coordLat = coordLat;
+	}
+	public BigDecimal getIdPfResponsabile() {
+		return idPfResponsabile;
+	}
+	public void setIdPfResponsabile(BigDecimal idPfResponsabile) {
+		this.idPfResponsabile = idPfResponsabile;
+	}
+	public BigDecimal getIdPgResponsabile() {
+		return idPgResponsabile;
+	}
+	public void setIdPgResponsabile(BigDecimal idPgResponsabile) {
+		this.idPgResponsabile = idPgResponsabile;
 	}
 }

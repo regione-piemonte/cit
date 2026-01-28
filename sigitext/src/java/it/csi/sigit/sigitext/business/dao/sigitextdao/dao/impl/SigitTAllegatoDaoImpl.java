@@ -1,5 +1,15 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTAllegatoDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTAllegatoDaoRowMapper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllegatoDto;
@@ -7,12 +17,6 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllegatoPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTAllegatoDaoException;
 import it.csi.sigit.sigitext.business.dao.util.Constants;
 import it.csi.util.performance.StopWatch;
-import org.apache.log4j.Logger;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 /*PROTECTED REGION ID(R-781304373) ENABLED START*/
 // aggiungere qui eventuali import custom. 
@@ -506,9 +510,64 @@ public class SigitTAllegatoDaoImpl extends AbstractDAO implements SigitTAllegato
 		}
 		return list.isEmpty() ? null : list.get(0);
 	}
+	
+	public List<SigitTAllegatoDto> findByIdAllegatoAndFkStatoRapp(BigDecimal idAllegato) throws SigitTAllegatoDaoException {
+		LOG.debug("[SigitTAllegatoDaoImpl::findByIdAllegato] START");
+		final StringBuilder sql = new StringBuilder("select sta.* from sigit_t_allegato sta where sta.id_allegato = :idAllegato and sta.fk_stato_rapp = 1");
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		// valorizzazione paametro relativo a colonna [ID_ALLEGATO]
+		params.addValue("idAllegato", idAllegato, java.sql.Types.NUMERIC);
+
+		List<SigitTAllegatoDto> list = null;
+
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), params, findByPrimaryKeyRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTAllegatoDaoImpl::findByIdAllegato] ERROR esecuzione query", ex);
+			throw new SigitTAllegatoDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTAllegatoDaoImpl", "findByIdAllegato", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTAllegatoDaoImpl::findByIdAllegato] END");
+		}
+		return list;
+	}
 
 	public String getTableName() {
 		return "SIGIT_T_ALLEGATO";
+	}
+	
+	public void delete(BigDecimal idAllegato) throws SigitTAllegatoDaoException {
+
+		LOG.debug("[SigitTAllegatoDaoImpl::delete] START");
+		final String sql = "DELETE FROM " + getTableName() + " WHERE ID_ALLEGATO = :ID_ALLEGATO ";
+		if (idAllegato == null) {
+			LOG.error("[SigitTAllegatoDaoImpl::delete] ERROR chiave primaria non impostata");
+			throw new SigitTAllegatoDaoException("Chiave primaria non impostata");
+		}
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("ID_ALLEGATO", idAllegato, java.sql.Types.NUMERIC);
+		delete(jdbcTemplate, sql.toString(), params);
+		LOG.debug("[SigitTAllegatoDaoImpl::delete] END");
+		
+	}
+
+	@Override
+	public boolean checkAllegatoInviatoBetweenTwoDates(Date dataControlloFrom, Date dataControlloTo) {
+		String sql = "select true from " + getTableName()
+				+ " where fk_stato_rapp = :fkStatoRapp and data_controllo between (:dataControlloFrom, :dataControlloTo) limit 1";
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("fkStatoRapp", Constants.ID_STATO_RAPPORTO_INVIATO);
+		params.put("dataControlloFrom", dataControlloFrom);
+		params.put("dataControlloTo", dataControlloTo);
+
+		Boolean result = jdbcTemplate.queryForObject(sql, params, Boolean.class);
+
+		return Boolean.TRUE.equals(result);
 	}
 
 }

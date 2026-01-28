@@ -65,4 +65,10 @@ public class SigitTElencoWsDto extends SigitTElencoWsPk {
 		return super.hashCode();
 	}
 
+	@Override
+	public String toString() {
+		return "SigitTElencoWsDto [descrizioneWs=" + descrizioneWs + "]";
+	}
+
+	
 }

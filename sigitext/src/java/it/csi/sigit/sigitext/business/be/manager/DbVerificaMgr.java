@@ -8,15 +8,18 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitExtDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTAccertamentoDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTVerificaDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.RicercaAccertamentoFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtVerificaDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAccertamentoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAccertamentoPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTVerificaDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTVerificaPk;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitExtDaoException;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTAccertamentoDaoException;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTVerificaDaoException;
 import it.csi.sigit.sigitext.business.util.Constants;
 import it.csi.sigit.sigitext.business.util.Messages;
 import it.csi.sigit.sigitext.exception.sigitext.SigitextException;
+
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
@@ -104,26 +107,30 @@ public class DbVerificaMgr {
 	public SigitTVerificaPk salvaVerifica(SigitTVerificaDto entity) throws SigitextException {
 		log.debug("[DbVerificaMgr::salvaVerifica] BEGIN");
 		//PREPARAZIONE AL SALVATAGGIO CON I DEFAULT
-		if (entity.getCodiceImpianto() == null) {
-			entity.setCodiceImpianto(new BigDecimal(0));
-		}
-		if (entity.getFkAllegato() == null) {
-			entity.setFkAllegato(new BigDecimal(0));
-		}
-		if (entity.getFkDatoDistrib() == null) {
-			entity.setFkDatoDistrib(0);
-		}
-		if (entity.getNumeroBollino() == null) {
-			entity.setNumeroBollino(new BigDecimal(0));
-		}
-		if (entity.getSiglaBollino() == null) {
-			entity.setSiglaBollino("");
-		}
+			
 		try {
 			if (entity.getIdVerifica() != null) {
+				if(entity.getNoteSveglia()==null) {
+					entity.setNoteSveglia("");
+				}
 				getSigitTVerificaDao().update(entity);
 				return new SigitTVerificaPk(entity.getIdVerifica());
 			} else {
+				if (entity.getCodiceImpianto() == null) {
+					entity.setCodiceImpianto(new BigDecimal(0));
+				}
+				if (entity.getFkAllegato() == null) {
+					entity.setFkAllegato(new BigDecimal(0));
+				}
+				if (entity.getFkDatoDistrib() == null) {
+					entity.setFkDatoDistrib(0);
+				}
+				if (entity.getNumeroBollino() == null) {
+					entity.setNumeroBollino(new BigDecimal(0));
+				}
+				if (entity.getSiglaBollino() == null) {
+					entity.setSiglaBollino("");
+				}
 				return getSigitTVerificaDao().insert(entity);
 			}
 		} catch (SigitTVerificaDaoException e) {
@@ -156,4 +163,29 @@ public class DbVerificaMgr {
 			log.debug("[DbVerificaMgr::salvaAccertamento] END");
 		}
 	}
+
+	public SigitExtVerificaDto getVerificaById(Integer idVerifica) throws SigitextException {
+		log.debug("[DbVerificaMgr::getVerificaById] BEGIN");
+		
+		try {
+//			SigitTVerificaDto verifica =  getSigitTVerificaDao().findByPrimaryKey(new SigitTVerificaPk(idVerifica));
+			SigitExtVerificaDto verifica = null;
+			List<SigitExtVerificaDto> verifiche = getSigitExtDao().findVerificaById(new SigitTVerificaPk(idVerifica));
+			if (verifiche != null && verifiche.size()==1) {
+				verifica = verifiche.get(0);
+			}
+			
+			return verifica;
+		} catch (SigitExtDaoException e) {
+			throw new SigitextException(Messages.ERROR_RECUPERO_DB, e);
+		}  finally {
+			log.debug("[DbVerificaMgr::getVerificaById] END");
+		}
+		
+	}
+	
+	public String getIstatoProvinciaFromAccertamento(String siglaProvincia) throws SigitTAccertamentoDaoException {
+		return getSigitTAccertamentoDao().findIstatProvinciaBySiglaProvincia(siglaProvincia);
+	}
+
 }

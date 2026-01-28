@@ -4,31 +4,41 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitExtDao;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ContrattoFilter;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.ExtImpiantoDaoRowMapper;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitExtContrattoImpDaoRowMapper;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitExtImpiantiByFiltroRowMapper;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitExtRespImpDaoRowMapper;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.ExtImpiantoDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtContrattoImpDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtImpiantoDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtRespImpDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.ExtDaoException;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitExtDaoException;
-import it.csi.sigit.sigitext.business.dao.util.Constants;
-import it.csi.sigit.sigitext.business.util.ConvertUtil;
-import it.csi.sigit.sigitext.business.util.GenericUtil;
-import it.csi.sigit.sigitext.dto.sigitext.Impianto;
-import it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro;
-import it.csi.util.performance.StopWatch;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
 
-import java.math.BigDecimal;
-import java.util.List;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitExtDao;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ContrattoFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.ExtImpiantoDaoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitExtContrattoImpDaoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitExtImpiantiByFiltroRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitExtIspezioniConCodImpiantoDtoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitExtIspezioniDtoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitExtIspezioniSenzaCodImpiantoDtoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitExtRespImpDaoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitExtVerificaDaoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.ExtImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtContrattoImpDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtIspezioniConCodImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtIspezioniDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtIspezioniSenzaCodImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtRespImpDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtVerificaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTVerificaPk;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.ExtDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitExtDaoException;
+import it.csi.sigit.sigitext.business.dao.util.Constants;
+import it.csi.sigit.sigitext.business.util.ConvertUtil;
+import it.csi.sigit.sigitext.business.util.GenericUtil;
+import it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro;
+import it.csi.util.performance.StopWatch;
 
 /**
  * Implemenrazione del DAO sigitExt
@@ -75,6 +85,18 @@ public class SigitExtDaoImpl extends AbstractDAO implements SigitExtDao {
 
 	protected SigitExtRespImpDaoRowMapper responsabiliByCodiceImpiantoRowMapper = new SigitExtRespImpDaoRowMapper(null, SigitExtRespImpDto.class, this);
 
+	protected SigitExtIspezioniConCodImpiantoDtoRowMapper ispezioniConCodImpiantoRowMapper = new SigitExtIspezioniConCodImpiantoDtoRowMapper(
+			null, SigitExtIspezioniConCodImpiantoDto.class, this);
+
+	protected SigitExtIspezioniSenzaCodImpiantoDtoRowMapper ispezioniSenzaCodImpiantoRowMapper = new SigitExtIspezioniSenzaCodImpiantoDtoRowMapper(
+			null, SigitExtIspezioniSenzaCodImpiantoDto.class, this);
+
+	protected SigitExtIspezioniDtoRowMapper ispezioniRowMapper = new SigitExtIspezioniDtoRowMapper(
+			null, SigitExtIspezioniDto.class, this);
+
+	protected SigitExtVerificaDaoRowMapper verificaByIdRowMapper = new SigitExtVerificaDaoRowMapper(
+			null, SigitExtVerificaDto.class, this);
+	
 	/**
 	 * Restituisce il nome della tabella su cui opera il DAO
 	 *
@@ -233,16 +255,40 @@ public class SigitExtDaoImpl extends AbstractDAO implements SigitExtDao {
 		*/
 
 		String query =
-				"SELECT IMP.CODICE_IMPIANTO," + "	DR.ID_RUOLO, " + " DR.DES_RUOLO, " + " C.ID_CONTRATTO, " + " C.DATA_CARICAMENTO," + " C.DATA_CESSAZIONE," + " C.DATA_INSERIMENTO_CESSAZIONE,"
-						+ " C.FK_PG_3_RESP," + " C_RESP.FK_PERSONA_GIURIDICA," + " C_RESP.FK_PERSONA_FISICA," + " C.DATA_INIZIO AS DATA_INIZIO_CONTRATTO," + " C.DATA_FINE AS DATA_FINE_CONTRATTO,"
-						+ " C.FLG_TACITO_RINNOVO," + " CESS.ID_TIPO_CESSAZIONE," + " CESS.DES_TIPO_CESSAZIONE," + " C.MOTIVO_CESSAZIONE,"
-						+ " COALESCE(PG_RESP.CODICE_FISCALE, PF_RESP.CODICE_FISCALE) AS RESP_CODICE_FISCALE," + " COALESCE(PG_RESP.DENOMINAZIONE,  PF_RESP.COGNOME) AS RESP_DENOMINAZIONE,"
-						+ " PF_RESP.NOME AS RESP_NOME," + " PG3R.DENOMINAZIONE AS TERZO_RESP_DENOMINAZIONE," + " PG3R.SIGLA_REA AS TERZO_RESP_SIGLA_REA," + " PG3R.NUMERO_REA AS TERZO_RESP_NUMERO_REA,"
-						+ " PG3R.CODICE_FISCALE AS CODICE_FISCALE_3_RESP," + " PG3R.COMUNE AS DENOM_COMUNE_3_RESP," + " PG3R.SIGLA_PROV AS SIGLA_PROV_3_RESP,"
-						+ " PG3R.PROVINCIA AS DENOM_PROVINCIA_3_RESP," + " IMP.DENOMINAZIONE_COMUNE AS DENOM_COMUNE_IMPIANTO," + " IMP.DENOMINAZIONE_PROVINCIA AS DENOM_PROV_IMPIANTO,"
-						+ " IMP.SIGLA_PROVINCIA AS SIGLA_PROV_IMPIANTO" + " FROM SIGIT_T_CONTRATTO_2019 C" + " JOIN SIGIT_T_IMPIANTO IMP ON C.CODICE_IMPIANTO = IMP.CODICE_IMPIANTO"
+				"SELECT IMP.CODICE_IMPIANTO," 
+						+ "	DR.ID_RUOLO, "
+						+ " DR.DES_RUOLO, " 
+						+ " C.ID_CONTRATTO, " 
+						+ " C.DATA_CARICAMENTO," 
+						+ " C.DATA_CESSAZIONE," 
+						+ " C.DATA_INSERIMENTO_CESSAZIONE,"
+						+ " C.FK_PG_3_RESP," 
+						+ " C_RESP.FK_PERSONA_GIURIDICA," 
+						+ " C_RESP.FK_PERSONA_FISICA," 
+						+ " C.DATA_INIZIO AS DATA_INIZIO_CONTRATTO," 
+						+ " C.DATA_FINE AS DATA_FINE_CONTRATTO,"
+						+ " C.FLG_TACITO_RINNOVO," 
+						+ " CESS.ID_TIPO_CESSAZIONE," 
+						+ " CESS.DES_TIPO_CESSAZIONE," 
+						+ " C.MOTIVO_CESSAZIONE,"
+						+ " COALESCE(PG_RESP.CODICE_FISCALE, PF_RESP.CODICE_FISCALE) AS RESP_CODICE_FISCALE," 
+						+ " COALESCE(PG_RESP.DENOMINAZIONE,  PF_RESP.COGNOME) AS RESP_DENOMINAZIONE,"
+						+ " PF_RESP.NOME AS RESP_NOME," 
+						+ " PG3R.DENOMINAZIONE AS TERZO_RESP_DENOMINAZIONE," 
+						+ " PG3R.SIGLA_REA AS TERZO_RESP_SIGLA_REA," 
+						+ " PG3R.NUMERO_REA AS TERZO_RESP_NUMERO_REA,"
+						+ " PG3R.CODICE_FISCALE AS CODICE_FISCALE_3_RESP," 
+						+ " PG3R.COMUNE AS DENOM_COMUNE_3_RESP," 
+						+ " PG3R.SIGLA_PROV AS SIGLA_PROV_3_RESP,"
+						+ " PG3R.PROVINCIA AS DENOM_PROVINCIA_3_RESP," 
+						+ " IMP.DENOMINAZIONE_COMUNE AS DENOM_COMUNE_IMPIANTO," 
+						+ " IMP.DENOMINAZIONE_PROVINCIA AS DENOM_PROV_IMPIANTO,"
+						+ " IMP.SIGLA_PROVINCIA AS SIGLA_PROV_IMPIANTO" 
+						+ " FROM SIGIT_T_CONTRATTO_2019 C" 
+						+ " JOIN SIGIT_T_IMPIANTO IMP ON C.CODICE_IMPIANTO = IMP.CODICE_IMPIANTO"
 						+ " JOIN SIGIT_R_IMP_RUOLO_PFPG C_RESP ON C_RESP.ID_IMP_RUOLO_PFPG = C.FK_IMP_RUOLO_PFPG_RESP AND C_RESP.CODICE_IMPIANTO = C.CODICE_IMPIANTO"
-						+ " JOIN SIGIT_D_RUOLO DR ON DR.ID_RUOLO = C_RESP.FK_RUOLO" + " JOIN SIGIT_T_PERSONA_GIURIDICA PG3R ON PG3R.ID_PERSONA_GIURIDICA = C.FK_PG_3_RESP"
+						+ " JOIN SIGIT_D_RUOLO DR ON DR.ID_RUOLO = C_RESP.FK_RUOLO" 
+						+ " JOIN SIGIT_T_PERSONA_GIURIDICA PG3R ON PG3R.ID_PERSONA_GIURIDICA = C.FK_PG_3_RESP"
 						+ " JOIN SIGIT_D_TIPO_CESSAZIONE CESS ON CESS.ID_TIPO_CESSAZIONE = C.FK_TIPO_CESSAZIONE"
 						+ " LEFT JOIN SIGIT_T_PERSONA_GIURIDICA PG_RESP ON C_RESP.FK_PERSONA_GIURIDICA = PG_RESP.ID_PERSONA_GIURIDICA"
 						+ " LEFT JOIN SIGIT_T_PERSONA_FISICA PF_RESP ON C_RESP.FK_PERSONA_FISICA = PF_RESP.ID_PERSONA_FISICA";
@@ -298,6 +344,7 @@ public class SigitExtDaoImpl extends AbstractDAO implements SigitExtDao {
 		return newKey;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<SigitExtImpiantoDto> findImpiantiByFiltro(ImpiantoFiltro input) throws SigitExtDaoException {
 		LOG.debug("[SigitExtDaoImpl::findImpiantiByFiltro] START");
@@ -319,7 +366,7 @@ public class SigitExtDaoImpl extends AbstractDAO implements SigitExtDao {
 		boolean hasFiltroManutentore = GenericUtil.isNotNullOrEmpty(input.getSiglaRea()) || GenericUtil.isNotNullOrEmpty(input.getNumeroRea()) || GenericUtil.isNotNullOrEmpty(input.getCfImpresa());
 
 		sql.append("SELECT DISTINCT imp.CODICE_IMPIANTO,ISTAT_COMUNE,DENOMINAZIONE_COMUNE,SIGLA_PROVINCIA,DENOMINAZIONE_PROVINCIA,imp.FK_STATO,");
-		sql.append("L1_3_POT_H2O_KW,L1_3_POT_CLIMA_INV_KW,L1_3_POT_CLIMA_EST_KW,FLG_NOPDR,");
+		sql.append("L1_3_POT_H2O_KW,L1_3_POT_CLIMA_INV_KW,L1_3_POT_CLIMA_EST_KW,FLG_NOPDR,imp.COORD_X_LONG_DD,imp.COORD_Y_LAT_DD,");
 		sql.append("COALESCE(sigit_t_unita_immobiliare.indirizzo_sitad, sigit_t_unita_immobiliare.indirizzo_non_trovato) AS indirizzo_unita_immob,");
 		sql.append("CIVICO,SEZIONE,FOGLIO,PARTICELLA,SUBALTERNO,POD_ELETTRICO,PDR_GAS,DES_STATO,FLG_VISU_PROPRIETARIO,");
 		sql.append("lib.UID_INDEX, ");
@@ -688,6 +735,404 @@ public class SigitExtDaoImpl extends AbstractDAO implements SigitExtDao {
 		return list;
 	}
 
+	public List<SigitExtImpiantoDto> findImpiantiByFiltroDuplicatiResponsabile(ImpiantoFiltro input) throws SigitExtDaoException {
+		LOG.debug("[SigitExtDaoImpl::findImpiantiByFiltro] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		boolean hasFiltroResponsabile = GenericUtil.isNotNullOrEmpty(input.getCfResponsabile());
+
+//		boolean hasFiltro3Responsabile = GenericUtil.isNotNullOrEmpty(input.getCf3Responsabile());
+//
+//		boolean hasFiltroProprietario = GenericUtil.isNotNullOrEmpty(input.getCfProprietario());
+//
+//		log.debug(hasFiltro3Responsabile);
+//		log.debug(hasFiltroProprietario);
+		log.debug(hasFiltroResponsabile);
+
+		boolean hasFiltroCoordinate = GenericUtil.isNotNullOrEmpty(input.getX()) && GenericUtil.isNotNullOrEmpty(input.getY());
+
+//		boolean hasFiltroManutentore = GenericUtil.isNotNullOrEmpty(input.getSiglaRea()) || GenericUtil.isNotNullOrEmpty(input.getNumeroRea()) || GenericUtil.isNotNullOrEmpty(input.getCfImpresa());
+
+		sql.append("SELECT DISTINCT imp.CODICE_IMPIANTO,ISTAT_COMUNE,DENOMINAZIONE_COMUNE,SIGLA_PROVINCIA,DENOMINAZIONE_PROVINCIA,imp.FK_STATO,");
+		sql.append("L1_3_POT_H2O_KW,L1_3_POT_CLIMA_INV_KW,L1_3_POT_CLIMA_EST_KW,FLG_NOPDR,imp.COORD_X_LONG_DD,imp.COORD_Y_LAT_DD,");
+		sql.append("COALESCE(sigit_t_unita_immobiliare.indirizzo_sitad, sigit_t_unita_immobiliare.indirizzo_non_trovato) AS indirizzo_unita_immob,");
+		sql.append("CIVICO,SEZIONE,FOGLIO,PARTICELLA,SUBALTERNO,POD_ELETTRICO,PDR_GAS,DES_STATO,FLG_VISU_PROPRIETARIO,");
+		sql.append("lib.UID_INDEX, ");
+//		if (hasFiltroResponsabile) {
+		sql.append("NULL AS codice_fiscale_responsabile,");
+		sql.append("NULL AS denominazione_responsabile,");
+		sql.append("NULL AS ruolo_responsabile,");
+		sql.append("NULL AS data_fine_pfpg_responsabile,");
+		sql.append("NULL AS ruolo_funz,");
+		sql.append("NULL AS des_ruolo_funz,");
+//			sql.append("q_ruolo.codice_fisc AS codice_fiscale_responsabile,");
+//			sql.append("q_ruolo.denominazione_resp AS denominazione_responsabile,");
+//			sql.append("q_ruolo.ruolo_resp AS ruolo_responsabile,");
+//			sql.append("q_ruolo.data_fine_pfpg AS data_fine_pfpg_responsabile,");
+//			sql.append("q_ruolo.ruolo_funz1 AS ruolo_funz,");
+//			sql.append("q_ruolo.des_ruolo1 AS des_ruolo_funz,");
+//		} else {
+//			sql.append("COALESCE(q_pf_ruolo.codice_fisc, q_pg_ruolo.codice_fisc) AS codice_fiscale_responsabile,");
+//			sql.append("COALESCE(q_pf_ruolo.denominazione_resp, q_pg_ruolo.denominazione_resp) AS denominazione_responsabile,");
+//			sql.append("COALESCE(q_pf_ruolo.ruolo_resp, q_pg_ruolo.ruolo_resp) AS ruolo_responsabile,");
+//			sql.append("COALESCE(q_pf_ruolo.data_fine_pfpg, q_pg_ruolo.data_fine_pfpg) AS data_fine_pfpg_responsabile,");
+//			sql.append("COALESCE(q_pf_ruolo.ruolo_funz1, q_pg_ruolo.ruolo_funz1) AS ruolo_funz,");
+//			sql.append("COALESCE(q_pf_ruolo.des_ruolo1, q_pg_ruolo.des_ruolo1) AS des_ruolo_funz,");
+//		}
+
+//		if (hasFiltroProprietario) {
+//			sql.append("q_prop.codice_fisc AS codice_fiscale_proprietario,");
+//			sql.append("q_prop.denominazione_resp AS denominazione_proprietario");
+//		} else {
+//			sql.append("COALESCE(q_pf_prop.codice_fisc, q_pg_prop.codice_fisc) AS codice_fiscale_proprietario,");
+//			sql.append("COALESCE(q_pf_prop.denominazione_resp, q_pg_prop.denominazione_resp) AS denominazione_proprietario");
+//		}
+		sql.append("NULL AS codice_fiscale_proprietario,");
+		sql.append("NULL AS denominazione_proprietario");
+
+		sql.append(" FROM sigit_t_impianto imp");
+		sql.append(" JOIN sigit_d_stato_imp ON imp.fk_stato = sigit_d_stato_imp.id_stato");
+		sql.append(" JOIN sigit_t_unita_immobiliare ON imp.codice_impianto = sigit_t_unita_immobiliare.codice_impianto");
+
+		//! IMPORTANTE: bisogna mettere in JOIN prima i filtri con dati che scremano (quelli not null) o poi quelli che non scremano (quelli null)
+
+//		if (hasFiltroResponsabile) {
+//			sql.append(" JOIN ( (SELECT sigit_r_imp_ruolo_pfpg_1.id_imp_ruolo_pfpg,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.codice_impianto,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.data_fine AS data_fine_pfpg,");
+//			sql.append("sigit_t_persona_fisica.id_persona_fisica AS id_pf_responsabile,");
+//			sql.append("sigit_t_persona_fisica.codice_fiscale AS codice_fisc,");
+//			sql.append("(COALESCE(sigit_t_persona_fisica.cognome, ' '::character varying)::text || ' '::text) || COALESCE(sigit_t_persona_fisica.nome, ' '::character varying)::text AS denominazione_resp,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.fk_ruolo AS ruolo_resp,");
+//			sql.append("sigit_d_ruolo.ruolo_funz AS ruolo_funz1,");
+//			sql.append("sigit_d_ruolo.des_ruolo AS des_ruolo1,");
+//			sql.append("now() AS data_validita,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.data_inizio,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.data_fine");
+//			sql.append(" FROM sigit_d_ruolo");
+//			sql.append(" JOIN sigit_r_imp_ruolo_pfpg sigit_r_imp_ruolo_pfpg_1 ON sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg_1.fk_ruolo");
+//			sql.append(" JOIN sigit_t_persona_fisica ON sigit_r_imp_ruolo_pfpg_1.fk_persona_fisica = sigit_t_persona_fisica.id_persona_fisica");
+//			sql.append(" WHERE (sigit_r_imp_ruolo_pfpg_1.fk_ruolo = ANY (ARRAY[4::numeric, 5::numeric, 10::numeric, 11::numeric, 12::numeric, 13::numeric]))");
+//			sql.append(" AND sigit_r_imp_ruolo_pfpg_1.data_inizio <= now()");
+//			sql.append(" AND now() <= COALESCE(sigit_r_imp_ruolo_pfpg_1.data_fine::timestamp with time zone, now(), sigit_r_imp_ruolo_pfpg_1.data_fine::timestamp with time zone)");
+//			sql.append(" AND UPPER(CODICE_FISCALE) = UPPER(:cf_responsabile) )");
+//			sql.append(" UNION (SELECT sigit_r_imp_ruolo_pfpg.id_imp_ruolo_pfpg,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.codice_impianto,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.data_fine AS data_fine_pfpg,");
+//			sql.append("sigit_t_persona_giuridica.id_persona_giuridica AS id_pg_responsabile,");
+//			sql.append("sigit_t_persona_giuridica.codice_fiscale AS codice_fisc,");
+//			sql.append("sigit_t_persona_giuridica.denominazione AS denominazione_resp,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.fk_ruolo AS ruolo_resp,");
+//			sql.append("sigit_d_ruolo.ruolo_funz AS ruolo_funz1,");
+//			sql.append("sigit_d_ruolo.des_ruolo AS des_ruolo1,");
+//			sql.append("now() AS data_validita,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.data_inizio,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.data_fine");
+//			sql.append(" FROM sigit_d_ruolo");
+//			sql.append(" JOIN sigit_r_imp_ruolo_pfpg ON sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg.fk_ruolo");
+//			sql.append(" JOIN sigit_t_persona_giuridica ON sigit_r_imp_ruolo_pfpg.fk_persona_giuridica = sigit_t_persona_giuridica.id_persona_giuridica");
+//			sql.append(" WHERE (sigit_r_imp_ruolo_pfpg.fk_ruolo = ANY (ARRAY[4::numeric, 5::numeric, 10::numeric, 11::numeric, 12::numeric, 13::numeric])) AND sigit_r_imp_ruolo_pfpg.data_inizio <= now() AND now() <= COALESCE(sigit_r_imp_ruolo_pfpg.data_fine::timestamp with time zone, now(), sigit_r_imp_ruolo_pfpg.data_fine::timestamp with time zone)");
+//			sql.append(" AND UPPER(CODICE_FISCALE) = UPPER(:cf_responsabile)");
+//			sql.append(" ) ) q_ruolo ON imp.codice_impianto = q_ruolo.codice_impianto");
+//		}
+
+//		if (hasFiltroProprietario) {
+//			sql.append(" JOIN ( (SELECT sigit_r_imp_ruolo_pfpg_1.id_imp_ruolo_pfpg,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.codice_impianto,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.data_fine AS data_fine_pfpg,");
+//			sql.append("sigit_t_persona_fisica.id_persona_fisica AS id_pf_responsabile,");
+//			sql.append("sigit_t_persona_fisica.codice_fiscale AS codice_fisc,");
+//			sql.append("(COALESCE(sigit_t_persona_fisica.cognome, ' '::character varying)::text || ' '::text) || COALESCE(sigit_t_persona_fisica.nome, ' '::character varying)::text AS denominazione_resp,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.fk_ruolo AS ruolo_resp,");
+//			sql.append("sigit_d_ruolo.ruolo_funz AS ruolo_funz1");
+//			sql.append(" FROM sigit_d_ruolo");
+//			sql.append(" JOIN (sigit_r_imp_ruolo_pfpg sigit_r_imp_ruolo_pfpg_1");
+//			sql.append(" JOIN sigit_t_persona_fisica ON sigit_r_imp_ruolo_pfpg_1.fk_persona_fisica = sigit_t_persona_fisica.id_persona_fisica) ON sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg_1.fk_ruolo");
+//			sql.append(" WHERE (sigit_r_imp_ruolo_pfpg_1.fk_ruolo = ANY (ARRAY[15::numeric, 16::numeric]))");
+//			sql.append(" AND sigit_r_imp_ruolo_pfpg_1.data_inizio <= now()");
+//			sql.append(" AND now() <= COALESCE(sigit_r_imp_ruolo_pfpg_1.data_fine::timestamp with time zone, now(), sigit_r_imp_ruolo_pfpg_1.data_fine::timestamp with time zone)");
+//			sql.append(" AND UPPER(CODICE_FISCALE) = UPPER(:cf_proprietario) )");
+//			sql.append(" UNION (SELECT sigit_r_imp_ruolo_pfpg.id_imp_ruolo_pfpg,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.codice_impianto,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.data_fine AS data_fine_pfpg,");
+//			sql.append("sigit_t_persona_giuridica.id_persona_giuridica AS id_pg_responsabile,");
+//			sql.append("sigit_t_persona_giuridica.codice_fiscale AS codice_fisc,");
+//			sql.append("sigit_t_persona_giuridica.denominazione AS denominazione_resp,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.fk_ruolo AS ruolo_resp,");
+//			sql.append("sigit_d_ruolo.ruolo_funz AS ruolo_funz1");
+//			sql.append(" FROM sigit_d_ruolo");
+//			sql.append(" JOIN sigit_r_imp_ruolo_pfpg ON sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg.fk_ruolo");
+//			sql.append(" JOIN sigit_t_persona_giuridica ON sigit_r_imp_ruolo_pfpg.fk_persona_giuridica = sigit_t_persona_giuridica.id_persona_giuridica");
+//			sql.append(" WHERE (sigit_r_imp_ruolo_pfpg.fk_ruolo = ANY (ARRAY[15::numeric, 16::numeric]))");
+//			sql.append(" AND sigit_r_imp_ruolo_pfpg.data_inizio <= now() AND");
+//			sql.append(" now() <= COALESCE(sigit_r_imp_ruolo_pfpg.data_fine::timestamp with time zone, now(), sigit_r_imp_ruolo_pfpg.data_fine::timestamp with time zone)");
+//			sql.append(" AND UPPER(CODICE_FISCALE) = UPPER(:cf_proprietario) )");
+//			sql.append(" ) q_prop ON imp.codice_impianto = q_prop.codice_impianto");
+//		}
+
+//		if (hasFiltroManutentore) {
+//			sql.append(" JOIN ((SELECT sigit_r_imp_ruolo_pfpg.id_imp_ruolo_pfpg,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.codice_impianto,");
+//			sql.append("sigit_t_persona_giuridica.sigla_rea,");
+//			sql.append("sigit_t_persona_giuridica.numero_rea,");
+//			sql.append("sigit_t_persona_giuridica.codice_fiscale AS codice_fisc,");
+//			sql.append("sigit_t_persona_giuridica.denominazione AS denominazione_resp");
+//			sql.append(" FROM sigit_d_ruolo");
+//			sql.append(" JOIN sigit_r_imp_ruolo_pfpg ON sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg.fk_ruolo");
+//			sql.append(" JOIN sigit_t_persona_giuridica ON sigit_r_imp_ruolo_pfpg.fk_persona_giuridica = sigit_t_persona_giuridica.id_persona_giuridica");
+//			sql.append(" WHERE (sigit_r_imp_ruolo_pfpg.fk_ruolo = 3::numeric)");
+//			sql.append(" AND sigit_r_imp_ruolo_pfpg.data_inizio <= now() AND");
+//			sql.append(" now() <= COALESCE(sigit_r_imp_ruolo_pfpg.data_fine::timestamp with time zone, now(), sigit_r_imp_ruolo_pfpg.data_fine::timestamp with time zone)");
+//			if (GenericUtil.isNotNullOrEmpty(input.getSiglaRea())) {
+//				sql.append(" AND SIGLA_REA = :sigla_rea ");
+//			}
+//			if (GenericUtil.isNotNullOrEmpty(input.getNumeroRea())) {
+//				sql.append(" AND NUMERO_REA = :numero_rea ");
+//			}
+//			if (GenericUtil.isNotNullOrEmpty(input.getCfImpresa())) {
+//				sql.append(" AND UPPER(CODICE_FISCALE) = UPPER(:cf_manutentore) ");
+//			}
+//			sql.append(")");
+//			sql.append(" UNION (SELECT sigit_r_comp4_manut.id_r_comp4_manut,");
+//			sql.append("sigit_r_comp4_manut.codice_impianto,");
+//			sql.append("sigit_t_persona_giuridica.sigla_rea,");
+//			sql.append("sigit_t_persona_giuridica.numero_rea,");
+//			sql.append("sigit_t_persona_giuridica.codice_fiscale AS codice_fisc,");
+//			sql.append("sigit_t_persona_giuridica.denominazione AS denominazione_resp");
+//			sql.append(" FROM sigit_t_persona_giuridica");
+//			sql.append(" JOIN sigit_r_comp4_manut ON sigit_r_comp4_manut.fk_persona_giuridica = sigit_t_persona_giuridica.id_persona_giuridica");
+//			sql.append(" WHERE sigit_r_comp4_manut.data_inizio <= now() AND");
+//			sql.append(" now() <= COALESCE(sigit_r_comp4_manut.data_fine::timestamp with time zone, now(), sigit_r_comp4_manut.data_fine::timestamp with time zone)");
+//			if (GenericUtil.isNotNullOrEmpty(input.getSiglaRea())) {
+//				sql.append(" AND SIGLA_REA = :sigla_rea ");
+//			}
+//			if (GenericUtil.isNotNullOrEmpty(input.getNumeroRea())) {
+//				sql.append(" AND NUMERO_REA = :numero_rea ");
+//			}
+//			if (GenericUtil.isNotNullOrEmpty(input.getCfImpresa())) {
+//				sql.append(" AND UPPER(CODICE_FISCALE) = UPPER(:cf_manutentore) ");
+//			}
+//			sql.append(")");
+//			sql.append(" ) q_manut ON imp.codice_impianto = q_manut.codice_impianto");
+//		}
+
+//		if (hasFiltro3Responsabile) {
+//			sql.append(" JOIN ( SELECT sigit_t_contratto_2019.id_contratto,");
+//			sql.append(" sigit_t_contratto_2019.codice_impianto,");
+//			sql.append(" sigit_t_contratto_2019.data_cessazione,");
+//			sql.append(" sigit_t_contratto_2019.flg_tacito_rinnovo,");
+//			sql.append(" sigit_t_contratto_2019.data_inizio,");
+//			sql.append(" sigit_t_persona_giuridica_1.id_persona_giuridica AS id_pg_3r,");
+//			sql.append(" sigit_t_persona_giuridica_1.denominazione AS denominazione_3_responsabile,");
+//			sql.append(" sigit_t_persona_giuridica_1.sigla_rea AS sigla_rea_3r,");
+//			sql.append(" sigit_t_persona_giuridica_1.numero_rea AS numero_rea_3r,");
+//			sql.append(" sigit_t_persona_giuridica_1.codice_fiscale AS codice_fiscale_3r");
+//			sql.append(" FROM sigit_t_contratto_2019");
+//			sql.append(" JOIN sigit_t_persona_giuridica sigit_t_persona_giuridica_1 ON sigit_t_contratto_2019.fk_pg_3_resp = sigit_t_persona_giuridica_1.id_persona_giuridica");
+//			sql.append(" WHERE sigit_t_contratto_2019.data_cessazione IS NULL AND (sigit_t_contratto_2019.flg_tacito_rinnovo = 1::numeric OR sigit_t_contratto_2019.flg_tacito_rinnovo = 0::numeric AND sigit_t_contratto_2019.data_fine >= now()::date)");
+//			sql.append("AND UPPER(codice_fiscale) = UPPER(:cf_3responsabile)");
+//			sql.append(") q_contratto ON imp.codice_impianto = q_contratto.codice_impianto");
+//		}
+
+//		if (!hasFiltroResponsabile) {
+//			sql.append(" LEFT JOIN (SELECT sigit_r_imp_ruolo_pfpg_1.id_imp_ruolo_pfpg,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.codice_impianto,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.data_fine AS data_fine_pfpg,");
+//			sql.append("sigit_t_persona_fisica.id_persona_fisica AS id_pf_responsabile,");
+//			sql.append("sigit_t_persona_fisica.codice_fiscale AS codice_fisc,");
+//			sql.append("(COALESCE(sigit_t_persona_fisica.cognome, ' '::character varying)::text || ' '::text) || COALESCE(sigit_t_persona_fisica.nome, ' '::character varying)::text AS denominazione_resp,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.fk_ruolo AS ruolo_resp,");
+//			sql.append("sigit_d_ruolo.ruolo_funz AS ruolo_funz1,");
+//			sql.append("sigit_d_ruolo.des_ruolo AS des_ruolo1,");
+//			sql.append("now() AS data_validita,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.data_inizio,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.data_fine");
+//			sql.append(" FROM sigit_d_ruolo");
+//			sql.append(" JOIN sigit_r_imp_ruolo_pfpg sigit_r_imp_ruolo_pfpg_1 ON sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg_1.fk_ruolo");
+//			sql.append(" JOIN sigit_t_persona_fisica ON sigit_r_imp_ruolo_pfpg_1.fk_persona_fisica = sigit_t_persona_fisica.id_persona_fisica");
+//			sql.append(" WHERE (sigit_r_imp_ruolo_pfpg_1.fk_ruolo = ANY (ARRAY[4::numeric, 5::numeric, 10::numeric, 11::numeric, 12::numeric, 13::numeric]))");
+//			sql.append(" AND sigit_r_imp_ruolo_pfpg_1.data_inizio <= now()");
+//			sql.append(" AND now() <= COALESCE(sigit_r_imp_ruolo_pfpg_1.data_fine::timestamp with time zone, now(), sigit_r_imp_ruolo_pfpg_1.data_fine::timestamp with time zone)");
+//			sql.append(" ) q_pf_ruolo ON imp.codice_impianto = q_pf_ruolo.codice_impianto");
+//			sql.append(" LEFT JOIN ( SELECT sigit_r_imp_ruolo_pfpg.id_imp_ruolo_pfpg,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.codice_impianto,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.data_fine AS data_fine_pfpg,");
+//			sql.append("sigit_t_persona_giuridica.id_persona_giuridica AS id_pg_responsabile,");
+//			sql.append("sigit_t_persona_giuridica.codice_fiscale AS codice_fisc,");
+//			sql.append("sigit_t_persona_giuridica.denominazione AS denominazione_resp,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.fk_ruolo AS ruolo_resp,");
+//			sql.append("sigit_d_ruolo.ruolo_funz AS ruolo_funz1,");
+//			sql.append("sigit_d_ruolo.des_ruolo AS des_ruolo1,");
+//			sql.append("now() AS data_validita,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.data_inizio,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.data_fine");
+//			sql.append(" FROM sigit_d_ruolo");
+//			sql.append(" JOIN sigit_r_imp_ruolo_pfpg ON sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg.fk_ruolo");
+//			sql.append(" JOIN sigit_t_persona_giuridica ON sigit_r_imp_ruolo_pfpg.fk_persona_giuridica = sigit_t_persona_giuridica.id_persona_giuridica");
+//			sql.append(" WHERE (sigit_r_imp_ruolo_pfpg.fk_ruolo = ANY (ARRAY[4::numeric, 5::numeric, 10::numeric, 11::numeric, 12::numeric, 13::numeric])) AND sigit_r_imp_ruolo_pfpg.data_inizio <= now() AND now() <= COALESCE(sigit_r_imp_ruolo_pfpg.data_fine::timestamp with time zone, now(), sigit_r_imp_ruolo_pfpg.data_fine::timestamp with time zone)");
+//			sql.append(" ) q_pg_ruolo ON imp.codice_impianto = q_pg_ruolo.codice_impianto");
+//		}
+
+//		if (!hasFiltroProprietario) {
+//			sql.append(" LEFT JOIN ( SELECT sigit_r_imp_ruolo_pfpg_1.id_imp_ruolo_pfpg,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.codice_impianto,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.data_fine AS data_fine_pfpg,");
+//			sql.append("sigit_t_persona_fisica.id_persona_fisica AS id_pf_responsabile,");
+//			sql.append("sigit_t_persona_fisica.codice_fiscale AS codice_fisc,");
+//			sql.append("(COALESCE(sigit_t_persona_fisica.cognome, ' '::character varying)::text || ' '::text) || COALESCE(sigit_t_persona_fisica.nome, ' '::character varying)::text AS denominazione_resp,");
+//			sql.append("sigit_r_imp_ruolo_pfpg_1.fk_ruolo AS ruolo_resp,");
+//			sql.append("sigit_d_ruolo.ruolo_funz AS ruolo_funz1");
+//			sql.append(" FROM sigit_d_ruolo");
+//			sql.append(" JOIN (sigit_r_imp_ruolo_pfpg sigit_r_imp_ruolo_pfpg_1");
+//			sql.append(" JOIN sigit_t_persona_fisica ON sigit_r_imp_ruolo_pfpg_1.fk_persona_fisica = sigit_t_persona_fisica.id_persona_fisica) ON sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg_1.fk_ruolo");
+//			sql.append(" WHERE (sigit_r_imp_ruolo_pfpg_1.fk_ruolo = ANY (ARRAY[15::numeric, 16::numeric]))");
+//			sql.append(" AND sigit_r_imp_ruolo_pfpg_1.data_inizio <= now()");
+//			sql.append(" AND now() <= COALESCE(sigit_r_imp_ruolo_pfpg_1.data_fine::timestamp with time zone, now(), sigit_r_imp_ruolo_pfpg_1.data_fine::timestamp with time zone)");
+//			sql.append(" ) q_pf_prop ON imp.codice_impianto = q_pf_prop.codice_impianto");
+//			sql.append(" LEFT JOIN (SELECT sigit_r_imp_ruolo_pfpg.id_imp_ruolo_pfpg,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.codice_impianto,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.data_fine AS data_fine_pfpg,");
+//			sql.append("sigit_t_persona_giuridica.id_persona_giuridica AS id_pg_responsabile,");
+//			sql.append("sigit_t_persona_giuridica.codice_fiscale AS codice_fisc,");
+//			sql.append("sigit_t_persona_giuridica.denominazione AS denominazione_resp,");
+//			sql.append("sigit_r_imp_ruolo_pfpg.fk_ruolo AS ruolo_resp,");
+//			sql.append("sigit_d_ruolo.ruolo_funz AS ruolo_funz1");
+//			sql.append(" FROM sigit_d_ruolo");
+//			sql.append(" JOIN sigit_r_imp_ruolo_pfpg ON sigit_d_ruolo.id_ruolo = sigit_r_imp_ruolo_pfpg.fk_ruolo");
+//			sql.append(" JOIN sigit_t_persona_giuridica ON sigit_r_imp_ruolo_pfpg.fk_persona_giuridica = sigit_t_persona_giuridica.id_persona_giuridica");
+//			sql.append(" WHERE (sigit_r_imp_ruolo_pfpg.fk_ruolo = ANY (ARRAY[15::numeric, 15::numeric]))");
+//			sql.append(" AND sigit_r_imp_ruolo_pfpg.data_inizio <= now() AND");
+//			sql.append(" now() <= COALESCE(sigit_r_imp_ruolo_pfpg.data_fine::timestamp with time zone, now(), sigit_r_imp_ruolo_pfpg.data_fine::timestamp with time zone)");
+//			sql.append(" ) q_pg_prop ON imp.codice_impianto = q_pg_prop.codice_impianto");
+//		}
+
+		sql.append(" LEFT JOIN SIGIT_T_LIBRETTO lib ON lib.CODICE_IMPIANTO = imp.CODICE_IMPIANTO AND lib.FK_STATO = 2");
+
+		sql.append(" WHERE ");
+
+		sql.append(" sigit_t_unita_immobiliare.flg_principale = 1::numeric");
+
+		if (hasFiltroCoordinate) {
+			Float newDist = 0F;
+			if (input.getDistanza()!=null && input.getDistanza() > 0) {
+				newDist = input.getDistanza()/40075000*360;
+			}
+
+			Float xMin = input.getX() - newDist;
+			Float xMax = input.getX() + newDist;
+			Float yMin = input.getY() - newDist;
+			Float yMax = input.getY() + newDist;
+
+			sql.append(" AND imp.coord_x_long_dd < :xmax AND imp.coord_x_long_dd > :xmin");
+			sql.append(" AND imp.coord_y_lat_dd < :ymax AND imp.coord_y_lat_dd > :ymin");
+
+			paramMap.addValue("xmax", xMax);
+			paramMap.addValue("xmin", xMin);
+			paramMap.addValue("ymax", yMax);
+			paramMap.addValue("ymin", yMin);
+
+		}
+
+		if (ConvertUtil.convertToBooleanAllways(input.getFlagVisuProprietario())) {
+			sql.append(" AND FLG_VISU_PROPRIETARIO = 1");
+		}
+
+		if (GenericUtil.isNotNullOrEmpty(input.getFkStato())) {
+			sql.append(" AND imp.FK_STATO = :stato_impianto");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getCodiceImpianto())) {
+			sql.append(" AND imp.CODICE_IMPIANTO = :codice_impianto");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getSiglaProvincia())) {
+			sql.append(" AND SIGLA_PROVINCIA = :sigla_provincia");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getIstatComune())) {
+			sql.append(" AND ISTAT_COMUNE ILIKE :istat_comune");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getDescComune())) {
+			sql.append(" AND DENOMINAZIONE_COMUNE ILIKE :descr_comune");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getIndirizzo())) {
+			sql.append(" AND COALESCE(sigit_t_unita_immobiliare.indirizzo_sitad, sigit_t_unita_immobiliare.indirizzo_non_trovato) ILIKE :indirizzo");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getCivico())) {
+			sql.append(" AND CIVICO ILIKE :civico");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getPod())) {
+			sql.append(" AND UPPER(POD_ELETTRICO) = UPPER(:pod_elettrico)");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getPdr())) {
+			sql.append(" AND UPPER(PDR_GAS) = UPPER(:pdr_gas)");
+		}
+		sql.append(" LIMIT (SELECT VALORE_CONFIG_NUM FROM SIGIT_WRK_CONFIG WHERE CHIAVE_CONFIG='MAX_RIGHE')");
+
+		if (hasFiltroResponsabile) {
+			paramMap.addValue("cf_responsabile", input.getCfResponsabile());
+		}
+
+//		if (hasFiltroProprietario) {
+//			paramMap.addValue("cf_proprietario", input.getCfProprietario());
+//		}
+
+//		if (hasFiltro3Responsabile) {
+//			paramMap.addValue("cf_3responsabile", input.getCf3Responsabile());
+//		}
+
+		if (GenericUtil.isNotNullOrEmpty(input.getSiglaRea())) {
+			paramMap.addValue("sigla_rea", input.getSiglaRea());
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getNumeroRea())) {
+			paramMap.addValue("numero_rea", input.getNumeroRea());
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getCfImpresa())) {
+			paramMap.addValue("cf_manutentore", input.getCfImpresa());
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getFkStato())) {
+			paramMap.addValue("stato_impianto", input.getFkStato());
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getCodiceImpianto())) {
+			paramMap.addValue("codice_impianto", input.getCodiceImpianto());
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getSiglaProvincia())) {
+			paramMap.addValue("sigla_provincia", input.getSiglaProvincia());
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getIstatComune())) {
+			paramMap.addValue("istat_comune", input.getIstatComune() + "%");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getDescComune())) {
+			paramMap.addValue("descr_comune", input.getDescComune() + "%");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getIndirizzo())) {
+			paramMap.addValue("indirizzo", "%" + input.getIndirizzo() + "%");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getCivico())) {
+			paramMap.addValue("civico", "%" + input.getCivico() + "%");
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getPod())) {
+			paramMap.addValue("pod_elettrico", input.getPod());
+		}
+		if (GenericUtil.isNotNullOrEmpty(input.getPdr())) {
+			paramMap.addValue("pdr_gas", input.getPdr());
+		}
+
+		List<SigitExtImpiantoDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, impiantiByFiltroRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitExtDaoImpl::findImpiantiByFiltro] esecuzione query", ex);
+			throw new SigitExtDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitExtDaoImpl", "findImpiantiByFiltro", "esecuzione query", sql.toString());
+			LOG.debug("[SigitExtDaoImpl::findImpiantiByFiltro] END");
+		}
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<SigitExtRespImpDto> findResponsabiliByCodiceImpianto(Integer input) throws SigitExtDaoException {
 		log.debug("[SigitExtDaoImpl::findResponsabiliByCodiceImpianto] START");
 		StringBuilder sql = new StringBuilder();
@@ -722,4 +1167,313 @@ public class SigitExtDaoImpl extends AbstractDAO implements SigitExtDao {
 		}
 		return list;
 	}
+	
+	/** 
+	 * Implementazione del finder findIspezioniDettSenzaCodImpiantoByListIdIspez
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SigitExtIspezioniDto> findIspezioniDettByListIdIspez(ArrayList<String> listIdIspezioni)
+			throws SigitExtDaoException {
+		log.debug("[SigitExtDaoImpl::findIspezioniDettByListIdIspez] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		
+		sql.append("SELECT ID_ISPEZIONE_2018,isp.CODICE_IMPIANTO,DES_STATO_ISPEZIONE,DT_CREAZIONE,FLG_ESITO,NOME,COGNOME, ");
+		sql.append("CODICE_FISCALE,ISTAT_PROV_COMPETENZA, CF_ISPETTORE_SECONDARIO,FLG_ISP_PAGAMENTO, ");
+		sql.append("COALESCE(u.indirizzo_sitad, u.indirizzo_non_trovato) AS INDIRIZZO_UNITA_IMMOB, u.CIVICO, imp.DENOMINAZIONE_COMUNE, imp.SIGLA_PROVINCIA, ");
+		sql.append("imp.L1_3_POT_H2O_KW, imp.L1_3_POT_CLIMA_INV_KW, imp.L1_3_POT_CLIMA_EST_KW ");
+		sql.append("FROM VISTA_RICERCA_ISPEZIONI AS isp ");
+		sql.append("LEFT JOIN sigit_t_impianto AS imp ON isp.CODICE_IMPIANTO = imp.CODICE_IMPIANTO ");
+		sql.append("LEFT JOIN sigit_t_unita_immobiliare AS u ON u.CODICE_IMPIANTO = imp.CODICE_IMPIANTO ");
+
+		String elencoidIspezioni = "";
+		for (int i = 0; i < listIdIspezioni.size(); i++) {
+			elencoidIspezioni += listIdIspezioni.get(i);
+			if (i < (listIdIspezioni.size() - 1) ) {
+				elencoidIspezioni += ",";
+			}
+		}
+		sql.append(" WHERE isp.ID_ISPEZIONE_2018 IN (" + elencoidIspezioni + ") ");
+
+		//sql.append("WHERE 1 = 1 ");
+		//sql.append("AND TRUNC(DT_CREAZIONE) >= to_date('1/11/2019-0:0:0','DD/MM/YYYY HH24:MI:SS') ");
+		sql.append("AND ID_ISPEZIONE_2018 <> 0 ");
+		sql.append("ORDER BY ID_ISPEZIONE_2018 DESC, ");
+		sql.append("ID_ISPEZ_ISPET DESC ");
+		
+		log.debug("STAMPO LA QUERY: " + sql.toString());
+		
+		List<SigitExtIspezioniDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap,
+					ispezioniRowMapper);
+
+		} catch (RuntimeException ex) {
+			log.error(
+					"[SigitExtDaoImpl::findIspezioniDettByListIdIspez] esecuzione query",
+					ex);
+			throw new SigitExtDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitExtDaoImpl", "findIspezioniDettByListIdIspez",
+					"esecuzione query", sql.toString());
+			log.debug("[SigitExtDaoImpl::findIspezioniDettByListIdIspez] END");
+		}
+		return list;
+	}
+	
+	/** 
+	 * Implementazione del finder findIspezioniDettConCodImpiantoByListConImpianti
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SigitExtIspezioniConCodImpiantoDto> findIspezioniDettConCodImpiantoByListConImpianti(ArrayList<String> listCodImpianti)
+			throws SigitExtDaoException {
+		log.debug("[SigitExtDaoImpl::findIspezioniDettConCodImbiantoByListIdIspez] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		
+		sql.append("select codice_impianto, ruolo, id_responsabile, ");
+		sql.append("cognome_denominazione, nome, codice_fiscale, indirizzo, ");
+		sql.append("civico, cap, comune, provincia, email, sigla_rea, numero_rea ");
+		sql.append("from ( ");
+		sql.append("select ric_imp.codice_impianto, ric_imp.ruolo_funz ruolo, ric_imp.id_pf_responsabile id_responsabile, ");
+		sql.append("pf.cognome cognome_denominazione, pf.nome, pf.codice_fiscale, COALESCE(pf.indirizzo_sitad, pf.indirizzo_non_trovato) indirizzo, ");
+		sql.append("pf.civico, pf.cap, pf.comune, pf.provincia, pf.email, NULL sigla_rea, NULL numero_rea ");
+		sql.append("from vista_ricerca_impianti ric_imp ");
+		sql.append("join sigit_t_persona_fisica pf on pf.id_persona_fisica = ric_imp.id_pf_responsabile ");
+		sql.append("union ");
+		sql.append("select ric_imp.codice_impianto, ric_imp.ruolo_funz ruolo, ric_imp.id_pg_responsabile id_responsabile, ");
+		sql.append("pg.denominazione cognome_denominazione, NULL nome, pg.codice_fiscale, COALESCE(pg.indirizzo_sitad, pg.indirizzo_non_trovato) indirizzo, ");
+		sql.append("pg.civico, pg.cap, pg.comune, pg.provincia, pg.email, pg.sigla_rea, pg.numero_rea ");
+		sql.append("from vista_ricerca_impianti ric_imp ");
+		sql.append("join sigit_t_persona_giuridica pg on pg.id_persona_giuridica = ric_imp.id_pg_responsabile ");
+		sql.append("union ");
+		sql.append("select ric_imp.codice_impianto, 'Terzo Responsabile' ruolo, ric_imp.id_pg_3r id_responsabile, ");
+		sql.append("pg3.denominazione cognome_denominazione, NULL nome, pg3.codice_fiscale, COALESCE(pg3.indirizzo_sitad, pg3.indirizzo_non_trovato) indirizzo, ");
+		sql.append("pg3.civico, pg3.cap, pg3.comune, pg3.provincia, pg3.email, pg3.sigla_rea, pg3.numero_rea ");
+		sql.append("from vista_ricerca_impianti ric_imp ");
+		sql.append("join sigit_t_persona_giuridica pg3 on (pg3.id_persona_giuridica = ric_imp.id_pg_3r) ");
+		sql.append("union ");
+		sql.append("select imp_imp.codice_impianto, dr.des_ruolo ruolo, manut.id_persona_giuridica id_responsabile, ");
+		sql.append("manut.denominazione cognome_denominazione, NULL nome, manut.codice_fiscale, COALESCE(manut.indirizzo_sitad, manut.indirizzo_non_trovato) indirizzo, ");
+		sql.append("manut.civico, manut.cap, manut.comune, manut.provincia, manut.email, manut.sigla_rea, manut.numero_rea ");
+		sql.append("from vista_impianti_imprese imp_imp ");
+		sql.append("join sigit_d_ruolo dr on dr.id_ruolo = imp_imp.fk_ruolo ");
+		sql.append("join sigit_t_persona_giuridica manut on (manut.numero_rea = imp_imp.numero_rea and manut.sigla_rea = imp_imp.sigla_rea and manut.codice_fiscale = imp_imp.codice_fiscale) ");
+		sql.append("where fk_ruolo in ("+Constants.ID_RUOLO_MANUTENTORE_ALL_1+","+Constants.ID_RUOLO_MANUTENTORE_ALL_2+","+Constants.ID_RUOLO_MANUTENTORE_ALL_3+","+Constants.ID_RUOLO_MANUTENTORE_ALL_4+") ");
+		sql.append(") a ");
+		
+		String elencoCodImpianti = "";
+		for (int i = 0; i < listCodImpianti.size(); i++) {
+			elencoCodImpianti += listCodImpianti.get(i);
+			if (i < (listCodImpianti.size() - 1) ) {
+				elencoCodImpianti += ",";
+			}
+		}
+		sql.append(" where a.codice_impianto IN (" + elencoCodImpianti + ") ");
+		
+		sql.append("order by a.codice_impianto, ruolo, id_responsabile ");
+		
+		// devo escludere i suoi????
+//		if (GenericUtil.isNotNullOrEmpty(input.getIdPG()))
+//		{
+//			paramMap.addValue("idPersonaGiuridica", input.getIdPG(),
+//					java.sql.Types.NUMERIC);
+//		}
+		
+		log.debug("STAMPO LA QUERY: " + sql.toString());
+		
+		List<SigitExtIspezioniConCodImpiantoDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap,
+					ispezioniConCodImpiantoRowMapper);
+
+		} catch (RuntimeException ex) {
+			log.error(
+					"[SigitExtDaoImpl::findIspezioniDettConCodImbiantoByListIdIspez] esecuzione query",
+					ex);
+			throw new SigitExtDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitExtDaoImpl", "findIspezioniDettConCodImbiantoByListIdIspez",
+					"esecuzione query", sql.toString());
+			log.debug("[SigitExtDaoImpl::findIspezioniDettConCodImbiantoByListIdIspez] END");
+		}
+		return list;
+	}
+	
+	/** 
+	 * Implementazione del finder findIspezioniDettSenzaCodImpiantoByListIdIspez
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SigitExtIspezioniSenzaCodImpiantoDto> findIspezioniDettSenzaCodImpiantoByListIdIspez(ArrayList<String> listIdIspezioni)
+			throws SigitExtDaoException {
+		log.debug("[SigitExtDaoImpl::findIspezioniDettSenzaCodImpiantoByListIdIspez] START");
+		StringBuilder sql1 = new StringBuilder();
+		StringBuilder sql2 = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		
+		
+		sql1.append("select i.id_ispezione_2018, d.flg_pf_pg, d.cognome_denom, d.nome, d.cf_piva, d.dug, d.indirizzo, d.civico, d.cap, d.istat_comune, ");
+		sql2.append("select i.id_ispezione_2018, d.flg_pf_pg, d.cognome_denom, d.nome, d.cf_piva, d.dug, d.indirizzo, d.civico, d.cap, d.istat_comune, ");
+		sql1.append("d.flg_pf_pg_fatt, d.cognome_denom_fatt, d.nome_fatt, d.cf_piva_fatt, d.dug_fatt, d.indirizzo_fatt, d.civico_fatt, d.cap_fatt, d.istat_comune_fatt, ");
+		sql2.append("d.flg_pf_pg_fatt, d.cognome_denom_fatt, d.nome_fatt, d.cf_piva_fatt, d.dug_fatt, d.indirizzo_fatt, d.civico_fatt, d.cap_fatt, d.istat_comune_fatt, ");
+
+		sql1.append("c.des_tipo_contratto_distrib, u.des_categoria_util, comb.des_combustibile, m.des_unita_misura, ");
+		sql2.append("c.des_tipo_contratto_distrib, u.des_categoria_util, comb.des_combustibile, m.des_unita_misura, ");
+		sql1.append("d.anno_rif, d.nr_mesi_fattur, d.consumo_anno, d.consumo_mensile ");
+		sql2.append("d.anno_rif, d.nr_mesi_fattur, d.consumo_anno, d.consumo_mensile ");
+		
+		sql1.append("from sigit_t_ispezione_2018 i, sigit_t_verifica v, sigit_t_dato_distrib d, ");
+		sql2.append("from sigit_t_ispezione_2018 i, sigit_t_verifica v, sigit_t_accertamento a, sigit_t_dato_distrib d, ");
+		sql1.append("sigit_d_tipo_contratto_distrib c, sigit_d_categoria_util u, sigit_d_combustibile comb, sigit_d_unita_misura m");
+		sql2.append("sigit_d_tipo_contratto_distrib c, sigit_d_categoria_util u, sigit_d_combustibile comb, sigit_d_unita_misura m");
+
+		//sql.append("where i.id_ispezione_2018 IN (194,175,157,151,150,139,136,129,116,115,112,102) ");
+		
+		String elencoidIspezioni = "";
+		for (int i = 0; i < listIdIspezioni.size(); i++) {
+			elencoidIspezioni += listIdIspezioni.get(i);
+			if (i < (listIdIspezioni.size() - 1) ) {
+				elencoidIspezioni += ",";
+			}
+		}
+		sql1.append(" where i.id_ispezione_2018 IN (" + elencoidIspezioni + ") ");
+		sql2.append(" where i.id_ispezione_2018 IN (" + elencoidIspezioni + ") ");
+		
+		sql1.append("and i.fk_verifica <> 0 ");
+		sql1.append("and v.id_verifica = i.fk_verifica ");
+		
+		sql2.append("and i.fk_verifica = 0 ");
+		sql2.append("and a.id_accertamento = i.fk_accertamento ");
+		sql2.append("and v.id_verifica = a.fk_verifica ");
+
+		sql1.append("and v.fk_dato_distrib = d.id_dato_distrib ");
+		sql2.append("and v.fk_dato_distrib = d.id_dato_distrib ");
+
+		sql1.append("and d.fk_tipo_contratto = c.id_tipo_contratto_distrib ");
+		sql2.append("and d.fk_tipo_contratto = c.id_tipo_contratto_distrib ");
+		sql1.append("and d.fk_categoria_util = u.id_categoria_util ");
+		sql2.append("and d.fk_categoria_util = u.id_categoria_util ");
+		sql1.append("and d.fk_combustibile = comb.id_combustibile ");
+		sql2.append("and d.fk_combustibile = comb.id_combustibile ");
+		sql1.append("and d.fk_unita_misura = m.id_unita_misura ");
+		sql2.append("and d.fk_unita_misura = m.id_unita_misura ");
+
+		sql1.append("order by i.id_ispezione_2018 ");
+		sql2.append("order by i.id_ispezione_2018 ");
+		
+		
+		// devo escludere i suoi????
+//		if (GenericUtil.isNotNullOrEmpty(input.getIdPG()))
+//		{
+//			paramMap.addValue("idPersonaGiuridica", input.getIdPG(),
+//					java.sql.Types.NUMERIC);
+//		}
+		
+		log.debug("STAMPO LA QUERY 1: " + sql1.toString());
+		log.debug("STAMPO LA QUERY 2: " + sql2.toString());
+		
+		List<SigitExtIspezioniSenzaCodImpiantoDto> list = new ArrayList<SigitExtIspezioniSenzaCodImpiantoDto>();
+		List<SigitExtIspezioniSenzaCodImpiantoDto> list1 = null;
+		List<SigitExtIspezioniSenzaCodImpiantoDto> list2 = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list1 = jdbcTemplate.query(sql1.toString(), paramMap,
+					ispezioniSenzaCodImpiantoRowMapper);
+			
+		} catch (RuntimeException ex) {
+			log.error(
+					"[SigitExtDaoImpl::findIspezioniDettSenzaCodImpiantoByListIdIspez] esecuzione query",
+					ex);
+			throw new SigitExtDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitExtDaoImpl", "findIspezioniDettSenzaCodImpiantoByListIdIspez",
+					"esecuzione query", sql1.toString());
+			log.debug("[SigitExtDaoImpl::findIspezioniDettSenzaCodImpiantoByListIdIspez] END");
+		}
+
+		stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list2 = jdbcTemplate.query(sql2.toString(), paramMap,
+					ispezioniSenzaCodImpiantoRowMapper);
+			
+		} catch (RuntimeException ex) {
+			log.error(
+					"[SigitExtDaoImpl::findIspezioniDettSenzaCodImpiantoByListIdIspez] esecuzione query",
+					ex);
+			throw new SigitExtDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitExtDaoImpl", "findIspezioniDettSenzaCodImpiantoByListIdIspez",
+					"esecuzione query", sql2.toString());
+			log.debug("[SigitExtDaoImpl::findIspezioniDettSenzaCodImpiantoByListIdIspez] END");
+		}
+		
+		list.addAll(list1);
+		list.addAll(list2);
+
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<SigitExtVerificaDto> findVerificaById(SigitTVerificaPk id) throws SigitExtDaoException {
+		log.debug("[SigitExtDaoImpl::findVerificaById] START");
+		
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		
+		String query = "SELECT ver.ID_VERIFICA,"
+				+ " ver.FK_TIPO_VERIFICA,"
+				+ " ver.FK_ALLEGATO,"
+				+ " ver.FK_DATO_DISTRIB,"
+				+ " ver.CODICE_IMPIANTO,"
+				+ " ver.CF_UTENTE_CARICAMENTO,"
+				+ " ver.DENOM_UTENTE_CARICAMENTO,"
+				+ " ver.DT_CARICAMENTO,"
+				+ " ver.SIGLA_BOLLINO,"
+				+ " ver.NUMERO_BOLLINO,"
+				+ " ver.DT_SVEGLIA,"
+				+ " ver.NOTE_SVEGLIA,"
+				+ " ver.NOTE, "
+				+ " acc.id_accertamento, "
+				+ " isp.id_ispezione_2018 "
+				+ " FROM SIGIT_T_VERIFICA ver"
+				+ " LEFT JOIN SIGIT_T_ACCERTAMENTO acc ON acc.fk_verifica = ver.id_verifica "
+				+ " LEFT JOIN SIGIT_T_ISPEZIONE_2018 isp ON isp.fk_verifica = ver.id_verifica "
+				//and isp.fk_stato_ispezione <> " + Constants.ID_STATO_ISPEZIONE_ANNULLATO
+				+ " WHERE 1 = 1 "
+				+ " AND ver.ID_VERIFICA = :ID_VERIFICA";
+		
+		sql.append(query);
+		
+
+		// valorizzazione paametro relativo a colonna [ID_VERIFICA]
+		paramMap.addValue("ID_VERIFICA", id.getIdVerifica(), java.sql.Types.INTEGER);
+		List<SigitExtVerificaDto> list = null;
+		
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, verificaByIdRowMapper);
+
+		} catch (RuntimeException ex) {
+			log.error(
+					"[SigitExtDaoImpl::findVerificaById] esecuzione query",
+					ex);
+			throw new SigitExtDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitExtDaoImpl", "findVerificaById",
+					"esecuzione query", sql.toString());
+			log.debug("[SigitExtDaoImpl::findVerificaById] END");
+		}
+		return list;
+	}
+	
 }

@@ -1,18 +1,19 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTDocAllegatoDao;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.AbstractDAO;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTDocAllegatoDaoRowMapper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDocAllegatoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDocAllegatoPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTDocAllegatoDaoException;
 import it.csi.sigit.sigitext.business.dao.util.Constants;
 import it.csi.util.performance.StopWatch;
-import org.apache.log4j.Logger;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import java.util.List;
 
 /*PROTECTED REGION ID(R-1967922705) ENABLED START*/
 // aggiungere qui eventuali import custom. 
@@ -298,6 +299,52 @@ public class SigitTDocAllegatoDaoImpl extends AbstractDAO implements SigitTDocAl
 			LOG.debug("[SigitTDocAllegatoDaoImpl::findByIdAllegato] END");
 		}
 		return list;
+	}
+	
+	@Override
+	public SigitTDocAllegatoDto findByUidIndex(String uidIndex) throws SigitTDocAllegatoDaoException {
+		LOG.debug("[SigitTDocAllegatoDaoImpl::findByUidIndex] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT ID_DOC_ALLEGATO,FK_ALLEGATO,NOME_DOC_ORIGINALE,NOME_DOC,UID_INDEX,DESCRIZIONE,DATA_ULT_MOD,UTENTE_ULT_MOD,DATA_UPLOAD,DATA_DELETE ");
+		sql.append(" FROM SIGIT_T_DOC_ALLEGATO");
+		sql.append(" WHERE ");
+		sql.append(" UID_INDEX = :uidIndex ");
+
+		paramMap.addValue("uidIndex", uidIndex);
+
+		/*PROTECTED REGION END*/
+		List<SigitTDocAllegatoDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, byIdAllegatoRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTDocAllegatoDaoImpl::findByUidIndex] esecuzione query", ex);
+			throw new SigitTDocAllegatoDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTDocAllegatoDaoImpl", "findByUidIndex", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTDocAllegatoDaoImpl::findByUidIndex] END");
+		}
+		return list.isEmpty() ? null : list.get(0);
+	}
+	
+	public void delete(BigDecimal idAllegato) throws SigitTDocAllegatoDaoException {
+
+		LOG.debug("[SigitTDocAllegatoDaoImpl::delete] START");
+		final String sql = "DELETE FROM " + getTableName() + " WHERE FK_ALLEGATO = :ID_ALLEGATO ";
+		if (idAllegato == null) {
+			LOG.error("[SigitTDocAllegatoDaoImpl::delete] ERROR chiave primaria non impostata");
+			throw new SigitTDocAllegatoDaoException("Chiave primaria non impostata");
+		}
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("ID_ALLEGATO", idAllegato, java.sql.Types.NUMERIC);
+		delete(jdbcTemplate, sql.toString(), params);
+		LOG.debug("[SigitTDocAllegatoDaoImpl::delete] END");
+		
 	}
 
 }

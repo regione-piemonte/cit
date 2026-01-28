@@ -61,6 +61,16 @@ public interface ComponenteApi {
 	public Response getCombustibileCIT(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest httpRequest);
 
 	@GET
+	@Path("/classDpr66096")
+	@Produces({ "application/json" })
+	public Response getClassDpr66096CIT(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest httpRequest);
+
+	@GET
+	@Path("/frequenzaManut")
+	@Produces({ "application/json" })
+	public Response getFrequenzaManutCIT(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest httpRequest);
+
+	@GET
 	@Path("/marca")
 	@Produces({ "application/json" })
 	public Response getMarcaCIT(@Context SecurityContext securityContext, @Context HttpHeaders httpHeaders, @Context HttpServletRequest httpRequest);

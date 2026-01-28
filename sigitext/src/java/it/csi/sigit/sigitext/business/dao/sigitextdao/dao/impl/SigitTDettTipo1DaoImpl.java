@@ -1,5 +1,11 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTDettTipo1Dao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTDettTipo1DaoRowMapper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo1Dto;
@@ -7,11 +13,6 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo1Pk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTDettTipo1DaoException;
 import it.csi.sigit.sigitext.business.dao.util.Constants;
 import it.csi.util.performance.StopWatch;
-import org.apache.log4j.Logger;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import java.util.List;
 
 /*PROTECTED REGION ID(R-1835744189) ENABLED START*/
 // aggiungere qui eventuali import custom. 

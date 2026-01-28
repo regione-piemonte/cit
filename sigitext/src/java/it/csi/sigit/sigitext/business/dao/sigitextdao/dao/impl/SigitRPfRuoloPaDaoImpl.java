@@ -1,5 +1,15 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitRPfRuoloPaDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitRPfRuoloPaDaoRowMapper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRPfRuoloPaDto;
@@ -7,12 +17,8 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRPfRuoloPaFindByP
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRPfRuoloPaPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRPfRuoloPaDaoException;
 import it.csi.sigit.sigitext.business.dao.util.Constants;
+import it.csi.sigit.sigitext.dto.Assegnatario;
 import it.csi.util.performance.StopWatch;
-import org.apache.log4j.Logger;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import java.util.List;
 
 /*PROTECTED REGION ID(R1606297155) ENABLED START*/
 // aggiungere qui eventuali import custom. 
@@ -100,6 +106,9 @@ public class SigitRPfRuoloPaDaoImpl extends AbstractDAO implements SigitRPfRuolo
 	protected SigitRPfRuoloPaDaoRowMapper findByPfRowMapper = new SigitRPfRuoloPaDaoRowMapper(null,
 			SigitRPfRuoloPaFindByPfDto.class, this);
 
+	protected SigitRPfRuoloPaDaoRowMapper allByIstatValidatoreRowMapper = new SigitRPfRuoloPaDaoRowMapper(
+			new String[]{"DESC_ABILITAZIONE"}, SigitRPfRuoloPaDto.class, this);
+
 	/**
 	 * 
 	 * Restituisce il nome della tabella su cui opera il DAO
@@ -150,5 +159,193 @@ public class SigitRPfRuoloPaDaoImpl extends AbstractDAO implements SigitRPfRuolo
 		}
 		return list;
 	}
+	
+	public List<Assegnatario> findAllAssegnatario() throws SigitRPfRuoloPaDaoException {
+		LOG.debug("[SigitRPfRuoloPaDaoImpl::findAllAssegnatario] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 
+		sql.append(
+				"SELECT distinct rPfRuoloPa.ID_RUOLO_PA, rPfRuoloPa.id_persona_fisica,tpf.nome , tpf.cognome , tpf.codice_fiscale , dRuoloPa.DES_RUOLO_PA, rPfRuoloPa.ISTAT_ABILITAZIONE");
+
+		sql.append(" FROM SIGIT_R_PF_RUOLO_PA rPfRuoloPa, SIGIT_D_RUOLO_PA dRuoloPa, sigit_t_persona_fisica tpf");
+
+		sql.append(" WHERE ");
+
+		sql.append("dRuoloPa.ID_RUOLO_PA = rPfRuoloPa.ID_RUOLO_PA");
+
+		sql.append(" AND ");
+
+		sql.append("tpf.id_persona_fisica = rPfRuoloPa.id_persona_fisica ");				
+		
+		sql.append(" AND rPfRuoloPa.id_ruolo_pa in (2,4) ");
+
+		List<Assegnatario> list = null;		
+		
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, new RowMapper<Assegnatario>() {
+
+				@Override
+				public Assegnatario mapRow(ResultSet rs, int arg1) throws SQLException {
+				
+					Assegnatario assegnatario = new Assegnatario();
+					assegnatario.setCodicefiscale(rs.getString("codice_fiscale"));
+					assegnatario.setCognome(rs.getString("cognome"));
+					assegnatario.setDesRuoloPa(rs.getString("DES_RUOLO_PA"));
+					assegnatario.setIdPersonaFisica(rs.getInt("id_persona_fisica"));
+					assegnatario.setIdRuoloPa(rs.getInt("ID_RUOLO_PA"));
+					assegnatario.setIstatAbilitazione(rs.getString("ISTAT_ABILITAZIONE"));
+					assegnatario.setNome(rs.getString("nome"));
+					return assegnatario;
+				}
+				
+			});
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRPfRuoloPaDaoImpl::findAllAssegnatario] ERROR esecuzione query", ex);
+			throw new SigitRPfRuoloPaDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRPfRuoloPaDaoImpl", "findAll", "esecuzione query", sql.toString());
+			LOG.debug("[SigitRPfRuoloPaDaoImpl::findAllAssegnatario] END");
+		}
+		return list;
+	}
+	
+	public List<Assegnatario> findAllIspettori() throws SigitRPfRuoloPaDaoException {
+		LOG.debug("[SigitRPfRuoloPaDaoImpl::findAllIspettori] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT distinct rPfRuoloPa.ID_RUOLO_PA, rPfRuoloPa.id_persona_fisica,tpf.nome , tpf.cognome , tpf.codice_fiscale , dRuoloPa.DES_RUOLO_PA, rPfRuoloPa.ISTAT_ABILITAZIONE, "
+				+ "rPfRuoloPa.DATA_FINE");
+
+		sql.append(" FROM SIGIT_R_PF_RUOLO_PA rPfRuoloPa, SIGIT_D_RUOLO_PA dRuoloPa, sigit_t_persona_fisica tpf");
+
+		sql.append(" WHERE ");
+		
+		sql.append(" 1=1 ");
+
+		sql.append(" AND dRuoloPa.ID_RUOLO_PA = rPfRuoloPa.ID_RUOLO_PA");
+
+		sql.append(" AND ");
+
+		sql.append("tpf.id_persona_fisica = rPfRuoloPa.id_persona_fisica ");				
+		
+		sql.append(" AND rPfRuoloPa.id_ruolo_pa in (2) ");
+
+		List<Assegnatario> list = null;		
+		
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, new RowMapper<Assegnatario>() {
+
+				@Override
+				public Assegnatario mapRow(ResultSet rs, int arg1) throws SQLException {
+				
+					Assegnatario assegnatario = new Assegnatario();
+					assegnatario.setCodicefiscale(rs.getString("codice_fiscale"));
+					assegnatario.setCognome(rs.getString("cognome"));
+					assegnatario.setDesRuoloPa(rs.getString("DES_RUOLO_PA"));
+					assegnatario.setIdPersonaFisica(rs.getInt("id_persona_fisica"));
+					assegnatario.setIdRuoloPa(rs.getInt("ID_RUOLO_PA"));
+					assegnatario.setIstatAbilitazione(rs.getString("ISTAT_ABILITAZIONE"));
+					assegnatario.setNome(rs.getString("nome"));
+					Date datafine = rs.getDate("DATA_FINE");
+					if(datafine!=null) {
+						assegnatario.setDataFine(datafine.getTime());
+					}
+					return assegnatario;
+				}
+				
+			});
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRPfRuoloPaDaoImpl::findAllAssegnatario] ERROR esecuzione query", ex);
+			throw new SigitRPfRuoloPaDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRPfRuoloPaDaoImpl", "findAll", "esecuzione query", sql.toString());
+			LOG.debug("[SigitRPfRuoloPaDaoImpl::findAllAssegnatario] END");
+		}
+		return list;
+	}
+
+	/** 
+	 * Implementazione del finder allByIstatValidatore
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SigitRPfRuoloPaDto> findAllByIstatValidatore(SigitRPfRuoloPaDto input)
+			throws SigitRPfRuoloPaDaoException {
+		LOG.debug("[SigitRPfRuoloPaDaoImpl::findAllByIstatValidatore] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("SELECT DISTINCT DESC_ABILITAZIONE ");
+		sql.append(" FROM SIGIT_R_PF_RUOLO_PA");
+		sql.append(" WHERE ");
+		/*PROTECTED REGION ID(R2140857280) ENABLED START*/
+		// personalizzare la query SQL relativa al finder
+
+		// personalizzare l'elenco dei parametri da passare al jdbctemplate (devono corrispondere in tipo e
+		// numero ai parametri definiti nella queryString)
+		log.debug(input.getIstatAbilitazione());
+		log.debug(input.getIdRuoloPa());
+		sql.append("istat_abilitazione = :istat");
+		sql.append(" AND id_ruolo_pa = :id");
+		/*PROTECTED REGION END*/
+		/*PROTECTED REGION ID(R-1472337278) ENABLED START*/
+		//***aggiungere tutte le condizioni
+
+		paramMap.addValue("istat", input.getIstatAbilitazione());
+		paramMap.addValue("id", input.getIdRuoloPa());
+
+		/*PROTECTED REGION END*/
+		List<SigitRPfRuoloPaDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, allByIstatValidatoreRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRPfRuoloPaDaoImpl::findAllByIstatValidatore] esecuzione query", ex);
+			throw new SigitRPfRuoloPaDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRPfRuoloPaDaoImpl", "findAllByIstatValidatore", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRPfRuoloPaDaoImpl::findAllByIstatValidatore] END");
+		}
+		return list;
+	}
+
+	@Override
+	public void closeCaricatoriImpiantoSigitRImpRuoloPfpg(Integer codiceImpianto, String utenteUltimaModifica) throws SigitRPfRuoloPaDaoException {
+		// TODO Auto-generated method stub
+//		update sigit_r_imp_ruolo_pfpg set data_fine = (now() - INTERVAL '1 DAYS'), utente_ult_mod = :utenteUltMod , data_ult_mod = now()
+//				where codice_impianto = :codiceImpianto and fk_ruolo = 3 and ( data_fine is null or data_fine > now());
+		
+		LOG.debug("[SigitRPfRuoloPaDaoImpl::closeCaricatoriImpiantoSigitRImpRuoloPfpg] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("update sigit_r_imp_ruolo_pfpg set data_fine = (now() - INTERVAL '1 DAYS'), utente_ult_mod = :utenteUltMod , data_ult_mod = now() ");
+		sql.append(" where codice_impianto = :codiceImpianto and fk_ruolo = 3 and ( data_fine is null or data_fine > now()); ");
+		paramMap.addValue("utenteUltMod", utenteUltimaModifica);
+		paramMap.addValue("codiceImpianto", codiceImpianto);
+
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			jdbcTemplate.update(sql.toString(), paramMap);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRPfRuoloPaDaoImpl::closeCaricatoriImpiantoSigitRImpRuoloPfpg] esecuzione query", ex);
+			throw new SigitRPfRuoloPaDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRPfRuoloPaDaoImpl", "findAllByIstatValidatore", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitRPfRuoloPaDaoImpl::closeCaricatoriImpiantoSigitRImpRuoloPfpg] END");
+		}
+	
+	}
 }

@@ -1,22 +1,20 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitRAllegatoCompGtDao;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTAllegatoDao;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitRAllegatoCompGtDaoRowMapper;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTAllegatoDaoRowMapper;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompGtDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompGtPk;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllegatoDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompGtDaoException;
-import it.csi.sigit.sigitext.business.dao.util.Constants;
-import it.csi.sigit.sigitext.business.util.GenericUtil;
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.math.BigDecimal;
-import java.util.List;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitRAllegatoCompGtDao;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitRAllegatoCompGtDaoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompGtDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompGtPk;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompGtDaoException;
+import it.csi.sigit.sigitext.business.dao.util.Constants;
+import it.csi.sigit.sigitext.business.util.GenericUtil;
 
 /*PROTECTED REGION ID(R994971839) ENABLED START*/
 // aggiungere qui eventuali import custom. 
@@ -192,6 +190,46 @@ public class SigitRAllegatoCompGtDaoImpl extends AbstractDAO implements SigitRAl
 	 */
 	public String getTableName() {
 		return "SIGIT_R_ALLEGATO_COMP_GT";
+	}
+	
+	@Override
+	public List<SigitRAllegatoCompGtDto> findByCodiceImpianto(Integer codiceImpianto) throws SigitRAllegatoCompGtDaoException {
+		LOG.debug("[SigitRAllegatoCompGtDaoImpl::findByCodiceImpianto] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("SELECT ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,FK_IMP_RUOLO_PFPG,FK_CONTRATTO FROM ");
+		sql.append(getTableName());
+		sql.append(" WHERE ");
+		sql.append("CODICE_IMPIANTO = :codiceImpianto");
+		paramMap.addValue("codiceImpianto", codiceImpianto);
+
+		List<SigitRAllegatoCompGtDto> list = null;
+		try {
+			list = jdbcTemplate.query(sql.toString(), paramMap, byFilterRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRAllegatoCompGtDaoImpl::findByCodiceImpianto] esecuzione query", ex);
+			throw new SigitRAllegatoCompGtDaoException("Query failed", ex);
+		} finally {
+			LOG.debug("[SigitRAllegatoCompGtDaoImpl::findByCodiceImpianto] END");
+		}
+		return list;
+	}
+	
+	@Override
+	public void delete(BigDecimal idAllegato) throws SigitRAllegatoCompGtDaoException {
+
+		LOG.debug("[SigitRAllegatoCompGtDaoImpl::delete] START");
+		final String sql = "DELETE FROM " + getTableName() + " WHERE ID_ALLEGATO = :ID_ALLEGATO ";
+		if (idAllegato == null) {
+			LOG.error("[SigitRAllegatoCompGtDaoImpl::delete] ERROR chiave primaria non impostata");
+			throw new SigitRAllegatoCompGtDaoException("Chiave primaria non impostata");
+		}
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("ID_ALLEGATO", idAllegato, java.sql.Types.NUMERIC);
+		delete(jdbcTemplate, sql.toString(), params);
+		LOG.debug("[SigitRAllegatoCompGtDaoImpl::delete] END");
+		
 	}
 
 }

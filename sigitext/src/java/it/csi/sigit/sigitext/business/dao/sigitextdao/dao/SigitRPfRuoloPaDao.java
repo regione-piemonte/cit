@@ -4,6 +4,7 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRPfRuoloPaDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRPfRuoloPaFindByPfDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRPfRuoloPaPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRPfRuoloPaDaoException;
+import it.csi.sigit.sigitext.dto.Assegnatario;
 
 import java.util.List;
 
@@ -34,5 +35,13 @@ public interface SigitRPfRuoloPaDao {
 		 */
 
 	public List<SigitRPfRuoloPaFindByPfDto> findFindByPf(Integer input) throws SigitRPfRuoloPaDaoException;
+
+	public List<SigitRPfRuoloPaDto> findAllByIstatValidatore(SigitRPfRuoloPaDto dto) throws SigitRPfRuoloPaDaoException;
+	
+	public List<Assegnatario> findAllAssegnatario() throws SigitRPfRuoloPaDaoException;
+
+	void closeCaricatoriImpiantoSigitRImpRuoloPfpg(Integer codiceImpianto, String utenteUltimaModifica) throws SigitRPfRuoloPaDaoException;
+
+	public List<Assegnatario> findAllIspettori() throws SigitRPfRuoloPaDaoException;
 
 }

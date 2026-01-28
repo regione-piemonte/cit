@@ -94,5 +94,50 @@ public class SigitTControlloLibrettoDaoImpl extends AbstractDAO implements Sigit
 		}
 		return list.isEmpty() ? null : list.get(0);
 	}
+	
+	public void insert(SigitTControlloLibrettoDto dto) throws SigitTControlloLibrettoDaoException {
+		LOG.debug("[SigitTControlloLibrettoDaoImpl::insert] START");
+		final StringBuilder sql = new StringBuilder(
+				"INSERT INTO "
+		+ getTableName() 
+		+ " (CODICE_IMPIANTO, flg_l1_controlloweb, flg_l5_controlloweb, flg_l6_controlloweb, flg_l7_controlloweb, dt_ult_mod, utente_ult_agg) "
+		+ "VALUES (:CODICE_IMPIANTO, :flg_l1_controlloweb, :flg_l5_controlloweb, :flg_l6_controlloweb, :flg_l7_controlloweb, :dt_ult_mod, :utente_ult_agg)");
+		
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		// valorizzazione paametro relativo a colonna [CODICE_IMPIANTO]
+		params.addValue("CODICE_IMPIANTO", dto.getCodiceImpianto(), java.sql.Types.NUMERIC);
+		params.addValue("flg_l1_controlloweb", dto.getFlgL1Controlloweb(), java.sql.Types.NUMERIC);
+		params.addValue("flg_l5_controlloweb", dto.getFlgL5Controlloweb(), java.sql.Types.NUMERIC);
+		params.addValue("flg_l6_controlloweb", dto.getFlgL6Controlloweb(), java.sql.Types.NUMERIC);
+		params.addValue("flg_l7_controlloweb", dto.getFlgL7Controlloweb(), java.sql.Types.NUMERIC);
+		params.addValue("dt_ult_mod", dto.getDtUltMod(), java.sql.Types.TIMESTAMP);
+		params.addValue("utente_ult_agg", dto.getUtenteUltAgg(), java.sql.Types.VARCHAR);
+
+		insert(jdbcTemplate, sql.toString(), params);
+	}
+	
+	public void update(SigitTControlloLibrettoDto dto) throws SigitTControlloLibrettoDaoException {
+		LOG.debug("[SigitTControlloLibrettoDaoImpl::insert] START");
+		final StringBuilder sql = new StringBuilder(
+				"UPDATE " 
+		+ getTableName() 
+		+ " SET flg_l1_controlloweb = :flg_l1_controlloweb, flg_l5_controlloweb = :flg_l5_controlloweb, flg_l6_controlloweb = :flg_l6_controlloweb, flg_l7_controlloweb = :flg_l7_controlloweb, dt_ult_mod = :dt_ult_mod, utente_ult_agg = :utente_ult_agg "
+		+ "WHERE CODICE_IMPIANTO = :CODICE_IMPIANTO");
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		// valorizzazione paametro relativo a colonna [CODICE_IMPIANTO]
+		params.addValue("CODICE_IMPIANTO", dto.getCodiceImpianto(), java.sql.Types.NUMERIC);
+		params.addValue("flg_l1_controlloweb", dto.getFlgL1Controlloweb(), java.sql.Types.NUMERIC);
+		params.addValue("flg_l5_controlloweb", dto.getFlgL5Controlloweb(), java.sql.Types.NUMERIC);
+		params.addValue("flg_l6_controlloweb", dto.getFlgL6Controlloweb(), java.sql.Types.NUMERIC);
+		params.addValue("flg_l7_controlloweb", dto.getFlgL7Controlloweb(), java.sql.Types.NUMERIC);
+		params.addValue("dt_ult_mod", dto.getDtUltMod(), java.sql.Types.TIMESTAMP);
+		params.addValue("utente_ult_agg", dto.getUtenteUltAgg(), java.sql.Types.VARCHAR);
+
+		update(jdbcTemplate, sql.toString(), params);
+	}
 
 }

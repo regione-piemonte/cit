@@ -21,6 +21,15 @@ public class SigitextRestApplication extends Application{
 		singletons.add(new UserApiServiceImpl());
 		singletons.add(new ComponentApiServiceImpl());
 		singletons.add(new ControlloApiServiceImpl());
+		singletons.add(new DocumentoApiServiceImpl());
+		singletons.add(new AccreditamentoApiServiceImpl());
+		singletons.add(new NominaTerzoResponsabileApiServiceImpl());
+		singletons.add(new VerificheApiServiceImpl());
+		singletons.add(new AzioneApiServiceImpl());
+		singletons.add(new IspezioneApiServiceImpl());
+		singletons.add(new RapProvaApiServiceImpl());
+		singletons.add(new DistributoreApiServiceImpl());
+		singletons.add(new SvistaApiServiceImpl());
 
 
 		for (Object c : singletons) {

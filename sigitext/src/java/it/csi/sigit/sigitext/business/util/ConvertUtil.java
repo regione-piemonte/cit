@@ -4,14 +4,6 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.util;
 
-import it.csi.sigit.sigitext.dto.sigitext.UDTPositiveInteger;
-import org.apache.commons.lang.StringUtils;
-import org.apache.xmlbeans.XmlCalendar;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
@@ -24,6 +16,16 @@ import java.util.GregorianCalendar;
 import java.util.Hashtable;
 import java.util.List;
 //import  org.apache.xmlbeans.XmlObject
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.xmlbeans.XmlCalendar;
+
+import it.csi.sigit.sigitext.dto.sigitext.UDTPositiveInteger;
 
 /**
  * Utility di conversione
@@ -45,14 +47,7 @@ public class ConvertUtil extends GenericUtil {
 	 * Formato data con underscore
 	 */
 	public static final String FORMAT_DATE_UNDERSCORE = "dd_MM_yyyy";
-	/**
-	 * Formattatore data
-	 */
-	private static final SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE_STANDARD);
-	/**
-	 * Formattatore data
-	 */
-	private static final SimpleDateFormat sdfCompl = new SimpleDateFormat(FORMAT_DATE_STANDARD_COMPLETA);
+
 	/**
 	 * Lista dei formati decimali
 	 */
@@ -68,7 +63,7 @@ public class ConvertUtil extends GenericUtil {
 		String converted = null;
 
 		if (dt != null) {
-			converted = sdf.format(dt);
+			converted = new SimpleDateFormat(FORMAT_DATE_STANDARD).format(dt);
 		}
 		return converted;
 	}
@@ -77,7 +72,7 @@ public class ConvertUtil extends GenericUtil {
 		String converted = null;
 
 		if (dt != null) {
-			converted = sdfCompl.format(dt);
+			converted = new SimpleDateFormat(FORMAT_DATE_STANDARD_COMPLETA).format(dt);
 		}
 		return converted;
 	}
@@ -92,7 +87,7 @@ public class ConvertUtil extends GenericUtil {
 		String converted = null;
 
 		if (dt != null) {
-			converted = sdf.format(dt.getTime());
+			converted = new SimpleDateFormat(FORMAT_DATE_STANDARD).format(dt.getTime());
 		}
 		return converted;
 	}
@@ -464,6 +459,28 @@ public class ConvertUtil extends GenericUtil {
 		}
 		return number;
 	}
+	
+	/**
+	 * Converte una stringa in {@link Long}. Accetta anche numeri con la
+	 * virgola come separatore dei decimali. Non sono ammessi separatori di
+	 * migliaia
+	 *
+	 * @param s Valore da convertire
+	 * @return {@link Long} che rappresenta il valore
+	 */
+	public static Long convertToLong(String s) {
+		Long number = null;
+
+		if (StringUtils.isNotBlank(s)) {
+			try {
+				// Si converte l'eventuale virgola in punto
+				number = Long.parseLong(s);
+			} catch (Exception e) {
+				log.error("Errore durante la conversione di '" + s + "' in BigDecimal: " + s, e);
+			}
+		}
+		return number;
+	}
 
 	public static XmlCalendar convertDateToXmlCalendar(java.util.Date data) {
 		if (data == null)
@@ -531,7 +548,7 @@ public class ConvertUtil extends GenericUtil {
 
 		if (StringUtils.isNotBlank(s)) {
 			try {
-				converted = sdf.parse(s);
+				converted = new SimpleDateFormat(FORMAT_DATE_STANDARD).parse(s);
 			} catch (ParseException e) {
 				throw new Exception("Errore nella parsificazioen della data " + s, e);
 			}
@@ -586,10 +603,25 @@ public class ConvertUtil extends GenericUtil {
 
 		if (StringUtils.isNotBlank(s)) {
 			try {
-				converted = new Date(sdf.parse(s).getTime());
+				converted = new Date(new SimpleDateFormat(FORMAT_DATE_STANDARD).parse(s).getTime());
 			} catch (ParseException e) {
 				log.debug("Stringa da convertire in sql.Date: " + s);
 			}
+		}
+		return converted;
+	}
+	
+	/**
+	 * Converte una long in data SQL
+	 *
+	 * @param s Long da convertire
+	 * @return Date convertita
+	 */
+	public static Date convertToSqlDate(Long s) {
+		Date converted = null;
+
+		if (s != null) {			
+				converted = new Date(s);
 		}
 		return converted;
 	}
@@ -683,5 +715,64 @@ public class ConvertUtil extends GenericUtil {
 	public static UDTPositiveInteger convertToUDTPositiveInteger(BigDecimal big) {
 
 		return (big != null) ? new UDTPositiveInteger(big.intValue()) : null;
+	}
+
+	/**
+	 * Convert to integer.
+	 *
+	 * @param udtPS the udt ps
+	 * @return the integer
+	 */
+	public static Integer convertToInteger(UDTPositiveInteger udtPS) {
+		if (udtPS == null) {
+			return null;
+		} else {
+			try {
+				return udtPS.getValue();
+			} catch (Exception e) {
+				return null;
+			}
+		}
+	}
+	
+	/**
+	 * Converte una stringa in {@link BigDecimal}. Accetta anche numeri con la
+	 * virgola come separatore dei decimali, si imposta il numero di decimali massimo consentito, si arrotonda. Non sono ammessi separatori di
+	 * migliaia
+	 * 
+	 * @param s Valore da convertire
+	 * @return {@link BigDecimal} che rappresenta il valore
+	 */
+	public static BigDecimal convertToBigDecimal(String s, int maxDecimal) {
+		BigDecimal number = null;
+
+		String stringValid = GenericUtil.getStringValid(s);
+		
+		if(StringUtils.isNotBlank(stringValid)) {
+			try {
+
+				number = new BigDecimal(stringValid.replaceAll(",", "."));
+
+				int posPunto = stringValid.indexOf(".");
+
+				if (posPunto > 0)
+				{
+					String dec = stringValid.substring(posPunto+1);
+					//System.out.println("dec: "+dec);
+
+					if (dec.length() > maxDecimal)
+					{
+						number = number.setScale(14, BigDecimal.ROUND_HALF_UP);
+					}
+					
+				}
+				
+				//System.out.println("number: "+number);
+			}
+			catch(Exception e) {
+				log.error("Errore durante la conversione di '" + s + "' in BigDecimal: " + s, e);
+			}
+		}
+		return number;
 	}
 }

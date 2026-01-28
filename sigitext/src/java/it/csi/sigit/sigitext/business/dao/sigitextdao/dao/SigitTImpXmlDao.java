@@ -1,5 +1,7 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao;
 
+import java.math.BigDecimal;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImpXmlDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImpXmlPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTImpXmlDaoException;
@@ -26,4 +28,6 @@ public interface SigitTImpXmlDao {
 	;
 
 	void customDeleterByIdImport(Integer idImport) throws SigitTImpXmlDaoException;
+	
+	public void delete(BigDecimal idImport) throws SigitTImpXmlDaoException;
 }

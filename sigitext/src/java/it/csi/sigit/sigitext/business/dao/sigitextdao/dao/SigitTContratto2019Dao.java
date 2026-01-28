@@ -54,6 +54,8 @@ public interface SigitTContratto2019Dao {
 	 */
 	@SuppressWarnings("unchecked")
 	public SigitTContratto2019Dto findByPrimaryKey(SigitTContratto2019Pk pk) throws SigitTContratto2019DaoException;
+	
+	SigitTContratto2019Dto findByIdContrattoAndCodiceImpianto(Integer idContratto, Integer codiceImpianto) throws SigitTContratto2019DaoException;
 
 	/** 
 	 * Implementazione del finder byFilter
@@ -86,5 +88,9 @@ public interface SigitTContratto2019Dao {
 	@SuppressWarnings("unchecked")
 	public List<SigitTContratto2019Dto> findByCodImpSysdate(BigDecimal input)
 			throws SigitTContratto2019DaoException;
+	
+	List<SigitTContratto2019Dto> findByCodiceImpianto(Integer codiceImpianto) throws SigitTContratto2019DaoException;
+
+	SigitTContratto2019Dto checkContrattoInEssere(String codiceImpianto);
 
 }

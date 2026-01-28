@@ -1,13 +1,16 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
+import java.math.BigDecimal;
+
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTImpXmlDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImpXmlDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImpXmlPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTImpXmlDaoException;
 import it.csi.sigit.sigitext.business.dao.util.Constants;
-import org.apache.log4j.Logger;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /*PROTECTED REGION ID(R-267459537) ENABLED START*/
 // aggiungere qui eventuali import custom. 
@@ -94,6 +97,21 @@ public class SigitTImpXmlDaoImpl extends AbstractDAO implements SigitTImpXmlDao 
 	 */
 	public String getTableName() {
 		return "SIGIT_T_IMP_XML";
+	}
+	
+	public void delete(BigDecimal idImport) throws SigitTImpXmlDaoException {
+
+		LOG.debug("[SigitTImpXmlDaoImpl::delete] START");
+		final String sql = "DELETE FROM " + getTableName() + " WHERE ID_IMPORT = :ID_IMPORT ";
+		if (idImport == null) {
+			LOG.error("[SigitTImpXmlDaoImpl::delete] ERROR chiave primaria non impostata");
+			throw new SigitTImpXmlDaoException("Chiave primaria non impostata");
+		}
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("ID_IMPORT", idImport, java.sql.Types.NUMERIC);
+		delete(jdbcTemplate, sql.toString(), params);
+		LOG.debug("[SigitTImpXmlDaoImpl::delete] END");
+		
 	}
 
 }

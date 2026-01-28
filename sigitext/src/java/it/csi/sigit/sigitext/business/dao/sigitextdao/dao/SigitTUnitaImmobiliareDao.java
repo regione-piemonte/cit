@@ -41,4 +41,6 @@ public interface SigitTUnitaImmobiliareDao {
 	public SigitTUnitaImmobiliarePk insert(SigitTUnitaImmobiliareDto dto);
 
 	public void updateColumnsDaOnline(SigitTUnitaImmobiliareDto dto) throws SigitTUnitaImmobiliareDaoException;
+	
+	public void remove(SigitTUnitaImmobiliarePk sigitTUnitaImmobiliarePk) throws SigitTUnitaImmobiliareDaoException;
 }

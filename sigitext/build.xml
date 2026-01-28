@@ -320,6 +320,7 @@
                 <include name="*.wsdd"/>
                 <include name="/classes/*.properties"/>
             </webinf>
+            <fileset dir="${srcweb}" />
             <classes dir="${build}/classes">
                 <!-- <include name="it/csi/*/sigitext/business/${service.name}/**"/> -->
                 <include name="it/csi/*/sigitext/**"/>

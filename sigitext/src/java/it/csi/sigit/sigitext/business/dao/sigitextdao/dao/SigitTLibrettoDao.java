@@ -1,10 +1,10 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao;
 
+import java.util.List;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTLibrettoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTLibrettoPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTLibrettoDaoException;
-
-import java.util.List;
 
 /**
  * Interfaccia pubblica del DAO sigitTLibretto.

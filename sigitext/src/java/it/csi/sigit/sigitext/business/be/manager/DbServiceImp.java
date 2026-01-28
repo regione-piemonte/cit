@@ -4,40 +4,222 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.be.manager;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.rpc.ServiceException;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.*;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.*;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.AllegatiCompFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CodiceReaAndFiscaleAndDenomFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CodiceReaAndFiscaleFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ConsumoPodPdrFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ContrattoFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.FiltroRicercaPfPg;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ImpiantoFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ImportFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.IspezioneFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.LibrettoFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.PersonaRuoloFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ResponsabileFilter;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.*;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.*;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.CombustibileCITDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.DaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.FluidoCITDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.MarcaCITDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.MvOdVistaDettaglioImpiantiDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitDFluidoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitDRuoloDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitDUnitaMisuraDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitExtDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompCgDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompGfDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompGtDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompScDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRComp4ManutAllDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRComp4ManutDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRImpRuoloPfpgDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRPfPgDelegaDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRPfRuoloPaDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRPgPgNominaDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitSLibrettoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTAbilitazioneDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTAllegatoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTAzioneDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTComp4DaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompAcDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompBrRcDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompCgDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompCiDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompGfDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompGtDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompPoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompRcDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompRvDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompScDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompScxDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompSrDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompTeDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompUtDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompVmDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompVrDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompVxDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompXDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTConsumo14_4DaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTConsumoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTContratto2019DaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTControlloLibrettoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTDatoDistribDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTDocAggiuntivaDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTDocAllegatoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTDocAzioneDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTDocContrattoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTElencoWsDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTImpiantoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTImportDistribDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTLibTxtDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTLibrettoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTPersonaFisicaDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTPersonaGiuridicaDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTRappTipo1DaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTRappTipo2DaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTRappTipo3DaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTRappTipo4DaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTStoricoVarStatoPgDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTUnitaImmobiliareDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVAllegatiComponentiDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVCompCgDettDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVCompGfDettDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVCompGtDettDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVCompScDettDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVPfPgDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVRicercaAllegatiDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVRicercaImpiantiDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVRicercaIspezioniDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVSk4CgDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVSk4GfDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVSk4GtDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVSk4ScDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVTotImpiantoDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitWrkConfigDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.UnitaMisuraCITDaoException;
+import it.csi.sigit.sigitext.business.pdf.DatiCGCommon;
+import it.csi.sigit.sigitext.business.pdf.DatiGFCommon;
+import it.csi.sigit.sigitext.business.pdf.DatiGTCommon;
+import it.csi.sigit.sigitext.business.pdf.DatiLibretto;
+import it.csi.sigit.sigitext.business.pdf.DatiSCCommon;
 import it.csi.sigit.sigitext.business.pdf.DettaglioIspezione;
-import it.csi.sigit.sigitext.business.pdf.*;
-import it.csi.sigit.sigitext.business.util.*;
-import it.csi.sigit.sigitext.dto.sigitext.*;
+import it.csi.sigit.sigitext.business.util.Constants;
+import it.csi.sigit.sigitext.business.util.ConvertUtil;
+import it.csi.sigit.sigitext.business.util.DateUtil;
+import it.csi.sigit.sigitext.business.util.GenericUtil;
+import it.csi.sigit.sigitext.business.util.MapDto;
+import it.csi.sigit.sigitext.business.util.MapDtoImport;
+import it.csi.sigit.sigitext.business.util.Messages;
+import it.csi.sigit.sigitext.business.util.XmlBeanUtils;
+import it.csi.sigit.sigitext.dto.RicercaDatiVerifica;
+import it.csi.sigit.sigitext.dto.sigitext.Categoria;
+import it.csi.sigit.sigitext.dto.sigitext.ControlloDisponibile;
+import it.csi.sigit.sigitext.dto.sigitext.DatiAggiuntivi;
+import it.csi.sigit.sigitext.dto.sigitext.DatiCG;
+import it.csi.sigit.sigitext.dto.sigitext.DatiDistributore;
+import it.csi.sigit.sigitext.dto.sigitext.DatiGF;
+import it.csi.sigit.sigitext.dto.sigitext.DatiGT;
+import it.csi.sigit.sigitext.dto.sigitext.DatiImpianto;
+import it.csi.sigit.sigitext.dto.sigitext.DatiSC;
+import it.csi.sigit.sigitext.dto.sigitext.DettaglioAllegato;
+import it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro;
+import it.csi.sigit.sigitext.dto.sigitext.PersonaFisica;
+import it.csi.sigit.sigitext.dto.sigitext.Proprietario;
+import it.csi.sigit.sigitext.dto.sigitext.Responsabile;
+import it.csi.sigit.sigitext.dto.sigitext.Scheda1;
+import it.csi.sigit.sigitext.dto.sigitext.UtenteLoggato;
+import it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException;
 import it.csi.sigit.sigitext.exception.sigitext.SigitextException;
 import it.csi.sigit.sigitwebn.xml.importmassivo.allegato2B.data.RowAcquaReintegroDocument;
 import it.csi.sigit.sigitwebn.xml.importmassivo.allegato2B.data.UM;
-import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.*;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L101VentilazioneMeccanicaSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L10VentilazioneDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L141DatiConsumoCombustibileDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L142DatiConsumoEnergiaElettricaDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L143DatiConsumoAcquaDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L144DatiConsumoProdottiChimiciDocument;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L14ConsumiDocument.L14Consumi;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L14ConsumiDocument.L14Consumi.L141ConsumoCombustibile;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L14ConsumiDocument.L14Consumi.L142ConsumoEnergiaElettrica;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L14ConsumiDocument.L14Consumi.L143ConsumoAcqua;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L14ConsumiDocument.L14Consumi.L144ConsumoProdottiChimici;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L1SchedaIdentificativaDocument.L1SchedaIdentificativa;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L2TrattamentoAcquaDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L41GruppoTermicoSostituitoDocument;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L42BruciatoreSostituitoDocument.L42BruciatoreSostituito;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L43RecuperatoreSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L44GruppoFrigoSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L45ScambiatoreSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L46CogeneratoreSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L47CampoSolareTermicoSostituitoDocument;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L48AltroGeneratoreSostituitoDocument.L48AltroGeneratoreSostituito;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori;
-import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.*;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L41GT;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L42BR;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L43RC;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L44GF;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L45SC;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L46CG;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L47CS;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L4GeneratoriDocument.L4Generatori.L48AG;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L51SistemaRegolazioneSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L51ValvolaRegolazioneSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L5SistemiRegolazioneContabilizzazioneDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L64PompaSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L6SistemiDistribuzioneDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L7SistemiEmissioneDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L81AccumuloSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L8SistemiAccumuloDocument;
 import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L8SistemiAccumuloDocument.L8SistemiAccumulo;
-import it.csi.sigit.sigitwebn.xml.libretto.data.*;
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.log4j.Logger;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-
-import javax.xml.rpc.ServiceException;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.*;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L91TorreSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L92RaffreddatoreSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L93ScambiatoreIntermedioSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L94CircuitoSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L95UnitaTrattAriaSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L96RecuperatoreAriaAmbSostituitoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.L9AltriComponentiDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.LibrettoCatastoDocument;
+import it.csi.sigit.sigitwebn.xml.importmassivo.libretto.data.LibrettoDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiConsumoCombuDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiConsumoEEDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiConsumoH2ODocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiConsumoProdottiChimiciDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiPrecompilatiDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiRisultatiIspezDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiSchedaCGDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiSchedaGFDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiSchedaGTDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiSchedaIdentificativaImpDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.DatiSchedaSCDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.ImpresaCGDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.ImpresaGFDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.ImpresaGTDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.ImpresaSCDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.MODDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.RichiestaDocument;
+import it.csi.sigit.sigitwebn.xml.libretto.data.RowCGDocument.RowCG;
+import it.csi.sigit.sigitwebn.xml.libretto.data.RowGFDocument.RowGF;
+import it.csi.sigit.sigitwebn.xml.libretto.data.RowGTDocument.RowGT;
+import it.csi.sigit.sigitwebn.xml.libretto.data.RowSCDocument.RowSC;
 
 /**
  * Manager del DB
@@ -48,6 +230,8 @@ public class DbServiceImp {
 
 	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".SigitextManager==>");
 	private CombustibileCITDao combustibileCITDao = null;
+	private ClassDpr66096CITDao classDpr66096CITDao = null;
+	private FrequenzaManutCITDao frequenzaManutCITDao = null;
 	private FluidoCITDao fluidoCITDao = null;
 	private MarcaCITDao marcaCITDao = null;
 	private UnitaMisuraCITDao unitaMisuraCITDao = null;
@@ -86,6 +270,139 @@ public class DbServiceImp {
 	private SigitDTipoCannaFumariaDao sigitDTipoCannaFumariaDao = null;
 	private SigitWrkConfigDao sigitWrkConfigDao;
 	private SigitDDettaglioGfDao sigitDDettaglioGfDao;
+	private SigitDTipoInterventoDao sigitDTipoInterventoDao = null;
+	private SigitTDocContrattoDao sigitTDocContrattoDao = null;
+	private SigitDTipoDocumentoDao sigitDTipoDocumentoDao = null;
+	private SigitTDatoDistribDao sigitTDatoDistribDao;
+	private MvOdVistaDettaglioImpiantiDao mvVistaDettaglioImpiantiDao;
+	private SigitTVerificaDao sigitTVerificaDao;	
+	
+	private SigitDTipoCessazioneDao sigitDTipoCessazioneDao;
+	private SigitDAutodichiarazioneDao sigitDAutodichiarazioneDao;
+	private SigitRContr2019AutodichiarDao sigitRContr2019AutodichiarDao;
+	private SigitDRuoloDao sigitDRuoloDao;
+	private SigitTAzioneContrattoDao sigitTAzioneContrattoDao;
+	
+	private SigitTRappIspezGtDao sigitTRappIspezGtDao;
+	private SigitTRappIspezGfDao sigitTRappIspezGfDao;		
+	
+	private SigitTDettIspezGtDao sigitTDettIspezGtDao;	
+	private SigitTDettIspezGfDao sigitTDettIspezGfDao;
+	private SigitTLogDistribDao sigitTLogDistribDao;	
+	
+	
+
+	public SigitTDettIspezGfDao getSigitTDettIspezGfDao() {
+		return sigitTDettIspezGfDao;
+	}
+
+	public void setSigitTDettIspezGfDao(SigitTDettIspezGfDao sigitTDettIspezGfDao) {
+		this.sigitTDettIspezGfDao = sigitTDettIspezGfDao;
+	}
+
+	public SigitRAllegatoCompGfDao getSigitRAllegatoCompGf() {
+		return sigitRAllegatoCompGf;
+	}
+
+	public void setSigitRAllegatoCompGf(SigitRAllegatoCompGfDao sigitRAllegatoCompGf) {
+		this.sigitRAllegatoCompGf = sigitRAllegatoCompGf;
+	}
+
+	public SigitTDettIspezGtDao getSigitTDettIspezGtDao() {
+		return sigitTDettIspezGtDao;
+	}
+
+	public void setSigitTDettIspezGtDao(SigitTDettIspezGtDao sigitTDettIspezGtDao) {
+		this.sigitTDettIspezGtDao = sigitTDettIspezGtDao;
+	}
+
+	public SigitTRappIspezGtDao getSigitTRappIspezGtDao() {
+		return sigitTRappIspezGtDao;
+	}
+
+	public void setSigitTRappIspezGtDao(SigitTRappIspezGtDao sigitTRappIspezGtDao) {
+		this.sigitTRappIspezGtDao = sigitTRappIspezGtDao;
+	}
+
+	public SigitTRappIspezGfDao getSigitTRappIspezGfDao() {
+		return sigitTRappIspezGfDao;
+	}
+
+	public void setSigitTRappIspezGfDao(SigitTRappIspezGfDao sigitTRappIspezGfDao) {
+		this.sigitTRappIspezGfDao = sigitTRappIspezGfDao;
+	}
+
+	public SigitTAzioneContrattoDao getSigitTAzioneContrattoDao() {
+		return sigitTAzioneContrattoDao;
+	}
+
+	public void setSigitTAzioneContrattoDao(SigitTAzioneContrattoDao sigitTAzioneContrattoDao) {
+		this.sigitTAzioneContrattoDao = sigitTAzioneContrattoDao;
+	}
+
+	public SigitDRuoloDao getSigitDRuoloDao() {
+		return sigitDRuoloDao;
+	}
+
+	public void setSigitDRuoloDao(SigitDRuoloDao sigitDRuoloDao) {
+		this.sigitDRuoloDao = sigitDRuoloDao;
+	}
+
+	public SigitRContr2019AutodichiarDao getSigitRContr2019AutodichiarDao() {
+		return sigitRContr2019AutodichiarDao;
+	}
+
+	public void setSigitRContr2019AutodichiarDao(SigitRContr2019AutodichiarDao sigitRContr2019AutodichiarDao) {
+		this.sigitRContr2019AutodichiarDao = sigitRContr2019AutodichiarDao;
+	}
+
+	public SigitDAutodichiarazioneDao getSigitDAutodichiarazioneDao() {
+		return sigitDAutodichiarazioneDao;
+	}
+
+	public void setSigitDAutodichiarazioneDao(SigitDAutodichiarazioneDao sigitDAutodichiarazioneDao) {
+		this.sigitDAutodichiarazioneDao = sigitDAutodichiarazioneDao;
+	}
+
+	public SigitDTipoCessazioneDao getSigitDTipoCessazioneDao() {
+		return sigitDTipoCessazioneDao;
+	}
+
+	public void setSigitDTipoCessazioneDao(SigitDTipoCessazioneDao sigitDTipoCessazioneDao) {
+		this.sigitDTipoCessazioneDao = sigitDTipoCessazioneDao;
+	}
+
+	public SigitTVerificaDao getSigitTVerificaDao() {
+		return sigitTVerificaDao;
+	}
+
+	public void setSigitTVerificaDao(SigitTVerificaDao sigitTVerificaDao) {
+		this.sigitTVerificaDao = sigitTVerificaDao;
+	}
+
+	public SigitDTipoDocumentoDao getSigitDTipoDocumentoDao() {
+		return sigitDTipoDocumentoDao;
+	}
+
+	public void setSigitDTipoDocumentoDao(SigitDTipoDocumentoDao sigitDTipoDocumentoDao) {
+		this.sigitDTipoDocumentoDao = sigitDTipoDocumentoDao;
+	}
+
+	public SigitTDatoDistribDao getSigitTDatoDistribDao() {
+		return sigitTDatoDistribDao;
+	}
+
+	public void setSigitTLogDistribDao(SigitTLogDistribDao sigitTLogDistribDao) {
+		this.sigitTLogDistribDao = sigitTLogDistribDao;
+	}
+	
+	public SigitTLogDistribDao getSigitTLogDistribDao() {
+		return sigitTLogDistribDao;
+	}
+
+	public void setSigitTDatoDistribDao(SigitTDatoDistribDao sigitTDatoDistribDao) {
+		this.sigitTDatoDistribDao = sigitTDatoDistribDao;
+	}
 
 	private SigitDFonteEnSfruttataDao sigitDFonteEnSfruttataDao;
 
@@ -118,9 +435,17 @@ public class DbServiceImp {
 	public SigitDDettaglioGtDao getSigitDDettaglioGtDao() {
 		return sigitDDettaglioGtDao;
 	}
-
+	
 	public void setSigitDDettaglioGtDao(SigitDDettaglioGtDao sigitDDettaglioGtDao) {
 		this.sigitDDettaglioGtDao = sigitDDettaglioGtDao;
+	}
+	
+	public SigitDTipoInterventoDao getSigitDTipoInterventoDao() {
+		return sigitDTipoInterventoDao;
+	}
+	
+	public void setSigitDTipoInterventoDao(SigitDTipoInterventoDao sigitDTipoInterventoDao) {
+		this.sigitDTipoInterventoDao = sigitDTipoInterventoDao;
 	}
 
 	public SigitDDettaglioGfDao getSigitDDettaglioGfDao() {
@@ -146,6 +471,24 @@ public class DbServiceImp {
 	public void setCombustibileCITDao(CombustibileCITDao combustibileCITDao) {
 
 		this.combustibileCITDao = combustibileCITDao;
+	}
+
+	public ClassDpr66096CITDao getClassDpr66096CITDao() {
+		return classDpr66096CITDao;
+	}
+
+	public void setClassDpr66096CITDao(ClassDpr66096CITDao classDpr66096CITDao) {
+
+		this.classDpr66096CITDao = classDpr66096CITDao;
+	}
+
+	public FrequenzaManutCITDao getFrequenzaManutCITDao() {
+		return frequenzaManutCITDao;
+	}
+
+	public void setFrequenzaManutCITDao(FrequenzaManutCITDao frequenzaManutCITDao) {
+
+		this.frequenzaManutCITDao = frequenzaManutCITDao;
 	}
 
 	public FluidoCITDao getFluidoCITDao() {
@@ -434,6 +777,16 @@ public class DbServiceImp {
 
 	public void setSigitTUnitaImmobiliareDao(SigitTUnitaImmobiliareDao sigitTUnitaImmobiliareDao) {
 		this.sigitTUnitaImmobiliareDao = sigitTUnitaImmobiliareDao;
+	}
+	
+	private SigitDCategoriaDao sigitDCategoriaDao = null;
+	
+	public SigitDCategoriaDao getSigitDCategoriaDao() {
+		return sigitDCategoriaDao;
+	}
+	
+	public void setSigitDCategoriaDao(SigitDCategoriaDao sigitDCategoriaDao) {
+		this.sigitDCategoriaDao = sigitDCategoriaDao;
 	}
 
 	/**
@@ -865,6 +1218,27 @@ public class DbServiceImp {
 	public void setSigitTPersonaGiuridicaDao(SigitTPersonaGiuridicaDao sigitTPersonaGiuridicaDao) {
 		this.sigitTPersonaGiuridicaDao = sigitTPersonaGiuridicaDao;
 	}
+	
+	private SigitTStoricoVarStatoPgDao sigitTStoricoVarStatoPgDao;
+
+	public SigitTStoricoVarStatoPgDao getSigitTStoricoVarStatoPgDao() {
+		return sigitTStoricoVarStatoPgDao;
+	}
+
+	public void setSigitTStoricoVarStatoPgDao(SigitTStoricoVarStatoPgDao sigitTStoricoVarStatoPgDao) {
+		this.sigitTStoricoVarStatoPgDao = sigitTStoricoVarStatoPgDao;
+	}
+	
+	private SigitDStatoPgDao sigitDStatoPgDao;
+	
+
+	public SigitDStatoPgDao getSigitDStatoPgDao() {
+		return sigitDStatoPgDao;
+	}
+
+	public void setSigitDStatoPgDao(SigitDStatoPgDao sigitDStatoPgDao) {
+		this.sigitDStatoPgDao = sigitDStatoPgDao;
+	}
 
 	private SigitTPersonaFisicaDao sigitTPersonaFisicaDao;
 
@@ -1136,7 +1510,7 @@ public class DbServiceImp {
 		return sigitTStoricoVariazStatoDao;
 	}
 
-	public SigitTDocAllegatoDao sigitTDocAllegatoDao;
+	private SigitTDocAllegatoDao sigitTDocAllegatoDao;
 
 	public SigitTDocAllegatoDao getSigitTDocAllegatoDao() {
 		return sigitTDocAllegatoDao;
@@ -1251,13 +1625,70 @@ public class DbServiceImp {
 	public void setSigitTContratto2019Dao(SigitTContratto2019Dao sigitTContratto2019Dao) {
 		this.sigitTContratto2019Dao = sigitTContratto2019Dao;
 	}
+	
+	private SigitTIspezione2018Dao sigitTIspezione2018Dao = null;
+	
+	public SigitTIspezione2018Dao getSigitTIspezione2018Dao() {
+		return sigitTIspezione2018Dao;
+	}
+
+	public void setSigitTIspezione2018Dao(SigitTIspezione2018Dao sigitTIspezione2018Dao) {
+		this.sigitTIspezione2018Dao = sigitTIspezione2018Dao;
+	}
+	
+	public SigitTDocContrattoDao getSigitTDocContrattoDao() {
+		return sigitTDocContrattoDao;
+	}
+	
+	public void setSigitTDocContrattoDao(SigitTDocContrattoDao sigitTDocContrattoDao) {
+		this.sigitTDocContrattoDao = sigitTDocContrattoDao;
+	}
+	
+	private SigitTAzioneDao sigitTAzioneDao = null;
+	
+	public SigitTAzioneDao getSigitTAzioneDao() {
+		return sigitTAzioneDao;
+	}
+
+	public void setSigitTAzioneDao(SigitTAzioneDao sigitTAzioneDao) {
+		this.sigitTAzioneDao = sigitTAzioneDao;
+	}
+	
+	private SigitTDocAzioneDao sigitTDocAzioneDao = null;
+	
+	public SigitTDocAzioneDao getSigitTDocAzioneDao() {
+		return sigitTDocAzioneDao;
+	}
+
+	public void setSigitTDocAzioneDao(SigitTDocAzioneDao sigitTDocAzioneDao) {
+		this.sigitTDocAzioneDao = sigitTDocAzioneDao;
+	}
+	
+	private SigitDStatoRappDao sigitDStatoRappDao;
+	
+
+	public SigitDStatoRappDao getSigitDStatoRappDao() {
+		return sigitDStatoRappDao;
+	}
+
+	public void setSigitDStatoRappDao(SigitDStatoRappDao sigitDStatoRappDao) {
+		this.sigitDStatoRappDao = sigitDStatoRappDao;
+	}
+
+	public MvOdVistaDettaglioImpiantiDao getMvVistaDettaglioImpiantiDao() {
+		return mvVistaDettaglioImpiantiDao;
+	}
+
+	public void setMvVistaDettaglioImpiantiDao(MvOdVistaDettaglioImpiantiDao mvVistaDettaglioImpiantiDao) {
+		this.mvVistaDettaglioImpiantiDao = mvVistaDettaglioImpiantiDao;
+	}
 
 	//private void compilaScheda1Libretto(Richiesta richiesta, SigitTLibrettoDto libretto, SigitTImpiantoDto impianto) throws SigitextException
 	private void compilaScheda1Libretto(RichiestaDocument.Richiesta richiesta, SigitTImpiantoDto impianto) throws SigitextException {
 		log.debug("[DbServiceImp:::compilaScheda1Libretto] - START");
 		List<SigitTUnitaImmobiliareDto> unitaImmobList = getUnitaImmobiliariImpianto(impianto.getCodiceImpianto().intValue());
 
-		List<SigitTUnitaImmobiliareDto> unitaImmobSecondarie = new ArrayList<SigitTUnitaImmobiliareDto>();
+		List<SigitTUnitaImmobiliareDto> unitaImmobSecondarie = new ArrayList<>();
 		SigitTUnitaImmobiliareDto unitaImmobPrincipale = new SigitTUnitaImmobiliareDto();
 
 		for (SigitTUnitaImmobiliareDto ui : unitaImmobList) {
@@ -1375,7 +1806,8 @@ public class DbServiceImp {
 			if (elencoIspezioni == null) {
 				elencoIspezioni = ConvertUtil.convertToString(sigitVRicercaIspezioniConsByCodiceImpiantoDto.getIdIspezione2018());
 			} else {
-				elencoIspezioni += ", " + sigitVRicercaIspezioniConsByCodiceImpiantoDto.getIdIspezione2018();
+				StringBuilder bld = new StringBuilder();
+				elencoIspezioni = bld.append(elencoIspezioni).append(", ").append(sigitVRicercaIspezioniConsByCodiceImpiantoDto.getIdIspezione2018()).toString();				
 			}
 		}
 
@@ -1396,7 +1828,7 @@ public class DbServiceImp {
 
 			ispezIspetList = getSigitVRicercaIspezioniDao().findByIdIspezIspet(ConvertUtil.convertToInteger(ispezioneDb.getMax_id_ispez_ispet()));
 
-			if (ispezIspetList != null && ispezIspetList.size() > 0) {
+			if (ispezIspetList != null && !ispezIspetList.isEmpty()) {
 				// Sicuramente ce ne solo 1
 				ispezIspet = ispezIspetList.get(0);
 			}
@@ -1421,7 +1853,8 @@ public class DbServiceImp {
 					//					ispezione.getRapportiId().add(ConvertUtil.convertToLong(sigitVRicercaIspezioniDto.getIdAllegato()));
 
 					if (elencoIdAllegati != null) {
-						elencoIdAllegati += ", " + sigitVRicercaIspezioniDto.getIdAllegato();
+						StringBuilder sb = new StringBuilder();
+						elencoIdAllegati = sb.append(elencoIdAllegati).append(", ").append(sigitVRicercaIspezioniDto.getIdAllegato()).toString();
 					} else {
 						elencoIdAllegati = ConvertUtil.convertToString(sigitVRicercaIspezioniDto.getIdAllegato());
 					}
@@ -1487,6 +1920,14 @@ public class DbServiceImp {
 			log.debug("[DbServiceImp::getControlloLibretto] END");
 		}
 	}
+	
+	public void insertControlloLibretto(SigitTControlloLibrettoDto dto) throws SigitTControlloLibrettoDaoException {
+		getSigitTControlloLibrettoDao().insert(dto);
+	}
+	
+	public void updateControlloLibretto(SigitTControlloLibrettoDto dto) throws SigitTControlloLibrettoDaoException {
+		getSigitTControlloLibrettoDao().update(dto);
+	}
 
 	public List<SigitTUnitaImmobiliareDto> getUnitaImmobiliariImpianto(Integer codImpianto) throws SigitextException {
 		log.debug("[DbServiceImp::getUnitaImmobiliariImpianto] BEGIN");
@@ -1498,9 +1939,17 @@ public class DbServiceImp {
 			log.debug("[DbServiceImp::getUnitaImmobiliariImpianto] END");
 		}
 	}
+	
+	public List<Categoria> getCategorie() throws SigitExtDaoException {
+		return getSigitDCategoriaDao().getCategorie();
+	}
 
 	public List<SigitRImpRuoloPfpgDto> getResponsabiliImpiantoAttivi(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException {
 		return getSigitRImpRuoloPfpgDao().findRespImpAttivoByCodImpianto(codiceImpianto);
+	}
+	
+	public List<SigitRImpRuoloPfpgDto> getResponsabiliImpianto(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException {
+		return getSigitRImpRuoloPfpgDao().findRespImpByCodImpianto(codiceImpianto);
 	}
 
 	public List<SigitVCompGtDettDto> getCompGtDett(Integer codImpianto) throws SigitVCompGtDettDaoException {
@@ -1760,13 +2209,11 @@ public class DbServiceImp {
 				consolidaAGImp(codiceImpianto, l4Generatori.getL48AGList(), cfUtente);
 			}
 
-			L5SistemiRegolazioneContabilizzazioneDocument.L5SistemiRegolazioneContabilizzazione l5SistRegCont = librettoCat.getL5SistemiRegolazioneContabilizzazione();
-
 			consolidaSistemiRegolazioneContabilizzazione(librettoCat, datiImpianto.getCodiceImpianto(), cfUtente);
 
 			L8SistemiAccumulo l8SistAcc = librettoCat.getL8SistemiAccumulo();
 
-			if (l8SistAcc != null && l8SistAcc.getL81ACList() != null && l8SistAcc.getL81ACList().size() > 0) {
+			if (l8SistAcc != null && l8SistAcc.getL81ACList() != null && !l8SistAcc.getL81ACList().isEmpty()) {
 				consolidaACImp(l8SistAcc.getL81ACList(), datiImpianto.getCodiceImpianto(), cfUtente);
 
 			}
@@ -1827,13 +2274,31 @@ public class DbServiceImp {
 
 			return datiImpianto;
 
-		} catch (SigitTImpiantoDaoException e) {
-			throw new SigitextException(Messages.ERROR_UPDATE_DB, e);
-		} catch (SigitTUnitaImmobiliareDaoException e) {
+		} catch (DaoException e) {
 			throw new SigitextException(Messages.ERROR_UPDATE_DB, e);
 		} finally {
 			log.debug("[DbServiceImp::consolidaScheda1LibrettoImp] end");
 		}
+	}
+	
+	public void updateSigitTUnitaImmobiliare(SigitTUnitaImmobiliareDto sigitTUnitaImmobiliareDto) throws SigitTUnitaImmobiliareDaoException {
+		getSigitTUnitaImmobiliareDao().update(sigitTUnitaImmobiliareDto);
+	}
+	
+	public void updateSigitTImpianto(SigitTImpiantoDto sigitTImpiantoDto) throws SigitTImpiantoDaoException {
+		getSigitTImpiantoDao().update(sigitTImpiantoDto);
+	}
+	
+	public void removeSigitTUnitaImmobiliare(SigitTUnitaImmobiliareDto sigitTUnitaImmobiliareDto) throws SigitTUnitaImmobiliareDaoException {
+		
+		SigitTUnitaImmobiliarePk sigitTUnitaImmobiliarePk = new SigitTUnitaImmobiliarePk(sigitTUnitaImmobiliareDto.getIdUnitaImm());
+		
+		getSigitTUnitaImmobiliareDao().remove(sigitTUnitaImmobiliarePk);
+	}
+	
+	public void insertSigitTUnitaImmobiliare(SigitTUnitaImmobiliareDto sigitTUnitaImmobiliareDto) {
+		
+		getSigitTUnitaImmobiliareDao().insert(sigitTUnitaImmobiliareDto);
 	}
 
 	public void consolidaTrattamentoH2oImp(BigDecimal codImpianto, L2TrattamentoAcquaDocument.L2TrattamentoAcqua datiH) throws SigitextException {
@@ -1895,7 +2360,7 @@ public class DbServiceImp {
 					getSigitRComp4ManutDao().insert(comp4Manut);
 				}
 
-				List<String> dateInstallazione = new ArrayList<String>();
+				List<String> dateInstallazione = new ArrayList<>();
 				dateInstallazione.add(ConvertUtil.convertToString(compGt.getDataInstall()));
 				List<L41GruppoTermicoSostituitoDocument.L41GruppoTermicoSostituito> gtSostituiteList = rowGT.getL41GruppoTermicoSostituitoList();
 				log.debug("consolodamento GT sotituite");
@@ -1919,8 +2384,7 @@ public class DbServiceImp {
 	public void consolidaBRImp(BigDecimal codImpianto, List<L42BR> listBr, List<L41GT> listGt, String cfUtente) throws SigitextException {
 		log.debug("[DbServiceImp::consolidaBRImp] start");
 		try {
-			String BR = "BR";
-			List<String> progressivi = new ArrayList<String>();
+			List<String> progressivi = new ArrayList<>();
 			for (L42BR rowBR : listBr) {
 				String progressivoGt = null;
 				try {
@@ -1984,8 +2448,8 @@ public class DbServiceImp {
 	public void consolidaRCImp(BigDecimal codImpianto, List<L43RC> listRc, List<L41GT> listGt, String cfUtente) throws SigitextException {
 		log.debug("[DbServiceImp::consolidaRCImp] start");
 		try {
-			String RC = "RC";
-			List<String> progressivi = new ArrayList<String>();
+
+			List<String> progressivi = new ArrayList<>();
 			for (L43RC rowRc : listRc) {
 				String progressivoGt = null;
 				try {
@@ -2030,10 +2494,9 @@ public class DbServiceImp {
 
 	public void consolidaGFImp(BigDecimal codImpianto, List<L44GF> listGf, Integer idPersonaGiuridica, String cfUtente) throws SigitextException {
 		log.debug("[DbServiceImp::consolidaGFImp] start");
-		List<String> progressivi = new ArrayList<String>();
+
 		try {
 
-			String GF = "GF";
 			for (L44GF rowGF : listGf) {
 
 				SigitTComp4Dto comp4 = MapDtoImport.getSigitTComp4New(codImpianto, rowGF);
@@ -2071,10 +2534,9 @@ public class DbServiceImp {
 
 	public void consolidaSCImp(BigDecimal codImpianto, List<L45SC> listSc, Integer idPersonaGiuridica, String cfUtente) throws SigitextException {
 		log.debug("[DbServiceImp::consolidaSCImp] start");
-		List<String> progressivi = new ArrayList<String>();
+
 		try {
 
-			String SC = "SC";
 			for (L45SC rowSC : listSc) {
 
 				SigitTComp4Dto comp4 = MapDtoImport.getSigitTComp4New(codImpianto, rowSC);
@@ -2112,10 +2574,9 @@ public class DbServiceImp {
 
 	public void consolidaCGImp(BigDecimal codImpianto, List<L46CG> listCg, Integer idPersonaGiuridica, String cfUtente) throws SigitextException {
 		log.debug("[DbServiceImp::consolidaCGImp] start");
-		List<String> progressivi = new ArrayList<String>();
+
 		try {
 
-			String CG = "CG";
 			for (L46CG rowCG : listCg) {
 
 				SigitTComp4Dto comp4 = MapDtoImport.getSigitTComp4New(codImpianto, rowCG);
@@ -2155,10 +2616,9 @@ public class DbServiceImp {
 
 	public void consolidaCSImp(BigDecimal codImpianto, List<L47CS> listCs, String cfUtente) throws SigitextException {
 		log.debug("[DbServiceImp::consolidaCSImp] start");
-		List<String> progressivi = new ArrayList<String>();
+		List<String> progressivi = new ArrayList<>();
 
-		try {
-			String CS = "CS";
+		try {			
 
 			for (L47CS rowCS : listCs) {
 
@@ -2200,10 +2660,8 @@ public class DbServiceImp {
 
 	public void consolidaAGImp(BigDecimal codImpianto, List<L48AG> listAg, String cfUtente) throws SigitextException {
 		log.debug("[DbServiceImp::consolidaAGImp] start");
-		List<String> progressivi = new ArrayList<String>();
 
 		try {
-			String AG = "AG";
 
 			for (L48AG rowAG : listAg) {
 
@@ -2254,16 +2712,14 @@ public class DbServiceImp {
 			if (datiSchedaSistemiRegolaz != null) {
 				log.debug("Consolidamento scheda 5");
 
-				SigitTCompXSempliceDto dtoXsemplice = new SigitTCompXSempliceDto();
-
 				log.debug("Consolidamento scheda 5: regolazione primaria");
 				boolean isValvoleRegolazione = false;
 
-				if (datiSchedaSistemiRegolaz.getL51VRList() != null && datiSchedaSistemiRegolaz.getL51VRList().size() > 0) {
+				if (datiSchedaSistemiRegolaz.getL51VRList() != null && !datiSchedaSistemiRegolaz.getL51VRList().isEmpty()) {
 					isValvoleRegolazione = true;
 				}
 
-				dtoXsemplice = MapDtoImport.getSigitTCompxSempliceNew(datiSchedaSistemiRegolaz, isValvoleRegolazione, cfUtente);
+				SigitTCompXSempliceDto dtoXsemplice = MapDtoImport.getSigitTCompxSempliceNew(datiSchedaSistemiRegolaz, isValvoleRegolazione, cfUtente);
 
 				consolidaSRImp(datiSchedaSistemiRegolaz.getL51SRList(), codImpianto, cfUtente);
 				consolidaVRImp(datiSchedaSistemiRegolaz.getL51VRList(), codImpianto, cfUtente);
@@ -2418,34 +2874,33 @@ public class DbServiceImp {
 		if (srList != null) {
 			log.debug("Consolidamento scheda 6: regolazione primaria - PO");
 
-			if (srList != null)
-				for (L6SistemiDistribuzioneDocument.L6SistemiDistribuzione.L64PO rowPO : srList) {
-					SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowPO.getL64Pompa(), codImpianto, rowPO.getL64Numero(), cfUtente);
+			for (L6SistemiDistribuzioneDocument.L6SistemiDistribuzione.L64PO rowPO : srList) {
+				SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowPO.getL64Pompa(), codImpianto, rowPO.getL64Numero(), cfUtente);
 
-					if (compX != null && compX.getDataInstall() != null) {
-						log.debug("Inserimento COMP PO");
-						SigitTCompPoDto compVr = MapDtoImport.getSigitTCompPONew(rowPO.getL64Pompa(), codImpianto, rowPO.getL64Numero());
+				if (compX != null && compX.getDataInstall() != null) {
+					log.debug("Inserimento COMP PO");
+					SigitTCompPoDto compVr = MapDtoImport.getSigitTCompPONew(rowPO.getL64Pompa(), codImpianto, rowPO.getL64Numero());
 
-						getSigitTCompXDao().insert(compX);
-						getSigitTCompPoDao().insert(compVr);
-					}
-
-					List<L64PompaSostituitoDocument.L64PompaSostituito> rowPOsostList = rowPO.getL64PompaSostituitoList();
-
-					if (rowPOsostList != null) {
-						log.debug("Inserimento sezione sostituite");
-
-						if (rowPOsostList != null)
-							for (L64PompaSostituitoDocument.L64PompaSostituito rowVRsost : rowPOsostList) {
-
-								SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowVRsost, codImpianto, rowPO.getL64Numero(), cfUtente);
-								SigitTCompPoDto xPoDto = MapDtoImport.getSigitTCompPONew(rowVRsost, codImpianto, rowPO.getL64Numero());
-
-								getSigitTCompXDao().insert(xSostDto);
-								getSigitTCompPoDao().insert(xPoDto);
-							}
-					}
+					getSigitTCompXDao().insert(compX);
+					getSigitTCompPoDao().insert(compVr);
 				}
+
+				List<L64PompaSostituitoDocument.L64PompaSostituito> rowPOsostList = rowPO.getL64PompaSostituitoList();
+
+				if (rowPOsostList != null) {
+					log.debug("Inserimento sezione sostituite");
+
+					if (rowPOsostList != null)
+						for (L64PompaSostituitoDocument.L64PompaSostituito rowVRsost : rowPOsostList) {
+
+							SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowVRsost, codImpianto, rowPO.getL64Numero(), cfUtente);
+							SigitTCompPoDto xPoDto = MapDtoImport.getSigitTCompPONew(rowVRsost, codImpianto, rowPO.getL64Numero());
+
+							getSigitTCompXDao().insert(xSostDto);
+							getSigitTCompPoDao().insert(xPoDto);
+						}
+				}
+			}
 		}
 
 		log.debug("[DbServiceImp::consolidaPOImp] end");
@@ -2459,35 +2914,34 @@ public class DbServiceImp {
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_ac", "codice_impianto=" + codImpianto));
 
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_x", "codice_impianto=" + codImpianto + "&tipo_componente=AC"));
-
+		
 		if (acList != null) {
-			if (acList != null) {
-				log.debug("Consolidamento scheda 8: AC");
-				if (acList != null)
-					for (L8SistemiAccumuloDocument.L8SistemiAccumulo.L81AC rowAC : acList) {
-						SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowAC.getL81Accumulo(), codImpianto, rowAC.getL81Numero(), cfUtente);
-						if (compX != null && compX.getDataInstall() != null) {
-							log.debug("Inserimento COMP AC");
-							//salvataggio
-							SigitTCompAcDto compAc = MapDtoImport.getSigitTCompACNew(rowAC.getL81Accumulo(), codImpianto, rowAC.getL81Numero());
-							getSigitTCompXDao().insert(compX);
-							getSigitTCompAcDao().insert(compAc);
-						}
-
-						log.debug("Inserimento sezione sostituite");
-						List<L81AccumuloSostituitoDocument.L81AccumuloSostituito> rowACsostList = rowAC.getL81AccumuloSostituitoList();
-						if (rowACsostList != null)
-							for (L81AccumuloSostituitoDocument.L81AccumuloSostituito rowACsost : rowACsostList) {
-								String progressivo = ConvertUtil.convertToString(rowAC.getL81Numero());
-								SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowACsost, codImpianto, progressivo, cfUtente);
-								SigitTCompAcDto xAcDto = MapDtoImport.getSigitTCompACNew(rowACsost, codImpianto, progressivo);
-
-								getSigitTCompXDao().insert(xSostDto);
-								getSigitTCompAcDao().insert(xAcDto);
-							}
+			log.debug("Consolidamento scheda 8: AC");
+			if (acList != null)
+				for (L8SistemiAccumuloDocument.L8SistemiAccumulo.L81AC rowAC : acList) {
+					SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowAC.getL81Accumulo(), codImpianto, rowAC.getL81Numero(), cfUtente);
+					if (compX != null && compX.getDataInstall() != null) {
+						log.debug("Inserimento COMP AC");
+						//salvataggio
+						SigitTCompAcDto compAc = MapDtoImport.getSigitTCompACNew(rowAC.getL81Accumulo(), codImpianto, rowAC.getL81Numero());
+						getSigitTCompXDao().insert(compX);
+						getSigitTCompAcDao().insert(compAc);
 					}
-			}
+
+					log.debug("Inserimento sezione sostituite");
+					List<L81AccumuloSostituitoDocument.L81AccumuloSostituito> rowACsostList = rowAC.getL81AccumuloSostituitoList();
+					if (rowACsostList != null)
+						for (L81AccumuloSostituitoDocument.L81AccumuloSostituito rowACsost : rowACsostList) {
+							String progressivo = ConvertUtil.convertToString(rowAC.getL81Numero());
+							SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowACsost, codImpianto, progressivo, cfUtente);
+							SigitTCompAcDto xAcDto = MapDtoImport.getSigitTCompACNew(rowACsost, codImpianto, progressivo);
+
+							getSigitTCompXDao().insert(xSostDto);
+							getSigitTCompAcDao().insert(xAcDto);
+						}
+				}
 		}
+		
 		log.debug("[DbServiceImp::consolidaACImp] end");
 	}
 
@@ -2500,32 +2954,30 @@ public class DbServiceImp {
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_x", "codice_impianto=" + codImpianto + "&tipo_componente=TE"));
 
 		if (acList != null) {
-			if (acList != null) {
-				log.debug("Consolidamento scheda 9: TE");
-				if (acList != null)
-					for (L9AltriComponentiDocument.L9AltriComponenti.L91TE rowTE : acList) {
-						SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowTE.getL91Torre(), codImpianto, rowTE.getL91Numero(), cfUtente);
-						if (compX != null && compX.getDataInstall() != null) {
-							log.debug("Inserimento COMP TE");
-							//salvataggio
-							SigitTCompTeDto compTe = MapDtoImport.getSigitTCompTENew(rowTE.getL91Torre(), codImpianto, rowTE.getL91Numero());
+			log.debug("Consolidamento scheda 9: TE");
+			if (acList != null)
+				for (L9AltriComponentiDocument.L9AltriComponenti.L91TE rowTE : acList) {
+					SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowTE.getL91Torre(), codImpianto, rowTE.getL91Numero(), cfUtente);
+					if (compX != null && compX.getDataInstall() != null) {
+						log.debug("Inserimento COMP TE");
+						//salvataggio
+						SigitTCompTeDto compTe = MapDtoImport.getSigitTCompTENew(rowTE.getL91Torre(), codImpianto, rowTE.getL91Numero());
 
-							getSigitTCompXDao().insert(compX);
-							getSigitTCompTeDao().insert(compTe);
-						}
-						log.debug("Inserimento sezione sostituite");
-						List<L91TorreSostituitoDocument.L91TorreSostituito> rowTEsostList = rowTE.getL91TorreSostituitoList();
-						if (rowTEsostList != null)
-							for (L91TorreSostituitoDocument.L91TorreSostituito rowTEsost : rowTEsostList) {
-								String progressivo = ConvertUtil.convertToString(rowTE.getL91Numero());
-								SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowTEsost, codImpianto, progressivo, cfUtente);
-								SigitTCompTeDto xTeDto = MapDtoImport.getSigitTCompTENew(rowTEsost, codImpianto, progressivo);
-
-								getSigitTCompXDao().insert(xSostDto);
-								getSigitTCompTeDao().insert(xTeDto);
-							}
+						getSigitTCompXDao().insert(compX);
+						getSigitTCompTeDao().insert(compTe);
 					}
-			}
+					log.debug("Inserimento sezione sostituite");
+					List<L91TorreSostituitoDocument.L91TorreSostituito> rowTEsostList = rowTE.getL91TorreSostituitoList();
+					if (rowTEsostList != null)
+						for (L91TorreSostituitoDocument.L91TorreSostituito rowTEsost : rowTEsostList) {
+							String progressivo = ConvertUtil.convertToString(rowTE.getL91Numero());
+							SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowTEsost, codImpianto, progressivo, cfUtente);
+							SigitTCompTeDto xTeDto = MapDtoImport.getSigitTCompTENew(rowTEsost, codImpianto, progressivo);
+
+							getSigitTCompXDao().insert(xSostDto);
+							getSigitTCompTeDao().insert(xTeDto);
+						}
+				}
 		}
 
 		log.debug("[DbServiceImp::consolidaTEImp] end");
@@ -2539,35 +2991,34 @@ public class DbServiceImp {
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_rv", "codice_impianto=" + codImpianto));
 
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_x", "codice_impianto=" + codImpianto + "&tipo_componente=RV"));
+
 		if (acList != null) {
-			if (acList != null) {
-				log.debug("Consolidamento scheda 9: RV");
+			log.debug("Consolidamento scheda 9: RV");
 
-				if (acList != null)
-					for (L9AltriComponentiDocument.L9AltriComponenti.L92RV rowRV : acList) {
-						SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowRV.getL92Raffreddatore(), codImpianto, rowRV.getL92Numero(), cfUtente);
-						if (compX != null && compX.getDataInstall() != null) {
-							log.debug("Inserimento COMP RV");
-							//salvataggio
-							SigitTCompRvDto compTe = MapDtoImport.getSigitTCompRVNew(rowRV.getL92Raffreddatore(), codImpianto, rowRV.getL92Numero());
+			if (acList != null)
+				for (L9AltriComponentiDocument.L9AltriComponenti.L92RV rowRV : acList) {
+					SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowRV.getL92Raffreddatore(), codImpianto, rowRV.getL92Numero(), cfUtente);
+					if (compX != null && compX.getDataInstall() != null) {
+						log.debug("Inserimento COMP RV");
+						//salvataggio
+						SigitTCompRvDto compTe = MapDtoImport.getSigitTCompRVNew(rowRV.getL92Raffreddatore(), codImpianto, rowRV.getL92Numero());
 
-							getSigitTCompXDao().insert(compX);
-							getSigitTCompRvDao().insert(compTe);
-						}
-
-						log.debug("Inserimento sezione sostituite");
-						List<L92RaffreddatoreSostituitoDocument.L92RaffreddatoreSostituito> rowRVsostList = rowRV.getL92RaffreddatoreSostituitoList();
-						if (rowRVsostList != null)
-							for (L92RaffreddatoreSostituitoDocument.L92RaffreddatoreSostituito rowRVsost : rowRVsostList) {
-								String progressivo = ConvertUtil.convertToString(rowRV.getL92Numero());
-								SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowRVsost, codImpianto, progressivo, cfUtente);
-								SigitTCompRvDto xTeDto = MapDtoImport.getSigitTCompRVNew(rowRVsost, codImpianto, progressivo);
-
-								getSigitTCompXDao().insert(xSostDto);
-								getSigitTCompRvDao().insert(xTeDto);
-							}
+						getSigitTCompXDao().insert(compX);
+						getSigitTCompRvDao().insert(compTe);
 					}
-			}
+
+					log.debug("Inserimento sezione sostituite");
+					List<L92RaffreddatoreSostituitoDocument.L92RaffreddatoreSostituito> rowRVsostList = rowRV.getL92RaffreddatoreSostituitoList();
+					if (rowRVsostList != null)
+						for (L92RaffreddatoreSostituitoDocument.L92RaffreddatoreSostituito rowRVsost : rowRVsostList) {
+							String progressivo = ConvertUtil.convertToString(rowRV.getL92Numero());
+							SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowRVsost, codImpianto, progressivo, cfUtente);
+							SigitTCompRvDto xTeDto = MapDtoImport.getSigitTCompRVNew(rowRVsost, codImpianto, progressivo);
+
+							getSigitTCompXDao().insert(xSostDto);
+							getSigitTCompRvDao().insert(xTeDto);
+						}
+				}
 		}
 
 		log.debug("[DbServiceImp::consolidaRVImp] end");
@@ -2583,32 +3034,30 @@ public class DbServiceImp {
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_x", "codice_impianto=" + codImpianto + "&tipo_componente=SCX"));
 
 		if (acList != null) {
-			if (acList != null) {
-				log.debug("Consolidamento scheda 9: SC");
+			log.debug("Consolidamento scheda 9: SC");
 
-				for (L9AltriComponentiDocument.L9AltriComponenti.L93SCX rowSC : acList) {
-					SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowSC.getL93ScambiatoreIntermedio(), codImpianto, rowSC.getL93Numero(), cfUtente);
-					if (compX != null && compX.getDataInstall() != null) {
-						log.debug("Inserimento COMP SC");
-						//salvataggio
-						SigitTCompScxDto compSc = MapDtoImport.getSigitTCompSCXNew(rowSC.getL93ScambiatoreIntermedio(), codImpianto, rowSC.getL93Numero());
+			for (L9AltriComponentiDocument.L9AltriComponenti.L93SCX rowSC : acList) {
+				SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowSC.getL93ScambiatoreIntermedio(), codImpianto, rowSC.getL93Numero(), cfUtente);
+				if (compX != null && compX.getDataInstall() != null) {
+					log.debug("Inserimento COMP SC");
+					//salvataggio
+					SigitTCompScxDto compSc = MapDtoImport.getSigitTCompSCXNew(rowSC.getL93ScambiatoreIntermedio(), codImpianto, rowSC.getL93Numero());
 
-						getSigitTCompXDao().insert(compX);
-						getSigitTCompScxDao().insert(compSc);
-					}
-
-					log.debug("Inserimento sezione sostituite");
-					List<L93ScambiatoreIntermedioSostituitoDocument.L93ScambiatoreIntermedioSostituito> rowSCsostList = rowSC.getL93ScambiatoreIntermedioSostituitoList();
-					if (rowSCsostList != null)
-						for (L93ScambiatoreIntermedioSostituitoDocument.L93ScambiatoreIntermedioSostituito rowSCsost : rowSCsostList) {
-							String progressivo = ConvertUtil.convertToString(rowSC.getL93Numero());
-							SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowSCsost, codImpianto, progressivo, cfUtente);
-							SigitTCompScxDto xScDto = MapDtoImport.getSigitTCompSCXNew(rowSCsost, codImpianto, progressivo);
-
-							getSigitTCompXDao().insert(xSostDto);
-							getSigitTCompScxDao().insert(xScDto);
-						}
+					getSigitTCompXDao().insert(compX);
+					getSigitTCompScxDao().insert(compSc);
 				}
+
+				log.debug("Inserimento sezione sostituite");
+				List<L93ScambiatoreIntermedioSostituitoDocument.L93ScambiatoreIntermedioSostituito> rowSCsostList = rowSC.getL93ScambiatoreIntermedioSostituitoList();
+				if (rowSCsostList != null)
+					for (L93ScambiatoreIntermedioSostituitoDocument.L93ScambiatoreIntermedioSostituito rowSCsost : rowSCsostList) {
+						String progressivo = ConvertUtil.convertToString(rowSC.getL93Numero());
+						SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowSCsost, codImpianto, progressivo, cfUtente);
+						SigitTCompScxDto xScDto = MapDtoImport.getSigitTCompSCXNew(rowSCsost, codImpianto, progressivo);
+
+						getSigitTCompXDao().insert(xSostDto);
+						getSigitTCompScxDao().insert(xScDto);
+					}
 			}
 		}
 
@@ -2623,35 +3072,34 @@ public class DbServiceImp {
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_ci", "codice_impianto=" + codImpianto));
 
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_x", "codice_impianto=" + codImpianto + "&tipo_componente=CI"));
+
 		if (acList != null) {
-			if (acList != null) {
-				log.debug("Consolidamento scheda 9: CI");
+			log.debug("Consolidamento scheda 9: CI");
 
-				if (acList != null)
-					for (L9AltriComponentiDocument.L9AltriComponenti.L94CI rowSC : acList) {
-						SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowSC.getL94Circuito(), codImpianto, rowSC.getL94Numero(), cfUtente);
-						if (compX != null && compX.getDataInstall() != null) {
-							log.debug("Inserimento COMP CI");
-							//salvataggio
-							SigitTCompCiDto compCi = MapDtoImport.getSigitTCompCINew(rowSC.getL94Circuito(), codImpianto, rowSC.getL94Numero());
+			if (acList != null)
+				for (L9AltriComponentiDocument.L9AltriComponenti.L94CI rowSC : acList) {
+					SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowSC.getL94Circuito(), codImpianto, rowSC.getL94Numero(), cfUtente);
+					if (compX != null && compX.getDataInstall() != null) {
+						log.debug("Inserimento COMP CI");
+						//salvataggio
+						SigitTCompCiDto compCi = MapDtoImport.getSigitTCompCINew(rowSC.getL94Circuito(), codImpianto, rowSC.getL94Numero());
 
-							getSigitTCompXDao().insert(compX);
-							getSigitTCompCiDao().insert(compCi);
-						}
+						getSigitTCompXDao().insert(compX);
+						getSigitTCompCiDao().insert(compCi);
+					}
 
-						log.debug("Inserimento sezione sostituite");
-						List<L94CircuitoSostituitoDocument.L94CircuitoSostituito> rowCIsostList = rowSC.getL94CircuitoSostituitoList();
-						if (rowCIsostList != null) {
-							for (L94CircuitoSostituitoDocument.L94CircuitoSostituito rowCIsost : rowCIsostList) {
-								String progressivo = ConvertUtil.convertToString(rowSC.getL94Numero());
-								SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowCIsost, codImpianto, progressivo, cfUtente);
-								SigitTCompCiDto xCiDto = MapDtoImport.getSigitTCompCINew(rowCIsost, codImpianto, progressivo);
-								getSigitTCompXDao().insert(xSostDto);
-								getSigitTCompCiDao().insert(xCiDto);
-							}
+					log.debug("Inserimento sezione sostituite");
+					List<L94CircuitoSostituitoDocument.L94CircuitoSostituito> rowCIsostList = rowSC.getL94CircuitoSostituitoList();
+					if (rowCIsostList != null) {
+						for (L94CircuitoSostituitoDocument.L94CircuitoSostituito rowCIsost : rowCIsostList) {
+							String progressivo = ConvertUtil.convertToString(rowSC.getL94Numero());
+							SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowCIsost, codImpianto, progressivo, cfUtente);
+							SigitTCompCiDto xCiDto = MapDtoImport.getSigitTCompCINew(rowCIsost, codImpianto, progressivo);
+							getSigitTCompXDao().insert(xSostDto);
+							getSigitTCompCiDao().insert(xCiDto);
 						}
 					}
-			}
+				}
 		}
 
 		log.debug("[DbServiceImp::consolidaCIImp] end");
@@ -2665,32 +3113,31 @@ public class DbServiceImp {
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_ut", "codice_impianto=" + codImpianto));
 
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_x", "codice_impianto=" + codImpianto + "&tipo_componente=UT"));
+
 		if (acList != null) {
-			if (acList != null) {
-				log.debug("Consolidamento scheda 9: UT");
-				if (acList != null)
-					for (L9AltriComponentiDocument.L9AltriComponenti.L95UT rowUT : acList) {
-						SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowUT.getL95UnitaTrattAria(), codImpianto, rowUT.getL95Numero(), cfUtente);
-						if (compX != null && compX.getDataInstall() != null) {
-							log.debug("Inserimento COMP UT");
-							SigitTCompUtDto compUt = MapDtoImport.getSigitTCompUTNew(rowUT.getL95UnitaTrattAria(), codImpianto, rowUT.getL95Numero());
+			log.debug("Consolidamento scheda 9: UT");
+			if (acList != null)
+				for (L9AltriComponentiDocument.L9AltriComponenti.L95UT rowUT : acList) {
+					SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowUT.getL95UnitaTrattAria(), codImpianto, rowUT.getL95Numero(), cfUtente);
+					if (compX != null && compX.getDataInstall() != null) {
+						log.debug("Inserimento COMP UT");
+						SigitTCompUtDto compUt = MapDtoImport.getSigitTCompUTNew(rowUT.getL95UnitaTrattAria(), codImpianto, rowUT.getL95Numero());
 
-							getSigitTCompXDao().insert(compX);
-							getSigitTCompUtDao().insert(compUt);
-						}
-						log.debug("Inserimento sezione sostituite");
-						List<L95UnitaTrattAriaSostituitoDocument.L95UnitaTrattAriaSostituito> rowCIsostList = rowUT.getL95UnitaTrattAriaSostituitoList();
-						if (rowCIsostList != null)
-							for (L95UnitaTrattAriaSostituitoDocument.L95UnitaTrattAriaSostituito rowUTsost : rowCIsostList) {
-								String progressivo = ConvertUtil.convertToString(rowUT.getL95Numero());
-								SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowUTsost, codImpianto, progressivo, cfUtente);
-								SigitTCompUtDto xUtDto = MapDtoImport.getSigitTCompUTNew(rowUTsost, codImpianto, progressivo);
-
-								getSigitTCompXDao().insert(xSostDto);
-								getSigitTCompUtDao().insert(xUtDto);
-							}
+						getSigitTCompXDao().insert(compX);
+						getSigitTCompUtDao().insert(compUt);
 					}
-			}
+					log.debug("Inserimento sezione sostituite");
+					List<L95UnitaTrattAriaSostituitoDocument.L95UnitaTrattAriaSostituito> rowCIsostList = rowUT.getL95UnitaTrattAriaSostituitoList();
+					if (rowCIsostList != null)
+						for (L95UnitaTrattAriaSostituitoDocument.L95UnitaTrattAriaSostituito rowUTsost : rowCIsostList) {
+							String progressivo = ConvertUtil.convertToString(rowUT.getL95Numero());
+							SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowUTsost, codImpianto, progressivo, cfUtente);
+							SigitTCompUtDto xUtDto = MapDtoImport.getSigitTCompUTNew(rowUTsost, codImpianto, progressivo);
+
+							getSigitTCompXDao().insert(xSostDto);
+							getSigitTCompUtDao().insert(xUtDto);
+						}
+				}
 		}
 
 		log.debug("[DbServiceImp::consolidaUTImp] end");
@@ -2706,33 +3153,31 @@ public class DbServiceImp {
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_x", "codice_impianto=" + codImpianto + "&tipo_componente=RC"));
 
 		if (rowRCList != null) {
-			if (rowRCList != null) {
-				log.debug("Consolidamento scheda 9: RC");
+			log.debug("Consolidamento scheda 9: RC");
 
-				if (rowRCList != null)
-					for (L9AltriComponentiDocument.L9AltriComponenti.L96RCX rowRC : rowRCList) {
-						SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowRC.getL96RecuperatoreAriaAmb(), codImpianto, rowRC.getL96Numero(), cfUtente);
-						if (compX != null && compX.getDataInstall() != null) {
-							log.debug("Inserimento COMP RC");
-							SigitTCompRcDto compRc = MapDtoImport.getSigitTCompRCNew(rowRC.getL96RecuperatoreAriaAmb(), codImpianto, rowRC.getL96Numero());
+			if (rowRCList != null)
+				for (L9AltriComponentiDocument.L9AltriComponenti.L96RCX rowRC : rowRCList) {
+					SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowRC.getL96RecuperatoreAriaAmb(), codImpianto, rowRC.getL96Numero(), cfUtente);
+					if (compX != null && compX.getDataInstall() != null) {
+						log.debug("Inserimento COMP RC");
+						SigitTCompRcDto compRc = MapDtoImport.getSigitTCompRCNew(rowRC.getL96RecuperatoreAriaAmb(), codImpianto, rowRC.getL96Numero());
 
-							getSigitTCompXDao().insert(compX);
-							getSigitTCompRcDao().insert(compRc);
-						}
-
-						log.debug("Inserimento sezione sostituite");
-						List<L96RecuperatoreAriaAmbSostituitoDocument.L96RecuperatoreAriaAmbSostituito> rowRCsostList = rowRC.getL96RecuperatoreAriaAmbSostituitoList();
-						if (rowRCsostList != null)
-							for (L96RecuperatoreAriaAmbSostituitoDocument.L96RecuperatoreAriaAmbSostituito rowRCsost : rowRCsostList) {
-								String progressivo = ConvertUtil.convertToString(rowRC.getL96Numero());
-								SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowRCsost, codImpianto, progressivo, cfUtente);
-								SigitTCompRcDto xRcDto = MapDtoImport.getSigitTCompRCNew(rowRCsost, codImpianto, progressivo);
-
-								getSigitTCompXDao().insert(xSostDto);
-								getSigitTCompRcDao().insert(xRcDto);
-							}
+						getSigitTCompXDao().insert(compX);
+						getSigitTCompRcDao().insert(compRc);
 					}
-			}
+
+					log.debug("Inserimento sezione sostituite");
+					List<L96RecuperatoreAriaAmbSostituitoDocument.L96RecuperatoreAriaAmbSostituito> rowRCsostList = rowRC.getL96RecuperatoreAriaAmbSostituitoList();
+					if (rowRCsostList != null)
+						for (L96RecuperatoreAriaAmbSostituitoDocument.L96RecuperatoreAriaAmbSostituito rowRCsost : rowRCsostList) {
+							String progressivo = ConvertUtil.convertToString(rowRC.getL96Numero());
+							SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowRCsost, codImpianto, progressivo, cfUtente);
+							SigitTCompRcDto xRcDto = MapDtoImport.getSigitTCompRCNew(rowRCsost, codImpianto, progressivo);
+
+							getSigitTCompXDao().insert(xSostDto);
+							getSigitTCompRcDao().insert(xRcDto);
+						}
+				}
 		}
 
 		log.debug("[DbServiceImp::consolidaTrattamentoH2oImp] end");
@@ -2746,35 +3191,33 @@ public class DbServiceImp {
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_vm", "codice_impianto=" + codImpianto));
 
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_comp_x", "codice_impianto=" + codImpianto + "&tipo_componente=VM"));
+
 		if (rowVMList != null) {
+			log.debug("Consolidamento scheda 10: VM");
 
-			if (rowVMList != null) {
-				log.debug("Consolidamento scheda 10: VM");
+			if (rowVMList != null)
+				for (L10VentilazioneDocument.L10Ventilazione.L101VM rowVM : rowVMList) {
+					SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowVM.getL101VentilazioneMeccanica(), codImpianto, rowVM.getL101Numero(), cfUtente);
+					if (compX != null && compX.getDataInstall() != null) {
+						log.debug("Inserimento COMP VM");
+						SigitTCompVmDto compVm = MapDtoImport.getSigitTCompVMNew(rowVM.getL101VentilazioneMeccanica(), codImpianto, rowVM.getL101Numero());
 
-				if (rowVMList != null)
-					for (L10VentilazioneDocument.L10Ventilazione.L101VM rowVM : rowVMList) {
-						SigitTCompXDto compX = MapDtoImport.getSigitTCompXNew(rowVM.getL101VentilazioneMeccanica(), codImpianto, rowVM.getL101Numero(), cfUtente);
-						if (compX != null && compX.getDataInstall() != null) {
-							log.debug("Inserimento COMP VM");
-							SigitTCompVmDto compVm = MapDtoImport.getSigitTCompVMNew(rowVM.getL101VentilazioneMeccanica(), codImpianto, rowVM.getL101Numero());
-
-							getSigitTCompXDao().insert(compX);
-							getSigitTCompVmDao().insert(compVm);
-						}
-
-						log.debug("Inserimento sezione sostituite");
-						List<L101VentilazioneMeccanicaSostituitoDocument.L101VentilazioneMeccanicaSostituito> rowVMsostList = rowVM.getL101VentilazioneMeccanicaSostituitoList();
-						if (rowVMsostList != null)
-							for (L101VentilazioneMeccanicaSostituitoDocument.L101VentilazioneMeccanicaSostituito rowVMsost : rowVMsostList) {
-								String progressivo = ConvertUtil.convertToString(rowVM.getL101Numero());
-								SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowVMsost, codImpianto, progressivo, cfUtente);
-								SigitTCompVmDto xVmDto = MapDtoImport.getSigitTCompVMNew(rowVMsost, codImpianto, progressivo);
-
-								getSigitTCompXDao().insert(xSostDto);
-								getSigitTCompVmDao().insert(xVmDto);
-							}
+						getSigitTCompXDao().insert(compX);
+						getSigitTCompVmDao().insert(compVm);
 					}
-			}
+
+					log.debug("Inserimento sezione sostituite");
+					List<L101VentilazioneMeccanicaSostituitoDocument.L101VentilazioneMeccanicaSostituito> rowVMsostList = rowVM.getL101VentilazioneMeccanicaSostituitoList();
+					if (rowVMsostList != null)
+						for (L101VentilazioneMeccanicaSostituitoDocument.L101VentilazioneMeccanicaSostituito rowVMsost : rowVMsostList) {
+							String progressivo = ConvertUtil.convertToString(rowVM.getL101Numero());
+							SigitTCompXDto xSostDto = MapDtoImport.getSigitTCompXNew(rowVMsost, codImpianto, progressivo, cfUtente);
+							SigitTCompVmDto xVmDto = MapDtoImport.getSigitTCompVMNew(rowVMsost, codImpianto, progressivo);
+
+							getSigitTCompXDao().insert(xSostDto);
+							getSigitTCompVmDao().insert(xVmDto);
+						}
+				}
 		}
 
 		log.debug("[DbServiceImp::consolidaVMImp] end");
@@ -2785,39 +3228,38 @@ public class DbServiceImp {
 		log.debug("[DbServiceImp::consolidaConsumoCombustibileImp] start");
 
 		getSigitWrkLogDao().insert(MapDtoImport.mapToSigitWrkLogDto(cfUtente, "sigit_t_consumo", "codice_impianto=" + codImpianto + "&tipo_consumo=14.1(CB)"));
+
 		if (rowCombuList != null) {
+			log.debug("Consolidamento scheda 14.1 : combustibile");
 
-			if (rowCombuList != null) {
-				log.debug("Consolidamento scheda 14.1 : combustibile");
+			if (rowCombuList != null)
+				for (L141ConsumoCombustibile rowCombu : rowCombuList) {
+					BigDecimal tipoCombustibile = null;
+					BigDecimal unitaMisura = null;
 
-				if (rowCombuList != null)
-					for (L141ConsumoCombustibile rowCombu : rowCombuList) {
-						BigDecimal tipoCombustibile = null;
-						BigDecimal unitaMisura = null;
-
-						try {
-							tipoCombustibile = ConvertUtil.convertToBigDecimal(rowCombu.getL141Combustibile());
-						} catch (Exception e) {
-						}
-
-						try {
-							unitaMisura = ConvertUtil.convertToBigDecimal(rowCombu.getL141UnitaMisura());
-						} catch (Exception e) {
-						}
-
-						List<L141DatiConsumoCombustibileDocument.L141DatiConsumoCombustibile> rowConsumoList = rowCombu.getL141DatiConsumoCombustibileList();
-						if (rowConsumoList != null)
-							for (L141DatiConsumoCombustibileDocument.L141DatiConsumoCombustibile rowConsumo : rowConsumoList) {
-								SigitTConsumoDto dto = MapDtoImport.getSigitTConsumoNew(rowConsumo, codImpianto, tipoCombustibile, unitaMisura, cfUtente);
-
-								if (dto != null) {
-									log.debug("Inserimento CONSUMO CB");
-									getSigitTConsumoDao().insert(dto);
-								}
-							}
+					try {
+						tipoCombustibile = ConvertUtil.convertToBigDecimal(rowCombu.getL141Combustibile());
+					} catch (Exception e) {
 					}
-			}
+
+					try {
+						unitaMisura = ConvertUtil.convertToBigDecimal(rowCombu.getL141UnitaMisura());
+					} catch (Exception e) {
+					}
+
+					List<L141DatiConsumoCombustibileDocument.L141DatiConsumoCombustibile> rowConsumoList = rowCombu.getL141DatiConsumoCombustibileList();
+					if (rowConsumoList != null)
+						for (L141DatiConsumoCombustibileDocument.L141DatiConsumoCombustibile rowConsumo : rowConsumoList) {
+							SigitTConsumoDto dto = MapDtoImport.getSigitTConsumoNew(rowConsumo, codImpianto, tipoCombustibile, unitaMisura, cfUtente);
+
+							if (dto != null) {
+								log.debug("Inserimento CONSUMO CB");
+								getSigitTConsumoDao().insert(dto);
+							}
+						}
+				}
 		}
+		
 		log.debug("[DbServiceImp::consolidaConsumoCombustibileImp] end");
 	}
 
@@ -3233,7 +3675,7 @@ public class DbServiceImp {
 			List<SigitVSk4ScDto> listCompScDettDto = null;
 			List<SigitVSk4CgDto> listCompCgDettDto = null;
 
-			if (dettaglioAllegato.getIdApparecchiatureFunz() != null && dettaglioAllegato.getIdApparecchiatureFunz().size() > 0) {
+			if (dettaglioAllegato.getIdApparecchiatureFunz() != null && !dettaglioAllegato.getIdApparecchiatureFunz().isEmpty()) {
 				String elencoApparecchiature = null;
 				String elencoCombustibili = null;
 
@@ -3818,8 +4260,14 @@ public class DbServiceImp {
 				sigitTDettTipo1Dto.setL111PortataCombustibileUm(rowFumiImport.getAEPortataCombu().toString());
 				sigitTDettTipo1Dto.setL111PortataCombustibile(rowFumiImport.getAEValorePortata());
 				sigitTDettTipo1Dto.setL111CoNoAriaPpm(rowFumiImport.getAECOfumiSecchi());
-				sigitTDettTipo1Dto.setL111FlgRispettaBacharach(ConvertUtil.convertToBigDecimal(rowFumiImport.getAERispettoIndBacharach()));
-				sigitTDettTipo1Dto.setL111FlgRendMagRendMin(ConvertUtil.convertToBigDecimal(rowFumiImport.getAEMinimo()));
+				if (rowFumiImport.xgetAERispettoIndBacharach() != null)
+					sigitTDettTipo1Dto.setL111FlgRispettaBacharach(ConvertUtil.convertToBigDecimal(rowFumiImport.getAERispettoIndBacharach()));
+				else
+					sigitTDettTipo1Dto.setL111FlgRispettaBacharach(null);
+				if (rowFumiImport.xgetAEMinimo() != null)
+					sigitTDettTipo1Dto.setL111FlgRendMagRendMin(ConvertUtil.convertToBigDecimal(rowFumiImport.getAEMinimo()));
+				else
+					sigitTDettTipo1Dto.setL111FlgRendMagRendMin(null);
 
 				inserisciTDettTipo1(sigitTDettTipo1Dto, idAllegato);
 			}
@@ -4729,7 +5177,7 @@ public class DbServiceImp {
 		log.debug("[DbServiceImp::getConfigValue] BEGIN");
 		try {
 			dtoList = getSigitWrkConfigDao().findByChiaveConfig(chiave);
-			if ((dtoList != null) && (dtoList.size() > 0)) {
+			if ((dtoList != null) && (!dtoList.isEmpty())) {
 				dto = dtoList.get(0);
 				log.debug("[DbServiceImp::getConfigValue] Trovato il DTO " + dto);
 			} else {
@@ -4837,7 +5285,10 @@ public class DbServiceImp {
 		try {
 			getSigitLAccessoDao().insert(dto);
 		} catch (Exception e) {
-			throw new SigitextException(Messages.ERROR_INSERT_DB, e);
+			// loggiamo l'eccezione in questo punto e non la rilanciamo verso l'alto 
+			// per nascondere query sql esplicite in caso di errore
+			log.error(Messages.ERROR_INSERT_DB, e);
+			throw new SigitextException(Messages.ERROR_INSERT_DB);
 		} finally {
 			log.debug("[DbServiceImp::inserisciAccesso] END");
 		}
@@ -4869,6 +5320,21 @@ public class DbServiceImp {
 			log.debug("[DbServiceImp::ricercaImpiantoByFiltro] END");
 		}
 	}
+
+	public List<SigitExtImpiantoDto> ricercaImpiantoByCodImpiantoDuplicatiResponsabile(ImpiantoFiltro impiantoFiltro) throws SigitextException {
+		log.debug("[DbServiceImp::ricercaImpiantoByFiltro] BEGIN");
+
+		try {
+
+			return getSigitExtDao().findImpiantiByFiltroDuplicatiResponsabile(impiantoFiltro);
+		} catch (Exception e) {
+			log.error("Errore recupero dati dal server: ", e);
+			throw new SigitextException(Messages.ERROR_RECUPERO_DB, e);
+		} finally {
+			log.debug("[DbServiceImp::ricercaImpiantoByFiltro] END");
+		}
+	}
+
 
 	public MODDocument getModuloLibretto(Integer codImpianto, boolean isDefinitivo) throws SigitextException {
 		log.debug("[DbServiceImp::getModuloLibretto] BEGIN");
@@ -4907,13 +5373,14 @@ public class DbServiceImp {
 			SigitTTrattH2ODto trattH2ODto = getSigitTTrattH2ODao().findByPrimaryKey(pkTrattAcq);
 			if (trattH2ODto != null)
 				MapDto.mapToSchedaTrattH2O(trattH2ODto, richiesta.addNewDatiSchedaTrattH2O());
-
+			
 			//GT
 			List<SigitVSk4GtDto> comSk4GtImpianto = getCompSk4Gt(codImpianto);
 			if (comSk4GtImpianto != null && !comSk4GtImpianto.isEmpty()) {
 				MapDto.mapToSchedaGT(comSk4GtImpianto, richiesta.addNewDatiSchedaGT());
-				setImpresaGt(comSk4GtImpianto, richiesta.getDatiSchedaGT());
+				setImpresaGt(new BigDecimal(codImpianto), richiesta.getDatiSchedaGT());
 			}
+			
 			//BR
 			SigitTCompBrRcDto inputBrRc = new SigitTCompBrRcDto();
 			inputBrRc.setCodiceImpianto(new BigDecimal(codImpianto));
@@ -4921,38 +5388,44 @@ public class DbServiceImp {
 			List<SigitTCompBrRcDto> compBrImpianto = getSigitTCompBrRcDao().findByTipoAndCodImpiantoOrdered(inputBrRc);
 			if (compBrImpianto != null && !compBrImpianto.isEmpty())
 				MapDto.mapToSchedaBR(compBrImpianto, richiesta.addNewDatiSchedaBR(), comSk4GtImpianto);
+			
 			//RC
 			inputBrRc.setTipologiaBrRc(Constants.TIPO_COMPONENTE_RC);
 			List<SigitTCompBrRcDto> compRcImpianto = getSigitTCompBrRcDao().findByTipoAndCodImpiantoOrdered(inputBrRc);
 			if (compBrImpianto != null && !compRcImpianto.isEmpty())
 				MapDto.mapToSchedaRC(compRcImpianto, richiesta.addNewDatiSchedaRC(), comSk4GtImpianto);
+			
 			//GF
 			List<SigitVSk4GfDto> comSk4GfImpianto = getCompSk4Gf(codImpianto);
 			if (comSk4GfImpianto != null && !comSk4GfImpianto.isEmpty()) {
 				MapDto.mapToSchedaGF(comSk4GfImpianto, richiesta.addNewDatiSchedaGF());
-				setImpresaGf(comSk4GfImpianto, richiesta.getDatiSchedaGF());
+				setImpresaGf(new BigDecimal(codImpianto), richiesta.getDatiSchedaGF());
 			}
+			
 			//SC
 			List<SigitVSk4ScDto> comSk4ScImpianto = getCompSk4Sc(codImpianto);
 			if (comSk4ScImpianto != null && !comSk4ScImpianto.isEmpty()) {
 				MapDto.mapToSchedaSC(comSk4ScImpianto, richiesta.addNewDatiSchedaSC());
-				setImpresaSc(comSk4ScImpianto, richiesta.getDatiSchedaSC());
+				setImpresaSc(new BigDecimal(codImpianto), richiesta.getDatiSchedaSC());
 			}
+			
 			//CG
 			List<SigitVSk4CgDto> comSk4CgImpianto = getCompSk4Cg(codImpianto);
 			if (comSk4CgImpianto != null && !comSk4CgImpianto.isEmpty()) {
 				MapDto.mapToSchedaCG(comSk4CgImpianto, richiesta.addNewDatiSchedaCG());
-				setImpresaCg(comSk4CgImpianto, richiesta.getDatiSchedaCG());
+				setImpresaCg(new BigDecimal(codImpianto), richiesta.getDatiSchedaCG());
 			}
+			
 			//CS
 			List<SigitVCompCsDto> compCsImpianto = getSigitVCompCsDao().findByCodImpiantoOrdered(new CompFilter(codImpianto));
 			if (compCsImpianto != null && !compCsImpianto.isEmpty())
 				MapDto.mapToSchedaCS(compCsImpianto, richiesta.addNewDatiSchedaCS());
+			
 			//AG
 			List<SigitVCompAgDto> compAgImpianto = getSigitVCompAgDao().findByCodImpiantoOrdered(new CompFilter(codImpianto));
 			if (compAgImpianto != null && !compAgImpianto.isEmpty())
 				MapDto.mapToSchedaAG(compAgImpianto, richiesta.addNewDatiSchedaAG());
-
+			
 			//5-7
 			SigitTCompXSemplicePk pkXSemplice = new SigitTCompXSemplicePk();
 			pkXSemplice.setCodiceImpianto(ConvertUtil.convertToBigDecimal(codImpianto));
@@ -4994,7 +5467,6 @@ public class DbServiceImp {
 			List<SigitVCompRvDto> rvList = getSigitVCompRvDao().findByCodImpiantoOrdered(new CompFilter(codImpianto));
 			if (rvList != null && !rvList.isEmpty())
 				MapDto.mapToSchedaRV(richiesta.addNewDatiAltriComponentiRV().addNewSezRV(), rvList);
-
 			//9.3 - SC
 			CompFilter filterSCX = new CompFilter();
 			filterSCX.setCodImpianto(codImpianto);
@@ -5002,22 +5474,18 @@ public class DbServiceImp {
 			List<SigitTCompXDto> scxList = getSigitTCompXDao().findByTipoAndCodImpiantoOrdered(filterSCX);
 			if (scxList != null && !scxList.isEmpty())
 				MapDto.mapToSchedaSCX(richiesta.addNewDatiAltriComponentiSC().addNewSezSC(), scxList);
-
 			//9.4 - CI
 			List<SigitVCompCiDto> ciList = getSigitVCompCiDao().findByCodImpiantoOrdered(new CompFilter(codImpianto));
 			if (ciList != null && !ciList.isEmpty())
 				MapDto.mapToSchedaCI(richiesta.addNewDatiAltriComponentiCI().addNewSezCI(), ciList);
-
 			//9.5 - UT
 			List<SigitVCompUtDto> utList = getSigitVCompUtDao().findByCodImpiantoOrdered(new CompFilter(codImpianto));
 			if (utList != null && !utList.isEmpty())
 				MapDto.mapToSchedaUT(richiesta.addNewDatiAltriComponentiUT().addNewSezUT(), utList);
-
 			//9.6 - RC
 			List<SigitVCompRcDto> rcList = getSigitVCompRcDao().findByCodImpiantoOrdered(new CompFilter(codImpianto));
 			if (rcList != null && !rcList.isEmpty())
 				MapDto.mapToSchedaRC(richiesta.addNewDatiAltriComponentiRC().addNewSezRC(), rcList);
-
 			//10.1 - VM
 			List<SigitVCompVmDto> vmList = getSigitVCompVmDao().findByCodImpiantoOrdered(new CompFilter(codImpianto));
 			if (vmList != null && !vmList.isEmpty())
@@ -5033,7 +5501,6 @@ public class DbServiceImp {
 			List<SigitVCompCgDettDto> compCgImpiantoDett = getCompCgDett(codImpianto);
 
 			compilaDatiResponsabiliEControlliLibretto(codImpianto, richiesta, compGtImpiantoDett, compGfImpiantoDett, compScImpiantoDett, compCgImpiantoDett);
-
 			/*
 			if(richiesta.getDatiRisultatiGT()!=null)
 			{
@@ -5050,15 +5517,14 @@ public class DbServiceImp {
 
 			compilaScheda14Libretto(codImpianto, richiesta);
 
-			modDoc.getMOD().addNewSystem().addNewCatDig().setModuloEditabile(false);
-			modDoc.getMOD().getSystem().getCatDig().setBtSalva(false);
+			//modDoc.getMOD().addNewSystem().addNewCatDig().setModuloEditabile(false);
+			//modDoc.getMOD().getSystem().getCatDig().setBtSalva(false);
 
 			if (isDefinitivo) {
 				datiPrecompilati.setStatoModulo(Constants.STATO_MODULO_DEFINITIVO);
 			} else {
 				datiPrecompilati.setStatoModulo(Constants.STATO_MODULO_BOZZA);
 			}
-
 			if (log.isDebugEnabled()) {
 				log.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 				log.debug("STAMPO RESULT: " + modDoc);
@@ -5075,62 +5541,78 @@ public class DbServiceImp {
 		}
 	}
 
-	private void setImpresaGt(List<SigitVSk4GtDto> compGtImpianto, DatiSchedaGTDocument.DatiSchedaGT datiSchedaGT) throws SigitRComp4ManutDaoException, SigitTPersonaGiuridicaDaoException {
-		for (SigitVSk4GtDto gtdto : compGtImpianto) {
+	private void setImpresaGt(BigDecimal codiceImpianto, DatiSchedaGTDocument.DatiSchedaGT datiSchedaGT) throws SigitRComp4ManutDaoException, SigitTPersonaGiuridicaDaoException {
+		List<RowGT> rowGTList = datiSchedaGT.getSezGruppiTermici().getRowGTList();
+		for (RowGT gt : rowGTList) {
 			SigitRComp4ManutDto comp4ManutFilter = new SigitRComp4ManutDto();
-			comp4ManutFilter.setCodiceImpianto(gtdto.getCodiceImpianto());
-			comp4ManutFilter.setIdTipoComponente(gtdto.getIdTipoComponente());
-			comp4ManutFilter.setProgressivo(gtdto.getProgressivo());
+			comp4ManutFilter.setCodiceImpianto(codiceImpianto); 
+			comp4ManutFilter.setIdTipoComponente("GT");
+			comp4ManutFilter.setProgressivo(new BigDecimal(gt.getL41NumGT()));
 
 			List<SigitRComp4ManutDto> comp4ManutList = getSigitRComp4ManutDao().findAttiviByFilter(comp4ManutFilter);
-			if (comp4ManutList != null) {
+			if(comp4ManutList != null && !comp4ManutList.isEmpty()) {
+				ImpresaGTDocument.ImpresaGT impresaGT = gt.addNewSezGTimpresa().addNewImpresaGT();
 				SigitTPersonaGiuridicaDto personaGiutidicaDto = getSigitTPersonaGiuridicaDao().findByPrimaryKey(new SigitTPersonaGiuridicaPk(comp4ManutList.get(0).getFkPersonaGiuridica()));
-				MapDto.mapImpresaGt(gtdto, datiSchedaGT, personaGiutidicaDto);
+				impresaGT.setL41Denominazione(personaGiutidicaDto.getDenominazione());
+				impresaGT.setL41CodiceFiscale(personaGiutidicaDto.getCodiceFiscale());
+				impresaGT.setL41Rea(personaGiutidicaDto.getSiglaRea() + "-" + personaGiutidicaDto.getNumeroRea());
 			}
 		}
 	}
 
-	private void setImpresaGf(List<SigitVSk4GfDto> compGfImpianto, DatiSchedaGFDocument.DatiSchedaGF datiSchedaGF) throws SigitRComp4ManutDaoException, SigitTPersonaGiuridicaDaoException {
-		for (SigitVSk4GfDto gtdto : compGfImpianto) {
+	private void setImpresaGf(BigDecimal codiceImpianto, DatiSchedaGFDocument.DatiSchedaGF datiSchedaGF) throws SigitRComp4ManutDaoException, SigitTPersonaGiuridicaDaoException {
+		List<RowGF> rowGFList = datiSchedaGF.getSezGF().getRowGFList();
+		for (RowGF gf : rowGFList) {
 			SigitRComp4ManutDto comp4ManutFilter = new SigitRComp4ManutDto();
-			comp4ManutFilter.setCodiceImpianto(gtdto.getCodiceImpianto());
-			comp4ManutFilter.setIdTipoComponente(gtdto.getIdTipoComponente());
-			comp4ManutFilter.setProgressivo(gtdto.getProgressivo());
+			comp4ManutFilter.setCodiceImpianto(codiceImpianto);
+			comp4ManutFilter.setIdTipoComponente("GF");
+			comp4ManutFilter.setProgressivo(new BigDecimal(gf.getL44NumGF()));
 
 			List<SigitRComp4ManutDto> comp4ManutList = getSigitRComp4ManutDao().findAttiviByFilter(comp4ManutFilter);
-			if (comp4ManutList != null) {
+			if (comp4ManutList != null && !comp4ManutList.isEmpty()) {
+				ImpresaGFDocument.ImpresaGF impresaGF = gf.addNewSezGFimpresa().addNewImpresaGF();
 				SigitTPersonaGiuridicaDto personaGiutidicaDto = getSigitTPersonaGiuridicaDao().findByPrimaryKey(new SigitTPersonaGiuridicaPk(comp4ManutList.get(0).getFkPersonaGiuridica()));
-				MapDto.mapImpresaGf(gtdto, datiSchedaGF, personaGiutidicaDto);
+				impresaGF.setL44Denominazione(personaGiutidicaDto.getDenominazione());
+				impresaGF.setL44CodiceFiscale(personaGiutidicaDto.getCodiceFiscale());
+				impresaGF.setL44Rea(personaGiutidicaDto.getSiglaRea() + "-" + personaGiutidicaDto.getNumeroRea());
 			}
 		}
 	}
 
-	private void setImpresaSc(List<SigitVSk4ScDto> compScImpianto, DatiSchedaSCDocument.DatiSchedaSC datiSchedaSC) throws SigitRComp4ManutDaoException, SigitTPersonaGiuridicaDaoException {
-		for (SigitVSk4ScDto gtdto : compScImpianto) {
+	private void setImpresaSc(BigDecimal codiceImpianto, DatiSchedaSCDocument.DatiSchedaSC datiSchedaSC) throws SigitRComp4ManutDaoException, SigitTPersonaGiuridicaDaoException {
+		List<RowSC> rowSCList = datiSchedaSC.getSezSC().getRowSCList();
+		for (RowSC sc : rowSCList) {
 			SigitRComp4ManutDto comp4ManutFilter = new SigitRComp4ManutDto();
-			comp4ManutFilter.setCodiceImpianto(gtdto.getCodiceImpianto());
-			comp4ManutFilter.setIdTipoComponente(gtdto.getIdTipoComponente());
-			comp4ManutFilter.setProgressivo(gtdto.getProgressivo());
+			comp4ManutFilter.setCodiceImpianto(codiceImpianto);
+			comp4ManutFilter.setIdTipoComponente("SC");
+			comp4ManutFilter.setProgressivo(new BigDecimal(sc.getL45NumSC()));
 
 			List<SigitRComp4ManutDto> comp4ManutList = getSigitRComp4ManutDao().findAttiviByFilter(comp4ManutFilter);
-			if (comp4ManutList != null) {
+			if (comp4ManutList != null && !comp4ManutList.isEmpty()) {
+				ImpresaSCDocument.ImpresaSC impresaSC = sc.addNewSezSCimpresa().addNewImpresaSC();
 				SigitTPersonaGiuridicaDto personaGiutidicaDto = getSigitTPersonaGiuridicaDao().findByPrimaryKey(new SigitTPersonaGiuridicaPk(comp4ManutList.get(0).getFkPersonaGiuridica()));
-				MapDto.mapImpresaSc(gtdto, datiSchedaSC, personaGiutidicaDto);
+				impresaSC.setL45Denominazione(personaGiutidicaDto.getDenominazione());
+				impresaSC.setL45CodiceFiscale(personaGiutidicaDto.getCodiceFiscale());
+				impresaSC.setL45Rea(personaGiutidicaDto.getSiglaRea() + "-" + personaGiutidicaDto.getNumeroRea());
 			}
 		}
 	}
 
-	private void setImpresaCg(List<SigitVSk4CgDto> compCgImpianto, DatiSchedaCGDocument.DatiSchedaCG datiSchedaCg) throws SigitRComp4ManutDaoException, SigitTPersonaGiuridicaDaoException {
-		for (SigitVSk4CgDto gtdto : compCgImpianto) {
+	private void setImpresaCg(BigDecimal codiceImpianto, DatiSchedaCGDocument.DatiSchedaCG datiSchedaCg) throws SigitRComp4ManutDaoException, SigitTPersonaGiuridicaDaoException {
+		List<RowCG> rowCGList = datiSchedaCg.getSezCG().getRowCGList();
+		for (RowCG cg : rowCGList) {
 			SigitRComp4ManutDto comp4ManutFilter = new SigitRComp4ManutDto();
-			comp4ManutFilter.setCodiceImpianto(gtdto.getCodiceImpianto());
-			comp4ManutFilter.setIdTipoComponente(gtdto.getIdTipoComponente());
-			comp4ManutFilter.setProgressivo(gtdto.getProgressivo());
+			comp4ManutFilter.setCodiceImpianto(codiceImpianto);
+			comp4ManutFilter.setIdTipoComponente("CG");
+			comp4ManutFilter.setProgressivo(new BigDecimal(cg.getL46NumCG()));
 
 			List<SigitRComp4ManutDto> comp4ManutList = getSigitRComp4ManutDao().findAttiviByFilter(comp4ManutFilter);
-			if (comp4ManutList != null) {
+			if (comp4ManutList != null && !comp4ManutList.isEmpty()) {
+				ImpresaCGDocument.ImpresaCG impresaCG = cg.addNewSezCGimpresa().addNewImpresaCG();
 				SigitTPersonaGiuridicaDto personaGiutidicaDto = getSigitTPersonaGiuridicaDao().findByPrimaryKey(new SigitTPersonaGiuridicaPk(comp4ManutList.get(0).getFkPersonaGiuridica()));
-				MapDto.mapImpresaCG(gtdto, datiSchedaCg, personaGiutidicaDto);
+				impresaCG.setL46Denominazione(personaGiutidicaDto.getDenominazione());
+				impresaCG.setL46CodiceFiscale(personaGiutidicaDto.getCodiceFiscale());
+				impresaCG.setL46Rea(personaGiutidicaDto.getSiglaRea() + "-" + personaGiutidicaDto.getNumeroRea());
 			}
 		}
 	}
@@ -5143,6 +5625,11 @@ public class DbServiceImp {
 			SigitTImpiantoPk pkImpianto = new SigitTImpiantoPk();
 			pkImpianto.setCodiceImpianto(new BigDecimal(codImpianto));
 			SigitTImpiantoDto impianto = getSigitTImpiantoDao().findByPrimaryKey(pkImpianto);
+			
+			if( impianto == null ) {
+				throw new SigitextException("Non esiste un impianto con il codice specificato");
+			}
+			
 			datiLibretto.setImpianto(impianto);
 
 			// Le combo servono per adesso, altrimenti compaiono tutti i campi "Empty"
@@ -5316,7 +5803,7 @@ public class DbServiceImp {
 			SigitVRicercaIspezioniDto ispezIspet = null;
 			List<SigitVRicercaIspezioniDto> ispezIspetList = null;
 
-			List<DettaglioIspezione> dettaglioIspezioneList = new ArrayList<DettaglioIspezione>();
+			List<DettaglioIspezione> dettaglioIspezioneList = new ArrayList<>();
 
 			for (SigitVRicercaIspezioniConsByCodiceImpiantoDto ispezioneDb : listIspezioniDb) {
 
@@ -5327,7 +5814,7 @@ public class DbServiceImp {
 
 				ispezIspetList = getSigitVRicercaIspezioniDao().findByIdIspezIspet(ConvertUtil.convertToInteger(ispezioneDb.getMax_id_ispez_ispet()));
 
-				if (ispezIspetList != null && ispezIspetList.size() > 0) {
+				if (ispezIspetList != null && !ispezIspetList.isEmpty()) {
 					// Sicuramente ce ne solo 1
 					ispezIspet = ispezIspetList.get(0);
 				}
@@ -5393,6 +5880,87 @@ public class DbServiceImp {
 
 		return datiLibretto;
 	}
+	
+	public Scheda1 getSchedaLibretto(Integer codImpianto) throws SigitextException {
+		log.debug("[DbServiceImp::getSchedaLibretto] BEGIN");
+		Scheda1 result;
+		try {
+			result = new Scheda1();
+			SigitTImpiantoDto impianto = getSigitTImpiantoDao().findByPrimaryKey(new SigitTImpiantoPk(new BigDecimal(codImpianto)));
+			List<SigitTUnitaImmobiliareDto> unitaImmobiliari = getSigitTUnitaImmobiliareDao().findByCodiceImpianto(codImpianto);
+			List<DatiAggiuntivi> datiAggiuntiviList = new ArrayList<>();
+			for(int i = 0; i < unitaImmobiliari.size(); i++) {
+				SigitTUnitaImmobiliareDto ui = unitaImmobiliari.get(i);
+				if(ui.getFlgPrincipale().equals(BigDecimal.ONE)) {
+					result.setL1_2_fk_categoria(ui.getL12FkCategoria());
+					result.setL1_2_flg_singola_unita(this.getIntValueIfExist(ui.getL12FlgSingolaUnita()));
+					result.setL1_2_vol_risc_m3(this.getFloatValueIfExist(ui.getL12VolRiscM3()));
+					result.setL1_2_vol_raff_m3(this.getFloatValueIfExist(ui.getL12VolRaffM3()));
+					continue;
+				}
+				DatiAggiuntivi datiAggiuntivi = new DatiAggiuntivi();
+				datiAggiuntivi.setSezione(ui.getSezione());
+				datiAggiuntivi.setFoglio(ui.getFoglio());
+				datiAggiuntivi.setParticella(ui.getParticella());
+				datiAggiuntivi.setSubalterno(ui.getSubalterno());
+				datiAggiuntivi.setPod_elettrico(ui.getPodElettrico());
+				datiAggiuntivi.setPdr_gas(ui.getPdrGas());
+				datiAggiuntiviList.add(datiAggiuntivi);
+			}
+			
+			result.setL1_3_pot_h2o_kw(this.getFloatValueIfExist(impianto.getL13PotH2oKw()));
+			result.setL1_3_pot_clima_inv_kw(this.getFloatValueIfExist(impianto.getL13PotClimaInvKw()));
+			result.setL1_3_pot_clima_est_kw(this.getFloatValueIfExist(impianto.getL13PotClimaEstKw()));
+			result.setL1_3_altro(impianto.getL13Altro());
+
+			result.setL1_4_flg_h2o(this.getIntValueIfExist(impianto.getL14FlgH2o()));
+			result.setL1_4_flg_aria(this.getIntValueIfExist(impianto.getL14FlgAria()));
+			result.setL1_4_altro(impianto.getL14Altro());
+
+			result.setL1_5_flg_generatore(this.getIntValueIfExist(impianto.getL15FlgGeneratore()));
+			result.setL1_5_flg_pompa(this.getIntValueIfExist(impianto.getL15FlgPompa()));
+			result.setL1_5_flg_frigo(this.getIntValueIfExist(impianto.getL15FlgFrigo()));
+			result.setL1_5_flg_telerisc(this.getIntValueIfExist(impianto.getL15FlgTelerisc()));
+			result.setL1_5_flg_teleraffr(this.getIntValueIfExist(impianto.getL15FlgTeleraffr()));
+			result.setL1_5_flg_cogeneratore(this.getIntValueIfExist(impianto.getL15FlgCogeneratore()));
+			result.setL1_5_altro(impianto.getL15Altro());
+			result.setL1_5_sup_pannelli_sol_m2(this.getIntValueIfExist(impianto.getL15SupPannelliSolM2()));
+			result.setL1_5_altro_integrazione(impianto.getL15AltroIntegrazione());
+			result.setL1_5_altro_integr_pot_kw(this.getFloatValueIfExist(impianto.getL15AltroIntegrPotKw()));
+			result.setL1_5_flg_altro_clima_inv(this.getIntValueIfExist(impianto.getL15FlgAltroClimaInv()));
+			result.setL1_5_flg_altro_clima_estate(this.getIntValueIfExist(impianto.getL15FlgAltroClimaEstate()));
+			result.setL1_5_flg_altro_acs(this.getIntValueIfExist(impianto.getL15FlgAltroAcs()));
+			result.setL1_5_altro_desc(impianto.getL15AltroDesc());
+			
+			result.setDataIntervento(impianto.getDataIntervento());
+			result.setFkTipoIntervento(this.getIntValueIfExist(impianto.getFkTipoIntervento()));
+
+			result.setDatiAggiuntivi(datiAggiuntiviList);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("Errore getSchedaLibretto", e);
+			throw new SigitextException(Messages.ERROR_RECUPERO_DB, e);
+		} finally {
+			log.debug("[DbServiceImp::getSchedaLibretto] END");
+		}
+		return result;
+	}
+	
+	private Float getFloatValueIfExist(BigDecimal value) {
+	    if (value != null) {
+	        return value.floatValue();
+	    }
+	    return null;
+	}
+
+	private int getIntValueIfExist(BigDecimal value) {
+	    if (value != null) {
+	        return value.intValue();
+	    }
+	    return 0;
+	}
+	
 
 	public int getNextIdSeqCodiceImpianto() throws SigitextException {
 		log.debug("[SigitMgr:::getNextIdSeqCodiceImpianto] START");
@@ -5464,9 +6032,9 @@ public class DbServiceImp {
 				List<SigitTPersonaFisicaDto> personeFisiche = getSigitTPersonaFisicaDao().findByCodiceFiscale(utenteLoggato.getPfLoggato().getCodiceFiscalePF());
 				if (personeFisiche.size() == 1)
 					idPersonaFisica = personeFisiche.get(0).getIdPersonaFisica();
-				else if (personeFisiche.size() > 0) {
-					log.error("Recuperate più persone fisiche con lo stesso codice fiscale");
-					throw new SigitextException("Recuperate più persone fisiche con lo stesso codice fiscale");
+				else if (!personeFisiche.isEmpty()) {
+					log.error("Recuperate piu' persone fisiche con lo stesso codice fiscale");
+					throw new SigitextException("Recuperate piÃ¹ persone fisiche con lo stesso codice fiscale");
 				}
 			} else {
 				SigitTPersonaGiuridicaDto personaGiuridicaDto = getSigitTPersonaGiuridicaDao().findByPrimaryKey(new SigitTPersonaGiuridicaPk(new BigDecimal(utenteLoggato.getRuoloLoggato()
@@ -5520,7 +6088,7 @@ public class DbServiceImp {
 	@Transactional
 	public DatiImpianto updateImpianto(DatiImpianto impianto, String ruoloUtente, UtenteLoggato utenteLoggato) throws SigitextException {
 		try {
-			BigDecimal idImpianto = null;
+			
 			String cfUtenteMod = utenteLoggato.getPfLoggato().getCodiceFiscalePF();
 
 			SigitTImpiantoDto impiantoDto = getImpiantoByCod(new BigDecimal(impianto.getCodiceImpianto()));
@@ -5571,22 +6139,22 @@ public class DbServiceImp {
 				filter.setCodiceImpianto(codiceImpianto);
 				if (responsabile.getFlgResponsabile()) {
 					if (responsabile.getFlgImpresa()) {
-						filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO));
-						filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE));
-						filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE));
+						filter.addIdRuoloList(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO);
+						filter.addIdRuoloList(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE);
+						filter.addIdRuoloList(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE);
 						filter.setIdPersonaGiuridica(BigDecimal.valueOf(responsabile.getIdResponsabile()));
 					} else {
-						filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_PROPRIETARIO));
-						filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_OCCUPANTE));
-						filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_AMMINISTRATORE));
+						filter.addIdRuoloList(Constants.ID_RUOLO_PROPRIETARIO);
+						filter.addIdRuoloList(Constants.ID_RUOLO_OCCUPANTE);
+						filter.addIdRuoloList(Constants.ID_RUOLO_AMMINISTRATORE);
 						filter.setIdPersonaFisica(BigDecimal.valueOf(responsabile.getIdResponsabile()));
 					}
 				} else {
 					if (responsabile.getFlgImpresa()) {
-						filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_PROPRIETARIO_PROPRIETARIO_IMPRESA));
+						filter.addIdRuoloList(Constants.ID_RUOLO_PROPRIETARIO_PROPRIETARIO_IMPRESA);
 						filter.setIdPersonaGiuridica(BigDecimal.valueOf(responsabile.getIdResponsabile()));
 					} else {
-						filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_PROPRIETARIO_PROPRIETARIO));
+						filter.addIdRuoloList(Constants.ID_RUOLO_PROPRIETARIO_PROPRIETARIO);
 						filter.setIdPersonaFisica(BigDecimal.valueOf(responsabile.getIdResponsabile()));
 					}
 				}
@@ -5706,6 +6274,22 @@ public class DbServiceImp {
 			log.debug("[DbServiceImp::salvaResponsabile] END");
 		}
 	}
+	
+	public List<SigitTPersonaGiuridicaDto> getPersonaGiuridicaByCF(String codiceFiscale) throws SigitExcessiveResultsException, SigitExtDaoException{
+		return getSigitTPersonaGiuridicaDao().getPersonaGiuridicaByCF(codiceFiscale);
+	}
+	
+	public List<SigitTPersonaFisicaJoinSigitRPfDelegaDto> findSigitTPersonaFisicaJoinSigitRPfDelegaDtoByIdPersonaGiuridica(Integer idPersonaGiuridica) throws SigitTPersonaFisicaDaoException{
+		return getSigitTPersonaFisicaDao().findByIdPersonaGiuridica(idPersonaGiuridica);
+	}
+	
+	public List<SigitTPersonaGiuridicaJoinSigitRPgPgNominaDto> findSigitTPersonaGiuridicaJoinSigitRPgPgNominaDtoByIdPersonaGiuridicaImpresa(Integer idPersonaGiuridicaImpresa) throws SigitExtDaoException{
+		return getSigitTPersonaGiuridicaDao().getSigitTPersonaGiuridicaJoinSigitRPgPgNominaDtoByIdPersonaGiuridicaImpresa(idPersonaGiuridicaImpresa);
+	}
+	
+	public List<SigitTPersonaGiuridicaDto> findSigitTPersonaGiuridicaaByCFAndCodiceRea(String codiceFiscale, String siglaRea, BigDecimal numeroRea) throws SigitExtDaoException, SigitExcessiveResultsException{
+		return getSigitTPersonaGiuridicaDao().getPersonaGiuridicaByCFAndCodiceRea(codiceFiscale, siglaRea, numeroRea);
+	}
 
 	public void cessaProprietario(Proprietario proprietario, String utenteUltMod) throws SigitextException {
 		log.debug("[DbServiceImp::cessaProprietario] BEGIN");
@@ -5756,8 +6340,8 @@ public class DbServiceImp {
 		try {
 			FiltroRicercaPfPg filter = new FiltroRicercaPfPg();
 			filter.setCodiceImpianto(codiceImpianto);
-			filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_PROPRIETARIO_PROPRIETARIO));
-			filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_PROPRIETARIO_PROPRIETARIO_IMPRESA));
+			filter.addIdRuoloList(Constants.ID_RUOLO_PROPRIETARIO_PROPRIETARIO);
+			filter.addIdRuoloList(Constants.ID_RUOLO_PROPRIETARIO_PROPRIETARIO_IMPRESA);
 
 			List<SigitRImpRuoloPfpgDto> proprietariList;
 
@@ -5804,12 +6388,12 @@ public class DbServiceImp {
 		try {
 			FiltroRicercaPfPg filter = new FiltroRicercaPfPg();
 			filter.setCodiceImpianto(codiceImpianto);
-			filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE));
-			filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE));
-			filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO));
-			filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_AMMINISTRATORE));
-			filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_PROPRIETARIO));
-			filter.addIdRuoloList(ConvertUtil.convertToString(Constants.ID_RUOLO_OCCUPANTE));
+			filter.addIdRuoloList(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE);
+			filter.addIdRuoloList(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE);
+			filter.addIdRuoloList(Constants.ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO);
+			filter.addIdRuoloList(Constants.ID_RUOLO_AMMINISTRATORE);
+			filter.addIdRuoloList(Constants.ID_RUOLO_PROPRIETARIO);
+			filter.addIdRuoloList(Constants.ID_RUOLO_OCCUPANTE);
 
 			List<SigitRImpRuoloPfpgDto> respoList;
 
@@ -6235,6 +6819,22 @@ public class DbServiceImp {
 		}
 		return null;
 	}
+	
+	public SigitRComp4ManutDto getManutentoreImpianto(String codiceImpianto, int FkRuolo, int progressivo) throws SigitRComp4ManutDaoException {
+
+		SigitRComp4ManutDto filter = new SigitRComp4ManutDto();
+		filter.setCodiceImpianto(new BigDecimal(codiceImpianto));
+		filter.setFkRuolo(new BigDecimal(FkRuolo));
+		filter.setProgressivo(new BigDecimal(progressivo));
+
+		List<SigitRComp4ManutDto> manutentoriList = getSigitRComp4ManutDao().findAttiviByFilter(filter);
+		if (manutentoriList != null && !manutentoriList.isEmpty()) {
+			return manutentoriList.get(0);
+		}
+		return null;
+	}
+	
+	
 
 	public List<SigitRComp4ManutAllDto> cercaComp4ManutAllByComp(CompFilter filter) throws SigitextException {
 		List<SigitRComp4ManutAllDto> dtoList = null;
@@ -6269,7 +6869,7 @@ public class DbServiceImp {
 		log.debug("[DbServiceImp::verificaBRRCByGT] START");
 		List<SigitTCompBrRcDto> listaDtos = cercaCompBRRCByGT(codiceImpiantoGT, progressivoGT, dataInstallazioneGT);
 
-		if (listaDtos != null && listaDtos.size() > 0) {
+		if (listaDtos != null && !listaDtos.isEmpty()) {
 			throw new SigitextException(Messages.S224_2);
 		}
 	}
@@ -6282,7 +6882,8 @@ public class DbServiceImp {
 			filtroGT.setCodImpianto(Integer.parseInt(codImpianto));
 			filtroGT.setProgressivo(progressivo);
 			filtroGT.setDataInstallazione(ConvertUtil.convertToSqlDate(dataInstallazione));
-			listaDb = getSigitTCompBrRcDao().findBrRcLegateAGt(filtroGT);
+			filtroGT.setTipoComponente("GT");
+			listaDb = getSigitTCompBrRcDao().findBrRcLegateATipoComponente(filtroGT);
 			return listaDb;
 		} catch (SigitTCompBrRcDaoException e) {
 			throw new SigitextException(Messages.ERROR_RECUPERO_DB);
@@ -6588,7 +7189,7 @@ public class DbServiceImp {
 		SigitTComp4Dto last = null;
 		try {
 			List<SigitTComp4Dto> list = getSigitTComp4Dao().getAllOrderedByProgrDesc(codiceImpianto, tipoComponente);
-			if (list != null && list.size() > 0) {
+			if (list != null && !list.isEmpty()) {
 				last = list.get(0);
 			}
 		} catch (Exception e) {
@@ -6620,7 +7221,7 @@ public class DbServiceImp {
 			eliminaDettaglioAllegato(idAllegato);
 			getSigitRComp4ManutAllDao().customDeleterByIdAllegato(idAllegato);
 			List<SigitTImportDto> importList = getSigitTImportDao().findByIdAllegato(idAllegato);
-			if (importList != null && importList.size() > 0) {
+			if (importList != null && !importList.isEmpty()) {
 				Integer idImport = importList.get(0).getIdImport();
 				getSigitTImpXmlDao().customDeleterByIdImport(idImport);
 				getSigitTImportDao().delete(new SigitTImportPk(idImport));
@@ -6690,7 +7291,7 @@ public class DbServiceImp {
 
 			List<SigitTImportDistribRicevutaByIdImportDistribDto> dtoList = getSigitTImportDistribDao().findRicevutaByIdImportDistrib(idImportDistrib);
 
-			if (dtoList != null && dtoList.size() > 0) {
+			if (dtoList != null && !dtoList.isEmpty()) {
 				// Ho fatto la riceca per chiave, quindi sicuramente ne trovera' uno solo
 				risImportDistrib = dtoList.get(0);
 			}
@@ -6727,9 +7328,9 @@ public class DbServiceImp {
 			//SigitTPersonaGiuridicaDto manutentore = null;
 			//DettaglioIspezione dettaglioIspezione = null;
 
-			Integer idRuoloResp = null;
+			Integer idRuoloResp = 0;
 			//in questo oggetto setto l'id 3resonsabile (se c'e') altrimenti il responsabile (trovato sopra)
-			Integer idRuolo = null;
+			Integer idRuolo = 0;
 
 			SigitTAllegatoPk pk = new SigitTAllegatoPk();
 			pk.setIdAllegato(new BigDecimal(dettaglio.getIdAllegato()));
@@ -6780,7 +7381,7 @@ public class DbServiceImp {
 			// Devo settare il responsabile/3 responsabile per ogni singola apparecchiatura
 			List<SigitVRicerca3ResponsabileDto> list3RespAttiviImpianto = cerca3ResponsabiliAttiviAllaDataByCodImpiantoComp2(dettaglio.getCodiceImpianto(), dettaglio.getDataControllo());
 
-			SigitVRicerca3ResponsabileDto responsabile2 = null;
+			SigitVRicerca3ResponsabileDto responsabile2 = new SigitVRicerca3ResponsabileDto() ;
 			if (list3RespAttiviImpianto != null && !list3RespAttiviImpianto.isEmpty()) {
 				responsabile2 = list3RespAttiviImpianto.get(0);
 				isTerzoResp = true;
@@ -6788,7 +7389,9 @@ public class DbServiceImp {
 				SigitTPersonaGiuridicaPk pkGiuridica = new SigitTPersonaGiuridicaPk();
 				pkGiuridica.setIdPersonaGiuridica(responsabile2.getFkPg3Resp());
 				pg = this.getSigitTPersonaGiuridicaDao().findByPrimaryKey(pkGiuridica);
-				idRuolo = ConvertUtil.convertToInteger(responsabile.getIdRuolo());
+				if(responsabile!=null && responsabile.getIdRuolo()!=null) {
+					idRuolo = ConvertUtil.convertToInteger(responsabile.getIdRuolo());
+				}
 
 			} else {
 				//vTotImpianto = vTotImpiantoResp;
@@ -7064,7 +7667,9 @@ public class DbServiceImp {
 				SigitTPersonaGiuridicaPk pkGiuridica = new SigitTPersonaGiuridicaPk();
 				pkGiuridica.setIdPersonaGiuridica(responsabile2.getFkPg3Resp());
 				pg = this.getSigitTPersonaGiuridicaDao().findByPrimaryKey(pkGiuridica);
-				idRuolo = ConvertUtil.convertToInteger(responsabile.getIdRuolo());
+				if(responsabile!=null && responsabile.getIdRuolo()!=null) {
+					idRuolo = ConvertUtil.convertToInteger(responsabile.getIdRuolo());
+				}
 
 			} else {
 				//vTotImpianto = vTotImpiantoResp;
@@ -7075,7 +7680,7 @@ public class DbServiceImp {
 
 			for (SigitVSk4GfDto sk4Gf : dtoList) {
 
-				if (list3RespAttiviImpianto != null && !list3RespAttiviImpianto.isEmpty()) {
+				if (list3RespAttiviImpianto != null && !list3RespAttiviImpianto.isEmpty() && responsabile2!=null) {
 					aggiornaRespRAllegatoComp(allegatoDto.getIdAllegato(), dettaglio.getCodiceImpianto(), dettaglio.getDataControllo(), Constants.TIPO_COMPONENTE_GF, ConvertUtil.convertToBigDecimal(sk4Gf.getProgressivo()), sk4Gf.getDataInstall(), null, responsabile2.getIdContratto());
 
 				} else {
@@ -7127,7 +7732,7 @@ public class DbServiceImp {
 
 			dtoList = getSigitTDettTipo1Dao().findByAllegatoCodImpianto(dto);
 
-			if (dtoList != null && dtoList.size() > 0) {
+			if (dtoList != null && !dtoList.isEmpty()) {
 				dtoRes = dtoList.get(0);
 			}
 
@@ -7201,7 +7806,7 @@ public class DbServiceImp {
 
 			dtoList = getSigitTDettTipo2Dao().findByAllegatoCodImpianto(dto);
 
-			if (dtoList != null && dtoList.size() > 0) {
+			if (dtoList != null && !dtoList.isEmpty()) {
 				dtoRes = dtoList.get(0);
 			}
 		} catch (Exception e) {
@@ -7281,7 +7886,9 @@ public class DbServiceImp {
 				SigitTPersonaGiuridicaPk pkGiuridica = new SigitTPersonaGiuridicaPk();
 				pkGiuridica.setIdPersonaGiuridica(responsabile2.getFkPg3Resp());
 				pg = this.getSigitTPersonaGiuridicaDao().findByPrimaryKey(pkGiuridica);
-				idRuolo = ConvertUtil.convertToInteger(responsabile.getIdRuolo());
+				if(responsabile!=null) {
+					idRuolo = ConvertUtil.convertToInteger(responsabile.getIdRuolo());
+				}
 
 			} else {
 				//vTotImpianto = vTotImpiantoResp;
@@ -7292,7 +7899,7 @@ public class DbServiceImp {
 
 			for (SigitVSk4ScDto sk4Sc : dtoList) {
 
-				if (list3RespAttiviImpianto != null && !list3RespAttiviImpianto.isEmpty()) {
+				if (list3RespAttiviImpianto != null && !list3RespAttiviImpianto.isEmpty() && responsabile2!=null) {
 					aggiornaRespRAllegatoComp(allegatoDto.getIdAllegato(), dettaglio.getCodiceImpianto(), dettaglio.getDataControllo(), Constants.TIPO_COMPONENTE_GF, ConvertUtil.convertToBigDecimal(sk4Sc.getProgressivo()), sk4Sc.getDataInstall(), null, responsabile2.getIdContratto());
 
 				} else {
@@ -7389,9 +7996,13 @@ public class DbServiceImp {
 					SigitTPersonaGiuridicaPk pkGiuridica = new SigitTPersonaGiuridicaPk();
 					pkGiuridica.setIdPersonaGiuridica(responsabile2.getFkPg3Resp());
 					pg = this.getSigitTPersonaGiuridicaDao().findByPrimaryKey(pkGiuridica);
-					idRuolo = ConvertUtil.convertToInteger(responsabile.getIdRuolo());
+					if(responsabile!=null) {
+						idRuolo = ConvertUtil.convertToInteger(responsabile.getIdRuolo());
+					}
 
-					aggiornaRespRAllegatoComp(allegatoDto.getIdAllegato(), dettaglio.getCodiceImpianto(), dettaglio.getDataControllo(), Constants.TIPO_COMPONENTE_CG, ConvertUtil.convertToBigDecimal(sk4Cg.getProgressivo()), sk4Cg.getDataInstall(), null, responsabile2.getIdContratto());
+					if(responsabile2!=null) {
+						aggiornaRespRAllegatoComp(allegatoDto.getIdAllegato(), dettaglio.getCodiceImpianto(), dettaglio.getDataControllo(), Constants.TIPO_COMPONENTE_CG, ConvertUtil.convertToBigDecimal(sk4Cg.getProgressivo()), sk4Cg.getDataInstall(), null, responsabile2.getIdContratto());
+					}
 				} else {
 					pg = pgResp;
 					idRuolo = idRuoloResp;
@@ -7442,7 +8053,7 @@ public class DbServiceImp {
 			input.setProgressivo(progressivo);
 
 			List<SigitVSk4ScDto> gtList = getSigitVSk4ScDao().findByIdAllegatoProgr(input);
-			if (gtList != null && gtList.size() > 0) {
+			if (gtList != null && !gtList.isEmpty()) {
 				dto = gtList.get(0);
 			}
 		} catch (SigitVSk4ScDaoException e) {
@@ -7563,7 +8174,7 @@ public class DbServiceImp {
 			filter.setCodiceImpianto(ConvertUtil.convertToInteger(codImpianto));
 			List<SigitVRicercaImpiantiDto> dtoList = getSigitVRicercaImpiantiDao().findByImpiantoFilter(filter);
 
-			if (dtoList != null && dtoList.size() > 0) {
+			if (dtoList != null && !dtoList.isEmpty()) {
 				dto = dtoList.get(0);
 			}
 		} catch (SigitVRicercaImpiantiDaoException e) {
@@ -7737,5 +8348,485 @@ public class DbServiceImp {
 
 		return dtoList;
 	}
+
+	public List<SigitTDatoDistribDto> getConsumiByPodPdr(String podPdr) throws SigitTDatoDistribDaoException, SigitextException {
+		log.debug("[DbServiceImp::findConsumoByPodPdr] BEGIN");
+		List<SigitTDatoDistribDto> dtoList = new ArrayList<>();
+		try {
+			ConsumoPodPdrFilter filter = new ConsumoPodPdrFilter();
+			filter.setPodPdr(podPdr);
+			dtoList = getSigitTDatoDistribDao().findConsumiByPodPdr(filter);
+		} catch (SigitTDatoDistribDaoException e) {
+			throw new SigitextException(Messages.ERROR_RECUPERO_DB);
+		} finally {
+			log.debug("[DbServiceImp::findConsumoByPodPdr] END");
+		}
+		log.debug("dto List consumi isEmpty : " + dtoList.isEmpty());
+		return dtoList;
+	}
+
+	public List<SigitExtIspezioniDto> cercaIspezioniDett(ArrayList<String> listIdIspezioni) throws SigitextException {
+		log.debug("[DbServiceImp::cercaIspezioniDett] BEGIN");
+		List<SigitExtIspezioniDto> dtoList = null;
+
+		try {
+
+			if (listIdIspezioni != null && listIdIspezioni.size() > 0)
+			{
+				dtoList = new ArrayList<SigitExtIspezioniDto>();
+				// Questa query mi ritorna dei recodr duplicati, quindi devo escludere i doppioni
+				List<SigitExtIspezioniDto> dtoListAll = getSigitExtDao().findIspezioniDettByListIdIspez(listIdIspezioni);
+
+				Integer lastIdIspezione2018 = null;
+
+				for (SigitExtIspezioniDto sigitExtIspezioniDto : dtoListAll) {
+
+					if (!sigitExtIspezioniDto.getIdIspezione2018().equals(lastIdIspezione2018))
+					{
+						// E' un'ispezione ancora NON presente nella lista, quindi l'aggiungo
+						lastIdIspezione2018 = sigitExtIspezioniDto.getIdIspezione2018();
+
+						dtoList.add(sigitExtIspezioniDto);
+					}
+					// else se ï¿½ un'ispezione gia' presente nella lista lo scarto
+
+				}
+			}
+
+		}
+		catch(SigitExtDaoException e) {
+			throw new SigitextException(Messages.ERROR_RECUPERO_DB, e);
+		}
+		log.debug("[DbServiceImp::cercaIspezioniDett] END");
+		return dtoList;
+	}
+	
+	public List<SigitExtIspezioniConCodImpiantoDto> cercaIspezioniDettConCodImpianto(ArrayList<String> listCodImpianti) throws SigitextException {
+		log.debug("[DbServiceImp::cercaIspezioniDettConCodImpianto] BEGIN");
+		List<SigitExtIspezioniConCodImpiantoDto> dtoList = null;
+
+		try {
+
+			dtoList = getSigitExtDao().findIspezioniDettConCodImpiantoByListConImpianti(listCodImpianti);
+
+		}
+		catch(SigitExtDaoException e) {
+			throw new SigitextException(Messages.ERROR_RECUPERO_DB, e);
+		}
+		log.debug("[DbServiceImp::cercaIspezioniDettConCodImpianto] END");
+		return dtoList;
+	}
+
+	public List<SigitExtIspezioniSenzaCodImpiantoDto> cercaIspezioniDettSenzaCodImpianto(ArrayList<String> listIdIspezioni) throws SigitextException {
+		log.debug("[DbServiceImp::cercaIspezioniDettSenzaCodImpianto] BEGIN");
+		List<SigitExtIspezioniSenzaCodImpiantoDto> dtoList = null;
+
+		try {
+
+			dtoList = getSigitExtDao().findIspezioniDettSenzaCodImpiantoByListIdIspez(listIdIspezioni);
+
+		}
+		catch(SigitExtDaoException e) {
+			throw new SigitextException(Messages.ERROR_RECUPERO_DB, e);
+		}
+		log.debug("[DbServiceImp::cercaIspezioniDettSenzaCodImpianto] END");
+		return dtoList;
+	}
+
+	/**
+	 * Restituisce le informazioni della persona giuridica
+	 *
+	 * @param idPersonaG id della persona
+	 * @return PersonaGiuridica persona giuridica
+	 * @throws DbManagerException Errore durante il recupero dei dati
+	 */
+
+	public PersonaGiuridicaSigitWebn cercaPersonaGiuridicaSigitWebnById(Integer idPersonaG) throws SigitextException {
+		PersonaGiuridicaSigitWebn obj = null;
+		SigitTPersonaGiuridicaDto dto = null;
+		log.debug("[DbServiceImp::cercaPersonaGiuridicaById] BEGIN");
+		try {
+
+			//dto = getSigitTPersonaGiuridicaDao().findByPrimaryKey(new SigitTPersonaGiuridicaPk(ConvertUtil.convertToBigDecimal(idPersonaG)));
+			dto = cercaTPersonaGiuridicaById(idPersonaG);
+
+			obj = MapDto.mapToPersonaGiuridicaSigitWebn(dto);
+
+		}
+		finally {
+			log.debug("[DbServiceImp::cercaPersonaGiuridicaById] END");
+		}
+		return obj;
+	}
+	
+	public SigitTDocContrattoPk insertSigitTDocContratto(SigitTDocContrattoDto dto){
+		return getSigitTDocContrattoDao().insert(dto);
+	}
+	
+	public SigitTDocAggiuntivaPk insertSigitTDocAggiuntiva(SigitTDocAggiuntivaDto dto){
+		return getSigitTDocAggiuntivaDao().insert(dto);
+	}
+	
+	public void updateSigitTDocAggiuntivaAggiornaNomeUid(SigitTDocAggiuntivaDto dto) throws SigitTDocAggiuntivaDaoException {
+		getSigitTDocAggiuntivaDao().updateColumnsAggiornaNomeUid(dto);
+	}
+	
+	public List<SigitTDocContrattoDto> findSigitTDocContrattoByFkContratto(BigDecimal fkContratto) throws SigitTDocContrattoDaoException {
+		return getSigitTDocContrattoDao().findSigitTDocContrattoByFkContratto(fkContratto);
+	}
+	
+	public List<SigitTDocAggiuntivaDto> findByCodImp(String input) throws SigitTDocAggiuntivaDaoException {
+		return getSigitTDocAggiuntivaDao().findByCodImp(input);
+	}
+	
+	public List<SigitTAzioneDto> findSigitTAzioneByFkVerifica(Integer fkVerifica) throws SigitTAzioneDaoException {
+		return getSigitTAzioneDao().findByFkVerifica(fkVerifica);
+	}
+	public List<SigitTAzioneDto> findSigitTAzioneByFkAccertamento(Integer fkAccertamento) throws SigitTAzioneDaoException {
+		return getSigitTAzioneDao().findByFkAccertamento(fkAccertamento);
+	}
+	public List<SigitTAzioneDto> findSigitTAzioneByFkIspezione2018(Integer fkIspezione2018) throws SigitTAzioneDaoException {
+		return getSigitTAzioneDao().findByFkIspezione2018(fkIspezione2018);
+	}
+	
+	public List<SigitTDocAzioneDto> findSigitTDocAzioneByIdAzione(Integer input) throws SigitTDocAzioneDaoException {
+		return getSigitTDocAzioneDao().findByIdAzione(input);
+	}
+	
+	public List<SigitRAllegatoCompScDto> findSigitRAllegatoCompScDtoByCodiceImpianto(Integer codiceImpianto) throws SigitRAllegatoCompScDaoException {
+		return getSigitRAllegatoCompScDao().findByCodiceImpianto(codiceImpianto);
+		
+	}
+	
+	public List<SigitRAllegatoCompGtDto> findSigitRAllegatoCompGtDtoByCodiceImpianto(Integer codiceImpianto) throws SigitRAllegatoCompGtDaoException {
+		return getSigitRAllegatoCompGtDao().findByCodiceImpianto(codiceImpianto);
+	}
+	
+	public List<SigitRAllegatoCompGfDto> findSigitRAllegatoCompGfDtoByCodiceImpianto(Integer codiceImpianto) throws SigitRAllegatoCompGfDaoException {
+		return getSigitRAllegatoCompGfDao().findByCodiceImpianto(codiceImpianto);
+	}
+	
+	public List<SigitRAllegatoCompCgDto> findSigitRAllegatoCompCgDtoByCodiceImpianto(Integer codiceImpianto) throws SigitRAllegatoCompCgDaoException {
+		return getSigitRAllegatoCompCgDao().findByCodiceImpianto(codiceImpianto);
+	}
+	
+	public SigitTDocAggiuntivaDto findSigitTDocAggiuntivaByUidIndex(String uidIndex) throws SigitTDocAggiuntivaDaoException {
+		return getSigitTDocAggiuntivaDao().findByUidIndex(uidIndex);
+	}
+	
+	public void updateSigitTDocAggiuntivaColumnsAggiornaEliminaDoc(SigitTDocAggiuntivaDto dto) throws SigitTDocAggiuntivaDaoException {
+		getSigitTDocAggiuntivaDao().updateColumnsAggiornaEliminaDoc(dto);
+	}
+	
+	public SigitTDocAllegatoDto findSigitTDocAllegatoByUidIndex(String uidIndex) throws SigitTDocAllegatoDaoException {
+		return getSigitTDocAllegatoDao().findByUidIndex(uidIndex);
+	}
+	
+	public void updateSigitTDocAllegatoColumnsAggiornaEliminaDoc(SigitTDocAllegatoDto dto) throws SigitTDocAllegatoDaoException {
+		getSigitTDocAllegatoDao().updateColumnsAggiornaEliminaDoc(dto);
+	}
+	
+	public SigitTDocContrattoDto findSigitTDocContrattoByUidIndex(String uidIndex) throws SigitTDocContrattoDaoException {
+		return getSigitTDocContrattoDao().findByUidIndex(uidIndex);
+	}
+	
+	public void updateSigitTDocContrattoColumnsAggiornaEliminaDoc(SigitTDocContrattoDto dto) throws SigitTDocContrattoDaoException {
+		getSigitTDocContrattoDao().updateColumnsAggiornaEliminaDoc(dto);
+	}
+	
+	public void updateSigitTDocContrattoUidIndex(Integer idDocContratto, String uidIndex, String nomeDoc) {
+		getSigitTDocContrattoDao().updateUidIndex(idDocContratto, uidIndex, nomeDoc);
+	}
+	
+	public List<SigitTContratto2019Dto> findSigitTContratto2019DtoByCodiceImpianto(String codiceImpianto) throws SigitTContratto2019DaoException{
+		ContrattoFilter input = new ContrattoFilter();
+		input.setCodiceImpianto(new BigDecimal(codiceImpianto));
+		return getSigitTContratto2019Dao().findByFilter(input);
+	}
+	
+	public List<SigitTAllegatoDto> findSigitTAllegatoByIdAllegatoAndFkStatoRapp(BigDecimal idAllegato) throws SigitTAllegatoDaoException {
+		return getSigitTAllegatoDao().findByIdAllegatoAndFkStatoRapp(idAllegato);
+	}
+	
+	public List<SigitDTipoDocDto> getTipoDocumenti() throws SigitextException{
+		return getSigitDTipoDocumentoDao().getTipoDocumenti();
+	}
+	
+	public String getSigitDTipoDocumentoDescrizioneById(Integer idTipoDocAgg) throws SigitextException {
+		return getSigitDTipoDocumentoDao().getDescrizioneById(idTipoDocAgg);
+	}
+
+	public String getSigitDStatoRappDaoDesStatoRappById(Integer idStatoRapp) throws SigitextException {
+		return getSigitDStatoRappDao().getDesStatoRappById(idStatoRapp);
+	}
+
+	public List<MvOdVistaDettaglioImpiantiDto> findComponentiByGeoPortale(MvOdVistaDettaglioImpiantiDto filter) throws MvOdVistaDettaglioImpiantiDaoException  {
+		return getMvVistaDettaglioImpiantiDao().findFindByFilter(filter);
+	}
+	
+	public List<SigitRPfPgDelegaDto> findSigitRPfPgDelegaByPfAndPg(Integer idPersonaFisica, Integer idPersonaGiuridica) throws SigitRPfPgDelegaDaoException {
+		return getSigitRPfPgDelegaDao().findByPfAndPg(idPersonaFisica, idPersonaGiuridica);
+	}
+	
+	public void insertSigitRPfPgDelega(SigitRPfPgDelegaDto dto) throws SigitRPfPgDelegaDaoException {
+		getSigitRPfPgDelegaDao().insert(dto);
+	}
+	
+	public List<SigitRPfPgDelegaDto> findSigitRPfPgDelegaByIdPersonaFisica(Integer input) throws SigitRPfPgDelegaDaoException {
+		return getSigitRPfPgDelegaDao().findFindByIdPersonaFisica(input);
+	}
+	
+	public void updateSigitRPfPgDelega(SigitRPfPgDelegaDto dto) throws SigitRPfPgDelegaDaoException {
+		getSigitRPfPgDelegaDao().update(dto);
+	}
+	
+	public List<Map<String, Object>> getIncarichiSoggettiDelegati() throws SigitExtDaoException, SigitExcessiveResultsException {
+		return getSigitTPersonaGiuridicaDao().getPersonaGiuridicaByFlgCatOne();
+	}
+	
+	public List<SigitRPgPgNominaDto> getSigitRPgPgNominaByIdPersonaGiuridicaCat(Integer input) throws SigitRPgPgNominaDaoException {
+		return getSigitRPgPgNominaDao().findFindByPgCat(input);
+	}
+	
+	public List<SigitRPgPgNominaDto> getSigitRPgPgNominaByIdPersonaGiuridicaCatAndIdPersonaGiuridica(Integer idPersonaGiuridicaCat, Integer idPersonaGiuridica) throws SigitRPgPgNominaDaoException {
+		return getSigitRPgPgNominaDao().findSigitRPgPgNominaByPgCatAndPG(idPersonaGiuridicaCat, idPersonaGiuridica);
+	}
+	
+	public void insertSigitRPgPgNomina(SigitRPgPgNominaDto dto) throws SigitRPgPgNominaDaoException {
+		getSigitRPgPgNominaDao().insert(dto);
+	}
+	
+	public void updateSigitRPgPgNomina(SigitRPgPgNominaDto dto) throws SigitRPgPgNominaDaoException {
+		getSigitRPgPgNominaDao().update(dto);
+	}
+	
+	public SigitTPersonaGiuridicaPk insertSigitTPersonaGiuridicaDao(SigitTPersonaGiuridicaDto dto) throws SigitTPersonaGiuridicaDaoException {
+		return getSigitTPersonaGiuridicaDao().insert(dto);
+	}
+	
+	public void updateSigitTPersonaGiuridicaDao(SigitTPersonaGiuridicaDto dto) throws SigitTPersonaGiuridicaDaoException {
+		getSigitTPersonaGiuridicaDao().update(dto);
+	}
+	
+	public void insertSigitTStoricoVarStatoPg(SigitTStoricoVarStatoPgDto dto) throws SigitTStoricoVarStatoPgDaoException {
+		getSigitTStoricoVarStatoPgDao().insert(dto);
+	}
+	
+	public void updateSigitTStoricoVarStatoPg(SigitTStoricoVarStatoPgDto dto) throws SigitTStoricoVarStatoPgDaoException {
+		getSigitTStoricoVarStatoPgDao().update(dto);
+	}
+	
+	public String getSigitDStatoPgDescriptionByIdStato(Integer idStato) throws SigitExtDaoException {
+		return getSigitDStatoPgDao().getDesStatoById(idStato);
+	}
+	
+	public List<SigitTVerificaDto> getElencoVerifiche(RicercaDatiVerifica datiVerifica) throws SigitextException {
+		log.debug("[DbServiceImp::getElencoVerifiche] BEGIN");
+
+		List<SigitTVerificaDto> listDatiVerifica = null;
+
+		try {
+			
+			listDatiVerifica = getSigitTVerificaDao().getElencoVerifiche(datiVerifica);
+
+			return listDatiVerifica;
+
+		} catch (Exception e) {
+			throw new SigitextException(Messages.ERROR_RECUPERO_DB, e);
+
+		} finally {
+			log.debug("[DbServiceImp::getElencoVerifiche] END");
+		}
+	}
+	
+	public DatiDistributore getDistributore(Integer idDatoDistrib) throws SigitextException {
+		log.debug("[DbServiceImp::getDistributore] BEGIN");
+
+		DatiDistributore datiDistributore = new DatiDistributore();
+
+		try {
+			
+			SigitTDatoDistribPk sigitTDatoDistribPk = new SigitTDatoDistribPk();
+			sigitTDatoDistribPk.setIdDatoDistrib(idDatoDistrib);
+			SigitTDatoDistribDto sigitTDatoDistribDto = getSigitTDatoDistribDao().findByPrimaryKey(sigitTDatoDistribPk);
+			
+			if(sigitTDatoDistribDto==null) {
+				return null;
+			}
+			
+			datiDistributore.setIdDatoDistri(new BigDecimal(sigitTDatoDistribDto.getIdDatoDistrib()));
+			
+			SigitTImportDistribPk sigitTImportDistribPk = new SigitTImportDistribPk();
+			sigitTImportDistribPk.setIdImportDistrib(sigitTDatoDistribDto.getFkImportDistrib());			
+			SigitTImportDistribDto sigitTImportDistribDto = getSigitTImportDistribDao().findByPrimaryKey(sigitTImportDistribPk);			
+			datiDistributore.setFkStatoDistrib(new BigDecimal(sigitTImportDistribDto.getFkStatoDistrib()));
+			
+			datiDistributore.setAnnoRif(sigitTDatoDistribDto.getAnnoRif().toString());
+			datiDistributore.setCognomeDenomFatt(sigitTDatoDistribDto.getCognomeDenomFatt());
+			datiDistributore.setNomeFatt(sigitTDatoDistribDto.getNomeFatt());
+			datiDistributore.setDugFatt(sigitTDatoDistribDto.getDugFatt());
+			datiDistributore.setIndirizzoFatt(sigitTDatoDistribDto.getIndirizzoFatt());
+			datiDistributore.setCivicoFatt(sigitTDatoDistribDto.getCivicoFatt());
+						
+			datiDistributore.setIstatComuneFatt(sigitTDatoDistribDto.getIstatComuneFatt());
+			
+		    	    		      	        
+			return datiDistributore;
+
+		} catch (Exception e) {
+			throw new SigitextException(Messages.ERROR_RECUPERO_DB, e);
+
+		} finally {
+			log.debug("[DbServiceImp::getDistributore] END");
+		}
+	}
+	
+	public SigitTContratto2019Dto findSigitTContratto2019ByIdContrattoAndCodiceImpianto(Integer idContratto, Integer codiceImpianto) throws SigitTContratto2019DaoException {
+		return getSigitTContratto2019Dao().findByIdContrattoAndCodiceImpianto(idContratto, codiceImpianto);
+	}
+	
+	public SigitTContratto2019Dto findSigitTContratto2019ByIdContratto(Integer idContratto) throws SigitTContratto2019DaoException {
+		SigitTContratto2019Pk pk = new SigitTContratto2019Pk(new BigDecimal(idContratto));
+		return getSigitTContratto2019Dao().findByPrimaryKey(pk);
+	}
+	
+	public List<SigitTContratto2019Dto> findSigitTContratto2019ByCodiceImpianto(Integer codiceImpianto) throws SigitTContratto2019DaoException {
+		return getSigitTContratto2019Dao().findByCodiceImpianto(codiceImpianto);
+	}
+	
+	public List<SigitRImpRuoloPfpgDto> findSigitRImpRuoloPfpgListById(Integer idSigitRImpRuoloPfpg) throws SigitRImpRuoloPfpgDaoException {
+		SigitRImpRuoloPfpgPk pk = new SigitRImpRuoloPfpgPk(new BigDecimal(idSigitRImpRuoloPfpg));
+		
+		return getSigitRImpRuoloPfpgDao().findByPrimaryKey(pk);
+	}
+	
+	public Integer checkSigitRImpRuoloPfpgResponsabileImpresa(Integer codiceImpianto, Integer idPersona, String ruoloFunz) throws SigitRImpRuoloPfpgDaoException {
+		return getSigitRImpRuoloPfpgDao().checkResponsabileImpresa(codiceImpianto, idPersona, ruoloFunz);
+	}
+	
+	public List<SigitRImpRuoloPfpgDto> findSigitRImpRuoloPfpgByCodiceImpianto(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException {
+		return getSigitRImpRuoloPfpgDao().findAttiviByCodiceImpianto(codiceImpianto);
+	}
+	
+	public List<SigitRImpRuoloPfpgDto> findSigitRImpRuoloPfpgByCodiceImpiantoEDataFineOggiONull(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException {
+		return getSigitRImpRuoloPfpgDao().findSigitRImpRuoloPfpgByCodiceImpiantoEDataFineOggiONull(codiceImpianto);
+	}
+	
+	public List<SigitRImpRuoloPfpgDto> findSigitRImpRuoloPfpgByCodiceImpiantoAndRuolo(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException {
+		return getSigitRImpRuoloPfpgDao().findByCodiceImpiantoAndRuolo(codiceImpianto);
+	}
+	
+	public void updateSigitRImpRuoloPfpg(SigitRImpRuoloPfpgDto dto) throws SigitRImpRuoloPfpgDaoException {
+		getSigitRImpRuoloPfpgDao().update(dto);
+	}
+	
+	public void insertSigitRImpRuoloPfpg(SigitRImpRuoloPfpgDto dto) {
+		getSigitRImpRuoloPfpgDao().insert(dto);
+	}
+	
+	public Integer checkSigitRImpRuoloPfpgResponsabile(Integer codiceImpianto, String cfPersona) throws SigitRImpRuoloPfpgDaoException {
+		return getSigitRImpRuoloPfpgDao().checkResponsabile(codiceImpianto, cfPersona);
+	}
+	
+	public Integer checkSigitRImpRuoloPfpgProprietario(Integer codiceImpianto, String cfPersona) throws SigitRImpRuoloPfpgDaoException {
+		return getSigitRImpRuoloPfpgDao().checkProprietario(codiceImpianto, cfPersona);
+	}
+	
+	public List<SigitRComp4ManutDto> findSigitRComp4ManutByCodiceImpiantoAndIdTipoComponenteAndProgressivo(BigDecimal codiceImpianto, String idTipoComponente, BigDecimal progressivo) throws SigitRComp4ManutDaoException {
+		SigitRComp4ManutDto comp4ManutFilter = new SigitRComp4ManutDto();
+		comp4ManutFilter.setCodiceImpianto(codiceImpianto);
+		comp4ManutFilter.setIdTipoComponente(idTipoComponente);
+		comp4ManutFilter.setProgressivo(progressivo);
+
+		return getSigitRComp4ManutDao().findAttiviByFilter(comp4ManutFilter);
+	}
+	
+	public void updateSigitRComp4ManutDataFine(SigitRComp4ManutDto dto) throws SigitRComp4ManutDaoException {
+		getSigitRComp4ManutDao().updateDataFine(dto);
+	}
+	
+	public void insertSigitRComp4Manu(SigitRComp4ManutDto dto) {
+		getSigitRComp4ManutDao().insert(dto);
+	}
+	
+	public List<SigitDTipoCessazioneDto> getAllTipoCessazioneByIdTipoCessazioneMajorZero() throws SigitextException {
+		return getSigitDTipoCessazioneDao().getAllTipoCessazioneByIdTipoCessazioneMajorZero();
+	}
+	
+	public List<SigitDAutodichiarazioneDto> findAllSigitDAutodichiarazione() throws SigitextException {
+		return getSigitDAutodichiarazioneDao().findAll();
+	}
+	
+	public String getSigitDAutodichiarazioneDesById(Integer idAutodichiarazione) throws SigitextException {
+		SigitDAutodichiarazionePk pk = new SigitDAutodichiarazionePk();
+		pk.setId_autodichiarazione(idAutodichiarazione);
+		return getSigitDAutodichiarazioneDao().getDesById(pk);
+	}
+	
+	public List<SigitRContr2019AutodichiarDto> getSigitRContr2019AutodichiarByIdContratto(Integer idContratto) throws SigitextException {
+		SigitRContr2019AutodichiarPk pk = new SigitRContr2019AutodichiarPk();
+		pk.setId_contratto(idContratto);
+		return getSigitRContr2019AutodichiarDao().findAllByIdContratto(pk);
+	}
+	
+	public SigitDRuoloDto findSigitDRuoloById(Integer idRuolo) throws SigitDRuoloDaoException {
+		SigitDRuoloPk pk = new SigitDRuoloPk();
+		pk.setIdRuolo(idRuolo);
+		return getSigitDRuoloDao().findById(pk);
+	}
+	
+	public SigitDRuoloDto findSigitDRuoloByDes(String desRuolo, String ruoloFunz) throws SigitDRuoloDaoException {
+		return getSigitDRuoloDao().findByDes(desRuolo, ruoloFunz);
+	}
+	
+	public List<SigitDRuoloDto> findSigitDRuoloByRuoloFunz(String ruoloFunz) throws SigitDRuoloDaoException {
+		return getSigitDRuoloDao().findByRuoloFunz(ruoloFunz);
+	}
+	
+	public SigitDTipoCessazioneDto getTipoCessazioneByDes(String des) throws SigitextException {
+		return getSigitDTipoCessazioneDao().getTipoCessazioneByDes(des);
+	}
+	
+	public SigitDTipoCessazioneDto getTipoCessazioneById(Integer id) throws SigitextException {
+		return getSigitDTipoCessazioneDao().getTipoCessazioneById(id);
+	}
+	
+	public void updateSigitTContratto2019PerRevoca(SigitTContratto2019Dto dto) throws SigitTContratto2019DaoException{
+		getSigitTContratto2019Dao().updateColumnsPerRevoca(dto);
+	}
+	
+	public void updateSigitTContratto2019PerProroga(SigitTContratto2019Dto dto) throws SigitTContratto2019DaoException{
+		getSigitTContratto2019Dao().updateColumnsPerProroga(dto);
+	}
+	
+	public void insertSigitRContr2019Autodichiar(SigitRContr2019AutodichiarDto dto) throws SigitextException {
+		getSigitRContr2019AutodichiarDao().insert(dto);
+	}
+	
+	public void updateBloccoNomina3ROnSigitTImpianto(SigitTImpiantoDto dto) throws SigitTImpiantoDaoException {
+		getSigitTImpiantoDao().updateColumnsUpdateBloccoNomina3R(dto);
+	}
+	
+	public SigitTAbilitazioneDto findSigitTAbilitazioneByPk(SigitTAbilitazionePk pk) throws SigitTAbilitazioneDaoException {
+		return getSigitTAbilitazioneDao().findByPrimaryKey(pk);
+	}
+	
+	public void insertSigitTAzioneContratto(SigitTAzioneContrattoDto dto) throws SigitextException {
+		getSigitTAzioneContrattoDao().insert(dto);
+	}
+	
+	public SigitTContratto2019Pk insertSigitTContratto2019(SigitTContratto2019Dto dto) {
+		return getSigitTContratto2019Dao().insert(dto);
+	}
+
+	public void closeCaricatoriImpiantoSigitRImpRuoloPfpg(Integer codiceImpianto, String utenteUltimaModifica) throws SigitRPfRuoloPaDaoException {
+		getSigitRPfRuoloPaDao().closeCaricatoriImpiantoSigitRImpRuoloPfpg(codiceImpianto, utenteUltimaModifica);
+	}
+
+	public SigitTContratto2019Dto checkContrattoInEssere(String codiceImpianto) {
+		return sigitTContratto2019Dao.checkContrattoInEssere(codiceImpianto);
+	}
 }
+
+
 

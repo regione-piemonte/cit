@@ -119,6 +119,12 @@ public class SigitExtImpiantiByFiltroRowMapper extends BaseDaoRowMapper
 		if (mapAllColumns || columnsToReadMap.get("UID_INDEX") != null)
 			dto.setUidLibretto(rs.getString("UID_INDEX"));
 		
+		if (mapAllColumns || columnsToReadMap.get("COORD_X_LONG_DD") != null)
+			dto.setCoordLong(rs.getFloat("COORD_X_LONG_DD"));
+
+		if (mapAllColumns || columnsToReadMap.get("COORD_Y_LAT_DD") != null)
+			dto.setCoordLat(rs.getFloat("COORD_Y_LAT_DD"));
+		
 		
 		return dto;
 	}

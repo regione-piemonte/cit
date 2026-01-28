@@ -64,6 +64,16 @@
             <value>seq_t_persona_giuridica</value>
         </constructor-arg>
     </bean>
+    
+    <bean id="sigitRIspezIspetDaoIncrementer"
+          class="org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer">
+        <constructor-arg>
+            <ref bean="myDataSource"/>
+        </constructor-arg>
+        <constructor-arg>
+            <value>seq_r_ispez_ispet</value>
+        </constructor-arg>
+    </bean>
 
     <bean id="sigitTImportDistribDaoIncrementer"
           class="org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer">
@@ -84,7 +94,26 @@
             <value>seq_t_doc_allegato</value>
         </constructor-arg>
     </bean>
-
+    
+    <bean id="sigitTDettIspezGtDaoIncrementer"
+          class="org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer">
+        <constructor-arg>
+            <ref bean="myDataSource"/>
+        </constructor-arg>
+        <constructor-arg>
+            <value>seq_t_dett_ispez_gt</value>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="sigitTDettIspezGfDaoIncrementer"
+          class="org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer">
+        <constructor-arg>
+            <ref bean="myDataSource"/>
+        </constructor-arg>
+        <constructor-arg>
+            <value>seq_t_dett_ispez_gf</value>
+        </constructor-arg>
+    </bean>        
 
     <bean id="sigitTDocAllegatoDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTDocAllegatoDaoImpl">
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
@@ -109,6 +138,16 @@
     </bean>
 
     <bean id="combustibileCITDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.CombustibileCITDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+
+    </bean>
+
+    <bean id="classDpr66096CITDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.ClassDpr66096CITDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+
+    </bean>
+
+    <bean id="frequenzaManutCITDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.FrequenzaManutCITDaoImpl">
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
 
     </bean>
@@ -451,6 +490,38 @@
 
         <property name="incrementer" ref="sigitTLibrettoDaoIncrementer"/>
     </bean>
+    
+    <bean id="sigitTDatoDistribDaoIncrementer"
+		class="org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer">
+		<constructor-arg>
+			<ref bean="myDataSource" />
+		</constructor-arg>
+		<constructor-arg>
+			<value>seq_t_dato_distrib</value>
+		</constructor-arg>
+	</bean>
+  	
+	<bean id="sigitTDatoDistribDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTDatoDistribDaoImpl">
+    	<property name="jdbcTemplate" ref="namedJdbcTemplate" />
+    	
+    	<property name="incrementer" ref="sigitTDatoDistribDaoIncrementer" />
+  	</bean>
+  	
+  	<bean id="sigitTLogDistribDaoIncrementer"
+		class="org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer">
+		<constructor-arg>
+			<ref bean="myDataSource" />
+		</constructor-arg>
+		<constructor-arg>
+			<value>seq_t_log_distrib</value>
+		</constructor-arg>
+	</bean>
+  	
+  	<bean id="sigitTLogDistribDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTLogDistribDaoImpl">
+    	<property name="jdbcTemplate" ref="namedJdbcTemplate" />
+    	
+    	<property name="incrementer" ref="sigitTLogDistribDaoIncrementer" />
+  	</bean>
 
 
     <bean id="sigitTLibTxtDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTLibTxtDaoImpl">
@@ -503,7 +574,7 @@
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
 
     </bean>
-
+    
 
     <bean id="sigitTCompScDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTCompScDaoImpl">
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
@@ -934,6 +1005,15 @@
         <property name="incrementer" ref="sigitTContratto2019DaoIncrementer" />
     </bean>
 
+    <bean id="sigitTIspezione2018DaoIncrementer"
+          class="org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer">
+        <constructor-arg>
+            <ref bean="myDataSource" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>seq_t_ispezione_2018</value>
+        </constructor-arg>
+    </bean>
 
 
     <bean id="sigitTDocAzioneDaoIncrementer"
@@ -965,6 +1045,10 @@
     <bean id="sigitWrkConfigDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitWrkConfigDaoImpl">
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
 
+    </bean>
+    
+    <bean id="sigitDCategoriaDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDCategoriaDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
     </bean>
 
     <bean id="sigitVRicercaImpiantiDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitVRicercaImpiantiDaoImpl">
@@ -1010,6 +1094,11 @@
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
 
     </bean>
+    
+        <bean id="sigitDStatoIspezioneDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDStatoIspezioneDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+
+    </bean>
 
     <bean id="sigitTImportDistribDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTImportDistribDaoImpl">
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
@@ -1018,12 +1107,26 @@
 
     <bean id="sigitDFluidoDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDFluidoDaoImpl">
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
-
     </bean>
 
     <bean id="sigitDUnitaMisuraDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDUnitaMisuraDaoImpl">
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
-
+    </bean>
+    
+    <bean id="sigitDTipoCessazioneDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDTipoCessazioneDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+    </bean>
+    
+    <bean id="sigitDAutodichiarazioneDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDAutodichiarazioneDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+    </bean>
+    
+    <bean id="sigitRContr2019AutodichiarDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitRContr2019AutodichiarDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+    </bean>
+    
+    <bean id="sigitDRuoloDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDRuoloDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
     </bean>
 
     <bean id="sigitDStelleDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDStelleDaoImpl">
@@ -1042,6 +1145,10 @@
     <bean id="sigitDDettaglioGfDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDDettaglioGfDaoImpl">
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
     </bean>
+    
+    <bean id="sigitTStoricoVarStatoPgDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTStoricoVarStatoPgDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+    </bean>
 
     <bean id="sigitDTipoCannaFumariaDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDTipoCannaFumariaDaoImpl">
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
@@ -1050,6 +1157,79 @@
     <bean id="sigitTAzioneComp4Dao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTAzioneComp4DaoImpl">
         <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
     </bean>
-</beans>
+    
+    <bean id="sigitDStatoPgDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDStatoPgDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+    </bean>
+    
+    <bean id="sigitTDocContrattoDaoIncrementer"
+          class="org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer">
+        <constructor-arg>
+            <ref bean="myDataSource"/>
+        </constructor-arg>
+        <constructor-arg>
+            <value>seq_t_doc_contratto</value>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="sigitTDocContrattoDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTDocContrattoDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+        <property name="incrementer" ref="sigitTDocContrattoDaoIncrementer"/>
+    </bean>
+    
+    <bean id="sigitDTipoInterventoDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDTipoInterventoDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+    </bean>
+    
+    <bean id="sigitDTipoDocumentoDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDTipoDocumentoDaoImpl">
+    	<property name="jdbcTemplate" ref="namedJdbcTemplate"></property>
+    </bean>
+    
+     <bean id="sigitDStatoRappDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitDStatoRappDaoImpl">
+    	<property name="jdbcTemplate" ref="namedJdbcTemplate"></property>
+    </bean>
 
+	<bean id="mvOdVistaDettaglioImpiantiDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.MvOdVistaDettaglioImpiantiDaoImpl">
+    	<property name="jdbcTemplate" ref="namedJdbcTemplate" />
+    	
+  	</bean>
+  	
+  	<bean id="sigitRIspezIspetDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitRIspezIspetDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+        <property name="incrementer" ref="sigitRIspezIspetDaoIncrementer"/>
+    </bean>
+
+  	<bean id="sigitTRappIspezGtDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTRappIspezGtDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+    </bean>
+    
+    <bean id="sigitTRappIspezGfDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTRappIspezGfDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+    </bean>
+    
+    <bean id="sigitTDettIspezGtDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTDettIspezGtDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+        <property name="incrementer" ref="sigitTDettIspezGtDaoIncrementer"/>
+    </bean>
+    
+    <bean id="sigitTDettIspezGfDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTDettIspezGfDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+        <property name="incrementer" ref="sigitTDettIspezGfDaoIncrementer"/>
+    </bean>
+
+ 	<bean id="sigitTAzioneContrattoDao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTAzioneContrattoDaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate"/>
+    </bean>
+    
+    <bean id="sigitTIspezione2018Dao" class="it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitTIspezione2018DaoImpl">
+        <property name="jdbcTemplate" ref="namedJdbcTemplate" />
+
+        <property name="incrementer" ref="sigitTIspezione2018DaoIncrementer" />
+        
+        <property name="sigitRIspezIspetDao" ref="sigitRIspezIspetDao" />
+        
+        <property name="sigitTPersonaFisicaDao" ref="sigitTPersonaFisicaDao" />
+    </bean>
+
+</beans>
 

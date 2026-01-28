@@ -4,25 +4,36 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.pdf;
 
-import com.lowagie.text.Font;
-import com.lowagie.text.Image;
-import com.lowagie.text.*;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import it.csi.sigit.sigitext.business.be.manager.DbServiceImp;
-import it.csi.sigit.sigitext.business.be.manager.ServiceManager;
-import it.csi.sigit.sigitext.business.util.Constants;
-import it.csi.sigit.sigitext.business.util.ConvertUtil;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import java.awt.*;
+import java.awt.Color;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+
+import it.csi.sigit.sigitext.business.be.manager.DbServiceImp;
+import it.csi.sigit.sigitext.business.be.manager.ServiceManager;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaFisicaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaGiuridicaDto;
+import it.csi.sigit.sigitext.business.util.Constants;
+import it.csi.sigit.sigitext.business.util.ConvertUtil;
+import it.csi.sigit.sigitext.business.util.GenericUtil;
 
 public class BaseBuilder {
 
@@ -140,8 +151,9 @@ public class BaseBuilder {
 			image = getImmagine(imgName);
 
 			log.debug("Cerco l'immagine check - TROVATA");
-
-			image.scaleAbsolute(6f, 6f);
+			if(image!=null) {
+				image.scaleAbsolute(6f, 6f);
+			}
 		} catch (Exception e) {
 			System.out.println("Immagine mancante");
 
@@ -158,8 +170,9 @@ public class BaseBuilder {
 			image = getImmagine(IMG_LOGO_NAME);
 
 			log.debug("Stampo image: " + image);
-
-			image.scaleAbsolute(90f, 35f);
+			if(image!=null) {
+				image.scaleAbsolute(90f, 35f);
+			}
 		} catch (Exception e) {
 			System.out.println("Immagine mancante");
 
@@ -190,7 +203,9 @@ public class BaseBuilder {
 		Chunk chunk = null;
 		try {
 			Image etaImage = getImmagine("greek_eta.png");
-			etaImage.scaleAbsolute(6, 8);
+			if(etaImage!=null) {
+				etaImage.scaleAbsolute(6, 8);
+			}
 			chunk = new Chunk(etaImage, -1, -2);
 
 		} catch (Exception e) {
@@ -301,7 +316,7 @@ public class BaseBuilder {
 	}
 
 	public static Paragraph aggiungiNumFoglio(int numPagine, String totPagine) {
-		Paragraph p3 = new Paragraph("Foglio n째 ", FONT_HELVETICA_9_I);
+		Paragraph p3 = new Paragraph("Foglio n� ", FONT_HELVETICA_9_I);
 		//p3.add("Foglio n째 ");
 		aggiungiTesto(p3, ConvertUtil.convertToString(numPagine), 3);
 		p3.add(" di ");
@@ -315,7 +330,7 @@ public class BaseBuilder {
 		Font font = new Font(FONT_HELVETICA_6);
 		font.setColor(Color.GRAY);
 
-		Paragraph p3 = new Paragraph("Pagina n째 ", font);
+		Paragraph p3 = new Paragraph("Pagina n� ", font);
 		//p3.add("Foglio n째 ");
 		aggiungiTesto(p3, ConvertUtil.convertToString(numPagine), 1);
 		p3.add(" di ");
@@ -530,4 +545,213 @@ public class BaseBuilder {
 	public static PdfPTable addEmptyCell(PdfPTable tabella, int colNumber, int border) {
 		return addEmptyCell(tabella, colNumber, border, null);
 	}
+	
+	public static String getCognomeNome(boolean isTrue, SigitTPersonaFisicaDto pf, SigitTPersonaGiuridicaDto pg)
+	 {
+		String var = null;
+		 if (isTrue)
+		 {
+			if(pf != null)
+			{
+				var = GenericUtil.getStringValid(pf.getCognome()) + " " + GenericUtil.getStringValid(pf.getNome());
+			}
+		 }
+		 else
+		 {
+			 var = DATO_NON_PRESENTE;
+		 }
+		 
+		 return var;
+	 }
+
+	 public static String getRagioneSociale(boolean isTrue, SigitTPersonaFisicaDto pf, SigitTPersonaGiuridicaDto pg)
+	 {
+		String var = null;
+		 if (isTrue)
+		 {
+			if(pg != null)
+			{
+				var = GenericUtil.getStringValid(pg.getDenominazione());
+			}
+		 }
+		 else
+		 {
+			 var = DATO_NON_PRESENTE;
+		 }
+		 
+		 return var;
+	 }
+	 
+	 public static String getComune(boolean isTrue, SigitTPersonaFisicaDto pf, SigitTPersonaGiuridicaDto pg)
+	 {
+		String var = null;
+		 if (isTrue)
+		 {
+			if(pg != null)
+			{
+				if (ConvertUtil.convertToBooleanAllways(pg.getFlgIndirizzoEstero()))
+				{
+					var = GenericUtil.getStringValid(pg.getCittaEstero()) + " ("+GenericUtil.getStringValid(pg.getStatoEstero())+")";
+				}
+				else
+				{
+					var = GenericUtil.getStringValid(pg.getComune()) + "  ("+GenericUtil.getStringValid(pg.getProvincia())+")";
+				}
+			}
+			else 
+			{
+				if (ConvertUtil.convertToBooleanAllways(pf.getFlgIndirizzoEstero()))
+				{
+					var = GenericUtil.getStringValid(pf.getCittaEstero()) + " ("+GenericUtil.getStringValid(pf.getStatoEstero())+")";
+				}
+				else
+				{
+					var = GenericUtil.getStringValid(pf.getComune()) + "  ("+GenericUtil.getStringValid(pf.getProvincia())+")";
+				}
+			}
+			
+		 }
+		 else
+		 {
+			 var = DATO_NON_PRESENTE;
+		 }
+		 
+		 return var;
+	 }
+	 
+	 public static String getIndirizzo(boolean isTrue, SigitTPersonaFisicaDto pf, SigitTPersonaGiuridicaDto pg)
+	 {
+		String var = null;
+		 if (isTrue)
+		 {
+			if(pg != null)
+			{
+				if (ConvertUtil.convertToBooleanAllways(pg.getFlgIndirizzoEstero()))
+				{
+					var = GenericUtil.getStringValid(pg.getIndirizzoEstero());
+				}
+				else
+				{
+					if(pg.getIndirizzoSitad()!=null){
+						var = GenericUtil.getStringValid(pg.getIndirizzoSitad());
+					}else{
+						var = GenericUtil.getStringValid(pg.getIndirizzoNonTrovato());
+					}				
+				}
+			}
+			else 
+			{
+				if (ConvertUtil.convertToBooleanAllways(pf.getFlgIndirizzoEstero()))
+				{
+					var = GenericUtil.getStringValid(pf.getIndirizzoEstero());
+				}
+				else
+				{
+					if(pf.getIndirizzoSitad()!=null){
+						var = GenericUtil.getStringValid(pf.getIndirizzoSitad());
+					}else{
+						var = GenericUtil.getStringValid(pf.getIndirizzoNonTrovato());
+					}				
+				}
+			}
+			
+		 }
+		 else
+		 {
+			 var = DATO_NON_PRESENTE;
+		 }
+		 
+		 return var;
+	 }
+	 
+	 public static String getTelefonoFax(boolean isTrue, SigitTPersonaFisicaDto pf, SigitTPersonaGiuridicaDto pg)
+	 {
+		String var = null;
+		 if (isTrue)
+		 {
+			 var = DATO_NON_PRESENTE; // Per adesso non lo gestiamo
+		 }
+		 else
+		 {
+			 var = DATO_NON_PRESENTE;
+		 }
+		 
+		 return var;
+	 }
+	 
+	 public static String getEmail(boolean isTrue, SigitTPersonaFisicaDto pf, SigitTPersonaGiuridicaDto pg)
+	 {
+		String var = null;
+		 if (isTrue)
+		 {
+			if(pg != null)
+			{
+				var = GenericUtil.getStringValid(pg.getEmail());
+			}
+			else 
+			{
+				var = GenericUtil.getStringValid(pf.getEmail());
+			}
+			
+		 }
+		 else
+		 {
+			 var = DATO_NON_PRESENTE;
+		 }
+		 
+		 return var;
+	 }
+	 
+	 public static String getCfPiva(boolean isTrue, SigitTPersonaFisicaDto pf, SigitTPersonaGiuridicaDto pg)
+	 {
+		String var = null;
+		 if (isTrue)
+		 {
+			if(pg != null)
+			{
+				var = GenericUtil.getStringValid(pg.getCodiceFiscale());
+			}
+			else 
+			{
+				var = GenericUtil.getStringValid(pf.getCodiceFiscale());
+			}
+			
+		 }
+		 else
+		 {
+			 var = DATO_NON_PRESENTE;
+		 }
+		 
+		 return var;
+	 }
+	 
+	 public static boolean isCF(boolean isTrue, SigitTPersonaFisicaDto pf, SigitTPersonaGiuridicaDto pg)
+	 {
+		boolean var = false;
+		 if (isTrue)
+		 {
+			if(pf != null)
+			{
+				var = true;
+			}
+						
+		 }
+		 
+		 return var;
+	 }
+
+	 public static boolean isPIVA(boolean isTrue, SigitTPersonaFisicaDto pf, SigitTPersonaGiuridicaDto pg)
+	 {
+		boolean var = false;
+		 if (isTrue)
+		 {
+			if(pg != null)
+			{
+				var = true;
+			}
+						
+		 }
+		 
+		 return var;
+	 }
 }

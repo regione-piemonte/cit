@@ -21,7 +21,7 @@ public interface SigitTCompGfDao {
 
 	public void customDeleterByCodImpianto(Integer filter) throws SigitTCompGfDaoException;
 
-	List ricercaComponentiByFiltro(CompFilter filter) throws SigitTCompGfDaoException;
+	public List<SigitTCompGfDto> ricercaComponentiByFiltro(CompFilter filter) throws SigitTCompGfDaoException;
 
 	public List<SigitTCompGfCompletoDto> ricercaComponentiCompletoByFiltro(CompFilter compFilter) throws SigitTCompGfDaoException;
 

@@ -17,7 +17,8 @@ public interface SigitTControlloLibrettoDao {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	public SigitTControlloLibrettoDto findByPrimaryKey(SigitTControlloLibrettoPk pk)
-			throws SigitTControlloLibrettoDaoException;
+	public SigitTControlloLibrettoDto findByPrimaryKey(SigitTControlloLibrettoPk pk) throws SigitTControlloLibrettoDaoException;
+	void insert(SigitTControlloLibrettoDto dto) throws SigitTControlloLibrettoDaoException;
+	void update(SigitTControlloLibrettoDto dto) throws SigitTControlloLibrettoDaoException;
 
 }

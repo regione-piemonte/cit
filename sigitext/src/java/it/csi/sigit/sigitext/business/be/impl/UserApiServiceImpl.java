@@ -37,6 +37,23 @@ public class UserApiServiceImpl implements UserApi {
 	}
 
 	@Override
+	public Response getRuoliDistributore(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest httpRequest, String cf, String nome, String cognome) {
+		try {
+			Ruoli ruoli = getImplSigitextManager().getRuoliDistributore(cf, cognome, nome);
+			if (ruoli != null)
+				return Response.ok(ruoli).build();
+			else {
+				return Response.status(Response.Status.NOT_FOUND)
+						.entity(new Errore(Response.Status.NOT_FOUND.getStatusCode(), Response.Status.NOT_FOUND.getReasonPhrase(), "nessun combustibile trovato")).build();
+			}
+		} catch (CSIException e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.ERRORE_GESTITO, e.getMessage())).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.ERRORE_GENERICO, e.getMessage())).build();
+		}
+	}
+
+	@Override
 	public Response setAccesso(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest httpRequest, UtenteLoggato utenteLoggato) {
 		try {
 			if (utenteLoggato.getPfLoggato() != null && utenteLoggato.getRuoloLoggato() != null) {
@@ -52,4 +69,65 @@ public class UserApiServiceImpl implements UserApi {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.ERRORE_GENERICO, e.getMessage())).build();
 		}
 	}
+
+	@Override
+	public Response salvaAccesso(SecurityContext securityContext, HttpHeaders httpHeaders,
+			HttpServletRequest httpRequest, String nome, String cognome, String cf, String ruolo) {
+		try {
+			if (cf != null && ruolo != null) {
+				UtenteLoggato utenteLoggato = new UtenteLoggato();
+				utenteLoggato.setPfLoggato(new PFLoggato());
+				utenteLoggato.getPfLoggato().setNomePF(nome);
+				utenteLoggato.getPfLoggato().setCognomePF(cognome);
+				utenteLoggato.getPfLoggato().setCodiceFiscalePF(cf);
+				utenteLoggato.setRuoloLoggato(new RuoloLoggato());
+				utenteLoggato.getRuoloLoggato().setRuolo(ruolo);
+				
+				getImplSigitextManager().setAccesso(utenteLoggato);
+				return Response.ok().build();
+
+			} else {
+				return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.ERRORE_GESTITO, "Formato modello non accettato")).build();
+			}
+		} catch (CSIException e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.ERRORE_GESTITO, e.getMessage())).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.ERRORE_GENERICO, e.getMessage())).build();
+		}
+	}
+
+	@Override
+	public Response getDisponibilitaServizio(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest httpRequest, UtenteLoggato utenteLoggato, String servizio) {
+		try {
+			if (utenteLoggato.getPfLoggato() != null && servizio != null && !servizio.equals("")) {
+				getImplSigitextManager().getDisponibilitaServizio(servizio, utenteLoggato.getPfLoggato().getCodiceFiscalePF());
+				return Response.ok().build();
+
+			} else {
+				return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.ERRORE_GESTITO, "Servizio non disponibile.")).build();
+			}
+		} catch (CSIException e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.ERRORE_GESTITO, e.getMessage())).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.ERRORE_GENERICO, e.getMessage())).build();
+		}
+	}
+
+	@Override
+	public Response getDisponibilitaServizio(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest httpRequest, String codiceFiscale , String servizio) {
+		try {
+			if (codiceFiscale != null && !codiceFiscale.equals("") && servizio != null && !servizio.equals("")) {
+				getImplSigitextManager().getDisponibilitaServizio(servizio, codiceFiscale);
+				return Response.ok().build();
+
+			} else {
+				return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.ERRORE_GESTITO, "Servizio non disponibile.")).build();
+			}
+		} catch (CSIException e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.ERRORE_GESTITO, e.getMessage())).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.ERRORE_GENERICO, e.getMessage())).build();
+		}
+	}
+
 }

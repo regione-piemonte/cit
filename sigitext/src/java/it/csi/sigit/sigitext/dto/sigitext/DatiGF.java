@@ -5,14 +5,13 @@ import java.util.Date;
 
 public class DatiGF {
 	private String idTipoComponente;
-	private Integer progressivo;
+	private BigDecimal progressivo;
 	private Date dataInstall;
 	private Integer codiceImpianto;
 	private Integer fkDettaglioGf;
 	private String desDettaglioGf;
 	private String flgSorgenteExt;
 	private String flgFluidoUtenze;
-	private String fluidoFrigorigenodi;
 	private Integer nCircuiti;
 	private String raffrescamentoEer;
 	private BigDecimal raffPotenzaKw;
@@ -38,6 +37,7 @@ public class DatiGF {
 	private String desFonteEnSfruttata;
 	private Date dataMinimaControllo;
 	private Date dataMassimaControllo;
+	private String fluidoFrigorigeno;			
 
 	private String cf;
 
@@ -47,6 +47,20 @@ public class DatiGF {
 
 	public DatiGF() {
 	}
+	
+	
+
+	public String getFluidoFrigorigeno() {
+		return fluidoFrigorigeno;
+	}
+
+
+
+	public void setFluidoFrigorigeno(String fluidoFrigorigeno) {
+		this.fluidoFrigorigeno = fluidoFrigorigeno;
+	}
+
+
 
 	public String getIdTipoComponente() {
 		return idTipoComponente;
@@ -56,11 +70,11 @@ public class DatiGF {
 		this.idTipoComponente = idTipoComponente;
 	}
 
-	public Integer getProgressivo() {
+	public BigDecimal getProgressivo() {
 		return progressivo;
 	}
 
-	public void setProgressivo(Integer progressivo) {
+	public void setProgressivo(BigDecimal progressivo) {
 		this.progressivo = progressivo;
 	}
 
@@ -110,14 +124,6 @@ public class DatiGF {
 
 	public void setFlgFluidoUtenze(String flgFluidoUtenze) {
 		this.flgFluidoUtenze = flgFluidoUtenze;
-	}
-
-	public String getFluidoFrigorigenodi() {
-		return fluidoFrigorigenodi;
-	}
-
-	public void setFluidoFrigorigenodi(String fluidoFrigorigenodi) {
-		this.fluidoFrigorigenodi = fluidoFrigorigenodi;
 	}
 
 	public Integer getnCircuiti() {

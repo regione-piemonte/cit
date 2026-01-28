@@ -1,5 +1,6 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao;
 
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVTotImpiantoCercaUbicazioneImpiantoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVTotImpiantoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVTotImpiantoDaoException;
 
@@ -32,4 +33,6 @@ public interface SigitVTotImpiantoDao {
 			it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ResponsabileFilter input)
 			throws SigitVTotImpiantoDaoException;
 
+	public List<SigitVTotImpiantoCercaUbicazioneImpiantoDto> findCercaUbicazioneImpianto(java.lang.Integer input)
+			throws SigitVTotImpiantoDaoException;
 }

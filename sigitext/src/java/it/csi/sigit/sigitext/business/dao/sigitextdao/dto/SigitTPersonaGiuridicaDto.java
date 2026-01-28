@@ -2,6 +2,7 @@ package it.csi.sigit.sigitext.business.dao.sigitextdao.dto;
 
 /**
  * Data transfer object relativo al DAO SigitTPersonaGiuridicaDao.
+ * 
  * @generated
  */
 public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
@@ -10,13 +11,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna DENOMINAZIONE
+	 * 
 	 * @generated
 	 */
 	protected String denominazione;
 
 	/**
-	 * Imposta il valore della proprieta' denominazione associata alla
-	 * colonna DENOMINAZIONE.
+	 * Imposta il valore della proprieta' denominazione associata alla colonna
+	 * DENOMINAZIONE.
+	 * 
 	 * @generated
 	 */
 	public void setDenominazione(String val) {
@@ -27,6 +30,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' denominazione associata alla
+	 * 
 	 * @generated
 	 */
 	public String getDenominazione() {
@@ -37,13 +41,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna CODICE_FISCALE
+	 * 
 	 * @generated
 	 */
 	protected String codiceFiscale;
 
 	/**
-	 * Imposta il valore della proprieta' codiceFiscale associata alla
-	 * colonna CODICE_FISCALE.
+	 * Imposta il valore della proprieta' codiceFiscale associata alla colonna
+	 * CODICE_FISCALE.
+	 * 
 	 * @generated
 	 */
 	public void setCodiceFiscale(String val) {
@@ -54,6 +60,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' codiceFiscale associata alla
+	 * 
 	 * @generated
 	 */
 	public String getCodiceFiscale() {
@@ -64,13 +71,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FK_L2
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal fkL2;
 
 	/**
-	 * Imposta il valore della proprieta' fkL2 associata alla
-	 * colonna FK_L2.
+	 * Imposta il valore della proprieta' fkL2 associata alla colonna FK_L2.
+	 * 
 	 * @generated
 	 */
 	public void setFkL2(java.math.BigDecimal val) {
@@ -81,6 +89,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' fkL2 associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFkL2() {
@@ -91,13 +100,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna INDIRIZZO_SITAD
+	 * 
 	 * @generated
 	 */
 	protected String indirizzoSitad;
 
 	/**
-	 * Imposta il valore della proprieta' indirizzoSitad associata alla
-	 * colonna INDIRIZZO_SITAD.
+	 * Imposta il valore della proprieta' indirizzoSitad associata alla colonna
+	 * INDIRIZZO_SITAD.
+	 * 
 	 * @generated
 	 */
 	public void setIndirizzoSitad(String val) {
@@ -108,6 +119,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' indirizzoSitad associata alla
+	 * 
 	 * @generated
 	 */
 	public String getIndirizzoSitad() {
@@ -118,13 +130,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna INDIRIZZO_NON_TROVATO
+	 * 
 	 * @generated
 	 */
 	protected String indirizzoNonTrovato;
 
 	/**
-	 * Imposta il valore della proprieta' indirizzoNonTrovato associata alla
-	 * colonna INDIRIZZO_NON_TROVATO.
+	 * Imposta il valore della proprieta' indirizzoNonTrovato associata alla colonna
+	 * INDIRIZZO_NON_TROVATO.
+	 * 
 	 * @generated
 	 */
 	public void setIndirizzoNonTrovato(String val) {
@@ -135,6 +149,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' indirizzoNonTrovato associata alla
+	 * 
 	 * @generated
 	 */
 	public String getIndirizzoNonTrovato() {
@@ -145,13 +160,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna SIGLA_PROV
+	 * 
 	 * @generated
 	 */
 	protected String siglaProv;
 
 	/**
-	 * Imposta il valore della proprieta' siglaProv associata alla
-	 * colonna SIGLA_PROV.
+	 * Imposta il valore della proprieta' siglaProv associata alla colonna
+	 * SIGLA_PROV.
+	 * 
 	 * @generated
 	 */
 	public void setSiglaProv(String val) {
@@ -162,6 +179,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' siglaProv associata alla
+	 * 
 	 * @generated
 	 */
 	public String getSiglaProv() {
@@ -172,13 +190,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna ISTAT_COMUNE
+	 * 
 	 * @generated
 	 */
 	protected String istatComune;
 
 	/**
-	 * Imposta il valore della proprieta' istatComune associata alla
-	 * colonna ISTAT_COMUNE.
+	 * Imposta il valore della proprieta' istatComune associata alla colonna
+	 * ISTAT_COMUNE.
+	 * 
 	 * @generated
 	 */
 	public void setIstatComune(String val) {
@@ -189,6 +209,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' istatComune associata alla
+	 * 
 	 * @generated
 	 */
 	public String getIstatComune() {
@@ -199,13 +220,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna COMUNE
+	 * 
 	 * @generated
 	 */
 	protected String comune;
 
 	/**
-	 * Imposta il valore della proprieta' comune associata alla
-	 * colonna COMUNE.
+	 * Imposta il valore della proprieta' comune associata alla colonna COMUNE.
+	 * 
 	 * @generated
 	 */
 	public void setComune(String val) {
@@ -216,6 +238,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' comune associata alla
+	 * 
 	 * @generated
 	 */
 	public String getComune() {
@@ -226,13 +249,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna PROVINCIA
+	 * 
 	 * @generated
 	 */
 	protected String provincia;
 
 	/**
-	 * Imposta il valore della proprieta' provincia associata alla
-	 * colonna PROVINCIA.
+	 * Imposta il valore della proprieta' provincia associata alla colonna
+	 * PROVINCIA.
+	 * 
 	 * @generated
 	 */
 	public void setProvincia(String val) {
@@ -243,6 +268,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' provincia associata alla
+	 * 
 	 * @generated
 	 */
 	public String getProvincia() {
@@ -253,13 +279,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna CIVICO
+	 * 
 	 * @generated
 	 */
 	protected String civico;
 
 	/**
-	 * Imposta il valore della proprieta' civico associata alla
-	 * colonna CIVICO.
+	 * Imposta il valore della proprieta' civico associata alla colonna CIVICO.
+	 * 
 	 * @generated
 	 */
 	public void setCivico(String val) {
@@ -270,6 +297,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' civico associata alla
+	 * 
 	 * @generated
 	 */
 	public String getCivico() {
@@ -280,13 +308,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna CAP
+	 * 
 	 * @generated
 	 */
 	protected String cap;
 
 	/**
-	 * Imposta il valore della proprieta' cap associata alla
-	 * colonna CAP.
+	 * Imposta il valore della proprieta' cap associata alla colonna CAP.
+	 * 
 	 * @generated
 	 */
 	public void setCap(String val) {
@@ -297,6 +326,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' cap associata alla
+	 * 
 	 * @generated
 	 */
 	public String getCap() {
@@ -307,13 +337,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna EMAIL
+	 * 
 	 * @generated
 	 */
 	protected String email;
 
 	/**
-	 * Imposta il valore della proprieta' email associata alla
-	 * colonna EMAIL.
+	 * Imposta il valore della proprieta' email associata alla colonna EMAIL.
+	 * 
 	 * @generated
 	 */
 	public void setEmail(String val) {
@@ -324,6 +355,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' email associata alla
+	 * 
 	 * @generated
 	 */
 	public String getEmail() {
@@ -334,13 +366,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna DATA_INIZIO_ATTIVITA
+	 * 
 	 * @generated
 	 */
 	protected java.sql.Date dataInizioAttivita;
 
 	/**
-	 * Imposta il valore della proprieta' dataInizioAttivita associata alla
-	 * colonna DATA_INIZIO_ATTIVITA.
+	 * Imposta il valore della proprieta' dataInizioAttivita associata alla colonna
+	 * DATA_INIZIO_ATTIVITA.
+	 * 
 	 * @generated
 	 */
 	public void setDataInizioAttivita(java.sql.Date val) {
@@ -355,6 +389,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' dataInizioAttivita associata alla
+	 * 
 	 * @generated
 	 */
 	public java.sql.Date getDataInizioAttivita() {
@@ -369,13 +404,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna DATA_CESSAZIONE
+	 * 
 	 * @generated
 	 */
 	protected java.sql.Date dataCessazione;
 
 	/**
-	 * Imposta il valore della proprieta' dataCessazione associata alla
-	 * colonna DATA_CESSAZIONE.
+	 * Imposta il valore della proprieta' dataCessazione associata alla colonna
+	 * DATA_CESSAZIONE.
+	 * 
 	 * @generated
 	 */
 	public void setDataCessazione(java.sql.Date val) {
@@ -390,6 +427,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' dataCessazione associata alla
+	 * 
 	 * @generated
 	 */
 	public java.sql.Date getDataCessazione() {
@@ -404,13 +442,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna SIGLA_REA
+	 * 
 	 * @generated
 	 */
 	protected String siglaRea;
 
 	/**
-	 * Imposta il valore della proprieta' siglaRea associata alla
-	 * colonna SIGLA_REA.
+	 * Imposta il valore della proprieta' siglaRea associata alla colonna SIGLA_REA.
+	 * 
 	 * @generated
 	 */
 	public void setSiglaRea(String val) {
@@ -421,6 +460,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' siglaRea associata alla
+	 * 
 	 * @generated
 	 */
 	public String getSiglaRea() {
@@ -431,13 +471,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna NUMERO_REA
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal numeroRea;
 
 	/**
-	 * Imposta il valore della proprieta' numeroRea associata alla
-	 * colonna NUMERO_REA.
+	 * Imposta il valore della proprieta' numeroRea associata alla colonna
+	 * NUMERO_REA.
+	 * 
 	 * @generated
 	 */
 	public void setNumeroRea(java.math.BigDecimal val) {
@@ -448,6 +490,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' numeroRea associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getNumeroRea() {
@@ -458,13 +501,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_AMMINISTRATORE
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgAmministratore;
 
 	/**
-	 * Imposta il valore della proprieta' flgAmministratore associata alla
-	 * colonna FLG_AMMINISTRATORE.
+	 * Imposta il valore della proprieta' flgAmministratore associata alla colonna
+	 * FLG_AMMINISTRATORE.
+	 * 
 	 * @generated
 	 */
 	public void setFlgAmministratore(java.math.BigDecimal val) {
@@ -475,6 +520,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgAmministratore associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgAmministratore() {
@@ -485,13 +531,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna DATA_ULT_MOD
+	 * 
 	 * @generated
 	 */
 	protected java.sql.Timestamp dataUltMod;
 
 	/**
-	 * Imposta il valore della proprieta' dataUltMod associata alla
-	 * colonna DATA_ULT_MOD.
+	 * Imposta il valore della proprieta' dataUltMod associata alla colonna
+	 * DATA_ULT_MOD.
+	 * 
 	 * @generated
 	 */
 	public void setDataUltMod(java.sql.Timestamp val) {
@@ -506,6 +554,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' dataUltMod associata alla
+	 * 
 	 * @generated
 	 */
 	public java.sql.Timestamp getDataUltMod() {
@@ -520,13 +569,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna UTENTE_ULT_MOD
+	 * 
 	 * @generated
 	 */
 	protected String utenteUltMod;
 
 	/**
-	 * Imposta il valore della proprieta' utenteUltMod associata alla
-	 * colonna UTENTE_ULT_MOD.
+	 * Imposta il valore della proprieta' utenteUltMod associata alla colonna
+	 * UTENTE_ULT_MOD.
+	 * 
 	 * @generated
 	 */
 	public void setUtenteUltMod(String val) {
@@ -537,6 +588,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' utenteUltMod associata alla
+	 * 
 	 * @generated
 	 */
 	public String getUtenteUltMod() {
@@ -547,6 +599,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_TERZO_RESPONSABILE
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgTerzoResponsabile;
@@ -554,6 +607,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 	/**
 	 * Imposta il valore della proprieta' flgTerzoResponsabile associata alla
 	 * colonna FLG_TERZO_RESPONSABILE.
+	 * 
 	 * @generated
 	 */
 	public void setFlgTerzoResponsabile(java.math.BigDecimal val) {
@@ -564,6 +618,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgTerzoResponsabile associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgTerzoResponsabile() {
@@ -574,13 +629,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_DISTRIBUTORE
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgDistributore;
 
 	/**
-	 * Imposta il valore della proprieta' flgDistributore associata alla
-	 * colonna FLG_DISTRIBUTORE.
+	 * Imposta il valore della proprieta' flgDistributore associata alla colonna
+	 * FLG_DISTRIBUTORE.
+	 * 
 	 * @generated
 	 */
 	public void setFlgDistributore(java.math.BigDecimal val) {
@@ -591,6 +648,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgDistributore associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgDistributore() {
@@ -601,13 +659,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_CAT
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgCat;
 
 	/**
-	 * Imposta il valore della proprieta' flgCat associata alla
-	 * colonna FLG_CAT.
+	 * Imposta il valore della proprieta' flgCat associata alla colonna FLG_CAT.
+	 * 
 	 * @generated
 	 */
 	public void setFlgCat(java.math.BigDecimal val) {
@@ -618,6 +677,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgCat associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgCat() {
@@ -628,13 +688,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_INDIRIZZO_ESTERO
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgIndirizzoEstero;
 
 	/**
-	 * Imposta il valore della proprieta' flgIndirizzoEstero associata alla
-	 * colonna FLG_INDIRIZZO_ESTERO.
+	 * Imposta il valore della proprieta' flgIndirizzoEstero associata alla colonna
+	 * FLG_INDIRIZZO_ESTERO.
+	 * 
 	 * @generated
 	 */
 	public void setFlgIndirizzoEstero(java.math.BigDecimal val) {
@@ -645,6 +707,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgIndirizzoEstero associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgIndirizzoEstero() {
@@ -655,13 +718,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna STATO_ESTERO
+	 * 
 	 * @generated
 	 */
 	protected String statoEstero;
 
 	/**
-	 * Imposta il valore della proprieta' statoEstero associata alla
-	 * colonna STATO_ESTERO.
+	 * Imposta il valore della proprieta' statoEstero associata alla colonna
+	 * STATO_ESTERO.
+	 * 
 	 * @generated
 	 */
 	public void setStatoEstero(String val) {
@@ -672,6 +737,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' statoEstero associata alla
+	 * 
 	 * @generated
 	 */
 	public String getStatoEstero() {
@@ -682,13 +748,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna CITTA_ESTERO
+	 * 
 	 * @generated
 	 */
 	protected String cittaEstero;
 
 	/**
-	 * Imposta il valore della proprieta' cittaEstero associata alla
-	 * colonna CITTA_ESTERO.
+	 * Imposta il valore della proprieta' cittaEstero associata alla colonna
+	 * CITTA_ESTERO.
+	 * 
 	 * @generated
 	 */
 	public void setCittaEstero(String val) {
@@ -699,6 +767,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' cittaEstero associata alla
+	 * 
 	 * @generated
 	 */
 	public String getCittaEstero() {
@@ -709,13 +778,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna INDIRIZZO_ESTERO
+	 * 
 	 * @generated
 	 */
 	protected String indirizzoEstero;
 
 	/**
-	 * Imposta il valore della proprieta' indirizzoEstero associata alla
-	 * colonna INDIRIZZO_ESTERO.
+	 * Imposta il valore della proprieta' indirizzoEstero associata alla colonna
+	 * INDIRIZZO_ESTERO.
+	 * 
 	 * @generated
 	 */
 	public void setIndirizzoEstero(String val) {
@@ -726,6 +797,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' indirizzoEstero associata alla
+	 * 
 	 * @generated
 	 */
 	public String getIndirizzoEstero() {
@@ -736,13 +808,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna CAP_ESTERO
+	 * 
 	 * @generated
 	 */
 	protected String capEstero;
 
 	/**
-	 * Imposta il valore della proprieta' capEstero associata alla
-	 * colonna CAP_ESTERO.
+	 * Imposta il valore della proprieta' capEstero associata alla colonna
+	 * CAP_ESTERO.
+	 * 
 	 * @generated
 	 */
 	public void setCapEstero(String val) {
@@ -753,6 +827,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' capEstero associata alla
+	 * 
 	 * @generated
 	 */
 	public String getCapEstero() {
@@ -763,13 +838,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FK_STATO_PG
+	 * 
 	 * @generated
 	 */
 	protected Integer fkStatoPg;
 
 	/**
-	 * Imposta il valore della proprieta' fkStatoPg associata alla
-	 * colonna FK_STATO_PG.
+	 * Imposta il valore della proprieta' fkStatoPg associata alla colonna
+	 * FK_STATO_PG.
+	 * 
 	 * @generated
 	 */
 	public void setFkStatoPg(Integer val) {
@@ -780,6 +857,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' fkStatoPg associata alla
+	 * 
 	 * @generated
 	 */
 	public Integer getFkStatoPg() {
@@ -790,13 +868,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna DT_AGG_DICHIARAZIONE
+	 * 
 	 * @generated
 	 */
 	protected java.sql.Timestamp dtAggDichiarazione;
 
 	/**
-	 * Imposta il valore della proprieta' dtAggDichiarazione associata alla
-	 * colonna DT_AGG_DICHIARAZIONE.
+	 * Imposta il valore della proprieta' dtAggDichiarazione associata alla colonna
+	 * DT_AGG_DICHIARAZIONE.
+	 * 
 	 * @generated
 	 */
 	public void setDtAggDichiarazione(java.sql.Timestamp val) {
@@ -811,6 +891,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' dtAggDichiarazione associata alla
+	 * 
 	 * @generated
 	 */
 	public java.sql.Timestamp getDtAggDichiarazione() {
@@ -825,13 +906,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_DM37_LETTERAC
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgDm37Letterac;
 
 	/**
-	 * Imposta il valore della proprieta' flgDm37Letterac associata alla
-	 * colonna FLG_DM37_LETTERAC.
+	 * Imposta il valore della proprieta' flgDm37Letterac associata alla colonna
+	 * FLG_DM37_LETTERAC.
+	 * 
 	 * @generated
 	 */
 	public void setFlgDm37Letterac(java.math.BigDecimal val) {
@@ -842,6 +925,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgDm37Letterac associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgDm37Letterac() {
@@ -852,13 +936,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_DM37_LETTERAD
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgDm37Letterad;
 
 	/**
-	 * Imposta il valore della proprieta' flgDm37Letterad associata alla
-	 * colonna FLG_DM37_LETTERAD.
+	 * Imposta il valore della proprieta' flgDm37Letterad associata alla colonna
+	 * FLG_DM37_LETTERAD.
+	 * 
 	 * @generated
 	 */
 	public void setFlgDm37Letterad(java.math.BigDecimal val) {
@@ -869,6 +955,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgDm37Letterad associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgDm37Letterad() {
@@ -879,13 +966,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_DM37_LETTERAE
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgDm37Letterae;
 
 	/**
-	 * Imposta il valore della proprieta' flgDm37Letterae associata alla
-	 * colonna FLG_DM37_LETTERAE.
+	 * Imposta il valore della proprieta' flgDm37Letterae associata alla colonna
+	 * FLG_DM37_LETTERAE.
+	 * 
 	 * @generated
 	 */
 	public void setFlgDm37Letterae(java.math.BigDecimal val) {
@@ -896,6 +985,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgDm37Letterae associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgDm37Letterae() {
@@ -906,13 +996,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_FGAS
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgFgas;
 
 	/**
-	 * Imposta il valore della proprieta' flgFgas associata alla
-	 * colonna FLG_FGAS.
+	 * Imposta il valore della proprieta' flgFgas associata alla colonna FLG_FGAS.
+	 * 
 	 * @generated
 	 */
 	public void setFlgFgas(java.math.BigDecimal val) {
@@ -923,6 +1014,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgFgas associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgFgas() {
@@ -933,13 +1025,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_CONDUTTORE
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgConduttore;
 
 	/**
-	 * Imposta il valore della proprieta' flgConduttore associata alla
-	 * colonna FLG_CONDUTTORE.
+	 * Imposta il valore della proprieta' flgConduttore associata alla colonna
+	 * FLG_CONDUTTORE.
+	 * 
 	 * @generated
 	 */
 	public void setFlgConduttore(java.math.BigDecimal val) {
@@ -950,6 +1044,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgConduttore associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgConduttore() {
@@ -960,13 +1055,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna FLG_SOGG_INCARICATO
+	 * 
 	 * @generated
 	 */
 	protected java.math.BigDecimal flgSoggIncaricato;
 
 	/**
-	 * Imposta il valore della proprieta' flgSoggIncaricato associata alla
-	 * colonna FLG_SOGG_INCARICATO.
+	 * Imposta il valore della proprieta' flgSoggIncaricato associata alla colonna
+	 * FLG_SOGG_INCARICATO.
+	 * 
 	 * @generated
 	 */
 	public void setFlgSoggIncaricato(java.math.BigDecimal val) {
@@ -977,6 +1074,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' flgSoggIncaricato associata alla
+	 * 
 	 * @generated
 	 */
 	public java.math.BigDecimal getFlgSoggIncaricato() {
@@ -987,6 +1085,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna DELEGA_SOGG_INCARICATO
+	 * 
 	 * @generated
 	 */
 	protected String delegaSoggIncaricato;
@@ -994,6 +1093,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 	/**
 	 * Imposta il valore della proprieta' delegaSoggIncaricato associata alla
 	 * colonna DELEGA_SOGG_INCARICATO.
+	 * 
 	 * @generated
 	 */
 	public void setDelegaSoggIncaricato(String val) {
@@ -1004,6 +1104,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' delegaSoggIncaricato associata alla
+	 * 
 	 * @generated
 	 */
 	public String getDelegaSoggIncaricato() {
@@ -1014,13 +1115,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna DT_CREAZIONE_TOKEN
+	 * 
 	 * @generated
 	 */
 	protected java.sql.Date dtCreazioneToken;
 
 	/**
-	 * Imposta il valore della proprieta' dtCreazioneToken associata alla
-	 * colonna DT_CREAZIONE_TOKEN.
+	 * Imposta il valore della proprieta' dtCreazioneToken associata alla colonna
+	 * DT_CREAZIONE_TOKEN.
+	 * 
 	 * @generated
 	 */
 	public void setDtCreazioneToken(java.sql.Date val) {
@@ -1035,6 +1138,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' dtCreazioneToken associata alla
+	 * 
 	 * @generated
 	 */
 	public java.sql.Date getDtCreazioneToken() {
@@ -1049,13 +1153,15 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna DT_SCADENZA_TOKEN
+	 * 
 	 * @generated
 	 */
 	protected java.sql.Date dtScadenzaToken;
 
 	/**
-	 * Imposta il valore della proprieta' dtScadenzaToken associata alla
-	 * colonna DT_SCADENZA_TOKEN.
+	 * Imposta il valore della proprieta' dtScadenzaToken associata alla colonna
+	 * DT_SCADENZA_TOKEN.
+	 * 
 	 * @generated
 	 */
 	public void setDtScadenzaToken(java.sql.Date val) {
@@ -1070,6 +1176,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' dtScadenzaToken associata alla
+	 * 
 	 * @generated
 	 */
 	public java.sql.Date getDtScadenzaToken() {
@@ -1084,13 +1191,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna TOKEN
+	 * 
 	 * @generated
 	 */
 	protected String token;
 
 	/**
-	 * Imposta il valore della proprieta' token associata alla
-	 * colonna TOKEN.
+	 * Imposta il valore della proprieta' token associata alla colonna TOKEN.
+	 * 
 	 * @generated
 	 */
 	public void setToken(String val) {
@@ -1101,6 +1209,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' token associata alla
+	 * 
 	 * @generated
 	 */
 	public String getToken() {
@@ -1111,13 +1220,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna PEC
+	 * 
 	 * @generated
 	 */
 	protected String pec;
 
 	/**
-	 * Imposta il valore della proprieta' pec associata alla
-	 * colonna PEC.
+	 * Imposta il valore della proprieta' pec associata alla colonna PEC.
+	 * 
 	 * @generated
 	 */
 	public void setPec(String val) {
@@ -1128,6 +1238,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' pec associata alla
+	 * 
 	 * @generated
 	 */
 	public String getPec() {
@@ -1138,13 +1249,14 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * store della proprieta' associata alla colonna TELEFONO
+	 * 
 	 * @generated
 	 */
 	protected String telefono;
 
 	/**
-	 * Imposta il valore della proprieta' telefono associata alla
-	 * colonna TELEFONO.
+	 * Imposta il valore della proprieta' telefono associata alla colonna TELEFONO.
+	 * 
 	 * @generated
 	 */
 	public void setTelefono(String val) {
@@ -1155,6 +1267,7 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 
 	/**
 	 * Legge il valore della proprieta' telefono associata alla
+	 * 
 	 * @generated
 	 */
 	public String getTelefono() {
@@ -1164,7 +1277,8 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 	}
 
 	/**
-	 * Crea una istanza di SigitTPersonaGiuridicaPk a partire dal valore dei campi chiave del DTO
+	 * Crea una istanza di SigitTPersonaGiuridicaPk a partire dal valore dei campi
+	 * chiave del DTO
 	 * 
 	 * @return SigitTPersonaGiuridicaPk
 	 * @generated
@@ -1174,9 +1288,11 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 	}
 
 	/**
-	 * la semantica dell'equals del DTO e' la stessa della PK
-	 * (ovvero della superclasse).
-	 * @param other l'oggetto con cui effettuare il confronto
+	 * la semantica dell'equals del DTO e' la stessa della PK (ovvero della
+	 * superclasse).
+	 * 
+	 * @param other
+	 *            l'oggetto con cui effettuare il confronto
 	 * @return true se i due oggetti sono semanticamente da considerarsi uguali
 	 */
 	public boolean equals(Object other) {
@@ -1184,13 +1300,33 @@ public class SigitTPersonaGiuridicaDto extends SigitTPersonaGiuridicaPk {
 	}
 
 	/**
-	 * la semantica dell'hashCode del DTO e' la stessa della PK
-	 * (ovvero della superclasse).
+	 * la semantica dell'hashCode del DTO e' la stessa della PK (ovvero della
+	 * superclasse).
 	 * 
 	 * @return int
 	 */
 	public int hashCode() {
 		return super.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "SigitTPersonaGiuridicaDto [denominazione=" + denominazione + ", codiceFiscale=" + codiceFiscale
+				+ ", fkL2=" + fkL2 + ", indirizzoSitad=" + indirizzoSitad + ", indirizzoNonTrovato="
+				+ indirizzoNonTrovato + ", siglaProv=" + siglaProv + ", istatComune=" + istatComune + ", comune="
+				+ comune + ", provincia=" + provincia + ", civico=" + civico + ", cap=" + cap + ", email=" + email
+				+ ", dataInizioAttivita=" + dataInizioAttivita + ", dataCessazione=" + dataCessazione + ", siglaRea="
+				+ siglaRea + ", numeroRea=" + numeroRea + ", flgAmministratore=" + flgAmministratore + ", dataUltMod="
+				+ dataUltMod + ", utenteUltMod=" + utenteUltMod + ", flgTerzoResponsabile=" + flgTerzoResponsabile
+				+ ", flgDistributore=" + flgDistributore + ", flgCat=" + flgCat + ", flgIndirizzoEstero="
+				+ flgIndirizzoEstero + ", statoEstero=" + statoEstero + ", cittaEstero=" + cittaEstero
+				+ ", indirizzoEstero=" + indirizzoEstero + ", capEstero=" + capEstero + ", fkStatoPg=" + fkStatoPg
+				+ ", dtAggDichiarazione=" + dtAggDichiarazione + ", flgDm37Letterac=" + flgDm37Letterac
+				+ ", flgDm37Letterad=" + flgDm37Letterad + ", flgDm37Letterae=" + flgDm37Letterae + ", flgFgas="
+				+ flgFgas + ", flgConduttore=" + flgConduttore + ", flgSoggIncaricato=" + flgSoggIncaricato
+				+ ", delegaSoggIncaricato=" + delegaSoggIncaricato + ", dtCreazioneToken=" + dtCreazioneToken
+				+ ", dtScadenzaToken=" + dtScadenzaToken + ", token=" + token + ", pec=" + pec + ", telefono="
+				+ telefono + "]";
 	}
 
 }

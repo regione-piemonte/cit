@@ -119,4 +119,10 @@ public class SigitLAccessoDto extends SigitLAccessoPk {
 		return super.hashCode();
 	}
 
+	@Override
+	public String toString() {
+		return "SigitLAccessoDto [nome=" + nome + ", cognome=" + cognome + ", ruolo=" + ruolo + "]";
+	}
+
+
 }

@@ -1,11 +1,11 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao;
 
+import java.util.List;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.RicercaAccertamentoFilter;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAccertamentoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAccertamentoPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTAccertamentoDaoException;
-
-import java.util.List;
 
 public interface SigitTAccertamentoDao {
 
@@ -90,4 +90,5 @@ public interface SigitTAccertamentoDao {
 	public List<SigitTAccertamentoDto> findSveglieAttiveByCF(java.lang.String input)
 			throws SigitTAccertamentoDaoException;
 
+	String findIstatProvinciaBySiglaProvincia(String siglaProvincia) throws SigitTAccertamentoDaoException;
 }

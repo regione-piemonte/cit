@@ -66,7 +66,7 @@ public class SigitTVerificaDaoRowMapper extends BaseDaoRowMapper implements org.
 
 		// colonna [FK_DATO_DISTRIB]
 		if (mapAllColumns || columnsToReadMap.get("FK_DATO_DISTRIB") != null)
-			dto.setFkDatoDistrib((Integer) rs.getObject("FK_DATO_DISTRIB"));
+			dto.setFkDatoDistrib((Integer)rs.getObject("FK_DATO_DISTRIB"));
 
 		// colonna [CODICE_IMPIANTO]
 		if (mapAllColumns || columnsToReadMap.get("CODICE_IMPIANTO") != null)

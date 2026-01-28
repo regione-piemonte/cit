@@ -4,30 +4,58 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.pdf;
 
+import java.awt.Color;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
 import com.lowagie.text.Font;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
-import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.*;
+
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDFluidoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDUnitaMisuraDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllegatoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTConsumoTipo1BDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo1Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo2Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo3Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo4Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaFisicaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaGiuridicaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTRappTipo1Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTRappTipo2Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTRappTipo3Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTRappTipo4Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTTrattH2ODto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTUnitaImmobiliareDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4CgDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4GfDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4GtDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVSk4ScDto;
 import it.csi.sigit.sigitext.business.dao.util.Constants;
 import it.csi.sigit.sigitext.business.util.ConvertUtil;
 import it.csi.sigit.sigitext.business.util.GenericUtil;
 import it.csi.sigit.sigitext.dto.index.DettaglioDocumento;
 import it.csi.sigit.sigitext.dto.sigitext.DettaglioAllegato;
 
-import java.awt.*;
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class ReeBuilder extends BaseBuilder {
 
 	public static void main(String[] args) {
+		FileOutputStream fileStream = null;
 		try {
 			ReeBuilder ispezione = new ReeBuilder();
 
@@ -36,13 +64,21 @@ public class ReeBuilder extends BaseBuilder {
 			byte[] libretto = dettaglioDocumento.getFile();
 
 			String FILE = "C:/Repo/CSI/sigit/sigit_sigitwebn/src/java/test/sigitwebn/";
-			FileOutputStream fileStream = new FileOutputStream(FILE + getDataCompleta() + "_Test_Ree_Tipo1B.pdf");
+			fileStream = new FileOutputStream(FILE + getDataCompleta() + "_Test_Ree_Tipo1B.pdf");
 
 			fileStream.write(libretto);
 			fileStream.flush();
 			fileStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			if(fileStream!=null) {
+				try {
+					fileStream.close();
+				} catch (IOException e) {					
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -3393,16 +3429,18 @@ public class ReeBuilder extends BaseBuilder {
 
 		// riga1
 		Phrase phrase = new Phrase();
-		phrase.add(new Chunk("E. CONTROLLO E VERIFICA ENERGETICA DEL SCAMBIATORE ", FONT_HELVETICA_7_B));
-		phrase.add(new Chunk("SC ", FONT_HELVETICA_7));
-		phrase.add(new Chunk(ConvertUtil.getStringValid((vSk4ScDto.getProgressivo())), FONT_HELVETICA_7_B));
-
+		phrase.add(new Chunk ("E. CONTROLLO E VERIFICA ENERGETICA DEL SCAMBIATORE ", FONT_HELVETICA_7_B));
+		phrase.add(new Chunk ("SC ", FONT_HELVETICA_7));
+		phrase.add(new Chunk (ConvertUtil.getStringValid(vSk4ScDto.getProgressivo()), FONT_HELVETICA_7_B));
+		aggiungiSpaziVuoti(phrase, 17);
+		phrase.add(new Chunk ("Data di installazione: ", FONT_HELVETICA_7));
+		phrase.add(new Chunk (ConvertUtil.getStringValid(vSk4ScDto.getDataInstall()), FONT_HELVETICA_7));
 		PdfPCell cell;
 		cell = new PdfPCell(phrase);
-		cell.setColspan(3);
 		cell.setBorder(Rectangle.LEFT | Rectangle.RIGHT);
+		cell.setColspan(3);
 		tabella.addCell(cell);
-
+		
 		// riga2
 		Paragraph paragraph = new Paragraph("", FONT_HELVETICA_7);
 		aggiungiTesto(paragraph, "Fabbricante ", 14);

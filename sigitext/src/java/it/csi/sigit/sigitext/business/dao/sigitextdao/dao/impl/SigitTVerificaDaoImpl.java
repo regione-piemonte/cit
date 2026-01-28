@@ -1,5 +1,11 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTVerificaDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.RicercaVerificaFilter;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTVerificaDaoRowMapper;
@@ -7,12 +13,8 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTVerificaDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTVerificaPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTVerificaDaoException;
 import it.csi.sigit.sigitext.business.util.Constants;
+import it.csi.sigit.sigitext.dto.RicercaDatiVerifica;
 import it.csi.util.performance.StopWatch;
-import org.apache.log4j.Logger;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import java.util.List;
 
 /*PROTECTED REGION ID(R-1486111885) ENABLED START*/
 // aggiungere qui eventuali import custom. 
@@ -113,7 +115,7 @@ public class SigitTVerificaDaoImpl extends AbstractDAO implements SigitTVerifica
 		// valorizzazione paametro relativo a colonna [NOTE]
 		params.addValue("NOTE", dto.getNote(), java.sql.Types.VARCHAR);
 
-		insert(jdbcTemplate, sql.toString(), params);
+		insert(jdbcTemplate, sql, params);
 
 		dto.setIdVerifica(newKey);
 		LOG.debug("[SigitTVerificaDaoImpl::insert] END");
@@ -127,8 +129,94 @@ public class SigitTVerificaDaoImpl extends AbstractDAO implements SigitTVerifica
 	 */
 	public void update(SigitTVerificaDto dto) throws SigitTVerificaDaoException {
 		LOG.debug("[SigitTVerificaDaoImpl::update] START");
-		final String sql = "UPDATE " + getTableName()
-				+ " SET FK_TIPO_VERIFICA = :FK_TIPO_VERIFICA ,FK_ALLEGATO = :FK_ALLEGATO ,FK_DATO_DISTRIB = :FK_DATO_DISTRIB ,CODICE_IMPIANTO = :CODICE_IMPIANTO ,CF_UTENTE_CARICAMENTO = :CF_UTENTE_CARICAMENTO ,DENOM_UTENTE_CARICAMENTO = :DENOM_UTENTE_CARICAMENTO ,DT_CARICAMENTO = :DT_CARICAMENTO ,SIGLA_BOLLINO = :SIGLA_BOLLINO ,NUMERO_BOLLINO = :NUMERO_BOLLINO ,DT_SVEGLIA = :DT_SVEGLIA ,NOTE_SVEGLIA = :NOTE_SVEGLIA ,NOTE = :NOTE  WHERE ID_VERIFICA = :ID_VERIFICA ";
+		boolean addComma = false;
+		
+		String sql = "UPDATE " + getTableName();
+		sql+=" SET ";
+		if(dto.getFkTipoVerifica()!=null) {
+			sql+=" FK_TIPO_VERIFICA = :FK_TIPO_VERIFICA ";
+			addComma = true;
+		}
+		if(dto.getFkAllegato()!=null) {
+			sql+=" FK_ALLEGATO = :FK_ALLEGATO ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}
+		if(dto.getFkDatoDistrib()!=null) {
+			sql+=" FK_DATO_DISTRIB = :FK_DATO_DISTRIB ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}
+		if(dto.getCodiceImpianto()!=null) {
+			sql+=" CODICE_IMPIANTO = :CODICE_IMPIANTO ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}
+		if(dto.getCfUtenteCaricamento()!=null) {
+			sql+=" CF_UTENTE_CARICAMENTO = :CF_UTENTE_CARICAMENTO ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}
+		if(dto.getDenomUtenteCaricamento()!=null) {
+			sql+=" DENOM_UTENTE_CARICAMENTO = :DENOM_UTENTE_CARICAMENTO ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}
+		if(dto.getDtCaricamento()!=null) {
+			sql+=" DT_CARICAMENTO = :DT_CARICAMENTO ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}
+		if(dto.getSiglaBollino()!=null) {
+			sql+=" SIGLA_BOLLINO = :SIGLA_BOLLINO ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}
+		if(dto.getNumeroBollino()!=null) {
+		sql+=" NUMERO_BOLLINO = :NUMERO_BOLLINO ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}
+		if(dto.getDtSveglia()!=null) {
+			sql+=" DT_SVEGLIA = :DT_SVEGLIA ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}else {
+			sql+=" DT_SVEGLIA = NULL ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}
+		if(dto.getNoteSveglia()!=null) {
+			sql+=" NOTE_SVEGLIA = :NOTE_SVEGLIA ";
+			addComma = true;
+			if(addComma) {
+				sql+=" ,";
+			}
+		}
+		if(dto.getNote()!=null) {
+			sql+=" NOTE = :NOTE ";
+		}		
+		sql+=" WHERE ID_VERIFICA = :ID_VERIFICA ";
 
 		if (dto.getIdVerifica() == null) {
 			LOG.error("[SigitTVerificaDaoImpl::update] ERROR chiave primaria non impostata");
@@ -140,43 +228,67 @@ public class SigitTVerificaDaoImpl extends AbstractDAO implements SigitTVerifica
 		// valorizzazione paametro relativo a colonna [ID_VERIFICA]
 		params.addValue("ID_VERIFICA", dto.getIdVerifica(), java.sql.Types.INTEGER);
 
-		// valorizzazione paametro relativo a colonna [FK_TIPO_VERIFICA]
-		params.addValue("FK_TIPO_VERIFICA", dto.getFkTipoVerifica(), java.sql.Types.INTEGER);
+		if(dto.getFkTipoVerifica()!=null) {
+			// valorizzazione paametro relativo a colonna [FK_TIPO_VERIFICA]
+			params.addValue("FK_TIPO_VERIFICA", dto.getFkTipoVerifica(), java.sql.Types.INTEGER);
+		}
 
-		// valorizzazione paametro relativo a colonna [FK_ALLEGATO]
-		params.addValue("FK_ALLEGATO", dto.getFkAllegato(), java.sql.Types.NUMERIC);
+		if(dto.getFkAllegato()!=null) {
+			// valorizzazione paametro relativo a colonna [FK_ALLEGATO]
+			params.addValue("FK_ALLEGATO", dto.getFkAllegato(), java.sql.Types.NUMERIC);
+		}
 
-		// valorizzazione paametro relativo a colonna [FK_DATO_DISTRIB]
-		params.addValue("FK_DATO_DISTRIB", dto.getFkDatoDistrib(), java.sql.Types.INTEGER);
+		if(dto.getFkDatoDistrib()!=null) {
+			// valorizzazione paametro relativo a colonna [FK_DATO_DISTRIB]
+			params.addValue("FK_DATO_DISTRIB", dto.getFkDatoDistrib(), java.sql.Types.INTEGER);
+		}
 
-		// valorizzazione paametro relativo a colonna [CODICE_IMPIANTO]
-		params.addValue("CODICE_IMPIANTO", dto.getCodiceImpianto(), java.sql.Types.NUMERIC);
+		if(dto.getCodiceImpianto()!=null) {
+			// valorizzazione paametro relativo a colonna [CODICE_IMPIANTO]
+			params.addValue("CODICE_IMPIANTO", dto.getCodiceImpianto(), java.sql.Types.NUMERIC);
+		}
 
-		// valorizzazione paametro relativo a colonna [CF_UTENTE_CARICAMENTO]
-		params.addValue("CF_UTENTE_CARICAMENTO", dto.getCfUtenteCaricamento(), java.sql.Types.VARCHAR);
+		if(dto.getCfUtenteCaricamento()!=null) {
+			// valorizzazione paametro relativo a colonna [CF_UTENTE_CARICAMENTO]
+			params.addValue("CF_UTENTE_CARICAMENTO", dto.getCfUtenteCaricamento(), java.sql.Types.VARCHAR);
+		}
+		
+		if(dto.getDenomUtenteCaricamento()!=null) {
+			// valorizzazione paametro relativo a colonna [DENOM_UTENTE_CARICAMENTO]
+			params.addValue("DENOM_UTENTE_CARICAMENTO", dto.getDenomUtenteCaricamento(), java.sql.Types.VARCHAR);
+		}
 
-		// valorizzazione paametro relativo a colonna [DENOM_UTENTE_CARICAMENTO]
-		params.addValue("DENOM_UTENTE_CARICAMENTO", dto.getDenomUtenteCaricamento(), java.sql.Types.VARCHAR);
+		if(dto.getDtCaricamento()!=null) {
+			// valorizzazione paametro relativo a colonna [DT_CARICAMENTO]
+			params.addValue("DT_CARICAMENTO", dto.getDtCaricamento(), java.sql.Types.DATE);
+		}
+		
+		if(dto.getSiglaBollino()!=null) {
+			// valorizzazione paametro relativo a colonna [SIGLA_BOLLINO]
+			params.addValue("SIGLA_BOLLINO", dto.getSiglaBollino(), java.sql.Types.VARCHAR);
+		}
 
-		// valorizzazione paametro relativo a colonna [DT_CARICAMENTO]
-		params.addValue("DT_CARICAMENTO", dto.getDtCaricamento(), java.sql.Types.DATE);
+		if(dto.getNumeroBollino()!=null) {
+			// valorizzazione paametro relativo a colonna [NUMERO_BOLLINO]
+			params.addValue("NUMERO_BOLLINO", dto.getNumeroBollino(), java.sql.Types.NUMERIC);
+		}
+		
+		if(dto.getDtSveglia()!=null) {
+			// valorizzazione paametro relativo a colonna [DT_SVEGLIA]
+			params.addValue("DT_SVEGLIA", dto.getDtSveglia(), java.sql.Types.DATE);
+		}
 
-		// valorizzazione paametro relativo a colonna [SIGLA_BOLLINO]
-		params.addValue("SIGLA_BOLLINO", dto.getSiglaBollino(), java.sql.Types.VARCHAR);
+		if(dto.getNoteSveglia()!=null) {
+			// valorizzazione paametro relativo a colonna [NOTE_SVEGLIA]
+			params.addValue("NOTE_SVEGLIA", dto.getNoteSveglia(), java.sql.Types.VARCHAR);
+		}
 
-		// valorizzazione paametro relativo a colonna [NUMERO_BOLLINO]
-		params.addValue("NUMERO_BOLLINO", dto.getNumeroBollino(), java.sql.Types.NUMERIC);
+		if(dto.getNote()!=null) {
+			// valorizzazione paametro relativo a colonna [NOTE]
+			params.addValue("NOTE", dto.getNote(), java.sql.Types.VARCHAR);
+		}
 
-		// valorizzazione paametro relativo a colonna [DT_SVEGLIA]
-		params.addValue("DT_SVEGLIA", dto.getDtSveglia(), java.sql.Types.DATE);
-
-		// valorizzazione paametro relativo a colonna [NOTE_SVEGLIA]
-		params.addValue("NOTE_SVEGLIA", dto.getNoteSveglia(), java.sql.Types.VARCHAR);
-
-		// valorizzazione paametro relativo a colonna [NOTE]
-		params.addValue("NOTE", dto.getNote(), java.sql.Types.VARCHAR);
-
-		update(jdbcTemplate, sql.toString(), params);
+		update(jdbcTemplate, sql, params);
 		LOG.debug("[SigitTVerificaDaoImpl::update] END");
 	}
 
@@ -205,7 +317,7 @@ public class SigitTVerificaDaoImpl extends AbstractDAO implements SigitTVerifica
 		// valorizzazione paametro relativo a colonna [ID_VERIFICA]
 		params.addValue("ID_VERIFICA", dto.getIdVerifica(), java.sql.Types.INTEGER);
 
-		update(jdbcTemplate, sql.toString(), params);
+		update(jdbcTemplate, sql, params);
 		LOG.debug("[SigitTVerificaDaoImpl::updateColumnsSveglia] END");
 	}
 
@@ -215,7 +327,7 @@ public class SigitTVerificaDaoImpl extends AbstractDAO implements SigitTVerifica
 	 */
 
 	public void delete(SigitTVerificaPk pk) throws SigitTVerificaDaoException {
-		LOG.debug("[SigitTVerificaDaoImpl::delete] START");
+		LOG.debug("[SigitTVerificaDaoImpl::delete] START: ");
 		final String sql = "DELETE FROM " + getTableName() + " WHERE ID_VERIFICA = :ID_VERIFICA ";
 
 		if (pk == null) {
@@ -228,7 +340,7 @@ public class SigitTVerificaDaoImpl extends AbstractDAO implements SigitTVerifica
 		// valorizzazione paametro relativo a colonna [ID_VERIFICA]
 		params.addValue("ID_VERIFICA", pk.getIdVerifica(), java.sql.Types.INTEGER);
 
-		delete(jdbcTemplate, sql.toString(), params);
+		delete(jdbcTemplate, sql, params);
 		LOG.debug("[SigitTVerificaDaoImpl::delete] END");
 	}
 
@@ -245,7 +357,7 @@ public class SigitTVerificaDaoImpl extends AbstractDAO implements SigitTVerifica
 		params.addValue("parametro", filter);
 		/*PROTECTED REGION END*/
 
-		delete(jdbcTemplate, sql.toString(), params);
+		delete(jdbcTemplate, sql, params);
 		LOG.debug("[SigitTVerificaDaoImpl::customDeleterByCodImpianto] END");
 	}
 
@@ -259,6 +371,9 @@ public class SigitTVerificaDaoImpl extends AbstractDAO implements SigitTVerifica
 			SigitTVerificaDto.class, this);
 
 	protected SigitTVerificaDaoRowMapper sveglieAttiveByCFRowMapper = new SigitTVerificaDaoRowMapper(null,
+			SigitTVerificaDto.class, this);
+	
+	protected SigitTVerificaDaoRowMapper getElencoVerificheRowMapper = new SigitTVerificaDaoRowMapper(null,
 			SigitTVerificaDto.class, this);
 
 	/**
@@ -500,6 +615,139 @@ public class SigitTVerificaDaoImpl extends AbstractDAO implements SigitTVerifica
 		} finally {
 			stopWatch.dumpElapsed("SigitTVerificaDaoImpl", "findSveglieAttiveByCF", "esecuzione query", sql.toString());
 			LOG.debug("[SigitTVerificaDaoImpl::findSveglieAttiveByCF] END");
+		}
+		return list;
+	}
+	
+	/** 
+	 * Implementazione getElencoVerifiche
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SigitTVerificaDto> getElencoVerifiche(RicercaDatiVerifica input)
+			throws SigitTVerificaDaoException {
+		LOG.debug("[SigitTVerificaDaoImpl::getElencoVerifiche] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		/*PROTECTED REGION ID(R-16714996) ENABLED START*/
+		// la clausola select e'customizzabile poiche' il finder ha l'attributo customSelect == true
+		sql.append(
+				"SELECT ID_VERIFICA, FK_TIPO_VERIFICA, FK_ALLEGATO, FK_DATO_DISTRIB, CODICE_IMPIANTO, CF_UTENTE_CARICAMENTO, DENOM_UTENTE_CARICAMENTO, DT_CARICAMENTO, SIGLA_BOLLINO, NUMERO_BOLLINO, DT_SVEGLIA, NOTE_SVEGLIA, NOTE ");
+
+		/*PROTECTED REGION END*/
+		/*PROTECTED REGION ID(R-1351624546) ENABLED START*/
+		// la clausola from e'customizzabile poiche' il finder ha l'attributo customFrom==true
+		sql.append(" FROM SIGIT_T_VERIFICA");
+		if (input.getIdValidatoreCaricamento() != null && !input.isRicercaAutomatiche()) {
+			sql.append(
+					" JOIN SIGIT_T_PERSONA_FISICA PF ON PF.CODICE_FISCALE = CF_UTENTE_CARICAMENTO AND PF.ID_PERSONA_FISICA = :iDValidatoreCaricamento ");
+		}
+
+		/*PROTECTED REGION END*/
+		sql.append(" WHERE ");
+		/*PROTECTED REGION ID(R831947804) ENABLED START*/
+		sql.append(" ID_VERIFICA > 0 ");
+
+		if (input.getIdVerifica() != null) {
+			sql.append(" AND ID_VERIFICA = :idVerifica");
+		}
+
+		if (input.getDtCaricamentoDa() != null) {
+			sql.append(" AND DT_CARICAMENTO >= :dtCaricamentoDa");
+		}
+
+		if (input.getDtCaricamentoA() != null) {
+			sql.append(" AND DT_CARICAMENTO <= :dtCaricamentoA");
+		}
+
+		if (input.getFkTipoVerifica() != null) {								
+			sql.append(" AND FK_TIPO_VERIFICA = :fkTipoVerifica");
+		}
+
+		if (input.getCodiceImpianto() != null) {
+			sql.append(" AND CODICE_IMPIANTO = :codiceImpianto");
+		}
+
+		if (input.getFkDatoDistrib() != null) {
+			sql.append(" AND FK_DATO_DISTRIB = :fkDatoDistrib");
+		}
+		
+		if (input.getSiglaRee() != null) {
+			sql.append(" AND SIGLA_BOLLINO = :siglaRee");
+		}
+		
+		if (input.getNumeroRee() != null) {
+			sql.append(" AND NUMERO_BOLLINO = :numeroRee");
+		}				
+
+		if (input.isRicercaAutomatiche()) {
+			sql.append(" AND CF_UTENTE_CARICAMENTO = 'INSERTAUTOMATICO'");
+		}else {
+			if (input.getCfUtenteCaricamento() != null) {
+				sql.append(" AND CF_UTENTE_CARICAMENTO = :cfUtenteCaricamento");
+			}			
+		}
+
+		sql.append(" ORDER BY ID_VERIFICA DESC");
+		
+
+		/*PROTECTED REGION END*/
+		/*PROTECTED REGION ID(R901141926) ENABLED START*/
+		//***aggiungere tutte le condizioni
+
+		if (input.getIdVerifica() != null) {
+			paramMap.addValue("idVerifica", input.getIdVerifica(), java.sql.Types.NUMERIC);
+		}
+
+		if (input.getIdValidatoreCaricamento() != null && !input.isRicercaAutomatiche()) {
+			paramMap.addValue("iDValidatoreCaricamento", input.getIdValidatoreCaricamento());
+		}
+
+		if (input.getDtCaricamentoDa() != null) {
+			paramMap.addValue("dtCaricamentoDa", input.getDtCaricamentoDa(), java.sql.Types.DATE);
+		}
+
+		if (input.getDtCaricamentoA() != null) {
+			paramMap.addValue("dtCaricamentoA", input.getDtCaricamentoA(), java.sql.Types.DATE);
+		}
+
+		if (input.getFkTipoVerifica() != null) {
+			paramMap.addValue("fkTipoVerifica", input.getFkTipoVerifica(), java.sql.Types.NUMERIC);
+		}
+
+		if (input.getCodiceImpianto() != null) {
+			paramMap.addValue("codiceImpianto", input.getCodiceImpianto(), java.sql.Types.NUMERIC);
+		}
+
+		if (input.getFkDatoDistrib() != null) {
+			paramMap.addValue("fkDatoDistrib", input.getFkDatoDistrib(), java.sql.Types.NUMERIC);
+		}
+		
+		if (input.getSiglaRee() != null) {
+			paramMap.addValue("siglaRee", input.getSiglaRee(), java.sql.Types.VARCHAR);
+		}
+		
+		if (input.getNumeroRee() != null) {
+			paramMap.addValue("numeroRee", input.getNumeroRee(), java.sql.Types.NUMERIC);
+		}
+		
+		if (!input.isRicercaAutomatiche() && input.getCfUtenteCaricamento() != null) {
+			paramMap.addValue("cfUtenteCaricamento", input.getCfUtenteCaricamento(), java.sql.Types.VARCHAR);					
+		}
+
+		/*PROTECTED REGION END*/
+		List<SigitTVerificaDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, getElencoVerificheRowMapper);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTVerificaDaoImpl::getElencoVerifiche] esecuzione query", ex);
+			throw new SigitTVerificaDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTVerificaDaoImpl", "getElencoVerifiche", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTVerificaDaoImpl::getElencoVerifiche] END");
 		}
 		return list;
 	}

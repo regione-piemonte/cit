@@ -49,6 +49,11 @@ public class PDFEventListener extends PdfPageEventHelper
 		this.date = spf.format(new Date());
 	}
 	
+	public PDFEventListener(boolean isBozza)
+	{
+		this.isBozza = isBozza;
+	}
+	
 	public PDFEventListener(boolean isBozza, BigDecimal codiceImpianto)
 	{		
 		this();

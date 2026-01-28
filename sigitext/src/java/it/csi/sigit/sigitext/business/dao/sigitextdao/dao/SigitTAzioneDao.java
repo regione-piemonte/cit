@@ -41,5 +41,9 @@ public interface SigitTAzioneDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SigitTAzioneDto> findAll() throws SigitTAzioneDaoException;
+	
+	public List<SigitTAzioneDto> findByFkVerifica(Integer fkVerifica) throws SigitTAzioneDaoException;
+	public List<SigitTAzioneDto> findByFkAccertamento(Integer fkAccertamento) throws SigitTAzioneDaoException;
+	public List<SigitTAzioneDto> findByFkIspezione2018(Integer fkIspezione2018) throws SigitTAzioneDaoException;
 
 }

@@ -493,6 +493,60 @@ public class SigitVRicercaImpiantiDto implements Serializable {
 	}
 
 	/**
+	 * store della proprieta' associata alla colonna ID_PF_RESPONSABILE
+	 * @generated
+	 */
+	protected java.math.BigDecimal idPfResponsabile;
+
+	/**
+	 * Imposta il valore della proprieta' idPfResponsabile associata alla
+	 * colonna ID_PF_RESPONSABILE.
+	 * @generated
+	 */
+	public void setIdPfResponsabile(java.math.BigDecimal val) {
+
+		idPfResponsabile = val;
+
+	}
+
+	/**
+	 * Legge il valore della proprieta' idPfResponsabile associata alla
+	 * @generated
+	 */
+	public java.math.BigDecimal getIdPfResponsabile() {
+
+		return idPfResponsabile;
+
+	}
+
+	/**
+	 * store della proprieta' associata alla colonna ID_PG_RESPONSABILE
+	 * @generated
+	 */
+	protected java.math.BigDecimal idPgResponsabile;
+
+	/**
+	 * Imposta il valore della proprieta' idPgResponsabile associata alla
+	 * colonna ID_PG_RESPONSABILE.
+	 * @generated
+	 */
+	public void setIdPgResponsabile(java.math.BigDecimal val) {
+
+		idPgResponsabile = val;
+
+	}
+
+	/**
+	 * Legge il valore della proprieta' idPgResponsabile associata alla
+	 * @generated
+	 */
+	public java.math.BigDecimal getIdPgResponsabile() {
+
+		return idPgResponsabile;
+
+	}
+
+	/**
 	 * store della proprieta' associata alla colonna DENOMINAZIONE_RESPONSABILE
 	 * @generated
 	 */

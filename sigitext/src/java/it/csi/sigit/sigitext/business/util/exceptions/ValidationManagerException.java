@@ -75,7 +75,7 @@ public class ValidationManagerException extends Exception{
 	}
 
 	@Override
-	public Throwable getCause() {
+	public synchronized Throwable getCause() {
 		return cause;
 	}
 

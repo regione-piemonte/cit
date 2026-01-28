@@ -314,8 +314,12 @@ public class SigitTDocAggiuntivaDaoImpl extends AbstractDAO implements SigitTDoc
 	 * Implementazione del finder byCodImp
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
-	public List<SigitTDocAggiuntivaDto> findByCodImp(java.lang.Integer input) throws SigitTDocAggiuntivaDaoException {
+	public List<SigitTDocAggiuntivaDto> findByCodImp(java.lang.String input) throws SigitTDocAggiuntivaDaoException {
+		
+		Integer codiceImpianto = Integer.parseInt(input);
+		
 		LOG.debug("[SigitTDocAggiuntivaDaoImpl::findByCodImp] START");
 		StringBuilder sql = new StringBuilder();
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
@@ -329,12 +333,13 @@ public class SigitTDocAggiuntivaDaoImpl extends AbstractDAO implements SigitTDoc
 
 		// personalizzare l'elenco dei parametri da passare al jdbctemplate (devono corrispondere in tipo e
 		// numero ai parametri definiti nella queryString)
-		sql.append(" CODICE_IMPIANTO = :codImpianto ");
+		sql.append(" CODICE_IMPIANTO = :codImpianto");
+		sql.append(" ORDER BY DATA_ULT_MOD DESC");
 		/*PROTECTED REGION END*/
 		/*PROTECTED REGION ID(R548479938) ENABLED START*/
 		//***aggiungere tutte le condizioni
 
-		paramMap.addValue("codImpianto", input);
+		paramMap.addValue("codImpianto", codiceImpianto);
 
 		/*PROTECTED REGION END*/
 		List<SigitTDocAggiuntivaDto> list = null;
@@ -399,6 +404,33 @@ public class SigitTDocAggiuntivaDaoImpl extends AbstractDAO implements SigitTDoc
 			LOG.debug("[SigitTDocAggiuntivaDaoImpl::findByCodImpDecod] END");
 		}
 		return list;
+	}
+	
+	@Override
+	public SigitTDocAggiuntivaDto findByUidIndex(String uidIndex) throws SigitTDocAggiuntivaDaoException {
+		LOG.debug("[SigitTDocAggiuntivaDaoImpl::findByUidIndex] START");
+		final StringBuilder sql = new StringBuilder(
+				"SELECT ID_DOC_AGGIUNTIVA,CODICE_IMPIANTO,FK_TIPO_DOCAGG,NOME_DOC_ORIGINALE,NOME_DOC,UID_INDEX,DES_ALTRO_TIPODOC,DATA_ULT_MOD,UTENTE_ULT_MOD,DATA_UPLOAD,DATA_DELETE FROM "
+						+ getTableName() + " WHERE UID_INDEX = :UID_INDEX ");
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		params.addValue("UID_INDEX", uidIndex);
+
+		List<SigitTDocAggiuntivaDto> list = null;
+
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), params, findByPrimaryKeyRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTDocAggiuntivaDaoImpl::findByUidIndex] ERROR esecuzione query", ex);
+			throw new SigitTDocAggiuntivaDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTDocAggiuntivaDaoImpl", "findByUidIndex", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTDocAggiuntivaDaoImpl::findByPrimaryKey] END");
+		}
+		return list.isEmpty() ? null : list.get(0);
 	}
 
 }

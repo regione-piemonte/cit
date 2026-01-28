@@ -4,7 +4,6 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompGfDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompGfPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompGfDaoException;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -31,5 +30,9 @@ public interface SigitRAllegatoCompGfDao {
 	void customDeleterByIdAllegato(BigDecimal idAllegato) throws SigitRAllegatoCompGfDaoException;
 
 	public void updateColumnsResponsabile(SigitRAllegatoCompGfDto dto) throws SigitRAllegatoCompGfDaoException;
+	
+	public List<SigitRAllegatoCompGfDto> findByCodiceImpianto(Integer codiceImpianto) throws SigitRAllegatoCompGfDaoException;
+	
+	public void delete(BigDecimal idAllegato) throws SigitRAllegatoCompGfDaoException;
 
 }

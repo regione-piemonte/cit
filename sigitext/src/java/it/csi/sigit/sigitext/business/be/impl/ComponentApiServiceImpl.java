@@ -100,6 +100,30 @@ public class ComponentApiServiceImpl implements ComponenteApi {
 	}
 
 	@Override
+	public Response getClassDpr66096CIT(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest httpRequest) {
+		try {
+			CodiceDescrizione[] classificazioni = getImplSigitextManager().getClassDpr66096CIT();
+			return Response.ok(classificazioni).build();
+		} catch (CSIException e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.ERRORE_GESTITO, e.getMessage())).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.ERRORE_GENERICO, e.getMessage())).build();
+		}
+	}
+
+	@Override
+	public Response getFrequenzaManutCIT(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest httpRequest) {
+		try {
+			CodiceDescrizione[] frequenze = getImplSigitextManager().getFrequenzaManutCIT();
+			return Response.ok(frequenze).build();
+		} catch (CSIException e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(new Esito(Constants.ERRORE_GESTITO, e.getMessage())).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Esito(Constants.ERRORE_GENERICO, e.getMessage())).build();
+		}
+	}
+
+	@Override
 	public Response getMarcaCIT(SecurityContext securityContext, HttpHeaders httpHeaders, HttpServletRequest httpRequest) {
 		try {
 			CodiceDescrizione[] marcaList = getImplSigitextManager().getMarcaCIT();

@@ -48,4 +48,6 @@ public interface SigitTImpiantoDao {
 	public void updateColumnsUpdateDatiOnline(SigitTImpiantoDto dto) throws SigitTImpiantoDaoException;
 
 	public void updateColumnsUpdateBloccoNomina3R(SigitTImpiantoDto dto) throws SigitTImpiantoDaoException;
+	
+	public SigitTImpiantoDto findByIstatComune(String istatComune) throws SigitTImpiantoDaoException;
 }

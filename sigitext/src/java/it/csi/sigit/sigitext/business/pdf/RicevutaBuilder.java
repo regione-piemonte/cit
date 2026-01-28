@@ -20,6 +20,7 @@ import it.csi.sigit.sigitext.exception.sigitext.SigitextException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,20 +29,30 @@ public class RicevutaBuilder extends BaseBuilder {
 	private static String FILE = "C:/Repo/CSI/sigit/sigit_sigitwebn/test/";
 
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {	
+		
+		FileOutputStream fileStream = null;
 		
 		try {
 			RicevutaBuilder ricevutaAllegato = new RicevutaBuilder();
 			
 			byte[] libretto = ricevutaAllegato.generaRicevutaImportDistributore(null, true);
 			
-			FileOutputStream fileStream =  new FileOutputStream(FILE+getDataCompleta()+"_ricevuta_import_distributori.pdf");
+			fileStream =  new FileOutputStream(FILE+getDataCompleta()+"_ricevuta_import_distributori.pdf");
 			
 			fileStream.write(libretto);   
 			fileStream.flush(); 
 			fileStream.close(); 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			if(fileStream!=null) {
+				try {
+					fileStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	

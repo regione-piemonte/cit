@@ -1,6 +1,12 @@
 package it.csi.sigit.sigitext.dto.sigitext;
 
-public class UtenteLoggato{
+import java.io.Serializable;
+
+public class UtenteLoggato implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private PFLoggato pfLoggato;
 	private RuoloLoggato ruoloLoggato;
 

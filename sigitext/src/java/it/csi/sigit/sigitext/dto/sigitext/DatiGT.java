@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class DatiGT {
 	private String idTipoComponente;
-	private Integer progressivo;
+	private BigDecimal progressivo;
 	private Date dataInstall;
 	private Integer codiceImpianto;
 	private Integer fkFluido;
@@ -25,6 +25,18 @@ public class DatiGT {
 	private Integer tempoManutAnni;
 	private Integer mediImpOreOperative;
 	private Integer idTipocannaFumaria;
+	private String desCombustibile;
+	private String desFluido;
+	private String desMarca;
+	private String desDettaglioGt;		
+
+	public String getDesDettaglioGt() {
+		return desDettaglioGt;
+	}
+
+	public void setDesDettaglioGt(String desDettaglioGt) {
+		this.desDettaglioGt = desDettaglioGt;
+	}
 
 	private Date dataMinimaControllo;
 
@@ -55,11 +67,11 @@ public class DatiGT {
 		this.idTipoComponente = idTipoComponente;
 	}
 
-	public Integer getProgressivo() {
+	public BigDecimal getProgressivo() {
 		return progressivo;
 	}
 
-	public void setProgressivo(Integer progressivo) {
+	public void setProgressivo(BigDecimal progressivo) {
 		this.progressivo = progressivo;
 	}
 
@@ -285,6 +297,32 @@ public class DatiGT {
 
 	public void setNumeroRea(String numeroRea) {
 		this.numeroRea = numeroRea;
+	}		
+
+	public String getDesCombustibile() {
+		return desCombustibile;
+	}
+
+	public void setDesCombustibile(String desCombustibile) {
+		this.desCombustibile = desCombustibile;
+	}		
+
+	public String getDesFluido() {
+		return desFluido;
+	}
+
+	public void setDesFluido(String desFluido) {
+		this.desFluido = desFluido;
+	}
+	
+	
+
+	public String getDesMarca() {
+		return desMarca;
+	}
+
+	public void setDesMarca(String desMarca) {
+		this.desMarca = desMarca;
 	}
 
 	@Override

@@ -20,8 +20,9 @@ public interface SigitRImpRuoloPfpgDao {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	public List<SigitRImpRuoloPfpgDto> findRespImpAttivoByCodImpianto(Integer input)
-			throws SigitRImpRuoloPfpgDaoException;
+	public List<SigitRImpRuoloPfpgDto> findRespImpAttivoByCodImpianto(Integer input) throws SigitRImpRuoloPfpgDaoException;
+	
+	public List<SigitRImpRuoloPfpgDto> findRespImpByCodImpianto(Integer input) throws SigitRImpRuoloPfpgDaoException;
 
 	/** 
 	 * Implementazione del finder byRuoloFunzPersonaGiuridicaCodImpianto
@@ -39,5 +40,15 @@ public interface SigitRImpRuoloPfpgDao {
 	List<SigitRImpRuoloPfpgDto> findAttiviByFilter(FiltroRicercaPfPg filter) throws SigitRImpRuoloPfpgDaoException;
 
 	public void updateColumnsTerminaRiga(SigitRImpRuoloPfpgDto dto) throws SigitRImpRuoloPfpgDaoException;
+	
+	List<SigitRImpRuoloPfpgDto> findByPrimaryKey(SigitRImpRuoloPfpgPk pk) throws SigitRImpRuoloPfpgDaoException;
+	
+	Integer checkResponsabileImpresa(Integer codiceImpianto, Integer idPersona, String ruoloFunz) throws SigitRImpRuoloPfpgDaoException;
+	Integer checkResponsabile(Integer codiceImpianto, String cfPersona) throws SigitRImpRuoloPfpgDaoException;
+	Integer checkProprietario(Integer codiceImpianto, String cfPersona) throws SigitRImpRuoloPfpgDaoException;
+	
+	List<SigitRImpRuoloPfpgDto> findAttiviByCodiceImpianto(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException;
+	List<SigitRImpRuoloPfpgDto> findByCodiceImpiantoAndRuolo(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException;
+	List<SigitRImpRuoloPfpgDto> findSigitRImpRuoloPfpgByCodiceImpiantoEDataFineOggiONull(Integer codiceImpianto) throws SigitRImpRuoloPfpgDaoException;
 
 }

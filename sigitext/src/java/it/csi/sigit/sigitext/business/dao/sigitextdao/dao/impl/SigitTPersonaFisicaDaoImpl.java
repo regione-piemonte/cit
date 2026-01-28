@@ -2,7 +2,9 @@ package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTPersonaFisicaDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTPersonaFisicaDaoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTPersonaFisicaJoinSigitRPfDelegaDaoRowMapper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaFisicaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaFisicaJoinSigitRPfDelegaDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaFisicaPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTPersonaFisicaDaoException;
 import it.csi.sigit.sigitext.business.dao.util.Constants;
@@ -249,6 +251,7 @@ public class SigitTPersonaFisicaDaoImpl extends AbstractDAO implements SigitTPer
 
 	protected SigitTPersonaFisicaDaoRowMapper findByPrimaryKeyRowMapper = new SigitTPersonaFisicaDaoRowMapper(null,
 			SigitTPersonaFisicaDto.class, this);
+	protected SigitTPersonaFisicaJoinSigitRPfDelegaDaoRowMapper findByIdPersonaGiuridicaRowMapper = new SigitTPersonaFisicaJoinSigitRPfDelegaDaoRowMapper(null, SigitTPersonaFisicaJoinSigitRPfDelegaDto.class, this);
 
 	/**
 	 * 
@@ -334,6 +337,66 @@ public class SigitTPersonaFisicaDaoImpl extends AbstractDAO implements SigitTPer
 			LOG.debug("[SigitTPersonaFisicaDaoImpl::findByPrimaryKey] END");
 		}
 		return list.isEmpty() ? null : list.get(0);
+	}
+	
+	/** 
+	 * Returns all rows from the SIGIT_T_PERSONA_FISICA table that match the denomUtenteAssegnatario key criteria
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public SigitTPersonaFisicaDto findByDenominazione(String denomUtenteAssegnatario) throws SigitTPersonaFisicaDaoException {
+		LOG.debug("[SigitTPersonaFisicaDaoImpl::findByDenominazione] START");
+		final StringBuilder sql = new StringBuilder(
+				"SELECT ID_PERSONA_FISICA,NOME,COGNOME,CODICE_FISCALE,FK_L2,INDIRIZZO_SITAD,INDIRIZZO_NON_TROVATO,ISTAT_COMUNE,SIGLA_PROV,COMUNE,PROVINCIA,CIVICO,CAP,EMAIL,FLG_ACCREDITATO,DATA_ULT_MOD,UTENTE_ULT_MOD,FLG_INDIRIZZO_ESTERO,STATO_ESTERO,CITTA_ESTERO,INDIRIZZO_ESTERO,CAP_ESTERO,FLG_NEWSLETTER,FLG_GDPR FROM "
+						+ getTableName() + " WHERE :denomUtenteAssegnatario = COGNOME || ' ' || NOME ");
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		// valorizzazione paametro relativo a colonna [ID_PERSONA_FISICA]
+		params.addValue("denomUtenteAssegnatario", denomUtenteAssegnatario, java.sql.Types.VARCHAR);		
+
+		List<SigitTPersonaFisicaDto> list = null;
+
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), params, findByPrimaryKeyRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTPersonaFisicaDaoImpl::findByDenominazione] ERROR esecuzione query", ex);
+			throw new SigitTPersonaFisicaDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTPersonaFisicaDaoImpl", "findByDenominazione", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTPersonaFisicaDaoImpl::findByDenominazione] END");
+		}
+		return list.isEmpty() ? null : list.get(0);
+	}
+	
+	public List<SigitTPersonaFisicaJoinSigitRPfDelegaDto> findByIdPersonaGiuridica(Integer idPersonaGiuridica) throws SigitTPersonaFisicaDaoException {
+		LOG.debug("[SigitTPersonaFisicaDaoImpl::findByIdPersonaGiuridica] START");
+		final StringBuilder sql = new StringBuilder(
+				"select sigit_r_pf_pg_delega.id_persona_giuridica, sigit_r_pf_pg_delega.id_persona_fisica, sigit_r_pf_pg_delega.flg_delega, sigit_r_pf_pg_delega.data_inizio, nome, cognome, codice_fiscale from sigit_r_pf_pg_delega " + 
+				"left outer join sigit_t_persona_fisica " + 
+				"on sigit_r_pf_pg_delega.id_persona_fisica = sigit_t_persona_fisica.id_persona_fisica " + 
+				"where sigit_r_pf_pg_delega.id_persona_giuridica = :id_persona_giuridica and sigit_r_pf_pg_delega.data_fine is null;");
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		params.addValue("id_persona_giuridica", idPersonaGiuridica, java.sql.Types.NUMERIC);
+
+		List<SigitTPersonaFisicaJoinSigitRPfDelegaDto> list = null;
+
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), params, findByIdPersonaGiuridicaRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTPersonaFisicaDaoImpl::findByIdPersonaGiuridica] ERROR esecuzione query", ex);
+			throw new SigitTPersonaFisicaDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTPersonaFisicaDaoImpl", "findByIdPersonaGiuridica", "esecuzione query", sql.toString());
+			LOG.debug("[SigitTPersonaFisicaDaoImpl::findByIdPersonaGiuridica] END");
+		}
+		return list;
 	}
 
 }

@@ -4,18 +4,23 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.be.ws;
 
-import it.csi.csi.wrapper.CSIException;
-import it.csi.csi.wrapper.UnrecoverableException;
-import it.csi.sigit.sigitext.business.SpringApplicationContextHelper;
-import it.csi.sigit.sigitext.business.be.manager.SigitextManager;
-import it.csi.sigit.sigitext.business.util.Constants;
-import org.apache.log4j.Logger;
-
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+
+import org.apache.log4j.Logger;
+
+import it.csi.csi.wrapper.CSIException;
+import it.csi.csi.wrapper.UnrecoverableException;
+import it.csi.sigit.sigitext.business.SpringApplicationContextHelper;
+import it.csi.sigit.sigitext.business.be.manager.SigitextManager;
+import it.csi.sigit.sigitext.business.util.Constants;
+import it.csi.sigit.sigitext.dto.sigitext.DettaglioPersonaGiuridica;
+import it.csi.sigit.sigitext.dto.sigitext.Scheda1;
+import it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException;
+import it.csi.sigit.sigitext.exception.sigitext.SigitextException;
 
 @WebService(name = "sigitextSigitextOld", targetNamespace = "http://sigitext.interfacecsi.sigitext.sigit.csi.it", serviceName = "services")
 //@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
@@ -31,15 +36,14 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 		return (SigitextManager) SpringApplicationContextHelper.getBean("sigitextManager");
 	}
 
-	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getFluidoCIT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getFluidoCIT( 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { 
 		try {
 
 			logger.debug("[SigitextBean::getFluidoCIT()] - START");
@@ -66,21 +70,20 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByCodiceJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByCodiceJWT( 
 
-			@WebParam(name = "in0") java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0") java.lang.Integer codiceImpianto, 
 
-			@WebParam(name = "in1") java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1") java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS 
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException,  
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getImpiantoByCodiceJWT()] - START");
@@ -113,21 +116,20 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantiByFiltroJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantiByFiltroJWT( 
 
-			@WebParam(name = "in0") it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro impiantoFiltro, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0") it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro impiantoFiltro, 
 
-			@WebParam(name = "in1") java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1") java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getImpiantiByFiltroJWT()] - START");
@@ -160,23 +162,22 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByPODJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByPODJWT( 
 
-			@WebParam(name = "in0") java.lang.String pod, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0") java.lang.String pod, 
 
-			@WebParam(name = "in1") java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1") java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException { 
 		try {
 
 			logger.debug("[SigitextBean::getImpiantoByPODJWT()] - START");
@@ -209,23 +210,22 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByPDRJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByPDRJWT( 
 
-			@WebParam(name = "in0") java.lang.String pdr, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0") java.lang.String pdr, 
 
-			@WebParam(name = "in1") java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1") java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException { 
 		try {
 			logger.debug("[SigitextBean::getImpiantoByPDRJWT()] - START");
 			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
@@ -249,21 +249,20 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.Documento getLibrettoByUIDJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Documento getLibrettoByUIDJWT( 
 
-			@WebParam(name = "in0") java.lang.String uid, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0") java.lang.String uid, 
 
-			@WebParam(name = "in1") java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1") java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getLibrettoByUIDJWT()] - START");
@@ -284,6 +283,7 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 		}
 	}
 
+	@SuppressWarnings("finally")
 	@Override
 	public boolean isAliveExt() {
 		// TODO Auto-generated method stub
@@ -307,23 +307,22 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.Documento getXMLLibrettoNowJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Documento getXMLLibrettoNowJWT( 
 
-			@WebParam(name = "in0") java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0") java.lang.Integer codiceImpianto, 
 
-			@WebParam(name = "in1") java.lang.Boolean isConsolidato, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1") java.lang.Boolean isConsolidato, 
 
-			@WebParam(name = "in2") java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			@WebParam(name = "in2") java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getXMLLibrettoNowJWT()] - START");
@@ -355,15 +354,14 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getCombustibileCIT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getCombustibileCIT( 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { 
 		try {
 
 			logger.debug("[SigitextBean::getCombustibileCIT()] - START");
@@ -392,15 +390,14 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getMarcaCIT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getMarcaCIT( 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { 
 		try {
 
 			logger.debug("[SigitextBean::getMarcaCIT()] - START");
@@ -429,15 +426,14 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getUnitaMisuraCIT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getUnitaMisuraCIT( 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { 
 		try {
 
 			logger.debug("[SigitextBean::getUnitaMisuraCIT()] - START");
@@ -466,23 +462,22 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.Libretto getLibrettoNowJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Libretto getLibrettoNowJWT( 
 
-			@WebParam(name = "in0") java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0") java.lang.Integer codiceImpianto, 
 
-			@WebParam(name = "in1") java.lang.Boolean isConsolidato, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1") java.lang.Boolean isConsolidato, 
 
-			@WebParam(name = "in2") java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			@WebParam(name = "in2") java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getLibrettoNowJWT()] - START");
@@ -515,17 +510,62 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 			throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:" + e, e);
 		}
 	}
+	
+	@Override
+	public Scheda1 getSchedaLibrettoJWT( 
+
+			@WebParam(name = "in0") java.lang.Integer codiceImpianto, 
+
+			@WebParam(name = "in2") java.lang.String tokenJWT 
+
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
+
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
+
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
+		try {
+
+			logger.debug("[SigitextBean::getSchedaLibrettoJWT()] - START");
+			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
+			// inizio misurazione
+			watcher.start();
+
+			Scheda1 valueObjRet = getImplSigitextManager().getSchedaLibrettoJWT(
+
+					codiceImpianto,
+
+					tokenJWT
+
+			);
+
+			// fine misurazione
+			watcher.stop();
+			watcher.dumpElapsed("SigitextBean", "getSchedaLibrettoJWT()", "invocazione servizio [sigitext]::[getSchedaLibrettoJWT]", "(valore input omesso)");
+			logger.debug("[SigitextBean::getSchedaLibrettoJWT()] - END");
+
+			return valueObjRet;
+
+		} catch (CSIException e) {
+
+			throw e;
+		} catch (Exception e) {
+
+			throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:" + e, e);
+		}
+	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.Documento getXMLLibrettoConsolidatoJWT( //NOSONAR  Reason:EIAS
-			@WebParam(name = "in0") java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
-			@WebParam(name = "in1") java.lang.String tokenJWT //NOSONAR  Reason:EIAS
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Documento getXMLLibrettoConsolidatoJWT( 
+			@WebParam(name = "in0") java.lang.Integer codiceImpianto, 
+			@WebParam(name = "in1") java.lang.String tokenJWT 
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 			logger.debug("[SigitextBean::getXMLLibrettoConsolidatoJWT()] - START");
 			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
@@ -550,23 +590,22 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public void uploadXMLLibrettoJWT( //NOSONAR  Reason:EIAS
+	public void uploadXMLLibrettoJWT( 
 
-			@WebParam(name = "in0") java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0") java.lang.Integer codiceImpianto, 
 
-			@WebParam(name = "in1") byte[] xml, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1") byte[] xml, 
 
-			@WebParam(name = "in2") java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			@WebParam(name = "in2") java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::uploadXMLLibrettoJWT()] - START");
@@ -599,25 +638,23 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public int uploadXMLControlloJWT( //NOSONAR  Reason:EIAS
+	public int uploadXMLControlloJWT( 
 
-			@WebParam(name = "in0")java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0")java.lang.Integer codiceImpianto, 
 
-			@WebParam(name = "in1")java.lang.String tipoControllo, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1")java.lang.String tipoControllo, 
 
-			@WebParam(name = "in2")byte[] xml, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in2")byte[] xml, 
 
-			@WebParam(name = "in3")java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			@WebParam(name = "in3")java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::uploadXMLControlloJWT()] - START");
@@ -630,7 +667,7 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 					codiceImpianto,
 
 					tipoControllo,
-
+					
 					xml,
 
 					tokenJWT
@@ -654,22 +691,21 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByIndirizzoJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByIndirizzoJWT( 
 
-			@WebParam(name = "in0")java.lang.String indirizzo, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0")java.lang.String indirizzo, 
 
-			@WebParam(name = "in1")java.lang.Integer civico, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1")java.lang.Integer civico, 
 
-			@WebParam(name = "in2")java.lang.String istat, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in2")java.lang.String istat, 
 
-			@WebParam(name = "in3")java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			@WebParam(name = "in3")java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getImpiantoByIndirizzoJWT()] - START");
@@ -695,25 +731,24 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 	}
 
 	@Override
-	public it.csi.sigit.sigitext.dto.sigitext.Ruoli getRuoli( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Ruoli getRuoli( 
 
-			@WebParam(name = "in0")java.lang.String codiceFiscale, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in0")java.lang.String codiceFiscale, 
 
-			@WebParam(name = "in1")java.lang.String cognome, //NOSONAR  Reason:EIAS
+			@WebParam(name = "in1")java.lang.String cognome, 
 
-			@WebParam(name = "in2")java.lang.String nome //NOSONAR  Reason:EIAS
+			@WebParam(name = "in2")java.lang.String nome 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-	{ //NOSONAR  Reason:EIAS
+	{ 
 		try {
 
 			logger.debug("[SigitextBean::getRuoli()] - START");
@@ -741,5 +776,16 @@ public class SigitextMgrExtOld implements ISigitextMgrExtOld {
 
 			throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:" + e, e);
 		}
+	}
+	
+	
+	@Override
+	public String[] getComuniPGJWT(String tokenJWT) throws Exception {
+		return getImplSigitextManager().getComuniPGJWT(tokenJWT);
+	}
+	
+	@Override
+	public DettaglioPersonaGiuridica[] getManutentoriJWT(String denominazione, String comune, String tokenJWT) throws SigitextException, SigitExcessiveResultsException {
+		return getImplSigitextManager().getManutentoriJWT(denominazione, comune, tokenJWT);
 	}
 }

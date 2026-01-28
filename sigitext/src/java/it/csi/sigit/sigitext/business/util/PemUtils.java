@@ -4,10 +4,11 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.util;
 
-import org.bouncycastle.util.io.pem.PemObject;
-import org.bouncycastle.util.io.pem.PemReader;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -17,20 +18,34 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
+import org.bouncycastle.util.io.pem.PemObject;
+import org.bouncycastle.util.io.pem.PemReader;
+
 
 public class PemUtils {
 
 	
-    private static byte[] parsePEMFile(File pemFile) throws IOException {
-        if (!pemFile.isFile() || !pemFile.exists()) {
-            throw new FileNotFoundException(String.format("The file '%s' doesn't exist.", pemFile.getAbsolutePath()));
-        }
-        PemReader reader = new PemReader(new FileReader(pemFile));
-        PemObject pemObject = reader.readPemObject();
-        byte[] content = pemObject.getContent();
-        reader.close();
-        return content;
-    }
+	private static byte[] parsePEMFile(File pemFile) throws IOException {
+
+		PemReader reader = null;
+		try {
+			if (!pemFile.isFile() || !pemFile.exists()) {
+				throw new FileNotFoundException(
+						String.format("The file '%s' doesn't exist.", pemFile.getAbsolutePath()));
+			}
+			reader = new PemReader(new FileReader(pemFile));
+			PemObject pemObject = reader.readPemObject();
+			byte[] content = pemObject.getContent();
+			reader.close();
+			return content;
+		} catch (IOException e) {
+			throw e;
+		} finally {
+			if (reader != null) {
+				reader.close();
+			}
+		}
+	}
     
     private static byte[] parsePEMFile(Reader readerFile) throws IOException {
         if (readerFile == null) {
@@ -80,14 +95,18 @@ public class PemUtils {
     }
 
     public static PrivateKey readPrivateKeyFromFile(File file, String algorithm) throws IOException {
-        
     	byte[] bytes = PemUtils.parsePEMFile(file);
         return PemUtils.getPrivateKey(bytes, algorithm);
     }
-    
     
     public static PublicKey readPublicKeyFromFile(Reader reader, String algorithm) throws IOException {
         byte[] bytes = PemUtils.parsePEMFile(reader);
         return PemUtils.getPublicKey(bytes, algorithm);
     }
+    
+	public static PrivateKey readPrivateKeyFromFile(Reader reader, String algorithm) throws IOException {
+		byte[] bytes = PemUtils.parsePEMFile(reader);
+        return PemUtils.getPrivateKey(bytes, algorithm);
+	}
+
 }

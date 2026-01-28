@@ -21,7 +21,16 @@ public class RicercaAccertamentoFilter implements java.io.Serializable {
 	private String istatProvincia;
 	private BigDecimal idVerifica;
 	private  String istatComune;
+	private String cfUtenteAssegn;
+	
+	
 
+	public String getCfUtenteAssegn() {
+		return cfUtenteAssegn;
+	}
+	public void setCfUtenteAssegn(String cfUtenteAssegn) {
+		this.cfUtenteAssegn = cfUtenteAssegn;
+	}
 	public BigDecimal getIdAccertamento() {
 		return idAccertamento;
 	}

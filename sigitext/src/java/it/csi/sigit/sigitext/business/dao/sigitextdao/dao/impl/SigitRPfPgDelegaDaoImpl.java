@@ -142,4 +142,108 @@ public class SigitRPfPgDelegaDaoImpl extends AbstractDAO implements SigitRPfPgDe
 		}
 		return list;
 	}
+	
+	public List<SigitRPfPgDelegaDto> findFindByIdPersonaFisica(Integer input) throws SigitRPfPgDelegaDaoException {
+		LOG.debug("[SigitRPfPgDelegaDaoImpl::findFindByPg] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("SELECT ID_PERSONA_FISICA,ID_PERSONA_GIURIDICA,DATA_INIZIO,FK_RUOLO_ACCRED,FK_TIPO_DM,FLG_DELEGA,DATA_FINE,DATA_ULT_MOD,UTENTE_ULT_MOD FROM "
+				+getTableName()
+				+" where"
+				+" id_persona_fisica = :id_persona_fisica AND "
+				+ "data_fine IS NULL");
+		paramMap.addValue("id_persona_fisica", input);
+		List<SigitRPfPgDelegaDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, findByPgRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRPfPgDelegaDaoImpl::findFindByPg] ERROR esecuzione query", ex);
+			throw new SigitRPfPgDelegaDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRPfPgDelegaDaoImpl", "findFindByPg", "esecuzione query", sql.toString());
+			LOG.debug("[SigitRPfPgDelegaDaoImpl::findFindByPg] END");
+		}
+		return list;
+	}
+	
+	public List<SigitRPfPgDelegaDto> findByPfAndPg(Integer idPersonaFisica, Integer idPersonaGiuridica) throws SigitRPfPgDelegaDaoException {
+		LOG.debug("[SigitRPfPgDelegaDaoImpl::findFindByPg] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("SELECT ID_PERSONA_FISICA,ID_PERSONA_GIURIDICA,DATA_INIZIO,FK_RUOLO_ACCRED,FK_TIPO_DM,FLG_DELEGA,DATA_FINE,DATA_ULT_MOD,UTENTE_ULT_MOD FROM "
+				+getTableName()
+				+" where"
+				+" id_persona_giuridica = :id_persona_giuridica AND "
+				+" id_persona_fisica = :id_persona_fisica AND "
+				+ "data_fine IS NULL");
+		paramMap.addValue("id_persona_giuridica", idPersonaGiuridica);
+		paramMap.addValue("id_persona_fisica", idPersonaFisica);
+		List<SigitRPfPgDelegaDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, findByPgRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRPfPgDelegaDaoImpl::findFindByPfAndPg] ERROR esecuzione query", ex);
+			throw new SigitRPfPgDelegaDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitRPfPgDelegaDaoImpl", "findFindByPfAndPg", "esecuzione query", sql.toString());
+			LOG.debug("[SigitRPfPgDelegaDaoImpl::findFindByPfAndPg] END");
+		}
+		return list;
+	}
+	
+	public void insert(SigitRPfPgDelegaDto dto) throws SigitRPfPgDelegaDaoException {
+		LOG.debug("[SigitRPfPgDelegaDaoImpl::insert] START");
+		
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("INSERT INTO "
+				+getTableName()
+				+ " (id_persona_fisica, id_persona_giuridica, data_inizio, fk_ruolo_accred, fk_tipo_dm, flg_delega, data_fine, data_ult_mod, utente_ult_mod) "
+				+ "VALUES "
+				+ "(:id_persona_fisica, :id_persona_giuridica, :data_inizio, :fk_ruolo_accred, :fk_tipo_dm, :flg_delega, :data_fine, :data_ult_mod, :utente_ult_mod)");
+				
+		paramMap.addValue("id_persona_fisica", dto.getIdPersonaFisica());
+		paramMap.addValue("id_persona_giuridica", dto.getIdPersonaGiuridica());
+		paramMap.addValue("data_inizio", dto.getDataInizio());
+		paramMap.addValue("fk_ruolo_accred", dto.getFkRuoloAccred());
+		paramMap.addValue("fk_tipo_dm", dto.getFkTipoDm());
+		paramMap.addValue("flg_delega", dto.getFlgDelega());
+		paramMap.addValue("data_fine", dto.getDataFine());
+		paramMap.addValue("data_ult_mod", dto.getDataUltMod());
+		paramMap.addValue("utente_ult_mod", dto.getUtenteUltMod());
+		
+		insert(jdbcTemplate, sql.toString(), paramMap);
+
+		LOG.debug("[SigitRPfPgDelegaDaoImpl::insert] END");
+	}
+	
+	public void update(SigitRPfPgDelegaDto dto) throws SigitRPfPgDelegaDaoException {
+		LOG.debug("[SigitRPfPgDelegaDaoImpl::insert] START");
+		
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("UPDATE "
+				+getTableName()
+				+ " SET data_fine = :data_fine, data_ult_mod = :data_ult_mod, utente_ult_mod = :utente_ult_mod "
+				+ "WHERE id_persona_fisica = :id_persona_fisica AND id_persona_giuridica = :id_persona_giuridica AND data_inizio = :data_inizio");
+				
+		paramMap.addValue("id_persona_fisica", dto.getIdPersonaFisica());
+		paramMap.addValue("id_persona_giuridica", dto.getIdPersonaGiuridica());
+		paramMap.addValue("data_inizio", dto.getDataInizio());
+		paramMap.addValue("data_fine", dto.getDataFine());
+		paramMap.addValue("data_ult_mod", dto.getDataUltMod());
+		paramMap.addValue("utente_ult_mod", dto.getUtenteUltMod());
+		
+		update(jdbcTemplate, sql.toString(), paramMap);
+
+		LOG.debug("[SigitRPfPgDelegaDaoImpl::insert] END");
+	}
 }

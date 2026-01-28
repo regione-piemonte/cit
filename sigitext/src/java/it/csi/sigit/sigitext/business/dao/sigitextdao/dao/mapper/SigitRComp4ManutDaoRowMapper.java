@@ -4,6 +4,7 @@ import it.csi.sigit.sigitext.business.dao.impl.BaseDaoRowMapper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitRComp4ManutDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl.SigitRComp4ManutDaoImpl;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRComp4ManutManutentoriByCodiceImpiantoDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,13 +44,17 @@ public class SigitRComp4ManutDaoRowMapper extends BaseDaoRowMapper implements or
 		Object dtoInstance = getNewDto();
 
 		if (dtoInstance instanceof SigitRComp4ManutDto) {
-			return mapRow_internal((SigitRComp4ManutDto) dtoInstance, rs, row);
+			return mapRow_internal((SigitRComp4ManutDto) dtoInstance, rs);
+		}
+
+		if (dtoInstance instanceof SigitRComp4ManutManutentoriByCodiceImpiantoDto) {
+			return mapRow_internal((SigitRComp4ManutManutentoriByCodiceImpiantoDto) dtoInstance, rs);
 		}
 
 		return dtoInstance;
 	}
 
-	public SigitRComp4ManutDto mapRow_internal(SigitRComp4ManutDto objectToFill, ResultSet rs, int row)
+	public SigitRComp4ManutDto mapRow_internal(SigitRComp4ManutDto objectToFill, ResultSet rs)
 			throws SQLException {
 		SigitRComp4ManutDto dto = objectToFill;
 
@@ -92,6 +97,47 @@ public class SigitRComp4ManutDaoRowMapper extends BaseDaoRowMapper implements or
 		// colonna [FK_RUOLO]
 		if (mapAllColumns || columnsToReadMap.get("FK_RUOLO") != null)
 			dto.setFkRuolo(rs.getBigDecimal("FK_RUOLO"));
+
+		return dto;
+	}
+
+	/**
+	 * Metodo specifico di mapping relativo al DTO custom SigitRComp4ManutManutentoriByCodiceImpiantoDto.
+	 * 
+	 * @param rs
+	 * @param row
+	 * @throws SQLException
+	 * @return SigitRComp4ManutManutentoriByCodiceImpiantoDto
+	 * @generated
+	 */
+
+	public SigitRComp4ManutManutentoriByCodiceImpiantoDto mapRow_internal(
+			SigitRComp4ManutManutentoriByCodiceImpiantoDto objectToFill, ResultSet rs) throws SQLException {
+		SigitRComp4ManutManutentoriByCodiceImpiantoDto dto = objectToFill;
+
+		if (mapAllColumns || columnsToReadMap.get("CODICE_FISCALE") != null)
+			dto.setPgCodiceFiscale(rs.getString("CODICE_FISCALE"));
+
+		if (mapAllColumns || columnsToReadMap.get("SIGLA_REA") != null)
+			dto.setPgSiglaRea(rs.getString("SIGLA_REA"));
+
+		if (mapAllColumns || columnsToReadMap.get("NUMERO_REA") != null)
+			dto.setPgNumeroRea(rs.getBigDecimal("NUMERO_REA"));
+
+		if (mapAllColumns || columnsToReadMap.get("DENOMINAZIONE") != null)
+			dto.setPgDenominazione(rs.getString("DENOMINAZIONE"));
+
+		if (mapAllColumns || columnsToReadMap.get("DES_TIPO_DOCUMENTO") != null)
+			dto.setTdDesTipoDocumento(rs.getString("DES_TIPO_DOCUMENTO"));
+
+		if (mapAllColumns || columnsToReadMap.get("PROGRESSIVO") != null)
+			dto.setCmProgressivo(rs.getBigDecimal("PROGRESSIVO"));
+
+		if (mapAllColumns || columnsToReadMap.get("FK_PERSONA_GIURIDICA") != null)
+			dto.setCmFkPersonaGiuridica(rs.getBigDecimal("FK_PERSONA_GIURIDICA"));
+
+		if (mapAllColumns || columnsToReadMap.get("ID_TIPO_COMPONENTE") != null)
+			dto.setCmIdTipoComponente(rs.getString("ID_TIPO_COMPONENTE"));
 
 		return dto;
 	}

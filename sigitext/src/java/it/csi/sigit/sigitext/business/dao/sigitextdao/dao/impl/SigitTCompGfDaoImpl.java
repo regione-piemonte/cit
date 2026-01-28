@@ -1,5 +1,11 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitTCompGfDao;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitTCompGfCompletoDaoRowMapper;
@@ -10,11 +16,6 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompGfPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTCompGfDaoException;
 import it.csi.sigit.sigitext.business.dao.util.Constants;
 import it.csi.util.performance.StopWatch;
-import org.apache.log4j.Logger;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import java.util.List;
 
 public class SigitTCompGfDaoImpl extends AbstractDAO implements SigitTCompGfDao {
 	protected static final Logger LOG = Logger.getLogger(Constants.APPLICATION_CODE);

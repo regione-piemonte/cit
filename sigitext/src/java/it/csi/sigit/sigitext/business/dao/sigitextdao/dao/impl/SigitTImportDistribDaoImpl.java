@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class SigitTImportDistribDaoImpl extends AbstractDAO implements SigitTImportDistribDao {
@@ -30,13 +31,16 @@ public class SigitTImportDistribDaoImpl extends AbstractDAO implements SigitTImp
 
 	{
 		LOG.debug("[SigitTImportDistribDaoImpl::insert] START");
+		
+		Integer newKey = incrementer.nextIntValue();
+		
 		final String sql = "INSERT INTO " + getTableName()
-				+ " ( 	ID_IMPORT_DISTRIB,FK_PERSONA_GIURIDICA,FK_STATO_DISTRIB,DATA_INIZIO_ELAB,DATA_FINE_ELAB,DATA_ANNULLAMENTO,NOME_FILE_IMPORT,UID_INDEX,ANNO_RIFERIMENTO,DATA_INVIO_MAIL_DISTRIB,DATA_INVIO_MAIL_ASSISTENZA,TOT_RECORD_ELABORATI,TOT_RECORD_SCARTATI,DATA_ULT_MOD,UTENTE_ULT_MOD,UTENTE_CARICAMENTO ) VALUES (  :ID_IMPORT_DISTRIB , :FK_PERSONA_GIURIDICA , :FK_STATO_DISTRIB , :DATA_INIZIO_ELAB , :DATA_FINE_ELAB , :DATA_ANNULLAMENTO , :NOME_FILE_IMPORT , :UID_INDEX , :ANNO_RIFERIMENTO , :DATA_INVIO_MAIL_DISTRIB , :DATA_INVIO_MAIL_ASSISTENZA , :TOT_RECORD_ELABORATI , :TOT_RECORD_SCARTATI , :DATA_ULT_MOD , :UTENTE_ULT_MOD , :UTENTE_CARICAMENTO  )";
+				+ " (ID_IMPORT_DISTRIB,FK_PERSONA_GIURIDICA,FK_STATO_DISTRIB,DATA_INIZIO_ELAB,DATA_FINE_ELAB,DATA_ANNULLAMENTO,NOME_FILE_IMPORT,UID_INDEX,ANNO_RIFERIMENTO,DATA_INVIO_MAIL_DISTRIB,DATA_INVIO_MAIL_ASSISTENZA,TOT_RECORD_ELABORATI,TOT_RECORD_SCARTATI,DATA_ULT_MOD,UTENTE_ULT_MOD,UTENTE_CARICAMENTO ) VALUES ( :ID_IMPORT_DISTRIB, :FK_PERSONA_GIURIDICA , :FK_STATO_DISTRIB , :DATA_INIZIO_ELAB , :DATA_FINE_ELAB , :DATA_ANNULLAMENTO , :NOME_FILE_IMPORT , :UID_INDEX , :ANNO_RIFERIMENTO , :DATA_INVIO_MAIL_DISTRIB , :DATA_INVIO_MAIL_ASSISTENZA , :TOT_RECORD_ELABORATI , :TOT_RECORD_SCARTATI , :DATA_ULT_MOD , :UTENTE_ULT_MOD , :UTENTE_CARICAMENTO  )";
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
 
 		// valorizzazione paametro relativo a colonna [ID_IMPORT_DISTRIB]
-		params.addValue("ID_IMPORT_DISTRIB", dto.getIdImportDistrib(), java.sql.Types.INTEGER);
+		params.addValue("ID_IMPORT_DISTRIB", newKey, java.sql.Types.INTEGER);
 
 		// valorizzazione paametro relativo a colonna [FK_PERSONA_GIURIDICA]
 		params.addValue("FK_PERSONA_GIURIDICA", dto.getFkPersonaGiuridica(), java.sql.Types.NUMERIC);
@@ -84,6 +88,7 @@ public class SigitTImportDistribDaoImpl extends AbstractDAO implements SigitTImp
 		params.addValue("UTENTE_CARICAMENTO", dto.getUtenteCaricamento(), java.sql.Types.VARCHAR);
 
 		insert(jdbcTemplate, sql.toString(), params);
+		dto.setIdImportDistrib(newKey);
 
 		LOG.debug("[SigitTImportDistribDaoImpl::insert] END");
 		return dto.createPk();
@@ -180,6 +185,116 @@ public class SigitTImportDistribDaoImpl extends AbstractDAO implements SigitTImp
 		 * Implementazione del finder byIdPersonaGiuridica con Qdef
 		 * @generated
 		 */
+	public List<SigitTImportDistribByIdPersonaGiuridicaDto> findByIdPersonaGiuridicaAndFiltri(java.lang.Integer input, String anno, String mese, String tipoCaricamento, String statoFile, BigDecimal maxRighe)
+			throws SigitTImportDistribDaoException {
+		LOG.debug("[SigitTImportDistribDaoImpl::findByIdPersonaGiuridicaAndFiltri] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				 /*"SELECT id.ID_IMPORT_DISTRIB, "
+				 + "id.DATA_INIZIO_ELAB, "
+				 + "id.DATA_FINE_ELAB, "
+				 + "id.NOME_FILE_IMPORT, "
+				 + "id.ANNO_RIFERIMENTO, "
+				 + "sd.DES_STATO_DISTRIB, "
+				 + "id.DATA_ANNULLAMENTO, "
+				 + "id.TOT_RECORD_ELABORATI, "
+				 + "id.TOT_RECORD_SCARTATI");*/
+				  " SELECT id.ID_IMPORT_DISTRIB, "
+				 + " id.FK_PERSONA_GIURIDICA, "
+				 + " id.FK_STATO_DISTRIB, "
+				 + " sd.DES_STATO_DISTRIB, "
+				 + " id.DATA_INIZIO_ELAB, "
+				 + " id.DATA_FINE_ELAB, "
+				 + " id.DATA_ANNULLAMENTO, "
+				 + " id.NOME_FILE_IMPORT, "
+				 + " id.UID_INDEX, "
+				 + " id.ANNO_RIFERIMENTO, "
+				 + " id.DATA_INVIO_MAIL_DISTRIB, "
+				 + " id.DATA_INVIO_MAIL_ASSISTENZA, "
+				 + " id.TOT_RECORD_ELABORATI, "
+				 + " id.TOT_RECORD_SCARTATI, "
+				 + " id.DATA_ULT_MOD, "
+				 + " id.UTENTE_ULT_MOD, "
+				 + " id.UTENTE_CARICAMENTO ");
+		
+		sql.append(" FROM SIGIT_T_IMPORT_DISTRIB id, SIGIT_D_STATO_DISTRIB sd");
+
+		sql.append(" WHERE ");
+
+		sql.append("id.FK_STATO_DISTRIB = sd.ID_STATO_DISTRIB");
+
+		sql.append(" AND ");
+		
+		sql.append("id.fk_persona_giuridica = :idPersonoGiuridica");
+		
+		if(anno != null && !anno.isEmpty()) {
+			sql.append(" AND ");			
+			sql.append("id.ANNO_RIFERIMENTO = :anno");
+			paramMap.addValue("anno", Integer.valueOf(anno));
+		}
+		
+		// Mese passato come string "1", "2", "3"...
+		if(mese != null && !mese.isEmpty()) {
+		    sql.append(" AND ");
+		    sql.append("EXTRACT(MONTH FROM id.DATA_INIZIO_ELAB) = :mese");
+		    paramMap.addValue("mese", Integer.valueOf(mese));
+		}
+		
+		if (tipoCaricamento != null && !tipoCaricamento.isEmpty()) {
+		    sql.append(" AND (");
+
+		    if (tipoCaricamento.equalsIgnoreCase("Manuale")) {
+		        sql.append("id.UID_INDEX IS NULL ");
+		        sql.append("AND LOWER(id.NOME_FILE_IMPORT) LIKE :nomeFileImport");
+		        paramMap.addValue("nomeFileImport", "%caricamento manuale%");
+		    } else if (tipoCaricamento.equalsIgnoreCase("Import XML")) {
+		        sql.append("id.UID_INDEX IS NOT NULL ");
+		        sql.append("AND LOWER(id.NOME_FILE_IMPORT) LIKE :nomeFileImport");
+		        paramMap.addValue("nomeFileImport", "%.xml%");
+		    }
+
+		    sql.append(")");
+		}
+		
+		if(statoFile != null && !statoFile.isEmpty()) {
+			sql.append(" AND ");			
+			sql.append("sd.DES_STATO_DISTRIB = :statoFile");
+			paramMap.addValue("statoFile", statoFile);
+		}
+	
+		/*PROTECTED REGION ID(R1329267087) ENABLED START*///inserire qui i parametri indicati nella espressione di where, ad esempio:
+		
+		sql.append(" ORDER BY DATA_INIZIO_ELAB DESC");
+				
+		paramMap.addValue("idPersonoGiuridica", input);
+
+		/*PROTECTED REGION END*/
+		
+		if (maxRighe != null) {
+		    sql.append(" LIMIT :maxRighe");
+		    paramMap.addValue("maxRighe", maxRighe.intValue());
+		}
+
+		List<SigitTImportDistribByIdPersonaGiuridicaDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, byIdPersonaGiuridicaRowMapper);
+			LOG.debug(sql.toString());
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTImportDistribDaoImpl::findByIdPersonaGiuridica] ERROR esecuzione query", ex);
+			throw new SigitTImportDistribDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTImportDistribDaoImpl", "findByIdPersonaGiuridica", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitTImportDistribDaoImpl::findByIdPersonaGiuridica] END");
+		}
+		return list;
+	}
+
 
 	public List<SigitTImportDistribByIdPersonaGiuridicaDto> findByIdPersonaGiuridica(java.lang.Integer input)
 			throws SigitTImportDistribDaoException {
@@ -188,8 +303,33 @@ public class SigitTImportDistribDaoImpl extends AbstractDAO implements SigitTImp
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 
 		sql.append(
-				"SELECT id.ID_IMPORT_DISTRIB, id.DATA_INIZIO_ELAB, id.DATA_FINE_ELAB, id.NOME_FILE_IMPORT, id.ANNO_RIFERIMENTO, sd.DES_STATO_DISTRIB, id.DATA_ANNULLAMENTO, id.TOT_RECORD_ELABORATI, id.TOT_RECORD_SCARTATI");
-
+				 /*"SELECT id.ID_IMPORT_DISTRIB, "
+				 + "id.DATA_INIZIO_ELAB, "
+				 + "id.DATA_FINE_ELAB, "
+				 + "id.NOME_FILE_IMPORT, "
+				 + "id.ANNO_RIFERIMENTO, "
+				 + "sd.DES_STATO_DISTRIB, "
+				 + "id.DATA_ANNULLAMENTO, "
+				 + "id.TOT_RECORD_ELABORATI, "
+				 + "id.TOT_RECORD_SCARTATI");*/
+				  " SELECT id.ID_IMPORT_DISTRIB, "
+				 + " id.FK_PERSONA_GIURIDICA, "
+				 + " id.FK_STATO_DISTRIB, "
+				 + " sd.DES_STATO_DISTRIB, "
+				 + " id.DATA_INIZIO_ELAB, "
+				 + " id.DATA_FINE_ELAB, "
+				 + " id.DATA_ANNULLAMENTO, "
+				 + " id.NOME_FILE_IMPORT, "
+				 + " id.UID_INDEX, "
+				 + " id.ANNO_RIFERIMENTO, "
+				 + " id.DATA_INVIO_MAIL_DISTRIB, "
+				 + " id.DATA_INVIO_MAIL_ASSISTENZA, "
+				 + " id.TOT_RECORD_ELABORATI, "
+				 + " id.TOT_RECORD_SCARTATI, "
+				 + " id.DATA_ULT_MOD, "
+				 + " id.UTENTE_ULT_MOD, "
+				 + " id.UTENTE_CARICAMENTO ");
+		
 		sql.append(" FROM SIGIT_T_IMPORT_DISTRIB id, SIGIT_D_STATO_DISTRIB sd");
 
 		sql.append(" WHERE ");
@@ -197,12 +337,13 @@ public class SigitTImportDistribDaoImpl extends AbstractDAO implements SigitTImp
 		sql.append("id.FK_STATO_DISTRIB = sd.ID_STATO_DISTRIB");
 
 		sql.append(" AND ");
-
+		
 		sql.append("id.fk_persona_giuridica = :idPersonoGiuridica");
+	
 		/*PROTECTED REGION ID(R1329267087) ENABLED START*///inserire qui i parametri indicati nella espressione di where, ad esempio:
 
 		sql.append(" ORDER BY DATA_INIZIO_ELAB DESC");
-
+		
 		paramMap.addValue("idPersonoGiuridica", input);
 
 		/*PROTECTED REGION END*/
@@ -220,6 +361,77 @@ public class SigitTImportDistribDaoImpl extends AbstractDAO implements SigitTImp
 			stopWatch.dumpElapsed("SigitTImportDistribDaoImpl", "findByIdPersonaGiuridica", "esecuzione query",
 					sql.toString());
 			LOG.debug("[SigitTImportDistribDaoImpl::findByIdPersonaGiuridica] END");
+		}
+		return list;
+	}
+
+	public List<SigitTImportDistribByIdPersonaGiuridicaDto> findByIdPersonaGiuridicaAndNomeFile(java.lang.Integer idPersonaGiuridica, String nomeFile)
+			throws SigitTImportDistribDaoException {
+		LOG.debug("[SigitTImportDistribDaoImpl::findByIdPersonaGiuridicaAndNomeFile] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				 /*"SELECT id.ID_IMPORT_DISTRIB, "
+				 + "id.DATA_INIZIO_ELAB, "
+				 + "id.DATA_FINE_ELAB, "
+				 + "id.NOME_FILE_IMPORT, "
+				 + "id.ANNO_RIFERIMENTO, "
+				 + "sd.DES_STATO_DISTRIB, "
+				 + "id.DATA_ANNULLAMENTO, "
+				 + "id.TOT_RECORD_ELABORATI, "
+				 + "id.TOT_RECORD_SCARTATI");*/
+				  " SELECT id.ID_IMPORT_DISTRIB, "
+				 + " id.FK_PERSONA_GIURIDICA, "
+				 + " id.FK_STATO_DISTRIB, "
+				 + " sd.DES_STATO_DISTRIB, "
+				 + " id.DATA_INIZIO_ELAB, "
+				 + " id.DATA_FINE_ELAB, "
+				 + " id.DATA_ANNULLAMENTO, "
+				 + " id.NOME_FILE_IMPORT, "
+				 + " id.UID_INDEX, "
+				 + " id.ANNO_RIFERIMENTO, "
+				 + " id.DATA_INVIO_MAIL_DISTRIB, "
+				 + " id.DATA_INVIO_MAIL_ASSISTENZA, "
+				 + " id.TOT_RECORD_ELABORATI, "
+				 + " id.TOT_RECORD_SCARTATI, "
+				 + " id.DATA_ULT_MOD, "
+				 + " id.UTENTE_ULT_MOD, "
+				 + " id.UTENTE_CARICAMENTO ");
+		
+		sql.append(" FROM SIGIT_T_IMPORT_DISTRIB id, SIGIT_D_STATO_DISTRIB sd");
+
+		sql.append(" WHERE ");
+
+		sql.append("id.FK_STATO_DISTRIB = sd.ID_STATO_DISTRIB");
+
+		sql.append(" AND id.fk_persona_giuridica = :idPersonoGiuridica");
+		sql.append(" AND id.nome_file_import = :nomeFile");
+		sql.append(" AND id.fk_stato_distrib = :stato");
+
+		/*PROTECTED REGION ID(R1329267087) ENABLED START*///inserire qui i parametri indicati nella espressione di where, ad esempio:
+
+		sql.append(" ORDER BY DATA_INIZIO_ELAB DESC");
+
+		paramMap.addValue("idPersonoGiuridica", idPersonaGiuridica);
+		paramMap.addValue("nomeFile", nomeFile);
+		paramMap.addValue("stato", 2);
+
+		/*PROTECTED REGION END*/
+
+		List<SigitTImportDistribByIdPersonaGiuridicaDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, byIdPersonaGiuridicaRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTImportDistribDaoImpl::findByIdPersonaGiuridicaAndNomeFile] ERROR esecuzione query", ex);
+			throw new SigitTImportDistribDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTImportDistribDaoImpl", "findByIdPersonaGiuridicaAndNomeFile", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitTImportDistribDaoImpl::findByIdPersonaGiuridicaAndNomeFile] END");
 		}
 		return list;
 	}
@@ -268,6 +480,30 @@ public class SigitTImportDistribDaoImpl extends AbstractDAO implements SigitTImp
 			LOG.debug("[SigitTImportDistribDaoImpl::findRicevutaByIdImportDistrib] END");
 		}
 		return list;
+	}
+
+	@Override
+	public void updateUidIndex(SigitTImportDistribPk pk, String uidIndex) throws SigitTImportDistribDaoException {
+		LOG.debug("[SigitTImportDistribDaoImpl::updateUidIndex] START");
+		final String sql = "UPDATE " + getTableName()
+				+ " SET UID_INDEX = :UID_INDEX"
+				+ " WHERE ID_IMPORT_DISTRIB = :ID_IMPORT_DISTRIB ";
+
+		if (pk.getIdImportDistrib() == null) {
+			LOG.error("[SigitTImportDistribDaoImpl::updateUidIndex] ERROR chiave primaria non impostata");
+			throw new SigitTImportDistribDaoException("Chiave primaria non impostata");
+		}
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		// valorizzazione parametro relativo a colonna [UID_INDEX]
+		params.addValue("UID_INDEX", uidIndex, java.sql.Types.VARCHAR);
+
+		// valorizzazione parametro relativo a colonna [ID_IMPORT_DISTRIB]
+		params.addValue("ID_IMPORT_DISTRIB", pk.getIdImportDistrib(), java.sql.Types.INTEGER);
+
+		update(jdbcTemplate, sql.toString(), params);
+		LOG.debug("[SigitTImportDistribDaoImpl::updateUidIndex] END");
 	}
 
 }

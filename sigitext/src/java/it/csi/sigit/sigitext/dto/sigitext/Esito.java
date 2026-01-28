@@ -6,6 +6,7 @@ public class Esito {
 	private String codiceImpianto;
 	private Integer idAllegatoNew;
 	private byte[] xmlLibretto;
+	private Boolean impiantoNonConformeDlgs1022014;
 
 	public Esito() {
 	}
@@ -13,6 +14,14 @@ public class Esito {
 	public Esito(String esito, String descrizioneEsito) {
 		this.esito = esito;
 		this.descrizioneEsito = descrizioneEsito;
+	}
+
+	public Boolean getImpiantoNonConformeDlgs1022014() {
+		return impiantoNonConformeDlgs1022014;
+	}
+
+	public void setImpiantoNonConformeDlgs1022014(Boolean impiantoNonConformeDlgs1022014) {
+		this.impiantoNonConformeDlgs1022014 = impiantoNonConformeDlgs1022014;
 	}
 
 	public String getEsito() {

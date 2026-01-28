@@ -1536,6 +1536,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaEstensioneComune"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -1593,6 +1594,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaTuttiIComuni"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -1650,6 +1652,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComunePerCodiceIstat"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -1707,6 +1710,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerIdProvincia"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -1764,6 +1768,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerCap"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -1821,6 +1826,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComunePerCodiceBelfiore"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -1878,6 +1884,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComunePerIdComune"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -1935,6 +1942,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerNome"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -1992,6 +2000,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerNomeECodIstatProvincia"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2049,6 +2058,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaComuniPerNomeEIdProvincia"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2106,6 +2116,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaTutteLeProvince"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2163,6 +2174,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvincePerIdRegione"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2220,6 +2232,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvinciaPerCodiceIstat"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2277,6 +2290,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvinciaPerIdProvincia"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2334,6 +2348,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaProvincePerNome"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2391,6 +2406,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaTutteLeRegioni"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2448,6 +2464,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaRegionePerIdRegione"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2505,6 +2522,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaRegionePerCodIstat"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2562,6 +2580,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaRegioniPerNome"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2619,6 +2638,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerIdComune"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2676,6 +2696,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerIdLocalita"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2733,6 +2754,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaLocalitaPerNome"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2790,6 +2812,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaGeometriaComune"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2847,6 +2870,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaEstensioneRegione"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2904,6 +2928,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaGeometriaRegione"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -2961,6 +2986,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaEstensioneProvincia"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -3018,6 +3044,7 @@ public class LimammEnteSoapBindingStub extends org.apache.axis.client.Stub imple
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("ente", "cercaGeometriaProvincia"));
+        _call.setTimeout(30000);
 
         setRequestHeaders(_call);
         setAttachments(_call);

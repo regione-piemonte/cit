@@ -658,13 +658,25 @@ public class GenericUtil {
 	public static boolean getCheckSi(BigDecimal valoreCampo) {
 		return new BigDecimal(Constants.SI_1).equals(valoreCampo);
 	}
+	
+	public static boolean getCheckSi(Integer valoreCampo) {
+		return Constants.SI_1 == valoreCampo;
+	}
 
 	public static boolean getCheckNo(BigDecimal valoreCampo) {
 		return new BigDecimal(Constants.NO_0).equals(valoreCampo);
 	}
+	
+	public static boolean getCheckNo(Integer valoreCampo) {
+		return Constants.NO_0 == valoreCampo;
+	}
 
 	public static boolean getCheckNc(BigDecimal valoreCampo) {
 		return new BigDecimal(Constants.NC_2).equals(valoreCampo);
+	}
+	
+	public static boolean getCheckNc(Integer valoreCampo) {
+		return Constants.NC_2 == valoreCampo;
 	}
 
 	public static boolean getCheck(String fk, int chiave) {
@@ -754,4 +766,10 @@ public class GenericUtil {
 	public static String getDescSezioneEComp(String tipoComp, String nProgressivo) {
 		return getDescSezioneComp(tipoComp, ConvertUtil.convertToBigDecimal(nProgressivo), Constants.LABEL_SEZIONE_E);
 	}
+	
+	public static boolean isBigDecimalPositive(BigDecimal bd) {
+		
+		return (bd != null)?(bd.doubleValue() > 0):false;
+	}
+
 }

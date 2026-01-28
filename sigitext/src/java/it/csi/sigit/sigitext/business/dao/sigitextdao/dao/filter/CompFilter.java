@@ -10,6 +10,7 @@ import java.util.List;
 public class CompFilter {
 
 	private Integer idPG;
+	private Integer notIdPG;
 	private Integer idAllegato;
 	private Integer codImpianto;
 	private String tipoComponente;
@@ -21,6 +22,8 @@ public class CompFilter {
 	private List<String> listCombustibile;
 	private Integer idRuolo;
 	private String ruoloFunz;
+	private Date dataControllo;
+	
 	
 	public CompFilter()
 	{
@@ -114,6 +117,12 @@ public class CompFilter {
 	public void setIdPG(Integer idPG) {
 		this.idPG = idPG;
 	}
+	public Integer getNotIdPG() {
+		return notIdPG;
+	}
+	public void setNotIdPG(Integer notIdPG) {
+		this.notIdPG = notIdPG;
+	}
 	
 	public Integer getIdAllegato() {
 		return idAllegato;
@@ -137,5 +146,15 @@ public class CompFilter {
 	public void setRuoloFunz(String ruoloFunz) {
 		this.ruoloFunz = ruoloFunz;
 	}
+
+	public Date getDataControllo() {
+		return dataControllo;
+	}
+
+	public void setDataControllo(Date dataControllo) {
+		this.dataControllo = dataControllo;
+	}
+	
+	
 	
 }

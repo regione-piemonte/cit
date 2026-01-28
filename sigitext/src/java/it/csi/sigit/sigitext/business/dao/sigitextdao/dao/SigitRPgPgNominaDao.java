@@ -19,5 +19,11 @@ public interface SigitRPgPgNominaDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SigitRPgPgNominaDto> findFindByPgCat(Integer input) throws SigitRPgPgNominaDaoException;
+	
+	void insert(SigitRPgPgNominaDto dto) throws SigitRPgPgNominaDaoException;
+	
+	void update(SigitRPgPgNominaDto dto) throws SigitRPgPgNominaDaoException;
+	
+	List<SigitRPgPgNominaDto> findSigitRPgPgNominaByPgCatAndPG(Integer idPersonaGiuridicaCat, Integer idPersonaGiuridica) throws SigitRPgPgNominaDaoException;
 
 }

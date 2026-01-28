@@ -5,7 +5,10 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FiltroRicercaPfPg implements java.io.Serializable {
 
@@ -30,19 +33,19 @@ public class FiltroRicercaPfPg implements java.io.Serializable {
 		return idRuolo;
 	}
 
-	private ArrayList<String> idRuoloList = new ArrayList<String>();
+	private List<Integer> idRuoloList = new ArrayList<Integer>();
 
 	
 	
-	public ArrayList<String> getIdRuoloList() {
+	public List<Integer> getIdRuoloList() {
 		return idRuoloList;
 	}
 
-	public void setIdRuoloList(ArrayList<String> idRuoloList) {
+	public void setIdRuoloList(List<Integer> idRuoloList) {
 		this.idRuoloList = idRuoloList;
 	}
 
-	public void addIdRuoloList(String idRuolo) {
+	public void addIdRuoloList(Integer idRuolo) {
 		this.idRuoloList.add(idRuolo);
 	}
 	
@@ -99,6 +102,16 @@ public class FiltroRicercaPfPg implements java.io.Serializable {
 
 	public void setIsEscludiDataOdierna(boolean isEscludiDataOdierna) {
 		this.isEscludiDataOdierna = isEscludiDataOdierna;
+	}
+
+	private Date inData = new Date(Instant.now().toEpochMilli());
+
+	public Date getInData() {
+		return inData;
+	}
+
+	public void setInData(Date inData) {
+		this.inData = inData;
 	}
 
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile

@@ -1,20 +1,20 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitRAllegatoCompScDao;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitRAllegatoCompScDaoRowMapper;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompGtDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompScDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompScPk;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompGtDaoException;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompScDaoException;
-import it.csi.sigit.sigitext.business.dao.util.Constants;
-import it.csi.sigit.sigitext.business.util.GenericUtil;
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.util.List;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitRAllegatoCompScDao;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.CompFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitRAllegatoCompScDaoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompScDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompScPk;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompScDaoException;
+import it.csi.sigit.sigitext.business.dao.util.Constants;
+import it.csi.sigit.sigitext.business.util.GenericUtil;
 
 /*PROTECTED REGION ID(R-140185275) ENABLED START*/
 // aggiungere qui eventuali import custom. 
@@ -69,7 +69,7 @@ public class SigitRAllegatoCompScDaoImpl extends AbstractDAO implements SigitRAl
 	public SigitRAllegatoCompScPk insert(SigitRAllegatoCompScDto dto) {
 		LOG.debug("[SigitRAllegatoCompScDaoImpl::insert] START");
 		final String sql = "INSERT INTO " + getTableName()
-				+ " ( 	ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,BUTTA_FK_R_PG,BUTTA_FK_3R_PG,BUTTA_FK_R_PF,BUTTA_FK_3RESP,BUTTA_FK_RESP,FK_IMP_RUOLO_PFPG,FK_CONTRATTO ) VALUES (  :ID_ALLEGATO , :ID_TIPO_COMPONENTE , :PROGRESSIVO , :CODICE_IMPIANTO , :DATA_INSTALL , :BUTTA_FK_R_PG , :BUTTA_FK_3R_PG , :BUTTA_FK_R_PF , :BUTTA_FK_3RESP , :BUTTA_FK_RESP , :FK_IMP_RUOLO_PFPG , :FK_CONTRATTO  )";
+				+ " ( 	ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,FK_IMP_RUOLO_PFPG,FK_CONTRATTO ) VALUES (  :ID_ALLEGATO , :ID_TIPO_COMPONENTE , :PROGRESSIVO , :CODICE_IMPIANTO , :DATA_INSTALL , :FK_IMP_RUOLO_PFPG , :FK_CONTRATTO  )";
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
 
@@ -87,21 +87,6 @@ public class SigitRAllegatoCompScDaoImpl extends AbstractDAO implements SigitRAl
 
 		// valorizzazione paametro relativo a colonna [DATA_INSTALL]
 		params.addValue("DATA_INSTALL", dto.getDataInstall(), java.sql.Types.DATE);
-
-		// valorizzazione paametro relativo a colonna [BUTTA_FK_R_PG]
-		params.addValue("BUTTA_FK_R_PG", dto.getButtaFkRPg(), java.sql.Types.NUMERIC);
-
-		// valorizzazione paametro relativo a colonna [BUTTA_FK_3R_PG]
-		params.addValue("BUTTA_FK_3R_PG", dto.getButtaFk3rPg(), java.sql.Types.NUMERIC);
-
-		// valorizzazione paametro relativo a colonna [BUTTA_FK_R_PF]
-		params.addValue("BUTTA_FK_R_PF", dto.getButtaFkRPf(), java.sql.Types.NUMERIC);
-
-		// valorizzazione paametro relativo a colonna [BUTTA_FK_3RESP]
-		params.addValue("BUTTA_FK_3RESP", dto.getButtaFk3resp(), java.sql.Types.NUMERIC);
-
-		// valorizzazione paametro relativo a colonna [BUTTA_FK_RESP]
-		params.addValue("BUTTA_FK_RESP", dto.getButtaFkResp(), java.sql.Types.NUMERIC);
 
 		// valorizzazione paametro relativo a colonna [FK_IMP_RUOLO_PFPG]
 		params.addValue("FK_IMP_RUOLO_PFPG", dto.getFkImpRuoloPfpg(), java.sql.Types.NUMERIC);
@@ -124,7 +109,7 @@ public class SigitRAllegatoCompScDaoImpl extends AbstractDAO implements SigitRAl
 		StringBuilder sql = new StringBuilder();
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 
-		sql.append("SELECT ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,BUTTA_FK_R_PG,BUTTA_FK_3R_PG,BUTTA_FK_R_PF,BUTTA_FK_3RESP,BUTTA_FK_RESP,FK_IMP_RUOLO_PFPG,FK_CONTRATTO ");
+		sql.append("SELECT ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,FK_IMP_RUOLO_PFPG,FK_CONTRATTO ");
 		sql.append(" FROM SIGIT_R_ALLEGATO_COMP_SC");
 		sql.append(" WHERE ");
 		sql.append("ID_ALLEGATO = :idAllegato");
@@ -203,6 +188,45 @@ public class SigitRAllegatoCompScDaoImpl extends AbstractDAO implements SigitRAl
 	 */
 	public String getTableName() {
 		return "SIGIT_R_ALLEGATO_COMP_SC";
+	}
+	
+	@Override
+	public List<SigitRAllegatoCompScDto> findByCodiceImpianto(Integer codiceImpianto) throws SigitRAllegatoCompScDaoException {
+		LOG.debug("[SigitRAllegatoCompScDaoImpl::findByCodiceImpianto] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("SELECT ID_ALLEGATO,ID_TIPO_COMPONENTE,PROGRESSIVO,CODICE_IMPIANTO,DATA_INSTALL,FK_IMP_RUOLO_PFPG,FK_CONTRATTO FROM ");
+		sql.append(getTableName());
+		sql.append(" WHERE ");
+		sql.append("CODICE_IMPIANTO = :codiceImpianto");
+		paramMap.addValue("codiceImpianto", codiceImpianto);
+
+		List<SigitRAllegatoCompScDto> list = null;
+		try {
+			list = jdbcTemplate.query(sql.toString(), paramMap, byFilterRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitRAllegatoCompScDaoImpl::findByCodiceImpianto] esecuzione query", ex);
+			throw new SigitRAllegatoCompScDaoException("Query failed", ex);
+		} finally {
+			LOG.debug("[SigitRAllegatoCompScDaoImpl::findByCodiceImpianto] END");
+		}
+		return list;
+	}
+	
+	public void delete(BigDecimal idAllegato) throws SigitRAllegatoCompScDaoException {
+
+		LOG.debug("[SigitRAllegatoCompScDaoImpl::delete] START");
+		final String sql = "DELETE FROM " + getTableName() + " WHERE ID_ALLEGATO = :ID_ALLEGATO ";
+		if (idAllegato == null) {
+			LOG.error("[SigitRAllegatoCompScDaoImpl::delete] ERROR chiave primaria non impostata");
+			throw new SigitRAllegatoCompScDaoException("Chiave primaria non impostata");
+		}
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("ID_ALLEGATO", idAllegato, java.sql.Types.NUMERIC);
+		delete(jdbcTemplate, sql.toString(), params);
+		LOG.debug("[SigitRAllegatoCompScDaoImpl::delete] END");
+		
 	}
 
 }

@@ -579,7 +579,7 @@ public class MapDtoImport extends MapDto {
 
 		try {dto.setNCircuiti(ConvertUtil.convertToBigDecimal(rowGF.getL44NumCircuiti()));} catch (Exception e) {dto.setNCircuiti(null);}
 		try {dto.setRaffrescamentoEer(ConvertUtil.convertToString(rowGF.getL44RaffEER()));} catch (Exception e) {dto.setRaffrescamentoEer(null);}
-		try {dto.setRaffPotenzaKw(rowGF.getL44RaffPotenzaAssNominale());} catch (Exception e) {dto.setRaffPotenzaKw(null);}
+		try {dto.setRaffPotenzaKw(rowGF.getL44RaffPotenzaNominale());} catch (Exception e) {dto.setRaffPotenzaKw(null);}
 		try {dto.setRaffPotenzaAss(rowGF.getL44RaffPotenzaAssNominale());} catch (Exception e) {dto.setRaffPotenzaAss(null);}
 		try {dto.setRiscaldamentoCop(ConvertUtil.convertToString(rowGF.getL44RiscCOP()));} catch (Exception e) {dto.setRiscaldamentoCop(null);}
 		try {dto.setRiscPotenzaKw(rowGF.getL44RiscPotenzaNominale());} catch (Exception e) {dto.setRiscPotenzaKw(null);}
@@ -645,7 +645,7 @@ public class MapDtoImport extends MapDto {
 
 		try {dto.setNCircuiti(ConvertUtil.convertToBigDecimal(rowGF.getL44NumCircuiti()));} catch (Exception e) {dto.setNCircuiti(null);}
 		try {dto.setRaffrescamentoEer(ConvertUtil.convertToString(rowGF.getL44RaffEER()));} catch (Exception e) {dto.setRaffrescamentoEer(null);}
-		try {dto.setRaffPotenzaKw(rowGF.getL44RaffPotenzaAssNominale());} catch (Exception e) {dto.setRaffPotenzaKw(null);}
+		try {dto.setRaffPotenzaKw(rowGF.getL44RaffPotenzaNominale());} catch (Exception e) {dto.setRaffPotenzaKw(null);}
 		try {dto.setRaffPotenzaAss(rowGF.getL44RaffPotenzaAssNominale());} catch (Exception e) {dto.setRaffPotenzaAss(null);}
 		try {dto.setRiscaldamentoCop(ConvertUtil.convertToString(rowGF.getL44RiscCOP()));} catch (Exception e) {dto.setRiscaldamentoCop(null);}
 		try {dto.setRiscPotenzaKw(rowGF.getL44RiscPotenzaNominale());} catch (Exception e) {dto.setRiscPotenzaKw(null);}
@@ -1853,9 +1853,10 @@ public class MapDtoImport extends MapDto {
 
 		}
 
-
-		dto.setDataUltMod(DateUtil.getSqlDataCorrente());
-		dto.setUtenteUltMod(cfUtente);
+		if(dto!=null){
+			dto.setDataUltMod(DateUtil.getSqlDataCorrente());
+			dto.setUtenteUltMod(cfUtente);
+		}
 
 		return dto;
 	}

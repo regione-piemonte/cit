@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.rmi.RemoteException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -35,9 +37,11 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.DocumentoAzione
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ImportFileSuper;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.ImportFilter;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.filter.UtenteFunzionalitaFilter;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.ClassDpr66096CITDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.CombustibileCITDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.ExtImpiantoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.FluidoCITDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.FrequenzaManutCITDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.MarcaCITDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.PersonaGiuridica;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.RicercaAllegatiDto;
@@ -46,8 +50,10 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDDettaglioGtDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDFonteEnSfruttataDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDStatoImpiantoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDTipoCannaFumariaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitDTipoInterventoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtImpiantoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtRespImpDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitExtVerificaDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitLAccessoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompCgDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRAllegatoCompGfDto;
@@ -59,6 +65,7 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRImpRuoloPfpgDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRPfPgDelegaFindByPfDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRPfRuoloPaFindByPfDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitRPgPgNominaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAbilitazioneDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAccertamentoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAccertamentoPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTAllegatoDto;
@@ -72,6 +79,8 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompGtCompletoDt
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTCompScCompletoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTConsumoTipo1BDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTControlloLibrettoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDatoDistribDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDatoDistribPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo1Dto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo2Dto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo3Dto;
@@ -79,8 +88,11 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDettTipo4Dto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTDocAzioneDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTElencoWsDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImpiantoPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImportDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTImportXmlLibDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTIspezione2018Dto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTIspezione2018Pk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTLibTxtDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTLibrettoDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaFisicaDto;
@@ -98,6 +110,7 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTRappTipo4Dto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTRappTipo4Pk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTUnitaImmobiliareDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTUserWSDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTVerificaDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTVerificaPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVRicerca3ResponsabileDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVRicercaAllegatiDto;
@@ -107,13 +120,19 @@ import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.UnitaImmobiliareDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.UnitaMisuraCITDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.UserElencoWsDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.WrkConfigDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRImpRuoloPfpgDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompCgDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompGfDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompGtDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRAllegatoCompScDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRComp4ManutDaoException;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRPfPgDelegaDaoException;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRPfRuoloPaDaoException;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitRPgPgNominaDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTAbilitazioneDaoException;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTAllegatoDaoException;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTPersonaFisicaDaoException;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTPersonaGiuridicaDaoException;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.WrkConfigDaoException;
 import it.csi.sigit.sigitext.business.pdf.DatiCGCommon;
 import it.csi.sigit.sigitext.business.pdf.DatiGFCommon;
 import it.csi.sigit.sigitext.business.pdf.DatiGTCommon;
@@ -126,6 +145,7 @@ import it.csi.sigit.sigitext.business.util.Constants;
 import it.csi.sigit.sigitext.business.util.ConvertUtil;
 import it.csi.sigit.sigitext.business.util.DateUtil;
 import it.csi.sigit.sigitext.business.util.GenericUtil;
+import it.csi.sigit.sigitext.business.util.IndirizzoUtils;
 import it.csi.sigit.sigitext.business.util.InputStreamDataSource;
 import it.csi.sigit.sigitext.business.util.MapDto;
 import it.csi.sigit.sigitext.business.util.Message;
@@ -136,28 +156,36 @@ import it.csi.sigit.sigitext.business.util.mail.Allegato;
 import it.csi.sigit.sigitext.business.util.mail.Mail;
 import it.csi.sigit.sigitext.business.util.mail.MailSender;
 import it.csi.sigit.sigitext.business.util.mail.ResultInvioMail;
+import it.csi.sigit.sigitext.business.ws.service.svista.client.Comune;
 import it.csi.sigit.sigitext.business.ws.service.svista.client.LimammEnteServiceLocator;
 import it.csi.sigit.sigitext.business.ws.service.svista.client.LimammEnte_PortType;
 import it.csi.sigit.sigitext.business.ws.service.svista.client.Provincia;
+import it.csi.sigit.sigitext.dto.Assegnatario;
 import it.csi.sigit.sigitext.dto.index.DettaglioDocumento;
 import it.csi.sigit.sigitext.dto.index.DettaglioDocumentoMultiplo;
 import it.csi.sigit.sigitext.dto.sigitext.Accertamento;
 import it.csi.sigit.sigitext.dto.sigitext.Azione;
 import it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione;
+import it.csi.sigit.sigitext.dto.sigitext.ConsumoPodPdr;
+import it.csi.sigit.sigitext.dto.sigitext.Controlli;
 import it.csi.sigit.sigitext.dto.sigitext.Controllo;
 import it.csi.sigit.sigitext.dto.sigitext.ControlloDisponibile;
 import it.csi.sigit.sigitext.dto.sigitext.DatiCG;
+import it.csi.sigit.sigitext.dto.sigitext.DatiDistributore;
 import it.csi.sigit.sigitext.dto.sigitext.DatiGF;
 import it.csi.sigit.sigitext.dto.sigitext.DatiGT;
 import it.csi.sigit.sigitext.dto.sigitext.DatiImpianto;
 import it.csi.sigit.sigitext.dto.sigitext.DatiSC;
+import it.csi.sigit.sigitext.dto.sigitext.DatiVerifica;
 import it.csi.sigit.sigitext.dto.sigitext.DettaglioAllegato;
 import it.csi.sigit.sigitext.dto.sigitext.DettaglioPersonaGiuridica;
+import it.csi.sigit.sigitext.dto.sigitext.DettaglioVerifica;
 import it.csi.sigit.sigitext.dto.sigitext.Documento;
 import it.csi.sigit.sigitext.dto.sigitext.Impianto;
 import it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro;
 import it.csi.sigit.sigitext.dto.sigitext.IndirizzoFiltro;
 import it.csi.sigit.sigitext.dto.sigitext.Libretto;
+import it.csi.sigit.sigitext.dto.sigitext.ListaImpiantiGeo;
 import it.csi.sigit.sigitext.dto.sigitext.Metadati;
 import it.csi.sigit.sigitext.dto.sigitext.PdfControllo;
 import it.csi.sigit.sigitext.dto.sigitext.PersonaFisica;
@@ -165,11 +193,14 @@ import it.csi.sigit.sigitext.dto.sigitext.RappControllo;
 import it.csi.sigit.sigitext.dto.sigitext.Responsabile;
 import it.csi.sigit.sigitext.dto.sigitext.RifCatastale;
 import it.csi.sigit.sigitext.dto.sigitext.RisultatoRicResponsabile;
+import it.csi.sigit.sigitext.dto.sigitext.Scheda1;
 import it.csi.sigit.sigitext.dto.sigitext.TipoVerificaEnum;
 import it.csi.sigit.sigitext.dto.sigitext.UtenteJWT;
 import it.csi.sigit.sigitext.dto.sigitext.UtenteLoggato;
 import it.csi.sigit.sigitext.dto.sigitext.UtenteLoggatoModel;
 import it.csi.sigit.sigitext.dto.sigitext.Verifica;
+import it.csi.sigit.sigitext.dto.sigitext.geojson.Feature;
+import it.csi.sigit.sigitext.dto.sigitext.geojson.FeatureCollection;
 import it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException;
 import it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException;
 import it.csi.sigit.sigitext.exception.sigitext.SigitextException;
@@ -220,7 +251,7 @@ import it.doqui.index.ecmengine.mtom.exception.MtomException;
 
 public class ServiceManager {
 
-	private final String PROPERTIES_RESOURCE = "/META-INF/sigitext.properties";
+	private static final String PROPERTIES_RESOURCE = "/META-INF/sigitext.properties";
 
 	private DbServiceImp serviceDb;
 
@@ -392,7 +423,7 @@ public class ServiceManager {
 					timeout);
 		}
 		
-		System.out.println("oauthHelper: "+oauthHelper.getToken());
+		logger.debug("oauthHelper: "+oauthHelper.getToken());
 		
 		return oauthHelper;
 	}
@@ -418,11 +449,11 @@ public class ServiceManager {
 				String codiceFruitore = utenteJWT.getCodiceFruitore();
 
 				List<SigitTUserWSDto> utentiWS = getDbServiceImp().cercaUtenteWSByUserWS(codiceFruitore);
-				logger.debug("utentiWS list: " + utentiWS.size());
 
-				if (utentiWS == null || utentiWS.size() == 0) {
+				if (utentiWS == null || utentiWS.isEmpty()) {
 					throw new SigitextException(Messages.ERROR_TOKEN_NON_VALIDO);
 				}
+				logger.debug("utentiWS list: " + utentiWS.size());
 
 				SigitTUserWSDto utenteWS = utentiWS.get(0);
 
@@ -438,7 +469,6 @@ public class ServiceManager {
 					String codiceFiscalePF = utenteJWT.getCodiceFiscalePersonaFisica();
 
 					List<SigitTPersonaFisicaDto> personeFisiche = getDbServiceImp().cercaPersonaFisicaByCodiceFiscale(codiceFiscalePF);
-					logger.debug("personeFisiche: " + personeFisiche.size());
 					SigitTPersonaGiuridicaDto personaGiuridica = null;
 
 					if (idPersonaGiuridica != null) {
@@ -446,10 +476,11 @@ public class ServiceManager {
 						personaGiuridica = getDbServiceImp().cercaPersonaGiuridicaById(ConvertUtil.convertToBigDecimal(idPersonaGiuridica));
 					}
 
-					if ((idPersonaGiuridica != null && personaGiuridica == null) || personeFisiche == null || personeFisiche.size() == 0) {
+					if ((idPersonaGiuridica != null && personaGiuridica == null) || personeFisiche == null || personeFisiche.isEmpty()) {
 						logger.debug("ECCEZIONE GESTITA START(isUtenteAutorizzato) risultato condizione in if");
 						throw new SigitextException(Messages.ERROR_TOKEN_NON_VALIDO);
 					}
+					logger.debug("personeFisiche: " + personeFisiche.size());
 
 				}
 
@@ -462,7 +493,7 @@ public class ServiceManager {
 				String codiceRea = MapDto.getCodiceRea(personaGiuridica.getSiglaRea(), ConvertUtil.convertToString(personaGiuridica.getNumeroRea()));
 
 				if (!personaGiuridica.getToken().equals(tokenJWT) || !subjectJWT.equals(codiceRea) || personaGiuridica.getDtScadenzaToken() == null
-						|| personaGiuridica.getDtScadenzaToken().compareTo(utenteJWT.getExpiration()) != 0) {
+						|| utenteJWT.getExpiration() == null || personaGiuridica.getDtScadenzaToken().compareTo(utenteJWT.getExpiration()) != 0) {
 					throw new SigitextException(Messages.ERROR_TOKEN_NON_VALIDO);
 				}
 
@@ -475,13 +506,14 @@ public class ServiceManager {
 			logger.debug("idUtenteWS: " + idUtenteWS);
 			logger.debug("idFunzionalita: " + idFunzionalita);
 			List<UserElencoWsDto> elencoWS = getDbServiceImp().getUserElencoWsDao().findByIdUtenteAndIdFunzionalita(new UtenteFunzionalitaFilter(idUtenteWS, idFunzionalita));
-			logger.debug("elencoWS: " + elencoWS.size());
-			if (elencoWS == null || elencoWS.size() == 0) {
+			if (elencoWS == null || elencoWS.isEmpty()) {
 				throw new SigitUserNotAuthorizedException("Utente non autorizzato all'utilizzo del servizio");
 			}
+			logger.debug("elencoWS: " + elencoWS.size());
 
 			logger.debug("L'utente e' autorizzato");
 		} catch (Exception ex) {
+			logger.error(ex);
 			throw ex;
 		}
 		return utenteJWT;
@@ -502,18 +534,32 @@ public class ServiceManager {
 		List<SigitRComp4ManutDto> manutentori = getDbServiceImp().cercaManutentoriByPersonaGiuridicaCodiceImpiantoRuoloFunz(idPersonaGiuridica, codImpianto, Constants.RUOLO_IMPRESA);
 
 		List<SigitRImpRuoloPfpgDto> assImpresaImpianto = getDbServiceImp().cercaAssociazioneImpresaImpiantoByPersonaGiuridicaCodiceImpiantoRuoloFunz(idPersonaGiuridica, codImpianto, Constants.RUOLO_CARICATORE);
+		
+		return !((manutentori == null || manutentori.isEmpty()) && (assImpresaImpianto == null || assImpresaImpianto.isEmpty()));
+		
+	}
 
-		if ((manutentori == null || manutentori.size() == 0) && (assImpresaImpianto == null || assImpresaImpianto.size() == 0)) {
-			return false;
+	public boolean isDistributoreAttivo(UtenteJWT utenteJWT) throws SigitextException {
+
+		if (utenteJWT.getSubject().equals(Constants.SUBJECT_JWT_FRUITORE)) {
+			return true;
 		}
-		return true;
+
+		Integer idPersonaGiuridica = ConvertUtil.convertToInteger(utenteJWT.getIdPersonaGiuridica());
+		
+		SigitTPersonaGiuridicaDto personaGiuridica = getDbServiceImp().cercaPersonaGiuridicaById(new BigDecimal(idPersonaGiuridica));
+
+		return personaGiuridica.getDataCessazione() == null && personaGiuridica.getFlgDistributore() == BigDecimal.ONE;
 	}
 
 	public void salvaAccesso(UtenteJWT utenteJWT, Integer idWebService) throws SigitextException {
 
+		logger.debug("salvaAccesso - BEGIN");
 		String subjectJWT = utenteJWT.getSubject();
+		logger.debug("salvaAccesso - subjectJWT: " + subjectJWT);
 
 		String codiceFruitore = utenteJWT.getCodiceFruitore();
+		logger.debug("salvaAccesso - codiceFruitore: " + codiceFruitore);
 
 		SigitTElencoWsDto webService = getDbServiceImp().cercaWsByidWs(idWebService);
 
@@ -534,17 +580,19 @@ public class ServiceManager {
 		} else if (!codiceFruitore.equals(Constants.CODICE_FRUITORE_SIGIT)) {
 			accessoDto.setCodiceFiscale(utenteJWT.getCodiceFruitore());
 		} else {
+			logger.debug("salvaAccesso - END WITHOUT SAVE");
 			return;
 		}
 
 		getDbServiceImp().inserisciAccesso(accessoDto);
+		logger.debug("salvaAccesso - END AFTER SAVE");
 	}
 
 	public boolean isAbilitatoSuLibretto(String uid, UtenteJWT utenteJWT) throws SigitextException {
 
 		List<SigitTLibrettoDto> libretti = getDbServiceImp().cercaLibrettoByUid(uid);
 
-		if (libretti == null || libretti.size() == 0) {
+		if (libretti == null || libretti.isEmpty()) {
 			throw new SigitextException(Messages.ERROR_LIBRETTO_NON_TROVATO);
 		}
 
@@ -572,6 +620,7 @@ public class ServiceManager {
 	ResultContent indexMetadatiByUid(String uid, OperationContext oc) {
 		String header = "!!!!indexFileByUid==>.";
 		logger.debug(header + "inizio!!");
+		logger.debug(header + "uid: " + uid);
 
 		ResultContent result = null;
 		try {
@@ -607,7 +656,7 @@ public class ServiceManager {
 		return result;
 	}
 
-	private Content indexGetContent(String fileName) throws SigitextException {
+	public Content indexGetContent(String fileName) throws SigitextException {
 		String header = "!!!!indexGetContent==>.";
 		logger.debug(header + "inizio!!");
 		Content myFile = new Content();
@@ -692,7 +741,7 @@ public class ServiceManager {
 
 			ArrayList<Impianto> listaImpiantiParz = getListImpiantoByCodImpianto(codImpianto);
 
-			if (listaImpiantiParz != null && listaImpiantiParz.size() > 0) {
+			if (listaImpiantiParz != null && !listaImpiantiParz.isEmpty()) {
 				result = listaImpiantiParz.toArray(new Impianto[listaImpiantiParz.size()]);
 			}
 
@@ -707,7 +756,7 @@ public class ServiceManager {
 	public ArrayList<Impianto> getListImpiantoByCodImpianto(Integer codiceImp) throws Exception {
 		String header = "!!!!getImpiantoByCodice==>.";
 		logger.debug(header + "inizio!!");
-		ArrayList<Impianto> listaImpianti = new ArrayList();
+		ArrayList<Impianto> listaImpianti = new ArrayList<>();
 		RifCatastale[] listaUi = new RifCatastale[] {};
 		RappControllo[] listaRapp = new RappControllo[] {};
 
@@ -820,29 +869,30 @@ public class ServiceManager {
 
 			logger.debug("STAMPO IL MAX DI RISULTATI: " + maxResult);
 
-			ArrayList<Impianto> listaImpianti = new ArrayList<Impianto>();
+			ArrayList<Impianto> listaImpianti = new ArrayList<>();
 
 			List<UnitaImmobiliareDto> listaUnitaImmDto = getDbServiceImp().getUnitaImmobiliareDao().findByPod(pod);
 
 			if (logger.isDebugEnabled())
 				logger.debug("STAMPO IL numero di unita immobiliari: " + listaUnitaImmDto);
 
-			if (listaUnitaImmDto != null && listaUnitaImmDto.size() > 0) {
-				if (listaUnitaImmDto.size() < maxResult) {
-					for (UnitaImmobiliareDto unitaImmobiliareDto : listaUnitaImmDto) {
-
-						ArrayList<Impianto> listaImpiantiParz = getListImpiantoByCodImpianto(ConvertUtil.convertToInteger(unitaImmobiliareDto.getCodiceImpianto()));
-
-						if (listaImpiantiParz != null && listaImpiantiParz.size() > 0) {
-							listaImpianti.addAll(listaImpiantiParz);
-						}
-
-					}
-
-					result = listaImpianti.toArray(new Impianto[listaImpianti.size()]);
-				} else {
+			if (listaUnitaImmDto != null && !listaUnitaImmDto.isEmpty()) {
+				if (listaUnitaImmDto.size() >= maxResult) {				
 					throw new SigitExcessiveResultsException("Sono stati estratti troppi risultati");
 				}
+				
+				for (UnitaImmobiliareDto unitaImmobiliareDto : listaUnitaImmDto) {
+
+					ArrayList<Impianto> listaImpiantiParz = getListImpiantoByCodImpianto(ConvertUtil.convertToInteger(unitaImmobiliareDto.getCodiceImpianto()));
+
+					if (listaImpiantiParz != null && !listaImpiantiParz.isEmpty()) {
+						listaImpianti.addAll(listaImpiantiParz);
+					}
+
+				}
+
+				result = listaImpianti.toArray(new Impianto[listaImpianti.size()]);
+				
 			}
 
 			logger.debug(header + "fine");
@@ -853,6 +903,15 @@ public class ServiceManager {
 		}
 		return result;
 	}
+	
+	public String cercaConfigValueString(String chiave) throws Exception {
+		WrkConfigDto dto = null;
+		String header = "!!!!cercaConfigValueString==>.";
+		logger.debug(header + "inizio!!");
+		dto = cercaConfigValue(chiave);
+		logger.debug(header + "fine");
+		return dto != null ? dto.getValoreConfigChar() : null;
+	}
 
 	private Integer cercaConfigValueNumerico(String chiave) throws Exception {
 		WrkConfigDto dto = null;
@@ -860,10 +919,19 @@ public class ServiceManager {
 		logger.debug(header + "inizio!!");
 		dto = cercaConfigValue(chiave);
 		logger.debug(header + "fine");
-		return ConvertUtil.convertToInteger(dto.getValoreConfigNum());
+		return dto != null ? ConvertUtil.convertToInteger(dto.getValoreConfigNum()) : null;
 	}
 
-	private WrkConfigDto cercaConfigValue(String chiave) throws Exception {
+	public Boolean cercaConfigValueBooleano(String chiave) throws Exception {
+		WrkConfigDto dto = null;
+		String header = "!!!!cercaConfigValueNumerico==>.";
+		logger.debug(header + "inizio!!");
+		dto = cercaConfigValue(chiave);
+		logger.debug(header + "fine");
+		return ConvertUtil.convertToBoolean(dto!=null?dto.getValoreFlag():"");
+	}
+
+	private WrkConfigDto cercaConfigValue(String chiave) throws WrkConfigDaoException {
 
 		String header = "!!!!cercaConfigValue==>.";
 		logger.debug(header + "inizio!!");
@@ -872,7 +940,7 @@ public class ServiceManager {
 		logger.debug("[DbMgr::getConfigValue] BEGIN");
 		dtoList = getDbServiceImp().getWrkConfigDao().findByChiaveConfig(chiave);
 
-		if ((dtoList != null) && (dtoList.size() > 0)) {
+		if ((dtoList != null) && (!dtoList.isEmpty())) {
 			dto = dtoList.get(0);
 			logger.debug("[DbMgr::getConfigValue] Trovato il DTO " + dto);
 		} else {
@@ -893,17 +961,17 @@ public class ServiceManager {
 
 			logger.debug("STAMPO IL MAX DI RISULTATI: " + maxResult);
 
-			ArrayList<Impianto> listaImpianti = new ArrayList<Impianto>();
+			ArrayList<Impianto> listaImpianti = new ArrayList<>();
 
 			List<UnitaImmobiliareDto> listaUnitaImmDto = getDbServiceImp().getUnitaImmobiliareDao().findByPdr(pdr);
 
-			if (listaUnitaImmDto != null && listaUnitaImmDto.size() > 0) {
+			if (listaUnitaImmDto != null && !listaUnitaImmDto.isEmpty()) {
 				if (listaUnitaImmDto.size() < maxResult) {
 					for (UnitaImmobiliareDto unitaImmobiliareDto : listaUnitaImmDto) {
 
 						ArrayList<Impianto> listaImpiantiParz = getListImpiantoByCodImpianto(ConvertUtil.convertToInteger(unitaImmobiliareDto.getCodiceImpianto()));
 
-						if (listaImpiantiParz != null && listaImpiantiParz.size() > 0) {
+						if (listaImpiantiParz != null && !listaImpiantiParz.isEmpty()) {
 							listaImpianti.addAll(listaImpiantiParz);
 						}
 
@@ -920,6 +988,37 @@ public class ServiceManager {
 			throw ex;
 		} catch (Exception ex) {
 			logger.error(header + "errore= ", ex);
+		}
+		return result;
+
+	}
+	
+	public Documento getDocumentoByUid(String uid) throws SigitextException {
+		String header = "!!!!getDocumentoByUid==>.";
+		logger.debug(header + "inizio!!");
+		Documento result = null;
+		try {
+			OperationContext oc = indexGetOperationContext(Constants.INDEX_USERNAME_READ);
+			result = new Documento();
+			byte[] docByte = null;
+			ResultContent metaDati = indexMetadatiByUid(uid, oc);
+			logger.debug(uid);
+			String nomeFile = metaDati.getPrefixedName().substring(6);
+
+			docByte = indexFileByUid(uid, nomeFile, oc);
+
+			result.setDoc(docByte);
+
+			result.setUid(metaDati.getUid());
+
+			result.setNome(nomeFile);
+			result.setMimeType(metaDati.getMimeType());
+			result.setEncoding(metaDati.getEncoding());
+
+			logger.debug(header + "fine");
+		} catch (Exception ex) {
+			logger.error(header + "errore= ", ex);
+			throw new SigitextException("Error in getDocumentoByUid: ", ex);
 		}
 		return result;
 
@@ -946,8 +1045,24 @@ public class ServiceManager {
 			result.setNome(nomeFile);
 			result.setMimeType(metaDati.getMimeType());
 			result.setEncoding(metaDati.getEncoding());
-			//			}
 
+			logger.debug(header + "fine");
+		} catch (Exception ex) {
+			logger.error(header + "errore= ", ex);
+		}
+		return result;
+
+	}
+	
+	public SigitTLibrettoDto getLibrettoDtoByUid(String uid) {
+		String header = "!!!!getLibrettoDtoByUid==>.";
+		logger.debug(header + "inizio!!");
+		SigitTLibrettoDto result = null;
+		try {
+			List<SigitTLibrettoDto> libretti = getDbServiceImp().getSigitTLibrettoDao().findByUid(uid);
+			if(libretti != null && !libretti.isEmpty()) {
+				result = libretti.get(0);
+			}
 			logger.debug(header + "fine");
 		} catch (Exception ex) {
 			logger.error(header + "errore= ", ex);
@@ -1007,7 +1122,7 @@ public class ServiceManager {
 			return xmlByteArray;
 		} catch (Exception e) {
 			logger.error("Errore", e);
-			return null;
+			return new byte[0] ;
 		} finally {
 			logger.debug("[ModuloBuilder::getXmlModelLibrettoByte] END");
 		}
@@ -1059,14 +1174,95 @@ public class ServiceManager {
 
 				//logger.debug(header+"listaPro not null");
 				for (int i = 0; i < lista.size(); i++) {
-
-					CombustibileCITDto dto = new CombustibileCITDto();
-					dto = lista.get(i);
+					
+					CombustibileCITDto dto = lista.get(i);
 					if (dto != null) {
 
 						CodiceDescrizione cod = new CodiceDescrizione();
 						cod.setCodice(String.valueOf(dto.getIdCombustibile()));
 						cod.setDescrizione(dto.getDesCombustibile());
+						logger.debug(header + "cod.getCodice() = " + cod.getCodice());
+						logger.debug(header + "cod.getDescrizione() = " + cod.getDescrizione());
+						listone[i] = cod;
+					}
+
+				}
+			}
+
+			logger.debug(header + "fine");
+		} catch (Exception ex) {
+			logger.error(header + "errore= ", ex);
+		}
+		return listone;
+
+	}
+
+	public CodiceDescrizione[] getListaClassDpr66096CIT() throws Exception {
+		String header = "!!!!getListaClassDpr66096CIT==>.";
+		logger.debug(header + "inizio!!");
+		CodiceDescrizione[] listone = new CodiceDescrizione[] {};
+
+		try {
+
+			List<ClassDpr66096CITDto> lista = getDbServiceImp().getClassDpr66096CITDao().findAll();
+			if (lista == null) {
+				logger.debug(header + "lista =  null!!");
+
+			} else {
+				logger.debug(header + "lista not  null!!");
+
+				listone = new CodiceDescrizione[lista.size()];
+
+				//logger.debug(header+"listaPro not null");
+				for (int i = 0; i < lista.size(); i++) {
+					
+					ClassDpr66096CITDto dto = lista.get(i);
+					if (dto != null) {
+
+						CodiceDescrizione cod = new CodiceDescrizione();
+						cod.setCodice(String.valueOf(dto.getIdClass()));
+						cod.setDescrizione(dto.getDesClass());
+						logger.debug(header + "cod.getCodice() = " + cod.getCodice());
+						logger.debug(header + "cod.getDescrizione() = " + cod.getDescrizione());
+						listone[i] = cod;
+					}
+
+				}
+			}
+
+			logger.debug(header + "fine");
+		} catch (Exception ex) {
+			logger.error(header + "errore= ", ex);
+		}
+		return listone;
+
+	}
+
+	public CodiceDescrizione[] getListaFrequenzaManutCIT() throws Exception {
+		String header = "!!!!getListaFrequenzaManutCIT==>.";
+		logger.debug(header + "inizio!!");
+		CodiceDescrizione[] listone = new CodiceDescrizione[] {};
+
+		try {
+
+			List<FrequenzaManutCITDto> lista = getDbServiceImp().getFrequenzaManutCITDao().findAll();
+			if (lista == null) {
+				logger.debug(header + "lista =  null!!");
+
+			} else {
+				logger.debug(header + "lista not  null!!");
+
+				listone = new CodiceDescrizione[lista.size()];
+
+				//logger.debug(header+"listaPro not null");
+				for (int i = 0; i < lista.size(); i++) {
+					
+					FrequenzaManutCITDto dto = lista.get(i);
+					if (dto != null) {
+
+						CodiceDescrizione cod = new CodiceDescrizione();
+						cod.setCodice(String.valueOf(dto.getIdFrequenza()));
+						cod.setDescrizione(dto.getDesFrequenza());
 						logger.debug(header + "cod.getCodice() = " + cod.getCodice());
 						logger.debug(header + "cod.getDescrizione() = " + cod.getDescrizione());
 						listone[i] = cod;
@@ -1123,9 +1319,8 @@ public class ServiceManager {
 			} else {
 				logger.debug(header + "lista not  null!!");
 				listone = new CodiceDescrizione[lista.size()];
-				for (int i = 0; i < lista.size(); i++) {
-					UnitaMisuraCITDto dto = new UnitaMisuraCITDto();
-					dto = lista.get(i);
+				for (int i = 0; i < lista.size(); i++) {					 
+					 UnitaMisuraCITDto dto = lista.get(i);
 					if (dto != null) {
 						CodiceDescrizione cod = new CodiceDescrizione();
 						cod.setCodice(String.valueOf(dto.getIdUnitaMisura()));
@@ -1165,6 +1360,34 @@ public class ServiceManager {
 			logger.debug("[ModuloBuilder::showLibretto] END");
 		}
 	}
+	
+	public Scheda1 getSchedaLibretto(Integer idImpianto) {
+		logger.debug("[ModuloBuilder::getSchedaLibretto] START");
+		try {
+			return getDbServiceImp().getSchedaLibretto(idImpianto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("Errore apertura file", e);
+		} finally {
+			logger.debug("[ModuloBuilder::getSchedaLibretto] END");
+		}
+		return null;
+	}
+	
+	public Comune getComuneByCodIstat(String codiceIstat) throws ServiceException {
+		
+		logger.info("getComuneByCodIstat - codice: " + codiceIstat);
+		
+		Comune comune = null;
+		try {
+				logger.info("CALL cercaComunePerCodiceIstat START");
+				comune = getSvista().cercaComunePerCodiceIstat(codiceIstat);
+				logger.info("CALL cercaComunePerCodiceIstat END");
+				return comune;
+		} catch (RemoteException e) {
+			throw new ServiceException(Messages.ERROR_RECUPERO_SERVIZIO, e);
+		}
+	}
 
 	public Documento getXMLLibrettoConsolidato(Integer codiceImpianto) throws SigitextException, IOException {
 
@@ -1172,7 +1395,7 @@ public class ServiceManager {
 
 		List<SigitTLibrettoDto> librettoList = getDbServiceImp().cercaLibrettoByStato(codiceImpianto, Constants.ID_STATO_LIBRETTO_CONSOLIDATO);
 
-		if (librettoList == null || librettoList.size() == 0 || librettoList.get(0) == null) {
+		if (librettoList == null || librettoList.isEmpty() || librettoList.get(0) == null) {
 			// Non esiste un libretto consolidato
 			throw new SigitextException(Messages.ERROR_NESSUN_LIBRETTO_CONSOLIDATO_TROVATO);
 		}
@@ -1205,7 +1428,7 @@ public class ServiceManager {
 		SigitTImpiantoDto impianto = getDbServiceImp().getImpiantoByCod(ConvertUtil.convertToBigDecimal(codiceImpianto));
 		List<SigitTUnitaImmobiliareDto> unitaImmobiliariImpianto = getDbServiceImp().getUnitaImmobiliariImpianto(codiceImpianto);
 
-		if (impianto == null || unitaImmobiliariImpianto == null || unitaImmobiliariImpianto.size() == 0) {
+		if (impianto == null || unitaImmobiliariImpianto == null || unitaImmobiliariImpianto.isEmpty()) {
 			throw new SigitextException(Messages.ERROR_IMPIANTO_NON_CENSITO);
 		}
 
@@ -1248,11 +1471,11 @@ public class ServiceManager {
 
 		List<SigitTLibrettoDto> librettoList = getDbServiceImp().cercaLibrettoByStato(codiceImpianto, Constants.ID_STATO_LIBRETTO_CONSOLIDATO);
 
-		if (librettoList == null || librettoList.size() == 0 || librettoList.get(0) == null) {
+		if (librettoList == null || librettoList.isEmpty() || librettoList.get(0) == null) {
 			// Non esiste un libretto consolidato
 			throw new SigitextException(GenericUtil.replacePlaceholder(Messages.S099, codiceImpianto));
 		}
-
+		
 		String idPersonaGiuridica = utenteJWT.getIdPersonaGiuridica();
 
 		SigitTPersonaGiuridicaDto personaGiuridica = getDbServiceImp().cercaPersonaGiuridicaById(ConvertUtil.convertToBigDecimal(idPersonaGiuridica));
@@ -1351,7 +1574,7 @@ public class ServiceManager {
 
 			logger.debug("nome file libretto: " + nome);
 			Metadati metadati = MapDto.mapMetadati(impianto, librettoDto, codiceRea);
-			String uidIndex = indexUploadFileNew(nome.toString(), thePdf, metadati, Constants.INDEX_FOLDER_LIBRETTI, true);
+			String uidIndex = indexUploadFileNew(nome, thePdf, metadati, Constants.INDEX_FOLDER_LIBRETTI, true);
 			logger.debug("UID index: " + uidIndex);
 			//storicizzare altri libretti consolidati
 			librettoDto.setUtenteUltMod(cfUtente);
@@ -1479,7 +1702,7 @@ public class ServiceManager {
 		return folder;
 	}
 
-	private Content indexGetContentFolder(String folderName) {
+	public Content indexGetContentFolder(String folderName) {
 		logger.debug("[SigitextManager::indexGetContentFolder] BEGIN");
 		Content myFolder = new Content();
 		myFolder.setPrefixedName(Constants.INDEX_DEFAULT_PREFIX + folderName);
@@ -1778,7 +2001,7 @@ public class ServiceManager {
 
 			logger.debug("STAMPO IL MAX DI RISULTATI: " + maxResult);
 
-			ArrayList<Impianto> listaImpianti = new ArrayList<Impianto>();
+			ArrayList<Impianto> listaImpianti = new ArrayList<>();
 
 			IndirizzoFiltro filtro = new IndirizzoFiltro();
 			if (indirizzo != null)
@@ -1791,21 +2014,21 @@ public class ServiceManager {
 
 			logger.debug("LISTA IMPIANTO DTO: " + listaImpiantiDto);
 
-			if (listaImpiantiDto != null && listaImpiantiDto.size() > 0) {
+			if (listaImpiantiDto != null && !listaImpiantiDto.isEmpty()) {
 				if (listaImpiantiDto.size() < maxResult) {
 					for (SigitTImpiantoDto impiantoDto : listaImpiantiDto) {
 
 						List<Impianto> listaImpiantiParz = getListImpiantoByCodImpianto(ConvertUtil.convertToInteger(impiantoDto.getCodiceImpianto()));
 						logger.debug("listaImpiantiParz: " + listaImpiantiParz);
 
-						if (listaImpiantiParz != null && listaImpiantiParz.size() > 0) {
+						if (listaImpiantiParz != null && !listaImpiantiParz.isEmpty()) {
 							listaImpianti.addAll(listaImpiantiParz);
 						}
 					}
 
 					result = listaImpianti.toArray(new Impianto[listaImpianti.size()]);
 				} else {
-					throw new SigitExcessiveResultsException("Sono stati estratti troppi risultati");
+					throw new SigitExcessiveResultsException("Attenzione! Sono stati estratti troppi risultati. Si prega di affinare la ricerca.");
 				}
 			}
 
@@ -1824,7 +2047,7 @@ public class ServiceManager {
 			List<SigitTPersonaFisicaDto> personeFisiche = getDbServiceImp().getSigitTPersonaFisicaDao().findByCodiceFiscale(codiceFiscale);
 			if (personeFisiche.size() == 1)
 				return personeFisiche.get(0);
-			else if (personeFisiche.size() > 0)
+			else if (!personeFisiche.isEmpty())
 				throw new SigitextException("Recuperate più persone fisiche con lo stesso codice fiscale");
 			return null;
 		} catch (SigitTPersonaFisicaDaoException e) {
@@ -1917,7 +2140,7 @@ public class ServiceManager {
 		String header = "!!!!ricercaImpiantoByFiltro==>.";
 		logger.debug(header + "inizio!!");
 
-		List<Impianto> impiantiListToMap = new LinkedList<Impianto>();
+		List<Impianto> impiantiListToMap = new LinkedList<>();
 
 		try {
 			List<SigitExtImpiantoDto> impiantiList = getDbServiceImp().ricercaImpiantoByFiltro(impiantoFiltro);
@@ -1942,6 +2165,122 @@ public class ServiceManager {
 		return impiantiListToMap.toArray(new Impianto[0]);
 	}
 
+	public ListaImpiantiGeo ricercaImpiantoGeoByFiltro(ImpiantoFiltro impiantoFiltro) throws SigitextException {
+
+		String header = "!!!!ricercaImpiantoByFiltro==>.";
+		logger.debug(header + "inizio!!");
+
+		ListaImpiantiGeo listaImpiantiGeo = new ListaImpiantiGeo();
+		List<Impianto> impiantiListToMap = new LinkedList<>();
+		List<Feature> featuresListToMap = new LinkedList<>();
+		FeatureCollection featureCollection = new FeatureCollection();
+//		Crs crs = new Crs();
+//		HashMap<String, String> properties = new HashMap<String, String>();
+//		properties.put("name", Constants.EPSG_4326);
+//		crs.setProperties(properties);
+//		featureCollection.setCrs(crs);
+
+		try {
+			List<SigitExtImpiantoDto> impiantiList = getDbServiceImp().ricercaImpiantoByFiltro(impiantoFiltro);
+
+			String prefixLinkDettaglio = ""; 
+			WrkConfigDto wrkConfigDto = cercaConfigValue(Constants.CIT_PREFIX_LINK_DETTAGLIO_IMPIANTO);
+			if(wrkConfigDto!=null) {
+				prefixLinkDettaglio = wrkConfigDto.getValoreConfigChar();
+			}
+			
+			if (impiantiList == null) {
+				logger.debug(header + "lista =  null!!");
+
+			} else {
+				logger.debug(header + "lista not  null!!");
+				for (SigitExtImpiantoDto dto : impiantiList) {
+					SigitVRicercaImpiantiDto vi = getDbServiceImp().cercaImpiantoByCodImpianto(dto.getCodiceImpianto());
+					dto.setIdPfResponsabile(vi.getIdPfResponsabile());
+					dto.setIdPgResponsabile(dto.getIdPgResponsabile());
+					Impianto impianto = MapDto.mapSigitExtImpiantoDtoToImpianto(dto);
+					impiantiListToMap.add(impianto);
+					Feature feature = MapDto.mapSigitExtImpiantoDtoToFeature(dto);
+					feature.getProperties().put("linkDettaglio", prefixLinkDettaglio + dto.getCodiceImpianto().toString());
+					featuresListToMap.add(feature);
+				}
+			}
+
+			logger.debug(header + "fine");
+
+		} catch (WrkConfigDaoException e) {
+			logger.error(header + "errore= ", e);
+			throw new SigitextException(e.getMessage(), e);
+		} catch (SigitextException e) {
+			logger.error(header + "errore= ", e);
+			throw e;
+		}
+		
+		listaImpiantiGeo.setImpianti(impiantiListToMap.toArray(new Impianto[0]));
+		featureCollection.setFeatures(featuresListToMap.toArray(new Feature[0]));
+		listaImpiantiGeo.setFeatureCollection(featureCollection);
+				
+		return listaImpiantiGeo;
+	}
+
+	public ListaImpiantiGeo ricercaImpiantoGeoByFiltroDuplicatiResponsabile(ImpiantoFiltro impiantoFiltro) throws SigitextException {
+
+		String header = "!!!!ricercaImpiantoByFiltro==>.";
+		logger.debug(header + "inizio!!");
+
+		ListaImpiantiGeo listaImpiantiGeo = new ListaImpiantiGeo();
+		List<Impianto> impiantiListToMap = new LinkedList<>();
+		List<Feature> featuresListToMap = new LinkedList<>();
+		FeatureCollection featureCollection = new FeatureCollection();
+//		Crs crs = new Crs();
+//		HashMap<String, String> properties = new HashMap<String, String>();
+//		properties.put("name", Constants.EPSG_4326);
+//		crs.setProperties(properties);
+//		featureCollection.setCrs(crs);
+
+		try {
+			List<SigitExtImpiantoDto> impiantiList = getDbServiceImp().ricercaImpiantoByCodImpiantoDuplicatiResponsabile(impiantoFiltro);
+
+			String prefixLinkDettaglio = ""; 
+			WrkConfigDto wrkConfigDto = cercaConfigValue(Constants.CIT_PREFIX_LINK_DETTAGLIO_IMPIANTO);
+			if(wrkConfigDto!=null) {
+				prefixLinkDettaglio = wrkConfigDto.getValoreConfigChar();
+			}
+			
+			if (impiantiList == null) {
+				logger.debug(header + "lista =  null!!");
+
+			} else {
+				logger.debug(header + "lista not  null!!");
+				for (SigitExtImpiantoDto dto : impiantiList) {
+					SigitVRicercaImpiantiDto vi = getDbServiceImp().cercaImpiantoByCodImpianto(dto.getCodiceImpianto());
+					dto.setIdPfResponsabile(vi.getIdPfResponsabile());
+					dto.setIdPgResponsabile(dto.getIdPgResponsabile());
+					Impianto impianto = MapDto.mapSigitExtImpiantoDtoToImpianto(dto);
+					impiantiListToMap.add(impianto);
+					Feature feature = MapDto.mapSigitExtImpiantoDtoToFeature(dto);
+					feature.getProperties().put("linkDettaglio", prefixLinkDettaglio + dto.getCodiceImpianto().toString());
+					featuresListToMap.add(feature);
+				}
+			}
+
+			logger.debug(header + "fine");
+
+		} catch (WrkConfigDaoException e) {
+			logger.error(header + "errore= ", e);
+			throw new SigitextException(e.getMessage(), e);
+		} catch (SigitextException e) {
+			logger.error(header + "errore= ", e);
+			throw e;
+		}
+		
+		listaImpiantiGeo.setImpianti(impiantiListToMap.toArray(new Impianto[0]));
+		featureCollection.setFeatures(featuresListToMap.toArray(new Feature[0]));
+		listaImpiantiGeo.setFeatureCollection(featureCollection);
+				
+		return listaImpiantiGeo;
+	}
+	
 	@Transactional
 	public String salvaImpiantoTrans(DatiImpianto impianto, String descRuolo, UtenteLoggato utenteLoggato, Integer responsabilita) throws Exception {
 		try {
@@ -1971,7 +2310,7 @@ public class ServiceManager {
 
 	public ArrayList<RisultatoRicResponsabile> cercaResponsabiliByIdImpianto(Integer idImpianto) throws SigitextException {
 
-		ArrayList<RisultatoRicResponsabile> risRicResp = new ArrayList<RisultatoRicResponsabile>();
+		ArrayList<RisultatoRicResponsabile> risRicResp = new ArrayList<>();
 
 		logger.debug("[cercaResponsabiliByIdImpianto] BEGIN");
 		try {
@@ -2107,6 +2446,23 @@ public class ServiceManager {
 		}
 		return listone.toArray(new CodiceDescrizione[0]);
 	}
+	
+	public CodiceDescrizione[] getTipoIntervento() {
+		List<CodiceDescrizione> listone = new ArrayList<>();
+		try {
+			List<SigitDTipoInterventoDto> lista = getDbServiceImp().getSigitDTipoInterventoDao().findAll();
+			logger.debug("SIZE OF TIPI INTERVENTO LIST: " + lista.size());
+			for (SigitDTipoInterventoDto dto : lista) {
+				CodiceDescrizione cod = new CodiceDescrizione();
+				cod.setCodice(dto.getIdTipoIntervento().toString());
+				cod.setDescrizione(dto.getDesTipoIntervento());
+				listone.add(cod);
+			}
+		} catch (Exception ex) {
+			logger.error("errore= ", ex);
+		}
+		return listone.toArray(new CodiceDescrizione[0]);
+	}
 
 	public CodiceDescrizione[] getTipologaGF() {
 		List<CodiceDescrizione> listone = new ArrayList<>();
@@ -2177,7 +2533,10 @@ public class ServiceManager {
 			getDbServiceImp().insertComp4Manut(codImpiantoBigD, Constants.TIPO_COMPONENTE_GT, progressivoBigD, idPersonaGiuridica, cfUtenteMod, Constants.ID_RUOLO_MANUTENTORE_ALL_1);
 			getDbServiceImp().updateListComponentiGT(compList, codImpianto, progressivo, cfUtenteMod);
 			SigitTComp4Pk pkComp4 = new SigitTComp4Pk(codImpiantoBigD, Constants.TIPO_COMPONENTE_GT, progressivoBigD);
-			getDbServiceImp().salvaAzioneComp4(pkComp4, componente.getDataInstall(), cfUtenteMod, utenteMod.getRuoloLoggato().getRuolo());
+			if(utenteMod!=null && utenteMod.getRuoloLoggato()!=null) {
+				getDbServiceImp().salvaAzioneComp4(pkComp4, componente.getDataInstall(), cfUtenteMod, utenteMod.getRuoloLoggato().getRuolo());
+			}
+			
 		} catch (Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			throw new SigitextException("Errore salvataggio dati GT");
@@ -2201,7 +2560,9 @@ public class ServiceManager {
 			getDbServiceImp().insertComp4Manut(codImpiantoBigD, Constants.TIPO_COMPONENTE_GF, progressivoBigD, idPersonaGiuridica, cfUtenteMod, Constants.ID_RUOLO_MANUTENTORE_ALL_2);
 			getDbServiceImp().updateListComponentiGF(compList, codImpianto, progressivo, cfUtenteMod);
 			SigitTComp4Pk pkComp4 = new SigitTComp4Pk(codImpiantoBigD, Constants.TIPO_COMPONENTE_GF, progressivoBigD);
-			getDbServiceImp().salvaAzioneComp4(pkComp4, componente.getDataInstall(), cfUtenteMod, utenteMod.getRuoloLoggato().getRuolo());
+			if(utenteMod!=null && utenteMod.getRuoloLoggato()!=null) {
+				getDbServiceImp().salvaAzioneComp4(pkComp4, componente.getDataInstall(), cfUtenteMod, utenteMod.getRuoloLoggato().getRuolo());
+			}
 		} catch (Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			logger.error("Errore salvataggio componente GF: ", e);
@@ -2226,7 +2587,9 @@ public class ServiceManager {
 			getDbServiceImp().insertComp4Manut(codImpiantoBigD, Constants.TIPO_COMPONENTE_SC, progressivoBigD, idPersonaGiuridica, cfUtenteMod, Constants.ID_RUOLO_MANUTENTORE_ALL_3);
 			getDbServiceImp().updateListComponentiSC(compList, codImpianto, progressivo, cfUtenteMod);
 			SigitTComp4Pk pkComp4 = new SigitTComp4Pk(codImpiantoBigD, Constants.TIPO_COMPONENTE_SC, progressivoBigD);
-			getDbServiceImp().salvaAzioneComp4(pkComp4, componente.getDataInstall(), cfUtenteMod, utenteMod.getRuoloLoggato().getRuolo());
+			if(utenteMod!=null && utenteMod.getRuoloLoggato()!=null) {
+				getDbServiceImp().salvaAzioneComp4(pkComp4, componente.getDataInstall(), cfUtenteMod, utenteMod.getRuoloLoggato().getRuolo());
+			}
 		} catch (Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			logger.error("Errore salvataggio componente SC: ", e);
@@ -2251,7 +2614,9 @@ public class ServiceManager {
 			getDbServiceImp().insertComp4Manut(codImpiantoBigD, Constants.TIPO_COMPONENTE_CG, progressivoBigD, idPersonaGiuridica, cfUtenteMod, Constants.ID_RUOLO_MANUTENTORE_ALL_4);
 			getDbServiceImp().updateListComponentiCG(compList, codImpianto, progressivo, cfUtenteMod);
 			SigitTComp4Pk pkComp4 = new SigitTComp4Pk(codImpiantoBigD, Constants.TIPO_COMPONENTE_CG, progressivoBigD);
-			getDbServiceImp().salvaAzioneComp4(pkComp4, componente.getDataInstall(), cfUtenteMod, utenteMod.getRuoloLoggato().getRuolo());
+			if(utenteMod!=null && utenteMod.getRuoloLoggato()!=null) {
+				getDbServiceImp().salvaAzioneComp4(pkComp4, componente.getDataInstall(), cfUtenteMod, utenteMod.getRuoloLoggato().getRuolo());
+			}
 		} catch (Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			logger.error("Errore salvataggio componente CG: ", e);
@@ -2261,14 +2626,15 @@ public class ServiceManager {
 		}
 	}
 
-	public Integer getImpresaAssociata(UtenteLoggato utente, String codImpiantoSelez) throws SigitRImpRuoloPfpgDaoException {
+	public Integer getImpresaAssociata(UtenteLoggato utente, String codImpiantoSelez, int FkRuolo, int progressivo) throws SigitRComp4ManutDaoException {
 		Integer idPersonaGiuridica = utente != null && utente.getRuoloLoggato() != null ? utente.getRuoloLoggato().getIdPersonaGiuridica() : null;
 
 		if (idPersonaGiuridica == null) {
-			SigitRImpRuoloPfpgDto installatore = getDbServiceImp().getInstallatoreImpianto(codImpiantoSelez);
-			logger.debug(installatore);
-			if (installatore != null) {
-				idPersonaGiuridica = ConvertUtil.convertToInteger(installatore.getFkPersonaGiuridica());
+			//SigitRImpRuoloPfpgDto installatore = getDbServiceImp().getInstallatoreImpianto(codImpiantoSelez);
+			SigitRComp4ManutDto manutentore = getDbServiceImp().getManutentoreImpianto(codImpiantoSelez, FkRuolo, progressivo);
+			logger.debug(manutentore);
+			if (manutentore != null) {
+				idPersonaGiuridica = ConvertUtil.convertToInteger(manutentore.getFkPersonaGiuridica());
 			}
 		}
 
@@ -2278,7 +2644,7 @@ public class ServiceManager {
 
 	public Integer contaComponenti4ByFilter(String codiceImpianto, Integer progressivo, String tipologia) throws SigitextException {
 		logger.debug("[ServiceManager::contaComponenti4ByFilter] START");
-		List output = null;
+		List<?> output = null;
 		CompFilter filter = new CompFilter(Integer.parseInt(codiceImpianto), progressivo != null ? progressivo.toString() : null);
 		try {
 			if (Constants.TIPO_COMPONENTE_CG.equals(tipologia)) {
@@ -2306,7 +2672,7 @@ public class ServiceManager {
 		logger.debug("[SigitManager::cercaComponente4AttivaByFilter] START");
 		CompFilter filter = new CompFilter(Integer.parseInt(codiceImpianto), progressivo != null ? progressivo.toString() : null);
 		Object output = null;
-		List outputList = null;
+		List<?> outputList = null;
 		try {
 			switch (tipoComponente) {
 				case Constants.TIPO_COMPONENTE_CG:
@@ -2365,6 +2731,30 @@ public class ServiceManager {
 
 	public void checkPresenzaBRRCbyGT(String codiceImpiantoGT, String dataInstallazioneGT, String progressivoGT) throws SigitextException {
 		getDbServiceImp().verificaBRRCByGT(codiceImpiantoGT, dataInstallazioneGT, progressivoGT);
+	}
+	
+	public List<Integer> getIdAllegatoListFromSigitRAllegatoCompXXByCodiceImpianto(Integer codiceImpianto) throws SigitRAllegatoCompScDaoException, SigitRAllegatoCompGtDaoException, SigitRAllegatoCompGfDaoException, SigitRAllegatoCompCgDaoException{
+		List<Integer> responseList = new ArrayList<>();
+		
+		List<SigitRAllegatoCompScDto> scList = getDbServiceImp().findSigitRAllegatoCompScDtoByCodiceImpianto(codiceImpianto);
+		List<SigitRAllegatoCompGtDto> gtList = getDbServiceImp().findSigitRAllegatoCompGtDtoByCodiceImpianto(codiceImpianto);
+		List<SigitRAllegatoCompGfDto> gfList = getDbServiceImp().findSigitRAllegatoCompGfDtoByCodiceImpianto(codiceImpianto);
+		List<SigitRAllegatoCompCgDto> cgList = getDbServiceImp().findSigitRAllegatoCompCgDtoByCodiceImpianto(codiceImpianto);
+		
+		for(SigitRAllegatoCompScDto dto : scList) {
+			responseList.add(dto.getIdAllegato().intValue());
+		}
+		for(SigitRAllegatoCompGtDto dto : gtList) {
+			responseList.add(dto.getIdAllegato().intValue());
+		}
+		for(SigitRAllegatoCompGfDto dto : gfList) {
+			responseList.add(dto.getIdAllegato().intValue());
+		}
+		for(SigitRAllegatoCompCgDto dto : cgList) {
+			responseList.add(dto.getIdAllegato().intValue());
+		}
+		
+		return responseList;
 	}
 
 	public List<Controllo> getControlliOrdinati(String codice, String ordinamento, Integer numeroRighe) throws SigitextException {
@@ -2558,8 +2948,10 @@ public class ServiceManager {
 				rowFumiImport.setAEPortataCombu(Portata.Enum.forString(sigitTDettTipo1Dto.getL111PortataCombustibileUm()));
 				rowFumiImport.setAEValorePortata(sigitTDettTipo1Dto.getL111PortataCombustibile());
 				rowFumiImport.setAECOfumiSecchi(sigitTDettTipo1Dto.getL111CoNoAriaPpm());
-				rowFumiImport.setAERispettoIndBacharach(ConvertUtil.convertToBooleanAllways(sigitTDettTipo1Dto.getL111FlgRispettaBacharach()));
-				rowFumiImport.setAEMinimo(ConvertUtil.convertToBooleanAllways(sigitTDettTipo1Dto.getL111FlgRendMagRendMin()));
+				if (sigitTDettTipo1Dto.getL111FlgRispettaBacharach() != null)
+					rowFumiImport.setAERispettoIndBacharach(ConvertUtil.convertToBoolean(sigitTDettTipo1Dto.getL111FlgRispettaBacharach()));
+				if (sigitTDettTipo1Dto.getL111FlgRendMagRendMin() != null)
+					rowFumiImport.setAEMinimo(ConvertUtil.convertToBoolean(sigitTDettTipo1Dto.getL111FlgRendMagRendMin()));
 			}
 			importCheckList.setAFFlagValvole(ConvertUtil.convertToBooleanAllways(rapportoTipo1Dto.getFFlgAdozioneValvoleTerm()));
 			importCheckList.setAFFlagIsolamento(ConvertUtil.convertToBooleanAllways(rapportoTipo1Dto.getFFlgIsolamenteRete()));
@@ -2973,15 +3365,18 @@ public class ServiceManager {
 					importCve.setAEFlagDispReg(ConvertUtil.convertToBigInteger(sigitTDettTipo3Dto.getEFlgDispFunzionanti()));
 					tabFumi = rowAllegatoIV.addNewTabFumi();
 				}
-
-				it.csi.sigit.sigitwebn.xml.importmassivo.allegato4.data.RowFumiDocument.RowFumi rowFumiImport = tabFumi.addNewRowFumi();
-				rowFumiImport.setAETempEst(sigitTDettTipo3Dto.getETempExtC());
-				rowFumiImport.setAETempMandPrim(sigitTDettTipo3Dto.getETempMandPrimarioC());
-				rowFumiImport.setAETempRitPrim(sigitTDettTipo3Dto.getETempRitorPrimarioC());
-				rowFumiImport.setAEPotenzaTerm(sigitTDettTipo3Dto.getEPotenzaTermKw());
-				rowFumiImport.setAEPortataFluido(sigitTDettTipo3Dto.getEPortFluidoM3H());
-				rowFumiImport.setAETempMandSecond(sigitTDettTipo3Dto.getETempMandSecondarioC());
-				rowFumiImport.setAETempRitSecond(sigitTDettTipo3Dto.getETempRitSecondarioC());
+				if(tabFumi!=null) {
+					it.csi.sigit.sigitwebn.xml.importmassivo.allegato4.data.RowFumiDocument.RowFumi rowFumiImport = tabFumi.addNewRowFumi();
+								
+					rowFumiImport.setAETempEst(sigitTDettTipo3Dto.getETempExtC());
+					rowFumiImport.setAETempMandPrim(sigitTDettTipo3Dto.getETempMandPrimarioC());
+					rowFumiImport.setAETempRitPrim(sigitTDettTipo3Dto.getETempRitorPrimarioC());
+					rowFumiImport.setAEPotenzaTerm(sigitTDettTipo3Dto.getEPotenzaTermKw());
+					rowFumiImport.setAEPortataFluido(sigitTDettTipo3Dto.getEPortFluidoM3H());
+					rowFumiImport.setAETempMandSecond(sigitTDettTipo3Dto.getETempMandSecondarioC());
+					rowFumiImport.setAETempRitSecond(sigitTDettTipo3Dto.getETempRitSecondarioC());
+				
+				}
 			}
 			it.csi.sigit.sigitwebn.xml.importmassivo.allegato4.data.CheckListDocument.CheckList importCheckList = mod1Import.getMODIV().getRichiesta().getDatiAllegato().addNewCheckList();
 			importCheckList.setAFOsservazioni(ricercaAllegatiDto.getFOsservazioni());
@@ -3420,6 +3815,14 @@ public class ServiceManager {
 		metadati.setIdRapporto(allegato.getIdAllegato().toString());
 		return metadati;
 	}
+	
+	public Metadati createMetadatiDocumento(SigitTImpiantoDto impiantoDto) {
+		Metadati metadati = new Metadati();
+		metadati.setCodiceImpianto(impiantoDto.getCodiceImpianto().toString());
+		metadati.setCodIstatComune(impiantoDto.getIstatComune());
+		metadati.setCodIstatProvincia(StringUtils.substring(impiantoDto.getIstatComune(), 0, 3));
+		return metadati;
+	}
 
 	public String caricaFileIndex(ImportFileSuper docFilter, String folder, String nomeFileMod, Metadati metadati) throws SigitextException {
 		logger.debug("[ServiceManager::caricaFileIndex] BEGIN");
@@ -3442,12 +3845,13 @@ public class ServiceManager {
 
 	public void mtomUploadFileGeneric(ImportFileSuper dataFile) throws SigitextException {
 		logger.debug("[ServiceManager::mtomUploadFileGeneric] BEGIN");
+		FileInputStream fis = null;
 		try {
 			MtomOperationContext moc = mtomGetOperationContext();
 
 			MtomNode node = new MtomNode(dataFile.getUidIndex(), Constants.INDEX_PREFIX_NAME);
 
-			FileInputStream fis = new FileInputStream(dataFile.getFile());
+			fis = new FileInputStream(dataFile.getFile());
 			Attachment a = new Attachment();
 			a.fileName = dataFile.getNomeFileMod();
 			a.fileType = dataFile.getContentType();
@@ -3468,11 +3872,19 @@ public class ServiceManager {
 			logger.error("Errore mtomUploadFileGeneric", e);
 			throw new SigitextException(Messages.ERROR_RECUPERO_SERVIZIO, e);
 
+		}finally {
+			if(fis!=null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					logger.error("Errore mtomUploadFileGeneric " + e.getMessage(), e);
+				}
+			}
 		}
 		logger.debug("[ServiceManager::mtomUploadFileGeneric] END");
 	}
 
-	private MtomOperationContext mtomGetOperationContext() {
+	public MtomOperationContext mtomGetOperationContext() {
 		logger.debug("[ServiceManager::mtomGetOperationContext] BEGIN");
 		MtomOperationContext moc = new MtomOperationContext();
 		moc.setUsername(Constants.INDEX_USERNAME_ADMIN);
@@ -3561,7 +3973,7 @@ public class ServiceManager {
 			uid = indexUploadFileNew(nomeAllegato, thePdfStatico, metadati, Constants.INDEX_FOLDER_REE, true);
 			List<SigitVRicerca3ResponsabileDto> list3RespAttiviImpianto = getDbServiceImp().cerca3ResponsabiliAttiviAllaDataByCodImpiantoComp2(dettaglio.getCodiceImpianto(), dettaglio.getDataControllo());
 			SigitTPersonaGiuridicaDto pg3Resp = null;
-			if (list3RespAttiviImpianto != null && list3RespAttiviImpianto.size() > 0) {
+			if (list3RespAttiviImpianto != null && !list3RespAttiviImpianto.isEmpty()) {
 				SigitVRicerca3ResponsabileDto vTot3Responsabile = list3RespAttiviImpianto.get(0);
 				pg3Resp = getDbServiceImp().cercaPersonaGiuridicaById(vTot3Responsabile.getFkPg3Resp());
 			}
@@ -3570,8 +3982,11 @@ public class ServiceManager {
 				if (!ConvertUtil.convertToBooleanAllways(allegatoDto.getFFlgPuoFunzionare())) {
 					CodiceDescrizione coppiaIdAccertamentoMailPA = creaAutomatismiInvioRee(dettaglio.getCodiceImpianto(), allegatoDto);
 					String emailPA = coppiaIdAccertamentoMailPA.getDescrizione();
-
-					inviaMailAvvioAutomaticoAccertamentoRee(pg3Resp, emailPA, impiantoDto, dettaglio, coppiaIdAccertamentoMailPA.getCodice());
+					try {
+						inviaMailAvvioAutomaticoAccertamentoRee(pg3Resp, emailPA, impiantoDto, dettaglio, coppiaIdAccertamentoMailPA.getCodice());
+					}catch (NullPointerException e) {
+						throw new SigitextException("impossibile iviare emal avvio automatico accertamento ree");
+					}
 				}
 			}
 			//setto i valori per fare l'update sul db per sigit_t_allegato
@@ -3583,7 +3998,7 @@ public class ServiceManager {
 			getDbServiceImp().getSigitTAllegatoDao().update(allegatoDto);
 			String emailResponsabile = cercaEMailResponsabileAttivoAllaDataByCodImpianto(dettaglio.getCodiceImpianto(), dettaglio.getDataControllo());
 			SigitTPersonaGiuridicaDto manutentore = getDbServiceImp().cercaTPersonaGiuridicaById(ConvertUtil.convertToInteger(dettaglio.getPersonaGiuridica().getIdPersonaGiuridica()));
-			ArrayList<Allegato> elencoAllegati = new ArrayList<Allegato>();
+			ArrayList<Allegato> elencoAllegati = new ArrayList<>();
 			Allegato allegatoREE = new Allegato();
 			allegatoREE.setNomeFile(nomeAllegato);
 			allegatoREE.setFile(thePdfStatico);
@@ -3649,7 +4064,7 @@ public class ServiceManager {
 		testoHtml.append("Per qualsiasi approfondimento utilizzare il seguente link<BR/>");
 		testoHtml.append("https://energia-cit.regione.piemonte.it/citpwa");
 
-		ArrayList<String> destinatariSingoli = new ArrayList<String>();
+		ArrayList<String> destinatariSingoli = new ArrayList<>();
 		if (GenericUtil.isNotNullOrEmpty(manutentore.getEmail())) {
 
 			logger.debug("Stampo la mail del manutentore: " + manutentore.getEmail());
@@ -3666,9 +4081,7 @@ public class ServiceManager {
 			destinatariSingoli.add(terzoResponsabile.getEmail());
 		}
 
-		ResultInvioMail resultInvioMail = sendMail(destinatariSingoli, null, oggetto, testoHtml.toString(), GenericUtil.getStringaTxtToHtml(testoHtml.toString()), elencoAllegati);
-
-		return resultInvioMail;
+		return sendMail(destinatariSingoli, null, oggetto, testoHtml.toString(), GenericUtil.getStringaTxtToHtml(testoHtml.toString()), elencoAllegati);
 	}
 
 	public String cercaEMailResponsabileAttivoAllaDataByCodImpianto(String codImpianto, String dataRapporto) throws SigitextException {
@@ -3763,7 +4176,11 @@ public class ServiceManager {
 				getDbServiceImp().aggiornaImpiantoSblocca3R(codiceImpianto, utenteAuto.getCodiceFiscale(), true);
 				logger.debug("[ServiceManager::creaAutomatismiAccertamento] salvataggio impianto");
 			}
-			String indirizzoMail = getDbServiceImp().cercaIndirizzoMailAbilitazioneValidatore(GenericUtil.getCodIstatProvByCodIstatComune(impiantoEntity.getIstatComune()), Constants.ID_RUOLO_PA_VALIDATORE);
+			
+			String indirizzoMail = "indirizzo impianto non trovato";
+			if(impiantoEntity!=null) {
+				indirizzoMail = getDbServiceImp().cercaIndirizzoMailAbilitazioneValidatore(GenericUtil.getCodIstatProvByCodIstatComune(impiantoEntity.getIstatComune()), Constants.ID_RUOLO_PA_VALIDATORE);
+			}
 			logger.debug("[ServiceManager::creaAutomatismiAccertamento] manca invio mail");
 
 			CodiceDescrizione risultato = new CodiceDescrizione();
@@ -3830,7 +4247,7 @@ public class ServiceManager {
 	}
 
 	public ResultInvioMail sendMail(String destinatario, String oggetto, String testoHtml, String testoTxt) throws ServiceException {
-		ArrayList<String> destinatariSingoli = new ArrayList<String>();
+		ArrayList<String> destinatariSingoli = new ArrayList<>();
 		destinatariSingoli.add(destinatario);
 		return sendMail(destinatariSingoli, null, oggetto, testoHtml, testoTxt);
 	}
@@ -3858,15 +4275,16 @@ public class ServiceManager {
 			email.setHtml(testoHtml);
 			email.setTesto(testoTxt);
 
-			if (elencoAllegati != null && elencoAllegati.size() > 0) {
+			if (elencoAllegati != null && !elencoAllegati.isEmpty()) {
 				email.setElencoAllegati(elencoAllegati);
 			}
 
-			if (destinatariSingoli != null && destinatariSingoli.size() > 0) {
+			if (destinatariSingoli != null && !destinatariSingoli.isEmpty()) {
 				for (String destinatario : destinatariSingoli) {
 					// Destinatario
 					email.setDestinatario(destinatario);
-
+					logger.info("destinatario singolo:");
+					logger.info(destinatario);
 					try {
 						sender.sendMail(email);
 						resultInvioMail.addDestinatarioOK(destinatario);
@@ -3877,7 +4295,7 @@ public class ServiceManager {
 
 				}
 			}
-			if (destinatari != null && destinatari.size() > 0) {
+			if (destinatari != null && !destinatari.isEmpty()) {
 
 				email.setDestinatari(destinatari);
 
@@ -4103,13 +4521,11 @@ public class ServiceManager {
 				dto = new SigitTAccertamentoDto();
 			}
 			SigitTAccertamentoDto accertamentoDto = MapDto.mapToSigitTAccertamentoDto(accertamento, dto, utente);
-			if (accertamentoDto.getSiglaProvCompetenza() == null) {
-				if (accertamentoDto.getIstatProvCompetenza() != null) {
+			if (accertamentoDto.getSiglaProvCompetenza() == null && accertamentoDto.getIstatProvCompetenza() != null) {
 					Provincia provincia = getProvinciaDaCodiceIstatOrSigla(accertamentoDto.getIstatProvCompetenza());
 					String siglaProv = provincia.getSigla().toUpperCase();
 					accertamentoDto.setSiglaProvCompetenza(siglaProv);
-				}
-			}
+			}			
 
 			SigitTAccertamentoPk pk = getDbVerificaMgr().salvaAccertamento(accertamentoDto);
 			accertamento.setIdentificativo(ConvertUtil.convertToString(pk.getIdAccertamento()));
@@ -4164,10 +4580,15 @@ public class ServiceManager {
 		try {
 			if (codiceIstatProv.length() == 3) {
 				// Ricerca per codice istat
-				provincia = getSvista().cercaProvinciaPerCodiceIstat(codiceIstatProv);
+				logger.info("CALL cercaProvinciaPerCodiceIstat START");
+				provincia = getSvista().cercaProvinciaPerCodiceIstat(codiceIstatProv);				
+				logger.info("CALL cercaProvinciaPerCodiceIstat END");
+				return provincia;
 			} else if (codiceIstatProv.length() == 2) {
 				// ricerca per sigla
+				logger.info("CALL cercaTutteLeProvince START");
 				provRegione = getSvista().cercaTutteLeProvince();
+				logger.info("CALL cercaTutteLeProvince END");
 				for (Provincia provTmp : provRegione) {
 					if (provTmp.getSigla() != null && !provTmp.getSigla().isEmpty() 
 							&& provTmp.getSigla().equals(codiceIstatProv))
@@ -4220,7 +4641,7 @@ public class ServiceManager {
 			String codiceImpianto = impianto.getCodiceImpianto().toString();
 			String idLibretto = libretto.getIdLibretto().toString();
 			// Controllo il responsabile
-			SigitVTotImpiantoDto respAttivo = getDbServiceImp().cercaResponsabileAttivoByCodImpianto(new Integer(codiceImpianto));
+			SigitVTotImpiantoDto respAttivo = getDbServiceImp().cercaResponsabileAttivoByCodImpianto(Integer.parseInt(codiceImpianto));
 			if (respAttivo == null) {
 				isRespAssente = true;
 				throw new SigitextException(Messages.ERROR_RESPONSABILE_ASSENTE);
@@ -4290,6 +4711,27 @@ public class ServiceManager {
 			if (descrizioneRuolo.equalsIgnoreCase(Constants.RUOLO_RESPONSABILE_IMPRESA) || descrizioneRuolo.equalsIgnoreCase(Constants.RUOLO_RESPONSABILE)) {
 				motivoConsolidamento = Constants.ID_MOTIVO_CONSOLIDAMENTO_COMP_SCHEDA_1_14;
 			}
+			if(descrizioneRuolo.equalsIgnoreCase(Constants.RUOLO_NOMINA)){
+				motivoConsolidamento = Constants.ID_MOTIVO_CONSOLIDAMENTO_4;
+			}
+			if(descrizioneRuolo.equalsIgnoreCase(Constants.RUOLO_CESSAZIONE)){
+				motivoConsolidamento = Constants.ID_MOTIVO_CONSOLIDAMENTO_5;
+			}
+			if(descrizioneRuolo.equalsIgnoreCase(Constants.RUOLO_PROROGA)){
+				motivoConsolidamento = Constants.ID_MOTIVO_CONSOLIDAMENTO_13;
+			}
+			if(descrizioneRuolo.equalsIgnoreCase(Constants.CONSOLIDAMENTO_PER_ANNULLAMENTO)){
+				motivoConsolidamento = Constants.ID_MOTIVO_CONSOLIDAMENTO_4;
+			}
+			if(descrizioneRuolo.equalsIgnoreCase(Constants.CONSOLIDAMENTO_PER_NUOVA_ISPEZIONE)){
+				motivoConsolidamento = Constants.ID_CONSOLIDAMENTO_PER_NUOVA_ISPEZIONE;
+			}
+			if(descrizioneRuolo.equalsIgnoreCase(Constants.CONSOLIDAMENTO_PER_SUBENTRO_RESPONSABILE)){
+				motivoConsolidamento = Constants.ID_SUBENTRO_RESPONSABILE;
+			}
+			if(descrizioneRuolo.equalsIgnoreCase(Constants.CONSOLIDAMENTO_PER_ANNULLAMENTO_ISPEZIONE)) {
+				motivoConsolidamento = Constants.ID_CONSOLIDAMENTO_PER_ANNULLAMENTO_ISPEZIONE;
+			}
 			consolidaLibrettoTrans(idPersonaGiuridica, cfUtenteMod, codiceRea, ConvertUtil.convertToString(codiceImpianto), motivoConsolidamento);
 		} catch (ValidationManagerException ex) {
 			logger.error("Errore consolida libretto: " + ex.getMsg(), ex);
@@ -4351,13 +4793,15 @@ public class ServiceManager {
 		oggetto = "CIT: avvenuta comunicazione manutenzione impianto " + vAllegato.getCodiceImpianto();
 
 		// Compongo la mail con formato HTML
-		StringBuffer testoHtml = getContenutoMailManutenzione(vAllegato, ubicazione, codiceBollino, false);
+		StringBuilder testoHtml = getContenutoMailManutenzione(vAllegato, ubicazione, codiceBollino, false);
 
-		ArrayList<String> destinatariSingoli = new ArrayList<String>();
+		ArrayList<String> destinatariSingoli = new ArrayList<>();
+		
 		if (GenericUtil.isNotNullOrEmpty(manutentore.getEmail())) {
 			destinatariSingoli.add(manutentore.getEmail());
-		}
 
+		}
+		
 		if (GenericUtil.isNotNullOrEmpty(emailResponsabile)) {
 			destinatariSingoli.add(emailResponsabile);
 		}
@@ -4368,15 +4812,15 @@ public class ServiceManager {
 
 		ResultInvioMail resultInvioMail = null;
 
-		if (destinatariSingoli != null && !destinatariSingoli.isEmpty()) {
+		if (!destinatariSingoli.isEmpty()) {
 			resultInvioMail = sendMail(destinatariSingoli, null, oggetto, testoHtml.toString(), GenericUtil.getStringaTxtToHtml(testoHtml.toString()));
 		}
 
 		return resultInvioMail;
 	}
 
-	private StringBuffer getContenutoMailManutenzione(SigitVRicercaAllegatiDto vAllegato, String ubicazione, String codiceBollino, boolean isAnnullamento) {
-		StringBuffer testoHtml = new StringBuffer();
+	private StringBuilder getContenutoMailManutenzione(SigitVRicercaAllegatiDto vAllegato, String ubicazione, String codiceBollino, boolean isAnnullamento) {
+		StringBuilder testoHtml = new StringBuilder();
 
 		if (isAnnullamento) {
 
@@ -4408,4 +4852,496 @@ public class ServiceManager {
 		
 		return testoHtml;
 	}
+
+	public Boolean checkUtenteAutorizzato(String codiceFiscale) throws Exception {
+		
+		WrkConfigDto utentiAutorizzati = cercaConfigValue(Constants.CIT_UTENTI_AUTORIZZATI);
+		
+		return utentiAutorizzati!=null && utentiAutorizzati.getValoreConfigChar()!=null?utentiAutorizzati.getValoreConfigChar().contains(codiceFiscale):false;
+	}
+
+	public List<ConsumoPodPdr> getConsumiByPodPdr(String podPdr) throws Exception {
+
+		logger.debug("[ServiceManager::getConsumiByPodPdr] BEGIN");
+		logger.debug("podPdr : " + podPdr);
+		List<ConsumoPodPdr> consumoPodPdr = null;
+		try {
+			List<SigitTDatoDistribDto> dtoList = getDbServiceImp().getConsumiByPodPdr(podPdr);
+			if (dtoList != null) {
+				logger.debug("dto list get consumi pod/pdr size : " + dtoList.size());
+				consumoPodPdr = new ArrayList<>();
+				for (SigitTDatoDistribDto sigitTDatoDistribDto : dtoList) {
+					logger.debug("sigit T Dato Distrib Dto : " + sigitTDatoDistribDto.toString());
+					ConsumoPodPdr dtoPodPdr = new ConsumoPodPdr();
+					dtoPodPdr.setAnno(sigitTDatoDistribDto.getAnnoRif());
+					dtoPodPdr.setConsumoAnno(sigitTDatoDistribDto.getConsumoAnno());
+					dtoPodPdr.setPodPdr(sigitTDatoDistribDto.getPodPdr());
+					logger.debug("dto Pod Pdr dopo chiamata t_dato_distrib : " + dtoPodPdr.toString());
+					consumoPodPdr.add(dtoPodPdr);
+				}
+				logger.debug("final size consumo pod pdr list : " + consumoPodPdr.size());
+			}
+		} catch (Exception e) {
+			logger.error("[ServiceManager::getConsumiByPodPdr] Errore : ", e);
+			throw e;
+		} finally {
+			logger.debug("[ServiceManager::getConsumiByPodPdr] END");
+		}
+		return consumoPodPdr;
+	}
+
+	@Transactional
+	public String salvaVerificaMassiva(Verifica verifica, Integer flgIspPagamento, UtenteLoggatoModel utenteLoggatoModel) throws SigitextException {
+		
+		String errors = "";
+		String istatComune="";
+		
+		try {		
+		
+		if(utenteLoggatoModel!=null && utenteLoggatoModel.getCodiceFiscale()!=null) {
+			List<SigitTPersonaFisicaDto> personeFisiche = getDbServiceImp().cercaPersonaFisicaByCodiceFiscale(utenteLoggatoModel.getCodiceFiscale());
+			if (personeFisiche.size() == 1) {
+				SigitTPersonaFisicaDto persona = personeFisiche.get(0);
+				utenteLoggatoModel.setDenominazione(persona.getCognome()+" "+persona.getNome());				
+			}
+		}
+		
+		SigitTAbilitazioneDto regioneSigitTAbilitazioneDto = new SigitTAbilitazioneDto(); 
+		SigitTAbilitazioneDto sigitTAbilitazioneDto = new SigitTAbilitazioneDto();
+		sigitTAbilitazioneDto.setIdRuoloPa(2);
+		sigitTAbilitazioneDto.setIstatAbilitazione("01");
+		List<SigitTAbilitazioneDto> listSigitTAbilitazioneDto = getDbServiceImp().getSigitTAbilitazioneDao().findByExample(sigitTAbilitazioneDto);
+		if(listSigitTAbilitazioneDto!=null && listSigitTAbilitazioneDto.size()>0) {
+			regioneSigitTAbilitazioneDto = listSigitTAbilitazioneDto.get(0);
+		}					 
+		
+		//IMPIANTO
+		if(verifica.getTipoVerifica()!=null && verifica.getTipoVerifica().intValue() == Constants.IMPIANTO) {						
+			
+			String codiciImpianto = verifica.getCodiceImpianto()!=null?verifica.getCodiceImpianto():"";
+			for (String  codiceImpianto : 	codiciImpianto.split(",")) {
+				
+				codiceImpianto = codiceImpianto.trim();
+				
+				try {
+					
+					SigitVRicercaImpiantiDto sigitVRicercaImpiantiDto = serviceDb.cercaImpiantoByCodImpianto(new BigDecimal(codiceImpianto));										
+					
+					
+					if(sigitVRicercaImpiantiDto != null) {
+						try {
+							Verifica entity = new Verifica();							
+							entity.setTipoVerifica(Constants.IMPIANTO);
+							entity.setIdAllegato("0");
+							entity.setIdDatoDistributore("0");
+							entity.setCodiceImpianto(codiceImpianto);
+							entity.setCfUtenteCaricamento(utenteLoggatoModel.getCodiceFiscale());
+							entity.setDenomUtenteCaricamento(utenteLoggatoModel.getDenominazione());	
+							entity.setDataCaricamento(ConvertUtil.convertToString(new Date()));
+							entity.setNote("creazione massiva");
+							SigitTVerificaPk pk = getDbVerificaMgr().salvaVerifica(MapDto.mapToSigitTVerificaDto(entity, utenteLoggatoModel));
+																					
+							SigitTIspezione2018Dto sigitTIspezione2018Dto = new SigitTIspezione2018Dto();												
+							sigitTIspezione2018Dto.setFkStatoIspezione(new BigDecimal(1));
+							sigitTIspezione2018Dto.setFkVerifica(pk.getIdVerifica());
+							sigitTIspezione2018Dto.setFkAccertamento(0);
+							sigitTIspezione2018Dto.setCodiceImpianto(new BigDecimal(codiceImpianto));	
+							if(sigitVRicercaImpiantiDto.getIstatComune()!=null) {
+								sigitTIspezione2018Dto.setIstatProvCompetenza(sigitVRicercaImpiantiDto.getIstatComune().substring(0, 3));
+								sigitTIspezione2018Dto.setIstatComuneCompetenza(sigitVRicercaImpiantiDto.getIstatComune());
+								istatComune = sigitVRicercaImpiantiDto.getIstatComune();
+							}
+							sigitTIspezione2018Dto.setFlgAccSostitutivo(new BigDecimal(0));
+							sigitTIspezione2018Dto.setDtCreazione(new Timestamp((new Date()).getTime()));							
+							sigitTIspezione2018Dto.setFlgIspPagamento(new BigDecimal(flgIspPagamento));
+							
+							SigitTIspezione2018Pk sigitTIspezione2018Pk = getDbServiceImp().getSigitTIspezione2018Dao().insert(sigitTIspezione2018Dto );	
+							
+							String indirizzoImpianto = null;
+							String denominazioneComune = null;
+							String siglaProvincia = null;
+							if(codiceImpianto!=null) {
+								List<SigitTUnitaImmobiliareDto> listSigitTUnitaImmobiliareDto = getDbServiceImp().getSigitTUnitaImmobiliareDao().findByCodiceImpianto(Integer.parseInt(codiceImpianto));
+								if(listSigitTUnitaImmobiliareDto!=null && listSigitTUnitaImmobiliareDto.size()>0) {
+									SigitTUnitaImmobiliareDto sigitTUnitaImmobiliareDto = listSigitTUnitaImmobiliareDto.get(0);
+									indirizzoImpianto = sigitTUnitaImmobiliareDto.getIndirizzoSitad();
+									
+								}
+								
+								SigitTImpiantoPk sigitTImpiantoPk = new SigitTImpiantoPk();
+								sigitTImpiantoPk.setCodiceImpianto(new BigDecimal(codiceImpianto));
+								SigitTImpiantoDto sigitTImpiantoDto = getDbServiceImp().getSigitTImpiantoDao().findByPrimaryKey(sigitTImpiantoPk);
+								
+								denominazioneComune = sigitTImpiantoDto.getDenominazioneComune();
+								siglaProvincia = sigitTImpiantoDto.getSiglaProvincia();
+							}
+							
+							String indirizzo = IndirizzoUtils.formattaIndirizzo(indirizzoImpianto, null, denominazioneComune, siglaProvincia);
+							String oggetto = "CIT - richiesta nuova ispezione "+sigitTIspezione2018Pk.getIdIspezione2018()+" su impianto con localizzazione: "+indirizzo;
+							String corpo = "Dalla verifica "+pk.getIdVerifica()+" e' stata richiesta una nuova ispezione.<BR>" + 
+									"Descrizione dell'ispezione<BR>" + 
+									"Ispezione numero: "+sigitTIspezione2018Pk.getIdIspezione2018()+"<BR>" + 
+									"Data creazione: "+new SimpleDateFormat("dd/MM/yyyy").format(new Date())+"<BR>" + 
+									"Stato: BOZZA<BR>" + 
+									"Codice impianto: "+codiceImpianto+"<BR>" + 
+									"Localizzazione: "+indirizzo+"<BR>" + 
+									"Note: creazione massiva";
+							
+							setVerificaMassivaMail(regioneSigitTAbilitazioneDto, sigitTIspezione2018Dto, oggetto,
+									corpo);
+							
+						} catch (SigitextException e) {
+							errors = String.join(",",codiceImpianto,errors);
+						} finally {
+							logger.debug("[ServiceManager::salvaVerificaMassiva] errore: "+codiceImpianto);
+						}
+						
+					}else {
+						errors = String.join(",",codiceImpianto,errors);
+					}
+					
+					
+				} catch (NumberFormatException e) {
+					errors = String.join(",",codiceImpianto,errors);
+				}															
+				
+			}		
+			
+		}
+		//FINE IMPIANTO
+		
+		//DATO DISTRIBUTORE
+		if(verifica.getTipoVerifica()!=null && verifica.getTipoVerifica().intValue() == Constants.DATO_DISTRIBUTORE) {
+			
+			String elencoIdDatoDistributore = verifica.getIdDatoDistributore()!=null?verifica.getIdDatoDistributore():"";
+			for (String  idDatoDistributore : 	elencoIdDatoDistributore.split(",")) {
+				
+				idDatoDistributore = idDatoDistributore.trim();
+				
+				try {
+															
+					DatiDistributore datiDistributore =  serviceDb.getDistributore(Integer.parseInt((idDatoDistributore)));
+										
+					if(datiDistributore != null) {
+						try {
+							Verifica entity = new Verifica();							
+							entity.setTipoVerifica(Constants.DATO_DISTRIBUTORE);
+							entity.setIdAllegato("0");
+							entity.setIdDatoDistributore(idDatoDistributore);
+							entity.setCodiceImpianto("0");
+							entity.setCfUtenteCaricamento(utenteLoggatoModel.getCodiceFiscale());
+							entity.setDenomUtenteCaricamento(utenteLoggatoModel.getDenominazione());	
+							entity.setDataCaricamento(ConvertUtil.convertToString(new Date()));
+							entity.setNote("creazione massiva");
+							SigitTVerificaPk pk = getDbVerificaMgr().salvaVerifica(MapDto.mapToSigitTVerificaDto(entity, utenteLoggatoModel));
+																					
+							SigitTIspezione2018Dto sigitTIspezione2018Dto = new SigitTIspezione2018Dto();												
+							sigitTIspezione2018Dto.setFkStatoIspezione(new BigDecimal(1));
+							sigitTIspezione2018Dto.setFkVerifica(pk.getIdVerifica());
+							sigitTIspezione2018Dto.setFkAccertamento(0);
+							sigitTIspezione2018Dto.setCodiceImpianto(BigDecimal.ZERO);		
+							if(datiDistributore.getIstatComuneFatt()!=null) {
+								sigitTIspezione2018Dto.setIstatProvCompetenza(datiDistributore.getIstatComuneFatt().substring(0,3));
+								sigitTIspezione2018Dto.setIstatComuneCompetenza(datiDistributore.getIstatComuneFatt());
+							}
+							istatComune= datiDistributore.getIstatComuneFatt();
+							sigitTIspezione2018Dto.setFlgAccSostitutivo(new BigDecimal(0));
+							sigitTIspezione2018Dto.setDtCreazione(new Timestamp((new Date()).getTime()));							
+							sigitTIspezione2018Dto.setFlgIspPagamento(new BigDecimal(flgIspPagamento));																																									
+							
+							SigitTIspezione2018Pk sigitTIspezione2018Pk = getDbServiceImp().getSigitTIspezione2018Dao().insert(sigitTIspezione2018Dto );	
+							
+							String indirizzoImpianto = null;
+							String denominazioneComune = null;
+							String siglaProvincia = null;
+							if(idDatoDistributore!=null) {
+								SigitTDatoDistribPk sigitTDatoDistribPk = new SigitTDatoDistribPk();
+								sigitTDatoDistribPk.setIdDatoDistrib(Integer.parseInt(idDatoDistributore));
+								SigitTDatoDistribDto sigitTDatoDistribDto = getDbServiceImp().getSigitTDatoDistribDao().findByPrimaryKey(sigitTDatoDistribPk);
+								if(sigitTDatoDistribDto!=null) {									
+									indirizzoImpianto = sigitTDatoDistribDto.getDugFatt()+" "+sigitTDatoDistribDto.getIndirizzoFatt()+" "+sigitTDatoDistribDto.getCivicoFatt();									
+								}
+															
+							}							
+							
+							SigitTImpiantoDto sigitTImpiantoDto = getDbServiceImp().getSigitTImpiantoDao().findByIstatComune(istatComune);
+							if(sigitTImpiantoDto!=null) {								
+								denominazioneComune = sigitTImpiantoDto.getDenominazioneComune();
+								siglaProvincia = sigitTImpiantoDto.getSiglaProvincia();								
+							}
+
+							
+							String indirizzo = IndirizzoUtils.formattaIndirizzo(indirizzoImpianto, null, denominazioneComune, siglaProvincia);
+							String oggetto = "CIT - richiesta nuova ispezione "+sigitTIspezione2018Pk.getIdIspezione2018()+" su impianto con localizzazione: "+indirizzo;
+							String corpo = "Dalla verifica "+pk.getIdVerifica()+" e' stata richiesta una nuova ispezione.<BR>" + 
+									"Descrizione dell'ispezione<BR>" + 
+									"Ispezione numero: "+sigitTIspezione2018Pk.getIdIspezione2018()+"<BR>" + 
+									"Data creazione: "+new SimpleDateFormat("dd/MM/yyyy").format(new Date())+"<BR>" + 
+									"Stato: BOZZA<BR>" + 
+									"Dato distributore: "+idDatoDistributore+"<BR>" + 
+									"Localizzazione: "+indirizzo+"<BR>" + 
+									"Note: creazione massiva";
+							
+							setVerificaMassivaMail(regioneSigitTAbilitazioneDto, sigitTIspezione2018Dto, oggetto,
+									corpo);
+							
+						} catch (SigitextException e) {
+							errors = String.join(",",idDatoDistributore,errors);							
+						} finally {
+							logger.debug("[ServiceManager::salvaVerificaMassiva] errore: "+idDatoDistributore);
+						}
+						
+					}else {
+						errors = String.join(",",idDatoDistributore,errors);
+					}
+					
+					
+				} catch (NumberFormatException e) {
+					errors = String.join(",",idDatoDistributore,errors);
+				}								
+				
+			}				
+		}
+		//FINE DATO DISTRIBUTORE			    	 	    			    		   	    
+			
+		}catch (Exception e) {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			throw new SigitextException(e.getMessage(),e);
+		}
+		
+		return errors.indexOf(",")==-1?"OK":errors.substring(0, errors.length()-1);
+	}
+
+	private void setVerificaMassivaMail(SigitTAbilitazioneDto regioneSigitTAbilitazioneDto,
+			SigitTIspezione2018Dto sigitTIspezione2018Dto, String oggetto, String corpo)
+			throws ServiceException, SigitTAbilitazioneDaoException {
+		List<SigitTAbilitazioneDto> listSigitTAbilitazioneDto;
+		sendMail(regioneSigitTAbilitazioneDto.getMailComunicazione(), oggetto, corpo, GenericUtil.getStringaTxtToHtml(corpo));
+		
+		SigitTAbilitazioneDto sigitTAbilitazioneDtoSearch = new SigitTAbilitazioneDto();
+		sigitTAbilitazioneDtoSearch.setIdRuoloPa(2);
+		sigitTAbilitazioneDtoSearch.setIstatAbilitazione("01"+sigitTIspezione2018Dto.getIstatProvCompetenza());
+		listSigitTAbilitazioneDto = getDbServiceImp().getSigitTAbilitazioneDao().findByExample(sigitTAbilitazioneDtoSearch);
+					    	    								
+		if (listSigitTAbilitazioneDto != null) {
+			for (SigitTAbilitazioneDto sigitTAbilitazioneDto : listSigitTAbilitazioneDto) {
+				sendMail(sigitTAbilitazioneDto.getMailComunicazione(), oggetto, corpo, GenericUtil.getStringaTxtToHtml(corpo));
+			}
+		}
+	}
+
+	public DettaglioVerifica getDettaglioVerifica(Integer idVerifica) throws SigitextException {
+		
+		logger.debug("[ServiceManager::getDettaglioVerifica] BEGIN");
+		logger.debug("idVerifica : " + idVerifica);
+		DettaglioVerifica dettaglioVerifica = new DettaglioVerifica();
+		try {
+			SigitTVerificaPk pk = new SigitTVerificaPk();
+			pk.setIdVerifica(idVerifica);
+			SigitTVerificaDto sigitTVerificaDto = getDbServiceImp().getSigitTVerificaDao().findByPrimaryKey(pk);
+			if (sigitTVerificaDto != null) {
+				
+				DatiVerifica datiVerifica = new DatiVerifica();
+				DatiImpianto datiImpianto = new DatiImpianto();
+				
+				datiVerifica.setIdVerifica(idVerifica);
+				datiVerifica.setCfUtenteCaricamento(sigitTVerificaDto.getCfUtenteCaricamento());
+			    datiVerifica.setDenomUtenteCaricamento(sigitTVerificaDto.getDenomUtenteCaricamento());
+			    datiVerifica.setDtCaricamento(sigitTVerificaDto.getDtCaricamento());			    			    
+			    datiVerifica.setFkTipoVerifica(sigitTVerificaDto.getFkTipoVerifica());			    			    
+			    datiVerifica.setCodiceImpianto(sigitTVerificaDto.getCodiceImpianto()==null?"":sigitTVerificaDto.getCodiceImpianto().toString());
+			    
+			    List<SigitTUnitaImmobiliareDto> listSigitTUnitaImmobiliareDto = getDbServiceImp().getSigitTUnitaImmobiliareDao().findByCodiceImpianto(sigitTVerificaDto.getCodiceImpianto()==null?-1:sigitTVerificaDto.getCodiceImpianto().intValue());
+			    
+			    SigitTImpiantoPk sigitTImpiantoPk = new SigitTImpiantoPk();
+			    sigitTImpiantoPk.setCodiceImpianto(sigitTVerificaDto.getCodiceImpianto());
+			    SigitTImpiantoDto sigitTImpiantoDto = getDbServiceImp().getSigitTImpiantoDao().findByPrimaryKey(sigitTImpiantoPk);
+			    
+			    if(listSigitTUnitaImmobiliareDto != null && !listSigitTUnitaImmobiliareDto.isEmpty()) {	
+			    	SigitTUnitaImmobiliareDto sigitTUnitaImmobiliareDto = listSigitTUnitaImmobiliareDto.get(0);
+			    	datiImpianto.setIndirizzoSitad(sigitTUnitaImmobiliareDto.getIndirizzoSitad());
+			        datiImpianto.setIndirizzoNonTrovato(sigitTUnitaImmobiliareDto.getIndirizzoNonTrovato());			    	   
+			        datiImpianto.setComune(sigitTImpiantoDto.getDenominazioneComune());			    	    
+			        datiImpianto.setCivico(sigitTUnitaImmobiliareDto.getCivico());
+			        datiImpianto.setIstatComune(sigitTImpiantoDto.getIstatComune());
+			    }
+			    	    
+			    datiVerifica.setSiglaRee(sigitTVerificaDto.getSiglaBollino());
+			    datiVerifica.setNumeroRee(sigitTVerificaDto.getNumeroBollino()==null?"":sigitTVerificaDto.getNumeroBollino().toString());
+			    datiVerifica.setFkDatoDistrib(sigitTVerificaDto.getFkDatoDistrib());
+			    datiVerifica.setDtSveglia(sigitTVerificaDto.getDtSveglia());
+			    datiVerifica.setNoteSveglia(sigitTVerificaDto.getNoteSveglia());
+			    datiVerifica.setNote(sigitTVerificaDto.getNote());
+			    
+			    dettaglioVerifica.setDatiImpianto(datiImpianto);
+			    dettaglioVerifica.setDatiVerifica(datiVerifica);
+				
+			}
+		} catch (Exception e) {
+			logger.error("[ServiceManager::getDettaglioVerifica] Errore : ", e);
+			throw new SigitextException(e.getMessage(),e);
+		} finally {
+			logger.debug("[ServiceManager::getDettaglioVerifica] END");
+		}
+		return dettaglioVerifica;
+		
+	}
+
+	public String deleteVerifica(Integer idVerifica) throws SigitextException{
+
+		logger.debug("[SigitMgr::deleteVerifica] BEGIN");
+		String response = "OK";
+		try {
+						
+			SigitExtVerificaDto sigitExtVerificaDto = getDbVerificaMgr().getVerificaById(idVerifica);
+			logger.info(sigitExtVerificaDto.getDtSveglia());
+			if(sigitExtVerificaDto.getDtSveglia()!=null && (new Date()).before(sigitExtVerificaDto.getDtSveglia()) ) {
+				return "Attenzione: impossibile eliminare la verifica in presenza di sveglia attiva";
+			}
+			
+			
+			if(sigitExtVerificaDto.getFkAccertamento()!=null) {
+				BigDecimal fkAccertamento = sigitExtVerificaDto.getFkAccertamento();
+				SigitTAccertamentoDto sigitTAccertamentoDto = getDbVerificaMgr().getAccertamentoById(fkAccertamento.intValue());
+				if(sigitTAccertamentoDto!=null) {
+					return "Attenzione: impossibile eliminare la verifica in presenza di accertamenti";
+				}
+			}
+							
+			if(sigitExtVerificaDto.getFkIspezione()!=null){
+				BigDecimal fkIspezione = sigitExtVerificaDto.getFkIspezione();
+				SigitTIspezione2018Pk sigitTIspezione201Pk = new SigitTIspezione2018Pk();
+				sigitTIspezione201Pk.setIdIspezione2018(fkIspezione.intValue());
+				SigitTIspezione2018Dto sigitTIspezione2018Dto  = getDbServiceImp().getSigitTIspezione2018Dao().findByPrimaryKey(sigitTIspezione201Pk);			
+				if(sigitTIspezione2018Dto!=null) {
+					return "Attenzione: impossibile eliminare la verifica in presenza di ispezioni";
+				}
+			}
+			
+			List<SigitTAzioneDto> listSigitTAzioneDto = getDbAzioneMgr().getSigitTAzioneDao().findByFkVerifica(idVerifica);
+			
+			if(listSigitTAzioneDto!=null && !listSigitTAzioneDto.isEmpty()) {
+				return "Attenzione: impossibile eliminare la verifica in presenza di azioni";	
+			}
+			
+			getDbVerificaMgr().eliminaVerificaById(idVerifica);
+				
+		} catch (Exception e) {
+			logger.error("[ServiceManager::deleteVerifica] Errore : ", e);
+			throw new SigitextException(e.getMessage() == null ? Messages.ERROR_RECUPERO_DB : e.getMessage());
+		}
+
+		logger.debug("[SigitMgr::deleteVerifica] END");
+		return response;
+		
+	}
+
+	public Controlli getControllo(String siglaRee, Long numeroRee) throws SigitextException{
+		
+		logger.debug("[ServiceManager::getControllo] BEGIN");
+		logger.debug("siglaRee : " + siglaRee);
+		logger.debug("numeroRee : " + numeroRee);
+		Controlli controlli = new Controlli();
+		try {
+			List<SigitVRicercaAllegatiDto> dtoList = getDbServiceImp().getSigitVRicercaAllegatiDao().findBySiglaReeNumeroRee(siglaRee, numeroRee);
+			if (dtoList != null && dtoList.size()==1) {
+				logger.debug("dto list get controlli size : " + dtoList.size());
+				
+				controlli.setDataControllo(dtoList.get(0).getDataControllo().getTime());
+				controlli.setCodiceImpianto(dtoList.get(0).getCodiceImpianto());
+
+			}else{
+				throw new SigitextException("Non esiste un REE con il codice specificato");
+			}
+		} catch (Exception e) {
+			logger.error("[ServiceManager::getControllo] Errore : ", e);
+			throw new SigitextException(e.getMessage(),e);
+		} finally {
+			logger.debug("[ServiceManager::getControllo] END");
+		}
+		return controlli;
+		
+	}
+
+	public List<Assegnatario> getAssegnatario() throws SigitextException {
+
+		logger.debug("[ServiceManager::getAssegnatario] BEGIN");
+	
+		List<Assegnatario> listAssegnatario = new ArrayList<>();
+		try {
+			listAssegnatario = getDbServiceImp().getSigitRPfRuoloPaDao().findAllAssegnatario();
+			
+		} catch (Exception e) {
+			logger.error("[ServiceManager::getAssegnatario] Errore : ", e);
+			throw new SigitextException(e.getMessage(),e);
+		} finally {
+			logger.debug("[ServiceManager::getAssegnatario] END");
+		}
+		return listAssegnatario;
+		
+	}
+
+	public List<String> getSiglaRee() throws SigitextException {
+
+		logger.debug("[ServiceManager::getSiglaRee] BEGIN");
+		
+		List<String> listSiglaRee = new ArrayList<>();
+		try {
+			listSiglaRee = getDbServiceImp().getSigitVRicercaAllegatiDao().findAllSiglaRee();
+			
+		} catch (Exception e) {
+			logger.error("[ServiceManager::getSiglaRee] Errore : ", e);
+			throw new SigitextException(e.getMessage(),e);
+		} finally {
+			logger.debug("[ServiceManager::getSiglaRee] END");
+		}
+		return listSiglaRee;
+		
+	}
+
+	public List<SigitTAzioneDto> getAzione(Integer idVerifica, Integer idAccertamento, Integer idIspezione2018) throws SigitextException {
+
+	logger.debug("[ServiceManager::getAzione] BEGIN");
+		
+		List<SigitTAzioneDto> listSigitTAzioneDto = new ArrayList<>();
+		try {
+			if(idVerifica!=null) {
+				listSigitTAzioneDto = getDbServiceImp().getSigitTAzioneDao().findByFkVerifica(idVerifica);
+			}
+			if(idAccertamento!=null) {
+				listSigitTAzioneDto = getDbServiceImp().getSigitTAzioneDao().findByFkAccertamento(idAccertamento);
+			}
+			if(idIspezione2018!=null) {
+				listSigitTAzioneDto = getDbServiceImp().getSigitTAzioneDao().findByFkIspezione2018(idIspezione2018);
+			}
+		} catch (Exception e) {
+			logger.error("[ServiceManager::getAzione] Errore : ", e);
+			throw new SigitextException(e.getMessage(),e);
+		} finally {
+			logger.debug("[ServiceManager::getAzione] END");
+		}
+		return listSigitTAzioneDto;
+		
+	}
+
+	public Integer getMaxNumImpiantiResults() throws SigitextException {
+
+		try {
+			return cercaConfigValueNumerico(Constants.MAX_RIGHE);
+		} catch (Exception e) {
+			logger.error("[ServiceManager::getMaxNumImpiantiResults] Errore : ", e);
+			throw new SigitextException(e.getMessage(),e);
+		}
+	}
+
+	public Integer getCombustyMaxNumImpiantiResults() throws SigitextException {
+
+		try {
+			return cercaConfigValueNumerico(Constants.CIT_COMBUSTY_MAX_RIGHE);
+		} catch (Exception e) {
+			logger.error("[ServiceManager::getMaxNumImpiantiResults] Errore : ", e);
+			throw new SigitextException(e.getMessage(),e);
+		}
+	}
+
 }

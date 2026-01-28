@@ -478,6 +478,8 @@ public class SigitTAccertamentoDaoImpl extends AbstractDAO implements SigitTAcce
 
 		if (ConvertUtil.convertToBooleanAllways(input.isFlgNonAssegnato())) {
 			sql.append(" AND CF_UTENTE_ASSEGN IS NULL");
+		}else if(input.getCfUtenteAssegn() != null){
+			sql.append(" AND CF_UTENTE_ASSEGN = :cfUtenteAssegn");
 		}
 
 		if (GenericUtil.isNotNullOrEmpty(input.getIstatProvincia())) {
@@ -545,6 +547,10 @@ public class SigitTAccertamentoDaoImpl extends AbstractDAO implements SigitTAcce
 		if (GenericUtil.isNotNullOrEmpty(input.getIstatComune())) {
 			paramMap.addValue("istatComune", input.getIstatComune());
 
+		}
+		
+		if(input.getCfUtenteAssegn() != null){
+			paramMap.addValue("cfUtenteAssegn", input.getCfUtenteAssegn());
 		}
 
 		/*PROTECTED REGION END*/
@@ -622,6 +628,34 @@ public class SigitTAccertamentoDaoImpl extends AbstractDAO implements SigitTAcce
 			LOG.debug("[SigitTAccertamentoDaoImpl::findSveglieAttiveByCF] END");
 		}
 		return list;
+	}
+	
+	public String findIstatProvinciaBySiglaProvincia(String siglaProvincia) throws SigitTAccertamentoDaoException {
+		LOG.debug("[SigitTAccertamentoDaoImpl::findIstatProvinciaBySiglaProvincia] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append("SELECT distinct ISTAT_PROV_COMPETENZA FROM SIGIT_T_ACCERTAMENTO  WHERE SIGLA_PROV_COMPETENZA = :siglaProvincia and istat_prov_competenza is not null");
+		
+		log.debug("Execute query: " + sql);
+		paramMap.addValue("siglaProvincia", siglaProvincia);
+
+		/*PROTECTED REGION END*/
+		String response = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+		try {
+			stopWatch.start();
+			response = jdbcTemplate.queryForObject(sql.toString(), paramMap, String.class);
+
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitTAccertamentoDaoImpl::findIstatProvinciaBySiglaProvincia] esecuzione query", ex);
+			throw new SigitTAccertamentoDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitTAccertamentoDaoImpl", "findIstatProvinciaBySiglaProvincia", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitTAccertamentoDaoImpl::findIstatProvinciaBySiglaProvincia] END");
+		}
+		return response;
 	}
 
 }

@@ -188,6 +188,13 @@
               <xs:element name="L3piva" type="xs:string"/>
               <xs:element name="L3flagProprietario" type="xs:boolean"/>
               <xs:element name="L3flagAmministratore" type="xs:boolean"/>
+              <xs:element name="L3idContratto" type="xs:string"/>
+            <xs:element name="L3codiceFiscaleDitta" type="xs:string"/>
+            <xs:element name="L3tacitoRinnovo" type="xs:string"/>
+            <xs:element name="L3dataCessazione" type="xs:date"/>
+            <xs:element name="L3dataCaricamento" type="xs:date"/>
+            <xs:element name="L3dataInserimentoCessazione" type="xs:date"/>
+            <xs:element name="L3tipoCessazione" type="xs:string"/>
               <xs:element name="L3ragSocialeDitta" type="xs:string"/>
               <xs:element name="L3cciaa" type="xs:string"/>
               <xs:element name="L3dataValiditaContrattoDal" type="xs:date"/>

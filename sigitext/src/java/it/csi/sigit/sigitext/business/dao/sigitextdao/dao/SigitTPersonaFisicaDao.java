@@ -1,6 +1,7 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao;
 
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaFisicaDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaFisicaJoinSigitRPfDelegaDto;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitTPersonaFisicaPk;
 import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitTPersonaFisicaDaoException;
 
@@ -46,5 +47,9 @@ public interface SigitTPersonaFisicaDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public SigitTPersonaFisicaDto findByPrimaryKey(SigitTPersonaFisicaPk pk) throws SigitTPersonaFisicaDaoException;
+	
+	public List<SigitTPersonaFisicaJoinSigitRPfDelegaDto> findByIdPersonaGiuridica(Integer idPersonaGiuridica) throws SigitTPersonaFisicaDaoException;
+	
+	public SigitTPersonaFisicaDto findByDenominazione(String denomUtenteAssegnatario) throws SigitTPersonaFisicaDaoException;
 
 }

@@ -19,6 +19,10 @@ public interface UnitaImmobiliareDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<UnitaImmobiliareDto> findByCodiceImpianto(Integer input) throws UnitaImmobiliareDaoException, UnitaImmobiliareDaoException;
+	
+	
+	@SuppressWarnings("unchecked")
+	public UnitaImmobiliareDto findPrincipaleByCodiceImpianto(Integer input) throws UnitaImmobiliareDaoException, UnitaImmobiliareDaoException;
 
 	/** 
 	 * Implementazione del finder byPod

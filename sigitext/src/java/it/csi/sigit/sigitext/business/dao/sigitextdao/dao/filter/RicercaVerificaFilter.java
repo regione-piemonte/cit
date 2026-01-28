@@ -21,9 +21,34 @@ public class RicercaVerificaFilter implements java.io.Serializable {
 	private BigDecimal numeroBollino;
 	private BigDecimal idDatoDistributore;
 	private boolean ricercaAutomatiche;
+	private String denomUtenteCaricamento;	
+	private BigDecimal fkAllegato;
+	
 	
 
-	
+	public BigDecimal getFkAllegato() {
+		return fkAllegato;
+	}
+
+
+
+	public void setFkAllegato(BigDecimal fkAllegato) {
+		this.fkAllegato = fkAllegato;
+	}
+
+
+
+	public String getDenomUtenteCaricamento() {
+		return denomUtenteCaricamento;
+	}
+
+
+
+	public void setDenomUtenteCaricamento(String denomUtenteCaricamento) {
+		this.denomUtenteCaricamento = denomUtenteCaricamento;
+	}
+
+
 
 	public boolean isRicercaAutomatiche() {
 		return ricercaAutomatiche;

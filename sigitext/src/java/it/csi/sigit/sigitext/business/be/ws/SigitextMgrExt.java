@@ -4,18 +4,20 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.be.ws;
 
+import org.apache.log4j.Logger;
+
 import it.csi.csi.wrapper.CSIException;
 import it.csi.csi.wrapper.UnrecoverableException;
 import it.csi.sigit.sigitext.business.SpringApplicationContextHelper;
+import it.csi.sigit.sigitext.business.be.manager.DistributoreManager;
 import it.csi.sigit.sigitext.business.be.manager.SigitextManager;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitExtDaoException;
 import it.csi.sigit.sigitext.business.util.Constants;
-import org.apache.log4j.Logger;
-
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.jws.WebParam;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
+import it.csi.sigit.sigitext.dto.sigitext.DettaglioPersonaGiuridica;
+import it.csi.sigit.sigitext.dto.sigitext.DocXml;
+import it.csi.sigit.sigitext.dto.sigitext.Scheda1;
+import it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException;
+import it.csi.sigit.sigitext.exception.sigitext.SigitextException;
 
 public class SigitextMgrExt {
 
@@ -24,20 +26,23 @@ public class SigitextMgrExt {
 	public SigitextMgrExt() {
 		System.out.println("Costruttore della classe SigitextMgrExt");
 	}
-	
+
 	private SigitextManager getImplSigitextManager() {
 		return (SigitextManager) SpringApplicationContextHelper.getBean("sigitextManager");
 	}
+	
+	private DistributoreManager getImplDistributoreManager() {
+		return (DistributoreManager) SpringApplicationContextHelper.getBean("distributoreManager");
+	}
 
-	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getFluidoCIT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getFluidoCIT( 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { 
 		try {
 
 			logger.debug("[SigitextBean::getFluidoCIT()] - START");
@@ -45,11 +50,13 @@ public class SigitextMgrExt {
 			// inizio misurazione
 			watcher.start();
 
-			it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] valueObjRet = getImplSigitextManager().getFluidoCIT();
+			it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] valueObjRet = getImplSigitextManager()
+					.getFluidoCIT();
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getFluidoCIT()", "invocazione servizio [sigitext]::[getFluidoCIT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getFluidoCIT()", "invocazione servizio [sigitext]::[getFluidoCIT]",
+					"(valore input omesso)");
 			logger.debug("[SigitextBean::getFluidoCIT()] - END");
 
 			return valueObjRet;
@@ -63,22 +70,20 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByCodiceJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByCodiceJWT( 
 
-			java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
+			java.lang.Integer codiceImpianto, 
 
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS 
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getImpiantoByCodiceJWT()] - START");
@@ -96,7 +101,8 @@ public class SigitextMgrExt {
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getImpiantoByCodiceJWT()", "invocazione servizio [sigitext]::[getImpiantoByCodiceJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getImpiantoByCodiceJWT()",
+					"invocazione servizio [sigitext]::[getImpiantoByCodiceJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getImpiantoByCodiceJWT()] - END");
 
 			return valueObjRet;
@@ -110,22 +116,20 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantiByFiltroJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantiByFiltroJWT( 
 
-			it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro impiantoFiltro, //NOSONAR  Reason:EIAS
+			it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro impiantoFiltro, 
 
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getImpiantiByFiltroJWT()] - START");
@@ -143,7 +147,8 @@ public class SigitextMgrExt {
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getImpiantiByFiltroJWT()", "invocazione servizio [sigitext]::[getImpiantiByFiltroJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getImpiantiByFiltroJWT()",
+					"invocazione servizio [sigitext]::[getImpiantiByFiltroJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getImpiantiByFiltroJWT()] - END");
 
 			return valueObjRet;
@@ -157,24 +162,22 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByPODJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByPODJWT( 
 
-			java.lang.String pod, //NOSONAR  Reason:EIAS
+			java.lang.String pod, 
 
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException { 
 		try {
 
 			logger.debug("[SigitextBean::getImpiantoByPODJWT()] - START");
@@ -192,7 +195,8 @@ public class SigitextMgrExt {
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getImpiantoByPODJWT()", "invocazione servizio [sigitext]::[getImpiantoByPODJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getImpiantoByPODJWT()",
+					"invocazione servizio [sigitext]::[getImpiantoByPODJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getImpiantoByPODJWT()] - END");
 
 			return valueObjRet;
@@ -206,33 +210,33 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByPDRJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByPDRJWT( 
 
-			java.lang.String pdr, //NOSONAR  Reason:EIAS
+			java.lang.String pdr, 
 
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException { 
 		try {
 			logger.debug("[SigitextBean::getImpiantoByPDRJWT()] - START");
 			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
 			// inizio misurazione
 			watcher.start();
-			it.csi.sigit.sigitext.dto.sigitext.Impianto[] valueObjRet = getImplSigitextManager().getImpiantoByPDRJWT(pdr, tokenJWT);
+			it.csi.sigit.sigitext.dto.sigitext.Impianto[] valueObjRet = getImplSigitextManager()
+					.getImpiantoByPDRJWT(pdr, tokenJWT);
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getImpiantoByPDRJWT()", "invocazione servizio [sigitext]::[getImpiantoByPDRJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getImpiantoByPDRJWT()",
+					"invocazione servizio [sigitext]::[getImpiantoByPDRJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getImpiantoByPDRJWT()] - END");
 
 			return valueObjRet;
@@ -246,22 +250,20 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.Documento getLibrettoByUIDJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Documento getLibrettoByUIDJWT( 
 
-			java.lang.String uid, //NOSONAR  Reason:EIAS
+			java.lang.String uid, 
 
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getLibrettoByUIDJWT()] - START");
@@ -269,10 +271,12 @@ public class SigitextMgrExt {
 			// inizio misurazione
 			watcher.start();
 
-			it.csi.sigit.sigitext.dto.sigitext.Documento valueObjRet = getImplSigitextManager().getLibrettoByUIDJWT(uid, tokenJWT);
+			it.csi.sigit.sigitext.dto.sigitext.Documento valueObjRet = getImplSigitextManager().getLibrettoByUIDJWT(uid,
+					tokenJWT);
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getLibrettoByUIDJWT()", "invocazione servizio [sigitext]::[getLibrettoByUIDJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getLibrettoByUIDJWT()",
+					"invocazione servizio [sigitext]::[getLibrettoByUIDJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getLibrettoByUIDJWT()] - END");
 			return valueObjRet;
 		} catch (CSIException e) {
@@ -282,7 +286,6 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
 	public boolean isAliveExt() {
 		// TODO Auto-generated method stub
 		logger.debug("[SiceewsMgr::isAliveExt] BEGIN");
@@ -291,37 +294,35 @@ public class SigitextMgrExt {
 		try {
 
 			isAlive = true;
+			return isAlive;
 		} catch (Exception e) {
 			logger.error("[SiceewsMgr::isAliveExt] Errore ", e);
-			//e.printStackTrace();
+			// e.printStackTrace();
 
 			throw e;
 		} finally {
 			logger.debug("[SiceewsMgr::isAliveExt] END");
-			return isAlive;
 
 		}
 
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.Documento getXMLLibrettoNowJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Documento getXMLLibrettoNowJWT( 
 
-			java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
+			java.lang.Integer codiceImpianto, 
 
-			java.lang.Boolean isConsolidato, //NOSONAR  Reason:EIAS
+			java.lang.Boolean isConsolidato, 
 
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getXMLLibrettoNowJWT()] - START");
@@ -341,7 +342,8 @@ public class SigitextMgrExt {
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getXMLLibrettoNowJWT()", "invocazione servizio [sigitext]::[getXMLLibrettoNowJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getXMLLibrettoNowJWT()",
+					"invocazione servizio [sigitext]::[getXMLLibrettoNowJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getXMLLibrettoNowJWT()] - END");
 
 			return valueObjRet;
@@ -352,16 +354,14 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getCombustibileCIT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getCombustibileCIT( 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { 
 		try {
 
 			logger.debug("[SigitextBean::getCombustibileCIT()] - START");
@@ -369,13 +369,15 @@ public class SigitextMgrExt {
 			// inizio misurazione
 			watcher.start();
 
-			it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] valueObjRet = getImplSigitextManager().getCombustibileCIT(
+			it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] valueObjRet = getImplSigitextManager()
+					.getCombustibileCIT(
 
 			);
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getCombustibileCIT()", "invocazione servizio [sigitext]::[getCombustibileCIT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getCombustibileCIT()",
+					"invocazione servizio [sigitext]::[getCombustibileCIT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getCombustibileCIT()] - END");
 
 			return valueObjRet;
@@ -389,16 +391,14 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getMarcaCIT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getMarcaCIT( 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { 
 		try {
 
 			logger.debug("[SigitextBean::getMarcaCIT()] - START");
@@ -412,7 +412,8 @@ public class SigitextMgrExt {
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getMarcaCIT()", "invocazione servizio [sigitext]::[getMarcaCIT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getMarcaCIT()", "invocazione servizio [sigitext]::[getMarcaCIT]",
+					"(valore input omesso)");
 			logger.debug("[SigitextBean::getMarcaCIT()] - END");
 
 			return valueObjRet;
@@ -426,16 +427,14 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getUnitaMisuraCIT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] getUnitaMisuraCIT( 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException { 
 		try {
 
 			logger.debug("[SigitextBean::getUnitaMisuraCIT()] - START");
@@ -443,13 +442,15 @@ public class SigitextMgrExt {
 			// inizio misurazione
 			watcher.start();
 
-			it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] valueObjRet = getImplSigitextManager().getUnitaMisuraCIT(
+			it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[] valueObjRet = getImplSigitextManager()
+					.getUnitaMisuraCIT(
 
 			);
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getUnitaMisuraCIT()", "invocazione servizio [sigitext]::[getUnitaMisuraCIT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getUnitaMisuraCIT()",
+					"invocazione servizio [sigitext]::[getUnitaMisuraCIT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getUnitaMisuraCIT()] - END");
 
 			return valueObjRet;
@@ -463,24 +464,22 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.Libretto getLibrettoNowJWT( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Libretto getLibrettoNowJWT( 
 
-			java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
+			java.lang.Integer codiceImpianto, 
 
-			java.lang.Boolean isConsolidato, //NOSONAR  Reason:EIAS
+			java.lang.Boolean isConsolidato, 
 
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getLibrettoNowJWT()] - START");
@@ -500,7 +499,53 @@ public class SigitextMgrExt {
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getLibrettoNowJWT()", "invocazione servizio [sigitext]::[getLibrettoNowJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getLibrettoNowJWT()",
+					"invocazione servizio [sigitext]::[getLibrettoNowJWT]", "(valore input omesso)");
+			logger.debug("[SigitextBean::getLibrettoNowJWT()] - END");
+
+			return valueObjRet;
+
+		} catch (CSIException e) {
+
+			throw e;
+		} catch (Exception e) {
+
+			throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:" + e, e);
+		}
+	}
+	
+	public Scheda1 getSchedaLibrettoJWT( 
+
+			java.lang.Integer codiceImpianto, 
+
+			java.lang.String tokenJWT 
+
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
+
+
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
+		try {
+
+			logger.debug("[SigitextBean::getLibrettoNowJWT()] - START");
+			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
+			// inizio misurazione
+			watcher.start();
+
+			Scheda1 valueObjRet = getImplSigitextManager().getSchedaLibrettoJWT(
+
+					codiceImpianto,
+
+					tokenJWT
+
+			);
+
+			// fine misurazione
+			watcher.stop();
+			watcher.dumpElapsed("SigitextBean", "getLibrettoNowJWT()",
+					"invocazione servizio [sigitext]::[getLibrettoNowJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getLibrettoNowJWT()] - END");
 
 			return valueObjRet;
@@ -514,26 +559,27 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.Documento getXMLLibrettoConsolidatoJWT( //NOSONAR  Reason:EIAS
-			java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Documento getXMLLibrettoConsolidatoJWT( 
+			java.lang.Integer codiceImpianto, 
+			java.lang.String tokenJWT 
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException,
+			it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 			logger.debug("[SigitextBean::getXMLLibrettoConsolidatoJWT()] - START");
 			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
 			// inizio misurazione
 			watcher.start();
-			it.csi.sigit.sigitext.dto.sigitext.Documento valueObjRet = getImplSigitextManager().getXMLLibrettoConsolidatoJWT(codiceImpianto, tokenJWT);
+			it.csi.sigit.sigitext.dto.sigitext.Documento valueObjRet = getImplSigitextManager()
+					.getXMLLibrettoConsolidatoJWT(codiceImpianto, tokenJWT);
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getXMLLibrettoConsolidatoJWT()", "invocazione servizio [sigitext]::[getXMLLibrettoConsolidatoJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getXMLLibrettoConsolidatoJWT()",
+					"invocazione servizio [sigitext]::[getXMLLibrettoConsolidatoJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getXMLLibrettoConsolidatoJWT()] - END");
 
 			return valueObjRet;
@@ -547,24 +593,22 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public void uploadXMLLibrettoJWT( //NOSONAR  Reason:EIAS
+	public void uploadXMLLibrettoJWT( 
 
-			java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
+			java.lang.Integer codiceImpianto, 
 
-			byte[] xml, //NOSONAR  Reason:EIAS
+			byte[] xml, 
 
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::uploadXMLLibrettoJWT()] - START");
@@ -584,7 +628,8 @@ public class SigitextMgrExt {
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "uploadXMLLibrettoJWT()", "invocazione servizio [sigitext]::[uploadXMLLibrettoJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "uploadXMLLibrettoJWT()",
+					"invocazione servizio [sigitext]::[uploadXMLLibrettoJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::uploadXMLLibrettoJWT()] - END");
 
 		} catch (CSIException e) {
@@ -596,26 +641,24 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public int uploadXMLControlloJWT( //NOSONAR  Reason:EIAS
+	public int uploadXMLControlloJWT( 
 
-			java.lang.Integer codiceImpianto, //NOSONAR  Reason:EIAS
+			java.lang.Integer codiceImpianto, 
 
-			java.lang.String tipoControllo, //NOSONAR  Reason:EIAS
+			java.lang.String tipoControllo, 
 
-			byte[] xml, //NOSONAR  Reason:EIAS
+			byte[] xml, 
 
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
+			java.lang.String tokenJWT 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::uploadXMLControlloJWT()] - START");
@@ -637,7 +680,8 @@ public class SigitextMgrExt {
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "uploadXMLControlloJWT()", "invocazione servizio [sigitext]::[uploadXMLControlloJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "uploadXMLControlloJWT()",
+					"invocazione servizio [sigitext]::[uploadXMLControlloJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::uploadXMLControlloJWT()] - END");
 
 			return valueObjRet;
@@ -651,34 +695,35 @@ public class SigitextMgrExt {
 		}
 	}
 
+	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByIndirizzoJWT( 
 
-	public it.csi.sigit.sigitext.dto.sigitext.Impianto[] getImpiantoByIndirizzoJWT( //NOSONAR  Reason:EIAS
+			java.lang.String indirizzo, 
 
-			java.lang.String indirizzo, //NOSONAR  Reason:EIAS
+			java.lang.Integer civico, 
 
-			java.lang.Integer civico, //NOSONAR  Reason:EIAS
+			java.lang.String istat, 
 
-			java.lang.String istat, //NOSONAR  Reason:EIAS
+			java.lang.String tokenJWT 
 
-			java.lang.String tokenJWT //NOSONAR  Reason:EIAS
-
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
-			, it.csi.sigit.sigitext.exception.sigitext.SigitextException, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException,
+			it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException { 
 		try {
 
 			logger.debug("[SigitextBean::getImpiantoByIndirizzoJWT()] - START");
 			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
 			// inizio misurazione
 			watcher.start();
-			it.csi.sigit.sigitext.dto.sigitext.Impianto[] valueObjRet = getImplSigitextManager().getImpiantoByIndirizzoJWT(indirizzo, civico, istat, tokenJWT);
+			it.csi.sigit.sigitext.dto.sigitext.Impianto[] valueObjRet = getImplSigitextManager()
+					.getImpiantoByIndirizzoJWT(indirizzo, civico, istat, tokenJWT);
 
 			// fine misurazione
 			watcher.stop();
-			watcher.dumpElapsed("SigitextBean", "getImpiantoByIndirizzoJWT()", "invocazione servizio [sigitext]::[getImpiantoByIndirizzoJWT]", "(valore input omesso)");
+			watcher.dumpElapsed("SigitextBean", "getImpiantoByIndirizzoJWT()",
+					"invocazione servizio [sigitext]::[getImpiantoByIndirizzoJWT]", "(valore input omesso)");
 			logger.debug("[SigitextBean::getImpiantoByIndirizzoJWT()] - END");
 
 			return valueObjRet;
@@ -692,26 +737,24 @@ public class SigitextMgrExt {
 		}
 	}
 
-	
-	public it.csi.sigit.sigitext.dto.sigitext.Ruoli getRuoli( //NOSONAR  Reason:EIAS
+	public it.csi.sigit.sigitext.dto.sigitext.Ruoli getRuoli( 
 
-			java.lang.String codiceFiscale, //NOSONAR  Reason:EIAS
+			java.lang.String codiceFiscale, 
 
-			java.lang.String cognome, //NOSONAR  Reason:EIAS
+			java.lang.String cognome, 
 
-			java.lang.String nome //NOSONAR  Reason:EIAS
+			java.lang.String nome 
 
-	) //NOSONAR  Reason:EIAS
-			throws //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.CSIException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.SystemException, //NOSONAR  Reason:EIAS
-			it.csi.csi.wrapper.UnrecoverableException //NOSONAR  Reason:EIAS
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException
 
 			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
 
-	{ //NOSONAR  Reason:EIAS
+	{ 
 		try {
 
 			logger.debug("[SigitextBean::getRuoli()] - START");
@@ -719,11 +762,8 @@ public class SigitextMgrExt {
 			// inizio misurazione
 			watcher.start();
 
-			it.csi.sigit.sigitext.dto.sigitext.Ruoli valueObjRet = getImplSigitextManager().getRuoli(
-					codiceFiscale,
-					cognome,
-					nome
-			);
+			it.csi.sigit.sigitext.dto.sigitext.Ruoli valueObjRet = getImplSigitextManager().getRuoli(codiceFiscale,
+					cognome, nome);
 			// fine misurazione
 			watcher.stop();
 			watcher.dumpElapsed("SigitextBean", "getRuoli()", "invocazione servizio [sigitext]::[getRuoli]",
@@ -740,4 +780,117 @@ public class SigitextMgrExt {
 			throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:" + e, e);
 		}
 	}
+
+	public it.csi.sigit.sigitext.dto.sigitext.ConsumoPodPdr[] getConsumiByPodPdrJWT( 
+
+			java.lang.String podPdr, 
+
+			java.lang.String tokenJWT 
+
+	) 
+			throws 
+			it.csi.csi.wrapper.CSIException, 
+			it.csi.csi.wrapper.UnrecoverableException 
+
+			, it.csi.sigit.sigitext.exception.sigitext.SigitextException
+
+			, it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException
+
+			, it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException { 
+		try {
+
+			logger.debug("[SigitextBean::getConsumiByPodPdrJWT()] - START");
+			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
+			// inizio misurazione
+			watcher.start();
+
+			it.csi.sigit.sigitext.dto.sigitext.ConsumoPodPdr[] valueObjRet = getImplSigitextManager()
+					.getConsumiByPodPdrJWT(
+
+							podPdr,
+
+							tokenJWT
+
+			);
+
+			// fine misurazione
+			watcher.stop();
+			watcher.dumpElapsed("SigitextBean", "getConsumiByPodPdrJWT()",
+					"invocazione servizio [sigitext]::[getConsumiByPodPdrJWT]", "(valore input omesso)");
+			logger.debug("[SigitextBean::getConsumiByPodPdrJWT()] - END");
+
+			return valueObjRet;
+
+		} catch (CSIException e) {
+
+			throw e;
+		} catch (Exception e) {
+
+			throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:" + e, e);
+		}
+	}
+
+	public String[] getComuniPGJWT(String jwt) throws UnrecoverableException, SigitExtDaoException {
+		try {
+			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
+			// inizio misurazione
+			watcher.start();
+			String[] result = getImplSigitextManager().getComuniPGJWT(jwt);
+			// fine misurazione
+			watcher.stop();
+			watcher.dumpElapsed("SigitextBean", "getComuniPGJWT()", "invocazione servizio [sigitext]::[getComuniPG]",
+					"(valore input omesso)");
+			logger.debug("[SigitextBean::getComuniPGJWT()] - END");
+			return result;
+		} catch (Exception e) {
+
+			throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:" + e, e);
+		}
+	}
+
+	public DettaglioPersonaGiuridica[] getManutentoriJWT(String denominazione, String comune, String jwt)
+			throws SigitExcessiveResultsException, UnrecoverableException, SigitextException {
+		try {
+			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
+			// inizio misurazione
+			watcher.start();
+			DettaglioPersonaGiuridica[] result = getImplSigitextManager().getManutentoriJWT(denominazione, comune, jwt);
+			// fine misurazione
+			watcher.stop();
+			watcher.dumpElapsed("SigitextBean", "getManutentoriJWT()",
+					"invocazione servizio [sigitext]::[getManutentori]", "(denominazione, comune)");
+			logger.debug("[SigitextBean::getManutentoriJWT()] - END");
+			return result;
+		} catch (SigitExcessiveResultsException e) {
+
+			throw e;
+		} catch (Exception e) {
+
+			throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:" + e, e);
+		}
+	}
+
+	public void uploadXmlDistributoreJWT(String nomeFile, byte[] xml, String tokenJWT) 
+			throws SigitextException, UnrecoverableException {
+		try {
+			logger.info("[SigitextBean::uploadXmlDistributoreJWT()] - START");
+
+			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch("sigitext");
+			// inizio misurazione
+			watcher.start();
+			getImplDistributoreManager().uploadXmlDistributoreJWT(nomeFile, xml, tokenJWT);
+			// fine misurazione
+			watcher.stop();
+			watcher.dumpElapsed("SigitextBean", "uploadXmlDistributoreJWT()",
+					"invocazione servizio [sigitext]::[uploadXmlDistributoreJWT]", "(nomeFile, xml, tokenJWT)");
+			logger.info("[SigitextBean::uploadXmlDistributoreJWT()] - END");
+		} catch (SigitextException e) {
+
+			throw e;
+		} catch (Exception e) {
+
+			throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:" + e, e);
+		}
+	}
+
 }

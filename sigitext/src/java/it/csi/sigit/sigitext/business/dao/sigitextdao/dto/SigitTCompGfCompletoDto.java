@@ -107,11 +107,11 @@ public class SigitTCompGfCompletoDto extends SigitTCompGfPk {
 		this.fluidoFrigorigeno = fluidoFrigorigeno;
 	}
 
-	public BigDecimal getnCircuiti() {
+	public BigDecimal getNCircuiti() {
 		return nCircuiti;
 	}
 
-	public void setnCircuiti(BigDecimal nCircuiti) {
+	public void setNCircuiti(BigDecimal nCircuiti) {
 		this.nCircuiti = nCircuiti;
 	}
 

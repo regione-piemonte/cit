@@ -1,16 +1,18 @@
 package it.csi.sigit.sigitext.business.dao.sigitextdao.dao.impl;
 
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitVTotImpiantoDao;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitVTotImpiantoDaoRowMapper;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVTotImpiantoDto;
-import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVTotImpiantoDaoException;
-import it.csi.sigit.sigitext.business.dao.util.Constants;
-import it.csi.util.performance.StopWatch;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.util.List;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.SigitVTotImpiantoDao;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dao.mapper.SigitVTotImpiantoDaoRowMapper;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVTotImpiantoCercaUbicazioneImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.dto.SigitVTotImpiantoDto;
+import it.csi.sigit.sigitext.business.dao.sigitextdao.exceptions.SigitVTotImpiantoDaoException;
+import it.csi.sigit.sigitext.business.dao.util.Constants;
+import it.csi.util.performance.StopWatch;
 
 /*PROTECTED REGION ID(R93081347) ENABLED START*/
 // aggiungere qui eventuali import custom. 
@@ -39,6 +41,9 @@ public class SigitVTotImpiantoDaoImpl extends AbstractDAO implements SigitVTotIm
 	 * @generated
 	 */
 	protected NamedParameterJdbcTemplate jdbcTemplate;
+	
+	protected SigitVTotImpiantoDaoRowMapper cercaUbicazioneImpiantoRowMapper = new SigitVTotImpiantoDaoRowMapper(null,
+			SigitVTotImpiantoCercaUbicazioneImpiantoDto.class, this);
 
 	/**
 	 * Imposta il JDBC template utilizato per l'implementazione delle query
@@ -202,6 +207,48 @@ public class SigitVTotImpiantoDaoImpl extends AbstractDAO implements SigitVTotIm
 			stopWatch.dumpElapsed("SigitVTotImpiantoDaoImpl", "findResponsabiliAttiviAllaDataByCodiceImpianto",
 					"esecuzione query", sql.toString());
 			LOG.debug("[SigitVTotImpiantoDaoImpl::findResponsabiliAttiviAllaDataByCodiceImpianto] END");
+		}
+		return list;
+	}
+	
+	public List<SigitVTotImpiantoCercaUbicazioneImpiantoDto> findCercaUbicazioneImpianto(java.lang.Integer input)
+			throws SigitVTotImpiantoDaoException {
+		LOG.debug("[SigitVTotImpiantoDaoImpl::findCercaUbicazioneImpianto] START");
+		StringBuilder sql = new StringBuilder();
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		sql.append(
+				"SELECT vTotImpianto.CODICE_IMPIANTO as codiceImpianto, vTotImpianto.SIGLA_PROVINCIA as siglaProvincia, vTotImpianto.ISTAT_COMUNE as istatComune, vTotImpianto.DENOMINAZIONE_PROVINCIA as provincia, vTotImpianto.DENOMINAZIONE_COMUNE as comune, vTotImpianto.INDIRIZZO_SITAD as indirizzo, vTotImpianto.CIVICO as civico");
+
+		sql.append(" FROM VISTA_TOT_IMPIANTO vTotImpianto");
+
+		sql.append(" WHERE ");
+
+		sql.append("1=1");
+		/*PROTECTED REGION ID(R-772025140) ENABLED START*///inserire qui i parametri indicati nella espressione di where, ad esempio:
+
+		sql.append(" AND vTotImpianto.CODICE_IMPIANTO = :codiceImpianto");
+		sql.append(" AND FLG_PRINCIPALE = 1  ");
+		paramMap.addValue("codiceImpianto", input);
+
+		LOG.debug("[SigitVTotImpiantoDaoImpl::findCercaUbicazioneImpianto] query: " + sql);
+		LOG.debug("[SigitVTotImpiantoDaoImpl::findCercaUbicazioneImpianto] input: " + input);
+
+		/*PROTECTED REGION END*/
+
+		List<SigitVTotImpiantoCercaUbicazioneImpiantoDto> list = null;
+		StopWatch stopWatch = new StopWatch(Constants.APPLICATION_CODE);
+
+		try {
+			stopWatch.start();
+			list = jdbcTemplate.query(sql.toString(), paramMap, cercaUbicazioneImpiantoRowMapper);
+		} catch (RuntimeException ex) {
+			LOG.error("[SigitVTotImpiantoDaoImpl::findCercaUbicazioneImpianto] ERROR esecuzione query", ex);
+			throw new SigitVTotImpiantoDaoException("Query failed", ex);
+		} finally {
+			stopWatch.dumpElapsed("SigitVTotImpiantoDaoImpl", "findCercaUbicazioneImpianto", "esecuzione query",
+					sql.toString());
+			LOG.debug("[SigitVTotImpiantoDaoImpl::findCercaUbicazioneImpianto] END");
 		}
 		return list;
 	}

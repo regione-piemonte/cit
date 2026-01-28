@@ -4,6 +4,9 @@
  *******************************************************************************/
 package it.csi.sigit.sigitext.business.util;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * <p>Classe delle costanti applicative.</p>
  *
@@ -14,15 +17,18 @@ public final class Constants {
 	 * identificativo dell'applicativo.
 	 */
 
-	public final static String COMPONENT_NAME = "sigitext";
+	public static final String COMPONENT_NAME = "sigitext";
 	public static final String APPLICATION_CODE = "sigitext";
 	public static final String ERRORE_GESTITO = "Errore gestito";
 	public static final String ERRORE_GENERICO = "Errore generico";
 
-	public final static String UTF_8_ENCODING = "UTF-8";
-	public final static String MIME_TYPE_PDF = "application/pdf";
-	public final static String MIME_TYPE_XML = "application/x-download";
-	public final static String MIME_TYPE_APPLICATION_XML = "application/xml";
+	public static final String UTF_8_ENCODING = "UTF-8";
+	public static final String MIME_TYPE_PDF = "application/pdf";
+	public static final String MIME_TYPE_JPG = "image/jpg";
+	public static final String MIME_TYPE_JPEG = "image/jpeg";
+	public static final String MIME_TYPE_PNG = "image/png";
+	public static final String MIME_TYPE_XML = "application/x-download";
+	public static final String MIME_TYPE_APPLICATION_XML = "application/xml";
 
 	public static final String FILE_PREFIX_TRACCIATO = "Tracciato";
 	public static final String FILE_PREFIX_LIBRETTO = "Libretto";
@@ -48,13 +54,16 @@ public final class Constants {
 	public static final int ID_FUNZ_CERCA_IMPIANTO_BY_POD = 2;
 	public static final int ID_FUNZ_CERCA_IMPIANTO_BY_PDR = 3;
 	public static final int ID_FUNZ_CERCA_LIBRETTO_BY_UID = 4;
-	public static final int ID_FUNZ_CERCA_IMPIANTO_BY_INDIRIZZO = 11;
 	public static final int ID_FUNZ_GET_LIBRETTO_NOW = 5;
 	public static final int ID_FUNZ_GET_XML_LIBRETTO_NOW = 6;
 	public static final int ID_FUNZ_GET_XML_LIBRETTO_CONSOLIDATO = 7;
 	public static final int ID_FUNZ_UPLOAD_XML_LIBRETTO = 8;
 	public static final int ID_FUNZ_UPLOAD_XML_CONTROLLO = 9;
 	public static final int ID_FUNZ_GET_IMPIANTI_BY_FILTRO = 10;
+	public static final int ID_FUNZ_CERCA_IMPIANTO_BY_INDIRIZZO = 11;
+	public static final int ID_FUNZ_CERCA_CONSUMI_BY_PODPDR = 12;
+	public static final int ID_FUNZ_CERCA_MANUTENTORI = 13;
+	public static final int ID_FUNZ_UPLOAD_XML_DISTRIBUTORE = 15;
 	public static final Integer ID_RUOLO_CARICATORE = 3;
 	public static final String DESC_ESITO_POSITIVO = "POSITIVO";
 	public static final String DESC_ESITO_NEGATIVO = "NEGATIVO";
@@ -68,9 +77,10 @@ public final class Constants {
 	public static final String DESC_ALLEGATO_RAPPROVA_FIRMATO = "RAPFIRMA";
 
 	public static final String CIT_ACCERTAMENTO_AUTOMATICO_IMP_NON_SICURO = "CIT_ACCERTAMENTO_AUTOMATICO_IMP_NON_SICURO";
+	public static final String CIT_UTENTI_AUTORIZZATI = "CIT_UTENTI_AUTORIZZATI";
 
-	public final static String VALUE_ENTER_HTML = "<BR>";
-	public final static String VALUE_ENTER_TXT = "\n";
+	public static final String VALUE_ENTER_HTML = "<BR>";
+	public static final String VALUE_ENTER_TXT = "\n";
 	public static final String KO_PG = "ko_pg";
 
 	// LABEL PG
@@ -88,7 +98,7 @@ public final class Constants {
 	public static final String COD_TIPO_IMPIANTO_CENTRALIZZATO = "C";
 	public static final String COD_TIPO_IMPIANTO_AUTONOMO = "A";
 
-	public final static int MAX_MOTIVAZIONE_IMPIANTO_LEN = 500;
+	public static final int MAX_MOTIVAZIONE_IMPIANTO_LEN = 500;
 
 	public static final String INDEX_USERNAME_READ = "admin@sigit";
 	public static final String INDEX_PSW = "sigit";
@@ -111,6 +121,10 @@ public final class Constants {
 	public static final String INDEX_PREFIX_FOLDER = "cm:folder";
 	public static final String INDEX_SIGIT_PREFIX_MODEL = "sigit:sigitContent";
 	public static final String INDEX_TYPE_TEXT = "d:text";
+	public static final String INDEX_FOLDER_DISTRIBUTORI = "distributori";
+	public static final String INDEX_ROOT_DISTRIBUTORI = "/app:company_home/cm:distributori";
+	public static final String INDEX_FRUITORE_DISTRIBUTORE = "distributori";
+	public static final String INDEX_DISTRIBUTORI_PREFIX_MODEL = "distributori:distributoriContent";
 
 	public static final String MAX_RISULTATI_WS = "MAX_RISULTATI_WS";
 	public static final String MAX_BYTE_TOPDFA = "MAX_BYTE_TOPDFA";
@@ -120,9 +134,9 @@ public final class Constants {
 	 */
 	public static final String DATA = "^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$";
 	public static final String OK = "OK";
-	public final static int MAX_CODICE_IMPIANTO_LEN = 11;
+	public static final int MAX_CODICE_IMPIANTO_LEN = 11;
 	public static final int PARTITA_IVA_LEN = 11;
-	public final static String DATO_NON_DISPONIBILE_S = "0";
+	public static final String DATO_NON_DISPONIBILE_S = "0";
 
 	public static String LABEL_SI = "Si";
 
@@ -156,7 +170,15 @@ public final class Constants {
 
 	// RUOLO RESPONSABILE IMPRESA
 	public static final String RUOLO_RESPONSABILE_IMPRESA = "RESPONSABILE IMPRESA/ENTE";
-
+	
+	public static final String RUOLO_CESSAZIONE = "CESSAZIONE";
+	public static final String RUOLO_PROROGA = "PROROGA";
+	public static final String RUOLO_NOMINA = "NOMINA";
+	public static final String CONSOLIDAMENTO_PER_ANNULLAMENTO = "CONSOLIDAMENTO_PER_ANNULLAMENTO";
+	public static final String CONSOLIDAMENTO_PER_ANNULLAMENTO_ISPEZIONE = "CONSOLIDAMENTO_PER_ANNULLAMENTO_ISPEZIONE";
+	public static final String CONSOLIDAMENTO_PER_NUOVA_ISPEZIONE = "CONSOLIDAMENTO_PER_NUOVA_ISPEZIONE";
+	public static final String CONSOLIDAMENTO_PER_SUBENTRO_RESPONSABILE = "CONSOLIDAMENTO_PER_SUBENTRO_RESPONSABILE";
+	
 	// RUOLO PROPRIETARIO IMPRESA
 	public static final String RUOLO_PROPRIETARIO_IMPRESA = "PROPRIETARIO IMPRESA/ENTE";
 
@@ -196,24 +218,26 @@ public final class Constants {
 	public static final String CAT_RUOLO_DISTRIBUTORE = CAT_RUOLO_PREFISSO + RUOLO_DISTRIBUTORE;
 
 	// ID RUOLO ISPETTORE
-	public final static int ID_RUOLO_ISPETTORE = 2;
+	public static final int ID_RUOLO_ISPETTORE = 2;
 
 	// ID RUOLO PROPRIETARIO
-	public final static int ID_RUOLO_PROPRIETARIO = 4;
+	public static final int ID_RUOLO_PROPRIETARIO = 4;
 
 	// ID RUOLO PROPRIETARIO
-	public final static int ID_RUOLO_OCCUPANTE = 5;
+	public static final int ID_RUOLO_OCCUPANTE = 5;
+	
+	public static final int ID_SUBENTRO_RESPONSABILE = 6;
 
 	// ID RUOLO RESPONSABILE IMPRESA PROPRIETARIO
-	public final static int ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO = 10;
+	public static final int ID_RUOLO_RESPONSABILE_IMPRESA_PROPRIETARIO = 10;
 	// ID RUOLO RESPONSABILE IMPRESA OCCUPANTE
-	public final static int ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE = 11;
+	public static final int ID_RUOLO_RESPONSABILE_IMPRESA_OCCUPANTE = 11;
 	// ID RUOLO RESPONSABILE IMPRESA AMMINISTRATORE
-	public final static int ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE = 12;
+	public static final int ID_RUOLO_RESPONSABILE_IMPRESA_AMMINISTRATORE = 12;
 	// ID RUOLO AMMINISTRATORE
-	public final static int ID_RUOLO_AMMINISTRATORE = 13;
+	public static final int ID_RUOLO_AMMINISTRATORE = 13;
 
-	public final static String DESC_PG_RUOLO_ISPETTORE = "ENTE ISPETTORE";
+	public static final String DESC_PG_RUOLO_ISPETTORE = "ENTE ISPETTORE";
 
 	public static final int ID_STATO_ISPEZIONE_BOZZA = 1;
 	public static final int ID_STATO_ISPEZIONE_CONSOLIDATO = 2;
@@ -284,7 +308,7 @@ public final class Constants {
 	public static final String TIPO_COMPONENTE_VM = "VM";
 	public static final String TIPO_COMPONENTE_VX = "VX";
 
-	public final static String DESC_ISPEZIONE = "ISPEZIONE";
+	public static final String DESC_ISPEZIONE = "ISPEZIONE";
 
 	public static final String TIPO_CONSUMO_CB = "14.1";
 	public static final String TIPO_CONSUMO_EE = "14.2";
@@ -306,7 +330,7 @@ public final class Constants {
 	public static final String MANUTENZIONE_SC = "12";
 	public static final String MANUTENZIONE_CG = "13";
 
-	public final static int MAX_2030_LEN = 2030;
+	public static final int MAX_2030_LEN = 2030;
 
 	public static final int ID_STATO_LIBRETTO_BOZZA = 1;
 	public static final int ID_STATO_LIBRETTO_CONSOLIDATO = 2;
@@ -326,17 +350,17 @@ public final class Constants {
 	public static final String DESC_TABELLA_FLUIDO = "Fluido";
 
 	// ID RUOLO MANUTENTORE
-	public final static int ID_RUOLO_MANUTENTORE_ALL_1 = 6;
-	public final static int ID_RUOLO_MANUTENTORE_ALL_2 = 7;
-	public final static int ID_RUOLO_MANUTENTORE_ALL_3 = 8;
-	public final static int ID_RUOLO_MANUTENTORE_ALL_4 = 9;
+	public static final int ID_RUOLO_MANUTENTORE_ALL_1 = 6;
+	public static final int ID_RUOLO_MANUTENTORE_ALL_2 = 7;
+	public static final int ID_RUOLO_MANUTENTORE_ALL_3 = 8;
+	public static final int ID_RUOLO_MANUTENTORE_ALL_4 = 9;
 
 	public static final String TIPO_OPERAZIONE_DB_DELETE = "DELETE";
 
 	public static final String XML_IMPORT_SCHEMA_DIR = "schemaorg_apache_xmlbeans/src/src/adobe/schemas/";
 	public static final String FILE_IMPORT_LIBRETTO = "Import-Libretto-1.2.0.xsd";
 	public static final String FILE_IMPORT_ALLEGATO_II = "Import-AllegatoII-1.0.3.xsd";
-	public static final String FILE_IMPORT_ALLEGATO_IIB = "Import-AllegatoIIB-1.0.2.xsd";
+	public static final String FILE_IMPORT_ALLEGATO_IIB = "Import-AllegatoIIB-1.0.3.xsd";
 	public static final String FILE_IMPORT_ALLEGATO_III = "Import-AllegatoIII-1.0.3.xsd";
 	public static final String FILE_IMPORT_ALLEGATO_IV = "Import-AllegatoIV-1.0.2.xsd";
 	public static final String FILE_IMPORT_ALLEGATO_V = "Import-AllegatoV-1.0.2.xsd";
@@ -353,6 +377,7 @@ public final class Constants {
 	public static final String XML_IMPORT_MANUT_GF_SCHEMA_DIR = XML_IMPORT_SCHEMA_DIR + FILE_IMPORT_MANUT_GF;
 	public static final String XML_IMPORT_MANUT_SC_SCHEMA_DIR = XML_IMPORT_SCHEMA_DIR + FILE_IMPORT_MANUT_SC;
 	public static final String XML_IMPORT_MANUT_CG_SCHEMA_DIR = XML_IMPORT_SCHEMA_DIR + FILE_IMPORT_MANUT_CG;
+	public static final String FILE_IMPORT_DISTRIBUTORE = ".xsd";
 
 	public static final int ID_STATO_IMPRESA_ATTIVA = 1;
 	public static final int ID_STATO_IMPRESA_CESSATA = 2;
@@ -362,7 +387,7 @@ public final class Constants {
 	public static final String MISURA_METRI_CUBI_ORARI = "m3/h";
 	public static final String MISURA_KILOGRAMMI_ORARI = "Kg/h";
 
-	public final static int MAX_1000_LEN = 1000;
+	public static final int MAX_1000_LEN = 1000;
 
 	public static final String SIGLA_BOLLINO_RP = "RP";
 
@@ -382,34 +407,36 @@ public final class Constants {
 
 	public static final String CODICE_FRUITORE_SIGIT = "SIGIT";
 
+	public static final String CODICE_FRUITORE_ESTERNO_APPLICATIVO = "BEP";
+
 	public static final int ID_USER_WS_FRUITORI_ESTERNI = 0;
 
 	// STATO IMPIANTO DEFAULT ATTIVO
-	public final static String STATO_IMPIANTO_DEFAULT = "Attivo";
+	public static final String STATO_IMPIANTO_DEFAULT = "Attivo";
 
-	public final static int ID_TIPO_CONSUMO_1B_ACQUA_REINTEGRO = 1;
-	public final static int ID_TIPO_CONSUMO_1B_CONSUMO_BIOMASSA = 2;
+	public static final int ID_TIPO_CONSUMO_1B_ACQUA_REINTEGRO = 1;
+	public static final int ID_TIPO_CONSUMO_1B_CONSUMO_BIOMASSA = 2;
 
-	public final static String TIPO_IMPIANTO_CENTRALIZZATO = "C";
-	public final static String TIPO_IMPIANTO_AUTONOMO = "A";
+	public static final String TIPO_IMPIANTO_CENTRALIZZATO = "C";
+	public static final String TIPO_IMPIANTO_AUTONOMO = "A";
 
-	public final static int ID_TIPO_CANNA_FUMARIA_UNI_10640 = 1;
-	public final static int ID_TIPO_CANNA_FUMARIA_UNI_10641 = 2;
-	public final static int ID_TIPO_CANNA_FUMARIA_SCARICO_PARETE = 3;
-	public final static int ID_TIPO_CANNA_FUMARIA_DEDICATA = 4;
-	public final static int ID_RUOLO_PROPRIETARIO_PROPRIETARIO_IMPRESA = 16;
-	public final static int ID_RUOLO_PROPRIETARIO_PROPRIETARIO = 15;
+	public static final int ID_TIPO_CANNA_FUMARIA_UNI_10640 = 1;
+	public static final int ID_TIPO_CANNA_FUMARIA_UNI_10641 = 2;
+	public static final int ID_TIPO_CANNA_FUMARIA_SCARICO_PARETE = 3;
+	public static final int ID_TIPO_CANNA_FUMARIA_DEDICATA = 4;
+	public static final int ID_RUOLO_PROPRIETARIO_PROPRIETARIO_IMPRESA = 16;
+	public static final int ID_RUOLO_PROPRIETARIO_PROPRIETARIO = 15;
 
-	public final static int ID_RUOLO_PA_VALIDATORE = 4;
+	public static final int ID_RUOLO_PA_VALIDATORE = 4;
 
 	public static final int ID_TIPO_AZIONE_VERIFICA = 1;
 	public static final int ID_TIPO_AZIONE_ACCERTAMENTO = 2;
 	public static final int ID_TIPO_AZIONE_ISPEZIONE = 3;
 	public static final int ID_TIPO_AZIONE_SANZIONE = 4;
 
-	public final static int ID_STATO_ACCERTAMENTO_IN_CORSO = 1;
-	public final static int ID_STATO_ACCERTAMENTO_CONCLUSO = 2;
-	public final static int ID_STATO_ACCERTAMENTO_ANNULLATO = 3;
+	public static final int ID_STATO_ACCERTAMENTO_IN_CORSO = 1;
+	public static final int ID_STATO_ACCERTAMENTO_CONCLUSO = 2;
+	public static final int ID_STATO_ACCERTAMENTO_ANNULLATO = 3;
 
 	public static String MAIL_HOST = "mail.host";
 
@@ -420,16 +447,16 @@ public final class Constants {
 
 	public static final String WEB_MAIL_IND_MITT = "WEB_MAIL_IND_MITT";
 
-	public final static String ID_TUTTE = "-1";
-	public final static String DESC_TUTTE = "TUTTE";
-	public final static String DESC_TUTTI = "TUTTI";
-	public final static int DATO_NON_DISPONIBILE = 0;
+	public static final String ID_TUTTE = "-1";
+	public static final String DESC_TUTTE = "TUTTE";
+	public static final String DESC_TUTTI = "TUTTI";
+	public static final int DATO_NON_DISPONIBILE = 0;
 	public static String FLAG_ACCREDITATO_A = "A";
 	public static final String COD_ISTAT_PIEMONTE = "01";
 	public static final String DATA_MAX_INST_VALVOLE = "DATA_MAX_INST_VALVOLE";
 	public static final int MB_IN_BYTE = 1048576;
 	public static final int ID_MOTIVO_CONSOLIDAMENTO_INVIO_RAPP_CONTROLLO = 2;
-	public final static int ID_PG_RUOLO_ISPETTORE = -3;
+	public static final int ID_PG_RUOLO_ISPETTORE = -3;
 	public static final int ID_STATO_BOZZA = 1;
 	public static final int ID_STATO_CONSOLIDATO = 2;
 	public static final int ID_STATO_STORICIZZATO = 3;
@@ -446,14 +473,94 @@ public final class Constants {
 
 	public static final int ID_MOTIVO_CONSOLIDAMENTO_ESP_UTENTE = 1;
 	public static final int ID_MOTIVO_CONSOLIDAMENTO_COMP_SCHEDA_1_14 = 8;
+	public static final int ID_MOTIVO_CONSOLIDAMENTO_5 = 5;
+	public static final int ID_MOTIVO_CONSOLIDAMENTO_13 = 13;
+	public static final int ID_MOTIVO_CONSOLIDAMENTO_4 = 4;
+	public static final int ID_CONSOLIDAMENTO_PER_ANNULLAMENTO_ISPEZIONE=10;
+	public static final int ID_CONSOLIDAMENTO_PER_NUOVA_ISPEZIONE=9;
 	
 	//API MANAGER GWEECOSIS
-	public final static String APIMAN_TOKEN_URL = "apimanager.gwecosis.token.url";
-	public final static String APIMAN_TOKEN_CONSUMERKEY = "apimanager.gwecosis.token.consumerkey";
-	public final static String APIMAN_TOKEN_CONSUMERSECRET = "apimanager.gwecosis.token.consumersecret";
-	public final static int APIMAN_TIMEOUT = 10000;
+	public static final String APIMAN_TOKEN_URL = "apimanager.gwecosis.token.url";
+	public static final String APIMAN_TOKEN_CONSUMERKEY = "apimanager.gwecosis.token.consumerkey";
+	public static final String APIMAN_TOKEN_CONSUMERSECRET = "apimanager.gwecosis.token.consumersecret";
+	public static final int APIMAN_TIMEOUT = 10000;
 	
 	//SVISTA
-	public final static String SVISTA_WSDL_URL = "svista.wsdl.url";
+	public static final String SVISTA_WSDL_URL = "svista.wsdl.url";
+	
+	public static final String EPSG_4326 = "EPSG:4326";
+	
+	public static final String INDIRIZZO_CARICATO_PWA = "-1";
 
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_RESP = "{{dati_responsabile}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_VIA_RESP = "{{via_responsabile}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_CAP_RESP = "{{cap_responsabile}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_EMAIL_RESP = "{{email_responsabile}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DESCR_RESP = "{{descr_dati_resp}}";
+
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_TERZO_RESP = "{{dati_terzo_resp}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_VIA_TERZO_RESP = "{{via_terzo_resp}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_CAP_TERZO_RESP = "{{cap_terzo_resp}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_EMAIL_TERZO_RESP = "{{email_terzo_resp}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DESCR_TERZO_RESP = "{{descr_dati_terzo_resp}}";
+
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_NOCIT = "{{nocit_denom_fatt}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_VIA_NOCIT = "{{nocit_indirizzo_fatt}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_COMUNE_NOCIT = "{{nocit_comune_fatt_tot}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DESCR_NOCIT = "{{descr_no_cit}}";
+	
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_CONCATENATI_MANUT = "{{dati_concatenati_manutentori}}";
+	
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DATI_PC = "{{dati_pc}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_VIA_PC = "{{via_pc}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_CAP_PC = "{{cap_pc}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_EMAIL_PC = "{{email_pc}}";
+
+	public static final String LETTERA_AVVISO_PLACEHOLDER_ANNO_GAU = "{{anno_gau}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_CODICE_IMPIANTO = "{{codice_impianto}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_COMUNE_IMPIANTO = "{{comune_impianto}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_PROVINCIA_IMPIANTO = "{{provincia_impianto}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_INDIRIZZO_IMPIANTO = "{{indirizzo_impianto}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_CIVICO_IMPIANTO = "{{civico_impianto}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_DATA_ISPEZIONE = "{{data_ispezione}}";
+	public static final String LETTERA_AVVISO_PLACEHOLDER_ORA_ISPEZIONE = "{{ora_ispezione}}";
+
+	public static final String CIT_PREFIX_LINK_DETTAGLIO_IMPIANTO = "CIT_PREFIX_LINK_DETTAGLIO_IMPIANTO";
+	
+	public static final int MAX_NOME_FILE_LEN = 50;
+	public static final String MAX_MB_DOC = "MAX_MB_DOC";
+	public static final int IMPIANTO = 1;
+	public static final int DATO_DISTRIBUTORE = 4;
+	public static final int MAX_MB_DOC_DISTRIBUTORE_EXT = 103;
+	
+	public static final String DATA_CONTROLLO_OBBLIGATORIETA_REE_TIPO_1B = "22/04/2022";
+
+	public final static int ID_FREQ_SEMESTRALE = 1;
+	public final static int ID_FREQ_ANNUALE = 2;
+	public final static int ID_FREQ_BIENNALE = 3;
+	public final static int ID_FREQ_ALTRO = 4;
+	
+	public final static String DESC_ALTRO = "Altro";
+	
+	public static final String FLAG_REGOLARE = "R";
+	public static final String FLAG_IRREGOLARE = "I";
+	public static final String FLAG_NA = "N";
+	
+	public static final String FLAG_EVACUAZIONE_FUMI_FORZATA = "F";
+	public static final String FLAG_EVACUAZIONE_FUMI_NATURALE = "N";
+
+	public static final String FLAG_MODALITA_RAFFRESCAMENTO = "RAF";
+	public static final String FLAG_MODALITA_RISCALDAMENTO = "RIS";
+	
+	public final static int ID_CLASS_DPR660_96_STANDARD = 1;
+	public final static int ID_CLASS_DPR660_96_BASSA_TEMP = 2;
+	public final static int ID_CLASS_DPR660_96_GAS_CONDENS = 3;
+	
+	public static final int COD_IMPIANTO_VUOTO = 0;
+
+	public static final List<String> ESTENSIONI_SCANSIONE_RAPPROVA = Arrays.asList("pdf", "jpg", "jpeg", "png");
+	public static final List<String> ESTENSIONI_RAPPROVA_FIRMATO = Arrays.asList("pdf", "p7m");
+	
+	public static final String MAX_RIGHE = "MAX_RIGHE";
+	public static final String CIT_COMBUSTY_MAX_RIGHE = "CIT_COMBUSTY_MAX_RIGHE";
 }
