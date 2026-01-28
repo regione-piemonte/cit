@@ -1,0 +1,84 @@
+<mat-sidenav-container autosize>
+    <mat-sidenav #sidenav #drawer mode="over" [fixedInViewport]="true">
+        <div style="display: flex; justify-content: space-between;">
+            <div class="logo">
+                <img [src]="logo_blu" alt="logoblu">
+            </div>
+            <div style="margin: 10px;">
+                <button class="btn-close-sidebar" (click)="sidenav.toggle()">&#10005;</button>
+            </div>
+        </div>
+        <mat-nav-list *ngIf="!isPaginaImpresa()">
+            <mat-list-item *ngxPermissionsOnly="'ELENCO_DATI_INVIATI'" color="primary" class="sidenav-list-item" (click)="navigateElencoDatiInviati(sidenav)">
+                <img [src]="elenco_dati_inviati" alt="Elenco dati inviati">
+                <p style="padding-left: 6px;" class="primary-color">Elenco dati inviati</p>
+            </mat-list-item>
+            <mat-list-item *ngxPermissionsOnly="'CERCA_IMPRESE'" color="primary" class="sidenav-list-item" (click)="navigateCercaImprese(sidenav)">
+                <img [src]="cerca_imprese" alt="Cerca impresa">
+                <p style="padding-left: 4px;" class="primary-color">Cerca imprese</p>
+            </mat-list-item>
+            <mat-list-item *ngxPermissionsOnly="'CARICAMENTO_MANUALE_SEMPLIFICATO'" color="primary" class="sidenav-list-item" (click)="navigateCaricamentoManuale(sidenav)">
+                <img [src]="caricamento_manuale_semplificato" alt="Caricamento manuale">
+                <p class="primary-color">Caricamento manuale semplificato</p>
+            </mat-list-item>
+            <mat-list-item *ngxPermissionsOnly="'IMPORTAZIONE_XML'" color="primary" class="sidenav-list-item" (click)="navigateImportazioneFileXML(sidenav)">
+                <img [src]="importazione_file_XML" alt="Importazione file XML">
+                <p class="primary-color">Importazione file XML</p>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <div class="centered-container-header">
+          <button class="header-icon" *ngIf="!isDisponibilitaServizioPage()" mat-icon-button (click)="drawer.toggle()">
+            <mat-icon class="custom-mat-icon">menu</mat-icon>
+          </button>
+          <img [src]="logo_menu" alt="CIT" class="logo-menu">
+          <span style="flex: 1 1 auto"></span>
+          <button mat-icon-button [matMenuTriggerFor]="helpMenu">
+            <mat-icon>help</mat-icon>
+          </button>
+          <button mat-icon-button [matMenuTriggerFor]="usermenu">
+            <mat-icon class="big-icon">circle</mat-icon>
+            <span class="text-over-icon">{{inizialiProfilo}}</span>
+          </button>
+        </div>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+      <app-footer2></app-footer2>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-menu #helpMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+    <mat-nav-list>
+        <mat-list-item class="menu-list-item" (click)="openFaq()">
+            <p class="primary-color def-elem">FAQ</p>
+        </mat-list-item>
+        <mat-list-item class="menu-list-item" (click)="openManuale()">
+            <p class="primary-color def-elem">MANUALE</p>
+        </mat-list-item>
+        <mat-list-item class="menu-list-item" (click)="openAssistenza()">
+            <p class="primary-color def-elem">ASSISTENZA</p>
+        </mat-list-item>
+    </mat-nav-list>
+</mat-menu>
+
+<mat-menu #usermenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+    <mat-nav-list>
+        <mat-list-item color="primary" class="menu-list-item" routerLink="ruoli">
+            <img [src]="ruolo_blu" alt="ruolo">
+            <p class="primary-color">Cambia ruolo</p>
+        </mat-list-item>
+        <mat-list-item color="primary" class="menu-list-item" routerLink="accreditamento">
+            <img [src]="ruolo_blu" alt="accreditamento">
+            <p class="primary-color">Gestione dati personali e accreditamento</p>
+        </mat-list-item>
+        <mat-list-item class="menu-list-item" (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <p>Esci</p>
+        </mat-list-item>
+    </mat-nav-list>
+</mat-menu>
+
+
+

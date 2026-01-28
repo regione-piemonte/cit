@@ -1,0 +1,64 @@
+<div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="page-content">          
+        <div style="width: 83%; margin: auto;">
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+        <div style="margin-top: 15px;">
+            <mat-grid-list cols="12" rowHeight="4em" [gutterSize]="'10px'">
+                <mat-grid-tile colspan="1"></mat-grid-tile>
+                <mat-grid-tile colspan="10">
+                    <app-title [title]="title" [subtitle]="subtitle"></app-title>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1"></mat-grid-tile>
+            </mat-grid-list>
+        </div>
+        <div style="margin-top: 15px;">
+            <mat-grid-list cols="12" rowHeight="3em" [gutterSize]="'10px'">
+                <mat-grid-tile colspan="1"></mat-grid-tile>
+                <mat-grid-tile colspan="10">
+                    <app-back class="full-width" [title]="backTitile" *ngIf="route"></app-back>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1"></mat-grid-tile>
+            </mat-grid-list>
+        </div>
+        <div class="role-header-wrapper">
+            <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+        </div>
+        <div>
+            <commonwcl-genera-token [apiUrl]="apiUrl" 
+            (onMessage)="onMessage($event)"></commonwcl-genera-token>
+        </div>
+        <div style="height: 50px;"></div>
+    </div>
+</div>
+
+<!--div class="centered-container">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="centered-container-content">
+        <div class="app-title-padding">
+            <app-title [title]="title" [subtitle]="subtitle"></app-title>
+        </div>
+        <div>
+        <app-back [title]="backTitile" *ngIf="route"></app-back>
+        </div>
+        <div>
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+    </div>
+</div>
+
+<div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="page-content">
+        <div>
+            <commonwcl-genera-token [apiUrl]="apiUrl" (onMessage)="onMessage($event)"></commonwcl-genera-token>
+        </div>
+    </div>
+    <div style="height: 50px;"></div>
+</div-->

@@ -1,0 +1,5 @@
+CSI_BASE=false
+IMAGE_NAME=sigit/combustypwawcl
+PRODUCT_MAIL=mariuccia.actisdato@csi.it
+TECHNOLOGY=angular
+TEMPLATE_VERSION=13.3.9-csi-1.0.0

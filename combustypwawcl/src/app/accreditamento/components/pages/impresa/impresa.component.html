@@ -1,0 +1,26 @@
+<div class="centered-container">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="centered-container-content">
+        <div class="app-title-padding">
+            <app-title [title]="title" [subtitle]="subtitle"></app-title>
+        </div>
+        <div>
+        <app-back [title]="backTitile" *ngIf="route"></app-back>
+        </div>
+        <div>
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+    </div>
+</div>
+<div class="wide-screen">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="page-content">
+        <div>
+            <commonwcl-accreditamento-impresa [impresa]="impresa" [onlyView]="onlyView"
+                [apiUrl]="apiUrl" [codiceFiscalePF]="codiceFiscalePF" (onMessage)="onMessage($event)"></commonwcl-accreditamento-impresa>
+        </div>
+    </div>
+</div>

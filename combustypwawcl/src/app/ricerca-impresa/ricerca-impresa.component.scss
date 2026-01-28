@@ -1,0 +1,33 @@
+.hr-left{
+    width: 45%;
+    margin: 0% 2% 0% 0%;
+} 
+
+.hr-right{
+    width: 45%;
+    margin: 0% 0% 0% 2%;
+}   
+
+.btn-width-full{
+    width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .centered-container-content-title{
+        width: 100%;
+    }
+    
+    .centered-container-content{
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .centered-container-content-title{
+        width: 100%;
+    }
+    
+    .centered-container-content{
+        width: 50%;
+    }
+}

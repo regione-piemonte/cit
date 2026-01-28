@@ -1,0 +1,9 @@
+<div class="alert-padding">
+<mat-card [ngClass]="'alert-' + type">
+    <mat-icon>{{getIcon()}}</mat-icon>
+    <div>
+      <h3 *ngIf="title">{{title}}</h3>
+      <pre>{{message}}</pre>
+    </div>
+</mat-card>
+</div>

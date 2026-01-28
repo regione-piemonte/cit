@@ -1,0 +1,19 @@
+<div id="role-name-box" class="role-info-box-panel" style="margin-top: 10px" (click)="togglePanel()">
+    <mat-icon style="color: #b8191a;" class="icon">person</mat-icon> 
+    <div>{{utenteLoggato.ruoloLoggato.ruolo === 'DISTRIBUTORE' ? 'IMPRESA' : utenteLoggato.ruoloLoggato.ruolo}}</div>
+    <span style="flex: 1 1 auto"></span>
+    <mat-icon>{{isOpened ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+</div>
+  <mat-card *ngIf="isOpened" id="role-info-box" class="mat-elevation-z8">
+    <ng-container *ngIf="impresaBool">
+      <p>{{utenteLoggato.ruoloLoggato.denominazione}}</p>
+      <p>Codice REA: {{utenteLoggato.ruoloLoggato.siglaRea}}-{{utenteLoggato.ruoloLoggato.numeroRea}}</p>
+      <p>CF: {{utenteLoggato.ruoloLoggato.piva}}</p>
+    </ng-container>
+    <p *ngIf="ruoloPaBool">{{utenteLoggato.ruoloLoggato.descrAbilitazione}}</p>
+    <ng-container *ngIf="responsabileProprietarioBool">
+      <p>{{utenteLoggato.pfLoggato.nomePF}} {{utenteLoggato.pfLoggato.cognomePF}}</p>
+      <p>CF: {{utenteLoggato.pfLoggato.codiceFiscalePF}}</p>
+    </ng-container>
+  </mat-card>
+  

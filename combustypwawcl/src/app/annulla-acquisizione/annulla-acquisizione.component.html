@@ -1,0 +1,17 @@
+<div style="display: flex; align-items: center; margin-bottom: 10px;">
+  <img [src]="titlePng" alt="titlePng" class="title-img" style="margin-right: 10px;">
+  <div class="form-field" style="font-size: 1.2em; font-weight: bold;">Annullamento acquisizione</div>
+</div>
+<hr>
+<div class="form-field" style="margin-top: 10px;">
+  Si conferma di voler annullare l'acquisizione selezionata?
+</div>
+<div *ngIf="loading" style="display: flex; justify-content: center; margin: 20px 0;">
+  <mat-progress-spinner mode="indeterminate" diameter="30"></mat-progress-spinner>
+</div>
+<div mat-dialog-actions style="justify-content: space-between; margin-top: 20px;">
+  <button mat-button color="primary" (click)="close()" [disabled]="loading">ANNULLA</button>
+  <button mat-flat-button color="primary" (click)="confirm()" [disabled]="loading" cdkFocusInitial>
+    CONFERMA
+  </button>
+</div>

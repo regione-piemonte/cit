@@ -1,0 +1,70 @@
+<div class="centered-container">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="centered-container-content-title">
+        <div class="app-title-padding">                   
+            <app-title [title]="'Ricerca impresa'" [subtitle]="''"></app-title>
+        </div>
+        <div>
+            <app-back [title]="backTitile" [route]="route" *ngIf="route"></app-back>
+        </div>
+        <div>
+            <app-message-box 
+            [titolo]="titoloErrore" 
+            [descrizione]="descrizioneErrore" 
+            [type]="errorType" 
+            [timeout]="5000" 
+            (onClose)="clearErrore()"
+            *ngIf="titoloErrore!=''"></app-message-box>
+        </div>    
+        <app-role-header *ngIf="this.utente.ruoloLoggato?.ruolo"></app-role-header>
+    </div>
+</div>
+<div style="height: 20px;"></div>
+<div class="centered-container">
+    <div class="centered-container-content">
+        <div style="margin: 20px 0px">{{risultati}} risultati </div>
+        <div class="card-grid">
+            <mat-card class="wide-card mat-elevation-z8" *ngFor="let impresa of imprese">
+                <mat-grid-list cols="2" rowHeight="2em">
+                    <mat-grid-tile colspan="2">
+                        Denominazione:
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <mat-grid-list cols="2" [rowHeight]="getRowHeight(impresa.denominazione)">
+                    <mat-grid-tile colspan="2">
+                        <div class="card-title"
+                            [ngStyle]="{
+                                'height': getHeight(impresa.denominazione),
+                                'line-height': getLineHeight(impresa.denominazione)
+                            }">
+                            {{impresa.denominazione}}
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <mat-grid-list cols="2" rowHeight="2em">
+                        <mat-grid-tile colspan="2">
+                            Codice Rea:
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <div class="card-title">
+                                {{impresa.sigla_rea + "-" + impresa.numero_rea}}
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            Codice Fiscale:
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <div class="card-title">
+                                {{impresa.codice_fiscale}}
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                                <button class="default-button" (click)="usaDati(impresa)">
+                                    USA DATI
+                                </button>
+                        </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+        </div>
+    </div>
+</div>

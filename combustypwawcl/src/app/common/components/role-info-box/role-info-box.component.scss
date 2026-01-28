@@ -1,0 +1,27 @@
+.role-info-box-panel {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px; 
+    font: normal normal bold 16px 'Open Sans', Sans-serif;
+    color: #006cb4;
+}
+
+#role-name-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #006CB4;
+
+  .icon {
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
+    margin-right: 10px;
+    color: #B8191A;
+  }
+}
+
+#role-info-box {
+  margin-bottom: 20px;
+  background-color: #DDEEFF;
+}

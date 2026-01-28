@@ -1,0 +1,30 @@
+.centered-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0px 20px;
+  }
+
+.centered-container-content {
+    width: -webkit-fill-available;
+  }
+
+.page-margin {
+    margin-left: -100px;
+    margin-right: -100px;
+  }  
+
+.title-margin {
+  margin-top: 15px;
+}
+
+.wide-screen{
+  width: 100%;
+  margin-left: 0px !important;
+}
+
+@media screen and (max-width: 1047px) {
+
+  }  

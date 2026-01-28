@@ -1,0 +1,80 @@
+<div class="modal-content-scrollable">
+    <div class="modal-header">
+    <button mat-icon-button class="close-button" (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+    </div>
+
+    <div>DETTAGLIO ELABORAZIONE NOME FILE: {{ importDatiDistributore.nome_file_import }}</div>
+    <hr>
+    <div>
+        <mat-card class="mat-elevation-z8">
+            <mat-grid-list [cols]="isMobile ? 1 : 3" rowHeight="3em" [gutterSize]="'10px'" style="margin-bottom: 20px;">
+                <mat-grid-tile [colspan]="isMobile ? 1 : 3" class="form-field">
+                    DATI GENERALI
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                    <div>
+                        <div class="form-field" style="margin-bottom: 10px;">Data inizio elaborazione</div>
+                        <div>{{ importDatiDistributore.data_inizio_elab }}</div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                    <div>
+                        <div class="form-field" style="margin-bottom: 10px;">Data fine elaborazione</div>
+                        <div>{{ importDatiDistributore.data_fine_elab }}</div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                    <div>
+                        <div class="form-field" style="margin-bottom: 10px;">Data annullamento</div>
+                        <div>{{ importDatiDistributore.data_annullamento ? (importDatiDistributore.data_annullamento) : '-' }}</div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                    <div>
+                        <div class="form-field" style="margin-bottom: 10px;">Numero record elaborati</div>
+                        <div>{{ importDatiDistributore.tot_record_elaborati }}</div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                    <div>
+                        <div class="form-field" style="margin-bottom: 10px;">Numero record scartati</div>
+                        <div>{{ importDatiDistributore.tot_record_scartati }}</div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                    <div>
+                        <div class="form-field" style="margin-bottom: 10px;">CF operatore caricamento</div>
+                        <div>{{ importDatiDistributore.utente_caricamento }}</div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                    <div>
+                        <div class="form-field" style="margin-bottom: 10px;">Stato elaborazione</div>
+                        <div>{{ importDatiDistributore.des_stato_distrib }}</div>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card>
+
+        <div style="margin-top: 30px;">LOG ERRORI</div>
+
+        <mat-card class="mat-elevation-z8" style="margin-top: 20px;">
+            <mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="id_errore">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header"> ID Errore </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{ element.id_log_distrib }} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="msg_errore">
+                    <mat-header-cell *matHeaderCellDef class="custom-header"> Dettaglio Errore </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{ element.msg_errore }} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </mat-card>
+    </div>
+</div>

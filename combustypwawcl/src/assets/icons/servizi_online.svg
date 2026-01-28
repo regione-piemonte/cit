@@ -1,0 +1,10 @@
+<svg id="Raggruppa_11935" data-name="Raggruppa 11935" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="285.296" height="41" viewBox="0 0 285.296 41">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.614" y1="0.609" x2="-0.365" y2="-0.348" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <text id="Servizionline" transform="translate(33.296 32)" fill="#fff" font-size="41" font-family="Helvetica-Bold, Helvetica" font-weight="700" letter-spacing="0.02em"><tspan x="0" y="0">Servizi</tspan><tspan y="0" font-family="Helvetica-Light, Helvetica" font-weight="300">online</tspan></text>
+  <path id="Unione_55" data-name="Unione 55" d="M0,23.05a3.293,3.293,0,1,1,3.292,3.292A3.293,3.293,0,0,1,0,23.05Zm9.877-9.878a3.293,3.293,0,1,1,3.292,3.293A3.293,3.293,0,0,1,9.878,13.171ZM0,13.171a3.293,3.293,0,1,1,3.292,3.293A3.293,3.293,0,0,1,0,13.171ZM19.756,3.292A3.293,3.293,0,1,1,23.05,6.586,3.293,3.293,0,0,1,19.756,3.292Zm-9.878,0a3.293,3.293,0,1,1,3.292,3.293A3.293,3.293,0,0,1,9.878,3.292ZM0,3.292A3.293,3.293,0,1,1,3.292,6.586,3.293,3.293,0,0,1,0,3.292Z" transform="translate(26.342 32.9) rotate(180)" fill="url(#linear-gradient)"/>
+</svg>

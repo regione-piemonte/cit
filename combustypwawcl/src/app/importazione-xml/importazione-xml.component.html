@@ -1,0 +1,74 @@
+<div class="centered-container">
+    <div class="centered-container-content-title">
+        <div class="app-title-padding">      
+            <app-title [title]="'Importazione XML'" [subtitle]="''"></app-title>
+        </div>
+        <div>
+            <app-back [title]="backTitle" [route]="route" *ngIf="route"></app-back>
+        </div>
+        <div>
+            <app-message-box 
+            [titolo]="titoloErrore" 
+            [descrizione]="descrizioneErrore" 
+            [type]="errorType" 
+            [timeout]="7000" 
+            (onClose)="clearErrore()"
+            *ngIf="titoloErrore!=''"></app-message-box>
+        </div>    
+        <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+    </div>
+</div> 
+<div *ngIf="loading" class="overlay-backdrop">
+  <mat-progress-spinner mode="indeterminate" diameter="30"></mat-progress-spinner>
+</div>
+<div class="centered-container">
+    <div class="centered-container-content"> 
+        <div>
+<div class="upload-form">
+  <div class="section-title" style="margin: 20px 10px 10px 10px;">Seleziona il documento</div>
+
+  <div class="dropzone" fileDragDrop (filesChangeEmiter)="onFileArrayChange($event)">
+    <div class="text-wrapper">
+      <div class="centered">
+        <input 
+          id="file"
+          type="file"
+          accept=".xml"
+          (change)="onInputFileChange($event)"
+          style="display: none"
+          #fileInput 
+        /> 
+        <label for="file" class="file-select-label" style="margin: 10px;">
+          <span class="textLink">+</span>
+        </label>
+
+        <div class="">
+          <div *ngFor="let file of files; let i = index" class="selected-file" style="margin: 10px;">
+            <mat-icon>description</mat-icon>
+            <span>{{ file.name }}</span>
+            <button mat-icon-button color="warn" (click)="deleteFromArray(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5 class="right-elem">XML</h5>
+
+  <!--div class="section-title">Note</div-->
+  <!--textarea class="text-area" [(ngModel)]="descrizioneFile"></textarea-->
+
+  <button mat-button class="default-button btn-width-full"
+          (click)="caricaFile()"
+          [disabled]="files.length === 0">
+    CARICA DOCUMENTO
+  </button>
+</div>
+<div style="height: 50px"></div>
+
+        </div>
+    </div>
+</div>      
+        

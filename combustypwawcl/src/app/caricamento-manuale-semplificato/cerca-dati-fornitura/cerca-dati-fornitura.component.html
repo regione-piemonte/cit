@@ -1,0 +1,106 @@
+<div class="centered-container">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="centered-container-content-title">
+        <div class="app-title-padding">                   
+            <app-title [title]="'Caricamento manuale semplificato'" [subtitle]="''"></app-title>
+        </div>
+        <div>
+            <app-back [title]="backTitile" [route]="route" *ngIf="route"></app-back>
+        </div>
+        <div>
+            <app-message-box 
+            [titolo]="titoloErrore" 
+            [descrizione]="descrizioneErrore" 
+            [type]="errorType" 
+            [timeout]="5000" 
+            (onClose)="clearErrore()"
+            *ngIf="titoloErrore!=''"></app-message-box>
+        </div>   
+        <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+    </div>
+</div>
+<div style="height: 20px;"></div>
+<div class="centered-container">
+    <div *ngIf="!hasResult" class="centered-container-content">
+        <form class="form-container mat-card mat-focus-indicator card mat-elevation-z8" [formGroup]="searchForm">
+            <mat-grid-list cols="2" rowHeight="2em">
+                <mat-grid-tile colspan="2" rowspan="1" style="direction: rtl;">
+                    <mat-checkbox [formControlName]="'checkEnteImpresa'" (change)="toggleEnteImpresa($event)">
+                        <div style= "margin-right: 10px ">Ente/Impresa</div>
+                    </mat-checkbox>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="2">
+                    <mat-form-field class="form-field">
+                        <input 
+                        matInput placeholder="Codice fiscale" 
+                        [formControlName]="'cf'"
+                        style="text-transform: uppercase"
+                        (input)="onUppercase('cf', $event)"
+                        maxlength="16"
+                        >
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <button mat-button 
+                    class="secondary-button btn-width-full" 
+                    (click)="cercaPerCF()"
+                    [disabled]="!((searchForm.controls['cf'].value?.trim()?.length >= 11) && 
+                    (searchForm.controls['cf'].value?.trim()?.length <= 16))">
+                        CERCA PER CODICE FISCALE</button>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <hr class="hr-left"><h5>oppure</h5><hr class="hr-right">
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <mat-form-field class="form-field">
+                        <input matInput 
+                            type="number" 
+                            placeholder="Codice Impianto" 
+                            [formControlName]="'codImpianto'" 
+                            min="0"
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <button mat-button 
+                    class="secondary-button btn-width-full" 
+                    (click)="cercaPerCodiceImpianto()"
+                    [disabled]="!searchForm.get('codImpianto')?.value">
+                        CERCA PER CODICE IMPIANTO</button>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2" colspan="2">
+                    <hr class="hr-left"><h5>oppure</h5><hr class="hr-right">
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="1" colspan="2">
+                    <h5>Scannerizza il codice a barre della tessera</h5>
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="1" colspan="2">
+                    <hr class="hr-full">
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="3" colspan="2" style="text-align:center;">
+                        <img 
+                        style="height: 100px; cursor: pointer; margin: auto;" 
+                        [src]="iconBarcode" 
+                        alt="barcode" 
+                        (click)="showScanner = !showScanner"
+                        title="Clicca per scannerizzare il codice a barre"
+                        >
+                    </mat-grid-tile>
+
+                    <mat-grid-tile rowspan="4" colspan="2" *ngIf="showScanner" style="text-align:center;">
+                        <zxing-scanner
+                        [torch]="torchEnabled"
+                        (scanSuccess)="onCodeResult($event)"
+                        (scanError)="onScanError($event)"
+                        [tryHarder]="true"
+                        [formats]="allowedFormats"
+                        ></zxing-scanner>
+                        <button mat-button color="warn" (click)="showScanner = false">Chiudi</button>
+                    </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+        <div style="margin: 40px 0px;"><a (click)="navigateToCaricamentoManuale()" class="text-link">INSERIMENTO NUOVA FORNITURA</a></div>
+    </div>
+
+</div>    
+<div style="height: 50px;"></div>

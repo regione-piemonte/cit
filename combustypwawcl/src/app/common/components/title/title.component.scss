@@ -1,0 +1,39 @@
+.title-card {
+    background-color: transparent;
+    text-align: left;
+ }
+
+ .section-title {
+    font-weight: bold;
+    color: black;
+ }
+
+ .no-lateral-margin {
+    margin-left: -16px;
+ }
+
+ .title-img {
+   height: 15px;
+   margin-left: 0;
+   margin-top: 13px;
+}
+
+@media screen and (min-width: 768px) {
+   .mat-card-header .mat-card-title {
+      font-size: 32px;
+   }
+
+   .section-title {
+      font-size: 16px;
+   }
+}
+
+@media screen and (max-width: 768px) {
+   .mat-card-header .mat-card-title {
+      font-size: 22px;
+   }
+
+   .section-title {
+      font-size: 20px;
+   }
+}

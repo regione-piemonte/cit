@@ -1,0 +1,12 @@
+<div>
+ <mat-grid-list cols="12" [rowHeight]="rowHeight">
+    <mat-grid-tile colspan="12" rowspan="1">
+      <div class="role-header-content">
+        <app-role-info-box
+          (onPanelToggle)="rowHeight = $event ? '12em' : '4em'"
+        ></app-role-info-box>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+  

@@ -1,0 +1,132 @@
+.overlay-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    background-color: white;
+    z-index: 1000;
+    padding: 3rem;
+  }
+
+.filter-card-header {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mat-grid-tile-content {
+    gap: 20px !important;
+}
+
+.radio-group-content{
+    display: flex;
+    gap: 15px;
+}
+
+.btn-container{
+    gap: 10px;
+    display: flex;
+    justify-content: flex-end !important;
+}
+
+.btn {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.radio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem; 
+    margin: 30px 0px;
+  }
+
+.default-button-inverse {
+    font-size: 16px;
+    height: 36px;
+    width: 100%;
+    font-weight: bold;
+    border: solid 3px #006cb4;
+    border-radius: 6px;
+    background-color:white;
+    color: #006cb4;
+}
+
+.default-button-inverse:hover {
+    border: solid 1px #006cb4;
+    background-color: #006cb4;
+    color: white;
+}
+
+.text-link {
+    font: normal normal bold 16px 'Open Sans', Sans-serif;
+    color: #006cb4;
+    margin: 20px 0px;
+}
+
+.verde-scuro {
+  color: #006400;
+}
+
+.verde-chiaro {
+  color: #90ee90;
+}
+
+.celeste {
+  color: #00bfff;
+}
+
+.senape {
+  color: #d4af37;
+}
+
+.rosso {
+  color: #ff0000;
+}
+
+.nome-file{
+    overflow-wrap: break-word; 
+    overflow-inline: auto;
+}
+
+@media screen and (min-width: 768px) {
+    .centered-container-content-title{
+        width: 100%;
+    }
+    
+    .centered-container-content{
+        width: 100%;
+    }
+    
+    .filter-card{
+        width: 100%;
+    }
+
+    .nome-file{
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .centered-container-content-title{
+        width: 100%;
+    }
+    
+    .centered-container-content{
+        width: 100%;
+    }
+
+    .filter-card{
+        width: -webkit-fill-available;;
+    }
+
+    .nome-file{
+        font-size: 14px;
+    }
+}

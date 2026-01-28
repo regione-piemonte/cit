@@ -1,0 +1,78 @@
+<div class="centered-container">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="centered-container-content-title">
+        <div class="app-title-padding">                   
+            <app-title [title]="'Ricerca impresa'" [subtitle]="''"></app-title>
+        </div>
+        <div>
+            <app-back [title]="backTitle" [route]="route" *ngIf="route"></app-back>
+        </div>
+        <div>
+            <app-message-box 
+            [titolo]="titoloErrore" 
+            [descrizione]="descrizioneErrore" 
+            [type]="errorType" 
+            [timeout]="5000" 
+            (onClose)="clearErrore()"
+            *ngIf="titoloErrore!=''">
+            </app-message-box>
+        </div>    
+        <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+    </div>
+</div>
+<div style="height: 20px;"></div>
+<div class="centered-container">
+    <div class="centered-container-content">
+    <form class="form-container mat-card mat-focus-indicator card mat-elevation-z8" [formGroup]="searchForm">
+        <mat-grid-list cols="2" rowHeight="2em">
+            <mat-grid-tile colspan="2" rowspan="2">
+                <mat-form-field class="form-field">
+                      <input
+                            matInput
+                            placeholder="Codice fiscale"
+                            formControlName="cf"
+                            style="text-transform: uppercase"
+                            (input)="onUppercase('cf', $event)"
+                            maxlength="16"
+                        >
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="2" colspan="2">
+                <button mat-button class="secondary-button btn-width-full"
+                        (click)="cercaPerCF()"
+                        [disabled]="!((searchForm.controls['cf'].value?.trim()?.length >= 11) && 
+                        (searchForm.controls['cf'].value?.trim()?.length <= 16))">
+                    CERCA PER CODICE FISCALE
+                </button>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="2" colspan="2">
+                <hr class="hr-left"><h5>oppure</h5><hr class="hr-right">
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="2" colspan="2">
+                <mat-form-field class="form-field">
+                    <mat-label>Sigla REA</mat-label>
+                        <mat-select formControlName="siglaRea">
+                            <mat-option *ngFor="let sigla of sigleReaList" [value]="sigla">
+                                {{ sigla }}
+                            </mat-option>
+                        </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="2" colspan="2">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Numero REA" [formControlName]="'numeroRea'">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="2" colspan="2">
+                <button mat-button class="secondary-button btn-width-full"
+                        (click)="cercaPerREA()"
+                        [disabled]="!searchForm.controls['siglaRea'].value || searchForm.controls['siglaRea'].invalid ||
+                                    !searchForm.controls['numeroRea'].value || searchForm.controls['numeroRea'].invalid">
+                    CERCA PER CODICE REA
+                </button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+    </div>
+</div>    
+<div style="height: 50px;"></div>

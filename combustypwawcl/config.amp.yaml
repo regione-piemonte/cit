@@ -1,0 +1,24 @@
+productName: sigit
+componentName: combustypwawcl
+
+stages:
+  build: yes
+
+build:
+  buildFlow:
+  buildTool:
+  buildToolVersion:
+  buildEnvironment:
+  buildOptionString:
+  buildAntOpts: 
+  mavenSettings: 
+
+jobsToCopyFromList: 
+ 
+targetDir: 
+
+artifactsToArchive: 
+
+builds_to_execute:
+  combustypwawcl:
+    artifactsToPublish:

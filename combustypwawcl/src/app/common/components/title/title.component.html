@@ -1,0 +1,15 @@
+<div>
+<mat-card class="title-card mat-elevation-z0 no-lateral-margin">
+    <mat-card-header>
+        <div mat-card-avatar *ngIf="title">
+            <img [src]="titlePng" alt="titlePng" class="title-img">
+        </div>
+        <mat-card-title style="font-weight: bold;" class="title no-lateral-margin" *ngIf="title">
+            {{title}}
+        </mat-card-title>
+        <mat-card-subtitle class="section-title no-lateral-margin"
+            *ngIf="subtitle">{{subtitle}}
+        </mat-card-subtitle>
+    </mat-card-header>
+</mat-card>
+</div>

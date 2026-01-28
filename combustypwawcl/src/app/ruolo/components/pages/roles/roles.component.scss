@@ -1,0 +1,91 @@
+
+.role-button-generic,
+.role-button-generic-selected {
+    font-size: 1em;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.role-button-generic {
+  display: block;
+  line-height: 0px;
+  width: 100%;
+  height: 10em;
+  border-radius: 10px;
+  background: transparent linear-gradient(115deg, #0072E5 0%, #01468B 100%) 0% 0% no-repeat padding-box;
+}
+
+.role-button-generic-selected {
+  display: block;
+  line-height: 0px;
+  width: 100%;
+  height: 10em;
+  border-radius: 10px;
+  background: transparent linear-gradient(115deg, #AA002E 0%, #01468B 100%) 0% 0% no-repeat padding-box;
+}
+
+.role-font{
+  font: normal normal bold 22px 'Open Sans', Sans-serif;
+  margin: 10px;
+}
+
+.role-sub-font{
+  font: normal normal bold 14px 'Open Sans', Sans-serif;
+  margin: 10px;
+}
+
+.card-content,
+.card-title {
+    width: 100%;
+    text-align: left;
+}
+
+.notice-container {
+  height: 330px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notice-message-size,
+.notice-help-size {
+    padding-right: 40px;
+    width: 300px;
+    text-align: center;
+}
+
+.notice-title {
+  font: normal normal bold 22px/33px 'Open Sans', Sans-serif;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.notice-text {
+  font: normal normal 14px 'Open Sans', Sans-serif;
+}
+
+/* full-screen */
+@media screen and (min-width: 768px) {
+  .roles {
+    margin-top: -30px;
+    padding-right: 0px;
+  }
+}
+
+/* mobile */
+@media screen and (max-width: 768px) {
+  .roles {
+    margin-top: 15px;
+  }
+}

@@ -1,0 +1,35 @@
+<div class="centered-container">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="centered-container-content">
+        <div>
+            <app-title [title]="title" [subtitle]="subtitle"></app-title>
+        </div>
+        <div>
+            <app-back [title]="backTitile" *ngIf="route"> </app-back>
+        </div>  
+        <div>
+            <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+                *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+            </app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+    </div>
+</div>
+<div class="wide-screen">
+    <div class="page-content">
+        <commonwcl-card-dati-impresa [impresa]="impresa"></commonwcl-card-dati-impresa>
+    </div>
+</div>
+<div class="wide-screen" *ngIf="template === 'incarico'">
+    <div class="page-content">
+    <commonwcl-nuovo-incarico [codiceFiscalePF]="codiceFiscalePF" [impresa]="impresa" [apiUrl]="apiUrl"
+        (onMessage)="onMessage($event)"></commonwcl-nuovo-incarico>
+    </div>
+</div>
+<div class="wide-screen" *ngIf="template === 'delega'">
+    <div class="page-content">
+    <commonwcl-nuova-delega [codiceFiscalePF]="codiceFiscalePF" [impresa]="impresa" [apiUrl]="apiUrl"
+        (onMessage)="onMessage($event)"></commonwcl-nuova-delega>
+    </div>
+</div>
+ 

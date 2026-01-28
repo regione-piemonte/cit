@@ -1,0 +1,9 @@
+<div class="wide-screen">
+    <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+    <div style="width: 83%; margin: auto;">
+        <app-message-box [titolo]="titoloMessaggio" [descrizione]="descrzioneMessaggio" [type]="tipomessaggio"
+            *ngIf="showMessaggio && titoloMessaggio && tipomessaggio">
+        </app-message-box>
+    </div>
+    <commonwcl-elenco-imprese [onMessage]="onMessage" [impresa]="impresa" [deleghe]="deleghe" [incarichi]="incarichi" [apiUrl]="apiUrl"></commonwcl-elenco-imprese>
+</div>

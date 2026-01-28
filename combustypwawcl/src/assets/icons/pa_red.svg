@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23.241" height="33.968" viewBox="0 0 23.241 33.968">
+  <g id="Raggruppa_11736" data-name="Raggruppa 11736" transform="translate(0)">
+    <g id="Raggruppa_7789" data-name="Raggruppa 7789" transform="translate(0)">
+      <g id="Tracciato_60216" data-name="Tracciato 60216" transform="translate(0)" fill="none">
+        <path d="M2.113,0H21.129a2.032,2.032,0,0,1,2.113,1.941V32.027a2.032,2.032,0,0,1-2.113,1.941H2.113A2.032,2.032,0,0,1,0,32.027V1.941A2.032,2.032,0,0,1,2.113,0Z" stroke="none"/>
+        <path d="M 2.112861633300781 2 C 2.061767578125 2 2.024068832397461 2.011594772338867 2.000001907348633 2.023229598999023 L 2.000001907348633 31.94503021240234 C 2.024068832397461 31.95666694641113 2.061763763427734 31.96826171875 2.112861633300781 31.96826171875 L 21.12858200073242 31.96826171875 C 21.17967987060547 31.96826171875 21.21737480163574 31.95666694641113 21.24144172668457 31.94503021240234 L 21.24144172668457 2.023229598999023 C 21.21737289428711 2.011594772338867 21.1796760559082 2 21.12858200073242 2 L 2.112861633300781 2 M 2.112861633300781 0 L 21.12858200073242 0 C 22.29548263549805 0 23.24144172668457 0.8690299987792969 23.24144172668457 1.9410400390625 L 23.24144172668457 32.0272102355957 C 23.24144172668457 33.09921264648438 22.29548263549805 33.96826171875 21.12858200073242 33.96826171875 L 2.112861633300781 33.96826171875 C 0.9459609985351562 33.96826171875 1.9073486328125e-06 33.09921264648438 1.9073486328125e-06 32.0272102355957 L 1.9073486328125e-06 1.9410400390625 C 1.9073486328125e-06 0.8690299987792969 0.9459609985351562 0 2.112861633300781 0 Z" stroke="none" fill="#b8191a"/>
+      </g>
+      <g id="Rettangolo_146121" data-name="Rettangolo 146121" transform="translate(13.427 18.608)" fill="#b8191a" stroke="#b8191a" stroke-width="1">
+        <rect width="4.593" height="4.593" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="3.593" height="3.593" rx="0.5" fill="none"/>
+      </g>
+      <g id="Rettangolo_146123" data-name="Rettangolo 146123" transform="translate(13.427 11.39)" fill="#b8191a" stroke="#b8191a" stroke-width="1">
+        <rect width="4.593" height="4.593" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="3.593" height="3.593" rx="0.5" fill="none"/>
+      </g>
+      <g id="Rettangolo_146125" data-name="Rettangolo 146125" transform="translate(13.427 4.173)" fill="#b8191a" stroke="#b8191a" stroke-width="1">
+        <rect width="4.593" height="4.593" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="3.593" height="3.593" rx="0.5" fill="none"/>
+      </g>
+      <g id="Rettangolo_146122" data-name="Rettangolo 146122" transform="translate(5.553 18.608)" fill="#b8191a" stroke="#b8191a" stroke-width="1">
+        <rect width="4.593" height="4.593" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="3.593" height="3.593" rx="0.5" fill="none"/>
+      </g>
+      <g id="Rettangolo_146124" data-name="Rettangolo 146124" transform="translate(5.553 11.39)" fill="#b8191a" stroke="#b8191a" stroke-width="1">
+        <rect width="4.593" height="4.593" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="3.593" height="3.593" rx="0.5" fill="none"/>
+      </g>
+      <g id="Rettangolo_146126" data-name="Rettangolo 146126" transform="translate(5.553 4.173)" fill="#b8191a" stroke="#b8191a" stroke-width="1">
+        <rect width="4.593" height="4.593" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="3.593" height="3.593" rx="0.5" fill="none"/>
+      </g>
+      <g id="Rettangolo_146116" data-name="Rettangolo 146116" transform="translate(8.888 25.773)" fill="#b8191a" stroke="#b8191a" stroke-width="3">
+        <rect width="5.72" height="7.651" rx="1" stroke="none"/>
+        <rect x="1.5" y="1.5" width="2.72" height="4.651" rx="0.5" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>

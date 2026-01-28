@@ -1,0 +1,309 @@
+<div class="centered-container">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="centered-container-content-title">
+        <div class="app-title-padding">                   
+            <app-title [title]="'Elenco Dati Inviati'" [subtitle]="''"></app-title>
+        </div>
+        <div>
+            <app-back [title]="backTitle" [route]="route" *ngIf="route"></app-back>
+        </div>
+        <div>
+            <app-message-box 
+            [titolo]="titoloErrore" 
+            [descrizione]="descrizioneErrore" 
+            [type]="errorType" 
+            [timeout]="5000" 
+            (onClose)="clearErrore()"
+            *ngIf="titoloErrore!=''"></app-message-box>
+        </div>
+        <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+    </div>
+</div>
+<div class="centered-container">
+    <div class="centered-container-content"> 
+        <div *ngIf="isMobile">
+            <div style="margin: 20px 0px">{{risultati}} risultati </div>
+            <div style="margin: 20px 0px">
+                <button class="default-button-inverse" style="width: 150px" 
+                    (click)="openFiltraImpiantiPanel()">
+                    <img [src]="filterListIcon" alt="filter list"> 
+                    Filtri
+                </button>
+            </div>
+            <div style="display: flex; align-items: center; height: 36px; margin: 20px 0px;">
+            <div style="margin-right: 15px; width: 180px;">
+                Ordina per:
+            </div>
+            <div style="width: -webkit-fill-available;">
+                <form class="form-container" [formGroup]="filterForm">
+                    <mat-form-field class="form-field">
+                        <mat-select placeholder="" formControlName="ordinamento" (selectionChange)="onOrdinaChange($event.value)">
+                            <mat-option value="recenti">Data caricamento più recente</mat-option>
+                            <mat-option value="vecchi">Data caricamento meno recente</mat-option>
+                            <mat-option value="stato">Stato caricamento</mat-option>
+                            <mat-option value="tipologia">Tipologia di caricamento</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
+            </div>
+            <div *ngIf="isFiltraImpiantiPanelOpen" class="overlay-panel" style="font-size: 22px;">
+                <div class="filter-card-header" style="margin-bottom: 40px;">
+                    <div style="font-size: x-large;">
+                        Filtri
+                    </div>
+                    <button mat-icon-button (click)="closeFiltraImpiantiPanel()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+                <div>
+                    <form class="form-container" [formGroup]="filterForm">
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Filtra per anno" formControlName="anno">
+                                <mat-option *ngFor="let anno of anniDisponibili" [value]="anno">
+                                    {{ anno }}
+                                </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                    </form>
+                </div>
+                <div>
+                    <form class="form-container" [formGroup]="filterForm">
+                        <mat-form-field class="form-field">
+                            <mat-select placeholder="Filtra per mese" formControlName="mese">
+                                <mat-option *ngFor="let mese of mesiDisponibili" [value]="mese.valore">
+                                    {{ mese.nome }}
+                                    </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                    </form>
+                </div>
+                <div>
+                    <form class="form-container" [formGroup]="filterForm">
+                        <div style="margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+                            Tipo caricamento file:
+                        </div>
+                        <mat-radio-group formControlName="instInterna" class="radio-group-content">
+                                    <mat-radio-button value="Import XML">Import XML</mat-radio-button>
+                                    <mat-radio-button value="Manuale">Manuale</mat-radio-button>
+                        </mat-radio-group>
+                    </form>
+                </div>
+                <div>
+                    <form class="form-container" [formGroup]="filterForm">
+                        <div style="margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+                            Stato file:
+                        </div>
+                        <mat-radio-group formControlName="instStato" class="radio-group-content" style="flex-wrap: wrap;">
+                            <mat-radio-button value="Da elaborare">Da elaborare</mat-radio-button>
+                            <mat-radio-button value="Inviato">Inviato</mat-radio-button>
+                            <mat-radio-button value="Rifiutato/scartato">Rifiutato/Scartato</mat-radio-button>
+                            <mat-radio-button value="Sostituito">Sostituito</mat-radio-button>
+                            <mat-radio-button value="Eliminato">Eliminato</mat-radio-button>
+                        </mat-radio-group>
+                    </form>
+                </div>
+                <div style="display: flex; justify-content: space-around;">
+                    <button class="default-button" style="width: 100px" (click)="filtraImpianti()">
+                        APPLICA
+                    </button>
+                    <button style="margin-left:10px" mat-button color="primary" (click)="ricaricaDati()">
+                        AZZERA
+                    </button>
+                </div>
+            </div>
+        </div>     
+        <div *ngIf="!isMobile" class="filter-card filter-card-header">
+            <div>
+                {{risultati}} risultati
+            </div>
+        <div class="filter-card-header">
+            <div style="margin-right: 15px;">
+                Ordina per:
+            </div>
+            <div style="margin-top: 10px;">
+                <form class="form-container" [formGroup]="filterForm">
+                    <mat-form-field class="form-field">
+                        <mat-select placeholder="" formControlName="ordinamento" (selectionChange)="onOrdinaChange($event.value)">
+                            <mat-option value="recenti">Data caricamento più recente</mat-option>
+                            <mat-option value="vecchi">Data caricamento meno recente</mat-option>
+                            <mat-option value="stato">Stato caricamento</mat-option>
+                            <mat-option value="tipologia">Tipologia di caricamento</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+        </div>
+        <div *ngIf="!isMobile" class="filter-card">
+            <mat-card class="mat-elevation-z8">
+                <mat-grid-list cols="12" rowHeight="1em" [gutterSize]="'10px'">
+                    <mat-grid-tile colspan="12">
+                        Filtra per:
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="3">
+                        <form class="form-container" [formGroup]="filterForm">
+                            <mat-form-field class="form-field">
+                                <mat-select placeholder="Filtra per anno" formControlName="anno">
+                                    <mat-option *ngFor="let anno of anniDisponibili" [value]="anno">
+                                      {{ anno }}
+                                    </mat-option>
+                                  </mat-select>
+                            </mat-form-field>
+                        </form>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="3">
+                        <form class="form-container" [formGroup]="filterForm">
+                            <mat-form-field class="form-field">
+                                <mat-select placeholder="Filtra per mese" formControlName="mese">
+                                    <mat-option *ngFor="let mese of mesiDisponibili" [value]="mese.valore">
+                                        {{ mese.nome }}
+                                      </mat-option>
+                                    </mat-select>
+                            </mat-form-field>
+                        </form>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="6" rowspan="3">
+                         <form class="form-container" style="display: inline-flex;" [formGroup]="filterForm">
+                        <div style="margin-right: 20px;">
+                            Tipo caricamento file:
+                        </div>
+                        <mat-radio-group formControlName="instInterna" class="radio-group-content">
+                                    <mat-radio-button value="Import XML">Import XML</mat-radio-button>
+                                    <mat-radio-button value="Manuale">Manuale</mat-radio-button>
+                        </mat-radio-group>
+                        </form>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="12" rowspan="1.5">
+                        <form class="form-container" style="display: inline-flex;"  [formGroup]="filterForm">
+                        <div style="margin-right: 20px;">
+                            Stato file:
+                        </div>
+                        <mat-radio-group formControlName="instStato" class="radio-group-content">
+                            <mat-radio-button value="Da elaborare">Da elaborare</mat-radio-button>
+                            <mat-radio-button value="Inviato">Inviato</mat-radio-button>
+                            <mat-radio-button value="Rifiutato/scartato">Rifiutato/Scartato</mat-radio-button>
+                            <mat-radio-button value="Sostituito">Sostituito</mat-radio-button>
+                            <mat-radio-button value="Eliminato">Eliminato</mat-radio-button>
+                        </mat-radio-group>
+                    </form>
+                    </mat-grid-tile>
+                   
+                    <mat-grid-tile colspan="12" rowspan="3">
+                        <button class="default-button" style="width: 100px" (click)="filtraImpianti()">
+                            APPLICA
+                        </button>
+                        <button style="margin-left:10px" mat-button color="primary" (click)="azzeraFiltri()">
+                            AZZERA
+                        </button>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+        </div>
+        <div class="card-grid">
+        <mat-card class="wide-card mat-elevation-z8" *ngFor="let importDatiDistributore of elencoImportDatiDistributoreFiltrati">
+            <mat-grid-list cols="12">
+            <mat-grid-list cols="12" rowHeight="2em">
+                <mat-grid-tile colspan="6">
+                Data caricamento
+                </mat-grid-tile>
+                <mat-grid-tile colspan="6">
+                <div class="card-title right-elem">
+                    {{ importDatiDistributore.data_inizio_elab }}
+                </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="3em">
+                <mat-grid-tile colspan="4">
+                Nome file:
+                </mat-grid-tile>
+                <mat-grid-tile colspan="8">
+                <div class="card-title right-elem nome-file">
+                    {{ importDatiDistributore.nome_file_import }}
+                </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="2em">
+                <mat-grid-tile colspan="6">
+                Anno riferimento:
+                </mat-grid-tile>
+                <mat-grid-tile colspan="6">
+                <div class="card-title right-elem">
+                    {{ importDatiDistributore.anno_riferimento }}
+                </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="2em">
+                <mat-grid-tile colspan="6">
+                Tipo caricamento:
+                </mat-grid-tile>
+                <mat-grid-tile colspan="6">
+                <div class="card-title right-elem">
+                    {{
+                    importDatiDistributore.uid_index && !importDatiDistributore.nome_file_import.includes('caricamento manuale')
+                        ? 'Import XML'
+                        : (!importDatiDistributore.uid_index && importDatiDistributore.nome_file_import.includes('caricamento manuale')
+                        ? 'Manuale'
+                        : 'N/D')
+                    }}
+                </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="2em">
+                <mat-grid-tile colspan="6">
+                Stato:
+                </mat-grid-tile>
+                <mat-grid-tile colspan="6">
+                <div class="card-title right-elem" [ngClass]="getStatoClass(importDatiDistributore.des_stato_distrib)">
+                    {{ importDatiDistributore.des_stato_distrib }}
+                </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="2em">
+                <mat-grid-tile colspan="4">
+                CF utente:
+                </mat-grid-tile>
+                <mat-grid-tile colspan="8">
+                <div class="card-title right-elem">
+                    {{ importDatiDistributore.utente_caricamento }}
+                </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="1em">
+                <hr>
+            </mat-grid-list>
+
+            <div class="btn-container">
+                <button *ngIf="importDatiDistributore.uid_index && 
+                        !importDatiDistributore.nome_file_import.includes('caricamento manuale')" 
+                        class="btn" 
+                        (click)="openDettaglioAcquisizioneXML(importDatiDistributore)">
+                    <img src={{eyeIcon}} alt="eye">
+                </button>
+                <button *ngIf="!importDatiDistributore.uid_index && 
+                        importDatiDistributore.nome_file_import.includes('caricamento manuale') &&
+                        importDatiDistributore.des_stato_distrib != 'Eliminato' &&
+                        importDatiDistributore.des_stato_distrib != 'Sostituito'"   
+                        class="btn" 
+                        (click)="openDettaglioCaricamentoManualeSemplificato(importDatiDistributore)">
+                    <img src={{eyeIcon}} alt="eye">
+                </button>
+                <div *ngIf="importDatiDistributore.des_stato_distrib != 'Eliminato'" >
+                <button *ngxPermissionsOnly="'CANCELLA_IMPORTAZIONE'" class="btn"><img src={{deleteIcon}} alt="delete" (click)="openAnnullaAcquisizione(importDatiDistributore)"></button>
+                </div>
+            </div>
+            </mat-grid-list>
+        </mat-card>
+        </div> 
+        
+        <div *ngxPermissionsOnly="'CARICAMENTO_MANUALE_SEMPLIFICATO'" style="margin: 20px 0px;"><a (click)="navigateToCercaDatiFornitura()" class="text-link">CARICAMENTO MANUALE SEMPLIFICATO</a></div>
+        <div *ngxPermissionsOnly="'IMPORTAZIONE_XML'" style="margin: 20px 0px;"><a (click)="navigateToImportazioneXml()" class="text-link">IMPORTAZIONE XML</a></div>       
+    </div>
+</div>    
+<div style="height: 50px;"></div>

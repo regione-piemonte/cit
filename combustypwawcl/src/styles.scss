@@ -1,0 +1,296 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+@import "theme.scss";
+
+$color-config: mat.get-color-config($my-theme);
+$primary-palette: map-get($color-config, "primary");
+$primary: map-get($primary-palette, default);
+$disabled: #6c757d;
+$clickedColor: #213366;
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("assets/fonts/open_sans/OpenSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Open Sans Big";
+  src: url("assets/fonts/open_sans/OpenSans-ExtraBold.ttf") format("truetype");
+}
+
+body {
+    margin: 0;
+  }
+
+.background-primary-color{
+  background-color: #fafafa;
+}
+
+.background-secondary-color{
+  background-color: #F2F8FD; 
+}
+
+pre {
+  all: unset; 
+  white-space: pre-wrap; 
+  word-break: break-word; 
+  font-family: inherit; 
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0; 
+}
+
+.title {
+  text-align: left;
+  font: normal normal bold 30px/41px 'Open Sans', Sans-serif;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  font-weight: bold;
+}
+
+.title-padding{
+  padding: 32px 0px;
+}
+
+.app-title-padding{
+  padding-top: 20px;
+}
+
+.centered-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0px 20px;
+  }
+
+.centered-container-content {
+    width: -webkit-fill-available;
+}
+
+.fields-label {
+  font-size: 14px;
+}
+
+.app-title-margin {
+  height: 5em; 
+  padding: 15px 0 15px 0;
+}
+
+a {
+  cursor: pointer;
+  font: 12px 'Open Sans', Sans-serif;
+}
+
+.mat-grid-tile-content{
+  justify-content: flex-start !important;
+}
+
+.right-elem {
+  width: 100%;
+  text-align: right;
+}
+
+.left-elem {
+  width: 100%;
+  text-align: left;
+}
+
+.primary-color {
+  color: $primary;
+}
+
+.mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab {
+  font-weight: bold !important;
+}
+
+.mat-stroked-button.mat-primary:not(.mat-button-disabled) {
+  border-color: #006cb4 !important;
+}
+
+mat-form-field.placeholder-dark span.mat-form-field-label-wrapper label {
+  color: #444 !important;
+}
+
+.card-padding {
+  padding: 0px 8.3%;
+  margin-right: 3.3%;
+}
+
+html,
+body {
+  .form-field {
+    width: 100%;
+    font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 1047px) and (min-width: 768px) {
+  .centered-container {
+    max-width: -webkit-fill-available;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1365px) {
+  .wide-screen {
+      width: 100%;
+      margin: auto;
+  }
+}
+
+@media screen and (min-width: 1366px) and (max-width: 1440px) {
+    .wide-screen {
+      width: 88%;
+      margin-left: 84px;
+  }
+}
+
+@media only screen and (min-width: 1441px) {
+  .wide-screen {
+      width: 1200px;
+      margin: auto;
+  }
+
+  .toolbar {
+      width: 1200px !important;
+      height: 100%;
+      margin: auto;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    font-family: "Open Sans", Sans-serif;
+    
+      .page-content {
+        width: auto;
+        }
+
+      .primary-color {
+        color: $primary;
+      }
+
+      .title {
+        font-size: 30px;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 50px auto;
+      }
+
+      .default-button {
+          font-size: 16px;
+          height: 36px;
+          width: 100%;
+          font-weight: bold;
+          border: solid 3px $primary;
+          border-radius: 6px;
+          background-color: $primary;
+          color: white;
+      }
+
+      .default-button:hover,
+      .secondary-button {
+          border: solid 1px $primary;
+          background-color: white;
+          color: $primary;
+      }
+
+      .default-button:disabled {
+          background-color: $disabled;
+          border: 0;
+      }
+
+      .disabled {
+          color: #aeaeae;
+      }
+
+      .default-button:active:enabled {
+          border: solid 3px $clickedColor;
+          background-color: white;
+          color: $clickedColor;
+      }
+
+      .card-title{
+        font: normal normal bold 14px 'Open Sans', Sans-serif;
+      }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  html,
+  body {
+      height: 100%;
+      margin: 0;
+      font-family: "Open Sans", Sans-serif;
+          
+      .primary-color {
+        color: $primary;
+      }
+
+      .page-content {
+        width: auto;
+        }
+
+      .title {
+        font-size: 20px;
+      }
+
+      .card-grid {
+        display: grid;
+
+        grid-gap: 20px;
+        width: 100%;
+        max-width: -webkit-fill-available;
+        margin: 0 auto;
+        margin-bottom: 50px;
+      }
+
+      .default-button {
+        font-size: 16px;
+        height: 36px;
+        width: 100%;
+        font-weight: bold;
+        border: solid 3px $primary;
+        border-radius: 6px;
+        background-color: $primary;
+        color: white;
+      }
+
+      .default-button:hover,
+      .secondary-button {
+          border: solid 1px $primary;
+          background-color: white;
+          color: $primary;
+      }
+
+      .default-button:disabled {
+          background-color: $disabled;
+          border: 0;
+      }
+
+      .disabled {
+          color: #aeaeae;
+      }
+
+      .default-button:active:enabled {
+          border: solid 3px $clickedColor;
+          background-color: white;
+          color: $clickedColor;
+      }
+
+      .centered-container {
+        max-width: -webkit-fill-available;
+      }
+      
+  }
+}

@@ -1,0 +1,32 @@
+export class DatiGTModel {
+    idTipoComponente: string;
+    progressivo: number;
+    dataInstall: string;
+    codiceImpianto: number;
+    fkFluido: number;
+    fkDettaglioGt: number;
+    rendimentoPerc: number;
+    nModuli: number;
+    dataDismiss: string;
+    flgDismissione: number;
+    dataUltMod: string;
+    utenteUltMod: string;
+    fkMarca: number;
+    fkCombustibile: number;
+    matricola: string;
+    modello: string;
+    potenzaTermicaKw: number;
+    note: string;
+    tempoManutAnni: number;
+    mediImpOreOperative: number;
+    idTipocannaFumaria: number;
+    dataMinimaControllo: string;
+    dataMassimaControllo: string;
+    descMarca: string;
+    descFluido: string;
+    descDettaglioGt: string;
+    descCombustibile: string;
+    cf: string;
+    siglaRea: string;
+    numeroRea: string;
+}

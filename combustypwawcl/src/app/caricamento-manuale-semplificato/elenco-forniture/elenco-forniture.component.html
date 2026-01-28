@@ -1,0 +1,137 @@
+<div class="centered-container">
+    <app-loading *ngIf="spinnerService.visibility | async"></app-loading>
+    <div class="centered-container-content-title">
+        <div class="app-title-padding">                   
+            <app-title [title]="'Caricamento manuale semplificato'" [subtitle]="''"></app-title>
+        </div>
+        <div>
+            <app-back [title]="backTitile" [route]="route" *ngIf="route"></app-back>
+        </div>
+        <div>
+            <app-message-box [titolo]="titoloErrore" [descrizione]="descrizioneErrore" [type]="2" *ngIf="titoloErrore!=''"></app-message-box>
+        </div>    
+        <app-role-header *ngIf="ruolo?.ruolo"></app-role-header>
+    </div>
+</div>
+<div class="centered-container">
+    <div class="centered-container-content">
+        <div class="card-grid">
+            <mat-card class="card mat-elevation-z8" style="height: fit-content;" *ngFor="let impianto of impianti">
+                <mat-grid-list cols="5" rowHeight="35px">
+                    <div *ngIf="impianto.codiceImpianto">
+                        <mat-grid-tile colspan="2">
+                            <div class="label-tile">
+                                <mat-label>Codice impianto:</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3" class="data-tile">
+                            <div class="data-tile">
+                                {{impianto.codiceImpianto?impianto.codiceImpianto:"-"}}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <div class="label-tile">
+                                <mat-label>Comune:</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3" class="data-tile">
+                            <div class="data-tile" id="comune">
+                                {{impianto.descComune?impianto.descComune:"-"}}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <div class="label-tile">
+                                <mat-label>Indirizzo:</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3"class="data-tile">
+                            <div class="data-tile">
+                                {{impianto.indirizzo?impianto.indirizzo:"-"}}{{impianto.civico?"
+                                "+impianto.civico:""}}
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <div class="label-tile">
+                                <mat-label>Provincia:</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3" class="data-tile">
+                            <div class="data-tile">
+                                {{getProvinciaBySiglaProvincia(impianto.siglaProv)}}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <div class="label-tile">
+                                <mat-label>Responsabile:</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3">
+                            <div class="data-tile">
+                                {{impianto.denomResponsabile?impianto.denomResponsabile:"-"}}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <div class="label-tile">
+                                <mat-label>Stato:</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3">
+                            <div class="data-tile">
+                                <span class="stato-attivo" *ngIf="impianto.stato=='Attivo'">{{impianto.stato}}</span>
+                                <span class="stato-dismesso" *ngIf="impianto.stato!='Attivo'">{{impianto.stato}}</span>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="5">
+                            <button class="default-button" (click)="selezionaDettaglioImpianto(impianto)">USA DATI</button>
+                        </mat-grid-tile>
+                    </div>
+                </mat-grid-list>
+            </mat-card>
+            <mat-card class="card mat-elevation-z8" style="height: fit-content;" *ngFor="let persona of persone">
+                <mat-grid-list cols="5" rowHeight="35px">
+                    <div>
+                        <mat-grid-tile colspan="2">
+                            <div class="label-tile">
+                                <mat-label>Ente/Impresa:</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3" class="data-tile">
+                            <div class="data-tile">
+                                {{ persona?.tipo === 1 ? 'SI' : 'NO' }}
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2" rowspan="2">
+                            <div class="label-tile">
+                                <mat-label>Cognome/<br>Denominazione:</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3" rowspan="2" class="data-tile">
+                            <div class="data-tile" style="font-size: 14px">
+                                {{ persona.cognomeDenominazione ? persona.cognomeDenominazione : "-" }}                                
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <div class="label-tile">
+                                <mat-label>Nome:</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3" class="data-tile">
+                            <div class="data-tile">
+                                {{ persona.nome ? persona.nome : "-" }}                                
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <div class="label-tile">
+                                <mat-label>CF:</mat-label>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3" class="data-tile">
+                            <div class="data-tile">
+                                {{ persona.codiceFiscale? persona.codiceFiscale : "-" }}                                
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="5">
+                            <button class="default-button" (click)="selezionaDettaglioPersona(persona)">USA DATI</button>
+                        </mat-grid-tile>
+                    </div>
+                </mat-grid-list>
+            </mat-card>
+        </div>
+    </div>
+</div>
