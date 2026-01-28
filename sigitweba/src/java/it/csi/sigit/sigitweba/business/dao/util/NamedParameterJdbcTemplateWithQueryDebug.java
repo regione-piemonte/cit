@@ -98,6 +98,9 @@ public class NamedParameterJdbcTemplateWithQueryDebug extends NamedParameterJdbc
 	 * @generated
 	 */
 	private void logSql(String sql, SqlParameterSource paramSource) {
+		
+		sql = buildSqlWithParameters(sql, paramSource);
+
 		if (LOG.isDebugEnabled()) {
 			sql = buildSqlWithParameters(sql, paramSource);
 		}
@@ -174,6 +177,8 @@ public class NamedParameterJdbcTemplateWithQueryDebug extends NamedParameterJdbc
 	 * @generated
 	 */
 	private static String parseDate(java.util.Date date) {
+		LOG.info("[test Postgrest15.8] START parseDate()");
+
 		StringBuilder retValue = new StringBuilder("");
 		StringBuilder retvalueBuff = new StringBuilder("");
 		java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -199,6 +204,8 @@ public class NamedParameterJdbcTemplateWithQueryDebug extends NamedParameterJdbc
 		retValue.append("to_date('");
 		retValue.append(retvalueBuff);
 		retValue.append("','DD/MM/YYYY HH24:MI:SS')");
+
+		LOG.info("[test Postgrest15.8] END parseDate()");
 
 		return retValue.toString();
 	}
