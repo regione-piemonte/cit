@@ -146,9 +146,9 @@ platforms:
   - linux
   - windows
   - mac
-releaseDate: '2023-10-27'
+releaseDate: '2026-01-27'
 softwareType: standalone/web
-softwareVersion: 14.2.0
+softwareVersion: 15.1.0
 url: 'https://github.com/regione-piemonte/cit.git'
 usedBy:
   - Regione Piemonte
