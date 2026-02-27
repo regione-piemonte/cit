@@ -1,0 +1,95 @@
+<mat-card class="card">
+    <mat-card-header style="justify-content: space-between; align-items: center;">
+        <mat-card-title style="font-weight: bold; display: flex;align-items: center;">
+            <!-- <mat-icon style="color: #b8191a; margin-right: 5px; margin-left: -15px;">folder</mat-icon> DATI IMPRESA -->
+            <img style="margin-left: -10px;" [src]="pgRed" alt="pgRed"> <span style="margin-left: 10px;">DATI IMPRESA</span>
+        </mat-card-title> 
+        <mat-card-actions>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="dettaglioImpresa()">
+                    <span>Vedi dettaglio</span>
+                </button>
+                <button mat-menu-item (click)="dettaglioImpresa(false)" *ngIf="isModificaImpresaVisible(impresa)">
+                    <span>Modifica dati</span>
+                </button>
+                <button mat-menu-item (click)="generaToken(impresa)" *ngIf="isTokenRole()">
+                    <span>Genera token</span>
+                </button>
+                <button mat-menu-item (click)="visualizzaImpiantiAssociati(impresa)" *ngIf="isCitpwa && isVisualizzaImpiantiRole()">
+                    <span>Visualizza impianti associati</span>
+                </button>
+            </mat-menu>
+        </mat-card-actions>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <!-- Dati azienda -->
+        <div class="content-card">
+            <div style="display: flex;align-items: center;justify-content: space-between;">
+                <p>Denominazione: </p>
+                <p class="right-align" style="word-wrap: break-word;text-align: right;font-weight: 700;">
+                    {{impresa?.denominazione}} </p>
+            </div>
+            <p>Codice REA: <span class="right-align">{{impresa?.sigla_rea}}-{{impresa?.numero_rea}}</span></p>
+            <p>Codice Fiscale: <span class="right-align">{{impresa?.codice_fiscale}}</span></p>
+        </div>
+        <!-- Dati delegati -->
+        <div class="content-card border-top">
+            <!-- Intestazione -->
+            <div class="flex-container" style="display: flex;">
+                <div style="width: 90%;">
+                    <h3 style="font-weight: bold;">ELENCO DELEGATI</h3>
+                </div>
+                <div style="width: 10%;  display: flex; justify-content: flex-end;" (click)="nuovoDelegato()" *ngIf="isModificaImpresaVisible(impresa)"><span
+                        class="add-icon right-align"><mat-icon class="mat-icon-link">add</mat-icon></span></div>
+            </div>
+            <!-- Lista dati delegati -->
+            <div class="grey-background" *ngFor="let delega of deleghe let i = index"
+                style="margin-top: 2px;">
+
+                <!-- Nome e icona-->
+                <div id="delegato" class="delegato"
+                    style="display: flex; align-items: center; justify-content: space-between;">
+                    <p class="left-elem">
+                        {{delega.nome}} {{delega.cognome}}
+                    </p>
+                    <span class="right-elem delete-delega"><mat-icon class="icon-delete"
+                            (click)="deleteDelega(impresa, delega, i)" *ngIf="isModificaImpresaVisible(impresa)">delete</mat-icon></span>
+                </div>
+                <!-- Codice fiscale e data -->
+                <div class="delegato">
+                    <p>{{delega.codice_fiscale}}</p>
+                </div>
+                <div class="delegato">
+                    <p style="margin-bottom: 1px;">{{delega.tipo_legame}} dal {{ delega.data_inizio_legame |
+                        customDatePipe | date:'dd/MM/yyyy'}}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Elenco incarichi soggetti delegati -->
+        <div class="content-card border-top">
+            <!-- Intestazione -->
+            <div class="flex-container" style="display: flex;">
+                <div style="width: 90%;">
+                    <h3 style="font-weight: bold;">ELENCO INCARICHI SOGGETTI DELEGATI</h3>
+                </div>
+                <div style="width: 10%;  display: flex; justify-content: flex-end;" (click)="nuovoIncarico()" *ngIf="isModificaImpresaVisible(impresa)"><span
+                        class="add-icon right-align"><mat-icon class="mat-icon-link">add</mat-icon></span></div>
+            </div>
+            <!-- Lista dati -->
+            <div class="delegato grey-background" *ngFor="let incarico of incarichi; let i = index">
+                <p style="margin-bottom:2px">{{incarico.denominazione}}<span class="right-elem"><mat-icon
+                            (click)="deleteIncarico(incarico, i)" class="icon-delete" *ngIf="isModificaImpresaVisible(impresa)">delete</mat-icon></span></p>
+                <p>{{incarico.codice_fiscale}}</p>
+                <p style="margin-bottom: 1px;">Incaricato dal {{ incarico.data_inizio_legame |
+                    customDatePipe | date:'dd/MM/yyyy'}}</p>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

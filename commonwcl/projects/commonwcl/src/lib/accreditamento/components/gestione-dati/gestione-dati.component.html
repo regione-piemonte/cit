@@ -1,0 +1,180 @@
+<div class="wide-screen">
+  <div class="page-content">
+    <mat-accordion>
+      <mat-expansion-panel class="expansion-panel mat-elevation-z8" [expanded]="1">
+        <mat-expansion-panel-header class="expansion-header-margin">
+          <mat-panel-title>
+            <span class="panel-title" style="display: flex; align-items: center;"><mat-icon
+                style="color: #b8191a; margin-right: 5px;">person</mat-icon> Dati Personali</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form class="form-container" [formGroup]="personalDataForm">
+          <mat-grid-list cols="12" rowHeight="2em" gutterSize="15px">
+            <!-- <mat-grid-tile [colspan]="colBreakpoint3" *ngIf="isModifyEnabled"></mat-grid-tile> -->
+            <mat-grid-tile [colspan]="12">
+              <div class="right-elem modifica primary-color" *ngIf="!isConsultatoreValidatore()">
+                <button mat-button color="primary" [disabled]="isModifyEnabled" (click)="changeEditMode()"
+                  id="buttonModoficaImpianto">
+                  <mat-icon>edit</mat-icon>
+                  Modifica
+                </button>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+              <mat-form-field class="form-field">
+                <input matInput placeholder="Denominazione" [ngModelOptions]="{standalone: true}"
+                  [ngModel]="accreditamento?.persona?.cognomeDenominazione + ' ' + accreditamento?.persona?.nome"
+                  [disabled]="true" appUpper>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+              <mat-form-field class="form-field">
+                <input matInput placeholder="Codice fiscale" [formControlName]="'codiceFiscale'" [disabled]="true" appUpper>
+              </mat-form-field>
+            </mat-grid-tile>
+            <ng-container
+              *ngIf="personalDataForm.get('stradario').value == false || personalDataForm.get('stradario').value == 0">
+              <mat-grid-tile [colspan]="12" rowspan="2">
+                <mat-checkbox [formControlName]="'residenzaEstera'" (click)="residenzaEsteraClick()">Residenza
+                  estera</mat-checkbox>
+              </mat-grid-tile>
+              <ng-container
+                *ngIf="personalDataForm.get('residenzaEstera').value == false || personalDataForm.get('residenzaEstera').value == 0">
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                  <mat-form-field class="form-field">
+                    <!-- <input matInput placeholder="Indirizzo" [formControlName]="'indirizzo'"> -->
+                    <input matInput placeholder="Indirizzo" [formControlName]="'indirizzoSitad'"
+                      [matAutocomplete]="autoProp">
+                    <mat-autocomplete #autoProp="matAutocomplete" [displayWith]="displayFn.bind(this)"
+                      (optionSelected)='setLoccsiElem($event.option.value)'>
+                      <mat-option *ngFor="let indirizzo of filteredOptionsProp | async" [value]="indirizzo">
+                        {{indirizzo.properties.loccsiLabel}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-error
+                      *ngIf="personalDataForm.controls['indirizzoSitad'].errors?.['indirizzoNonSelezionato'] && !loccsiClickedProp">Selezionare
+                      un indirizzo</mat-error>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                  <mat-form-field class="form-field">
+                    <input matInput placeholder="Civico" [formControlName]="'civico'" appUpper>
+                  </mat-form-field>
+                </mat-grid-tile>
+              </ng-container>
+              <ng-container *ngIf="personalDataForm.get('residenzaEstera').value">
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                  <mat-form-field class="form-field">
+                    <input matInput placeholder="Stato estero" [formControlName]="'statoEstero'" appUpper>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                  <mat-form-field class="form-field">
+                    <input matInput placeholder="Città estero" [formControlName]="'cittaEstero'" appUpper>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                  <mat-form-field class="form-field">
+                    <input matInput placeholder="Indirizzo estero" [formControlName]="'indirizzoEstero'" appUpper>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                  <mat-form-field class="form-field">
+                    <input matInput placeholder="CAP estero" [formControlName]="'capEstero'" appUpper>
+                  </mat-form-field>
+                </mat-grid-tile>
+              </ng-container>
+            </ng-container>
+            <!-- Fine residenza estera -->
+            <ng-container
+              *ngIf="personalDataForm.get('residenzaEstera').value == false || personalDataForm.get('residenzaEstera').value == 0">
+              <mat-grid-tile [colspan]="12" rowspan="2">
+                <mat-checkbox [formControlName]="'stradario'" (click)="stradarioClick()">Non trovato nello
+                  stradario</mat-checkbox>
+              </mat-grid-tile>
+
+              <ng-container
+                *ngIf="personalDataForm.get('stradario').value == true || personalDataForm.get('stradario').value == 1">
+
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                  <mat-form-field class="form-field">
+                    <input matInput placeholder="Indirizzo" [formControlName]="'indirizzoNonTrovato'" appUpper>
+                  </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                  <mat-form-field class="form-field">
+                    <input matInput placeholder="Civico" [formControlName]="'civico'" appUpper>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                  <!-- <mat-form-field>
+                    <input matInput placeholder="Comune" [formControlName]="'comune'">
+                  </mat-form-field> -->
+                  <mat-form-field class="form-field">
+                    <input matInput placeholder="Comune" [formControlName]="'comune'"
+                      [matAutocomplete]="autoPropComune">
+                    <mat-autocomplete #autoPropComune="matAutocomplete" [displayWith]="displayFnComune"
+                      (optionSelected)='setProvinciaComuneEstesoProp($event.option.value)'>
+                      <mat-option *ngFor="let indirizzo of filteredOptionsPropComuni | async" [value]="indirizzo">
+                        {{indirizzo.comune}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <!-- <mat-error
+                      *ngIf="personalDataForm.controls.comune.errors?.['indirizzoNonSelezionato'] && !loccsiClickedPropComuni">Selezionare
+                      un comune</mat-error> -->
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                  <mat-form-field class="form-field">
+                    <input matInput placeholder="Provincia" [formControlName]="'provincia'" appUpper>
+                  </mat-form-field>
+                </mat-grid-tile>
+              </ng-container>
+            </ng-container>
+            <mat-grid-tile id="mail" [colspan]="colBreakpoint1" rowspan="3">
+              <div class="email">
+                <mat-form-field class="form-field">
+                  <input matInput placeholder="Email" [formControlName]="'email'" appUpper>
+                  <br>
+                </mat-form-field>
+                <div class="right-elem primary-color" [hidden]="!isModifyEnabled">
+                  <a mat-button color="primary" type="button" (click)="$event.preventDefault(); sendTestMail()" >
+                    Invia mail di prova
+                  </a>
+                </div>
+              </div>
+            </mat-grid-tile>
+            <!-- <mat-grid-tile [colspan]="colBreakpoint1" rowspan="3">
+            </mat-grid-tile> -->
+            <!-- <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="isModifyEnabled">
+              <div class="left-elem">
+                <button mat-button (click)="annulla()" class="annula primary-color">
+                  ANNULLA</button>
+              </div>
+            </mat-grid-tile> -->
+            <!-- <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="isModifyEnabled">
+              <div class="right-elem">
+                <button mat-button class="default-button form-field" (click)="salvaDatiPersonali()"
+                  [disabled]="!personalDataForm.valid">SALVA</button>
+              </div>
+            </mat-grid-tile> -->
+          </mat-grid-list>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="card"
+      style="display: flex;margin: auto;flex-direction: row;justify-content: center;align-items: center;width: 90%;margin-top: 15px;">
+      <div class="left-elem">
+        <button mat-button class="annulla primary-color" *ngIf="isModifyEnabled" (click)="annulla()">ANNULLA</button>
+      </div>
+      <div class="right-elem">
+        <button mat-button class="default-button" *ngIf="isModifyEnabled" (click)="salvaDatiPersonali()"
+          [disabled]="!personalDataForm.valid">SALVA</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Elenco imprese associate -->
+<commonwcl-elenco-imprese [onMessage]="onMessage" [accreditamento]="accreditamento" [apiUrl]="apiUrl"
+  [codiceFiscalePF]="codiceFiscalePF"></commonwcl-elenco-imprese>

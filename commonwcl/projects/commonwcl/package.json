@@ -1,0 +1,12 @@
+{
+  "name": "@sigit/common-lib",
+  "version": "2.0.0",
+  "peerDependencies": {
+    "@angular/common": "^13.2.5",
+    "@angular/core": "^13.2.5",
+    "@angular/material": "^13.3.2"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  }
+}

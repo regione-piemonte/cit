@@ -1,0 +1,122 @@
+<div class="wide-screen" style="padding-bottom: 20px;">
+    <div class="page-content">
+        <mat-card>
+            <mat-card-title>
+                <div style="text-align: left;">
+                    <span style="font-weight: 700;"> DATI DELEGA </span>
+                </div>
+            </mat-card-title>
+            <mat-card-content>
+                <form style="margin-top: 40px;">
+                    <mat-grid-list cols="12" rowHeight="2em" gutterSize="15px">
+                        <mat-grid-tile [colspan]="12" rowspan="2">
+                            <mat-form-field class="form-field">
+                            <input
+                                matInput
+                                placeholder="Codice fiscale completo"
+                                [(ngModel)]="codiceFiscaleCompleto"
+                                name="codiceFiscaleCompleto"
+                                required
+                                style="text-transform: uppercase"
+                                (input)="onUppercaseModel($event)"
+                                maxlength="16"
+                                />
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan]="colBreakpoint3"></mat-grid-tile>
+                        <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2">
+                            <button type="button" mat-button class="secondary-button form-field" (click)="cerca()">CERCA
+                                PER CODICE FISCALE</button>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan]="colBreakpoint3"></mat-grid-tile>
+                    </mat-grid-list>
+                </form>
+            </mat-card-content>
+        </mat-card>
+
+        <div *ngIf="persone.length > 0">
+            <mat-card id="result-list">
+                <mat-card-title>
+                    <div style="text-align: left;">
+                        <span style="font-weight: 700;"> RISULTATO RICERCA </span>
+                    </div>
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="result-list-container">
+                        <mat-card *ngFor="let persona of persone" [ngStyle]="{'width': inner_card_width+'%'}">
+                            <mat-card-content>
+                                <mat-grid-list cols="1" rowHeight="1em">
+                                    <mat-grid-tile>
+                                        <div class="left-elem">Codice fiscale:</div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <div class="left-elem def-elem">{{persona.codiceFiscale}}</div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile></mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <div class="left-elem">Cognome/Denominazione:</div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [rowspan]="rowSpan">
+                                        <div class="left-elem def-elem">{{persona.cognomeDenominazione}}</div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile></mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <div class="left-elem">Nome:</div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <div class="left-elem def-elem">{{persona.nome}}</div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile></mat-grid-tile>
+                                    <mat-grid-tile>
+                                        <div class="left-elem">Indirizzo:</div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [rowspan]="rowSpan">
+                                        <div class="left-elem def-elem" *ngIf="persona.indirizzoSitad">
+                                            {{persona.indirizzoSitad}}
+                                            {{persona.civico}}, {{persona.comune}} - {{persona.provincia}}</div>
+                                        <div class="left-elem def-elem" *ngIf="persona.indirizzoNonTrovato">
+                                            {{persona.indirizzoNonTrovato}}
+                                            {{persona.civico}}, {{persona.comune}} - {{persona.provincia}}</div>
+                                        <div class="left-elem def-elem"
+                                            *ngIf="!persona.indirizzoSitad && !persona.indirizzoNonTrovato">
+                                            {{persona.statoEstero}}, {{persona.indirizzoEstero}} {{persona.cittaEstero}}
+                                            -
+                                            {{persona.capEstero}}</div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile></mat-grid-tile>
+                                    <mat-grid-tile rowspan="2">
+                                        <button mat-button class="default-button"
+                                            (click)="setDelega(persona)">AGGIUNGI</button>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div *ngIf="persone.length < 1 && searched">
+            <mat-card id="result-list" class="card">
+                <!-- <app-message-box [titolo]="'Nessun elemento trovato'"
+                    [descrizione]="'Nessuna persona giuridica trovata con i parametri indicati'" [type]="1">
+                </app-message-box> -->
+
+                <div>
+                    <mat-card class="mat-elevation-z0 warn-box">
+                        <mat-card-header>
+                            <div class="def-icon" mat-card-avatar>
+                                <img [src]="warnIcon" alt="warnIcon" class="warn-icon">
+                            </div>
+                            <mat-card-title class="titolo">Nessun elemento trovato</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>  
+                            <div class="left-elem content">
+                                Nessuna persona fisica trovata con i parametri indicati
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

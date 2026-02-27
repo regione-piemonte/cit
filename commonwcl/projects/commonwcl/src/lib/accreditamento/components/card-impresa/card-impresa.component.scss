@@ -1,0 +1,170 @@
+// @import url("../../../../../assets/commonwcl-style.scss");
+
+.wide-screen{
+    .card-padding{
+        margin-right: 0px;
+    }
+}
+
+.page-content {
+    padding: 0 6% !important;
+    padding-bottom: 20px !important;
+    padding-top: 20px !important;
+    
+   
+}
+
+.expansion-panel {
+    width: 95%;
+    height: max-content;
+    margin: auto;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.panel-title {
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.expansion-header-margin {
+    margin-right: 10px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.annulla {
+    font-weight: bold;
+}
+
+.modifica {
+    display: flex;
+    align-items: center;
+
+    button {
+        margin-left: auto;
+        font-weight: bold;
+        font-size: 1.2em;
+        text-decoration: underline;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.border-top {
+    border-top: 1px solid #ccc;
+}
+
+// Test
+
+.flex-container {
+    width: 100%;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.card {
+    width: fit-content;
+    margin: 10px auto;
+
+}
+
+.add-icon {
+    width: 10%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.content-card {
+    text-align: left;
+    // padding: 16px;
+    width: unset;
+}
+
+
+span.right-align {
+    float: right;
+    font-weight: bold;
+}
+
+.icon-delete {
+    float: right;
+    color: #b8191a;
+    padding-right: 16px;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+.grey-background {
+    background-color: #eee;
+    // padding: 0 2px;
+    padding:10px;
+}
+
+.mat-card-header-text {
+    padding: 0px;
+}
+
+.dettaglio-impresa>.mat-card-header-text {
+    width: 100%;
+}
+
+
+mat-card-actions {
+    display: flex;
+    /* Enable flexbox for positioning */
+    justify-content: flex-end;
+    /* Align items to the right */
+}
+
+.lh02 {
+    line-height: 0.2em;
+}
+
+.icon-delete {
+    padding-right: 0px;
+}
+
+
+.email{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .link-mail{
+        color: blue;
+        text-align: right;
+    }
+}
+
+.delegato{
+    p {
+        margin-bottom: 8px;
+        margin-top: 0 ;
+    }
+}
+
+.delete-delega{
+    width: 30% !important;
+}
+
+.mat-icon-link{
+    color: #006cb4;
+}

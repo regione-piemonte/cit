@@ -1,0 +1,21 @@
+<div class="wide-screen">
+    <div class="page-content">
+        <mat-card>
+            <mat-card-title>
+                <div style="display: flex; align-items: start;">
+                    <img [src]="pgRed" alt="pgRed"> <span style="margin-left: 10px; font-weight: 700;">DATI
+                        IMPRESA</span>
+                </div>
+                <!-- <p style="text-align: left; font-weight: 700;">DATI IMPRESA</p> -->
+            </mat-card-title>
+            <mat-card-content>
+                <div class="content-card lh02">
+                    <p>Denominazione: <span class="bold-span"> {{impresa?.denominazione}} </span></p>
+                    <p>Codice REA: <span class="bold-span">{{impresa?.sigla_rea}}-{{impresa?.numero_rea}}</span></p>
+                    <p>Codice Fiscale: <span class="bold-span">{{impresa?.codice_fiscale}}</span></p>
+                </div>
+            </mat-card-content>
+
+        </mat-card>
+    </div>
+</div>

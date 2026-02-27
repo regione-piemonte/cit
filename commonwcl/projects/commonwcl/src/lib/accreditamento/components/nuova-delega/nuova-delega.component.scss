@@ -1,0 +1,51 @@
+.content-card {
+    text-align: left;
+    // padding: 16px;
+    width: unset;
+}
+
+
+.page-content {
+    padding: 0 8% !important;
+    padding-bottom: 20px !important;
+    padding-top: 20px !important;
+
+    .card-padding {
+        padding: 0px 8.3%;
+        margin-right: 3.3%;
+    }
+}
+
+
+.bold-span {
+    font-weight: bold;
+}
+
+#result-list{
+    margin-top: 20px;
+}
+
+.result-list-container {
+    display: flex;
+
+    mat-card {
+        margin: 20px;
+    }
+
+}
+
+.inner-card {
+    width: 30%;
+}
+
+@media screen and (min-width: 768px) {
+    .inner-card {
+        width: 100%;
+    }
+}
+
+
+.warn-box {
+    background-color: #fff7d0;
+    border-left: solid #f8e60d 1em;
+}

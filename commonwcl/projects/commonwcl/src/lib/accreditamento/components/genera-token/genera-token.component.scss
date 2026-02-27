@@ -1,0 +1,30 @@
+.tile .form-field {
+  width: 100%;
+  height: 100%;
+}
+
+.tile textarea {
+  width: 100%;
+  height: 100%;
+  resize: none; 
+}
+
+mat-form-field {
+    width: 95%;
+}
+
+@media screen and (max-width: 767px) {
+
+    .genera-token-card{
+        margin-top: 0px;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .genera-token-card{
+        margin-top: -150px;
+    }
+
+}

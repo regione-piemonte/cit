@@ -1,0 +1,159 @@
+<!-- <div class="wide-screen" [ngStyle]="{'min-height': '480px'}"> -->
+<div class="page-content">
+    <div class="card-padding">
+        <mat-card class="dati-impresa-card">
+            <mat-card-title>
+                <div class="panel-title left-elem" style="display: flex;">
+                    <!-- <mat-icon class="title-icon">folder</mat-icon> <span class="span-title">DATI IMPRESA</span> -->
+                    <img [src]="pgRed" alt="pgRed"> <span style="margin-left: 10px;">DATI IMPRESA</span>
+                </div>
+            </mat-card-title>
+            <mat-card-content>
+                <form [formGroup]="formImpresaGroup">
+                    <mat-grid-list [cols]="12" rowHeight="2em">
+                        <!--Form generico -->
+                        <div *ngFor="let field of formImpresa">
+                            <mat-grid-tile [colspan]="colBreakpoint1" rowspan="2" *ngIf="get(field?.hidden)">
+                                <ng-container *ngIf="field.type === 'select'">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>{{field.label}}</mat-label>
+                                        <mat-select [formControlName]="field.id">
+                                            <mat-option *ngFor="let option of field.options" [value]="option.value">
+                                                {{option.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </ng-container>
+                                <!-- Sigla rea -->
+                                <ng-container *ngIf="field.type === 'siglaRea'">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>{{field.label}}</mat-label>
+                                        <mat-select [formControlName]="field.id">
+                                            <mat-option *ngFor="let option of sigleRea" [value]="option">
+                                                {{option}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </ng-container>
+                                <!-- End sigla rea -->
+                                <ng-container *ngIf="field.type === 'text'">
+                                    <mat-form-field class="form-field">
+                                        <input [formControlName]="field.id" matInput placeholder="{{field.label}}"
+                                            name="{{field.label}}" appUpper>
+                                    </mat-form-field>
+                                </ng-container>
+                                <ng-container *ngIf="field.type === 'date'">
+                                    <mat-form-field class="form-field">
+                                        <input [formControlName]="field.id" matInput [matDatepicker]="picker" [max]="field.maxDate" [min]="get(field?.minDateFn)"
+                                            placeholder="{{field.label}}" name="{{field.label}}">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </ng-container>
+                                <ng-container *ngIf="field.type === 'checkbox'">
+                                    <mat-checkbox [formControlName]="field.id" (click)="field.click?.bind(this)">
+                                        {{field.label}}
+                                    </mat-checkbox>
+                                </ng-container>
+                                <ng-container *ngIf="field.type === 'email'">
+                                    <mat-form-field class="form-field">
+                                        <input [formControlName]="field.id" matInput type="email"
+                                            placeholder="{{field.label}}" name="{{field.label}}" appUpper>
+                                    </mat-form-field>
+                                </ng-container>
+                                <ng-container *ngIf="field.type === 'comune'">
+                                    <mat-form-field class="form-field">
+                                        <input matInput placeholder="{{field.label}}" [formControlName]="field.id"
+                                            [matAutocomplete]="autoPropComune">
+                                        <mat-autocomplete #autoPropComune="matAutocomplete"
+                                            [displayWith]="field.displayFn"
+                                            (optionSelected)='setProvinciaComuneEstesoProp($event.option.value)'>
+                                            <mat-option *ngFor="let val of filteredOptionsPropComuni | async"
+                                                [value]="val">
+                                                {{val.comune}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </ng-container>
+                                <ng-container *ngIf="field.type === 'indirizzo_sitad'">
+                                    <mat-form-field class="form-field">
+                                        <!-- <input matInput placeholder="Indirizzo" [formControlName]="'indirizzo'"> -->
+                                        <input matInput placeholder="{{field.label}}" [formControlName]="field.id"
+                                            [matAutocomplete]="autoProp"> 
+                                        <mat-autocomplete #autoProp="matAutocomplete"
+                                            [displayWith]="displayFn.bind(this)"
+                                            (optionSelected)='setLoccsiElem($event.option.value, this)'>
+                                            <mat-option *ngFor="let indirizzo of filteredOptionsProp | async"
+                                                [value]="indirizzo">
+                                                {{indirizzo.properties.loccsiLabel}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-error
+                                            *ngIf="formImpresaGroup.controls['indirizzo_sitad'].errors?.['stradario'] && !loccsiClickedProp">Selezionare
+                                            un indirizzo</mat-error>
+                                    </mat-form-field>
+                                </ng-container>
+                            </mat-grid-tile>
+                        </div>
+                        <!-- Dichiarazioni -->
+
+                        <div *ngFor="let dichiarazione of formDichiarazioni">
+                            <mat-grid-tile [colspan]="12" [rowspan]="dichiarazione.rowSpan ? dichiarazione.rowSpan : 2">
+                                <p class="left-elem" style="font-weight: bold;">
+                                    {{dichiarazione.label}}
+                                </p>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="colBreakpoint6" rowspan="2"
+                                *ngFor="let option of dichiarazione.options">
+                                <ng-container *ngIf="option.type === 'checkbox'">
+                                    <mat-checkbox [formControlName]="option.id" [disabled]="option.disabled" [ngClass]="[getCheckboxRequired(option.id) ? 'pippoclass' : '']">
+                                        <p class="text-wrap-left">
+                                            {{option.label}}
+                                        </p>
+                                    </mat-checkbox>
+                                </ng-container>
+                                <ng-container *ngIf="option.type === 'text'">
+                                    <mat-form-field class="form-field"
+                                        [class.cdk-visually-hidden]="get(option?.hidden)">
+                                        <input matInput placeholder="{{option.label}}" [formControlName]="option.id" appUpper>
+                                    </mat-form-field>
+                                </ng-container>
+                            </mat-grid-tile>
+                        </div>
+
+
+                        <!-- <mat-grid-tile rowspan="2" *ngIf="isEnabledModifica() && isPropPresent()">
+                            <div class="left-elem">
+                                <button mat-button class="back" class="annulla primary-color">ANNULLA</button>
+                            </div>
+                        </mat-grid-tile> -->
+                        <!-- <mat-grid-tile rowspan="2" *ngIf="isEnabledModifica() && isPropPresent()">
+                            <div class="right-elem">
+                                <button mat-button class="back" class="default-button form-field"
+                                    (click)="test()">SALVA</button>
+                            </div>
+                        </mat-grid-tile> -->
+                        <div *ngIf="!onlyView">
+                            <mat-grid-tile [colspan]="6" rowspan="2">
+                                <div class="left-elem">
+                                    <button mat-button class="back" class="annulla primary-color"
+                                        (click)="back()">ANNULLA</button>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile [colspan]="6" rowspan="2">
+                                <div class="right-elem">
+                                    <button mat-button class="default-button form-field"
+                                        (click)="save()">SALVA</button>
+        
+                                        <!-- [disabled]="!formImpresaGroup.valid || !isDichiarazioneRedattaChecked()" -->
+                                    <!-- [disabled]="!formImpresaGroup.valid" -->
+                                </div>
+                            </mat-grid-tile>
+                        </div>
+                    </mat-grid-list>
+                </form>
+                <!-- Example datepicker -->
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
