@@ -11,7 +11,7 @@ Aprire il file src/main/resources/application.properties e configurare i seguent
 - quarkus.rest-client.locsi-token.url: servizi di fruizione della ricerca del Bearer di accesso per l'API manager APIMBBONE;
 - locsi-token.client-id: chiave di accesso all'API manager APIMBBONE;
 - locsi-token.secret: password di accesso per l'API manager APIMBBONE;
-- quarkus.cxf.client.mtom.wsdl: WSDL deiservizi di fruizione del gestionale documentale (CXF/MTOM);
+- quarkus.cxf.client.mtom.wsdl: WSDL dei servizi di fruizione del gestionale documentale (CXF/MTOM);
 - quarkus.cxf.client.mtom.client-endpoint-url: servizi di fruizione del gestionale documentale (CXF/MTOM);
 
 # Getting Started 
@@ -28,7 +28,7 @@ I prerequisiti per l'installazione della componente sono i seguenti:
 - Tutte le librerie elencate nel citpwaweb.sbom.csv devono essere accessibili per compilare il progetto. Le librerie sono pubblicate su [Maven](https://maven.apache.org/).
 
 # Installing
-Installare il file ear sull'ambiente WildFly 23.  
+Installare il file ear sull'ambiente Quarkus 3.14.4.  
 
 # Versioning
 Per la gestione del codice sorgente viene utilizzata Git. Per la gestione del versioning si fa riferimento alla metodologia [Semantic Versioning](https://semver.org/).
