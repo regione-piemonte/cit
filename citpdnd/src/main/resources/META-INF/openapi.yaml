@@ -1,0 +1,304 @@
+---
+openapi: 3.0.1
+info:
+  title: catasto-impianti-termici-regione-piemonte
+  description: Catasto degli Impianti Termici della Regione Piemonte
+  version: v1
+servers:
+  - url: https://<TO_DEFINE>
+    description: Esposizione di test
+paths:
+  /status:
+    get:
+      tags:
+        - system
+      description: ping
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /impianti:
+    get:
+      operationId: getImpiantoByIndirizzoImpianto
+      parameters:
+        - name: indirizzo
+          in: query
+          required: true
+          schema:
+            type: string
+            example: corso unione  # Esempio di indirizzo
+        - name: istatComune
+          in: query
+          required: true
+          schema:
+            type: string
+            example: 001272  # Esempio di istatComune
+        - name: civico
+          in: query
+          required: false
+          schema:
+            type: string
+            example: 216  # Esempio di civico
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listaImpianti'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /impianti/{codImpianto}:
+    get:
+      operationId: getImpiantoByCodiceImpianto
+      parameters:
+        - name: codImpianto
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 12231050  # Esempio di codice impianto
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listaImpianti'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /impianti/{codImpianto}/libretti:
+    get:
+      operationId: getLibrettoByCodiceImpianto
+      parameters:
+        - name: codImpianto
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 12231227  # Esempio di codice impianto
+      responses:
+        "200":
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        default:
+          description: Unexpected error
+          content:
+            application/problem+pdf:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Unauthorized:
+      description: Authentication information is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Forbidden:
+      description: User is forbidden to access the resource
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    InternalServerError:
+      description: Generic server-side error
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Error"
+  schemas:
+    boolean_crit:
+      type: object
+      properties:
+        eq:
+          type: boolean
+    string_crit:
+      type: object
+      properties:
+        eq:
+          type: string
+        ne:
+          type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        nin:
+          type: array
+          items:
+            type: string
+        c:
+          type: string
+        ci:
+          type: string
+        s:
+          type: string
+        si:
+          type: string
+        e:
+          type: string
+        ei:
+          type: string
+      description: criterio su singola property di tipo stringa
+    integer_crit:
+      type: object
+      properties:
+        eq:
+          type: integer
+          format: int32
+        ne:
+          type: integer
+          format: int32
+        lt:
+          type: integer
+          format: int32
+        lte:
+          type: integer
+          format: int32
+        gt:
+          type: integer
+          format: int32
+        gte:
+          type: integer
+          format: int32
+        in:
+          type: array
+          items:
+            type: integer
+            format: int32
+        nin:
+          type: array
+          items:
+            type: integer
+            format: int32
+      description: criterio su singola property di tipo integer
+    date_crit:
+      type: object
+      properties:
+        eq:
+          type: string
+          format: date
+        ne:
+          type: string
+          format: date
+        lt:
+          type: string
+          format: date
+        lte:
+          type: string
+          format: date
+        gt:
+          type: string
+          format: date
+        gte:
+          type: string
+          format: date
+        in:
+          type: array
+          items:
+            type: string
+            format: date
+        nin:
+          type: array
+          items:
+            type: string
+            format: date
+      description: criterio su singola property di tipo data
+    listaImpianti:
+      type: array
+      items:
+        $ref: '#/components/schemas/impianto'
+    impianto:
+      type: object
+      properties:
+        codice:
+          type: number
+        stato:
+          type: string
+        ubicazione:
+          type: string
+        tipoImpianto:
+          type: string
+        categoria:
+          type: string
+        volumeRisc:
+          type: number
+        volumeRaff:
+          type: number
+        potAcs:
+          type: number
+        potClimaInv:
+          type: number
+        potClimaEst:
+          type: number
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        errorMessage:
+          type: string

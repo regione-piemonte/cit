@@ -1,0 +1,5 @@
+CSI_BASE=false
+IMAGE_NAME=sigit/citpdnd
+PRODUCT_MAIL=mariuccia.actisdato@csi.it
+TECHNOLOGY=java
+TEMPLATE_VERSION=v3.4.2.Final-csi-1.0.0
