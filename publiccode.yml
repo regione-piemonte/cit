@@ -22,13 +22,18 @@ dependsOn:
       versionMin: EAP 6
     - name: PostgreSQL
       optional: true
-      version: 9.6.11
+      version: 15.8
       versionMax: ''
-      versionMin: '9'
+      versionMin: '15'
     - name: WildFly
       optional: true
       version: 23.0.2
       versionMax: '23'
+      versionMin: ''
+    - name: Quarkus
+      optional: true
+      version: 3.14.4
+      versionMax: '3'
       versionMin: ''
 description:
   it:
@@ -146,7 +151,7 @@ platforms:
   - linux
   - windows
   - mac
-releaseDate: '2026-01-27'
+releaseDate: '2026-03-02'
 softwareType: standalone/web
 softwareVersion: 15.1.0
 url: 'https://github.com/regione-piemonte/cit.git'

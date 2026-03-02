@@ -27,11 +27,14 @@ Le funzionalità del CIT sono:
 Il prodotto CIT è composto dalle seguenti componenti:
 - [CITPWAWCL](https://github.com/regione-piemonte/cit/tree/main/citpwawcl) (parte Angular della componente CITPWA che consente la gestione degli impianti termici)
 - [CITPWAWEB](https://github.com/regione-piemonte/cit/tree/main/citpwaweb) (parte servizi Rest della componete CITPWA che consente la gestione degli impianti termici)
+- [COMBUSTYPWAWCL](https://github.com/regione-piemonte/cit/tree/main/combustypwawcl) (parte Angular della componente COMBUSTYPWA che consente la gestione degli impianti termici per distributori, fornitori e venditori)
+- [COMBUSTYPWAWEB](https://github.com/regione-piemonte/cit/tree/main/combustypwaweb) (parte Angular della componente COMBUSTYPWA che consente la gestione degli impianti termici per distributori, fornitori e venditori)
+- [COMMONWCL](https://github.com/regione-piemonte/cit/tree/main/commonwcl) (parte Angular condivisa da dalle componenti CITPWA e COMBUSTYPWA)
 - [SIGITWEBN](https://github.com/regione-piemonte/cit/tree/main/sigitwebn) (web application che consente la gestione degli impianti termici)
 - [SIGITWEBA](https://github.com/regione-piemonte/cit/tree/main/sigitweba) (web application che consente l'accreditamento alla gestione degli impianti termici)
 - [SIGITEXT](https://github.com/regione-piemonte/cit/tree/main/sigitext) (servizi Web Service e Rest di pubblicazione servizi)
-- [ELENCOM](https://github.com/regione-piemonte/cit/tree/main/elencom) (web application che consente la ricerca dei manutentori)
 - [SIGITBATCHN](https://github.com/regione-piemonte/cit/tree/main/sigitbatchn) (batch per gestione import dati dei distributori)
+- [CITPDND](https://github.com/regione-piemonte/cit/tree/main/citpdnd) (componente di esposizione API su piattaforma di interoperabilita' PDND)
 - [SIGITDBNEW](https://github.com/regione-piemonte/cit/tree/main/sigitdbnew) (script per creazione e mantenimento DB proprietario)
 
 Nei file README.md delle singole componenti verranno elencate le variabili per la loro configurazione.
@@ -40,19 +43,21 @@ Nei file README.md delle singole componenti verranno elencate le variabili per l
 I prerequisiti per l'installazione della componente sono i seguenti:
 ## Software
 - [JDK 8](https://www.apache.org)
-- [Apache 2.4](https://www.apache.org)
-- [RedHat JBoss 6.4 GA](https://developers.redhat.com)  
-- [PostgreSQL 9.6.11](https://www.postgresql.org/download/)  
 - [AdoptOpenJDK 11](https://adoptium.net/)
+- [AdoptOpenJDK 17](https://openjdk.org)
+- [RedHat JBoss 6.4 GA](https://developers.redhat.com)  
+- [Quarkus 3.14.4](https://quarkus.io)
 - [Wildfly 23](https://www.wildfly.org/)  
 - [Angular 13](https://angular.io/)
 - [Node.js 16](https://nodejs.org/it)
+- [Apache 2.4](https://www.apache.org)
+- [PostgreSQL 15.8](https://www.postgresql.org)
 
 # Versioning
 Per la gestione del codice sorgente viene utilizzata Git. Per la gestione del versioning si fa riferimento alla metodologia [Semantic Versioning](https://semver.org/) 
 
 # Copyrights
-(C) Copyright 2023 Regione Piemonte
+(C) Copyright 2026 Regione Piemonte
 
 # License
 [EUPL-1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12) Compatibile. Consulta il file [LICENSE.txt](LICENSE.txt) per i dettagli sulla licenza.
